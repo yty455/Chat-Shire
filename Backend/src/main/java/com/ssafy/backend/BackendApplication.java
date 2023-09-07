@@ -1,4 +1,4 @@
-package com.example.backend;
+package com.ssafy.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
