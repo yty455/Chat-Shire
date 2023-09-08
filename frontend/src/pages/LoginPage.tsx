@@ -1,7 +1,7 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../stores/atom";
-import Login from "../Components/Login/Login"
+import Login from "../components/login/Login"
 
 function LoginPage() {
   const [userData, setUserDate] = useRecoilState(loginuser);
