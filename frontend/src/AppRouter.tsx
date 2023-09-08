@@ -8,7 +8,7 @@ function AppRouter() {
   return (
     <div className="AppRouter">
       <BrowserRouter>
-        <Suspense fallback={<h1>...</h1>}>
+        <Suspense fallback={<h1>Loading...</h1>}>
           <Routes>
             <Route path="/" element={<Login />}></Route>
           </Routes>
