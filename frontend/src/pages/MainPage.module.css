@@ -1,0 +1,10 @@
+.bodyContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.mainContainer {
+  width: calc(100% - 240px);
+  height: 100%;
+  margin-left: 240px;
+}
