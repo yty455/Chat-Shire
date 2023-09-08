@@ -1,0 +1,97 @@
+.analysisItemTitle {
+  color: #ffffff;
+  font-size: 26px;
+}
+
+.analysisContainer {
+  border-radius: 36px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  width: 1080px;
+  height: 630px;
+  border: 1px solid #ffffff95;
+  background-color: #ffffff2a;
+}
+
+.analysisContainer text {
+  font-size: 16px !important;
+  font-family: 'preRg' !important;
+  fill: #ffffff !important;
+}
+
+.analysisHeader {
+  /* background-color: blue; */
+  display: flex;
+  justify-content: flex-end;
+  width: 1080px;
+  height: 180px;
+}
+
+.analysisTopicsContainer {
+  /* background-color: green; */
+  display: flex;
+  width: 360px;
+  height: 180px;
+}
+
+.analysisPiGraphContainer {
+  /* background-color: green; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 360px;
+  height: 180px;
+}
+
+.analysisCharts {
+  display: flex;
+  width: 360px;
+  height: 150px;
+}
+
+.analysisPiChart {
+  width: 120px;
+  height: 150px;
+}
+
+.analysisBarChart {
+  width: 220px;
+  height: 150px;
+}
+
+.analysisBody {
+  /* background-color: blue; */
+  display: flex;
+  width: 1080px;
+  height: 240px;
+}
+
+.analysisRadarContainer {
+  /* background-color: green; */
+  display: flex;
+  width: 360px;
+  height: 240px;
+}
+
+.analysisFooter {
+  /* background-color: blue; */
+  display: flex;
+  justify-content: space-between;
+  width: 1080px;
+  height: 210px;
+}
+
+.analysisWordCloudContainer {
+  /* background-color: green; */
+  display: flex;
+  width: 360px;
+  height: 210px;
+}
+
+.analysisInfoContainer {
+  /* background-color: green; */
+  display: flex;
+  width: 360px;
+  height: 210px;
+}
