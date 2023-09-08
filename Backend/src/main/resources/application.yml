@@ -1,5 +1,4 @@
 spring:
-
 #  url: jdbc:mysql://localhost:3306/<DB Name>
 #  username: root
 #  password: 1234
@@ -18,18 +17,17 @@ spring:
       max-request-size: 100MB
 
 
-#springdoc:
-#  packages-to-scan: com.ssafy.backend.domain, com.ssafy.backend.global.s3
-#  default-consumes-media-type: application/json;charset=UTF-8
-#  default-produces-media-type: application/json;charset=UTF-8
-#  swagger-ui:
-#    path: /swagger-ui
-#    disable-swagger-default-url: true
-#    display-request-duration: true
-#    operations-sorter: alpha
+springdoc:
+  packages-to-scan: com.ssafy.backend.domain
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    path: /swagger-ui
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: alpha
 
 ---
-
 spring:
   profiles:
     active: jwt, oauth, local
