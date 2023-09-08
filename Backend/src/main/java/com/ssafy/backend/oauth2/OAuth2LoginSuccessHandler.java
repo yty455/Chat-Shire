@@ -34,7 +34,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 
             // User의 Role이 GUEST일 경우 처음 요청한 회원이므로 회원가입 페이지로 리다이렉트
             if (oAuth2User.getRole() == Role.GUEST) {
-                String accessToken = jwtService.createAccessToken(oAuth2User.getEmail());
+                String accessToken = jwtService.createAccessToken(oAuth2User.getSocialId());
                 // String refreshToken = jwtService.createRefreshToken();
                 response.addHeader(jwtService.getAccessHeader(), "Bearer " + accessToken);
                 // response.addHeader(jwtService.getRefreshHeader(), "Bearer " + refreshToken);
@@ -58,14 +58,14 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
     }
 
     private void loginSuccess(HttpServletResponse response, CustomOAuth2User oAuth2User) throws IOException {
-        String accessToken = jwtService.createAccessToken(oAuth2User.getEmail());
+        String accessToken = jwtService.createAccessToken(oAuth2User.getSocialId());
         String refreshToken = jwtService.createRefreshToken();
         response.addHeader(jwtService.getAccessHeader(), "Bearer " + accessToken);
         response.addHeader(jwtService.getRefreshHeader(), "Bearer " + refreshToken);
         response.sendRedirect(
                 "http://localhost:8080/oauth2/sign-up?" + "access_token=Bearer " + accessToken + "&refresh_token="
                         + "Bearer " + refreshToken + "&is_user=T");
-        jwtService.updateRefreshToken(oAuth2User.getEmail(), refreshToken);
+        jwtService.updateRefreshToken(oAuth2User.getSocialId(), refreshToken);
     }
 
 }
