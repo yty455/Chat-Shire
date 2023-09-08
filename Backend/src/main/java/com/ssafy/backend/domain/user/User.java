@@ -23,6 +23,7 @@ public class User extends CreatedAndUpdatedBaseEntity {
     private Long id;
 
     private int socialId;
+    private String loginId; // 유니크
     private String nickname;
     private String name;
     private String email;

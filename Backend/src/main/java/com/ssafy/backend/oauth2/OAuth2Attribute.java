@@ -24,6 +24,8 @@ public class OAuth2Attribute {
     private String attributeKey;
     private String email;
     private String name;
+    private String loginId;
+    private String profileImage;
 
     private int id;
 
@@ -31,7 +33,7 @@ public class OAuth2Attribute {
                                      Map<String, Object> attributes) {
         switch (provider) {
             case "github":
-                return ofGithub("id", attributes);
+                return ofGithub(attributeKey, attributes); //attributeKey = "id"
             default:
                 throw new RuntimeException();
         }
@@ -43,6 +45,8 @@ public class OAuth2Attribute {
         Integer id = (Integer) attributes.get("id");
         return OAuth2Attribute.builder()
                 .id(id)
+                .loginId((String) attributes.get("login"))
+                .profileImage((String) attributes.get("avatar_url"))
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
                 .attributes(attributes)
@@ -56,6 +60,7 @@ public class OAuth2Attribute {
         map.put("key", attributeKey);
         map.put("name", name);
         map.put("email", email);
+        map.put("profile_url", profileImage);
         map.put("id", id);
         return map;
     }
@@ -68,6 +73,8 @@ public class OAuth2Attribute {
     public User toEntity(OAuth2Attribute oAuth2Attribute) {
         return User.builder()
                 .socialId(oAuth2Attribute.getId())
+                .profileImage(oAuth2Attribute.getProfileImage())
+                .loginId(oAuth2Attribute.getLoginId())
                 .email(oAuth2Attribute.getEmail())
                 .nickname(oAuth2Attribute.getName())
                 .role(Role.GUEST)

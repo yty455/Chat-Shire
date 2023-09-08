@@ -1,22 +1,8 @@
 spring:
-  datasource:
-    url: jdbc:h2:tcp://localhost/~/ssafychat
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-
 #  url: jdbc:mysql://localhost:3306/<DB Name>
 #  username: root
 #  password: 1234
 #  driver-class-name: com.mysql.cj.jdbc.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
 
   logging.level:
     org.hibernate.SQL: debug
@@ -31,12 +17,17 @@ spring:
       max-request-size: 100MB
 
 
-#springdoc:
-#  packages-to-scan: com.ssafy.backend.domain, com.ssafy.backend.global.s3
-#  default-consumes-media-type: application/json;charset=UTF-8
-#  default-produces-media-type: application/json;charset=UTF-8
-#  swagger-ui:
-#    path: /swagger-ui
-#    disable-swagger-default-url: true
-#    display-request-duration: true
-#    operations-sorter: alpha
+springdoc:
+  packages-to-scan: com.ssafy.backend.domain
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    path: /swagger-ui
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: alpha
+
+---
+spring:
+  profiles:
+    active: jwt, oauth, local

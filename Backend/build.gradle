@@ -45,6 +45,21 @@ dependencies {
     // jwt 라이브러리
     implementation 'com.auth0:java-jwt:4.4.0'
 
+    // springdoc swagger
+    implementation "org.springdoc:springdoc-openapi-ui:1.6.11"
+
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+//    // aws S3
+//    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+//
+//    // 자바 local time 직렬화, 역직렬화
+//    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+//    implementation 'com.fasterxml.jackson.core:jackson-databind'
+//
+//    //redis dependency 설정
+//    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
 }
 
 tasks.named('test') {
