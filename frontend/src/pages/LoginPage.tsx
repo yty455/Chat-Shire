@@ -1,14 +1,16 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../stores/atom";
-import Login from "../components/login/Login"
+import Login from "../components/login/Login";
 
 function LoginPage() {
   const [userData, setUserDate] = useRecoilState(loginuser);
 
-  return <div>
-    <Login />
-  </div>;
+  return (
+    <div>
+      <Login />
+    </div>
+  );
 }
 
 export default LoginPage;
