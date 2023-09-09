@@ -4,33 +4,21 @@ import { ResponsivePie } from '@nivo/pie'
 const PiChart = () => {
   const data = [
     {
-      "id": "go",
-      "label": "go",
-      "value": 126,
-      "color": "hsl(139, 70%, 50%)"
-    },
-    {
-      "id": "php",
-      "label": "php",
-      "value": 341,
-      "color": "hsl(237, 70%, 50%)"
-    },
-    {
-      "id": "python",
-      "label": "python",
-      "value": 210,
+      "id": "오전",
+      "label": "오전",
+      "value": 20,
       "color": "hsl(68, 70%, 50%)"
     },
     {
-      "id": "sass",
-      "label": "sass",
-      "value": 528,
+      "id": "오후",
+      "label": "오후",
+      "value": 30,
       "color": "hsl(341, 70%, 50%)"
     },
     {
-      "id": "elixir",
-      "label": "elixir",
-      "value": 144,
+      "id": "새벽",
+      "label": "새벽",
+      "value": 88,
       "color": "hsl(33, 70%, 50%)"
     }
   ]
@@ -42,10 +30,10 @@ const PiChart = () => {
         sortByValue={true}
         innerRadius={0.1}
         padAngle={2}
-        cornerRadius={2}
+        cornerRadius={3}
         fit={false}
         activeOuterRadiusOffset={0}
-        colors={{ scheme: 'reds' }}
+        colors={[ '#EB9042', '#EDA568', '#EFC5A0']}
         borderWidth={1}
         borderColor={{
             from: 'color',

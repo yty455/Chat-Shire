@@ -64,7 +64,8 @@ const BarChart = () => {
           layout="horizontal"
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
-          colors={{ scheme: 'set1' }}
+          colors={[ '#EDA568', '#EFC5A0', '#EB9042' ]}
+          colorBy="indexValue"
           defs={[
               {
                   id: 'dots',
@@ -128,8 +129,6 @@ const BarChart = () => {
           }}
           legends={[]}
           role="application"
-          ariaLabel="Nivo bar chart demo"
-          barAriaLabel={e=>e.id+": "+e.formattedValue+" in country: "+e.indexValue}
       />
   )
 }

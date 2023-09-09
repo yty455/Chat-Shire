@@ -1,6 +1,19 @@
 .analysisItemTitle {
   color: #ffffff;
-  font-size: 26px;
+  font-size: 24px;
+}
+
+.analysisInfoTitle {
+  color: #ffffff;
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.analysisItemDesc {
+  color: #ffffff;
+  font-size: 22px;
+  font-family: 'preLt';
+  margin-bottom: 12px;
 }
 
 .analysisContainer {
@@ -12,12 +25,7 @@
   height: 630px;
   border: 1px solid #ffffff95;
   background-color: #ffffff2a;
-}
-
-.analysisContainer text {
-  font-size: 16px !important;
-  font-family: 'preRg' !important;
-  fill: #ffffff !important;
+  letter-spacing: 1.2px;
 }
 
 .analysisHeader {
@@ -31,8 +39,16 @@
 .analysisTopicsContainer {
   /* background-color: green; */
   display: flex;
-  width: 360px;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 320px;
   height: 180px;
+}
+
+.analysisKeywordsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
 }
 
 .analysisPiGraphContainer {
@@ -40,8 +56,10 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 360px;
+  padding-left: 30px;
+  width: 369px;
   height: 180px;
+  border-left: 1px solid #ffffff;
 }
 
 .analysisCharts {
@@ -67,11 +85,55 @@
   height: 240px;
 }
 
+.analysisResult {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 720px;
+  height: 240px;
+  color: #ffffff;
+}
+
+.analysisBodyTitle {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-family: 'preLt';
+}
+
+.analysisBodyTitleLeft {
+  margin-right: 50px;
+}
+
+.analysisBodyTitleRight {
+  margin-left: 50px;
+}
+
+.analysisBodyDesc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 50px;
+  height: 130px;
+}
+
+.analysisBodyDescDown {
+  margin-left: 30px;
+  font-family: 'preBd';
+}
+
 .analysisRadarContainer {
   /* background-color: green; */
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   width: 360px;
-  height: 240px;
+  height: 300px;
+  margin-top: -50px;
 }
 
 .analysisFooter {
@@ -85,13 +147,24 @@
 .analysisWordCloudContainer {
   /* background-color: green; */
   display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
   width: 360px;
   height: 210px;
+}
+
+.analysisWordCloudContainer svg {
+  width: 360px;
+  height: 150px;
 }
 
 .analysisInfoContainer {
   /* background-color: green; */
   display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
   width: 360px;
   height: 210px;
 }
