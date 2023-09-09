@@ -1,0 +1,59 @@
+.profileHeader {
+  display: flex;
+  align-items: center;
+  color: #575757;
+  font-family: "preRg";
+}
+
+.profileHeaderDesc {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: -120px;
+  padding: 20px 10px 20px 130px;
+  width: 900px;
+  height: 240px;
+  border: 1px solid #E5E8EB;
+  border-radius: 30px;
+}
+
+.profileHeaderLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 336px;
+}
+
+.profileName {
+  font-size: 34px;
+}
+
+.profileCareer {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileHeaderRight {
+  display: flex;
+  width: 420px;
+  height: 100%;
+  /* border: 1px solid blue; */
+}
+
+.profileRadarContainer {
+  margin-left: -80px;
+  width: 300px;
+  height: 100%;
+}
+
+.profileBarContainer {
+  margin-top: 14px;
+  margin-left: -30px;
+  width: 230px;
+  height: 100%;
+}
+
+.profileBody {
+  display: flex;
+  padding: 20px;
+  /* border: 1px solid blue; */
+}
