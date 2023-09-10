@@ -1,7 +1,7 @@
 package com.ssafy.backend.domain.user;
 
 
-import com.ssafy.backend.domain.common.CreatedAndUpdatedBaseEntity;
+import com.ssafy.backend.domain.common.BaseEntity;
 import com.ssafy.backend.domain.user.dto.UserDto;
 import com.ssafy.backend.domain.user.dto.UserSignUpDto;
 import lombok.*;
@@ -15,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "USERS")
-public class User extends CreatedAndUpdatedBaseEntity {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue

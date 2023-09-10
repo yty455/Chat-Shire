@@ -43,7 +43,7 @@ public class OAuth2Attribute {
                                             Map<String, Object> attributes) {
 
         return OAuth2Attribute.builder()
-                .id((String) attributes.get("id"))
+                .id(String.valueOf(attributes.get("id")))
                 .githubId((String) attributes.get("login"))
                 .profileImage((String) attributes.get("avatar_url"))
                 .name((String) attributes.get("name"))
