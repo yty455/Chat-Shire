@@ -9,6 +9,7 @@
   border: 1px solid #E5E8EB;
   border-radius: 40px;
   font-family: 'preRg';
+  background-color: #ffffff;
 }
 
 .messageLeft {
@@ -36,8 +37,8 @@
 
 
 .messageLeftTitle {
-  font-size: 44px;
-  font-family: "preBd";
+  font-size: 46px;
+  font-family: "preBl";
 }
 
 .messagePeopleNum {
@@ -108,6 +109,9 @@
 }
 
 .messageRight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 520px;
   /* border: 1px solid red; */
 }
@@ -116,8 +120,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 520px;
-  height: 100px;
+  width: 540px;
+  height: 120px;
   /* border: 1px solid blue; */
 }
 
@@ -125,10 +129,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90px;
-  height: 90px;
-  /* border: 1px solid purple; */
+  width: 100px;
+  height: 100px;
   border-radius: 100px;
-  background-color: #E5E8EB;
+  border: 1px solid #E5E8EB;
+  background-color: #ffffff;
   object-fit: contain;
 }

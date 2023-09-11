@@ -6,13 +6,21 @@ import linkImg from '../../assets/chat_icons/link2.png'
 import searchImg from '../../assets/chat_icons/search.png'
 
 import MessageItem from './MessageItem'
+import MessageRightBody from './MessageRightBody'
 
 import { BsPeopleFill, BsQuestionCircle, BsFillMegaphoneFill, BsPlus, BsEmojiKiss } from 'react-icons/bs'
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 
-export default function Message() {
+function Message() {
+  const [value, setValue] = React.useState('photos');
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    console.log(newValue)
+    setValue(newValue);
+  };
 
   const ariaLabel = { 'aria-label': 'description' };
 
@@ -58,23 +66,37 @@ export default function Message() {
       </div>
       <div className={styles.messageRight}>
         <div className={styles.messageRightTabContainer}>
-          <div className={styles.messageRightTabItem}>
-            <img src={photoImg} alt="" />
-          </div>
-          <div className={styles.messageRightTabItem}>
-            <img src={fileImage} alt="" />
-          </div>
-          <div className={styles.messageRightTabItem}>
-            <img src={linkImg} alt="" />
-          </div>
-          <div className={styles.messageRightTabItem}>
-            <img src={searchImg} alt="" />
-          </div>
+          <BottomNavigation sx={{ display: "flex", justifyContent: "space-between", width: 460, height: 110 }} value={value} onChange={handleChange}>
+            <BottomNavigationAction
+              label="사진"
+              value="photos"
+              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px" }} src={photoImg} alt="" /></div>}
+              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB", backgroundColor: "#ffffff" }}
+            />
+            <BottomNavigationAction
+              label="파일"
+              value="files"
+              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px" }} src={fileImage} alt="" /></div>}
+              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB", backgroundColor: "#ffffff" }}
+            />
+            <BottomNavigationAction
+              label="링크"
+              value="links"
+              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px" }} src={linkImg} alt="" /></div>}
+              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB", backgroundColor: "#ffffff" }}
+            />
+            <BottomNavigationAction
+              label="검색" 
+              value="search" 
+              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px" }} src={searchImg} alt="" /></div>}
+              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB", backgroundColor: "#ffffff" }}
+            />
+          </BottomNavigation>
         </div>
-        <div className={styles.messageRightBody}>
-
-        </div>
+        <MessageRightBody value={value}/>
       </div>
     </div>
   )
 }
+
+export default Message;
