@@ -1,4 +1,6 @@
-package com.ssafy.backend.domain.chat;
+package com.ssafy.backend.domain.chat.entity;
+
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,12 +10,16 @@ import javax.persistence.Id;
 import com.ssafy.backend.domain.common.BaseEntity;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder(toBuilder = true)
+@Entity
 public class ChatRoom extends BaseEntity {
 
 	@Id
@@ -25,5 +31,7 @@ public class ChatRoom extends BaseEntity {
 	private String topic;
 	private String teamName;
 	private String description;
-	private String codeRepo;
+	private String gitRepository;
+	private LocalDate startDate;
+	private LocalDate endDate;
 }
