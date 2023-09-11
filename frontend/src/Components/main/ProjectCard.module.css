@@ -1,0 +1,16 @@
+.card {
+  background-color: #e5e8eb;
+  height: 200px;
+  width: 220px;
+  border: 1px solid #39a789;
+  border-radius: 20px;
+  margin: 1%;
+  text-align: center;
+}
+
+.memberbox {
+  border-top: 1px solid black;
+  display: flex;
+
+  /* justify-content: space-evenly; */
+}

@@ -1,0 +1,14 @@
+.invitebox {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.invitecard {
+  border: thick double #39a789;
+  border-radius: 20px;
+  width: 80%;
+  margin: 10px 0 0 10px;
+  /* margin */
+}

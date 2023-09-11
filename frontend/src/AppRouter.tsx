@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 const Login = lazy(() => import("./pages/LoginPage"));
 const Main = lazy(() => import("./pages/MainPage"));
+const CreatePjt = lazy(() => import("./pages/CreateProjectPage"));
 
 function AppRouter() {
   return (
@@ -12,6 +13,7 @@ function AppRouter() {
           <Routes>
             <Route path="/" element={<Login />}></Route>
             <Route path="/main" element={<Main />}></Route>
+            <Route path="/createpjt" element={<CreatePjt />}></Route>
           </Routes>
         </Suspense>
       </BrowserRouter>
