@@ -1,5 +1,6 @@
 package com.ssafy.backend.domain.chat;
 
+import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.common.BaseEntity;
 import com.ssafy.backend.domain.user.User;
 import lombok.*;

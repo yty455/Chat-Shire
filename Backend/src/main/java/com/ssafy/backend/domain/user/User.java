@@ -75,15 +75,15 @@ public class User extends BaseEntity {
 		this.password = passwordEncoder.encode(this.password);
 	}
 
-	// @Override
-	// public String toString() {
-	//     return "User{" +
-	//             "id=" + id +
-	//             ", socialId='" + socialId + '\'' +
-	//             ", nickname='" + nickname + '\'' +
-	//             ", githubId='" + githubId + '\'' +
-	//             ", role=" + role +
-	//             ", refreshToken='" + refreshToken + '\'' +
-	//             '}';
-	// }
+	 @Override
+	 public String toString() {
+	     return "User{" +
+	             "id=" + id +
+	             ", socialId='" + socialId + '\'' +
+	             ", nickname='" + nickname + '\'' +
+	             ", githubId='" + githubId + '\'' +
+	             ", role=" + role +
+	             ", refreshToken='" + refreshToken + '\'' +
+	             '}';
+	 }
 }
