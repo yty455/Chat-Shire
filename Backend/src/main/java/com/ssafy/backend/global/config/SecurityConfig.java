@@ -49,6 +49,12 @@ public class SecurityConfig {
 				.and()
 				.authorizeRequests()
 //				.antMatchers("/**").permitAll()
+				.antMatchers("/gs-guide-websocket/**").permitAll() // 웹소켓 테스트
+				.antMatchers("/topic/**").permitAll() // 웹소켓 테스트
+				.antMatchers("/hello/**").permitAll() // 웹소켓 테스트
+				.antMatchers("/app.js").permitAll() // 웹소켓 테스트
+				.antMatchers("/webjars/**").permitAll() // 웹소켓 테스트
+				.antMatchers("/main.css").permitAll() // 웹소켓 테스트
 				.antMatchers("/home/**").permitAll()
 				.antMatchers("/oauth2/sign-up/**").permitAll()
 				// 아이콘, css, js 관련
