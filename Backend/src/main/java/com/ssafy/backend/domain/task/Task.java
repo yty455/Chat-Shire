@@ -1,5 +1,6 @@
 package com.ssafy.backend.domain.task;
 
+import com.ssafy.backend.domain.task.dto.TaskModify;
 import com.ssafy.backend.domain.task.dto.TaskRegist;
 import lombok.*;
 
@@ -26,9 +27,16 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
+    @Enumerated(EnumType.STRING)
+    private Progress progress;
+
     private LocalDate deadline;
 
     public Task(TaskRegist taskRegist){
         
+    }
+
+    public Task(TaskModify taskModify){
+
     }
 }

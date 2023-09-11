@@ -1,6 +1,7 @@
 package com.ssafy.backend.domain.task.service;
 
 import com.ssafy.backend.domain.task.Task;
+import com.ssafy.backend.domain.task.dto.TaskModify;
 import com.ssafy.backend.domain.task.dto.TaskRegist;
 import com.ssafy.backend.domain.task.repository.TaskGroupRepository;
 import com.ssafy.backend.domain.task.repository.TaskRepository;
@@ -18,6 +19,11 @@ public class TaskService {
 
     public void registerTask(TaskRegist taskRegist){
         taskRepository.save(new Task(taskRegist));
+
+    }
+
+    public void modifyTask(Long taskId, TaskModify taskModify){
+        taskRepository.save(new Task(taskModify));
 
     }
 }

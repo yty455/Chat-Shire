@@ -1,7 +1,6 @@
 package com.ssafy.backend.domain.task;
 
-import com.ssafy.backend.domain.chat.ChatRoom;
-import com.ssafy.backend.domain.user.Role;
+import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import lombok.*;
 
 import javax.persistence.*;
