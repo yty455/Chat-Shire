@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,6 +57,18 @@ public class ChatRoomController {
 
 		BasicResponse basicResponse = BasicResponse.builder()
 				.message("내 프로젝트 채팅방 생성 성공")
+				.build();
+
+		return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+	}
+
+	@PatchMapping("/projects/{projectId}")
+	public ResponseEntity<BasicResponse> modifyMyChatRoom(@RequestBody ChatRoomInfo chatRoomInfo,
+			@PathVariable("projectId") Long chatRoomId) {
+		chatRoomService.modifyMyChatRoom(chatRoomInfo, chatRoomId);
+
+		BasicResponse basicResponse = BasicResponse.builder()
+				.message("내 프로젝트 채팅방 수정 성공")
 				.build();
 
 		return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());

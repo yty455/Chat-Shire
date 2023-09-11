@@ -1,8 +1,11 @@
 package com.ssafy.backend.domain.chat.service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,5 +74,14 @@ public class ChatRoomService {
 
 	private static Long getUserId() {
 		return Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
+	}
+
+	@Transactional
+	public void modifyMyChatRoom(ChatRoomInfo chatRoomInfo, Long chatRoomId) {
+		ChatRoom chatRoom = participationRepository.findByUserIdAndChatRoomId(getUserId(), chatRoomId)
+				.orElseThrow(() -> new ResourceNotFoundException("Participation.getCharRoom", chatRoomId))
+				.getChatRoom();
+
+		chatRoom.update(chatRoomInfo);
 	}
 }
