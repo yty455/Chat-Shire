@@ -10,6 +10,7 @@ import com.ssafy.backend.oauth2.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -50,7 +51,13 @@ public class SecurityConfig {
 //				.antMatchers("/**").permitAll()
 				.antMatchers("/home/**").permitAll()
 				.antMatchers("/oauth2/sign-up/**").permitAll()
-				.anyRequest().authenticated()
+				// 아이콘, css, js 관련
+			// 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 인증없이 모두 접근 가능, h2-console에 접근 가능
+			.antMatchers("/", "/v3/api-docs/**", "/swagger-ui/**", "/css/**", "/images/**", "/js/**", "/favicon.ico",
+				"/h2-console/**").permitAll()
+			.antMatchers(HttpMethod.OPTIONS, "/**/*").permitAll() // options 무시
+			.antMatchers("/couple-certification", "/auto-login", "/invitation/share/*", "/user-logout").permitAll() // 커플 인증 요청 접근 가능
+			.anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
 				.and()
 //				.addFilterBefore(jwtAuthenticationFilter(jwtProvider, cookieUtil, refreshRepository),
 //						UsernamePasswordAuthenticationFilter.class)
