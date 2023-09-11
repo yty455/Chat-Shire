@@ -2,17 +2,46 @@
   max-width: 400px;
   width: 400px;
   height: 100vh;
-  /* 구분을 위한 색, 나중에 지우기 */
-  background-color: rgb(227, 227, 227);
+  padding: 20px 0;
+  /* 구분을 위한 색, 나중에 지우기
+  background-color: rgb(227, 227, 227); */
+    /* display: flex; */
+    /* justify-content: flex-end; */
+    margin-left: auto;
 }
 
 .indivTask {
-  width: 380px;
+  /* width: 380px;
   max-width: 380px;
   min-height: 100px;
   border-radius: 20px;
-  background-color: white;
+  background-color: white; */
+  min-height: 40px;
   overflow:hidden;
   word-wrap:break-word;
-  padding: 10px;
+  padding: 5px 10px;
+
+  display: flex;
+  justify-content: start;
+}
+
+.taskContent {
+  width: 320px;
+  max-width: 320px;
+  text-align: start;
+  margin-bottom: 0;
+}
+
+.test {
+  max-width: 400px;
+  width: 400px;
+  min-height: 100px;
+  border-radius: 20px;
+  background-color: rgb(254, 186, 186);
+  margin-bottom: 10px;
+}
+
+.checked {
+  text-decoration: line-through;
+  text-decoration-color: #39A789;
 }

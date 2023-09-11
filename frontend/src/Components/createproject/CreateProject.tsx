@@ -8,6 +8,8 @@ import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Container from "../common/Container";
+import TextField from "@mui/material/TextField";
+import styles from "./CreateProject.module.css";
 
 const steps = [
   {
@@ -52,7 +54,7 @@ function CreateProject() {
       display="flex"
       justifyContent="center"
     >
-      <Box sx={{ maxWidth: 400 }} style={{ marginTop: "10%" }}>
+      <Box sx={{ maxWidth: 400 }} style={{ marginTop: "8%" }}>
         <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map((step, index) => (
             <Step key={step.label}>
@@ -66,7 +68,37 @@ function CreateProject() {
                 {step.label}
               </StepLabel>
               <StepContent>
-                <Typography>{step.description}</Typography>
+                <Typography>
+                  {index === 0 && (
+                    <div className={styles.inputbox}>
+                      <TextField
+                        className={styles.inputtag}
+                        required
+                        id="standard-required"
+                        label="제목"
+                        defaultValue=""
+                        variant="standard"
+                      />
+                      <TextField
+                        className={styles.inputtag}
+                        required
+                        id="standard-required"
+                        label="주제"
+                        defaultValue=""
+                        variant="standard"
+                      />
+                      <TextField
+                        className={styles.inputtag}
+                        required
+                        id="outlined-multiline-static"
+                        label="설명"
+                        multiline
+                        rows={4}
+                        defaultValue=""
+                      />
+                    </div>
+                  )}
+                </Typography>
                 <Box sx={{ mb: 2 }}>
                   <div>
                     <Button

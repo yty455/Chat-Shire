@@ -24,7 +24,7 @@
   font-size: 27px;
   margin-top: 0;
   text-align: start;
-  letter-spacing: -0.5px;
+  /* letter-spacing: -0.5px; */
   color: rgb(129, 129, 129);
 }
 
@@ -34,7 +34,7 @@
   border: none;
   background-color: #39A789;
   border-radius: 5px;
-  font-family: 'preLt';
+  font-family: 'preRg';
   color: white;
   font-size: 18px;
 }
