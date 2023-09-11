@@ -24,10 +24,9 @@ public class OAuth2Attribute {
     private String attributeKey;
     private String email;
     private String name;
-    private String loginId;
+    private String githubId;
     private String profileImage;
-
-    private int id;
+    private String id;
 
     public static OAuth2Attribute of(String provider, String attributeKey,
                                      Map<String, Object> attributes) {
@@ -42,10 +41,9 @@ public class OAuth2Attribute {
     private static OAuth2Attribute ofGithub(String attributeKey,
                                             Map<String, Object> attributes) {
 
-        Integer id = (Integer) attributes.get("id");
         return OAuth2Attribute.builder()
-                .id(id)
-                .loginId((String) attributes.get("login"))
+                .id(String.valueOf(attributes.get("id")))
+                .githubId((String) attributes.get("login"))
                 .profileImage((String) attributes.get("avatar_url"))
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
@@ -61,7 +59,7 @@ public class OAuth2Attribute {
         map.put("name", name);
         map.put("email", email);
         map.put("profile_url", profileImage);
-        map.put("id", id);
+        map.put("socialId", id);
         return map;
     }
     /**
@@ -74,7 +72,7 @@ public class OAuth2Attribute {
         return User.builder()
                 .socialId(oAuth2Attribute.getId())
                 .profileImage(oAuth2Attribute.getProfileImage())
-                .loginId(oAuth2Attribute.getLoginId())
+                .githubId(oAuth2Attribute.getGithubId())
                 .email(oAuth2Attribute.getEmail())
                 .nickname(oAuth2Attribute.getName())
                 .role(Role.GUEST)

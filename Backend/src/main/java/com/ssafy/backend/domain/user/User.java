@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import com.ssafy.backend.domain.common.BaseEntity;
 import com.ssafy.backend.domain.user.dto.UserDto;
 import com.ssafy.backend.domain.user.dto.UserSignUpDto;
@@ -28,65 +26,63 @@ import lombok.NoArgsConstructor;
 @Table(name = "USERS")
 public class User extends BaseEntity {
 
-	@Id
-	@GeneratedValue
-	@Column(name = "USER_ID")
-	private Long id;
+    @Id
+    @GeneratedValue
+    @Column(name = "USER_ID")
+    private Long id;
 
-	private int socialId;
-	private String loginId; // 유니크
-	private String nickname;
-	private String name;
-	private String email;
-	private String password;
-	private String profileImage;
+    private String socialId;
+    private String githubId;
+    private String nickname;
 
-	@Enumerated(EnumType.STRING)
-	private Role role;
+    private String email;
+    private String password;
+    private String profileImage;
 
-	@Column(length = 500)
-	private String refreshToken;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-	//== 유저 필드 업데이트 ==//
-	public void updateFirst(UserSignUpDto userSignUpDto) {
-		this.name = userSignUpDto.getName();
-		this.nickname = userSignUpDto.getNickname();
-	}
+    @Column(length = 500)
+    private String refreshToken;
 
-	public void updateProfile(UserDto userDto) {
-		this.name = userDto.getName();
-		this.nickname = userDto.getNickname();
-		this.profileImage = userDto.getProfileImage();
-	}
 
-	// 유저 권한 설정 메소드
-	public void authorizeUser() {
-		this.role = Role.USER;
-	}
+    //== 유저 필드 업데이트 ==//
+    public void updateFirst(UserSignUpDto userSignUpDto) {
+        this.nickname = userSignUpDto.getNickname();
+    }
 
-	public void updateNickname(String updateNickname) {
-		this.nickname = updateNickname;
-	}
+    public void updateProfile(UserDto userDto) {
+        this.nickname = userDto.getNickname();
+        this.profileImage = userDto.getProfileImage();
+    }
 
-	public void updateRefreshToken(String updateRefreshToken) {
-		this.refreshToken = updateRefreshToken;
-	}
+    // 유저 권한 설정 메소드
+    public void authorizeUser() {
+        this.role = Role.USER;
+    }
 
-	// 비밀번호 암호화 메소드
-	public void passwordEncode(PasswordEncoder passwordEncoder) {
-		this.password = passwordEncoder.encode(this.password);
-	}
+    public void updateNickname(String updateNickname) {
+        this.nickname = updateNickname;
+    }
 
-	@Override
-	public String toString() {
-		return "User{" +
-				"id=" + id +
-				", password='" + password + '\'' +
-				", name='" + name + '\'' +
-				", nickname='" + nickname + '\'' +
-				", role=" + role +
-				", socialId='" + socialId + '\'' +
-				", refreshToken='" + refreshToken + '\'' +
-				'}';
-	}
+    public void updateRefreshToken(String updateRefreshToken) {
+        this.refreshToken = updateRefreshToken;
+    }
+
+    // 비밀번호 암호화 메소드
+    public void passwordEncode(PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(this.password);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", socialId='" + socialId + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", githubId='" + githubId + '\'' +
+                ", role=" + role +
+                ", refreshToken='" + refreshToken + '\'' +
+                '}';
+    }
 }
