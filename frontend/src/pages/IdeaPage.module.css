@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  justify-content: start;
+  /* width: 1530px; */
+}
+
+.ideaNshare {
+  display: flex;
+  justify-content: space-between;
+}
