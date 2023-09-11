@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../../stores/atom";
 import styles from "./Login.module.css";
-import landing1 from "./landing1.png"
+import landing2 from "./landing2.png"
 
 
 function LoginPage() {
@@ -20,7 +20,7 @@ function LoginPage() {
     </div>
     <div className={styles.circleNImg}>
       <div className={styles.circle}></div>
-      <img src={landing1} alt="landing1" className={styles.landing1} />
+      <img src={landing2} alt="landing1" className={styles.landing1} />
     </div>
   </div>;
 }
