@@ -2,6 +2,7 @@ package com.ssafy.backend.domain.user.controller;
 
 
 import com.ssafy.backend.domain.common.BasicResponse;
+import com.ssafy.backend.domain.user.User;
 import com.ssafy.backend.domain.user.dto.UserDto;
 import com.ssafy.backend.domain.user.dto.UserSignUpDto;
 import com.ssafy.backend.domain.user.repository.UserRepository;
@@ -30,11 +31,15 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<BasicResponse> signUp(@RequestBody UserSignUpDto userSignUpDto) {
 
-
+        System.out.println("저여기있어요");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication.getName() == null) {
             throw new RuntimeException("Security Context에 인증 정보가 없습니다.");
         }
+
+        System.out.println(authentication);
+        System.out.println(authentication.getPrincipal());
+        System.out.println(authentication.getName());
 
         userService.signUp(userSignUpDto, authentication.getName());
 
@@ -43,7 +48,7 @@ public class UserController {
                 .httpStatus(HttpStatus.OK)
                 .message("회원 가입 성공").build();
 
-        String accessToken = jwtService.createAccessToken(authentication.getName());
+        String accessToken = jwtService.createAccessToken(Long.valueOf(authentication.getName()));
         String refreshToken = jwtService.createRefreshToken();
 
         // 헤더에 토큰 정보 추가
@@ -51,7 +56,7 @@ public class UserController {
         headers.add("Authorization", "Bearer " + accessToken);
         headers.add("Authorization_refresh", "Bearer " + refreshToken);
 
-        jwtService.updateRefreshToken(authentication.getName(), refreshToken);
+        jwtService.updateRefreshToken(Long.valueOf(authentication.getName()), refreshToken);
 
         return new ResponseEntity<>(basicResponse, headers, basicResponse.getHttpStatus());
     }

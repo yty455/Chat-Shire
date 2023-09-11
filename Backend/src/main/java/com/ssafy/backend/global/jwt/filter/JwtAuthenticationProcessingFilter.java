@@ -110,7 +110,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         userRepository.findByRefreshToken(refreshToken)
                 .ifPresent(user -> {
                     String reIssuedRefreshToken = reIssueRefreshToken(user);
-                    jwtService.sendAccessAndRefreshToken(response, jwtService.createAccessToken(user.getEmail()),
+                    jwtService.sendAccessAndRefreshToken(response, jwtService.createAccessToken(user.getId()),
                             reIssuedRefreshToken);
                 });
     }
@@ -141,12 +141,12 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         jwtService.extractAccessToken(request)
                 .filter(jwtService::isTokenValid)
                 .ifPresent(accessToken -> {
-                    // redis에서 access token blacklist 확인
+//                     redis에서 access token blacklist 확인
 //                    String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
 //                    if (ObjectUtils.isEmpty(isLogout)) {
-//                        jwtService.extractEmail(accessToken)
-//                                .ifPresent(email -> userRepository.findByEmail(email)
-//                                        .ifPresent(this::saveAuthentication));
+                        jwtService.extractEmail(accessToken)
+                                .ifPresent(email -> userRepository.findById(email)
+                                        .ifPresent(this::saveAuthentication));
 //                    }
                 });
 
@@ -175,7 +175,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         }
 
         UserDetails userDetailsUser = org.springframework.security.core.userdetails.User.builder()
-                .username(myUser.getEmail())
+                .username(String.valueOf(myUser.getId()))
                 .password(password)
                 .roles(myUser.getRole().name())
                 .build();

@@ -26,7 +26,6 @@ public class OAuth2Attribute {
     private String name;
     private String githubId;
     private String profileImage;
-
     private String id;
 
     public static OAuth2Attribute of(String provider, String attributeKey,

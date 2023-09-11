@@ -2,6 +2,7 @@ package com.ssafy.backend.global.config;
 
 
 import com.ssafy.backend.domain.user.repository.UserRepository;
+import com.ssafy.backend.global.jwt.filter.JwtAuthenticationProcessingFilter;
 import com.ssafy.backend.global.jwt.service.JwtService;
 import com.ssafy.backend.oauth2.OAuth2LoginFailureHandler;
 import com.ssafy.backend.oauth2.OAuth2LoginSuccessHandler;
@@ -15,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -45,6 +47,7 @@ public class SecurityConfig {
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 				.authorizeRequests()
+//				.antMatchers("/**").permitAll()
 				.antMatchers("/home/**").permitAll()
 				.antMatchers("/oauth2/sign-up/**").permitAll()
 				.anyRequest().authenticated()
@@ -61,7 +64,7 @@ public class SecurityConfig {
 				.successHandler(oAuth2LoginSuccessHandler)
 				.userInfoEndpoint()
 				.userService(customOAuth2UserService);
-
+		http.addFilterAfter(jwtAuthenticationProcessingFilter(), LogoutFilter.class);
 		return http.build();
 
 	}
@@ -183,8 +186,8 @@ public class SecurityConfig {
 	//        return customJsonUsernamePasswordLoginFilter;
 	//    }
 
-//	@Bean
-//	public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
-//		return new JwtAuthenticationProcessingFilter(jwtService, userRepository, redisTemplate);
-//	}
+	@Bean
+	public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
+		return new JwtAuthenticationProcessingFilter(jwtService, userRepository);
+	}
 }
