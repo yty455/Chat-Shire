@@ -9,7 +9,7 @@
 
 ::selection {
   background-color: none;
-  color: rgb(84, 253, 174);
+  color: #31deb0;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -95,7 +95,7 @@ export default function LeftSideTab(props: Props) {
                 <ListItemIcon>
                   <MailIcon />
                 </ListItemIcon>
-                <ListItemText primary="Home" />
+                <ListItemText style={{fontFamily:'preRg'}} primary="Home" />
               </AccordionSummary>
             </Accordion>
           </ListItemButton>
@@ -108,7 +108,7 @@ export default function LeftSideTab(props: Props) {
               <Accordion
                 expanded={expanded === text}
                 onChange={handleChange(text)}
-                style={{ width: "100%" }}
+                style={{ fontFamily:'preRg', width: "100%" }}
               >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}

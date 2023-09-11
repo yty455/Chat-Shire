@@ -7,7 +7,8 @@
   background-color: rgb(227, 227, 227); */
     /* display: flex; */
     /* justify-content: flex-end; */
-    margin-left: auto;
+  margin-left: auto;
+  margin-right: 3px;
 }
 
 .indivTask {
@@ -16,13 +17,27 @@
   min-height: 100px;
   border-radius: 20px;
   background-color: white; */
-  min-height: 40px;
+  min-height: 60px;
   overflow:hidden;
   word-wrap:break-word;
-  padding: 5px 10px;
+  padding: 6px 10px;
 
   display: flex;
   justify-content: start;
+
+}
+
+.oneMemo {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  
+  &:hover {
+    box-shadow: -2px -2px 5px white, 2px 2px 5px #BABECC
+  }
+    
+  /* &:active {
+    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px white;
+  } */
 }
 
 .taskContent {
@@ -30,6 +45,7 @@
   max-width: 320px;
   text-align: start;
   margin-bottom: 0;
+  font-family: 'preBd';
 }
 
 .test {
@@ -43,5 +59,7 @@
 
 .checked {
   text-decoration: line-through;
+  /* text-decoration-style: wavy; */
   text-decoration-color: #39A789;
+  text-decoration-thickness: 2px;
 }

@@ -1,53 +1,96 @@
-import * as React from 'react';
-// import CssBaseline from '@mui/material/CssBaseline';
-import styles from './IndivTask.module.css'
+import React, { useState } from 'react';
+import styles from './IndivTask.module.css';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 
+type CheckboxItem = {
+  id: number;
+  isChecked: boolean;
+  content: string;
+  isEditing: boolean; 
+};
+
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+  minHeight: '110px'
+}));
+
 export default function SimpleContainer() {
-  const [isChecked, setIsChecked] = React.useState(false);
+  
+  const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
+    { id: 1, isChecked: false, content: '밥 맛깔나게 먹기! 밥 맛깔나게 먹기!', isEditing:false },
+    { id: 2, isChecked: false, content: '밥 맛깔나게 먹기! 밥 맛깔나게 먹기!밥 맛깔나게 먹기! 밥 맛깔나게 먹기!밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기!', isEditing:false },
+    { id: 3, isChecked: false, content: '밥 맛깔나게 먹기! 밥 맛깔나게 먹기!', isEditing:false },
+    { id: 4, isChecked: false, content: '밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기!', isEditing:false },
+    // ...
+]);
 
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
+const handleCheckboxChange = (id:number) => () =>{
+    setCheckboxItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id
+          ? {...item,isChecked:!item.isChecked}
+          : item)
+      );
+}
 
-  return (
-    <div className={styles.indivDiv}>
+// const removeCheckbox = (id:number) => () =>{
+//   setCheckboxItems((prevItems) =>
+//     prevItems.filter((item) => item.id !== id)
+//     );
+// }
 
-      <div className={styles.test}>
-        <div className={styles.indivTask}>
-          <Checkbox sx={{color: '#39A789','&.Mui-checked': {color: '#39A789',},}} 
-            style={{height: '20px',margin:'17px 0'}} 
-            checked={isChecked}
-            onChange={handleCheckboxChange}/>
-          <p className={`${styles.taskContent} ${isChecked ? styles.checked : ''}`}>
-          밥 맛깔나게 먹기! 밥 맛깔나게 먹기!
-        </p>
-        </div>
-        <Button sx={{marginBottom: '20px', fontFamily:'preRg'}} color="success" size="small" variant="contained">관련 대화로 이동</Button>
-      </div>
+const addCheckbox = () => {
+    const newId = checkboxItems.length + 1;
+    setCheckboxItems([...checkboxItems, { id:newId , isChecked:false,content:'',isEditing:true }]);
+}
 
-      <div className={styles.test}>
-        <div className={styles.indivTask}>
-          <Checkbox sx={{color: '#39A789','&.Mui-checked': {color: '#39A789',},}} 
-            style={{height: '20px',margin:'17px 0'}} 
-            checked={isChecked}
-            onChange={handleCheckboxChange}/>
-          <p className={`${styles.taskContent} ${isChecked ? styles.checked : ''}`}>
-          밥 맛깔나게 먹기! 밥 맛깔나게 먹기!
-        </p>
-        </div>
-        <Button sx={{marginBottom: '20px', fontFamily:'preRg'}} color="success" size="small" variant="contained">관련 대화로 이동</Button>
-      </div>
+const handleContentChange = (id:number) => (event:any) =>{
+    setCheckboxItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id
+          ? {...item,content:event.target.value,isEditing:false}
+          : item)
+      );
+}
 
-      <Fab color="success" aria-label="add">
-        <AddIcon />
-      </Fab>
-    </div>
-  );
+return (
+<div className={styles.indivDiv}>
+<Box sx={{p:2,bgcolor:'background.default',}}>
+<Grid container spacing={2}>
+{checkboxItems.map(item=>(
+<Grid item xs={12} key={item.id}>
+<Item className={styles.oneMemo} elevation={12}>
+<div className={styles.indivTask}>
+<Checkbox 
+sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
+style={{height:'20px',margin:'14px 0'}}
+checked ={item.isChecked}
+onChange ={handleCheckboxChange(item.id)}
+/>
+{item.isEditing?
+<input type="text" onBlur ={handleContentChange(item.id)} placeholder="내용을 입력하세요"/> :
+<p className={`${styles.taskContent} ${item.isChecked? styles.checked:''}`}>{item.content}</p>}
+</div>
+<Button sx={{marginBottom:'20px',fontFamily:'preRg'}} color="greenary" size="small" variant="contained">관련 대화로 이동</Button>
+{/* <Button sx={{marginLeft: '5px', marginBottom:'20px',fontFamily:'preRg'}} color="error" size="small" onClick={() => removeCheckbox(item.id)} variant="contained">삭제</Button> */}
+</Item>
+</Grid>
+))}
+</Grid>
+</Box>
+
+<Fab color="greenary" aria-label="add" onClick={addCheckbox}>
+<AddIcon/>
+</Fab>
+</div>  
+);
 }
