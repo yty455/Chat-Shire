@@ -20,6 +20,12 @@ declare module '@mui/material/Button' {
   }
 }
 
+declare module '@mui/material/Fab' {
+  interface FabPropsColorOverrides {
+    greenary: true;
+  }
+}
+
 const theme = createTheme({
   palette: {
     greenary: {
