@@ -27,6 +27,12 @@ code {
 @font-face {
   font-family: 'preBd';
   src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
-  font-weight: 700;
+  /* font-weight: 700; */
+  font-style: normal;
+}
+@font-face {
+  font-family: 'preBl';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+  /* font-weight: 700; */
   font-style: normal;
 }
