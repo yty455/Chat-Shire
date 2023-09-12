@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class TaskGroupController {
 
-    private final TaskService taskService;
     private final TaskGroupService taskGroupService;
 
     @Operation(summary = "태스크 그룹 생성", description = "태스크 그룹을 생성합니다.")
@@ -32,7 +31,7 @@ public class TaskGroupController {
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
     }
 
-    @Operation(summary = "태스크 그룹 조회", description = "태스크 그룹을 생성합니다.")
+    @Operation(summary = "태스크 그룹 조회", description = "태스크 그룹을 조회합니다.")
     @GetMapping("/taskGroup")
     public ResponseEntity<BasicResponse> getTaskGroup(@RequestBody TaskRegister taskRegister) {
 
