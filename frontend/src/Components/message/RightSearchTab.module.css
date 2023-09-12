@@ -76,3 +76,8 @@
 .fileName {
   margin-left: 4px;
 }
+
+.GoogleSearchContainer {
+  width: 100px;
+  height: 100px;
+}
