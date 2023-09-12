@@ -1,15 +1,19 @@
 package com.ssafy.backend.domain.task.controller;
 
 import com.ssafy.backend.domain.common.BasicResponse;
+import com.ssafy.backend.domain.task.TaskGroup;
 import com.ssafy.backend.domain.task.dto.TaskGroupInfo;
+import com.ssafy.backend.domain.task.dto.TaskGroupRegister;
 import com.ssafy.backend.domain.task.dto.TaskRegister;
 import com.ssafy.backend.domain.task.service.TaskGroupService;
-import com.ssafy.backend.domain.task.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
 
 @Tag(name = "태스크 그룹 API", description = "태스크 그룹 관련 API")
 @RestController
@@ -20,9 +24,9 @@ public class TaskGroupController {
 
     @Operation(summary = "태스크 그룹 생성", description = "태스크 그룹을 생성합니다.")
     @PostMapping("/taskGroup")
-    public ResponseEntity<BasicResponse> createTaskGroup(@RequestBody TaskRegister taskRegister) {
+    public ResponseEntity<BasicResponse> createTaskGroup(@RequestBody TaskGroupRegister taskGroupRegister) {
 
-        taskGroupService.createTaskGroup();
+        taskGroupService.createTaskGroup(taskGroupRegister);
 
         BasicResponse basicResponse = BasicResponse.builder()
                 .message("태스크 그룹 생성 완료")
@@ -31,14 +35,17 @@ public class TaskGroupController {
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
     }
 
-    @Operation(summary = "태스크 그룹 조회", description = "태스크 그룹을 조회합니다.")
-    @GetMapping("/taskGroup")
-    public ResponseEntity<BasicResponse> getTaskGroup(@RequestBody TaskRegister taskRegister) {
+    // TODO - 어떤값 줄지 합의보고 리턴 DTO 만들어서 주기
+    @Operation(summary = "태스크 그룹 조회", description = "프로젝트의 태스크 그룹을 조회합니다.")
+    @GetMapping("/taskGroup/{projectId}")
+    public ResponseEntity<BasicResponse> getTaskGroup(@PathVariable(name = "projectId") Long chatRoomId) {
 
-        taskGroupService.getTaskGroup();
+        List<TaskGroup> taskGroupList = taskGroupService.getTaskGroup(chatRoomId);
 
         BasicResponse basicResponse = BasicResponse.builder()
                 .message("태스크 그룹 조회 완료")
+                .count(taskGroupList.size())
+                .result(Collections.singletonList(taskGroupList))
                 .build();
 
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
@@ -64,12 +71,10 @@ public class TaskGroupController {
         taskGroupService.deleteTaskGroup(taskGroupId);
 
         BasicResponse basicResponse = BasicResponse.builder()
-                    .message("태스크 그룹 삭제 성공")
-                    .build();
+                .message("태스크 그룹 삭제 성공")
+                .build();
 
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
     }
-
-
 
 }
