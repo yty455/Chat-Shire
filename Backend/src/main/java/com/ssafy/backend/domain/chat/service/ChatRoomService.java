@@ -1,9 +1,10 @@
 package com.ssafy.backend.domain.chat.service;
 
+import static com.ssafy.backend.domain.common.GlobalMethod.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,9 +82,5 @@ public class ChatRoomService {
 	@Transactional
 	public void deleteMyChatRoom(Long chatRoomId) {
 		participationRepository.deleteByUserIdAndChatRoomId(getUserId(), chatRoomId);
-	}
-
-	private static Long getUserId() {
-		return Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
 	}
 }
