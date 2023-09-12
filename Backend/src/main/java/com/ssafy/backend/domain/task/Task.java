@@ -1,5 +1,6 @@
 package com.ssafy.backend.domain.task;
 
+import com.ssafy.backend.domain.chat.dto.ChatRoomInfo;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.task.dto.TaskModify;
 import com.ssafy.backend.domain.task.dto.TaskRegister;
@@ -9,14 +10,15 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.function.Consumer;
 
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder(toBuilder = true)
 public class Task {
 
     @Id
@@ -50,6 +52,8 @@ public class Task {
         this.name = taskRegister.getName();
         this.description = taskRegister.getDescription();
         this.deadline = taskRegister.getDeadline();
+        this.priority = taskRegister.getPriority();
+        this.progress = taskRegister.getProgress();
     }
 
     public void setUser(User user){
@@ -62,7 +66,25 @@ public class Task {
 //        chatRoom.getTask().add(this);
     }
 
-    public Task(TaskModify taskModify){
-
+    public void update(TaskModify taskModify) {
+        updateName(taskModify.getName());
+        updateDescription(taskModify.getDescription());
+        updateDeadline(taskModify.getDeadline());
+        updatePriority(taskModify.getPriority());
+        updateProgress(taskModify.getProgress());
     }
+
+    private <T> void updateIfNotNull(Consumer<T> updater, T newValue) {
+        if (newValue != null) {
+            updater.accept(newValue);
+        }
+    }
+
+    public void updateName(String name) {updateIfNotNull(newValue -> this.name = newValue, name);}
+    public void updateDescription(String description) {updateIfNotNull(newValue -> this.description = newValue, description);}
+    public void updateDeadline(LocalDate deadline) {updateIfNotNull(newValue -> this.deadline = newValue, deadline);}
+    public void updatePriority(Priority priority) {updateIfNotNull(newValue -> this.priority = newValue, priority);}
+    public void updateProgress(Progress progress) {updateIfNotNull(newValue -> this.progress = newValue, progress);}
+
+
 }
