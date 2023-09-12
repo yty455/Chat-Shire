@@ -24,42 +24,40 @@ public class ReferenceController {
     private final ReferenceService referenceService;
 
     @Operation(summary = "참조 등록하기", description = "태스크에 채팅을 등록합니다.")
-    @PostMapping("/reference/{taskId}")
+    @PostMapping("/tasks/{taskId}/references")
     public ResponseEntity<BasicResponse> registerReference(@PathVariable("taskId") Long taskId, @RequestBody ReferenceRegist referenceRegist) {
 
         referenceService.registerReference(taskId, referenceRegist);
 
-
         BasicResponse basicResponse = BasicResponse.builder()
                 .message("참조 등록 완료")
-                .count(1)
-                .result(Collections.singletonList(1)).build();
+                .build();
 
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
     }
 
     @Operation(summary = "참조 조회하기", description = "태스크가 참조중인 채팅을 불러옵니다.")
-    @GetMapping("/reference/{taskId}")
+    @GetMapping("tasks/{taskId}/references")
     public ResponseEntity<BasicResponse> getReference(@PathVariable Long taskId) {
 
         referenceService.getReference(taskId);
         BasicResponse basicResponse = BasicResponse.builder()
-                    .message("다이어리 상세 조회 성공")
+                    .message("참조 조회 성공")
                     .count(1)
                     .result(Collections.singletonList(1)).build();
 
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
     }
 
-    @Operation(summary = "참조 삭제하기", description = "태스크가 참조중인 채팅을 불러옵니다.")
-    @DeleteMapping("/reference/{taskId}")
-    public ResponseEntity<BasicResponse> deleteReference(@PathVariable Long taskId) {
+    @Operation(summary = "참조 삭제하기", description = "태스크의 참조를 삭제합니다.")
+    @DeleteMapping("/tasks/{taskId}/references/{referenceId}")
+    public ResponseEntity<BasicResponse> deleteReference(@PathVariable(name = "taskId") Long taskId, @PathVariable(name = "referenceId") Long referenceId) {
 
-        referenceService.deleteReference(taskId);
+        referenceService.deleteReference(referenceId);
+
         BasicResponse basicResponse = BasicResponse.builder()
-                .message("다이어리 상세 조회 성공")
-                .count(1)
-                .result(Collections.singletonList(1)).build();
+                .message("참조 삭제 성공")
+                .build();
 
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
     }
