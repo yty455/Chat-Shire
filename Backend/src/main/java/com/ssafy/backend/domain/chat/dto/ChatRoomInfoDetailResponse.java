@@ -1,8 +1,6 @@
 package com.ssafy.backend.domain.chat.dto;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class ChatRoomInfoResponse {
+public class ChatRoomInfoDetailResponse {
 	private Long id;
 	private String name;
 	private String teamName;
@@ -28,9 +26,10 @@ public class ChatRoomInfoResponse {
 	private LocalDate startDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
+	private String notification;
 
-	public static ChatRoomInfoResponse fromEntity(ChatRoom chatRoom) {
-		return ChatRoomInfoResponse.builder()
+	public static ChatRoomInfoDetailResponse toDto(ChatRoom chatRoom, String content) {
+		return ChatRoomInfoDetailResponse.builder()
 				.id(chatRoom.getId())
 				.name(chatRoom.getName())
 				.teamName(chatRoom.getTeamName())
@@ -39,12 +38,7 @@ public class ChatRoomInfoResponse {
 				.gitRepository(chatRoom.getGitRepository())
 				.startDate(chatRoom.getStartDate())
 				.endDate(chatRoom.getEndDate())
+				.notification(content)
 				.build();
-	}
-
-	public static List<ChatRoomInfoResponse> fromEntityList(List<ChatRoom> chatRooms) {
-		return chatRooms.stream()
-				.map(ChatRoomInfoResponse::fromEntity)
-				.collect(Collectors.toList());
 	}
 }
