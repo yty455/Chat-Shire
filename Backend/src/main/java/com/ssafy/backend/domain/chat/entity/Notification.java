@@ -7,9 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.ssafy.backend.domain.user.User;
+import javax.persistence.OneToOne;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,24 +20,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-public class Participation {
+public class Notification {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "PARTICIPATION_ID")
+	@Column(name = "NOTIFICATION_ID")
 	private Long id;
 
-	@ManyToOne(fetch = LAZY)
-	@JoinColumn(name = "USER_ID")
-	private User user;
+	private String content;
 
-	@ManyToOne(fetch = LAZY)
+	@OneToOne(fetch = LAZY)
 	@JoinColumn(name = "CHATROOM_ID")
 	private ChatRoom chatRoom;
 
-	public static Participation create(User user, ChatRoom chatRoom) {
-		return Participation.builder()
-				.user(user)
+	public void update(String content) {
+		this.content = content;
+	}
+
+	public static Notification create(ChatRoom chatRoom) {
+		return Notification.builder()
+				.content("")
 				.chatRoom(chatRoom)
 				.build();
 	}

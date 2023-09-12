@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfo;
+import com.ssafy.backend.domain.chat.dto.ChatRoomInfoDetailResponse;
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfoResponse;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
+import com.ssafy.backend.domain.chat.entity.Notification;
 import com.ssafy.backend.domain.chat.entity.Participation;
 import com.ssafy.backend.domain.chat.repository.ChatRoomRepository;
+import com.ssafy.backend.domain.chat.repository.NotificationRepository;
 import com.ssafy.backend.domain.chat.repository.ParticipationRepository;
 import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
 import com.ssafy.backend.domain.user.User;
@@ -29,6 +32,7 @@ public class ChatRoomService {
 	private final ChatRoomRepository chatRoomRepository;
 	private final ParticipationRepository participationRepository;
 	private final UserRepository userRepository;
+	private final NotificationRepository notificationRepository;
 
 	public List<ChatRoomInfoResponse> getMyChatRoom() {
 		List<ChatRoom> chatRooms = participationRepository.findByUserId(getUserId()).stream()
@@ -37,12 +41,15 @@ public class ChatRoomService {
 		return ChatRoomInfoResponse.fromEntityList(chatRooms);
 	}
 
-	public ChatRoomInfoResponse getMyChatRoomDetail(Long chatRoomId) {
+	public ChatRoomInfoDetailResponse getMyChatRoomDetail(Long chatRoomId) {
 		ChatRoom chatRoom = participationRepository.findByUserIdAndChatRoomId(getUserId(), chatRoomId)
 				.orElseThrow(() -> new ResourceNotFoundException("Participation.getChatRoom", chatRoomId))
 				.getChatRoom();
 
-		return ChatRoomInfoResponse.fromEntity(chatRoom);
+		String content = notificationRepository.findByChatRoomId(chatRoomId)
+				.orElseThrow(() -> new ResourceNotFoundException("Notification.getChatRoom", chatRoomId)).getContent();
+
+		return ChatRoomInfoDetailResponse.toDto(chatRoom, content);
 	}
 
 	@Transactional
@@ -50,24 +57,10 @@ public class ChatRoomService {
 
 		User user = userRepository.findById(getUserId())
 				.orElseThrow(UserNotFoundException::new);
+		ChatRoom savedChatRoom = chatRoomRepository.save(chatRoomInfo.toEntity());
 
-		ChatRoom chatRoom = ChatRoom.builder()
-				.name(chatRoomInfo.getName())
-				.teamName(chatRoomInfo.getTeamName())
-				.topic(chatRoomInfo.getTopic())
-				.description(chatRoomInfo.getDescription())
-				.gitRepository(chatRoomInfo.getGitRepository())
-				.startDate(chatRoomInfo.getStartDate())
-				.endDate(chatRoomInfo.getEndDate()).build();
-
-		ChatRoom savedChatRoom = chatRoomRepository.save(chatRoom);
-
-		Participation participation = Participation.builder()
-				.user(user)
-				.chatRoom(savedChatRoom)
-				.build();
-
-		participationRepository.save(participation);
+		notificationRepository.save(Notification.create(savedChatRoom));
+		participationRepository.save(Participation.create(user, savedChatRoom));
 	}
 
 	@Transactional
