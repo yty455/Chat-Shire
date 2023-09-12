@@ -12,4 +12,6 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
 	List<Participation> findByUserId(Long userId);
 
 	Optional<Participation> findByUserIdAndChatRoomId(Long userId, Long chatRoomId);
+
+	void deleteByUserIdAndChatRoomId(Long userId, Long chatRoomId);
 }

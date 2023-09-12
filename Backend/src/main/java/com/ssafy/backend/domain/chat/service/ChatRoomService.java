@@ -1,9 +1,10 @@
 package com.ssafy.backend.domain.chat.service;
 
+import static com.ssafy.backend.domain.common.GlobalMethod.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,7 +70,17 @@ public class ChatRoomService {
 		participationRepository.save(participation);
 	}
 
-	private static Long getUserId() {
-		return Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
+	@Transactional
+	public void modifyMyChatRoom(ChatRoomInfo chatRoomInfo, Long chatRoomId) {
+		ChatRoom chatRoom = participationRepository.findByUserIdAndChatRoomId(getUserId(), chatRoomId)
+				.orElseThrow(() -> new ResourceNotFoundException("Participation.getCharRoom", chatRoomId))
+				.getChatRoom();
+
+		chatRoom.update(chatRoomInfo);
+	}
+
+	@Transactional
+	public void deleteMyChatRoom(Long chatRoomId) {
+		participationRepository.deleteByUserIdAndChatRoomId(getUserId(), chatRoomId);
 	}
 }
