@@ -1,5 +1,6 @@
 .App {
 <<<<<<< HEAD
+<<<<<<< HEAD
   text-align: center;
 }
 
@@ -46,4 +47,9 @@
   width: 100vw;
   height: 100vh;
 >>>>>>> frontend
+=======
+  /* text-align: center; */
+  width: 100vw;
+  height: 100vh;
+>>>>>>> a5b40dd92e13bb9cb52f0e506f8f7b3d2de7a429
 }
