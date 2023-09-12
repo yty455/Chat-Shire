@@ -1,6 +1,7 @@
 import React from "react";
 import ProjectCard from "./ProjectCard";
 import styles from "./ComProject.module.css";
+import SimpleSlider from "../common/SimplrSilder";
 
 interface ComProjectProps {
   compjt: Array<object>;

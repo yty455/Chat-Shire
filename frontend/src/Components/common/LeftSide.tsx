@@ -22,6 +22,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useMediaQuery } from "@mui/material";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import Box from "@mui/material/Box";
+import { useNavigate } from "react-router-dom";
+
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     backgroundColor: "#44b700",
@@ -60,10 +62,15 @@ function LeftSide(props: Props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [expanded, setExpanded] = React.useState<string | false>(false);
   const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const navigate = useNavigate();
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
+
+  const onClick = (link: String) => {
+    navigate("./link");
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
