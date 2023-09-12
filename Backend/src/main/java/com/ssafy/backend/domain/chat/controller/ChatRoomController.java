@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfo;
+import com.ssafy.backend.domain.chat.dto.ChatRoomInfoDetailResponse;
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfoResponse;
-import com.ssafy.backend.domain.chat.repository.ParticipationRepository;
 import com.ssafy.backend.domain.chat.service.ChatRoomService;
 import com.ssafy.backend.domain.common.BasicResponse;
 
@@ -35,7 +35,7 @@ public class ChatRoomController {
 		List<ChatRoomInfoResponse> myChatRooms = chatRoomService.getMyChatRoom();
 
 		BasicResponse basicResponse = BasicResponse.builder()
-				.message("내 프로젝트 채팅방 조회 성공")
+				.message("내 프로젝트 채팅방 전체 조회 성공")
 				.count(myChatRooms.size())
 				.result(Collections.singletonList(myChatRooms))
 				.build();
@@ -46,12 +46,12 @@ public class ChatRoomController {
 	@Operation(summary = "내 프로젝트 상세 조회", description = "내가 참여하고 있는 프로젝트의 하나의 채팅방 정보를 보여줍니다.")
 	@GetMapping("/projects/{projectId}")
 	public ResponseEntity<BasicResponse> getMyChatRoomDetail(@PathVariable("projectId") Long projectId) {
-		ChatRoomInfoResponse myChatRoom = chatRoomService.getMyChatRoomDetail(projectId);
+		ChatRoomInfoDetailResponse myChatRoomDetail = chatRoomService.getMyChatRoomDetail(projectId);
 
 		BasicResponse basicResponse = BasicResponse.builder()
-				.message("내 프로젝트 채팅방 조회 성공")
+				.message("내 프로젝트 채팅방 상세 조회 성공")
 				.count(1)
-				.result(Collections.singletonList(myChatRoom))
+				.result(Collections.singletonList(myChatRoomDetail))
 				.build();
 
 		return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());

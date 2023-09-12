@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.ssafy.backend.domain.chat.entity.ChatRoom;
+
 import lombok.Getter;
 
 @Getter
@@ -17,4 +19,15 @@ public class ChatRoomInfo {
 	private LocalDate startDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
+
+	public ChatRoom toEntity() {
+		return ChatRoom.builder()
+				.name(this.getName())
+				.teamName(this.getTeamName())
+				.topic(this.getTopic())
+				.description(this.getDescription())
+				.gitRepository(this.getGitRepository())
+				.startDate(this.getStartDate())
+				.endDate(this.getEndDate()).build();
+	}
 }
