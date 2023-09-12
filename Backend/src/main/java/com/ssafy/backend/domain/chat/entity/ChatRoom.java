@@ -1,12 +1,14 @@
 package com.ssafy.backend.domain.chat.entity;
 
 import java.time.LocalDate;
+import java.util.function.Consumer;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.ssafy.backend.domain.chat.dto.ChatRoomInfo;
 import com.ssafy.backend.domain.common.BaseEntity;
 
 import lombok.AccessLevel;
@@ -34,4 +36,48 @@ public class ChatRoom extends BaseEntity {
 	private String gitRepository;
 	private LocalDate startDate;
 	private LocalDate endDate;
+
+	public void update(ChatRoomInfo chatRoomInfo) {
+		updateName(chatRoomInfo.getName());
+		updateTopic(chatRoomInfo.getTopic());
+		updateTeamName(chatRoomInfo.getTeamName());
+		updateDescription(chatRoomInfo.getDescription());
+		updateGitRepository(chatRoomInfo.getGitRepository());
+		updateStartDate(chatRoomInfo.getStartDate());
+		updateEndDate(chatRoomInfo.getEndDate());
+	}
+
+	private <T> void updateIfNotNull(Consumer<T> updater, T newValue) {
+		if (newValue != null) {
+			updater.accept(newValue);
+		}
+	}
+
+	public void updateName(String name) {
+		updateIfNotNull(newValue -> this.name = newValue, name);
+	}
+
+	public void updateTopic(String topic) {
+		updateIfNotNull(newValue -> this.topic = newValue, topic);
+	}
+
+	public void updateTeamName(String teamName) {
+		updateIfNotNull(newValue -> this.teamName = newValue, teamName);
+	}
+
+	public void updateDescription(String description) {
+		updateIfNotNull(newValue -> this.description = newValue, description);
+	}
+
+	public void updateGitRepository(String gitRepository) {
+		updateIfNotNull(newValue -> this.gitRepository = newValue, gitRepository);
+	}
+
+	public void updateStartDate(LocalDate startDate) {
+		updateIfNotNull(newValue -> this.startDate = newValue, startDate);
+	}
+
+	public void updateEndDate(LocalDate endDate) {
+		updateIfNotNull(newValue -> this.endDate = newValue, endDate);
+	}
 }
