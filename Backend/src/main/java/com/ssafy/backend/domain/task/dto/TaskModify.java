@@ -1,5 +1,4 @@
 package com.ssafy.backend.domain.task.dto;
 
-public class TaskRegist {
-
+public class TaskModify {
 }
