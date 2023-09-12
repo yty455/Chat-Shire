@@ -55,7 +55,7 @@ public class ReferenceController {
 
     @Operation(summary = "참조 삭제하기", description = "태스크가 참조중인 채팅을 불러옵니다.")
     @Parameter(name = "taskId", description = "조회할 태스크의 id를 넘겨주세요.")
-    @GetMapping("/reference/{taskId}")
+    @DeleteMapping("/reference/{taskId}")
     public ResponseEntity<BasicResponse> deleteReference(@PathVariable Long taskId) {
 
         referenceService.deleteReference(taskId);
