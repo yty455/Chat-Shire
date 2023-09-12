@@ -1,8 +1,7 @@
 package com.ssafy.backend.domain.task;
 
-import com.ssafy.backend.domain.chat.dto.ChatRoomInfo;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
-import com.ssafy.backend.domain.task.dto.TaskModify;
+import com.ssafy.backend.domain.task.dto.TaskInfo;
 import com.ssafy.backend.domain.task.dto.TaskRegister;
 import com.ssafy.backend.domain.user.User;
 import lombok.*;
@@ -34,7 +33,7 @@ public class Task {
     @JoinColumn(name = "CHATROOM_ID")
     private ChatRoom chatRoom;
 
-    @ColumnDefault("-1")
+    @ColumnDefault("0")
     private Long taskGroupId; // -1이면 개인 태스크인 상태
 
     private String name;
@@ -54,6 +53,11 @@ public class Task {
         this.deadline = taskRegister.getDeadline();
         this.priority = taskRegister.getPriority();
         this.progress = taskRegister.getProgress();
+        this.taskGroupId = 0L;
+    }
+
+    public void joinTaskGroup(Long taskGroupId){
+        this.taskGroupId = taskGroupId;
     }
 
     public void setUser(User user){
@@ -66,12 +70,12 @@ public class Task {
 //        chatRoom.getTask().add(this);
     }
 
-    public void update(TaskModify taskModify) {
-        updateName(taskModify.getName());
-        updateDescription(taskModify.getDescription());
-        updateDeadline(taskModify.getDeadline());
-        updatePriority(taskModify.getPriority());
-        updateProgress(taskModify.getProgress());
+    public void update(TaskInfo taskInfo) {
+        updateName(taskInfo.getName());
+        updateDescription(taskInfo.getDescription());
+        updateDeadline(taskInfo.getDeadline());
+        updatePriority(taskInfo.getPriority());
+        updateProgress(taskInfo.getProgress());
     }
 
     private <T> void updateIfNotNull(Consumer<T> updater, T newValue) {

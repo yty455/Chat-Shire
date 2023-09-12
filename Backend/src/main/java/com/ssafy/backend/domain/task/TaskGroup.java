@@ -11,11 +11,14 @@ import javax.persistence.ManyToOne;
 
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
 
+import com.ssafy.backend.domain.task.dto.TaskGroupInfo;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.function.Consumer;
 
 @Entity
 @Getter
@@ -36,4 +39,17 @@ public class TaskGroup {
 	@ManyToOne
 	@JoinColumn(name = "CHATROOM_ID")
 	private ChatRoom chatRoom;
+
+	public void update(TaskGroupInfo taskGroupInfo){
+		updateName(taskGroupInfo.getName());
+	}
+
+	private <T> void updateIfNotNull(Consumer<T> updater, T newValue) {
+		if (newValue != null) {
+			updater.accept(newValue);
+		}
+	}
+
+
+	public void updateName(String name) {updateIfNotNull(newValue -> this.name = newValue, name);}
 }

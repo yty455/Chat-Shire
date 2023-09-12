@@ -1,21 +1,17 @@
 package com.ssafy.backend.domain.task.controller;
 
 import com.ssafy.backend.domain.common.BasicResponse;
-import com.ssafy.backend.domain.task.dto.TaskModify;
+import com.ssafy.backend.domain.task.dto.TaskGroupInfo;
 import com.ssafy.backend.domain.task.dto.TaskRegister;
 import com.ssafy.backend.domain.task.service.TaskGroupService;
 import com.ssafy.backend.domain.task.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-
-@Tag(name = "태스크 API", description = "태스크 관련 API")
+@Tag(name = "태스크 그룹 API", description = "태스크 그룹 관련 API")
 @RestController
 @RequiredArgsConstructor
 public class TaskGroupController {
@@ -23,60 +19,58 @@ public class TaskGroupController {
     private final TaskService taskService;
     private final TaskGroupService taskGroupService;
 
-//    @Operation(summary = "태스크 등록하기", description = "태스크를 DB에 등록합니다.")
-//    @Parameter(name = "TaskRegister", description = "dto에 해당하는 정보를 넘겨주세요. 비어있어도 저장 가능.")
-//    @PostMapping("/tasks")
-//    public ResponseEntity<BasicResponse> registerTask(@RequestBody TaskRegister taskRegister) {
-//
-//        taskGroupService.createTaskGroup();
-//
-//        BasicResponse basicResponse = BasicResponse.builder()
-//                .code(HttpStatus.OK.value())
-//                .httpStatus(HttpStatus.OK)
-//                .message("태스크 등록 성공")
-//                .count(1)
-//                .result(Collections.singletonList(1))
-//                .build();
-//
-//        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
-//    }
-//
-//    @Operation(summary = "태스크 수정하기", description = "태스크를 수정 합니다.")
-//    @Parameter(name = "TaskModify", description = "task id와 태스크 수정 dto를 넘겨주세요.")
-//    @PutMapping("/tasks/{taskId}")
-//    public ResponseEntity<BasicResponse> modifyTask(@PathVariable Long taskId, @RequestBody TaskModify taskModify) {
-//
-//        taskGroupService.getTaskGroup();
-//
-//        BasicResponse basicResponse = BasicResponse.builder()
-//                .code(HttpStatus.OK.value())
-//                .httpStatus(HttpStatus.OK)
-//                .message("태스크 수정 성공")
-//                .count(1)
-//                .result(Collections.singletonList(1))
-//                .build();
-//
-//        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
-//    }
-//
-//
-//
-//    @Operation(summary = "참조 조회하기", description = "태스크가 참조중인 채팅을 불러옵니다.")
-//    @Parameter(name = "taskId", description = "조회할 태스크의 id를 넘겨주세요.")
-//    @GetMapping("/reference/{taskId}")
-//    public ResponseEntity<BasicResponse> getReference(@PathVariable Long taskId) {
-//
-//        taskGroupService.deleteTaskGroup();
-//        BasicResponse basicResponse = BasicResponse.builder()
-//                    .code(HttpStatus.OK.value())
-//                    .httpStatus(HttpStatus.OK)
-//                    .message("다이어리 상세 조회 성공")
-//                    .count(1)
-//                    .result(Collections.singletonList(1)).build();
-//
-//        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
-//    }
-//
+    @Operation(summary = "태스크 그룹 생성", description = "태스크 그룹을 생성합니다.")
+    @PostMapping("/taskGroup")
+    public ResponseEntity<BasicResponse> createTaskGroup(@RequestBody TaskRegister taskRegister) {
+
+        taskGroupService.createTaskGroup();
+
+        BasicResponse basicResponse = BasicResponse.builder()
+                .message("태스크 그룹 생성 완료")
+                .build();
+
+        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+    }
+
+    @Operation(summary = "태스크 그룹 조회", description = "태스크 그룹을 생성합니다.")
+    @GetMapping("/taskGroup")
+    public ResponseEntity<BasicResponse> getTaskGroup(@RequestBody TaskRegister taskRegister) {
+
+        taskGroupService.getTaskGroup();
+
+        BasicResponse basicResponse = BasicResponse.builder()
+                .message("태스크 그룹 조회 완료")
+                .build();
+
+        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+    }
+
+    @Operation(summary = "태스크 그룹 수정", description = "태스크 그룹의 정보를 수정 합니다.")
+    @PatchMapping("/taskGroup/{taskGroupId}")
+    public ResponseEntity<BasicResponse> modifyTask(@PathVariable(name = "taskGroupId") Long taskGroupId, @RequestBody TaskGroupInfo taskGroupInfo) {
+
+        taskGroupService.modifyTaskGroup(taskGroupId, taskGroupInfo);
+
+        BasicResponse basicResponse = BasicResponse.builder()
+                .message("태스크 수정 성공")
+                .build();
+
+        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+    }
+
+    @Operation(summary = "태스크 그룹 삭제", description = "태스크 그룹을 삭제합니다.")
+    @DeleteMapping("/taskGroup/{taskGroupId}")
+    public ResponseEntity<BasicResponse> getReference(@PathVariable(name = "taskGroupId") Long taskGroupId) {
+
+        taskGroupService.deleteTaskGroup(taskGroupId);
+
+        BasicResponse basicResponse = BasicResponse.builder()
+                    .message("태스크 그룹 삭제 성공")
+                    .build();
+
+        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+    }
+
 
 
 }

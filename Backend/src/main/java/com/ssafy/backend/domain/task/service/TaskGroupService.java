@@ -1,5 +1,8 @@
 package com.ssafy.backend.domain.task.service;
 
+import com.ssafy.backend.domain.task.Task;
+import com.ssafy.backend.domain.task.TaskGroup;
+import com.ssafy.backend.domain.task.dto.TaskGroupInfo;
 import com.ssafy.backend.domain.task.repository.TaskGroupRepository;
 import com.ssafy.backend.domain.task.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,25 +22,22 @@ public class TaskGroupService {
 
     }
 
-    // 태스크 그룹에 등록
-    public void registerTaskGroup(){
-
-    }
-
     // 태스크 그룹 조회
     public void getTaskGroup(){
 
     }
 
     // 태스크 그룹 수정
-    public void modifyTaskGroup(){
+    public void modifyTaskGroup(Long taskGroupId, TaskGroupInfo taskGroupInfo){
+        TaskGroup taskGroup = taskGroupRepository.findById(taskGroupId)
+                .orElseThrow();
 
+        taskGroup.update(taskGroupInfo);
     }
 
     // 태스크 그룹 삭제
-    public void deleteTaskGroup(){
-
+    public void deleteTaskGroup(Long taskGroupId){
+        taskGroupRepository.deleteById(taskGroupId);
     }
-
 
 }
