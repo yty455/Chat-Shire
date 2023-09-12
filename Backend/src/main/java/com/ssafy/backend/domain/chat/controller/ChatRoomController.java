@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfo;
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfoResponse;
+import com.ssafy.backend.domain.chat.repository.ParticipationRepository;
 import com.ssafy.backend.domain.chat.service.ChatRoomService;
 import com.ssafy.backend.domain.common.BasicResponse;
 
@@ -23,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class ChatRoomController {
 
 	private final ChatRoomService chatRoomService;
+	private final ParticipationRepository participationRepository;
 
 	@GetMapping("/projects")
 	public ResponseEntity<BasicResponse> getMyChatRoom() {
@@ -68,6 +70,17 @@ public class ChatRoomController {
 
 		BasicResponse basicResponse = BasicResponse.builder()
 				.message("내 프로젝트 채팅방 수정 성공")
+				.build();
+
+		return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+	}
+
+	@GetMapping("/projects/{projectId}")
+	public ResponseEntity<BasicResponse> deleteMyChatRoom(@PathVariable("projectId") Long chatRoomId) {
+		participationRepository.deleteByChatRoomId(chatRoomId);
+
+		BasicResponse basicResponse = BasicResponse.builder()
+				.message("내 프로젝트 채팅방 나가기 성공")
 				.build();
 
 		return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());

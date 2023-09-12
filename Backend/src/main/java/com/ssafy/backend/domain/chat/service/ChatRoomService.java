@@ -69,10 +69,6 @@ public class ChatRoomService {
 		participationRepository.save(participation);
 	}
 
-	private static Long getUserId() {
-		return Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
-	}
-
 	@Transactional
 	public void modifyMyChatRoom(ChatRoomInfo chatRoomInfo, Long chatRoomId) {
 		ChatRoom chatRoom = participationRepository.findByUserIdAndChatRoomId(getUserId(), chatRoomId)
@@ -80,5 +76,9 @@ public class ChatRoomService {
 				.getChatRoom();
 
 		chatRoom.update(chatRoomInfo);
+	}
+
+	private static Long getUserId() {
+		return Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
 	}
 }
