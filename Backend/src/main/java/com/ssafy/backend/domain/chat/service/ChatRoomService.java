@@ -78,6 +78,11 @@ public class ChatRoomService {
 		chatRoom.update(chatRoomInfo);
 	}
 
+	@Transactional
+	public void deleteMyChatRoom(Long chatRoomId) {
+		participationRepository.deleteByUserIdAndChatRoomId(getUserId(), chatRoomId);
+	}
+
 	private static Long getUserId() {
 		return Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
 	}
