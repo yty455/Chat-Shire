@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.ssafy.backend.domain.task.Task;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.ssafy.backend.domain.common.BaseEntity;
@@ -36,16 +37,18 @@ public class User extends BaseEntity {
 	private String socialId;
 	private String githubId;
 	private String nickname;
+	private String profileImage;
 
 	private String email;
 	private String password;
-	private String profileImage;
 
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
 	@Column(length = 500)
 	private String refreshToken;
+
+
 
 	//== 유저 필드 업데이트 ==//
 	public void updateFirst(UserSignUpDto userSignUpDto) {
