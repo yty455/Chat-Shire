@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Reference {
@@ -20,5 +20,6 @@ public class Reference {
     @JoinColumn(name = "TASK_ID")
     private Task task;
 
+    private String content;
     private Long chatNumber;
 }

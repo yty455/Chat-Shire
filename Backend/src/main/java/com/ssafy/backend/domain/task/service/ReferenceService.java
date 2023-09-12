@@ -1,5 +1,6 @@
 package com.ssafy.backend.domain.task.service;
 
+import com.ssafy.backend.domain.task.dto.ReferenceRegist;
 import com.ssafy.backend.domain.task.repository.TaskGroupRepository;
 import com.ssafy.backend.domain.task.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class ReferenceService {
     private final TaskGroupRepository taskGroupRepository;
 
     // 참조 등록
-    public void registerReference(Long taskId){
+    public void registerReference(Long taskId, ReferenceRegist referenceRegist){
 
     }
 
