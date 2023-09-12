@@ -3,10 +3,15 @@
   justify-content: space-evenly;
   margin-top: 20vh;
   margin-bottom: 25vh;
+
+  position: relative;
+  animation: fadeInUp 1s;
 }
 
 .mentNBtn {
   /* margin-left: 30px; */
+  /* position: relative;
+  animation: fadeInUp 1s; */
 }
 
 .serviceMent {
@@ -64,10 +69,9 @@
   
 }
 
-
-
 .circleNImg {
-  position: relative;
+  /* position: relative;
+  animation: fadeInUp 1s; */
 }
 
 .landing1 {
@@ -109,4 +113,16 @@
   }
   border: 0;
   outline: 0;
+}
+
+
+@keyframes fadeInUp {
+  0% {
+      opacity: 0;
+      transform: translate3d(0, 10%, 0);
+  }
+  to {
+      opacity: 1;
+      transform: translateZ(0);
+  }
 }
