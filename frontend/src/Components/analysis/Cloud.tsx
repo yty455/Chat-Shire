@@ -58,7 +58,7 @@ export default function Cloud() {
       onWordMouseOver={(event, d) => {
         console.log(`onWordMouseOver: ${d.text}`);
       }}
-      fill={["#ffffff"]}
+      // fill={["#ffffff"]}
     />
   )
 }
