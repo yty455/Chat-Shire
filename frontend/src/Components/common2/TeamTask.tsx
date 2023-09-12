@@ -5,6 +5,20 @@ import CreateIcon from '@mui/icons-material/Create';
 import Checkbox from '@mui/material/Checkbox';
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 5,
+  borderRadius: 0,
+  margin: '0 0 5px 0',
+  [`&.${linearProgressClasses.colorPrimary}`]: {
+    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+  },
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: 0,
+    backgroundColor: theme.palette.mode === 'light' ? '#39A789' : '#308fe8',
+  },
+}));
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -43,124 +57,168 @@ export default function TeamTask() {
       </div>
       <div style={{display:'flex',justifyContent:'space-around'}}>
         <div style={{padding:'0 0 20px 20px',width:'50%'}}>
-          <h1 style={{marginTop: 0,marginBottom:'4px',display:'flex'}}>task 진행도</h1>
-          <div style={{backgroundColor:'red', height:'180px'}}>d</div>
-          <h1 style={{display:'flex',marginBottom:'4px'}}>완료 task</h1>
-          <div style={{border:'1px solid grey', borderRadius:'10px'}}>
-            <div style={{display:'flex',justifyContent:'space-between'}}>
-              <div style={{display:'flex',justifyContent:'center'}}>
+          <p className={styles.taskProgress}>Task 진행도</p>
+          <div className={styles.progressBar}>진행도 그래프</div>
+          <p className={styles.taskProgress}>완료된 Task</p>
+
+          <div className={styles.taskContainer}>
+            <div className={styles.taskHeader}>
+              <div className={styles.clockNday}>
                 <WatchLaterIcon/>
-                <p style={{margin:0}}>6d 14h</p>
+                <p className={styles.dday}> 6d 14h</p>
               </div>
               <CreateIcon/>
             </div>
-
-            <div style={{display:'flex', justifyContent:'start'}}>
+            <div className={styles.stepStatus}>
               <StyledBadge
-                className={styles.profileimg}
+                sx={{margin:'14px 0 15px 20px'}}
                 overlap="circular"
                 anchorOrigin={{ vertical: "top", horizontal: "left" }}
                 variant="dot"
-              >
-              </StyledBadge>
-              <h5 style={{marginTop: 0, marginLeft:'10px', display:'flex'}}>기획</h5>
+              ></StyledBadge>
+              <p className={styles.step}>기획</p>
             </div>
-            <hr style={{border:'1px solid grey'}}/>
+            <BorderLinearProgress variant="determinate" value={50} />
+
             <div className={styles.indivTask}>
               <Checkbox 
                 sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'20px',margin:'14px 0'}}
+                style={{height:'10px',margin:'7px 0'}}
                 />
-                <p>쓰레기 버리고 오기</p>
+                <p className={styles.task}>쓰레기 버리고 오기</p>
+            </div>
+            <div className={styles.indivTask}>
+              <Checkbox 
+                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
+                style={{height:'10px',margin:'7px 0'}}
+                />
+                <p className={styles.task}>쓰레기 버리고 오기</p>
+            </div>
+            <div className={styles.indivTask}>
+              <Checkbox 
+                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
+                style={{height:'10px',margin:'7px 0'}}
+                />
+                <p className={styles.task}>쓰레기 버리고 오기</p>
+            </div>
+            <div className={styles.indivTask}>
+              <Checkbox 
+                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
+                style={{height:'10px',margin:'7px 0'}}
+                />
+                <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
           </div>
+
+
         </div>
         <div style={{padding:'0 20px 0 20px',width:'50%'}}>
-          <h1 style={{display:'flex', margin:0}}>진행중인 task</h1>
-          <div style={{marginBottom:'5px',border:'1px solid grey', borderRadius:'10px'}}>
-            <div style={{display:'flex',justifyContent:'space-between'}}>
-              <div style={{display:'flex',justifyContent:'center'}}>
+        <p className={styles.taskProgress}>진행중인 Task</p>
+        <div className={styles.taskContainer}>
+            <div className={styles.taskHeader}>
+              <div className={styles.clockNday}>
                 <WatchLaterIcon/>
-                <p style={{margin:0}}>6d 14h</p>
+                <p className={styles.dday}> 6d 14h</p>
               </div>
               <CreateIcon/>
             </div>
-
-            <div style={{display:'flex', justifyContent:'start'}}>
+            <div className={styles.stepStatus}>
               <StyledBadge
-                className={styles.profileimg}
+                sx={{margin:'14px 0 15px 20px'}}
                 overlap="circular"
                 anchorOrigin={{ vertical: "top", horizontal: "left" }}
                 variant="dot"
-              >
-              </StyledBadge>
-              <h5 style={{marginTop: 0, marginLeft:'10px', display:'flex'}}>기획</h5>
+              ></StyledBadge>
+              <p className={styles.step}>기획</p>
             </div>
-            <hr style={{border:'1px solid grey'}}/>
+            <BorderLinearProgress variant="determinate" value={50} />
+
             <div className={styles.indivTask}>
               <Checkbox 
                 sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'20px',margin:'14px 0'}}
+                style={{height:'10px',margin:'7px 0'}}
                 />
-                <p>쓰레기 버리고 오기</p>
+                <p className={styles.task}>쓰레기 버리고 오기</p>
+            </div>
+            <div className={styles.indivTask}>
+              <Checkbox 
+                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
+                style={{height:'10px',margin:'7px 0'}}
+                />
+                <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
           </div>
-          <div style={{marginBottom:'5px', border:'1px solid grey', borderRadius:'10px'}}>
-            <div style={{display:'flex',justifyContent:'space-between'}}>
-              <div style={{display:'flex',justifyContent:'center'}}>
+
+          <div className={styles.taskContainer}>
+            <div className={styles.taskHeader}>
+              <div className={styles.clockNday}>
                 <WatchLaterIcon/>
-                <p style={{margin:0}}>6d 14h</p>
+                <p className={styles.dday}> 6d 14h</p>
               </div>
               <CreateIcon/>
             </div>
-
-            <div style={{display:'flex', justifyContent:'start'}}>
+            <div className={styles.stepStatus}>
               <StyledBadge
-                className={styles.profileimg}
+                sx={{margin:'14px 0 15px 20px'}}
                 overlap="circular"
                 anchorOrigin={{ vertical: "top", horizontal: "left" }}
                 variant="dot"
-              >
-              </StyledBadge>
-              <h5 style={{marginTop: 0, marginLeft:'10px', display:'flex'}}>기획</h5>
+              ></StyledBadge>
+              <p className={styles.step}>기획</p>
             </div>
-            <hr style={{border:'1px solid grey'}}/>
+            <BorderLinearProgress variant="determinate" value={50} />
+
             <div className={styles.indivTask}>
               <Checkbox 
                 sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'20px',margin:'14px 0'}}
+                style={{height:'10px',margin:'7px 0'}}
                 />
-                <p>쓰레기 버리고 오기</p>
+                <p className={styles.task}>쓰레기 버리고 오기</p>
+            </div>
+            <div className={styles.indivTask}>
+              <Checkbox 
+                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
+                style={{height:'10px',margin:'7px 0'}}
+                />
+                <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
           </div>
-          <div style={{marginBottom:'5px', border:'1px solid grey', borderRadius:'10px'}}>
-            <div style={{display:'flex',justifyContent:'space-between'}}>
-              <div style={{display:'flex',justifyContent:'center'}}>
+
+          <div className={styles.taskContainer}>
+            <div className={styles.taskHeader}>
+              <div className={styles.clockNday}>
                 <WatchLaterIcon/>
-                <p style={{margin:0}}>6d 14h</p>
+                <p className={styles.dday}> 6d 14h</p>
               </div>
               <CreateIcon/>
             </div>
-
-            <div style={{display:'flex', justifyContent:'start'}}>
+            <div className={styles.stepStatus}>
               <StyledBadge
-                className={styles.profileimg}
+                sx={{margin:'14px 0 15px 20px'}}
                 overlap="circular"
                 anchorOrigin={{ vertical: "top", horizontal: "left" }}
                 variant="dot"
-              >
-              </StyledBadge>
-              <h5 style={{marginTop: 0, marginLeft:'10px', display:'flex'}}>기획</h5>
+              ></StyledBadge>
+              <p className={styles.step}>기획</p>
             </div>
-            <hr style={{border:'1px solid grey'}}/>
+            <BorderLinearProgress variant="determinate" value={50} />
+
             <div className={styles.indivTask}>
               <Checkbox 
                 sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'20px',margin:'14px 0'}}
+                style={{height:'10px',margin:'7px 0'}}
                 />
-                <p>쓰레기 버리고 오기</p>
+                <p className={styles.task}>쓰레기 버리고 오기</p>
+            </div>
+            <div className={styles.indivTask}>
+              <Checkbox 
+                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
+                style={{height:'10px',margin:'7px 0'}}
+                />
+                <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
           </div>
+
         </div>
       </div>
     </div>

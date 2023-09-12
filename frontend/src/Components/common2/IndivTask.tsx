@@ -68,7 +68,7 @@ return (
 <Grid container spacing={2}>
 {checkboxItems.map(item=>(
 <Grid item xs={12} key={item.id}>
-<Item className={styles.oneMemo} elevation={12}>
+<Item className={styles.oneMemo} elevation={7}>
 <div className={styles.indivTask}>
 <Checkbox 
 sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
@@ -88,7 +88,7 @@ onChange ={handleCheckboxChange(item.id)}
 </Grid>
 </Box>
 
-<Fab color="greenary" aria-label="add" onClick={addCheckbox}>
+<Fab sx={{ mr: 'auto', ml: 'auto', display:'flex',justifyContent:'center' }} color="greenary" aria-label="add" onClick={addCheckbox}>
 <AddIcon/>
 </Fab>
 </div>  
