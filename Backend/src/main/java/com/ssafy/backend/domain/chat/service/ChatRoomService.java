@@ -69,6 +69,15 @@ public class ChatRoomService {
 		participationRepository.save(participation);
 	}
 
+	@Transactional
+	public void modifyMyChatRoom(ChatRoomInfo chatRoomInfo, Long chatRoomId) {
+		ChatRoom chatRoom = participationRepository.findByUserIdAndChatRoomId(getUserId(), chatRoomId)
+				.orElseThrow(() -> new ResourceNotFoundException("Participation.getCharRoom", chatRoomId))
+				.getChatRoom();
+
+		chatRoom.update(chatRoomInfo);
+	}
+
 	private static Long getUserId() {
 		return Long.valueOf(SecurityContextHolder.getContext().getAuthentication().getName());
 	}
