@@ -23,60 +23,60 @@ public class TaskGroupController {
     private final TaskService taskService;
     private final TaskGroupService taskGroupService;
 
-    @Operation(summary = "태스크 등록하기", description = "태스크를 DB에 등록합니다.")
-    @Parameter(name = "TaskRegister", description = "dto에 해당하는 정보를 넘겨주세요. 비어있어도 저장 가능.")
-    @PostMapping("/tasks")
-    public ResponseEntity<BasicResponse> registerTask(@RequestBody TaskRegister taskRegister) {
-
-        taskGroupService.createTaskGroup();
-
-        BasicResponse basicResponse = BasicResponse.builder()
-                .code(HttpStatus.OK.value())
-                .httpStatus(HttpStatus.OK)
-                .message("태스크 등록 성공")
-                .count(1)
-                .result(Collections.singletonList(1))
-                .build();
-
-        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
-    }
-
-    @Operation(summary = "태스크 수정하기", description = "태스크를 수정 합니다.")
-    @Parameter(name = "TaskModify", description = "task id와 태스크 수정 dto를 넘겨주세요.")
-    @PutMapping("/tasks/{taskId}")
-    public ResponseEntity<BasicResponse> modifyTask(@PathVariable Long taskId, @RequestBody TaskModify taskModify) {
-
-        taskGroupService.getTaskGroup();
-
-        BasicResponse basicResponse = BasicResponse.builder()
-                .code(HttpStatus.OK.value())
-                .httpStatus(HttpStatus.OK)
-                .message("태스크 수정 성공")
-                .count(1)
-                .result(Collections.singletonList(1))
-                .build();
-
-        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
-    }
-
-
-
-    @Operation(summary = "참조 조회하기", description = "태스크가 참조중인 채팅을 불러옵니다.")
-    @Parameter(name = "taskId", description = "조회할 태스크의 id를 넘겨주세요.")
-    @GetMapping("/reference/{taskId}")
-    public ResponseEntity<BasicResponse> getReference(@PathVariable Long taskId) {
-
-        taskGroupService.deleteTaskGroup();
-        BasicResponse basicResponse = BasicResponse.builder()
-                    .code(HttpStatus.OK.value())
-                    .httpStatus(HttpStatus.OK)
-                    .message("다이어리 상세 조회 성공")
-                    .count(1)
-                    .result(Collections.singletonList(1)).build();
-
-        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
-    }
-
+//    @Operation(summary = "태스크 등록하기", description = "태스크를 DB에 등록합니다.")
+//    @Parameter(name = "TaskRegister", description = "dto에 해당하는 정보를 넘겨주세요. 비어있어도 저장 가능.")
+//    @PostMapping("/tasks")
+//    public ResponseEntity<BasicResponse> registerTask(@RequestBody TaskRegister taskRegister) {
+//
+//        taskGroupService.createTaskGroup();
+//
+//        BasicResponse basicResponse = BasicResponse.builder()
+//                .code(HttpStatus.OK.value())
+//                .httpStatus(HttpStatus.OK)
+//                .message("태스크 등록 성공")
+//                .count(1)
+//                .result(Collections.singletonList(1))
+//                .build();
+//
+//        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+//    }
+//
+//    @Operation(summary = "태스크 수정하기", description = "태스크를 수정 합니다.")
+//    @Parameter(name = "TaskModify", description = "task id와 태스크 수정 dto를 넘겨주세요.")
+//    @PutMapping("/tasks/{taskId}")
+//    public ResponseEntity<BasicResponse> modifyTask(@PathVariable Long taskId, @RequestBody TaskModify taskModify) {
+//
+//        taskGroupService.getTaskGroup();
+//
+//        BasicResponse basicResponse = BasicResponse.builder()
+//                .code(HttpStatus.OK.value())
+//                .httpStatus(HttpStatus.OK)
+//                .message("태스크 수정 성공")
+//                .count(1)
+//                .result(Collections.singletonList(1))
+//                .build();
+//
+//        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+//    }
+//
+//
+//
+//    @Operation(summary = "참조 조회하기", description = "태스크가 참조중인 채팅을 불러옵니다.")
+//    @Parameter(name = "taskId", description = "조회할 태스크의 id를 넘겨주세요.")
+//    @GetMapping("/reference/{taskId}")
+//    public ResponseEntity<BasicResponse> getReference(@PathVariable Long taskId) {
+//
+//        taskGroupService.deleteTaskGroup();
+//        BasicResponse basicResponse = BasicResponse.builder()
+//                    .code(HttpStatus.OK.value())
+//                    .httpStatus(HttpStatus.OK)
+//                    .message("다이어리 상세 조회 성공")
+//                    .count(1)
+//                    .result(Collections.singletonList(1)).build();
+//
+//        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+//    }
+//
 
 
 }
