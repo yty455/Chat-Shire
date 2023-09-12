@@ -1,9 +1,4 @@
 spring:
-#  url: jdbc:mysql://localhost:3306/<DB Name>
-#  username: root
-#  password: 1234
-#  driver-class-name: com.mysql.cj.jdbc.Driver
-
   logging.level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace # ??? ?? 2.x, hibernate5
@@ -27,6 +22,10 @@ springdoc:
     display-request-duration: true
     operations-sorter: method
 
+---
+spring:
+  profiles:
+    active: jwt, oauth, prod
 ---
 spring:
   profiles:
