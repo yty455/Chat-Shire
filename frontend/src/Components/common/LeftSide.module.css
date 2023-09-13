@@ -60,3 +60,7 @@
     border-bottom: none;
   }
 }
+
+.sideTabContainer div {
+  background-color: #ffffff00;
+}

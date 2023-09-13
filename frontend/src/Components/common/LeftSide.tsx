@@ -1,11 +1,10 @@
 import React from "react";
 import Container from "./Container";
-import LeftSideTab from "./LeftSideTab";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import img from "../../assets/profile/m57.png";
-import styles from "./LeftSideTab.module.css";
+import styles from "./LeftSide.module.css";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -13,8 +12,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MailIcon from "@mui/icons-material/Mail";
-import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -24,6 +21,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 // import styles from "./LeftSide.module.css";
+import { useLocation } from "react-router-dom";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -59,6 +57,7 @@ interface Props {
 }
 
 function LeftSide(props: Props) {
+  const location = useLocation();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -85,7 +84,9 @@ function LeftSide(props: Props) {
 
   return (
     <Container
-      backgroundColor="#FFFFFF"
+      backgroundColor={
+        location.pathname !== "/analysis" ? "#FFFFFF" : "#ffffff2a"
+      }
       text=""
       width="250px"
       height="85vh"
@@ -97,6 +98,7 @@ function LeftSide(props: Props) {
       transition="all 0.2s ease-in-out"
     >
       <div
+        className="sideTabContainer"
         style={{
           display: "flex",
           flexDirection: "column",

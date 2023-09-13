@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ProfilePage.module.css";
 import ProfileLarge from "../components/profile/ProfileLarge";
-import LeftSideTab from "../components/common/LeftSideTab";
+
 import RadarChart from "../components/analysis/RadarChart";
 import BarChart from "../components/analysis/BarChart";
 import Achievement from "../components/profile/Achievement";
