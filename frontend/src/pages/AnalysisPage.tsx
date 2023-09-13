@@ -1,6 +1,7 @@
 import React from "react";
 import Analysis from "../components/analysis/Analysis";
 import passion from "../assets/passion.png";
+import LeftSide from "../components/common/LeftSide";
 
 export default function AnalysisPage() {
   return (
@@ -15,7 +16,7 @@ export default function AnalysisPage() {
         backgroundSize: "cover",
       }}
     >
-      <div
+      {/* <div
         style={{
           border: "1px solid #ffffff95",
           backgroundColor: "#ffffff2a",
@@ -25,7 +26,8 @@ export default function AnalysisPage() {
           marginRight: "30px",
           borderRadius: "30px",
         }}
-      ></div>
+      ></div> */}
+      <LeftSide />
       <Analysis />
     </div>
   );
