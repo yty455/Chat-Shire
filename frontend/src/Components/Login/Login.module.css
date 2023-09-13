@@ -1,0 +1,130 @@
+.landingDiv {
+  display: flex;
+  justify-content: space-evenly;
+  /* margin-top: 20vh;
+  margin-bottom: 25vh; */
+  margin-top: 10%;
+  margin-bottom: auto;
+  
+  position: relative;
+  animation: fadeInUp 1s;
+}
+
+.mentNBtn {
+  /* margin-left: 30px; */
+  /* position: relative;
+  animation: fadeInUp 1s; */
+}
+
+.serviceMent {
+  /* font-family: 'preBd'; */
+  font-size: 50px;
+  margin-bottom: 10px;
+  text-align: start;
+  letter-spacing: -0.5px;
+  color: rgb(70, 70, 70);
+
+}
+
+.serviceMentLong {
+  font-family: 'preLt';
+  font-size: 27px;
+  margin-top: 0;
+  text-align: start;
+  /* letter-spacing: -0.5px; */
+  color: rgb(129, 129, 129);
+}
+
+.github {
+  width: 467px;
+  height: 53px;
+  border: none;
+  background: #39A789;
+  border-radius: 5px;
+  font-family: 'preRg';
+  color: white;
+  font-size: 18px;
+  /* border-radius: 50px; */
+  /* background: #ffffff; */
+  /* box-shadow:  20px 20px 60px #d9d9d9,
+              -20px -20px 60px #ffffff; */
+
+  border: 0;
+  outline: 0;
+  background-color: #39A789;
+  /* text-shadow: 1px 1px 0 white */
+}
+.github {
+  /* font-weight: bold; */
+  box-shadow: -5px -5px 20px white,  5px 5px 20px #BABECC;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  font-weight: 600;
+  
+  &:hover {
+    box-shadow: -2px -2px 5px white, 2px 2px 5px #BABECC
+  }
+  
+  &:active {
+    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px white;
+  }
+  
+}
+
+.circleNImg {
+  /* position: relative;
+  animation: fadeInUp 1s; */
+}
+
+.landing1 {
+  width: 500px;
+  height: auto;
+  
+}
+
+.circle {
+  width: 510px;
+  height: 510px;
+  background-color: rgb(195, 195, 195);
+  opacity: 0.2;
+  /* box-shadow: 0 8px 32px 0 rgba(156, 156, 156, 0.37); */
+  backdrop-filter: blur( 2.5px );
+  -webkit-backdrop-filter: blur( 2.5px );
+
+  /* opacity: 0.2; */
+  border-radius: 50%;
+  position: absolute;
+  z-index: -1;
+  transform: translate(-12%, -10%);
+
+  
+
+
+
+  box-shadow: -5px -5px 20px white,  5px 5px 20px #BABECC;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  font-weight: 600;
+  
+  &:hover {
+    box-shadow: -2px -2px 5px white, 2px 2px 5px #BABECC
+  }
+  
+  &:active {
+    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px white;
+  }
+  border: 0;
+  outline: 0;
+}
+
+
+@keyframes fadeInUp {
+  0% {
+      opacity: 0;
+      transform: translate3d(0, 10%, 0);
+  }
+  to {
+      opacity: 1;
+      transform: translateZ(0);
+  }
+}

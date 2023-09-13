@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  justify-content: start;
+  /* width: 1530px; */
+  /* background-color: blue; */
+  align-items: center;
+}
+
+.ideaNshare {
+  display: flex;
+  justify-content: space-between;
+  max-width: 80%;
+
+}
