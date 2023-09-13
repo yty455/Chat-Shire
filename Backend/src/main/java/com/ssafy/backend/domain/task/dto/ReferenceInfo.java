@@ -29,18 +29,4 @@ public class ReferenceInfo {
                 .chatTime(this.getChatTime())
                 .task(task).build();
     }
-
-    public static ReferenceInfo fromEntity(Reference reference){
-        return ReferenceInfo.builder()
-                .nickname(reference.getNickname())
-                .content(reference.getContent())
-                .chatNumber(reference.getChatNumber())
-                .chatTime(reference.getChatTime()).build();
-    }
-
-    public static List<ReferenceInfo> fromEntityList(List<Reference> references){
-        return references.stream()
-                .map(ReferenceInfo::fromEntity)
-                .collect(Collectors.toList());
-    }
 }

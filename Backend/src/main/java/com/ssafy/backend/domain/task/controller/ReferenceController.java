@@ -2,6 +2,7 @@ package com.ssafy.backend.domain.task.controller;
 
 import com.ssafy.backend.domain.common.BasicResponse;
 import com.ssafy.backend.domain.task.dto.ReferenceInfo;
+import com.ssafy.backend.domain.task.dto.ReferenceInfoResponse;
 import com.ssafy.backend.domain.task.service.ReferenceService;
 import com.ssafy.backend.domain.task.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,15 +22,16 @@ public class ReferenceController {
     private final TaskService taskService;
     private final ReferenceService referenceService;
 
-    @Operation(summary = "참조 등록하기", description = "태스크에 채팅을 등록합니다.")
+    @Operation(summary = "참조 등록하기", description = "태스크에 채팅을 등록합니다. 참조 ID 를 리턴합니다.")
     @PostMapping("/tasks/{taskId}/references")
     public ResponseEntity<BasicResponse> registerReference(@PathVariable("taskId") Long taskId, @RequestBody ReferenceInfo referenceInfo) {
 
-        referenceService.registerReference(taskId, referenceInfo);
+        Long id = referenceService.registerReference(taskId, referenceInfo);
 
         BasicResponse basicResponse = BasicResponse.builder()
                 .message("참조 등록 완료")
-                .build();
+                .count(1)
+                .result(Collections.singletonList(id)).build();
 
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
     }
@@ -38,14 +40,16 @@ public class ReferenceController {
     @GetMapping("tasks/{taskId}/references")
     public ResponseEntity<BasicResponse> getReference(@PathVariable Long taskId) {
 
-        List<ReferenceInfo> referenceInfos = referenceService.getReference(taskId);
+        List<ReferenceInfoResponse> referenceInfoResponses = referenceService.getReference(taskId);
         BasicResponse basicResponse = BasicResponse.builder()
                     .message("참조 조회 성공")
-                    .count(referenceInfos.size())
-                    .result(Collections.singletonList(referenceInfos)).build();
+                    .count(referenceInfoResponses.size())
+                    .result(Collections.singletonList(referenceInfoResponses)).build();
 
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
     }
+
+    // TODO: 참조 상세 조회 - 참조중인 채팅 위아래 채팅내역 불러오는 식으로
 
     @Operation(summary = "참조 삭제하기", description = "태스크의 참조를 삭제합니다.")
     @DeleteMapping("/tasks/{taskId}/references/{referenceId}")

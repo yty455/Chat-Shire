@@ -4,6 +4,7 @@ import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.chat.repository.ChatRoomRepository;
 import com.ssafy.backend.domain.task.Task;
 import com.ssafy.backend.domain.task.dto.TaskInfo;
+import com.ssafy.backend.domain.task.dto.TaskInfoResponse;
 import com.ssafy.backend.domain.task.dto.TaskRegister;
 import com.ssafy.backend.domain.task.repository.ReferenceRepository;
 import com.ssafy.backend.domain.task.repository.TaskRepository;
@@ -43,13 +44,11 @@ public class TaskService {
 
         return savedTask.getId();
     }
-
-
+    
     // 태스크 조회
     // TODO 태스크 조회 어떤식으로 할건지( 개인,공통 )
-    public List<Task> getTasks(Long chatroomId){
-        return taskRepository.findByUserIdAndChatRoomId(getUserId(), chatroomId)
-                .orElseThrow();
+    public List<TaskInfoResponse> getTasks(Long chatroomId){
+        return TaskInfoResponse.fromEntityList(taskRepository.findByUserIdAndChatRoomId(getUserId(), chatroomId));
     }
 
     // 태스크 수정

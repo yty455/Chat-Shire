@@ -3,6 +3,7 @@ package com.ssafy.backend.domain.task.controller;
 import com.ssafy.backend.domain.common.BasicResponse;
 import com.ssafy.backend.domain.task.Task;
 import com.ssafy.backend.domain.task.dto.TaskInfo;
+import com.ssafy.backend.domain.task.dto.TaskInfoResponse;
 import com.ssafy.backend.domain.task.dto.TaskRegister;
 import com.ssafy.backend.domain.task.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,7 +41,7 @@ public class TaskController {
     @GetMapping("/projects/{projectId}/tasks")
     public ResponseEntity<BasicResponse> getTasks(@PathVariable("projectId") Long chatroomId) {
 
-        List<Task> taskList = taskService.getTasks(chatroomId);
+        List<TaskInfoResponse> taskList = taskService.getTasks(chatroomId);
 
         BasicResponse basicResponse = BasicResponse.builder()
                 .message("태스크 조회 성공")
