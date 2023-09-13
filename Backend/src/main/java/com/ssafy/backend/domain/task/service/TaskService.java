@@ -3,7 +3,8 @@ package com.ssafy.backend.domain.task.service;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.chat.repository.ChatRoomRepository;
 import com.ssafy.backend.domain.task.Task;
-import com.ssafy.backend.domain.task.dto.TaskModify;
+import com.ssafy.backend.domain.task.dto.TaskInfo;
+import com.ssafy.backend.domain.task.dto.TaskInfoResponse;
 import com.ssafy.backend.domain.task.dto.TaskRegister;
 import com.ssafy.backend.domain.task.repository.ReferenceRepository;
 import com.ssafy.backend.domain.task.repository.TaskRepository;
@@ -43,24 +44,32 @@ public class TaskService {
 
         return savedTask.getId();
     }
-
+    
     // 태스크 조회
-    public List<Task> getTasks(Long chatroomId){
-        return taskRepository.findByUserIdAndChatRoomId(getUserId(), chatroomId)
-                .orElseThrow();
+    // TODO 태스크 조회 어떤식으로 할건지( 개인,공통 )
+    public List<TaskInfoResponse> getTasks(Long chatroomId){
+        return TaskInfoResponse.fromEntityList(taskRepository.findByUserIdAndChatRoomId(getUserId(), chatroomId));
     }
 
     // 태스크 수정
-    public void modifyTask(Long taskId, TaskModify taskModify){
+    public void modifyTask(Long taskId, TaskInfo taskInfo){
         Task task = taskRepository.findById(taskId)
                 .orElseThrow();
-        task.update(taskModify);
+        task.update(taskInfo);
     }
 
     // 태스크 삭제
     public void deleteTask(Long taskId){
         taskRepository.deleteById(taskId);
 
+    }
+
+    // 태스크 그룹에 등록
+    public void joinTaskGroup(Long taskGroupId, Long taskId){
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow();
+
+        task.joinTaskGroup(taskGroupId);
     }
 
 
