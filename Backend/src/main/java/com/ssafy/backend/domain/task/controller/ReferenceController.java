@@ -1,19 +1,17 @@
 package com.ssafy.backend.domain.task.controller;
 
 import com.ssafy.backend.domain.common.BasicResponse;
-import com.ssafy.backend.domain.task.Reference;
-import com.ssafy.backend.domain.task.dto.ReferenceRegist;
+import com.ssafy.backend.domain.task.dto.ReferenceInfo;
 import com.ssafy.backend.domain.task.service.ReferenceService;
 import com.ssafy.backend.domain.task.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 
 @Tag(name = "태스크 참조 API", description = "참조 API")
 @RestController
@@ -25,9 +23,9 @@ public class ReferenceController {
 
     @Operation(summary = "참조 등록하기", description = "태스크에 채팅을 등록합니다.")
     @PostMapping("/tasks/{taskId}/references")
-    public ResponseEntity<BasicResponse> registerReference(@PathVariable("taskId") Long taskId, @RequestBody ReferenceRegist referenceRegist) {
+    public ResponseEntity<BasicResponse> registerReference(@PathVariable("taskId") Long taskId, @RequestBody ReferenceInfo referenceInfo) {
 
-        referenceService.registerReference(taskId, referenceRegist);
+        referenceService.registerReference(taskId, referenceInfo);
 
         BasicResponse basicResponse = BasicResponse.builder()
                 .message("참조 등록 완료")
@@ -40,11 +38,11 @@ public class ReferenceController {
     @GetMapping("tasks/{taskId}/references")
     public ResponseEntity<BasicResponse> getReference(@PathVariable Long taskId) {
 
-        referenceService.getReference(taskId);
+        List<ReferenceInfo> referenceInfos = referenceService.getReference(taskId);
         BasicResponse basicResponse = BasicResponse.builder()
                     .message("참조 조회 성공")
-                    .count(1)
-                    .result(Collections.singletonList(1)).build();
+                    .count(referenceInfos.size())
+                    .result(Collections.singletonList(referenceInfos)).build();
 
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
     }

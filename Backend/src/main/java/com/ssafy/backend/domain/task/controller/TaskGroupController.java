@@ -4,7 +4,6 @@ import com.ssafy.backend.domain.common.BasicResponse;
 import com.ssafy.backend.domain.task.TaskGroup;
 import com.ssafy.backend.domain.task.dto.TaskGroupInfo;
 import com.ssafy.backend.domain.task.dto.TaskGroupRegister;
-import com.ssafy.backend.domain.task.dto.TaskRegister;
 import com.ssafy.backend.domain.task.service.TaskGroupService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
