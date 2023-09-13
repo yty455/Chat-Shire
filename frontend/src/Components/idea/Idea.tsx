@@ -40,7 +40,7 @@ const edgeTypes = {
 };
 
 const nodeOrigin: NodeOrigin = [0.5, 0.5];
-const connectionLineStyle = { stroke: '#F6AD55', strokeWidth: 3 };
+const connectionLineStyle = { stroke: '#39A789', strokeWidth: 3 };
 const defaultEdgeOptions = { style: connectionLineStyle, type: 'mindmap' };
 
 function Flow() {
@@ -108,7 +108,7 @@ function Flow() {
   );
 
   return (
-    <div style={{ height:600, width:950}}>
+    <div style={{height:550, minWidth:850}}>
     <ReactFlow
       nodes={nodes}
       edges={edges}
@@ -125,9 +125,9 @@ function Flow() {
       fitView
     >
       <Controls showInteractive={false} />
-      <Panel position="top-left" className="header">
-        React Flow Mind Map
-      </Panel>
+      {/* <Panel position="top-left" className="header">
+        아이디어를 자유롭게 나눠보세요!
+      </Panel> */}
     </ReactFlow>
     </div>
   );
