@@ -1,13 +1,140 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "preRg";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f7f7f7;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* pretendard 폰트 */
+@font-face {
+  font-family: "preLt";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Thin.woff")
+    format("woff");
+  /* font-weight: 100; */
+  font-style: normal;
+}
+@font-face {
+  font-family: "preRg";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "preBd";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff")
+    format("woff");
+  /* font-weight: 700; */
+  font-style: normal;
+}
+@font-face {
+  font-family: "preBl";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff")
+    format("woff");
+  /* font-weight: 700; */
+  font-style: normal;
+}
+
+
+
+
+
+
+body {
+  margin: 0;
+  background-color: #f8f8f8;
+}
+
+html,
+body,
+#root {
+  /* height: 100%; */
+}
+
+
+.react-flow__node-mindmap {
+  background: #39A789;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  padding: 2px 5px;
+  font-weight: 700;
+  font-family: 'preBd';
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.react-flow__handle.target {
+  top: 50%;
+  pointer-events: none;
+  opacity: 0;
+  
+}
+
+.react-flow__handle.source {
+  top: 0;
+  left: 0;
+  transform: none;
+  background: #39A789;
+  height: 100%;
+  width: 100%;
+  border-radius: 2px;
+  border: none;
+  font-family: 'preBd';
+  
+}
+
+.react-flow .react-flow__connectionline {
+  z-index: 0;
+}
+
+.inputWrapper {
+  display: flex;
+  height: 20px;
+  z-index: 1;
+  position: relative;
+  pointer-events: none;
+  font-family: 'preBd';
+
+}
+
+.dragHandle {
+  background: transparent;
+  width: 14px;
+  height: 100%;
+  margin-right: 4px;
+  display: flex;
+  align-items: center;
+  pointer-events: all;
+}
+
+.input {
+  border: none;
+  padding: 0 0px;
+  border-radius: 1px;
+  font-weight: 700;
+  background: transparent;
+  height: 100%;
+  color: #222;
+  pointer-events: none;
+  font-size: 10px;
+  font-family: 'preBd';
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.input:focus {
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.25);
+  pointer-events: all;
+}
+
+.header {
+  font-family: 'preRg';
 }
