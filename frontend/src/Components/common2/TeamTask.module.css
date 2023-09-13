@@ -1,0 +1,106 @@
+/* 1170 */
+
+.container {
+  width: 1170px;
+  height: 90vh;
+  margin: 0 0 0 20px;
+  border-radius: 20px;
+  /* border: 1px solid rgb(222, 222, 222); */
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(131, 131, 131, 0.37);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.messageLeftTitle {
+  font-size: 30px;
+  font-family: "preBl";
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 0;
+  padding: 5px 0 0 20px;
+  display: flex;
+  justify-content: start;
+}
+
+.indivTask {
+  /* min-height: 60px; */
+  overflow: hidden;
+  word-wrap: break-word;
+  /* padding: 6px 10px; */
+
+  display: flex;
+  justify-content: start;
+}
+
+.taskProgress {
+  margin-top: 0;
+  margin-bottom: 4px;
+  display: flex;
+  font-family: "preBd";
+  font-size: 25px;
+}
+
+.progressBar {
+  background-color: rgb(208, 208, 208);
+  height: 180px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  font-family: "preRg";
+}
+
+.taskContainer {
+  /* border:'1px solid grey'; */
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 10px 0 rgba(131, 131, 131, 0.37);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  &:hover {
+    box-shadow: -2px -2px 5px white, 2px 2px 5px #babecc;
+  }
+}
+
+.taskHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 15px 0 15px;
+}
+
+.clockNday {
+  width: 90px;
+  display: flex;
+  justify-content: start;
+}
+
+.dday {
+  margin: 0;
+  font-family: "preRg";
+  margin-left: 5px;
+}
+
+.step {
+  margin: 0 0 0 10px;
+  display: flex;
+  font-family: "preBd";
+  font-size: 20px;
+}
+
+.stepStatus {
+  display: flex;
+  justify-content: start;
+  margin-bottom: 0;
+}
+
+.task {
+  margin: 5px 0;
+  font-family: "preRg";
+}

@@ -3,6 +3,8 @@ package com.ssafy.backend.domain.task;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -20,8 +22,8 @@ public class Reference {
     @JoinColumn(name = "TASK_ID")
     private Task task;
 
+    private String nickname;
     private String content;
     private Long chatNumber;
-
-
+    private LocalDateTime chatTime;
 }
