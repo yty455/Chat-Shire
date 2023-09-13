@@ -8,18 +8,18 @@ function First() {
       <TextField
         fullWidth
         color="success"
-        margin="normal"
+        margin="dense"
         className={styles.inputtag}
         required
         id="standard-required"
         label="제목"
         defaultValue=""
         variant="standard"
-        helperText="Please enter your name"
+        // helperText="Please enter your name"
       />
       <TextField
         color="success"
-        margin="normal"
+        margin="dense"
         fullWidth
         className={styles.inputtag}
         required
@@ -27,7 +27,7 @@ function First() {
         label="주제"
         defaultValue=""
         variant="standard"
-        helperText="Please enter your name"
+        // helperText="Please enter your name"
       />
       <TextField
         fullWidth
@@ -40,7 +40,7 @@ function First() {
         multiline
         rows={3}
         defaultValue=""
-        helperText="Please enter your name"
+        // helperText="Please enter your name"
       />
     </div>
   );

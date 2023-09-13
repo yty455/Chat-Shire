@@ -57,7 +57,9 @@ function Project() {
       margin="60px 10px 40px 10px"
       padding=""
       borderRadius="20px"
-      boxShadow=""
+      boxShadow="0 8px 10px 0 rgba(131, 131, 131, 0.37)"
+      backdropFilter="blur(7px)"
+      transition="all 0.2s ease-in-out"
       display="flex"
       justifyContent="center"
     >

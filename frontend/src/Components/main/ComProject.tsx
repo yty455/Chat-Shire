@@ -10,6 +10,7 @@ interface ComProjectProps {
 const ComProject: React.FC<ComProjectProps> = ({ compjt }) => {
   return (
     <div>
+      {/* <SimpleSlider /> */}
       <h3 className={styles.pjttxt}>완료된 PJT</h3>
       <div className={styles.comCardBox}>
         {compjt.map((pjt: any) => (

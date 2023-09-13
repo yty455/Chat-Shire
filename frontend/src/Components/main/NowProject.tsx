@@ -28,7 +28,12 @@ const NowProject: React.FC<NowProjectProps> = ({ nowpjt }) => {
           <ProjectCard key={pjt.id} pjt={pjt} />
         ))}
         <Tooltip title="프로젝트 생성" arrow>
-          <Fab color="success" aria-label="add" onClick={handleClick}>
+          <Fab
+            aria-label="add"
+            onClick={handleClick}
+            className={styles.hoverEffect}
+            style={{ backgroundColor: "#39a789", color: "white" }}
+          >
             <AddIcon />
           </Fab>
         </Tooltip>

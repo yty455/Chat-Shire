@@ -54,13 +54,15 @@ function CreateProject() {
       margin="60px 10px 40px 10px"
       padding=""
       borderRadius="20px"
-      boxShadow=""
       display="flex"
       justifyContent="center"
+      boxShadow="0 8px 10px 0 rgba(131, 131, 131, 0.37)"
+      backdropFilter="blur(7px)"
+      transition="all 0.2s ease-in-out"
     >
       <Box
         // sx={{ maxWidth: 600 }}
-        width="70%"
+        width="80%"
         style={{ marginTop: "3%" }}
         color="success"
       >

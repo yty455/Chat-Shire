@@ -6,11 +6,11 @@
   margin: 0 0 0 20px;
   border-radius: 20px;
   /* border: 1px solid rgb(222, 222, 222); */
-  background: rgba( 255, 255, 255, 0.2 );
+  background: rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px 0 rgba(131, 131, 131, 0.37);
-  backdrop-filter: blur( 7px );
-  -webkit-backdrop-filter: blur( 7px );
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .messageLeftTitle {
@@ -26,20 +26,19 @@
 
 .indivTask {
   /* min-height: 60px; */
-  overflow:hidden;
-  word-wrap:break-word;
+  overflow: hidden;
+  word-wrap: break-word;
   /* padding: 6px 10px; */
 
   display: flex;
   justify-content: start;
 }
 
-
 .taskProgress {
   margin-top: 0;
   margin-bottom: 4px;
   display: flex;
-  font-family: 'preBd';
+  font-family: "preBd";
   font-size: 25px;
 }
 
@@ -50,23 +49,23 @@
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
-  font-family: 'preRg';
+  font-family: "preRg";
 }
 
 .taskContainer {
   /* border:'1px solid grey'; */
   border-radius: 20px;
-  background: rgba( 255, 255, 255, 0.2 );
+  background: rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 10px 0 rgba(131, 131, 131, 0.37);
-  backdrop-filter: blur( 7px );
-  -webkit-backdrop-filter: blur( 7px );
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   padding-bottom: 5px;
   margin-bottom: 15px;
   &:hover {
-    box-shadow: -2px -2px 5px white, 2px 2px 5px #BABECC
+    box-shadow: -2px -2px 5px white, 2px 2px 5px #babecc;
   }
 }
 
@@ -79,21 +78,21 @@
 .clockNday {
   width: 90px;
   display: flex;
-  justify-content: start
+  justify-content: start;
 }
 
 .dday {
   margin: 0;
-  font-family: 'preRg';
+  font-family: "preRg";
   margin-left: 5px;
 }
 
 .step {
   margin: 0 0 0 10px;
   display: flex;
-  font-family: 'preBd';
+  font-family: "preBd";
   font-size: 20px;
-}             
+}
 
 .stepStatus {
   display: flex;
@@ -103,6 +102,5 @@
 
 .task {
   margin: 5px 0;
-  font-family: 'preRg';
-
+  font-family: "preRg";
 }
