@@ -12,6 +12,8 @@ interface ContainerProps {
   children?: React.ReactNode;
   display?: string;
   justifyContent?: string;
+  backdropFilter?: string;
+  transition?: string;
 }
 
 const Container: React.FC<ContainerProps> = ({
@@ -26,6 +28,8 @@ const Container: React.FC<ContainerProps> = ({
   children,
   display,
   justifyContent,
+  backdropFilter,
+  transition,
 }) => {
   const boxStyle = {
     backgroundColor,
@@ -37,6 +41,11 @@ const Container: React.FC<ContainerProps> = ({
     boxShadow,
     display,
     justifyContent,
+    WebkitBackdropFilter: backdropFilter,
+    transition,
+    "&:hover": {
+      boxShadow: "-2px -2px 5px white, 2px 2px 5px #babecc",
+    },
   };
 
   return (

@@ -22,6 +22,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useMediaQuery } from "@mui/material";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import Box from "@mui/material/Box";
+import { useNavigate } from "react-router-dom";
+// import styles from "./LeftSide.module.css";
+
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     backgroundColor: "#44b700",
@@ -60,10 +63,21 @@ function LeftSide(props: Props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [expanded, setExpanded] = React.useState<string | false>(false);
   const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const navigate = useNavigate();
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
+
+  const onClick = (link: String) => {
+    if (link === "Chat") {
+      navigate("/message");
+    } else if (link === "Board") {
+      navigate("/idea");
+    } else {
+      navigate(`/${link.toLowerCase()}`);
+    }
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -78,7 +92,9 @@ function LeftSide(props: Props) {
       borderRadius="20px"
       margin="60px 10px 40px 20px"
       padding=""
-      boxShadow=""
+      boxShadow="0 8px 10px 0 rgba(131, 131, 131, 0.37)"
+      backdropFilter="blur(7px)"
+      transition="all 0.2s ease-in-out"
     >
       <div
         style={{
@@ -89,6 +105,7 @@ function LeftSide(props: Props) {
         }}
       >
         <StyledBadge
+          onClick={() => onClick("profile")}
           className={styles.profileimg}
           overlap="circular"
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
@@ -101,10 +118,15 @@ function LeftSide(props: Props) {
       <Divider />
       <List>
         <ListItem disablePadding>
-          {/* <Link to={"/main"}> */}
-          <ListItemButton>
-            <Accordion style={{ width: "100%" }} expanded={false}>
-              <AccordionSummary>
+          <ListItemButton onClick={() => onClick("main")}>
+            <Accordion
+              style={{ width: "100%" }}
+              expanded={false}
+              className={styles.box}
+            >
+              <AccordionSummary
+                style={{ display: "flex", alignItems: "center" }}
+              >
                 <Box sx={{ width: "35px" }}>
                   <MailIcon />
                 </Box>
@@ -113,18 +135,19 @@ function LeftSide(props: Props) {
               </AccordionSummary>
             </Accordion>
           </ListItemButton>
-          {/* </Link> */}
         </ListItem>
 
         {["특화PJT", "공통PJT", "관통PJT"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <Accordion
+                className={styles.box}
                 expanded={expanded === text}
                 onChange={handleChange(text)}
                 style={{ width: "100%" }}
               >
                 <AccordionSummary
+                  style={{ display: "flex", alignItems: "center" }}
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1bh-content"
                   id="panel1bh-header"
@@ -134,18 +157,23 @@ function LeftSide(props: Props) {
                   </Box>
                   <span>{text}</span>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails style={{ padding: "0px 16px 0px 16px" }}>
                   <List>
-                    {["Project", "Chat", "Task", "Board"].map((text, index) => (
-                      <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                          <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                          </ListItemIcon>
-                          <ListItemText primary={text} />
-                        </ListItemButton>
-                      </ListItem>
-                    ))}
+                    {["Chat", "Task", "Board", "Analysis"].map(
+                      (text, index) => (
+                        <ListItem key={text} disablePadding>
+                          <ListItemButton
+                            onClick={() => onClick(text)}
+                            style={{ padding: "4px 16px 4px 16px" }}
+                          >
+                            <ListItemIcon>
+                              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                            </ListItemIcon>
+                            <ListItemText primary={text} />
+                          </ListItemButton>
+                        </ListItem>
+                      )
+                    )}
                   </List>
                 </AccordionDetails>
               </Accordion>
