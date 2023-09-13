@@ -1,13 +1,24 @@
 package com.ssafy.backend.domain.user;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.ssafy.backend.domain.common.BaseEntity;
 import com.ssafy.backend.domain.user.dto.UserDto;
 import com.ssafy.backend.domain.user.dto.UserSignUpDto;
-import lombok.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
@@ -25,10 +36,10 @@ public class User extends BaseEntity {
     private String socialId;
     private String githubId;
     private String nickname;
+    private String profileImage;
 
     private String email;
     private String password;
-    private String profileImage;
 
     @Enumerated(EnumType.STRING)
     private Role role;

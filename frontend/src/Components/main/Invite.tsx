@@ -8,8 +8,17 @@ const invite = [
   { pjt: 2, people: "sic" },
   { pjt: 3, people: "ics" },
 ];
+const url = "https://namu.wiki/w/%EC%82%AC%ED%83%95";
+const fa = "http://www.google.com/s2/favicons?domain=";
 
 function Invite() {
+  const url =
+    "http://github.com/samholmes/node-open-graph/raw/master/test.html";
+
+  // og(url, function (err, meta) {
+  //   console.log(meta);
+  // });
+
   return (
     <Container
       backgroundColor="white"
