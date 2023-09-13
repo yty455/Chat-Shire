@@ -54,15 +54,20 @@ export default function BasicTabs() {
   return (
     <div className={styles.container}>
       <LeftSide />
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "80%", height: "80%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
+            sx={{ fontFamily: "preRg", maxWidth: "80%", width: "80%" }}
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
           >
-            <Tab label="아이디어 및 자료" {...a11yProps(0)} />
-            <Tab label="에러" {...a11yProps(1)} />
+            <Tab
+              sx={{ fontFamily: "preBd" }}
+              label="아이디어 및 자료"
+              {...a11yProps(0)}
+            />
+            <Tab sx={{ fontFamily: "preBd" }} label="에러" {...a11yProps(1)} />
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
