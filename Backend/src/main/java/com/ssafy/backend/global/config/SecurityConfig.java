@@ -2,6 +2,7 @@ package com.ssafy.backend.global.config;
 
 
 import com.ssafy.backend.domain.user.repository.UserRepository;
+import com.ssafy.backend.global.jwt.filter.JwtAuthenticationProcessingFilter;
 import com.ssafy.backend.global.jwt.service.JwtService;
 import com.ssafy.backend.oauth2.OAuth2LoginFailureHandler;
 import com.ssafy.backend.oauth2.OAuth2LoginSuccessHandler;
@@ -9,12 +10,14 @@ import com.ssafy.backend.oauth2.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -45,9 +48,22 @@ public class SecurityConfig {
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 				.authorizeRequests()
+//				.antMatchers("/**").permitAll()
+				.antMatchers("/gs-guide-websocket/**").permitAll() // 웹소켓 테스트
+				.antMatchers("/topic/**").permitAll() // 웹소켓 테스트
+				.antMatchers("/hello/**").permitAll() // 웹소켓 테스트
+				.antMatchers("/app.js").permitAll() // 웹소켓 테스트
+				.antMatchers("/webjars/**").permitAll() // 웹소켓 테스트
+				.antMatchers("/main.css").permitAll() // 웹소켓 테스트
 				.antMatchers("/home/**").permitAll()
 				.antMatchers("/oauth2/sign-up/**").permitAll()
-				.anyRequest().authenticated()
+				// 아이콘, css, js 관련
+			// 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 인증없이 모두 접근 가능, h2-console에 접근 가능
+			.antMatchers("/", "/v3/api-docs/**", "/swagger-ui/**", "/css/**", "/images/**", "/js/**", "/favicon.ico",
+				"/h2-console/**").permitAll()
+			.antMatchers(HttpMethod.OPTIONS, "/**/*").permitAll() // options 무시
+			.antMatchers("/couple-certification", "/auto-login", "/invitation/share/*", "/user-logout").permitAll() // 커플 인증 요청 접근 가능
+			.anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
 				.and()
 //				.addFilterBefore(jwtAuthenticationFilter(jwtProvider, cookieUtil, refreshRepository),
 //						UsernamePasswordAuthenticationFilter.class)
@@ -61,7 +77,7 @@ public class SecurityConfig {
 				.successHandler(oAuth2LoginSuccessHandler)
 				.userInfoEndpoint()
 				.userService(customOAuth2UserService);
-
+		http.addFilterAfter(jwtAuthenticationProcessingFilter(), LogoutFilter.class);
 		return http.build();
 
 	}
@@ -183,8 +199,8 @@ public class SecurityConfig {
 	//        return customJsonUsernamePasswordLoginFilter;
 	//    }
 
-//	@Bean
-//	public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
-//		return new JwtAuthenticationProcessingFilter(jwtService, userRepository, redisTemplate);
-//	}
+	@Bean
+	public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
+		return new JwtAuthenticationProcessingFilter(jwtService, userRepository);
+	}
 }

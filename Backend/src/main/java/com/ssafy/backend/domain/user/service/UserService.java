@@ -1,9 +1,12 @@
 package com.ssafy.backend.domain.user.service;
 
 
+import static com.ssafy.backend.domain.common.GlobalMethod.*;
+
 import com.ssafy.backend.domain.user.User;
 import com.ssafy.backend.domain.user.dto.UserDto;
 import com.ssafy.backend.domain.user.dto.UserSignUpDto;
+import com.ssafy.backend.domain.user.exception.UserNotFoundException;
 import com.ssafy.backend.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,32 +22,31 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void signUp(UserSignUpDto userSignUpDto, String githubId) {
-        User findUser = userRepository.findByGithubId(githubId)
-                .orElseThrow(() -> new IllegalArgumentException("깃허브 아이디에 해당하는 유저가 없습니다."));
+    public void signUp(UserSignUpDto userSignUpDto) {
+        User findUser = userRepository.findById(getUserId())
+                .orElseThrow(UserNotFoundException::new);
 
         findUser.updateFirst(userSignUpDto);
         findUser.authorizeUser();
-
     }
 
-    public User getUserProfile(String githubId) {
-        return userRepository.findByGithubId(githubId)
-                .orElseThrow(() -> new IllegalArgumentException("깃허브 아이디에 해당하는 유저가 없습니다."));
+    public User getUserProfile() {
+        return userRepository.findById(getUserId())
+                .orElseThrow(UserNotFoundException::new);
     }
 
     @Transactional
-    public void modifyUserProfile(UserDto userDto, String githubId) {
-        User findUser = userRepository.findByGithubId(githubId)
-                .orElseThrow(() -> new IllegalArgumentException("깃허브 아이디에 해당하는 유저가 없습니다."));
+    public void modifyUserProfile(UserDto userDto) {
+        User findUser = userRepository.findById(getUserId())
+                .orElseThrow(UserNotFoundException::new);
 
         findUser.updateProfile(userDto);
     }
 
     @Transactional
-    public void withdrawal(String githubId) {
-        User findUser = userRepository.findByGithubId(githubId)
-                .orElseThrow(() -> new IllegalArgumentException("이메일에 해당하는 유저가 없습니다."));
+    public void withdrawal() {
+        User findUser = userRepository.findById(getUserId())
+                .orElseThrow(UserNotFoundException::new);
 
         userRepository.delete(findUser);
     }

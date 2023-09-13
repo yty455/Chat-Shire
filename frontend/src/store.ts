@@ -26,7 +26,7 @@ const useStore = create<RFState>((set, get) => ({
     {
       id: 'root',
       type: 'mindmap',
-      data: { label: 'React Flow' },
+      data: { label: 'Project' },
       position: { x: 0, y: 0 },
     },
     {

@@ -1,44 +1,40 @@
-import React from 'react'
-import styles from './Analysis.module.css'
-import Keywords from './Keywords'
-import RadarChart from './RadarChart'
-import BarChart from './BarChart'
-import PiChart from './PiChart'
-import Cloud from './Cloud'
+import React from "react";
+import styles from "./Analysis.module.css";
+import Keywords from "./Keywords";
+import RadarChart from "./RadarChart";
+import BarChart from "./BarChart";
+import PiChart from "./PiChart";
+import Cloud from "./Cloud";
 
 export default function Analysis() {
   return (
     <div className={styles.analysisContainer}>
       <div className={styles.analysisHeader}>
         <div className={styles.analysisTopicsContainer}>
-          <span className={styles.analysisItemTitle}>
-            프로젝트 주제
-          </span>
+          <span className={styles.analysisItemTitle}>프로젝트 주제</span>
           <div className={styles.analysisKeywordsContainer}>
-            <Keywords/>
-            <Keywords/>
-            <Keywords/>
-            <Keywords/>
-            <Keywords/>
+            <Keywords />
+            <Keywords />
+            <Keywords />
+            <Keywords />
+            <Keywords />
           </div>
         </div>
         <div className={styles.analysisPiGraphContainer}>
-          <span className={styles.analysisItemTitle}>
-            밤에 안자고 뭐하니?
-          </span>
+          <span className={styles.analysisItemTitle}>밤에 안자고 뭐하니?</span>
           <div className={styles.analysisCharts}>
             <div className={styles.analysisPiChart}>
-              <PiChart/>
+              <PiChart />
             </div>
             <div className={styles.analysisBarChart}>
-              <BarChart/>
+              <BarChart />
             </div>
           </div>
         </div>
       </div>
       <div className={styles.analysisBody}>
         <div className={styles.analysisRadarContainer}>
-          <RadarChart/>
+          <RadarChart />
         </div>
         <div className={styles.analysisResult}>
           <div className={styles.analysisBodyTitle}>
@@ -56,21 +52,13 @@ export default function Analysis() {
           <span className={styles.analysisItemTitle}>
             오잉의 관심사는 뭐에요?
           </span>
-          <Cloud/>
+          <Cloud />
         </div>
         <div className={styles.analysisInfoContainer}>
-          <span className={styles.analysisInfoTitle}>
-            프로젝트 작업 기간
-          </span>
-          <span className={styles.analysisItemDesc}>
-            23.08.07~23.09.17
-          </span>
-          <span className={styles.analysisInfoTitle}>
-            참여 인원
-          </span>
-          <span className={styles.analysisItemDesc}>
-            dang, ggu, john
-          </span>
+          <span className={styles.analysisInfoTitle}>프로젝트 작업 기간</span>
+          <span className={styles.analysisItemDesc}>23.08.07~23.09.17</span>
+          <span className={styles.analysisInfoTitle}>참여 인원</span>
+          <span className={styles.analysisItemDesc}>dang, ggu, john</span>
           <span className={styles.analysisInfoTitle}>
             우리 플젝 열심히 하고 있어용
           </span>
@@ -80,5 +68,5 @@ export default function Analysis() {
         </div>
       </div>
     </div>
-  )
+  );
 }
