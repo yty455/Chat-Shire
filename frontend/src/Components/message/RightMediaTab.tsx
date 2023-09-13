@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './RightMediaTab.module.css'
+import GoogleSearch from './GoogleSearch'
 
 export default function RightMediaTab() {
   return (

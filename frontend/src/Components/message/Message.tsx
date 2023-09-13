@@ -68,25 +68,21 @@ function Message() {
         <div className={styles.messageRightTabContainer}>
           <BottomNavigation sx={{ display: "flex", justifyContent: "space-between", width: 460, height: 110 }} value={value} onChange={handleChange}>
             <BottomNavigationAction
-              label="사진"
               value="photos"
               icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px" }} src={photoImg} alt="" /></div>}
               style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB", backgroundColor: "#ffffff" }}
             />
             <BottomNavigationAction
-              label="파일"
               value="files"
               icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px" }} src={fileImage} alt="" /></div>}
               style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB", backgroundColor: "#ffffff" }}
             />
             <BottomNavigationAction
-              label="링크"
               value="links"
               icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px" }} src={linkImg} alt="" /></div>}
               style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB", backgroundColor: "#ffffff" }}
             />
             <BottomNavigationAction
-              label="검색" 
               value="search" 
               icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px" }} src={searchImg} alt="" /></div>}
               style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB", backgroundColor: "#ffffff" }}

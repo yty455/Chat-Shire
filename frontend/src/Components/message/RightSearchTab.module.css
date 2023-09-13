@@ -9,6 +9,7 @@
 }
 
 .MessageRightBodyTitle {
+  margin-left: 10px;
   color: #575757;
   font-size: 30px;
   font-family: 'preBd';
@@ -78,6 +79,21 @@
 }
 
 .GoogleSearchContainer {
-  width: 100px;
-  height: 100px;
+  margin-top: 10px;
+  width: 480px;
+  height: 670px;
+  overflow: scroll;
+}
+
+.GoogleSearchContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.GoogleSearchContainer div {
+  font-family: "preRg";
+  border-radius: 6px;
+}
+
+.GoogleSearchContainer button {
+  border-radius: 10px;
 }

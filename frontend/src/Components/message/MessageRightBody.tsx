@@ -3,6 +3,7 @@ import styles from './MessageRightBody.module.css'
 import RightMediaTab from './RightMediaTab'
 import RightFileTab from './RightFileTab'
 import RightSearchTab from './RightSearchTab'
+import RightLinkTab from './RightLinkTab'
 
 interface Props {
   value: string
@@ -19,11 +20,7 @@ const MessageRightBody: React.FC<Props>= ({ value }) => {
     )
   } else if ( value === "links") {
     return (
-      <div className={styles.MessageRightBody}>
-        <span className={styles.MessageRightBodyTitle}>
-          링크
-        </span>
-      </div>
+      <RightLinkTab/>
     )
   } else if ( value === "search") {
     return (
