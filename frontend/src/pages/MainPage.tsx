@@ -1,5 +1,5 @@
 import React from "react";
-import LeftSideTab from "../components/common/LeftSideTab";
+
 import styles from "./MainPage.module.css";
 import Container from "../components/common/Container";
 import Project from "../components/main/Project";
