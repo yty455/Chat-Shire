@@ -1,7 +1,7 @@
 package com.ssafy.backend.domain.user;
 
 
-import com.ssafy.backend.domain.common.CreatedAndUpdatedBaseEntity;
+import com.ssafy.backend.domain.common.BaseEntity;
 import com.ssafy.backend.domain.user.dto.UserDto;
 import com.ssafy.backend.domain.user.dto.UserSignUpDto;
 import lombok.*;
@@ -15,17 +15,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "USERS")
-public class User extends CreatedAndUpdatedBaseEntity {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue
     @Column(name = "USER_ID")
     private Long id;
 
-    private int socialId;
-    private String loginId; // 유니크
+    private String socialId;
+    private String githubId;
     private String nickname;
-    private String name;
+
     private String email;
     private String password;
     private String profileImage;
@@ -39,12 +39,10 @@ public class User extends CreatedAndUpdatedBaseEntity {
 
     //== 유저 필드 업데이트 ==//
     public void updateFirst(UserSignUpDto userSignUpDto) {
-        this.name = userSignUpDto.getName();
         this.nickname = userSignUpDto.getNickname();
     }
 
     public void updateProfile(UserDto userDto) {
-        this.name = userDto.getName();
         this.nickname = userDto.getNickname();
         this.profileImage = userDto.getProfileImage();
     }
@@ -71,11 +69,10 @@ public class User extends CreatedAndUpdatedBaseEntity {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", role=" + role +
                 ", socialId='" + socialId + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", githubId='" + githubId + '\'' +
+                ", role=" + role +
                 ", refreshToken='" + refreshToken + '\'' +
                 '}';
     }

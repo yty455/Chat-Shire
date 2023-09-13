@@ -23,9 +23,11 @@
     "chart.js": "^4.4.0",
     "chartjs-chart-wordcloud": "^4.2.3",
     "cheerio": "^1.0.0-rc.12",
+    "classcat": "^5.0.4",
     "cra-template-typescript": "1.2.0",
     "d3": "^7.8.5",
     "d3-cloud": "^1.2.7",
+    "nanoid": "^4.0.2",
     "nvm": "^0.0.4",
     "react": "^18.2.0",
     "react-d3-cloud": "^1.0.6",
@@ -33,12 +35,16 @@
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
     "react-wordcloud-fork": "^1.2.7",
+    "reactflow": "^11.8.3",
     "recoil": "^0.7.7",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.11",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
-    "wordcloud": "^1.2.2"
+    "wordcloud": "^1.2.2",
+    "zustand": "^4.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -63,5 +69,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-slick": "^0.23.10"
   }
 }

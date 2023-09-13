@@ -19,31 +19,31 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void signUp(UserSignUpDto userSignUpDto, String userEmail) {
-        User findUser = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new IllegalArgumentException("이메일에 해당하는 유저가 없습니다."));
+    public void signUp(UserSignUpDto userSignUpDto, String githubId) {
+        User findUser = userRepository.findByGithubId(githubId)
+                .orElseThrow(() -> new IllegalArgumentException("깃허브 아이디에 해당하는 유저가 없습니다."));
 
         findUser.updateFirst(userSignUpDto);
         findUser.authorizeUser();
 
     }
 
-    public User getUserProfile(String userEmail) {
-        return userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new IllegalArgumentException("이메일에 해당하는 유저가 없습니다."));
+    public User getUserProfile(String githubId) {
+        return userRepository.findByGithubId(githubId)
+                .orElseThrow(() -> new IllegalArgumentException("깃허브 아이디에 해당하는 유저가 없습니다."));
     }
 
     @Transactional
-    public void modifyUserProfile(UserDto userDto, String userEmail) {
-        User findUser = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new IllegalArgumentException("이메일에 해당하는 유저가 없습니다."));
+    public void modifyUserProfile(UserDto userDto, String githubId) {
+        User findUser = userRepository.findByGithubId(githubId)
+                .orElseThrow(() -> new IllegalArgumentException("깃허브 아이디에 해당하는 유저가 없습니다."));
 
         findUser.updateProfile(userDto);
     }
 
     @Transactional
-    public void withdrawal(String userEmail) {
-        User findUser = userRepository.findByEmail(userEmail)
+    public void withdrawal(String githubId) {
+        User findUser = userRepository.findByGithubId(githubId)
                 .orElseThrow(() -> new IllegalArgumentException("이메일에 해당하는 유저가 없습니다."));
 
         userRepository.delete(findUser);

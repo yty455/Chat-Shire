@@ -24,12 +24,14 @@ import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import img from "../../assets/profile/m57.png";
 import { Link } from "react-router-dom";
+import Container from "./Container";
 
 const drawerWidth = 240;
 
 interface Props {
   window?: () => Window;
 }
+
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     backgroundColor: "#44b700",
@@ -95,7 +97,7 @@ export default function LeftSideTab(props: Props) {
                 <ListItemIcon>
                   <MailIcon />
                 </ListItemIcon>
-                <ListItemText primary="Home" />
+                <ListItemText style={{fontFamily:'preRg'}} primary="Home" />
               </AccordionSummary>
             </Accordion>
           </ListItemButton>
@@ -108,7 +110,7 @@ export default function LeftSideTab(props: Props) {
               <Accordion
                 expanded={expanded === text}
                 onChange={handleChange(text)}
-                style={{ width: "100%" }}
+                style={{ fontFamily:'preRg', width: "100%" }}
               >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -147,66 +149,72 @@ export default function LeftSideTab(props: Props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      {isSmallScreen ? (
-        <Toolbar
-          style={{
-            position: "fixed",
-            top: "0%",
-            left: "0%",
-            height: "25px",
-            width: "25px",
-          }}
-        >
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+    <div className={styles.leftcontainer}>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        {isSmallScreen ? (
+          <Toolbar
+            style={{
+              position: "fixed",
+              top: "0%",
+              left: "0%",
+              height: "25px",
+              width: "25px",
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      ) : null}
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
-      >
-        <Drawer
-          //   container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Toolbar>
+        ) : null}
+        <Box
+          className={styles.leftcontainer}
+          // component="nav"
+          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+          aria-label="mailbox folders"
         >
-          {drawer}
-        </Drawer>
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: "none", sm: "block" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-          open
-        >
-          {drawer}
-        </Drawer>
+          <Drawer
+            className={styles.leftcontainer}
+            //   container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true,
+            }}
+            sx={{
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+          >
+            {drawer}
+          </Drawer>
+          <Drawer
+            className={styles.leftcontainer}
+            variant="permanent"
+            // anchor="right"
+            sx={{
+              display: { xs: "none", sm: "block" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+            open
+          >
+            {drawer}
+          </Drawer>
+        </Box>
       </Box>
-    </Box>
+    </div>
   );
 }
