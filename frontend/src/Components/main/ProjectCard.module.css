@@ -16,8 +16,7 @@
   /* border: 1px solid rgba(255, 255, 255, 0.18); */
   transition: all 0.2s ease-in-out;
   cursor: pointer;
-  padding-bottom: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   &:hover {
     box-shadow: -2px -2px 5px white, 2px 2px 5px #babecc;
     border-left: 1px solid #39a789;

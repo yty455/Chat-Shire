@@ -64,7 +64,7 @@ function Project() {
       justifyContent="center"
     >
       <div className={styles.projectcontainer}>
-        <h1 className={styles.projecttxt}>PROJECT</h1>
+        <h2 className={styles.projecttxt}>PROJECT</h2>
         <NowProject nowpjt={pjt.now}></NowProject>
         <ComProject compjt={pjt.com}></ComProject>
       </div>
