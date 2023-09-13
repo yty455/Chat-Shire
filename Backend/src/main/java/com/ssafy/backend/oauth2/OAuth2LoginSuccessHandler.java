@@ -6,6 +6,8 @@ import com.ssafy.backend.domain.user.repository.UserRepository;
 import com.ssafy.backend.global.jwt.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,9 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
     private final JwtService jwtService;
     private final ObjectMapper objectMapper;
     private final UserRepository userRepository;
+
+    @Value("${redirect.host}")
+    private String redirectHost;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -48,7 +53,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
                 // jwtService.updateRefreshToken(oAuth2User.getEmail(), refreshToken);
 
                 response.sendRedirect(
-                        "http://localhost:8080/oauth2/sign-up?" + "access_token=Bearer " + accessToken + "&is_user=F"); // 프론트의 회원가입 추가 정보 입력 폼으로 리다이렉트
+                        redirectHost + "/oauth2/sign-up?" + "access_token=Bearer " + accessToken + "&is_user=F"); // 프론트의 회원가입 추가 정보 입력 폼으로 리다이렉트
                 // response.sendRedirect(
                 //     "http://43.200.254.50/join"); // 프론트의 회원가입 추가 정보 입력 폼으로 리다이렉트
                 //                User findUser = userRepository.findByEmail(oAuth2User.getEmail())
@@ -69,7 +74,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         response.addHeader(jwtService.getAccessHeader(), "Bearer " + accessToken);
         response.addHeader(jwtService.getRefreshHeader(), "Bearer " + refreshToken);
         response.sendRedirect(
-                "http://localhost:8080/oauth2/sign-up?" + "access_token=Bearer " + accessToken + "&refresh_token="
+                redirectHost + "/oauth2/sign-up?" + "access_token=Bearer " + accessToken + "&refresh_token="
                         + "Bearer " + refreshToken + "&is_user=T");
         jwtService.updateRefreshToken(oAuth2User.getId(), refreshToken);
     }
