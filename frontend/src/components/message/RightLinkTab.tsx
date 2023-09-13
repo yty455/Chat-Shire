@@ -1,15 +1,8 @@
 import React from 'react'
-import { useEffect } from 'react'
 import styles from './RightLinkTab.module.css'
-import axios from 'axios'
+import LinkOGItem from './LinkOGItem';
 
 export default function RightLinkTab() {
-
-  useEffect(() => {
-    fetch('https://naver.com')
-    .then(res => console.log(res))
-  }, [])
-  
 
   return (
     <div className={styles.MessageRightBody}>
@@ -17,6 +10,10 @@ export default function RightLinkTab() {
         링크
       </span>
       <div className={styles.BookMarkContainer}>
+        <LinkOGItem/>
+        <LinkOGItem/>
+        <LinkOGItem/>
+        <LinkOGItem/>
       </div>
     </div>
   )
