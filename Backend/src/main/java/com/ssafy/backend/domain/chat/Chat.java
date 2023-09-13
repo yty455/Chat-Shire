@@ -28,6 +28,7 @@ public class Chat extends BaseEntity {
     @JoinColumn(name = "USER_ID")
     private User user;
 
+    private Long userId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "CHATROOM_ID")

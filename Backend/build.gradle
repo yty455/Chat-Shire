@@ -58,8 +58,8 @@ dependencies {
 //    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 //    implementation 'com.fasterxml.jackson.core:jackson-databind'
 //
-//    //redis dependency 설정
-//    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    //redis dependency 설정
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
 }
 

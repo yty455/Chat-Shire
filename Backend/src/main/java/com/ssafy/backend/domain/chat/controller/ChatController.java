@@ -29,24 +29,16 @@ public class ChatController {
 
     private final ChatService chatService;
     private final GreetingController greetingController;
-    private final SimpMessagingTemplate simpMessagingTemplate;
 
     @Operation(summary = "채팅 작성", description = "채팅을 작성합니다.")
-    @Parameter(name = "ChatPost", description = "dto에 해당하는 정보를 넘겨주세요.")
     @PostMapping("/chat")
     public ResponseEntity<BasicResponse> postChat(@RequestBody ChatPost chatPost) throws Exception {
         chatService.postChat(chatPost);
         System.out.println(chatPost.getContent());
 //        Greeting greeting = greetingController.greeting2(chatPost.getContent());
 
-
-        simpMessagingTemplate.convertAndSend("/topic/greetings", new ChatResponse(chatPost));
         BasicResponse basicResponse = BasicResponse.builder()
-                .code(HttpStatus.OK.value())
-                .httpStatus(HttpStatus.OK)
                 .message("채팅 등록 성공")
-                .count(1)
-                .result(Collections.singletonList(1))
                 .build();
 
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
