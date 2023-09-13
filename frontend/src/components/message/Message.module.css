@@ -1,0 +1,138 @@
+.messageContainer {
+  display: flex;
+  position: absolute;
+  left: 250px;
+  top: 84px;
+  padding: 20px 30px 20px 40px;
+  width: 1120px;
+  height: 880px;
+  border: 1px solid #E5E8EB;
+  border-radius: 40px;
+  font-family: 'preRg';
+  background-color: #ffffff;
+}
+
+.messageLeft {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  border-right: 1px solid #E5E8EB;
+  /* border: 1px solid red; */
+}
+
+.messageLeftHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 580px;
+  height: 60px;
+  color: #575757;
+  /* border: 1px solid purple; */
+}
+
+.messageLeftHeaderLeft {
+  display: flex;
+  align-items: center;
+}
+
+
+.messageLeftTitle {
+  font-size: 46px;
+  font-family: "preBl";
+}
+
+.messagePeopleNum {
+  font-size: 20px;
+  margin-left: 6px;
+}
+
+.messageLeftNotification {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  color: #575757;
+  /* border: 1px solid purple; */
+}
+
+.notificationText {
+  font-size: 24px;
+  font-family: "preLt";
+  margin-left: 10px;
+}
+
+.messageLeftBody {
+  height: 672px;
+  /* border: 1px solid purple; */
+}
+
+.messageLeftFooter {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  height: 100px;
+  /* border: 1px solid purple; */
+}
+
+.messageLeftFooter button {
+  min-width: 50px;
+  margin-left: 10px;
+  padding: 8px 20px;
+  border-radius: 30px;
+}
+
+.messageInput {
+  margin: 0px 10px;
+  width: 560px;
+  font-size: 18px;
+}
+
+.messageFooterButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 560px;
+  height: 40px;
+}
+
+.messageFooterButtonLeft {
+  display: flex;
+  align-items: center;
+}
+
+.messageSendButton {
+  width: 20px;
+}
+
+.messageSendButton span{
+  margin: 0px;
+}
+
+.messageRight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 520px;
+  /* border: 1px solid red; */
+}
+
+.messageRightTabContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 540px;
+  height: 120px;
+  /* border: 1px solid blue; */
+}
+
+.messageRightTabItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  border: 1px solid #E5E8EB;
+  background-color: #ffffff;
+  object-fit: contain;
+}

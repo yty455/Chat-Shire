@@ -1,0 +1,24 @@
+.BookMarkLink {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  color: #9f9f9f;
+}
+
+.BookMarkTitle {
+  font-size: 18px;
+}
+
+.BookMarkDesc {
+  width: 400px;
+  color: #666666;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.BookMarkFavicon {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+}

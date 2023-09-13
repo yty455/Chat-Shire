@@ -1,0 +1,8 @@
+.App {
+  width: 100vw;
+}
+
+::selection {
+  background-color: none;
+  color: #31deb0;
+}
