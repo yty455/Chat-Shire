@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import Idea from "../components/idea/Idea";
 import Share from "../components/idea/Share";
 import ErrorBoard from "../components/error/ErrorBoard";
-import LeftSideTab from "../components/common/LeftSideTab";
+import LeftSide from "../components/common/LeftSide";
 // import IndivTask from "../components/common2/IndivTask";
 import styles from "./IdeaPage.module.css"
 import Tabs from '@mui/material/Tabs';
@@ -54,12 +54,12 @@ export default function BasicTabs() {
 
   return (
     <div className={styles.container}>
-      <LeftSideTab/>
-      <Box sx={{ width: '100%' }}>
+      <LeftSide/>
+      <Box sx={{ width: '80%', height: '80%'}}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-            <Tab label="아이디어 및 자료" {...a11yProps(0)} />
-            <Tab label="에러" {...a11yProps(1)} />
+          <Tabs sx={{fontFamily:'preRg',maxWidth: '80%', width: '80%'}} value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tab sx={{fontFamily:'preBd'}} label="아이디어 및 자료" {...a11yProps(0)} />
+            <Tab sx={{fontFamily:'preBd'}} label="에러" {...a11yProps(1)} />
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
