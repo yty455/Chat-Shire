@@ -1,0 +1,4 @@
+.landingDiv {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,0 +1,70 @@
+.indivDiv {
+  max-width: 370px;
+  width: 370px;
+  /* height: 100vh; */
+  padding: 0;
+  margin: 0
+  /* 구분을 위한 색, 나중에 지우기
+  background-color: rgb(227, 227, 227); */
+    /* display: flex; */
+    /* justify-content: flex-end; */
+  /* margin-left: auto;
+  margin-right: 3px; */
+}
+
+.indivTask {
+  /* width: 380px;
+  max-width: 380px;
+  min-height: 100px;
+  border-radius: 20px;
+  background-color: white; */
+  min-height: 60px;
+  overflow:hidden;
+  word-wrap:break-word;
+  padding: 6px 10px;
+
+  display: flex;
+  justify-content: start;
+
+  
+}
+
+.oneMemo {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  
+  &:hover {
+    box-shadow: -2px -2px 5px white, 2px 2px 5px #BABECC
+  }
+    
+  /* &:active {
+    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px white;
+  } */
+  
+}
+
+.taskContent {
+  width: 320px;
+  max-width: 320px;
+  text-align: start;
+  margin-bottom: 0;
+  font-family: 'preBd';
+  margin-right: 8px;
+  margin-bottom:20px
+}
+
+.test {
+  max-width: 370px;
+  width: 370px;
+  min-height: 100px;
+  border-radius: 20px;
+  background-color: rgb(254, 186, 186);
+  margin-bottom: 10px;
+}
+
+.checked {
+  text-decoration: line-through;
+  /* text-decoration-style: wavy; */
+  text-decoration-color: #39A789;
+  text-decoration-thickness: 2px;
+}

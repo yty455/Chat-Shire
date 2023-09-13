@@ -1,0 +1,87 @@
+.profileHeader {
+  display: flex;
+  align-items: center;
+  color: #575757;
+  font-family: "preRg";
+}
+
+.profileHeaderDesc {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: -120px;
+  padding: 20px 10px 20px 130px;
+  width: 900px;
+  height: 240px;
+  border: 1px solid #E5E8EB;
+  border-radius: 30px;
+}
+
+.profileHeaderLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 336px;
+}
+
+.profileName {
+  font-size: 34px;
+}
+
+.profileCareer {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileCareerItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  /* border: 1px solid blue; */
+}
+
+.profileHeaderRight {
+  display: flex;
+  width: 420px;
+  height: 100%;
+  /* border: 1px solid blue; */
+}
+
+.profileRadarContainer {
+  margin-left: -80px;
+  width: 300px;
+  height: 100%;
+}
+
+.profileBarContainer {
+  margin-top: 14px;
+  margin-left: -30px;
+  width: 230px;
+  height: 100%;
+}
+
+.profileBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  /* border: 1px solid blue; */
+}
+
+.AchievementContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  width: 100%;
+  height: 260px;
+  /* border: 1px solid blue; */
+}
+
+.progressBar {
+  margin-top: -10px;
+}
+
+.profileTag {
+  color: #898989;
+}
