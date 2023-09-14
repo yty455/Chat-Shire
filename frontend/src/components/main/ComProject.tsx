@@ -33,6 +33,7 @@ const ComProject: React.FC<ComProjectProps> = ({ compjt }) => {
           <ProjectCard pjt={compjt[activeStep + 2]} />
         </div>
         <MobileStepper
+          style={{ height: "20px", padding: "10px" }}
           variant="dots"
           steps={maxSteps}
           position="static"

@@ -31,13 +31,14 @@ type CheckboxItem = {
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 5,
   borderRadius: 0,
-  margin: '0 0 5px 0',
+  margin: "0 0 5px 0",
   [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+    backgroundColor:
+      theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 0,
-    backgroundColor: theme.palette.mode === 'light' ? '#39A789' : '#308fe8',
+    backgroundColor: theme.palette.mode === "light" ? "#39A789" : "#308fe8",
   },
 }));
 
@@ -120,8 +121,8 @@ const handleContentChange = (id:number) => (event:any) =>{
       <div>
         <p className={styles.messageLeftTitle}>2차 특화 PJT</p>
       </div>
-      <div style={{display:'flex',justifyContent:'space-around'}}>
-        <div style={{padding:'0 0 20px 20px',width:'50%'}}>
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <div style={{ padding: "0 0 20px 20px", width: "50%" }}>
           <p className={styles.taskProgress}>Task 진행도</p>
           {/* <div className={styles.progressBar}> */}
             <AllBorderLinearProgress variant="determinate" value={50} />
@@ -138,7 +139,7 @@ const handleContentChange = (id:number) => (event:any) =>{
           <div className={styles.taskContainer}>
             <div className={styles.taskHeader}>
               <div className={styles.clockNday}>
-                <WatchLaterIcon/>
+                <WatchLaterIcon />
                 <p className={styles.dday}> 6d 14h</p>
               </div>
               <div onClick={addCheckbox}>
@@ -146,7 +147,7 @@ const handleContentChange = (id:number) => (event:any) =>{
             </div>
             <div className={styles.stepStatus}>
               <StyledBadge
-                sx={{margin:'14px 0 15px 20px'}}
+                sx={{ margin: "14px 0 15px 20px" }}
                 overlap="circular"
                 anchorOrigin={{ vertical: "top", horizontal: "left" }}
                 variant="dot"
@@ -177,15 +178,13 @@ const handleContentChange = (id:number) => (event:any) =>{
             ))}
             
           </div>
-
-
         </div>
-        <div style={{padding:'0 20px 0 20px',width:'50%'}}>
-        <p className={styles.taskProgress}>진행중인 Task</p>
-        <div className={styles.taskContainer}>
+        <div style={{ padding: "0 20px 0 20px", width: "50%" }}>
+          <p className={styles.taskProgress}>진행중인 Task</p>
+          <div className={styles.taskContainer}>
             <div className={styles.taskHeader}>
               <div className={styles.clockNday}>
-                <WatchLaterIcon/>
+                <WatchLaterIcon />
                 <p className={styles.dday}> 6d 14h</p>
               </div>
               <div onClick={addCheckbox}><CreateIcon/></div>
@@ -193,7 +192,7 @@ const handleContentChange = (id:number) => (event:any) =>{
             </div>
             <div className={styles.stepStatus}>
               <StyledBadge
-                sx={{margin:'14px 0 15px 20px'}}
+                sx={{ margin: "14px 0 15px 20px" }}
                 overlap="circular"
                 anchorOrigin={{ vertical: "top", horizontal: "left" }}
                 variant="dot"
@@ -227,14 +226,14 @@ const handleContentChange = (id:number) => (event:any) =>{
           <div className={styles.taskContainer}>
             <div className={styles.taskHeader}>
               <div className={styles.clockNday}>
-                <WatchLaterIcon/>
+                <WatchLaterIcon />
                 <p className={styles.dday}> 6d 14h</p>
               </div>
-              <CreateIcon/>
+              <CreateIcon />
             </div>
             <div className={styles.stepStatus}>
               <StyledBadge
-                sx={{margin:'14px 0 15px 20px'}}
+                sx={{ margin: "14px 0 15px 20px" }}
                 overlap="circular"
                 anchorOrigin={{ vertical: "top", horizontal: "left" }}
                 variant="dot"
@@ -268,14 +267,14 @@ const handleContentChange = (id:number) => (event:any) =>{
           <div className={styles.taskContainer}>
             <div className={styles.taskHeader}>
               <div className={styles.clockNday}>
-                <WatchLaterIcon/>
+                <WatchLaterIcon />
                 <p className={styles.dday}> 6d 14h</p>
               </div>
-              <CreateIcon/>
+              <CreateIcon />
             </div>
             <div className={styles.stepStatus}>
               <StyledBadge
-                sx={{margin:'14px 0 15px 20px'}}
+                sx={{ margin: "14px 0 15px 20px" }}
                 overlap="circular"
                 anchorOrigin={{ vertical: "top", horizontal: "left" }}
                 variant="dot"
@@ -312,5 +311,5 @@ const handleContentChange = (id:number) => (event:any) =>{
         </div>
       </div>
     </div>
-  )
+  );
 }

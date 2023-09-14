@@ -8,7 +8,17 @@ import Invite from "../components/main/Invite";
 
 function MainPage() {
   return (
-    <div className={styles.bodyContainer}>
+    // <div className={styles.bodyContainer}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "#F7F7F7",
+      }}
+    >
       <LeftSide />
 
       <Project />

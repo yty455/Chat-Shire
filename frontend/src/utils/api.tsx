@@ -8,8 +8,18 @@ const api = axios.create({
 // 요청 인터셉터 설정
 api.interceptors.request.use(
   (config) => {
-    // 여기에 원하는 요청 전처리 로직을 추가할 수 있습니다.
-    // 예를 들어, 토큰을 헤더에 추가하거나 요청 데이터를 수정할 수 있습니다.
+    // 로컬 스토리지에서 토큰 가져오기
+    localStorage.setItem(
+      "token",
+      "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NDU5NDQzNywiaWQiOjF9.R5QinWvBoFryDPK3p3MusxyDdDQMBWrB2MJWf2j7omOsSFqwYqYIRUfpBTtPLbVvIKsI2ZaZvtQHZjKw7lZeIg"
+    );
+    const token = localStorage.getItem("token");
+
+    // 헤더에 토큰 추가
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
     return config;
   },
   (error) => {

@@ -49,7 +49,7 @@ function CreateProject() {
     <Container
       backgroundColor="white"
       text=""
-      width="1170px"
+      width="58vw"
       height="85vh"
       margin="60px 10px 40px 10px"
       padding=""
@@ -63,7 +63,7 @@ function CreateProject() {
       <Box
         // sx={{ maxWidth: 600 }}
         width="80%"
-        style={{ marginTop: "3%" }}
+        style={{ marginTop: "1%" }}
         color="success"
       >
         <Stepper activeStep={activeStep} orientation="vertical" color="success">
@@ -79,11 +79,10 @@ function CreateProject() {
               >
                 {step.label}
               </StepLabel>
-              <StepContent color="success" style={{ width: "60%" }}>
-                <Typography color="success">
-                  {index === 0 && <First />}
-                  {index === 1 && <Second />}
-                </Typography>
+              <StepContent color="success" style={{ width: "80%" }}>
+                {index === 0 && <First />}
+                {index === 1 && <Second />}
+
                 <Box sx={{ mb: 2 }} color="success">
                   <div>
                     <Button
