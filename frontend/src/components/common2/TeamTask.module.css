@@ -1,9 +1,9 @@
 /* 1170 */
 
 .container {
-  width: 1170px;
-  height: 90vh;
-  margin: 0 0 0 20px;
+  width: 58vw;
+  height: 85vh;
+  margin: 0 0 0 0;
   border-radius: 20px;
   /* border: 1px solid rgb(222, 222, 222); */
   background: rgba(255, 255, 255, 0.2);
