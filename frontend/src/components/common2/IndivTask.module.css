@@ -7,7 +7,7 @@
     /* display: flex; */
     /* justify-content: flex-end; */
   margin-left: 1vw;
-  /* overflow: scroll; */
+  overflow: scroll;
   
 }
 
@@ -66,4 +66,11 @@
   /* text-decoration-style: wavy; */
   text-decoration-color: #39A789;
   text-decoration-thickness: 2px;
+}
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.indivDiv::-webkit-scrollbar {
+  display: none;
 }
