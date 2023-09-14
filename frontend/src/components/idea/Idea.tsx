@@ -1,9 +1,10 @@
 import React, { useCallback, useRef } from 'react';
+
 import ReactFlow, {
   Controls,
   OnConnectEnd,
   OnConnectStart,
-  Panel,
+  MiniMap,
   useStoreApi,
   Node,
   useReactFlow,
@@ -11,13 +12,14 @@ import ReactFlow, {
   NodeOrigin,
   ConnectionLineType,
   XYPosition,
+
 } from 'reactflow';
+
 import { shallow } from 'zustand/shallow';
 
 import useStore, { RFState } from '../../store';
 import MindMapNode from './MindMapNode';
 import MindMapEdge from './MindMapEdge';
-
 import '../../index.css';
 
 // we need to import the React Flow styles to make it work
@@ -42,10 +44,14 @@ const edgeTypes = {
 const nodeOrigin: NodeOrigin = [0.5, 0.5];
 const connectionLineStyle = { stroke: '#39A789', strokeWidth: 3 };
 const defaultEdgeOptions = { style: connectionLineStyle, type: 'mindmap' };
+const minimapStyle = {
+  height: 120,
+};
 
 function Flow() {
   // whenever you use multiple values, you should use shallow for making sure that the component only re-renders when one of the values change
   const { nodes, edges, onNodesChange, onEdgesChange, addChildNode, } = useStore(selector, shallow);
+  const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
   const connectingNodeId = useRef<string | null>(null);
   const store = useStoreApi();
   const { project } = useReactFlow();
@@ -89,16 +95,16 @@ function Flow() {
       const targetIsPane = (event.target as Element).classList.contains('react-flow__pane');
       const node = (event.target as Element).closest('.react-flow__node');
   
-      if (node) {
-        node.querySelector('input')?.focus({ preventScroll: true });
-      } else if (targetIsPane && connectingNodeId.current) {
+      if (targetIsPane && connectingNodeId.current) {
         const parentNode = nodeInternals.get(connectingNodeId.current);
         let childNodePosition: XYPosition | undefined;
 
         if (event instanceof MouseEvent) {
+          console.log(childNodePosition)
           childNodePosition = getChildNodePosition(event, parentNode);
         }
         if (parentNode && childNodePosition) {
+          console.log(event)
           addChildNode(parentNode, childNodePosition);
         }
       }
@@ -106,28 +112,30 @@ function Flow() {
     [getChildNodePosition]
   );
 
+
   return (
-    <div style={{height:550, minWidth:850}}>
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      nodeTypes={nodeTypes}
-      edgeTypes={edgeTypes}
-      onConnectStart={onConnectStart}
-      onConnectEnd={onConnectEnd}
-      connectionLineStyle={connectionLineStyle}
-      defaultEdgeOptions={defaultEdgeOptions}
-      connectionLineType={ConnectionLineType.Straight}
-      nodeOrigin={nodeOrigin}
-      fitView
-    >
-      <Controls showInteractive={false} />
-      {/* <Panel position="top-left" className="header">
-        아이디어를 자유롭게 나눠보세요!
-      </Panel> */}
-    </ReactFlow>
+    <div style={{backgroundColor: "#ffffff", height:550, minWidth:850}}>
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        onConnectStart={onConnectStart}
+        onConnectEnd={onConnectEnd}
+        connectionLineStyle={connectionLineStyle}
+        defaultEdgeOptions={defaultEdgeOptions}
+        connectionLineType={ConnectionLineType.Straight}
+        nodeOrigin={nodeOrigin}
+        fitView
+      >
+        <Controls showInteractive={false} />
+        <MiniMap style={minimapStyle} zoomable pannable />
+        {/* <Panel position="top-left" className="header">
+          아이디어를 자유롭게 나눠보세요!
+        </Panel> */}
+      </ReactFlow>
     </div>
   );
 }
