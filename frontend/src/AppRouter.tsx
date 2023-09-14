@@ -10,6 +10,7 @@ import TaskPage from "./pages/TaskPage";
 const Login = lazy(() => import("./pages/LoginPage"));
 const Main = lazy(() => import("./pages/MainPage"));
 const CreatePjt = lazy(() => import("./pages/CreateProjectPage"));
+const Redirect = lazy(() => import("./pages/RedirectPage"));
 
 function AppRouter() {
   return (
@@ -26,6 +27,7 @@ function AppRouter() {
             <Route path="/idea" element={<IdeaPage />}></Route>
             <Route path="/message" element={<MessagePage />}></Route>
             <Route path="/task" element={<TaskPage />}></Route>
+            <Route path="/oauth2/sign-up" element={<Redirect />}></Route>
           </Routes>
         </Suspense>
       </BrowserRouter>

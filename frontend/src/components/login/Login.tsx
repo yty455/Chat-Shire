@@ -4,14 +4,29 @@ import { loginuser } from "../../stores/atom";
 import styles from "./Login.module.css";
 import landing2 from "./landing2.png";
 import { useNavigate } from "react-router";
+import api from "../../utils/api";
+import { getGit } from "../../utils/apiService";
 
 function LoginPage() {
   const [userData, setUserDate] = useRecoilState(loginuser);
   const navigate = useNavigate();
 
-  const onClick = () => {
+  const handleLogin = async () => {
+    gitLogin();
     navigate("/main");
   };
+
+  const gitLogin = async () => {
+    try {
+      const response = await getGit();
+      console.log(response);
+      setUserDate(response.data);
+      navigate("/main");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className={styles.landingDiv}>
       <div className={styles.mentNBtn}>
@@ -30,7 +45,7 @@ function LoginPage() {
         <button
           className={styles.github}
           onClick={() => {
-            onClick();
+            handleLogin();
           }}
         >
           깃허브로 로그인

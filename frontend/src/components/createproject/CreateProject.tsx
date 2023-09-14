@@ -79,11 +79,10 @@ function CreateProject() {
               >
                 {step.label}
               </StepLabel>
-              <StepContent color="success" style={{ width: "60%" }}>
-                <Typography color="success">
-                  {index === 0 && <First />}
-                  {index === 1 && <Second />}
-                </Typography>
+              <StepContent color="success" style={{ width: "80%" }}>
+                {index === 0 && <First />}
+                {index === 1 && <Second />}
+
                 <Box sx={{ mb: 2 }} color="success">
                   <div>
                     <Button
