@@ -33,16 +33,16 @@ function Message() {
               <span className={styles.messageLeftTitle}>
                 2차 특화 PJT
               </span>
-              <BsPeopleFill size={28}/>
+              <BsPeopleFill size={20}/>
               <span className={styles.messagePeopleNum}>
                 6
               </span>
             </div>
-            <BsQuestionCircle size={34}/>
+            <BsQuestionCircle size={22}/>
           </div>
         </div>
         <div className={styles.messageLeftNotification}>
-        <BsFillMegaphoneFill size={30}/>
+        <BsFillMegaphoneFill size={20}/>
         <span className={styles.notificationText}>다음 회의 일정은 일요일 오후 3시 입니다.</span>
         </div>
         <div className={styles.messageLeftBody}>
@@ -69,23 +69,23 @@ function Message() {
           <BottomNavigation sx={{ display: "flex", justifyContent: "space-between", width: 460, height: 110 }} value={value} onChange={handleChange}>
             <BottomNavigationAction
               value="photos"
-              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px" }} src={photoImg} alt="" /></div>}
-              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB", backgroundColor: "#ffffff" }}
+              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "70px", height: "40px" }}><img style={{ marginBottom: "4px", width: "40px" }} src={photoImg} alt="" /></div>}
+              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
             />
             <BottomNavigationAction
               value="files"
-              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px" }} src={fileImage} alt="" /></div>}
-              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB", backgroundColor: "#ffffff" }}
+              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px", width: "40px" }} src={fileImage} alt="" /></div>}
+              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
             />
             <BottomNavigationAction
               value="links"
-              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px" }} src={linkImg} alt="" /></div>}
-              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB", backgroundColor: "#ffffff" }}
+              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px", width: "40px" }} src={linkImg} alt="" /></div>}
+              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
             />
             <BottomNavigationAction
               value="search" 
-              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px" }} src={searchImg} alt="" /></div>}
-              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB", backgroundColor: "#ffffff" }}
+              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px", width: "34px" }} src={searchImg} alt="" /></div>}
+              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
             />
           </BottomNavigation>
         </div>

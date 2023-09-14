@@ -120,12 +120,12 @@ body,
   font-weight: 700;
   background: transparent;
   height: 100%;
-  color: #222;
   pointer-events: none;
   font-size: 10px;
   font-family: 'preBd';
   margin-right: 0;
   padding-right: 0;
+  color: #ffffff;
 }
 
 .input:focus {

@@ -87,15 +87,15 @@ function LeftSide(props: Props) {
       backgroundColor={
         location.pathname !== "/analysis" ? "#FFFFFF" : "#ffffff2a"
       }
+      border="1px solid #E5E8EB"
       text=""
-      width="250px"
+      width="14vw"
       height="85vh"
       borderRadius="20px"
-      margin="60px 10px 40px 20px"
+      margin="0px 1vw 0px 0px"
       padding=""
-      boxShadow="0 8px 10px 0 rgba(131, 131, 131, 0.37)"
+      boxShadow=""
       backdropFilter="blur(7px)"
-      transition="all 0.2s ease-in-out"
     >
       <div
         className="sideTabContainer"

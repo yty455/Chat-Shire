@@ -63,34 +63,38 @@ const handleContentChange = (id:number) => (event:any) =>{
 }
 
 return (
-<div className={styles.indivDiv}>
-<Box sx={{p:2,bgcolor:'background.default',}}>
-<Grid container spacing={2}>
-{checkboxItems.map(item=>(
-<Grid item xs={12} key={item.id}>
-<Item className={styles.oneMemo} elevation={7}>
-<div className={styles.indivTask}>
-<Checkbox 
-sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-style={{height:'20px',margin:'14px 0'}}
-checked ={item.isChecked}
-onChange ={handleCheckboxChange(item.id)}
-/>
-{item.isEditing?
-<input type="text" onBlur ={handleContentChange(item.id)} placeholder="내용을 입력하세요"/> :
-<p className={`${styles.taskContent} ${item.isChecked? styles.checked:''}`}>{item.content}</p>}
-</div>
-<Button sx={{marginBottom:'20px',fontFamily:'preRg'}} color="greenary" size="small" variant="contained">관련 대화로 이동</Button>
-{/* <Button sx={{marginLeft: '5px', marginBottom:'20px',fontFamily:'preRg'}} color="error" size="small" onClick={() => removeCheckbox(item.id)} variant="contained">삭제</Button> */}
-</Item>
-</Grid>
-))}
-</Grid>
-</Box>
+  <div className={styles.indivDiv}>
+    <Box sx={{p: 2,}}>
+      <Grid container spacing={2}>
+      {checkboxItems.map(item=>(
+        <Grid item xs={12} key={item.id}>
+          <Item className={styles.oneMemo} elevation={7}>
+            <div className={styles.indivTask}>
+              <Checkbox 
+              sx={{color: '#39A789', '&.Mui-checked': { color: '#39A789'}}} 
+              style={{height:'20px',margin:'14px 0'}}
+              checked ={item.isChecked}
+              onChange ={handleCheckboxChange(item.id)}
+              />
+              {
+                item.isEditing ?
+                <input type="text" onBlur ={handleContentChange(item.id)} placeholder="내용을 입력하세요"/> :
+                <p className={`${styles.taskContent} ${item.isChecked? styles.checked:''}`}>
+                  {item.content}
+                </p>
+              }
+            </div>
+            <Button sx={{marginBottom:'20px',fontFamily:'preRg'}} color="greenary" size="small" variant="contained">관련 대화로 이동</Button>
+          {/* <Button sx={{marginLeft: '5px', marginBottom:'20px',fontFamily:'preRg'}} color="error" size="small" onClick={() => removeCheckbox(item.id)} variant="contained">삭제</Button> */}
+          </Item>
+        </Grid>
+      ))}
+      </Grid>
+    </Box>
 
-<Fab sx={{ mr: 'auto', ml: 'auto', display:'flex',justifyContent:'center' }} color="greenary" aria-label="add" onClick={addCheckbox}>
-<AddIcon/>
-</Fab>
-</div>  
+    <Fab sx={{ mr: 'auto', ml: 'auto', display:'flex',justifyContent:'center' }} color="greenary" aria-label="add" onClick={addCheckbox}>
+    <AddIcon/>
+    </Fab>
+  </div>  
 );
 }

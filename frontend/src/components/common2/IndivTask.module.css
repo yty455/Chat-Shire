@@ -1,14 +1,12 @@
 .indivDiv {
-  max-width: 400px;
-  width: 400px;
-  height: 100vh;
+  max-width: 20vw;
+  width: 24vw;
+  height: 85vh;
   padding: 20px 0;
   /* 구분을 위한 색, 나중에 지우기
-  background-color: rgb(227, 227, 227); */
     /* display: flex; */
     /* justify-content: flex-end; */
-  margin-left: auto;
-  margin-right: 3px;
+  margin-left: 1vw;
 }
 
 .indivTask {

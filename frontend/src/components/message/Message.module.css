@@ -1,11 +1,8 @@
 .messageContainer {
   display: flex;
-  position: absolute;
-  left: 250px;
-  top: 84px;
-  padding: 20px 30px 20px 40px;
-  width: 1120px;
-  height: 880px;
+  padding: 2vh 2vw 2vh 2vw;
+  width: 58vw;
+  height: 81vh;
   border: 1px solid #E5E8EB;
   border-radius: 40px;
   font-family: 'preRg';
@@ -15,7 +12,7 @@
 .messageLeft {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 28vw;
   border-right: 1px solid #E5E8EB;
   /* border: 1px solid red; */
 }
@@ -24,7 +21,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 580px;
+  width: 26vw;
   height: 60px;
   color: #575757;
   /* border: 1px solid purple; */
@@ -37,12 +34,12 @@
 
 
 .messageLeftTitle {
-  font-size: 46px;
+  font-size: 34px;
   font-family: "preBl";
 }
 
 .messagePeopleNum {
-  font-size: 20px;
+  font-size: 16px;
   margin-left: 6px;
 }
 
@@ -55,7 +52,7 @@
 }
 
 .notificationText {
-  font-size: 24px;
+  font-size: 100%;
   font-family: "preLt";
   margin-left: 10px;
 }
@@ -83,7 +80,7 @@
 
 .messageInput {
   margin: 0px 10px;
-  width: 560px;
+  width: 26vw;
   font-size: 18px;
 }
 
@@ -91,7 +88,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 560px;
+  width: 26vw;
   height: 40px;
 }
 
