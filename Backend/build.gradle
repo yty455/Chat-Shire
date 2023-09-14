@@ -58,9 +58,11 @@ dependencies {
 //    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 //    implementation 'com.fasterxml.jackson.core:jackson-databind'
 //
-    //redis dependency 설정
+    // redis dependency 설정
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
+    // SSE
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
 tasks.named('test') {
