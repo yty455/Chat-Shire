@@ -1,7 +1,7 @@
 .messageContainer {
   display: flex;
   padding: 2vh 2vw 2vh 2vw;
-  width: 58vw;
+  width: 54vw;
   height: 81vh;
   border: 1px solid #E5E8EB;
   border-radius: 40px;
@@ -109,7 +109,7 @@
 .messageRight {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   width: 30vw;
   /* border: 1px solid red; */
 }
@@ -117,8 +117,8 @@
 .messageRightTabContainer {
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  height: 20vh;
-  padding-left: 10%;
+  align-items: flex-start;
+  width: 20vw;
+  height: 19vh;
+  padding-left: 4%;
 }

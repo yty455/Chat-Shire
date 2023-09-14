@@ -70,7 +70,7 @@ function Message() {
             <BottomNavigationAction
               value="photos"
               icon={<img style={{ marginBottom: "4px", width: "40px" }} src={photoImg} alt="" />}
-              style={{ color:"#39A789", margin: "6px 20px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
+              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
             />
             <BottomNavigationAction
               value="files"
@@ -84,7 +84,7 @@ function Message() {
             />
             <BottomNavigationAction
               value="search" 
-              icon={<img style={{ marginBottom: "4px", width: "34px" }} src={searchImg} alt="" />}
+              icon={<img style={{ marginBottom: "4px", width: "40px" }} src={searchImg} alt="" />}
               style={{ color:"#39A789", margin: "6px 20px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
             />
           </BottomNavigation>
