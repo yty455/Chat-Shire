@@ -15,7 +15,7 @@ export const postTask = (
   chatroomId: number,
   name: string,
   description: string,
-  deadline: Date,
+  deadline: any,
   priority: string,
   progress: string
 ) =>

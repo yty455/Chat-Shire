@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import styles from "./First.module.css";
 import { postProject } from "../../utils/apiService";
+import "rsuite/dist/rsuite.min.css";
+import { DateRangePicker } from "rsuite";
 
 function First() {
   const [name, setName] = useState("");
@@ -11,6 +13,10 @@ function First() {
   const [gitRepository, setGitRepository] = useState("");
   const [startDate, setStartDate] = useState("2023-09-14");
   const [endDate, setEndDate] = useState("2023-09-14");
+  const [range, setRange] = React.useState([
+    new Date("2017-02-01 01:00:00"),
+    new Date("2017-02-02 14:00:00"),
+  ]);
 
   const createProject = async () => {
     try {
@@ -30,6 +36,7 @@ function First() {
   };
 
   const handleClick = async () => {
+    console.log(range);
     createProject();
   };
 
@@ -101,7 +108,15 @@ function First() {
         defaultValue=""
         // helperText="Please enter your name"
       />
-
+      <DateRangePicker
+        format="yyyy-MM-dd hh:mm aa"
+        placement="bottomEnd"
+        preventOverflow
+        showMeridian
+        name="period"
+        // value={range}
+        // onChange={setRange}
+      />
       <button
         onClick={() => {
           handleClick();

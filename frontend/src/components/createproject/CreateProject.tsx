@@ -49,7 +49,7 @@ function CreateProject() {
     <Container
       backgroundColor="white"
       text=""
-      width="1170px"
+      width="58vw"
       height="85vh"
       margin="60px 10px 40px 10px"
       padding=""
@@ -63,7 +63,7 @@ function CreateProject() {
       <Box
         // sx={{ maxWidth: 600 }}
         width="80%"
-        style={{ marginTop: "3%" }}
+        style={{ marginTop: "1%" }}
         color="success"
       >
         <Stepper activeStep={activeStep} orientation="vertical" color="success">

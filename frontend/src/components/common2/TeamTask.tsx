@@ -1,22 +1,27 @@
-import React from 'react'
-import styles from './TeamTask.module.css'
-import WatchLaterIcon from '@mui/icons-material/WatchLater';
-import CreateIcon from '@mui/icons-material/Create';
-import Checkbox from '@mui/material/Checkbox';
+import React, { useState } from "react";
+import styles from "./TeamTask.module.css";
+import WatchLaterIcon from "@mui/icons-material/WatchLater";
+import CreateIcon from "@mui/icons-material/Create";
+import Checkbox from "@mui/material/Checkbox";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import LinearProgress, {
+  linearProgressClasses,
+} from "@mui/material/LinearProgress";
+import { postTask } from "../../utils/apiService";
+import TaskModal from "./TaskModal";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 5,
   borderRadius: 0,
-  margin: '0 0 5px 0',
+  margin: "0 0 5px 0",
   [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+    backgroundColor:
+      theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 0,
-    backgroundColor: theme.palette.mode === 'light' ? '#39A789' : '#308fe8',
+    backgroundColor: theme.palette.mode === "light" ? "#39A789" : "#308fe8",
   },
 }));
 
@@ -50,13 +55,40 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 export default function TeamTask() {
+  const [chatroomId, setChatroomId] = useState(Number);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [deadline, setDeadline] = useState("");
+  const [priority, setPriority] = useState("");
+  const [progress, setProgress] = useState("");
+
+  const createProject = async () => {
+    try {
+      const response = await postTask(
+        chatroomId,
+        name,
+        description,
+        deadline,
+        priority,
+        progress
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onclick = () => {
+    //모달 오픈
+  };
+
   return (
     <div className={styles.container}>
       <div>
         <p className={styles.messageLeftTitle}>2차 특화 PJT</p>
       </div>
-      <div style={{display:'flex',justifyContent:'space-around'}}>
-        <div style={{padding:'0 0 20px 20px',width:'50%'}}>
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <div style={{ padding: "0 0 20px 20px", width: "50%" }}>
           <p className={styles.taskProgress}>Task 진행도</p>
           <div className={styles.progressBar}>진행도 그래프</div>
           <p className={styles.taskProgress}>완료된 Task</p>
@@ -64,14 +96,14 @@ export default function TeamTask() {
           <div className={styles.taskContainer}>
             <div className={styles.taskHeader}>
               <div className={styles.clockNday}>
-                <WatchLaterIcon/>
+                <WatchLaterIcon />
                 <p className={styles.dday}> 6d 14h</p>
               </div>
-              <CreateIcon/>
+              <CreateIcon onClick={onclick} />
             </div>
             <div className={styles.stepStatus}>
               <StyledBadge
-                sx={{margin:'14px 0 15px 20px'}}
+                sx={{ margin: "14px 0 15px 20px" }}
                 overlap="circular"
                 anchorOrigin={{ vertical: "top", horizontal: "left" }}
                 variant="dot"
@@ -81,50 +113,48 @@ export default function TeamTask() {
             <BorderLinearProgress variant="determinate" value={50} />
 
             <div className={styles.indivTask}>
-              <Checkbox 
-                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'10px',margin:'7px 0'}}
-                />
-                <p className={styles.task}>쓰레기 버리고 오기</p>
+              <Checkbox
+                sx={{ color: "#39A789", "&.Mui-checked": { color: "#39A789" } }}
+                style={{ height: "10px", margin: "7px 0" }}
+              />
+              <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
             <div className={styles.indivTask}>
-              <Checkbox 
-                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'10px',margin:'7px 0'}}
-                />
-                <p className={styles.task}>쓰레기 버리고 오기</p>
+              <Checkbox
+                sx={{ color: "#39A789", "&.Mui-checked": { color: "#39A789" } }}
+                style={{ height: "10px", margin: "7px 0" }}
+              />
+              <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
             <div className={styles.indivTask}>
-              <Checkbox 
-                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'10px',margin:'7px 0'}}
-                />
-                <p className={styles.task}>쓰레기 버리고 오기</p>
+              <Checkbox
+                sx={{ color: "#39A789", "&.Mui-checked": { color: "#39A789" } }}
+                style={{ height: "10px", margin: "7px 0" }}
+              />
+              <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
             <div className={styles.indivTask}>
-              <Checkbox 
-                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'10px',margin:'7px 0'}}
-                />
-                <p className={styles.task}>쓰레기 버리고 오기</p>
+              <Checkbox
+                sx={{ color: "#39A789", "&.Mui-checked": { color: "#39A789" } }}
+                style={{ height: "10px", margin: "7px 0" }}
+              />
+              <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
           </div>
-
-
         </div>
-        <div style={{padding:'0 20px 0 20px',width:'50%'}}>
-        <p className={styles.taskProgress}>진행중인 Task</p>
-        <div className={styles.taskContainer}>
+        <div style={{ padding: "0 20px 0 20px", width: "50%" }}>
+          <p className={styles.taskProgress}>진행중인 Task</p>
+          <div className={styles.taskContainer}>
             <div className={styles.taskHeader}>
               <div className={styles.clockNday}>
-                <WatchLaterIcon/>
+                <WatchLaterIcon />
                 <p className={styles.dday}> 6d 14h</p>
               </div>
-              <CreateIcon/>
+              <CreateIcon />
             </div>
             <div className={styles.stepStatus}>
               <StyledBadge
-                sx={{margin:'14px 0 15px 20px'}}
+                sx={{ margin: "14px 0 15px 20px" }}
                 overlap="circular"
                 anchorOrigin={{ vertical: "top", horizontal: "left" }}
                 variant="dot"
@@ -134,32 +164,32 @@ export default function TeamTask() {
             <BorderLinearProgress variant="determinate" value={50} />
 
             <div className={styles.indivTask}>
-              <Checkbox 
-                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'10px',margin:'7px 0'}}
-                />
-                <p className={styles.task}>쓰레기 버리고 오기</p>
+              <Checkbox
+                sx={{ color: "#39A789", "&.Mui-checked": { color: "#39A789" } }}
+                style={{ height: "10px", margin: "7px 0" }}
+              />
+              <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
             <div className={styles.indivTask}>
-              <Checkbox 
-                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'10px',margin:'7px 0'}}
-                />
-                <p className={styles.task}>쓰레기 버리고 오기</p>
+              <Checkbox
+                sx={{ color: "#39A789", "&.Mui-checked": { color: "#39A789" } }}
+                style={{ height: "10px", margin: "7px 0" }}
+              />
+              <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
           </div>
 
           <div className={styles.taskContainer}>
             <div className={styles.taskHeader}>
               <div className={styles.clockNday}>
-                <WatchLaterIcon/>
+                <WatchLaterIcon />
                 <p className={styles.dday}> 6d 14h</p>
               </div>
-              <CreateIcon/>
+              <CreateIcon />
             </div>
             <div className={styles.stepStatus}>
               <StyledBadge
-                sx={{margin:'14px 0 15px 20px'}}
+                sx={{ margin: "14px 0 15px 20px" }}
                 overlap="circular"
                 anchorOrigin={{ vertical: "top", horizontal: "left" }}
                 variant="dot"
@@ -169,32 +199,32 @@ export default function TeamTask() {
             <BorderLinearProgress variant="determinate" value={50} />
 
             <div className={styles.indivTask}>
-              <Checkbox 
-                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'10px',margin:'7px 0'}}
-                />
-                <p className={styles.task}>쓰레기 버리고 오기</p>
+              <Checkbox
+                sx={{ color: "#39A789", "&.Mui-checked": { color: "#39A789" } }}
+                style={{ height: "10px", margin: "7px 0" }}
+              />
+              <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
             <div className={styles.indivTask}>
-              <Checkbox 
-                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'10px',margin:'7px 0'}}
-                />
-                <p className={styles.task}>쓰레기 버리고 오기</p>
+              <Checkbox
+                sx={{ color: "#39A789", "&.Mui-checked": { color: "#39A789" } }}
+                style={{ height: "10px", margin: "7px 0" }}
+              />
+              <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
           </div>
 
           <div className={styles.taskContainer}>
             <div className={styles.taskHeader}>
               <div className={styles.clockNday}>
-                <WatchLaterIcon/>
+                <WatchLaterIcon />
                 <p className={styles.dday}> 6d 14h</p>
               </div>
-              <CreateIcon/>
+              <CreateIcon />
             </div>
             <div className={styles.stepStatus}>
               <StyledBadge
-                sx={{margin:'14px 0 15px 20px'}}
+                sx={{ margin: "14px 0 15px 20px" }}
                 overlap="circular"
                 anchorOrigin={{ vertical: "top", horizontal: "left" }}
                 variant="dot"
@@ -204,23 +234,22 @@ export default function TeamTask() {
             <BorderLinearProgress variant="determinate" value={50} />
 
             <div className={styles.indivTask}>
-              <Checkbox 
-                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'10px',margin:'7px 0'}}
-                />
-                <p className={styles.task}>쓰레기 버리고 오기</p>
+              <Checkbox
+                sx={{ color: "#39A789", "&.Mui-checked": { color: "#39A789" } }}
+                style={{ height: "10px", margin: "7px 0" }}
+              />
+              <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
             <div className={styles.indivTask}>
-              <Checkbox 
-                sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
-                style={{height:'10px',margin:'7px 0'}}
-                />
-                <p className={styles.task}>쓰레기 버리고 오기</p>
+              <Checkbox
+                sx={{ color: "#39A789", "&.Mui-checked": { color: "#39A789" } }}
+                style={{ height: "10px", margin: "7px 0" }}
+              />
+              <p className={styles.task}>쓰레기 버리고 오기</p>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-  )
+  );
 }

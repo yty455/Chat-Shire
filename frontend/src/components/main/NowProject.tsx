@@ -56,6 +56,7 @@ const NowProject: React.FC<NowProjectProps> = ({ nowpjt }) => {
           )}
         </div>
         <MobileStepper
+          style={{ height: "20px", padding: "10px" }}
           variant="dots"
           steps={maxSteps}
           position="static"

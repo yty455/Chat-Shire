@@ -54,6 +54,7 @@
     "react-wordcloud-fork": "^1.2.7",
     "reactflow": "^11.8.3",
     "recoil": "^0.7.7",
+    "rsuite": "^5.40.0",
     "slick-carousel": "^1.8.1",
     "stream-http": "^3.2.0",
     "styled-components": "^5.3.11",
