@@ -1,14 +1,4 @@
-import {
-  Edge,
-  EdgeChange,
-  Node,
-  NodeChange,
-  OnNodesChange,
-  OnEdgesChange,
-  applyNodeChanges,
-  applyEdgeChanges,
-  XYPosition,
-} from 'reactflow';
+import { Edge, EdgeChange, Node, NodeChange, OnNodesChange, OnEdgesChange, applyNodeChanges, applyEdgeChanges, XYPosition } from 'reactflow';
 import { create } from 'zustand';
 import { nanoid } from 'nanoid/non-secure';
 
@@ -28,62 +18,7 @@ const useStore = create<RFState>((set, get) => ({
       type: 'mindmap',
       data: { label: 'Project' },
       position: { x: 0, y: 0 },
-    },
-    {
-      id: '1',
-      type: 'mindmap',
-      data: { label: 'Website' },
-      position: { x: -20, y: -110 },
-      parentNode: 'root',
-    },
-    {
-      id: '1-1',
-      type: 'mindmap',
-      data: { label: 'Docs' },
-      position: { x: -40, y: -50 },
-      parentNode: '1',
-    },
-    {
-      id: '1-2',
-      type: 'mindmap',
-      data: { label: 'Examples' },
-      position: { x: 60, y: -60 },
-      parentNode: '1',
-    },
-    {
-      id: '2',
-      type: 'mindmap',
-      data: { label: 'Github' },
-      position: { x: -120, y: 80 },
-      parentNode: 'root',
-    },
-    {
-      id: '2-1',
-      type: 'mindmap',
-      data: { label: 'Issues' },
-      position: { x: -70, y: 10 },
-      parentNode: '2',
-    },
-    {
-      id: '2-2',
-      type: 'mindmap',
-      data: { label: 'PRs' },
-      position: { x: -20, y: 50 },
-      parentNode: '2',
-    },
-    {
-      id: '3',
-      type: 'mindmap',
-      data: { label: 'React Flow Pro' },
-      position: { x: 200, y: 70 },
-      parentNode: 'root',
-    },
-    {
-      id: '3-1',
-      type: 'mindmap',
-      data: { label: 'Pro Examples' },
-      position: { x: 80, y: 60 },
-      parentNode: '3',
+      style: { display: "flex", justifyContent: "center", alignItems: "center", width: 80, height: 30, borderRadius: 20, backgroundColor: "#39A789", color: "#ffffff" }
     },
   ],
   edges: [

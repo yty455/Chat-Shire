@@ -45,7 +45,7 @@ const defaultEdgeOptions = { style: connectionLineStyle, type: 'mindmap' };
 
 function Flow() {
   // whenever you use multiple values, you should use shallow for making sure that the component only re-renders when one of the values change
-  const { nodes, edges, onNodesChange, onEdgesChange, addChildNode } = useStore(selector, shallow);
+  const { nodes, edges, onNodesChange, onEdgesChange, addChildNode, } = useStore(selector, shallow);
   const connectingNodeId = useRef<string | null>(null);
   const store = useStoreApi();
   const { project } = useReactFlow();
@@ -94,11 +94,10 @@ function Flow() {
       } else if (targetIsPane && connectingNodeId.current) {
         const parentNode = nodeInternals.get(connectingNodeId.current);
         let childNodePosition: XYPosition | undefined;
-  
+
         if (event instanceof MouseEvent) {
           childNodePosition = getChildNodePosition(event, parentNode);
         }
-  
         if (parentNode && childNodePosition) {
           addChildNode(parentNode, childNodePosition);
         }
