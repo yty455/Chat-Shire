@@ -1,9 +1,10 @@
 import React from "react";
 import Analysis from "../components/analysis/Analysis";
-import passion from "../assets/passion.png";
+import passion from "../assets/analysisBg/passion/passion.png";
 import LeftSide from "../components/common/LeftSide";
 
 export default function AnalysisPage() {
+  console.log(visualViewport)
   return (
     <div
       style={{
@@ -12,6 +13,7 @@ export default function AnalysisPage() {
         alignItems: "center",
         width: "100vw",
         height: "100vh",
+        backgroundPosition: "center center",
         backgroundImage: `url(${passion})`,
         backgroundSize: "cover",
       }}
