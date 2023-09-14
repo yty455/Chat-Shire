@@ -24,8 +24,8 @@ export default function LinkOGItem() {
   })
   
   return (
-    <Card sx={{ borderRadius: 2, marginTop: 2}}>
-      <CardActionArea sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", width: 460, height: 100, borderRadius: 2, padding: 2 }}>
+    <Card sx={{ boxShadow: "none", borderRadius: 2, marginTop: 2}}>
+      <CardActionArea sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", width: "100%", height: 100, borderRadius: 2, border: "1px solid #E5E8EB", boxShadow: "none", padding: 2 }}>
         <span className={styles.BookMarkTitle}>{title}</span>
         <span className={styles.BookMarkDesc}>{desc}</span>
         <div className={styles.BookMarkLink}>

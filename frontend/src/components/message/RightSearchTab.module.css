@@ -3,85 +3,38 @@
   flex-direction: column;
   align-items: flex-start;
   margin-top: 14px;
-  width: 480px;
+  padding-left: 20px;
+  width: 28vw;
   height: 700px;
   /* border: 1px solid blue; */
 }
 
 .MessageRightBodyTitle {
-  margin-left: 10px;
   color: #575757;
-  font-size: 30px;
+  font-size: 24px;
   font-family: 'preBd';
 }
 
 .MessageRightMediaStorage {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
-  width: 480px;
-  height: 180px;
-  margin-top: 30px;
+  width: 100%;
+  height: 28%;
+  margin-top: 10px;
   border-bottom: 1px solid #E5E8EB;
 }
+
 
 .MediaStorageTitle {
   font-size: 24px;
 }
 
-.MediaContainer {
-  display: flex;
-  align-items: center;
-  width: 524px;
-  height: 140px;
-  /* border: 1px solid red; */
-}
-
-.photoThumbnail {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 140px;
-  height: 140px;
-  margin: 10px 20px 0px 0px;
-  border-radius: 10px;
-  background-color: #E5E8EB;
-}
-
-.MessageFileStorage {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-.fileThumbnail {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 218px;
-  height: 120px;
-  margin: 20px 20px 0px 0px;
-  border-radius: 10px;
-  color: #575757;
-  border: 1px solid #E5E8EB;;
-  background-color: #ffffff;
-}
-
-.fileThumbnailHeader {
-  display: flex;
-  align-items: center;
-  font-size: 20px;
-}
-
-.fileName {
-  margin-left: 4px;
-}
-
 .GoogleSearchContainer {
   margin-top: 10px;
-  width: 480px;
-  height: 670px;
+  width: 100%;
+  height: 60vh;
   overflow: scroll;
 }
 

@@ -66,26 +66,26 @@ function Message() {
       </div>
       <div className={styles.messageRight}>
         <div className={styles.messageRightTabContainer}>
-          <BottomNavigation sx={{ display: "flex", justifyContent: "space-between", width: 460, height: 110 }} value={value} onChange={handleChange}>
+          <BottomNavigation sx={{ display: "flex", justifyContent: "space-between", width: "100%", height: "100%" }} value={value} onChange={handleChange}>
             <BottomNavigationAction
               value="photos"
-              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "70px", height: "40px" }}><img style={{ marginBottom: "4px", width: "40px" }} src={photoImg} alt="" /></div>}
-              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
+              icon={<img style={{ marginBottom: "4px", width: "40px" }} src={photoImg} alt="" />}
+              style={{ color:"#39A789", margin: "6px 20px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
             />
             <BottomNavigationAction
               value="files"
-              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px", width: "40px" }} src={fileImage} alt="" /></div>}
-              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
+              icon={<img style={{ marginBottom: "4px", width: "40px" }} src={fileImage} alt="" />}
+              style={{ color:"#39A789", margin: "6px 20px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
             />
             <BottomNavigationAction
               value="links"
-              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px", width: "40px" }} src={linkImg} alt="" /></div>}
-              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
+              icon={<img style={{ marginBottom: "4px", width: "40px" }} src={linkImg} alt="" />}
+              style={{ color:"#39A789", margin: "6px 20px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
             />
             <BottomNavigationAction
               value="search" 
-              icon={<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70px" }}><img style={{ marginBottom: "4px", width: "34px" }} src={searchImg} alt="" /></div>}
-              style={{ color:"#39A789", margin: "6px 10px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
+              icon={<img style={{ marginBottom: "4px", width: "34px" }} src={searchImg} alt="" />}
+              style={{ color:"#39A789", margin: "6px 20px 6px 6px", padding: "0px", borderRadius: "100px", border: "1px solid #E5E8EB" }}
             />
           </BottomNavigation>
         </div>

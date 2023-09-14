@@ -58,6 +58,7 @@
 }
 
 .messageLeftBody {
+  margin-left: -14px;
   height: 672px;
   /* border: 1px solid purple; */
 }
@@ -109,7 +110,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 520px;
+  width: 30vw;
   /* border: 1px solid red; */
 }
 
@@ -117,19 +118,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 540px;
-  height: 120px;
-  /* border: 1px solid blue; */
-}
-
-.messageRightTabItem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 100px;
-  border-radius: 100px;
-  border: 1px solid #E5E8EB;
-  background-color: #ffffff;
-  object-fit: contain;
+  width: 100%;
+  height: 20vh;
+  padding-left: 10%;
 }
