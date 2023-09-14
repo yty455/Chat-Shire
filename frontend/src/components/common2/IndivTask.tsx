@@ -29,7 +29,6 @@ export default function SimpleContainer() {
     { id: 1, isChecked: false, content: '밥 맛깔나게 먹기! 밥 맛깔나게 먹기!', isEditing:false },
     { id: 2, isChecked: false, content: '밥 맛깔나게 먹기! 밥 맛깔나게 먹기!밥 맛깔나게 먹기! 밥 맛깔나게 먹기!밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기!', isEditing:false },
     { id: 3, isChecked: false, content: '밥 맛깔나게 먹기! 밥 맛깔나게 먹기!', isEditing:false },
-    { id: 4, isChecked: false, content: '밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기!', isEditing:false },
     // ...
 ]);
 
@@ -92,7 +91,7 @@ return (
       </Grid>
     </Box>
 
-    <Fab sx={{ mr: 'auto', ml: 'auto', display:'flex',justifyContent:'center' }} color="greenary" aria-label="add" onClick={addCheckbox}>
+    <Fab sx={{ mt: '20px', mr: 'auto', ml: 'auto', display:'flex',justifyContent:'center' }} color="greenary" aria-label="add" onClick={addCheckbox}>
     <AddIcon/>
     </Fab>
   </div>  
