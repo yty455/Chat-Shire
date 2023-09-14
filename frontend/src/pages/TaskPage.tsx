@@ -11,8 +11,10 @@ export default function TaskPage() {
     <div
       style={{
         display: "flex",
+        justifyContent: "center",
         alignItems: "center",
-        justifyContent: "space-between",
+        width: "100vw",
+        height: "100vh"
       }}
     >
       <LeftSide />
