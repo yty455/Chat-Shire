@@ -1,6 +1,6 @@
 import React from "react";
 import Analysis from "../components/analysis/Analysis";
-import passion from "../assets/analysisBg/passion/passion.png";
+import passion from "../assets/analysisBg/passion/passion1.png";
 import LeftSide from "../components/common/LeftSide";
 
 export default function AnalysisPage() {
