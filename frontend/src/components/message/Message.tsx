@@ -5,7 +5,7 @@ import fileImage from '../../assets/chat_icons/file.png'
 import linkImg from '../../assets/chat_icons/link2.png'
 import searchImg from '../../assets/chat_icons/search.png'
 
-import MessageItem from './MessageItem'
+import MessageLeftBody from './MessageLeftBody'
 import MessageRightBody from './MessageRightBody'
 
 import { BsPeopleFill, BsQuestionCircle, BsFillMegaphoneFill, BsPlus, BsEmojiKiss } from 'react-icons/bs'
@@ -45,11 +45,7 @@ function Message() {
         <BsFillMegaphoneFill size={20}/>
         <span className={styles.notificationText}>다음 회의 일정은 일요일 오후 3시 입니다.</span>
         </div>
-        <div className={styles.messageLeftBody}>
-          <MessageItem/>
-          <MessageItem/>
-          <MessageItem/>
-        </div>
+        <MessageLeftBody/>
         <div className={styles.messageLeftFooter}>
           <div className={styles.messageInputContainer}>
             <Input className={styles.messageInput} placeholder="Placeholder" inputProps={ariaLabel} />
