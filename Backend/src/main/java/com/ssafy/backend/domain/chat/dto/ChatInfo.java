@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ChatInfo {
     private Long userId;
-    private Long chatRoomId;
     private String content;
     private Long chatNumber;
 

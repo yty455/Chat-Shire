@@ -47,7 +47,6 @@ public class ChatService {
 
         ChatInfo chatInfo = ChatInfo.builder()
                 .userId(getUserId())
-                .chatRoomId(chatRoomId)
                 .content(chatPost.getContent())
                 .chatTime(LocalDateTime.now())
                 .chatNumber(chatNumber).build();
