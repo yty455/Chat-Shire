@@ -54,10 +54,10 @@ dependencies {
 //    // aws S3
 //    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 //
-//    // 자바 local time 직렬화, 역직렬화
-//    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-//    implementation 'com.fasterxml.jackson.core:jackson-databind'
-//
+    // 자바 local time 직렬화, 역직렬화
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
     // redis dependency 설정
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 

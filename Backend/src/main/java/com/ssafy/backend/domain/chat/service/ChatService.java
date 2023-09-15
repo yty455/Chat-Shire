@@ -11,6 +11,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,6 +49,7 @@ public class ChatService {
                 .userId(getUserId())
                 .chatRoomId(chatRoomId)
                 .content(chatPost.getContent())
+                .chatTime(LocalDateTime.now())
                 .chatNumber(chatNumber).build();
 
         redisTemplate.opsForValue().set(chatNumberKey + chatRoomId, chatNumber + 1L);

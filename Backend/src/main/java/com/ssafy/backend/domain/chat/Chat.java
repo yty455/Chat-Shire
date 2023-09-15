@@ -7,6 +7,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.time.LocalDateTime;
+
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -23,6 +25,7 @@ public class Chat extends BaseEntity {
 
     private String content;
     private Long chatNumber;
+    private LocalDateTime chatTime;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "USER_ID")
