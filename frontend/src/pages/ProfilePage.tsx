@@ -8,18 +8,7 @@ import Achievement from "../components/profile/Achievement";
 import LeftSide from "../components/common/LeftSide";
 
 import { BsGithub, BsCodeSlash, BsPersonFill } from "react-icons/bs";
-import {
-  BiLogoTypescript,
-  BiLogoJavascript,
-  BiLogoHtml5,
-  BiLogoPython,
-  BiLogoReact,
-  BiLogoVuejs,
-  BiLogoDjango,
-  BiLogoCss3,
-  BiLogoFlutter,
-  BiLogoGit,
-} from "react-icons/bi";
+import { BiLogoTypescript, BiLogoJavascript, BiLogoHtml5, BiLogoPython, BiLogoReact, BiLogoVuejs, BiLogoDjango, BiLogoCss3, BiLogoFlutter, BiLogoGit, }  from "react-icons/bi";
 
 import LinearProgress, {
   LinearProgressProps,
@@ -27,9 +16,7 @@ import LinearProgress, {
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-function LinearProgressWithLabel(
-  props: LinearProgressProps & { value: number }
-) {
+function LinearProgressWithLabel(props: LinearProgressProps & { value: number }) {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Box sx={{ width: "100%", mr: 1 }}>
@@ -61,10 +48,11 @@ export default function ProfilePage() {
         style={{
           display: "flex",
           flexDirection: "column",
-          width: "1080px",
-          height: "630px",
-          padding: "30px",
-          borderRadius: "36px",
+          padding: "2vh 2vw",
+          width: "75vw",
+          height: "81vh",
+          borderRadius: "20px",
+          border: "1px solid #E5E8EB",
           backgroundColor: "#ffffff",
         }}
       >
