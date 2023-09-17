@@ -13,6 +13,12 @@ declare module '@mui/material/styles' {
   }
 }
 
+declare module '@mui/material/Tabs' {
+  interface TabsPropsIndicatorColorOverrides {
+    greenary: true;
+  }
+}
+
 // Update the Button's color options to include an ochre option
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {

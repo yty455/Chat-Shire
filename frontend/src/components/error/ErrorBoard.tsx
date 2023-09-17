@@ -5,22 +5,12 @@ import Container from "../common/Container";
 import MultiSelect from "./MultiSelect";
 // import styles from "./Idea.module.css";
 import ErrorList from "./ErrorList";
+
+import styles from './Error.module.css'
+
 function Error() {
   return (
-    <Container
-      backgroundColor="white"
-      text=""
-      width="850px"
-      height="550px"
-      margin=""
-      padding=""
-      borderRadius="20px"
-      display=""
-      justifyContent=""
-      boxShadow="0 8px 10px 0 rgba(131, 131, 131, 0.37)"
-      backdropFilter="blur(7px)"
-      transition="all 0.2s ease-in-out"
-    >
+    <div className={styles.ErrorBoardContainer}>
       <div
         style={{
           width: "100%",
@@ -34,7 +24,7 @@ function Error() {
         <Search />
       </div>
       <ErrorList />
-    </Container>
+    </div>
   );
 }
 
