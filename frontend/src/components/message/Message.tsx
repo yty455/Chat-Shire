@@ -52,7 +52,7 @@ function Message() {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
         client.current?.subscribe(
          `/topic/greetings`,
-          (message) => {``
+          (message) => {
             console.log(JSON.parse(message.body).content)
             setMessage(JSON.parse(message.body));
           },
@@ -64,7 +64,7 @@ function Message() {
         headers: {
           Accept: "application/json;charset=UTF-8",
           Authorization:
-            "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NTAxNTUyNCwiaWQiOjF9.c6T9C-EQ-2INoafAUgFKGljAWxFseBCz68aEN1F2MXdna0nrppoV8KkVLu6kNPO1Y-s3V2HmIvp_Jy7TLY0dYA",
+            "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NTAyMjg5MywiaWQiOjJ9.SmjHemubrN9lIiOPVXx_DX8Sffyix-iGWDfcvCv3vYwG-gdBPPXy4NUROQTP7cZ_9njfu9q302uB5C4-TDe7OA",
         },
       })
       .then((res) => {

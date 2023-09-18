@@ -14,6 +14,7 @@ interface ContainerProps {
   boxShadow: string;
   children?: React.ReactNode;
   display?: string;
+  flexDirection?: any;
   justifyContent?: string;
   backdropFilter?: string;
   transition?: string;
@@ -31,6 +32,7 @@ const Container: React.FC<ContainerProps> = ({
   boxShadow,
   children,
   display,
+  flexDirection,
   justifyContent,
   backdropFilter,
   transition,
@@ -46,6 +48,7 @@ const Container: React.FC<ContainerProps> = ({
     borderRadius,
     boxShadow,
     display,
+    flexDirection,
     fontFamily,
     justifyContent,
     WebkitBackdropFilter: backdropFilter,
