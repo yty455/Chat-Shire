@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Container from "./Container";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
@@ -19,9 +19,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useMediaQuery } from "@mui/material";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import Box from "@mui/material/Box";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 // import styles from "./LeftSide.module.css";
-import { useLocation } from "react-router-dom";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -68,7 +67,7 @@ function LeftSide(props: Props) {
       setExpanded(isExpanded ? panel : false);
     };
 
-  const onClick = (link: String) => {
+  const onClick = (link: String, id? : any) => {
     if (link === "Chat") {
       navigate("/message");
     } else if (link === "Board") {
@@ -169,7 +168,7 @@ function LeftSide(props: Props) {
                       (text, index) => (
                         <ListItem key={text} disablePadding>
                           <ListItemButton
-                            onClick={() => onClick(text)}
+                            onClick={() => onClick(text, index)}
                             style={{ padding: "4px 16px 4px 16px" }}
                           >
                             <ListItemIcon>

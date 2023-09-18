@@ -7,7 +7,8 @@ import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 
-export default function MessageItem() {
+export default function MessageItem(message: any) {
+
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
       backgroundColor: "#44b700",
@@ -50,14 +51,14 @@ export default function MessageItem() {
       <div className={styles.messageItemBody}>
         <div className={styles.messageItemName}>
           <span className={styles.messageProfileName}>
-            John
+            {message && message.message.userId}
           </span>
           <span className={styles.messageTime}>
-            08:30AM
+            {message && message.message.chatTime}
           </span>
         </div>
         <div className={styles.messageItemText}>
-          <span>오늘 스크럼 미팅 할까요?</span>
+          <span>{message && message.message.content}</span>
         </div>
       </div>
     </div>
