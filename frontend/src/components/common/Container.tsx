@@ -1,6 +1,8 @@
 import React from "react";
 
 interface ContainerProps {
+  fontFamily?: string;
+  fontSize?: string;
   backgroundColor: string;
   text: string;
   width: string;
@@ -32,6 +34,7 @@ const Container: React.FC<ContainerProps> = ({
   justifyContent,
   backdropFilter,
   transition,
+  fontFamily,
 }) => {
   const boxStyle = {
     backgroundColor,
@@ -43,6 +46,7 @@ const Container: React.FC<ContainerProps> = ({
     borderRadius,
     boxShadow,
     display,
+    fontFamily,
     justifyContent,
     WebkitBackdropFilter: backdropFilter,
     transition,

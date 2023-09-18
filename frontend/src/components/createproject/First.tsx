@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import styles from "./First.module.css";
 import { postProject } from "../../utils/apiService";
-import "rsuite/dist/rsuite.min.css";
-import { DateRangePicker } from "rsuite";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs, { Dayjs } from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 function First() {
   const [name, setName] = useState("");
@@ -11,14 +13,27 @@ function First() {
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");
   const [gitRepository, setGitRepository] = useState("");
-  const [startDate, setStartDate] = useState("2023-09-14");
-  const [endDate, setEndDate] = useState("2023-09-14");
-  const [range, setRange] = React.useState([
-    new Date("2017-02-01 01:00:00"),
-    new Date("2017-02-02 14:00:00"),
-  ]);
+  // const [startDate, setStartDate] = useState("2023-09-14");
+  // const [endDate, setEndDate] = useState("2023-09-14");
+
+  const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs());
+  const [endDate, setEndDate] = React.useState<Dayjs | null>(
+    dayjs().add(1, "week")
+  );
+
+  const formattedStartDate = startDate ? startDate.format("YYYY-MM-DD") : "";
+  const formattedEndDate = endDate ? endDate.format("YYYY-MM-DD") : "";
 
   const createProject = async () => {
+    console.log(
+      teamName,
+      name,
+      topic,
+      description,
+      gitRepository,
+      formattedStartDate,
+      formattedEndDate
+    );
     try {
       const response = await postProject(
         name,
@@ -26,8 +41,8 @@ function First() {
         topic,
         description,
         gitRepository,
-        startDate,
-        endDate
+        { formattedStartDate: "2020-02-02" },
+        { formattedEndDate: "2020-02-02" }
       );
       console.log(response);
     } catch (error) {
@@ -36,7 +51,6 @@ function First() {
   };
 
   const handleClick = async () => {
-    console.log(range);
     createProject();
   };
 
@@ -108,15 +122,17 @@ function First() {
         defaultValue=""
         // helperText="Please enter your name"
       />
-      <DateRangePicker
-        format="yyyy-MM-dd hh:mm aa"
-        placement="bottomEnd"
-        preventOverflow
-        showMeridian
-        name="period"
-        // value={range}
-        // onChange={setRange}
-      />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          value={startDate}
+          onChange={(newValue) => setStartDate(newValue)}
+        />
+        <DatePicker
+          value={endDate}
+          onChange={(newValue) => setEndDate(newValue)}
+          className={styles.datepicker}
+        />
+      </LocalizationProvider>
       <button
         onClick={() => {
           handleClick();

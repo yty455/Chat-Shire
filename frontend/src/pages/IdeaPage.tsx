@@ -59,7 +59,7 @@ export default function BasicTabs() {
           <Tabs
             textColor="inherit"
             indicatorColor="greenary"
-            sx={{ fontFamily: "preRg"}}
+            sx={{ fontFamily: "preRg" }}
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
