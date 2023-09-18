@@ -8,5 +8,4 @@ import lombok.Getter;
 public class ChatPost {
     private Long chatRoomId;
     private String content;
-
 }
