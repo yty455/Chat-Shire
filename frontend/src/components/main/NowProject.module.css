@@ -15,9 +15,12 @@
 } */
 
 .pjttxt {
+  font-family: "preLt";
+  font-size: large;
   margin-left: 5%;
   margin-top: 2%;
   margin-bottom: 1%;
+  font-weight: bold;
 }
 
 /* .addbtn {

@@ -122,7 +122,7 @@ function LeftSide(props: Props) {
         <ListItem disablePadding>
           <ListItemButton onClick={() => onClick("main")}>
             <Accordion
-              style={{ width: "100%" }}
+              style={{ width: "100%", borderRadius: "10px" }}
               expanded={false}
               className={styles.box}
             >
@@ -146,10 +146,14 @@ function LeftSide(props: Props) {
                 className={styles.box}
                 expanded={expanded === text}
                 onChange={handleChange(text)}
-                style={{ width: "100%" }}
+                style={{ width: "100%", borderRadius: "10px" }}
               >
                 <AccordionSummary
-                  style={{ display: "flex", alignItems: "center" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1bh-content"
                   id="panel1bh-header"

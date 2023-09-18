@@ -6,6 +6,7 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface ProjectCardProps {
   pjt?: any;
@@ -56,13 +57,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt }) => {
         >
           <div>
             <Tooltip title="프로젝트 생성" arrow>
-              <Fab
-                aria-label="add"
-                onClick={handleClick}
-                style={{ backgroundColor: "#39a789", color: "white" }}
-              >
-                <AddIcon />
-              </Fab>
+              <Link to="/createpjt">
+                <Fab
+                  aria-label="add"
+                  // onClick={handleClick}
+                  style={{ backgroundColor: "#39a789", color: "white" }}
+                >
+                  <AddIcon />
+                </Fab>
+              </Link>
             </Tooltip>
             <p>프로젝트 생성</p>
           </div>
