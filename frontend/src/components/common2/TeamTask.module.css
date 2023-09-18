@@ -1,16 +1,16 @@
 /* 1170 */
 
 .container {
-  width: 1170px;
-  height: 90vh;
-  margin: 0 0 0 20px;
+  width: 58vw;
+  height: 85vh;
+  margin: 0 0 0 0;
   border-radius: 20px;
   /* border: 1px solid rgb(222, 222, 222); */
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(131, 131, 131, 0.37);
+  background: rgba(255, 255, 255, 0.8);
+  /* box-shadow: 0 8px 32px 0 rgba(131, 131, 131, 0.37); */
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(197, 197, 197, 0.4);
 }
 
 .messageLeftTitle {
@@ -29,7 +29,6 @@
   overflow: hidden;
   word-wrap: break-word;
   /* padding: 6px 10px; */
-
   display: flex;
   justify-content: start;
 }
@@ -66,8 +65,7 @@
   margin-bottom: 15px;
   &:hover {
     box-shadow: -2px -2px 5px white, 2px 2px 5px #babecc;
-  }
-}
+  }}
 
 .taskHeader {
   display: flex;
@@ -103,4 +101,26 @@
 .task {
   margin: 5px 0;
   font-family: "preRg";
+}
+.checked {
+  text-decoration: line-through;
+  /* text-decoration-style: wavy; */
+  text-decoration-color: #39A789;
+  text-decoration-thickness: 2px;
+  margin: 0
+}
+
+.taskContent {
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  display: flex;
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.taskContainer::-webkit-scrollbar {
+  display: none;
 }

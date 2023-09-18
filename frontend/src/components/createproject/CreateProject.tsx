@@ -49,21 +49,22 @@ function CreateProject() {
     <Container
       backgroundColor="white"
       text=""
-      width="1170px"
-      height="85vh"
-      margin="60px 10px 40px 10px"
-      padding=""
+      width="58vw"
+      height="81vh"
+      margin=""
+      padding="2vh 2vw"
       borderRadius="20px"
       display="flex"
-      justifyContent="center"
-      boxShadow="0 8px 10px 0 rgba(131, 131, 131, 0.37)"
-      backdropFilter="blur(7px)"
-      transition="all 0.2s ease-in-out"
+      border="1px solid black"
+      justifyContent="flex-start"
+      boxShadow=""
+      backdropFilter=""
+      transition=""
     >
       <Box
         // sx={{ maxWidth: 600 }}
         width="80%"
-        style={{ marginTop: "3%" }}
+        style={{ marginTop: "1%" }}
         color="success"
       >
         <Stepper activeStep={activeStep} orientation="vertical" color="success">
@@ -79,11 +80,10 @@ function CreateProject() {
               >
                 {step.label}
               </StepLabel>
-              <StepContent color="success" style={{ width: "60%" }}>
-                <Typography color="success">
-                  {index === 0 && <First />}
-                  {index === 1 && <Second />}
-                </Typography>
+              <StepContent color="success" style={{ width: "80%" }}>
+                {index === 0 && <First />}
+                {index === 1 && <Second />}
+
                 <Box sx={{ mb: 2 }} color="success">
                   <div>
                     <Button

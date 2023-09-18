@@ -1,14 +1,30 @@
 .container {
   display: flex;
-  justify-content: start;
-  /* width: 1530px; */
-  /* background-color: blue; */
+  justify-content: center;
   align-items: center;
+  width: 100vw;
+  height: 100vh;
 }
+
+.BoardContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 2vh 2vw;
+  width: 75vw;
+  height: 81vh;
+  border: 1px solid #E5E8EB;
+  border-radius: 20px;
+  background-color: #ffffff;
+  letter-spacing: 1.2px;
+}
+
+.BoardTabContainer {
+  color: #39A789;
+  border-bottom: 1px solid #E5E8EB;
+}
+ 
 
 .ideaNshare {
   display: flex;
   justify-content: space-between;
-  max-width: 80%;
-
 }

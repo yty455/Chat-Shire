@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import TeamTask from "../components/common2/TeamTask";
 import IndivTask from "../components/common2/IndivTask";
-import LeftSideTab from "../components/common/LeftSideTab";
 import LeftSide from "../components/common/LeftSide";
 
 export default function TaskPage() {
@@ -12,8 +11,10 @@ export default function TaskPage() {
     <div
       style={{
         display: "flex",
+        justifyContent: "center",
         alignItems: "center",
-        justifyContent: "space-between",
+        width: "100vw",
+        height: "100vh"
       }}
     >
       <LeftSide />

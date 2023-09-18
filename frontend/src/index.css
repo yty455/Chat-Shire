@@ -51,16 +51,10 @@ body {
   background-color: #f8f8f8;
 }
 
-html,
-body,
-#root {
-  /* height: 100%; */
-}
-
 
 .react-flow__node-mindmap {
   background: #39A789;
-  border-radius: 2px;
+  border-radius: 14px;
   border: 1px solid transparent;
   padding: 2px 5px;
   font-weight: 700;
@@ -73,17 +67,15 @@ body,
   top: 50%;
   pointer-events: none;
   opacity: 0;
-  
 }
 
 .react-flow__handle.source {
   top: 0;
   left: 0;
   transform: none;
-  background: #39A789;
+  background-color: #39a78a00;
   height: 100%;
   width: 100%;
-  border-radius: 2px;
   border: none;
   font-family: 'preBd';
   
@@ -107,25 +99,38 @@ body,
   background: transparent;
   width: 14px;
   height: 100%;
-  margin-right: 4px;
   display: flex;
   align-items: center;
   pointer-events: all;
 }
 
-.input {
-  border: none;
-  padding: 0 0px;
-  border-radius: 1px;
-  font-weight: 700;
+.deleteBtn {
   background: transparent;
+  width: 14px;
   height: 100%;
-  color: #222;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.inputWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 4px;
+}
+
+.inputWrapper .input {
+  border: none;
+  margin-right: 0;
+  padding: 2px;
+  min-width: 50px;
   pointer-events: none;
+  font-weight: 600;
   font-size: 10px;
   font-family: 'preBd';
-  margin-right: 0;
-  padding-right: 0;
+  background: transparent;
+  color: #ffffff;
 }
 
 .input:focus {
@@ -137,4 +142,8 @@ body,
 
 .header {
   font-family: 'preRg';
+}
+
+.react-flow__attribution {
+  display: none !important;
 }
