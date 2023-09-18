@@ -17,6 +17,8 @@
   /* border: 1px solid red; */
 }
 
+
+
 .messageLeftHeader {
   display: flex;
   justify-content: space-between;
@@ -36,6 +38,17 @@
 .messageLeftTitle {
   font-size: 34px;
   font-family: "preBl";
+}
+
+.messageLeftBody {
+  margin-left: -14px;
+  height: 672px;
+  overflow: scroll;
+  /* border: 1px solid purple; */
+}
+
+.messageLeftBody::-webkit-scrollbar {
+  display: none;
 }
 
 .messagePeopleNum {

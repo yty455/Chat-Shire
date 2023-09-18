@@ -4,14 +4,33 @@ import { loginuser } from "../../stores/atom";
 import styles from "./Login.module.css";
 import landing2 from "./landing2.png";
 import { useNavigate } from "react-router";
+import { getGit } from "../../utils/apiService";
 
 function LoginPage() {
   const [userData, setUserDate] = useRecoilState(loginuser);
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate("/main");
+    window.location.href = "http://j9e205.p.ssafy.io:8080/login";
+    // gitSign();
+    // redirectToGithub();
+    // navigate("/main");
   };
+
+  // const redirectToGithub = () => {
+  // window.location.href = "http://j9e205.p.ssafy.io:8080/oauth2/sign-up";
+  // };
+  const gitSign = async () => {
+    try {
+      const response = await getGit();
+      console.log(response);
+      // window.location.href = "http://j9e205.p.ssafy.io:8080/oauth2/sign-up";
+      // navigate("/oauth2/sign-up");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className={styles.landingDiv}>
       <div className={styles.mentNBtn}>

@@ -60,7 +60,7 @@ public class TaskGroupController {
         TaskGroupInfoDetailResponse taskGroupInfoDetailResponse = taskGroupService.getTaskGroupDetail(taskGroupId);
 
         BasicResponse basicResponse = BasicResponse.builder()
-                .message("태스크 그룹 조회 완료")
+                .message("태스크 그룹 상세 조회 완료")
                 .count(1)
                 .result(Collections.singletonList(taskGroupInfoDetailResponse))
                 .build();
