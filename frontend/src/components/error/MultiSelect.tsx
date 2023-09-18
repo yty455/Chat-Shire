@@ -153,39 +153,6 @@ function MultiSelect() {
                 </li>
             )}
         />
-
-{/* 
-      <FormControl sx={{ fontFamily: 'preRg', m: 1, width: 200 }}>
-        <InputLabel sx={{fontFamily:'preRg', mt:-1}} id="demo-multiple-chip-label">언어</InputLabel>
-        <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" sx={{ height: '40px' }} />}
-          renderValue={(selected) => (
-            <Box sx={{ display: "flex", flexWrap: "nowrap", gap: 0.5 }}>
-              {selected.map((value) => (
-                <CustomChip key={value} label={value} className={value} />
-              ))}
-            </Box>
-          )}
-          MenuProps={MenuProps}
-        >
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-            >
-              <CustomChip label={name} className={name} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl> */}
-
-
     </div>
   );
 }
