@@ -8,7 +8,7 @@ function ErrorList() {
         height: "calc(100% - 80px)",
         width: "100%",
         display: "flex",
-        justifyContent: "space-evenly",
+        justifyContent: "space-between",
         alignItems: "center",
         flexWrap: "wrap",
       }}

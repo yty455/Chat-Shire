@@ -49,17 +49,22 @@ function LoginPage() {
     <div className={styles.landingDiv}>
       <div className={styles.mentNBtn}>
         <p className={styles.serviceMent}>
-          Manage your
+          프로젝트 관리를
           <br />
-          projects simply
-          <br />
-          and easily.
+          쉽고 간단하게.
+          {/* <br />
+          and easily. */}
         </p>
         <p className={styles.serviceMentLong}>
-          Join us and manage your tasks and ideas
+          대화에서 파생된 아이디어와 태스크를 실시간으로 기록하고 관리하세요.
           <br />
-          throughout chattings{" "}
+          간편함과 효율성 사이에서 고민하지 마세요, 두 가지 모두를 경험하세요.
         </p>
+        {/* <p className={styles.serviceMentLong}>
+          태스크와 아이디어를 채팅과 연결해
+          <br />
+          효율적으로 관리해보세요{" "}
+        </p> */}
         <button
           className={styles.github}
           onClick={() => {

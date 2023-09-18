@@ -63,11 +63,11 @@ const handleContentChange = (id:number) => (event:any) =>{
 
 return (
   <div className={styles.indivDiv}>
-    <Box sx={{p: 0,}}>
+    <Box sx={{p: 0}}>
       <Grid container spacing={2}>
       {checkboxItems.map(item=>(
         <Grid sx={{margin:0, padding:0 }} item xs={12} key={item.id}>
-          <Item sx={{margin:0, padding:0}} className={styles.oneMemo} elevation={7}>
+          <Item sx={{margin:'10px 10px 0 10px', padding:0}} className={styles.oneMemo} elevation={7}>
             <div className={styles.indivTask}>
               <Checkbox 
               sx={{color: '#39A789', '&.Mui-checked': { color: '#39A789'}}} 
@@ -90,7 +90,6 @@ return (
       ))}
       </Grid>
     </Box>
-
     <Fab sx={{ mt: '20px', mr: 'auto', ml: 'auto', display:'flex',justifyContent:'center' }} color="greenary" aria-label="add" onClick={addCheckbox}>
     <AddIcon/>
     </Fab>

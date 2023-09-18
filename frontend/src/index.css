@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: "preRg";
+  font-family: "preRg" !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f7f7f7;
@@ -44,6 +44,8 @@ code {
 body {
   margin: 0;
   background-color: #f8f8f8;
+  font-family: "preRg";
+
 }
 
 .react-flow__node-mindmap {
@@ -71,7 +73,7 @@ body {
   height: 100%;
   width: 100%;
   border: none;
-  font-family: "preBd";
+  font-family: "preBd" !important;
 }
 
 .react-flow .react-flow__connectionline {
