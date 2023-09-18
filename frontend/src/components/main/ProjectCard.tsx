@@ -54,15 +54,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt }) => {
             alignItems: "center",
           }}
         >
-          <Tooltip title="프로젝트 생성" arrow>
-            <Fab
-              aria-label="add"
-              onClick={handleClick}
-              style={{ backgroundColor: "#39a789", color: "white" }}
-            >
-              <AddIcon />
-            </Fab>
-          </Tooltip>
+          <div>
+            <Tooltip title="프로젝트 생성" arrow>
+              <Fab
+                aria-label="add"
+                onClick={handleClick}
+                style={{ backgroundColor: "#39a789", color: "white" }}
+              >
+                <AddIcon />
+              </Fab>
+            </Tooltip>
+            <p>프로젝트 생성</p>
+          </div>
         </div>
       )}
     </div>

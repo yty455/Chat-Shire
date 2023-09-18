@@ -23,9 +23,9 @@ function Invite() {
     <Container
       backgroundColor="white"
       text=""
-      width="400px"
+      width="20vw"
       height="85vh"
-      margin="60px 40px 40px 10px"
+      margin=""
       padding=""
       borderRadius="20px"
       boxShadow="0 8px 10px 0 rgba(131, 131, 131, 0.37)"

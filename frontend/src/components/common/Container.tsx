@@ -7,6 +7,7 @@ interface ContainerProps {
   height: string;
   margin: string;
   padding: string;
+  border?: string;
   borderRadius: string;
   boxShadow: string;
   children?: React.ReactNode;
@@ -23,6 +24,7 @@ const Container: React.FC<ContainerProps> = ({
   height,
   margin,
   padding,
+  border,
   borderRadius,
   boxShadow,
   children,
@@ -37,6 +39,7 @@ const Container: React.FC<ContainerProps> = ({
     height,
     margin,
     padding,
+    border,
     borderRadius,
     boxShadow,
     display,
