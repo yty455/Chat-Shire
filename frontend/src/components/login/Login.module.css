@@ -17,8 +17,8 @@
 }
 
 .serviceMent {
-  /* font-family: 'preBd'; */
-  font-size: 50px;
+  font-family: 'preBd';
+  font-size: 55px;
   margin-bottom: 10px;
   text-align: start;
   letter-spacing: -0.5px;
@@ -28,6 +28,8 @@
 
 .serviceMentLong {
   font-family: 'preLt';
+  letter-spacing: -0.5px;
+
   font-size: 27px;
   margin-top: 0;
   text-align: start;

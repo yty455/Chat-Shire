@@ -35,16 +35,16 @@ function LoginPage() {
     <div className={styles.landingDiv}>
       <div className={styles.mentNBtn}>
         <p className={styles.serviceMent}>
-          Manage your
+          프로젝트 관리를
           <br />
-          projects simply
-          <br />
-          and easily.
+          쉽고 간단하게.
+          {/* <br />
+          and easily. */}
         </p>
         <p className={styles.serviceMentLong}>
-          Join us and manage your tasks and ideas
+          태스크와 아이디어를 채팅과 연결해
           <br />
-          throughout chattings{" "}
+          효율적으로 관리해보세요{" "}
         </p>
         <button
           className={styles.github}
