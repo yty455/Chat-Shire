@@ -42,6 +42,7 @@ public class SecurityConfig {
 	protected SecurityFilterChain config(HttpSecurity http) throws Exception {
 //	protected SecurityFilterChain config(HttpSecurity http, JwtProvider jwtProvider,
 //										 CookieUtil cookieUtil) throws Exception {
+		http.cors().configurationSource(corsConfigurationSource());
 		http
 				.httpBasic().disable()
 				.csrf().disable()
@@ -130,7 +131,9 @@ public class SecurityConfig {
 
 		//허용할 url 설정
 //		configuration.addAllowedOrigin("http://43.200.254.50");
-		configuration.addAllowedOrigin("https://i9e104.p.ssafy.io");
+		configuration.addAllowedOrigin("http://j9e205.p.ssafy.io");
+		configuration.addAllowedOrigin("http://192.168.30.227:3000");
+//		configuration.addAllowedOrigin("https://j9e205.p.ssafy.io");
 		//허용할 헤더 설정
 		configuration.addAllowedHeader("*");
 		//허용할 http method
