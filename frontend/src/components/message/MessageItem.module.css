@@ -1,8 +1,9 @@
 .messageItemContainer {
   display: flex;
-  align-items: center;
-  width: 640px;
-  height: 100px;
+  align-items: flex-end;
+  width: 30vw;
+  height: 7vh;
+  margin-top: 8px;
   /* border: 1px solid purple; */
 }
 
@@ -10,8 +11,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  width: 400px;
-  height: 80px;
+  width: 30vw;
+  height: 10vh;
   margin-left: 10px;
 }
 
@@ -24,16 +25,16 @@
 }
 
 .messageProfileName {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .messageTime {
   margin-left: 6px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .messageItemText {
   display: flex;
-  font-size: 26px;
+  font-size: 16px;
   color: #575757;
 }

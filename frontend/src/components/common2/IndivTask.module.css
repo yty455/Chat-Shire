@@ -1,14 +1,14 @@
 .indivDiv {
-  max-width: 400px;
-  width: 400px;
-  height: 100vh;
-  padding: 20px 0;
+  max-width: 20vw;
+  width: 24vw;
+  height: 85vh;
+  padding: 0;
   /* 구분을 위한 색, 나중에 지우기
-  background-color: rgb(227, 227, 227); */
     /* display: flex; */
     /* justify-content: flex-end; */
-  margin-left: auto;
-  margin-right: 3px;
+  margin-left: 1vw;
+  overflow: scroll;
+  
 }
 
 .indivTask {
@@ -20,14 +20,16 @@
   min-height: 60px;
   overflow:hidden;
   word-wrap:break-word;
-  padding: 6px 10px;
+  padding: 0 10px;
 
   display: flex;
   justify-content: start;
+  
 
 }
 
 .oneMemo {
+  
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   
@@ -45,10 +47,12 @@
   max-width: 320px;
   text-align: start;
   margin-bottom: 0;
+  padding:0;
   font-family: 'preBd';
 }
 
 .test {
+  
   max-width: 400px;
   width: 400px;
   min-height: 100px;
@@ -62,4 +66,11 @@
   /* text-decoration-style: wavy; */
   text-decoration-color: #39A789;
   text-decoration-thickness: 2px;
+}
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.indivDiv::-webkit-scrollbar {
+  display: none;
 }

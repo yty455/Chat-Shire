@@ -1,11 +1,42 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
-import styles from "./CreateProject.module.css";
+import styles from "./First.module.css";
+import { postProject } from "../../utils/apiService";
 
 function First() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [theme, setTheme] = useState("");
+  const [name, setName] = useState("");
+  const [teamName, setTeamName] = useState("");
+  const [topic, setTopic] = useState("");
+  const [description, setDescription] = useState("");
+  const [gitRepository, setGitRepository] = useState("");
+  const [startDate, setStartDate] = useState("2023-09-14");
+  const [endDate, setEndDate] = useState("2023-09-14");
+  const [range, setRange] = React.useState([
+    new Date("2017-02-01 01:00:00"),
+    new Date("2017-02-02 14:00:00"),
+  ]);
+
+  const createProject = async () => {
+    try {
+      const response = await postProject(
+        name,
+        teamName,
+        topic,
+        description,
+        gitRepository,
+        startDate,
+        endDate
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleClick = async () => {
+    console.log(range);
+    createProject();
+  };
 
   return (
     <div className={styles.inputbox}>
@@ -16,10 +47,10 @@ function First() {
         className={styles.inputtag}
         required
         id="standard-required"
-        label="제목"
+        label="프로젝트 이름"
         defaultValue=""
         variant="standard"
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => setName(e.target.value)}
         // helperText="Please enter your name"
       />
       <TextField
@@ -29,9 +60,35 @@ function First() {
         className={styles.inputtag}
         required
         id="standard-required"
-        label="주제"
+        label="팀 이름"
         defaultValue=""
-        onChange={(e) => setContent(e.target.value)}
+        onChange={(e) => setTeamName(e.target.value)}
+        variant="standard"
+        // helperText="Please enter your name"
+      />
+      <TextField
+        color="success"
+        margin="dense"
+        fullWidth
+        className={styles.inputtag}
+        required
+        id="standard-required"
+        label="프로젝트 주제"
+        defaultValue=""
+        onChange={(e) => setTopic(e.target.value)}
+        variant="standard"
+        // helperText="Please enter your name"
+      />
+      <TextField
+        color="success"
+        margin="dense"
+        fullWidth
+        className={styles.inputtag}
+        required
+        id="standard-required"
+        label="깃 등록"
+        defaultValue=""
+        onChange={(e) => setGitRepository(e.target.value)}
         variant="standard"
         // helperText="Please enter your name"
       />
@@ -44,11 +101,19 @@ function First() {
         id="outlined-multiline-static"
         label="설명"
         multiline
-        rows={3}
-        onChange={(e) => setTheme(e.target.value)}
+        rows={2}
+        onChange={(e) => setDescription(e.target.value)}
         defaultValue=""
         // helperText="Please enter your name"
       />
+
+      <button
+        onClick={() => {
+          handleClick();
+        }}
+      >
+        생성
+      </button>
     </div>
   );
 }

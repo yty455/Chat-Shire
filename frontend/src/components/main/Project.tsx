@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import NowProject from "./NowProject";
 import ComProject from "./ComProject";
 import styles from "./Project.module.css";
 import Container from "../common/Container";
+import { getProjects } from "../../utils/apiService";
+import { loginuser } from "../../stores/atom";
+import { useRecoilState } from "recoil";
 
 const pjt = {
   now: [
@@ -48,13 +51,26 @@ const pjt = {
 };
 
 function Project() {
+  const [userDate, setUserDate] = useRecoilState(loginuser);
+  const [allPjt, setAllPjt] = useState("");
+
+  const getMyProjects = async () => {
+    try {
+      const response = await getProjects();
+      console.log(response);
+      setAllPjt(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Container
       backgroundColor="white"
       text=""
-      width="1170px"
+      width="58vw"
       height="85vh"
-      margin="60px 10px 40px 10px"
+      margin=""
       padding=""
       borderRadius="20px"
       boxShadow="0 8px 10px 0 rgba(131, 131, 131, 0.37)"

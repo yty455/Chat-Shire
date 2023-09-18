@@ -45,7 +45,7 @@ export default function MessageItem() {
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         variant="dot"
       >
-        <Avatar alt="Remy Sharp" src={img} sx={{ width: 80, height: 80 }} />
+        <Avatar alt="Remy Sharp" src={img} sx={{ width: 50, height: 50 }} />
       </StyledBadge>
       <div className={styles.messageItemBody}>
         <div className={styles.messageItemName}>

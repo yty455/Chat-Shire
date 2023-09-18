@@ -54,10 +54,12 @@ export default function BasicTabs() {
   return (
     <div className={styles.container}>
       <LeftSide />
-      <Box sx={{ width: "80%", height: "80%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <div className={styles.BoardContainer}>
+        <div className={styles.BoardTabContainer}>
           <Tabs
-            sx={{ fontFamily: "preRg", maxWidth: "80%", width: "80%" }}
+            textColor="inherit"
+            indicatorColor="greenary"
+            sx={{ fontFamily: "preRg"}}
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
@@ -69,7 +71,7 @@ export default function BasicTabs() {
             />
             <Tab sx={{ fontFamily: "preBd" }} label="에러" {...a11yProps(1)} />
           </Tabs>
-        </Box>
+        </div>
         <CustomTabPanel value={value} index={0}>
           <div className={styles.ideaNshare}>
             <Idea />
@@ -79,7 +81,7 @@ export default function BasicTabs() {
         <CustomTabPanel value={value} index={1}>
           <ErrorBoard />
         </CustomTabPanel>
-      </Box>
+      </div>
     </div>
   );
 }
