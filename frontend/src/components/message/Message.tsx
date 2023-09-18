@@ -45,8 +45,8 @@ function Message() {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
         client.current?.subscribe(
          `/topic/greetings`,
-          (message) => {
-            // console.log(JSON.parse(message.body).content)
+          (message) => {``
+            console.log(JSON.parse(message.body).content)
             setMessage(JSON.parse(message.body));
           },
         );
