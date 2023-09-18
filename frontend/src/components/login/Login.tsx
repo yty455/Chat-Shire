@@ -4,14 +4,18 @@ import { loginuser } from "../../stores/atom";
 import styles from "./Login.module.css";
 import landing2 from "./landing2.png";
 import { useNavigate } from "react-router";
-import { getGit } from "../../utils/apiService";
+import { getGit, postUser } from "../../utils/apiService";
+import api from "../../utils/api";
+import axios from "axios";
 
 function LoginPage() {
   const [userData, setUserDate] = useRecoilState(loginuser);
   const navigate = useNavigate();
-
+  const url = `https://github.com/login/oauth/authorize?client_id=e5f1721b3eecc64f3c29&scope=repo:status read:repo_hook user:email&redirect_uri=http://localhost:3000/callback`;
   const onClick = () => {
-    window.location.href = "http://j9e205.p.ssafy.io:8080/login";
+    // window.location.href = "http://j9e205.p.ssafy.io:8080/login";
+    window.location.href = url;
+    // usersign();
     // gitSign();
     // redirectToGithub();
     // navigate("/main");
@@ -20,9 +24,19 @@ function LoginPage() {
   // const redirectToGithub = () => {
   // window.location.href = "http://j9e205.p.ssafy.io:8080/oauth2/sign-up";
   // };
-  const gitSign = async () => {
+  // const gitSign = async () => {
+  //   try {
+  //     const response = await getGit();
+  //     console.log(response);
+  //     // window.location.href = "http://j9e205.p.ssafy.io:8080/oauth2/sign-up";
+  //     // navigate("/oauth2/sign-up");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  const usersign = async () => {
     try {
-      const response = await getGit();
+      const response = await axios.post("abc", "ddd");
       console.log(response);
       // window.location.href = "http://j9e205.p.ssafy.io:8080/oauth2/sign-up";
       // navigate("/oauth2/sign-up");
