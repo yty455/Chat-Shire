@@ -50,15 +50,16 @@ function CreateProject() {
       backgroundColor="white"
       text=""
       width="58vw"
-      height="85vh"
-      margin="60px 10px 40px 10px"
-      padding=""
+      height="81vh"
+      margin=""
+      padding="2vh 2vw"
       borderRadius="20px"
       display="flex"
-      justifyContent="center"
-      boxShadow="0 8px 10px 0 rgba(131, 131, 131, 0.37)"
-      backdropFilter="blur(7px)"
-      transition="all 0.2s ease-in-out"
+      border="1px solid black"
+      justifyContent="flex-start"
+      boxShadow=""
+      backdropFilter=""
+      transition=""
     >
       <Box
         // sx={{ maxWidth: 600 }}

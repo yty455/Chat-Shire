@@ -114,7 +114,7 @@ function Flow() {
 
 
   return (
-    <div style={{backgroundColor: "#ffffff", height:550, minWidth:850}}>
+    <div style={{backgroundColor: "#ffffff", width: "52vw", height: "70vh" }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}

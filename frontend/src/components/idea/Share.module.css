@@ -1,15 +1,13 @@
 .indivDiv {
-  max-width: 370px;
-  width: 370px;
-  /* height: 100vh; */
+  width: 20vw;
+  height: 70vh;
   padding: 0;
-  margin: 0
-  /* 구분을 위한 색, 나중에 지우기
-  background-color: rgb(227, 227, 227); */
-    /* display: flex; */
-    /* justify-content: flex-end; */
-  /* margin-left: auto;
-  margin-right: 3px; */
+  margin: 0;
+  overflow: scroll;
+}
+
+.indivDiv::-webkit-scrollbar {
+  display: none;
 }
 
 .indivTask {
@@ -18,7 +16,7 @@
   min-height: 100px;
   border-radius: 20px;
   background-color: white; */
-  min-height: 60px;
+  min-height: 40px;
   overflow:hidden;
   word-wrap:break-word;
   padding: 6px 10px;
