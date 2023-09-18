@@ -38,34 +38,34 @@ const names = [
 
 const CustomChip = styled(Chip)(({ theme }) => ({
   '&.python': {
-    backgroundColor: '#F23FFF',
+    backgroundColor: '#F08484',
   },
   '&.java': {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#F9A686'
   },
   '&.c#': {
-    backgroundColor: theme.palette.error.main,
+    backgroundColor: '#FBF6A4',
   },
   '&.docker': {
-    backgroundColor: theme.palette.greenary.main,
+    backgroundColor: 'F9BF64',
   },
   '&.curl': {
-    backgroundColor: theme.palette.warning.main,
+    backgroundColor: '#A0D6B6',
   },
   '&.three.js': {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#30BA96',
   },
   '&.react': {
-    backgroundColor: theme.palette.info.main,
+    backgroundColor: '#789CCE',
   },
   '&.c++': {
-    backgroundColor: theme.palette.success.main,
+    backgroundColor: '#9E7EB9',
   },
   '&.clang': {
-    backgroundColor: theme.palette.error.main,
+    backgroundColor: '#EF404A',
   },
   '&.jenkins': {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: '#8ED2CD',
   },
   height: '25px',
   '& .MuiChip-label': {
@@ -144,7 +144,7 @@ function MultiSelect() {
             )}
             renderTags={(selectedValues, getTagProps) =>
                 selectedValues.map((option, index) => (
-                    <CustomChip {...getTagProps({ index })} key={index} label={option} className={option} />
+                    <CustomChip {...getTagProps({ index })} key={index} label={option} className={option} sx={{ margin: '0 2px' }}/>
                 ))
             }
             renderOption={(props, option, { selected }) => (

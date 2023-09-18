@@ -30,7 +30,8 @@
   font-family: 'preLt';
   letter-spacing: -0.5px;
 
-  font-size: 27px;
+  /* font-size: 27px; 원래문구 크기 */
+  font-size: 18px;
   margin-top: 0;
   text-align: start;
   /* letter-spacing: -0.5px; */
