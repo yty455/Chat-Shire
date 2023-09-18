@@ -38,34 +38,34 @@ const names = [
 
 const CustomChip = styled(Chip)(({ theme }) => ({
   '&.python': {
-    backgroundColor: '#F23FFF',
+    backgroundColor: '#F08484',
   },
   '&.java': {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#F9A686'
   },
   '&.c#': {
-    backgroundColor: theme.palette.error.main,
+    backgroundColor: '#FBF6A4',
   },
   '&.docker': {
-    backgroundColor: theme.palette.greenary.main,
+    backgroundColor: 'F9BF64',
   },
   '&.curl': {
-    backgroundColor: theme.palette.warning.main,
+    backgroundColor: '#A0D6B6',
   },
   '&.three.js': {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#30BA96',
   },
   '&.react': {
-    backgroundColor: theme.palette.info.main,
+    backgroundColor: '#789CCE',
   },
   '&.c++': {
-    backgroundColor: theme.palette.success.main,
+    backgroundColor: '#9E7EB9',
   },
   '&.clang': {
-    backgroundColor: theme.palette.error.main,
+    backgroundColor: '#EF404A',
   },
   '&.jenkins': {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: '#8ED2CD',
   },
   height: '25px',
   '& .MuiChip-label': {
@@ -144,7 +144,7 @@ function MultiSelect() {
             )}
             renderTags={(selectedValues, getTagProps) =>
                 selectedValues.map((option, index) => (
-                    <CustomChip {...getTagProps({ index })} key={index} label={option} className={option} />
+                    <CustomChip {...getTagProps({ index })} key={index} label={option} className={option} sx={{ margin: '0 2px' }}/>
                 ))
             }
             renderOption={(props, option, { selected }) => (
@@ -153,39 +153,6 @@ function MultiSelect() {
                 </li>
             )}
         />
-
-{/* 
-      <FormControl sx={{ fontFamily: 'preRg', m: 1, width: 200 }}>
-        <InputLabel sx={{fontFamily:'preRg', mt:-1}} id="demo-multiple-chip-label">언어</InputLabel>
-        <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" sx={{ height: '40px' }} />}
-          renderValue={(selected) => (
-            <Box sx={{ display: "flex", flexWrap: "nowrap", gap: 0.5 }}>
-              {selected.map((value) => (
-                <CustomChip key={value} label={value} className={value} />
-              ))}
-            </Box>
-          )}
-          MenuProps={MenuProps}
-        >
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-            >
-              <CustomChip label={name} className={name} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl> */}
-
-
     </div>
   );
 }

@@ -11,6 +11,8 @@
   &:hover {
     border: 1px solid #39a789;
   }
+  display: flex;
+  /* justify-content: beteen; */
 }
 
 .ErrorBoardContainer {
@@ -18,3 +20,45 @@
   padding: 0;
 }
 
+.status {
+  margin: 3px 0;
+  font-family: 'preRg';
+  width: 45px;
+  color: #39a789;
+  text-align: center;
+  border: 1px solid #39a789;
+  border-radius: 10px;
+}
+
+
+.title {
+  font-family: 'preBd';
+  margin: 5px 0 0 0;
+}
+.answer {
+  font-family: 'preBd';
+  margin: 0 0 0 0;
+}
+.language {
+  padding: 0 5px;
+  width: 50px;
+  margin: 3px 0 7px 0;
+  font-family: 'preRg';
+  color: white;
+  background-color: #2d2ad0;
+  text-align: center;
+  /* border: 1px solid #2d2ad0; */
+  border-radius: 10px;
+}
+
+.error {
+  width: 60px;
+  height: 60px;
+  margin-right: 5px;
+}
+
+.more {
+  font-family: 'preLt';
+  font-size: 13px;
+  margin: 0 0 0 20px
+}
