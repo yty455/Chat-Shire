@@ -7,6 +7,10 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete'; // import here
+import TextField from '@mui/material/TextField';
+import { styled } from '@mui/system';
+import Paper from "@mui/material/Paper";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -32,6 +36,44 @@ const names = [
   "jenkins",
 ];
 
+const CustomChip = styled(Chip)(({ theme }) => ({
+  '&.python': {
+    backgroundColor: '#F23FFF',
+  },
+  '&.java': {
+    backgroundColor: theme.palette.secondary.main,
+  },
+  '&.c#': {
+    backgroundColor: theme.palette.error.main,
+  },
+  '&.docker': {
+    backgroundColor: theme.palette.greenary.main,
+  },
+  '&.curl': {
+    backgroundColor: theme.palette.warning.main,
+  },
+  '&.three.js': {
+    backgroundColor: theme.palette.secondary.main,
+  },
+  '&.react': {
+    backgroundColor: theme.palette.info.main,
+  },
+  '&.c++': {
+    backgroundColor: theme.palette.success.main,
+  },
+  '&.clang': {
+    backgroundColor: theme.palette.error.main,
+  },
+  '&.jenkins': {
+    backgroundColor: theme.palette.primary.main,
+  },
+  height: '25px',
+  '& .MuiChip-label': {
+    paddingTop: '0px',
+    paddingBottom: '0px',
+  },
+}));
+
 function getStyles(name: string, personName: readonly string[], theme: Theme) {
   return {
     fontWeight:
@@ -54,22 +96,78 @@ function MultiSelect() {
       typeof value === "string" ? value.split(",") : value
     );
   };
+  const filter = createFilterOptions<string>();
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-chip-label">tag</InputLabel>
+        <Autocomplete
+            multiple
+            id="multiple-limit-tags"
+            options={names}
+            filterOptions={(options, params) => {
+              const filtered = filter(options, params);
+
+              // At the opening of dropdown (when search is empty), no options will be shown.
+              if (params.inputValue === '') {
+                  return [];
+              }
+
+              return filtered as string[];
+          }}            
+          getOptionLabel={(option) => option}
+            renderInput={(params) => (
+                <TextField {...params} sx={{'& .MuiInputLabel-root': {
+                  fontFamily: 'preBd',margin: '-7px 0 0 1px'
+              },}} label="언어를 검색하세요" />
+            )}
+            sx={{ 
+                width: '300px', 
+                '& .MuiAutocomplete-tag': {
+                    maxWidth: '100%',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
+                },
+                '& .MuiAutocomplete-tagArea': {
+                    flexWrap: 'nowrap',
+                    overflowX: 'auto'
+                },
+                '& .MuiInputBase-root': {
+                  marginTop: '1px',
+                  padding: '0 5px',
+
+                },
+                marginLeft: '10px',
+             }}
+             PaperComponent={({ children }) => (
+              <Paper style={{ maxHeight: `Desired height for autocomplete dropdown`, fontFamily:'Your desired font for options'}}>{children}</Paper>
+            )}
+            renderTags={(selectedValues, getTagProps) =>
+                selectedValues.map((option, index) => (
+                    <CustomChip {...getTagProps({ index })} key={index} label={option} className={option} />
+                ))
+            }
+            renderOption={(props, option, { selected }) => (
+                <li {...props}>
+                    <CustomChip label={option} className={option} color={selected ? 'primary' : undefined} />
+                </li>
+            )}
+        />
+
+{/* 
+      <FormControl sx={{ fontFamily: 'preRg', m: 1, width: 200 }}>
+        <InputLabel sx={{fontFamily:'preRg', mt:-1}} id="demo-multiple-chip-label">언어</InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
           value={personName}
           onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          input={<OutlinedInput id="select-multiple-chip" label="Chip" sx={{ height: '40px' }} />}
           renderValue={(selected) => (
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+            <Box sx={{ display: "flex", flexWrap: "nowrap", gap: 0.5 }}>
               {selected.map((value) => (
-                <Chip key={value} label={value} />
+                <CustomChip key={value} label={value} className={value} />
               ))}
             </Box>
           )}
@@ -81,11 +179,13 @@ function MultiSelect() {
               value={name}
               style={getStyles(name, personName, theme)}
             >
-              {name}
+              <CustomChip label={name} className={name} />
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControl> */}
+
+
     </div>
   );
 }

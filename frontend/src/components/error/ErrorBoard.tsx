@@ -5,7 +5,7 @@ import Container from "../common/Container";
 import MultiSelect from "./MultiSelect";
 // import styles from "./Idea.module.css";
 import ErrorList from "./ErrorList";
-
+import './Error.css'
 import styles from './Error.module.css'
 
 function Error() {
@@ -16,7 +16,7 @@ function Error() {
           width: "100%",
           height: "80px",
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "space-between",
           alignItems: "center",
         }}
       >
