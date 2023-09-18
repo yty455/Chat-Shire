@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import styles from "./First.module.css";
 import { postProject } from "../../utils/apiService";
-import "rsuite/dist/rsuite.min.css";
-import { DateRangePicker } from "rsuite";
 
 function First() {
   const [name, setName] = useState("");
@@ -108,15 +106,7 @@ function First() {
         defaultValue=""
         // helperText="Please enter your name"
       />
-      <DateRangePicker
-        format="yyyy-MM-dd hh:mm aa"
-        placement="bottomEnd"
-        preventOverflow
-        showMeridian
-        name="period"
-        // value={range}
-        // onChange={setRange}
-      />
+
       <button
         onClick={() => {
           handleClick();
