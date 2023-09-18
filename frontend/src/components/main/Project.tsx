@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NowProject from "./NowProject";
 import ComProject from "./ComProject";
 import styles from "./Project.module.css";
@@ -52,20 +52,38 @@ const pjt = {
 
 function Project() {
   const [userDate, setUserDate] = useRecoilState(loginuser);
-  const [allPjt, setAllPjt] = useState("");
+  const [allPjt, setAllPjt] = useState([]);
+  const [nowPjt, setNowPjt] = useState<any[]>([]);
+  const [comPjt, setComPjt] = useState<any[]>([]);
+  const today = new Date();
 
   const getMyProjects = async () => {
     try {
       const response = await getProjects();
-      console.log(response);
-      setAllPjt(response.data);
+      console.log(response.data.result[0], 123);
+      setAllPjt(response.data.result);
+      response.data.result[0].forEach((pjt: any) => {
+        // if (pjt.endDate < today) {
+
+        // } else {
+
+        // }
+        console.log(pjt.endDate);
+        // console.log(nowPjt);
+        // console.log(comPjt);
+      });
     } catch (error) {
       console.error(error);
     }
   };
 
+  useEffect(() => {
+    getMyProjects();
+  }, []);
+
   return (
     <Container
+      fontSize=""
       backgroundColor="white"
       text=""
       width="58vw"

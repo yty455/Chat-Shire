@@ -12,7 +12,6 @@
     "@mui/styled-engine-sc": "^5.14.8",
     "@mui/x-charts": "^6.0.0-alpha.9",
     "@mui/x-date-pickers": "^6.13.0",
-    "@mui/x-date-pickers-pro": "^6.13.0",
     "@nivo/bar": "^0.83.0",
     "@nivo/pie": "^0.83.0",
     "@nivo/radar": "^0.83.0",
