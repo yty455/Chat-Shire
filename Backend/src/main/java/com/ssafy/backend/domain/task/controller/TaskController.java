@@ -1,7 +1,6 @@
 package com.ssafy.backend.domain.task.controller;
 
 import com.ssafy.backend.domain.common.BasicResponse;
-import com.ssafy.backend.domain.task.Task;
 import com.ssafy.backend.domain.task.dto.TaskInfo;
 import com.ssafy.backend.domain.task.dto.TaskInfoResponse;
 import com.ssafy.backend.domain.task.dto.TaskRegister;

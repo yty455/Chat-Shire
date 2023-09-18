@@ -1,24 +1,24 @@
 import axios from "axios";
 
 // Axios 인스턴스 생성
-const api = axios.create({
-  baseURL: "/api1/", // API의 기본 URL
+const api2 = axios.create({
+  baseURL: "/api2/", // API의 기본 URL
 });
 
 // 요청 인터셉터 설정
-api.interceptors.request.use(
+api2.interceptors.request.use(
   (config) => {
     // 로컬 스토리지에서 토큰 가져오기
     // localStorage.setItem(
     //   "token",
-    //   "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NTAxMTEzMiwiaWQiOjF9.FrRcK2FVAh9_h8-W39eZYOUKIdLxgjUFVab64QTq2ga-eFETyG369RROhTQJJ4tjVmjj_EBzediEEBYh0wfKmg"
+    //   "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NDU5NDQzNywiaWQiOjF9.R5QinWvBoFryDPK3p3MusxyDdDQMBWrB2MJWf2j7omOsSFqwYqYIRUfpBTtPLbVvIKsI2ZaZvtQHZjKw7lZeIg"
     // );
-    // const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     // 헤더에 토큰 추가
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
 
     return config;
   },
@@ -28,7 +28,7 @@ api.interceptors.request.use(
 );
 
 // 응답 인터셉터 설정
-api.interceptors.response.use(
+api2.interceptors.response.use(
   (response) => {
     // 여기에 원하는 응답 후처리 로직을 추가할 수 있습니다.
     // 예를 들어, 응답 데이터를 가공하거나 에러 처리를 수행할 수 있습니다.
@@ -41,4 +41,4 @@ api.interceptors.response.use(
   }
 );
 
-export default api;
+export default api2;

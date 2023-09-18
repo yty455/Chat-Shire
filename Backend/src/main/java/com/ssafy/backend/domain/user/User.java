@@ -37,6 +37,10 @@ public class User extends BaseEntity {
     private String githubId;
     private String nickname;
     private String profileImage;
+    private String profileColor;
+    private String introduction;
+    private String detailIntroduction;
+
 
     private String email;
     private String password;

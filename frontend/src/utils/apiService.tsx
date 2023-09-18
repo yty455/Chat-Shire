@@ -1,4 +1,5 @@
 import api from "./api";
+import api2 from "./api2";
 
 // ##### 채팅방 공지
 
@@ -52,6 +53,30 @@ export const updateTask = (
 
 // 태스크 삭제
 export const deleteTask = (taskId: string) => api.delete(`/tasks/${taskId}`);
+
+// 태스크 소속 그룹 변경
+export const changeTaskGroup = (taskGroupId: string, taskId: string) =>
+  api.put(`/taskGroup/${taskGroupId}/tasks/taskId`);
+
+// ##### 태스크 그룹
+// 태스크 그룹 조회
+export const getTaskGroup = (projectId: string) =>
+  api.get(`/projects/${projectId}/taskgroup`);
+
+// 태스크 그룹 상세조회
+export const getTaskGroupDetail = (taskGroupId: string) =>
+  api.get(`/taskgroup/${taskGroupId}`);
+
+// 태스크 그룹 수정
+export const updateTaskGroup = (taskGroupId: string) =>
+  api.patch(`/taskgroup/${taskGroupId}`);
+
+// 태스크 그룹 생성
+export const postTaskGroup = () => api.post(`/taskgroup`);
+
+// 태스크 그룹 삭제
+export const deleteTaskGroup = (taskGroupId: string) =>
+  api.delete(`/taskgroup/${taskGroupId}`);
 
 // ##### 프로젝트
 
@@ -129,6 +154,10 @@ export const postReferences = (
   });
 
 //####### 채팅
+
+// 채팅 불러오기
+export const getChat = (projectId: number, page: number, size: number) =>
+  api.get(`/projects/${projectId}/chats?page=${page}&size=${size}`);
 
 // 채팅 작성
 export const postChat = (chatRoomId: number, content: string) =>
