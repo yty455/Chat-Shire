@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ProjectCard.module.css";
 import ProfileImgBox from "../common/ProfileImgBox";
 import img from "../../assets/profile/m57.png";
@@ -7,20 +7,32 @@ import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import ProjectModal from "./ProjectModal";
 
 interface ProjectCardProps {
   pjt?: any;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ pjt }) => {
+  const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     navigate("/createpjt");
   };
 
+  const handleModal = (event: React.MouseEvent<HTMLDivElement>) => {
+    // 프로젝트 생성 버튼 클릭 시 모달 창 활성화
+    setOpenModal(true);
+  };
+
+  const closeModal = () => {
+    // 모달 닫기 버튼 또는 모달 외부 클릭 시 모달 창 닫기
+    setOpenModal(false);
+  };
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={handleModal}>
       {pjt ? (
         <>
           <h3>{pjt.name}</h3>
@@ -71,6 +83,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt }) => {
           </div>
         </div>
       )}
+
+      {/* {openModal && <ProjectModal />} */}
     </div>
   );
 };
