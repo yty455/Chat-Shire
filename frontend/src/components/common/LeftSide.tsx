@@ -67,7 +67,7 @@ function LeftSide(props: Props) {
       setExpanded(isExpanded ? panel : false);
     };
 
-  const onClick = (link: String, id? : any) => {
+  const onClick = (link: String, id?: any) => {
     if (link === "Chat") {
       navigate("/message");
     } else if (link === "Board") {
@@ -121,12 +121,20 @@ function LeftSide(props: Props) {
         <ListItem disablePadding>
           <ListItemButton onClick={() => onClick("main")}>
             <Accordion
-              style={{ width: "100%", borderRadius: "10px" }}
+              style={{
+                width: "100%",
+                borderRadius: "10px",
+                backgroundColor:
+                  location.pathname !== "/analysis" ? "#FFFFFF" : "#ffffff2a",
+              }}
               expanded={false}
               className={styles.box}
             >
               <AccordionSummary
-                style={{ display: "flex", alignItems: "center" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
               >
                 <Box sx={{ width: "35px" }}>
                   <MailIcon />
@@ -145,7 +153,12 @@ function LeftSide(props: Props) {
                 className={styles.box}
                 expanded={expanded === text}
                 onChange={handleChange(text)}
-                style={{ width: "100%", borderRadius: "10px" }}
+                style={{
+                  width: "100%",
+                  borderRadius: "10px",
+                  backgroundColor:
+                    location.pathname !== "/analysis" ? "#FFFFFF" : "#ffffff2a",
+                }}
               >
                 <AccordionSummary
                   style={{
