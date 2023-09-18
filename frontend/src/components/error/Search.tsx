@@ -12,14 +12,14 @@ function Search() {
         p: "2px 4px",
         display: "flex",
         alignItems: "center",
-        height: "50px",
-        width: "60%",
+        height: "35px",
+        width: "45%",
       }}
       style={{ margin: "1%" }}
     >
       <InputBase
-        sx={{ ml: 1, flex: 1 }}
-        placeholder="에러 메세지를 검색하세요"
+        sx={{ ml: 1, flex: 1, fontFamily:'preRg'}}
+        placeholder="에러 메세지로 검색해보세요"
         inputProps={{ "aria-label": "에러 검색" }}
       />
       <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
