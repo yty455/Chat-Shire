@@ -41,12 +41,6 @@ const handleCheckboxChange = (id:number) => () =>{
       );
 }
 
-// const removeCheckbox = (id:number) => () =>{
-//   setCheckboxItems((prevItems) =>
-//     prevItems.filter((item) => item.id !== id)
-//     );
-// }
-
 const addCheckbox = () => {
     const newId = checkboxItems.length + 1;
     setCheckboxItems([...checkboxItems, { id:newId , isChecked:false,content:'',isEditing:true }]);
@@ -63,11 +57,11 @@ const handleContentChange = (id:number) => (event:any) =>{
 
 return (
   <div className={styles.indivDiv}>
-    <Box sx={{p: 0,}}>
+    <Box sx={{p: 0, pt: 1}}>
       <Grid container spacing={2}>
       {checkboxItems.map(item=>(
-        <Grid sx={{margin:0, padding:0 }} item xs={12} key={item.id}>
-          <Item sx={{margin:0, padding:0}} className={styles.oneMemo} elevation={7}>
+        <Grid sx={{margin: 0, padding:0 }} item xs={12} key={item.id}>
+          <Item sx={{margin:'0 10px', padding:0, minHeight: '30px'}} className={styles.oneMemo} elevation={7}>
             <div className={styles.indivTask}>
               <Checkbox 
               sx={{color: '#39A789', '&.Mui-checked': { color: '#39A789'}}} 
@@ -77,21 +71,19 @@ return (
               />
               {
                 item.isEditing ?
-                <input type="text" onBlur ={handleContentChange(item.id)} placeholder="내용을 입력하세요"/> :
+                <input style={{fontFamily:'preRg',height: '30px', marginTop: '9px', border:'none'}} type="text" onBlur={handleContentChange(item.id)} placeholder="내용을 입력하세요"/> :
                 <p className={`${styles.taskContent} ${item.isChecked? styles.checked:''}`}>
                   {item.content}
                 </p>
               }
             </div>
-            <Button sx={{marginBottom:'20px',fontFamily:'preRg'}} color="greenary" size="small" variant="contained">관련 대화로 이동</Button>
-          {/* <Button sx={{marginLeft: '5px', marginBottom:'20px',fontFamily:'preRg'}} color="error" size="small" onClick={() => removeCheckbox(item.id)} variant="contained">삭제</Button> */}
+            <Button sx={{marginTop: 0, marginBottom:'20px',fontFamily:'preRg'}} color="greenary" size="small" variant="contained">관련 대화로 이동</Button>
           </Item>
         </Grid>
       ))}
       </Grid>
     </Box>
-
-    <Fab sx={{ mt: '20px', mr: 'auto', ml: 'auto', display:'flex',justifyContent:'center' }} color="greenary" aria-label="add" onClick={addCheckbox}>
+    <Fab sx={{ mb: '10px', mt: '20px', mr: 'auto', ml: 'auto', display:'flex',justifyContent:'center' }} color="greenary" aria-label="add" onClick={addCheckbox}>
     <AddIcon/>
     </Fab>
   </div>  

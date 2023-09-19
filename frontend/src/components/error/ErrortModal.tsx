@@ -1,11 +1,11 @@
 import React from "react";
-import styles from "./TaskModal.module.css";
+import styles from "./ErrorModal.module.css";
 
-interface TaskModalProps {
+interface ErrorModalProps {
   closeModal: () => void;
 }
 
-function TaskModal({ closeModal }: TaskModalProps) {
+function ErrorModal({ closeModal }: ErrorModalProps) {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
@@ -15,4 +15,4 @@ function TaskModal({ closeModal }: TaskModalProps) {
   );
 }
 
-export default TaskModal;
+export default ErrorModal;
