@@ -18,7 +18,7 @@ function Search() {
       style={{ margin: "1%" }}
     >
       <InputBase
-        sx={{ ml: 1, flex: 1, fontFamily:'preRg'}}
+        sx={{ ml: 1, flex: 1, fontFamily:'preBd'}}
         placeholder="에러 메세지로 검색해보세요"
         inputProps={{ "aria-label": "에러 검색" }}
       />
