@@ -31,8 +31,7 @@ function Redirect() {
       const response = await fetch(`url?code=${code}`);
       const data = await response.json();
 
-      localStorage.setItem("token", data.jwt);
-      localStorage.setItem("ProfileURL", data.avatar_url);
+      localStorage.setItem("token", token);
     } catch (error) {}
   };
 

@@ -191,3 +191,9 @@ export const updateProfile = (
     name,
     nickname,
   });
+
+// 내 정보 조회
+export const getProfile = () => api.get(`/users`);
+
+// 내 정보 삭제
+export const deleteUser = () => api.delete(`/users`);

@@ -13,13 +13,7 @@ function First() {
   // const [endDate, setEndDate] = useState("2023-09-14");
 
   const createProject = async () => {
-    console.log(
-      teamName,
-      name,
-      topic,
-      description,
-      gitRepository,
-    );
+    console.log(teamName, name, topic, description, gitRepository);
     try {
       const response = await postProject(
         name,
@@ -68,6 +62,14 @@ function First() {
         variant="standard"
         // helperText="Please enter your name"
       />
+
+      {/* <button
+        onClick={() => {
+          handleClick();
+        }}
+      >
+        생성
+      </button> */}
     </div>
   );
 }
