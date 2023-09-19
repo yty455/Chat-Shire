@@ -31,57 +31,57 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-	//    private final LoginService loginService;
-	private final JwtService jwtService;
-	private final UserRepository userRepository;
-	private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
-	private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
-	private final CustomOAuth2UserService customOAuth2UserService;
+    //    private final LoginService loginService;
+    private final JwtService jwtService;
+    private final UserRepository userRepository;
+    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+    private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
-	@Bean
-	protected SecurityFilterChain config(HttpSecurity http) throws Exception {
+    @Bean
+    protected SecurityFilterChain config(HttpSecurity http) throws Exception {
 //	protected SecurityFilterChain config(HttpSecurity http, JwtProvider jwtProvider,
 //										 CookieUtil cookieUtil) throws Exception {
-		http.cors().configurationSource(corsConfigurationSource());
-		http
-				.httpBasic().disable()
-				.csrf().disable()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and()
-				.authorizeRequests()
+        http.cors().configurationSource(corsConfigurationSource());
+        http
+                .httpBasic().disable()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
 //				.antMatchers("/**").permitAll()
-				.antMatchers("/gs-guide-websocket/**").permitAll() // 웹소켓 테스트
-				.antMatchers("/topic/**").permitAll() // 웹소켓 테스트
-				.antMatchers("/hello/**").permitAll() // 웹소켓 테스트
-				.antMatchers("/app.js").permitAll() // 웹소켓 테스트
-				.antMatchers("/webjars/**").permitAll() // 웹소켓 테스트
-				.antMatchers("/main.css").permitAll() // 웹소켓 테스트
-				.antMatchers("/home/**").permitAll()
-				.antMatchers("/oauth2/sign-up/**").permitAll()
-				// 아이콘, css, js 관련
-			// 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 인증없이 모두 접근 가능, h2-console에 접근 가능
-			.antMatchers("/", "/v3/api-docs/**", "/swagger-ui/**", "/css/**", "/images/**", "/js/**", "/favicon.ico",
-				"/h2-console/**").permitAll()
-			.antMatchers(HttpMethod.OPTIONS, "/**/*").permitAll() // options 무시
-			.antMatchers("/couple-certification", "/auto-login", "/invitation/share/*", "/user-logout").permitAll() // 커플 인증 요청 접근 가능
-			.anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
-				.and()
+                .antMatchers("/gs-guide-websocket/**").permitAll() // 웹소켓 테스트
+                .antMatchers("/topic/**").permitAll() // 웹소켓 테스트
+                .antMatchers("/hello/**").permitAll() // 웹소켓 테스트
+                .antMatchers("/app.js").permitAll() // 웹소켓 테스트
+                .antMatchers("/webjars/**").permitAll() // 웹소켓 테스트
+                .antMatchers("/main.css").permitAll() // 웹소켓 테스트
+                .antMatchers("/home/**").permitAll()
+                .antMatchers("/oauth2/sign-up/**").permitAll()
+                // 아이콘, css, js 관련
+                // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 인증없이 모두 접근 가능, h2-console에 접근 가능
+                .antMatchers("/", "/v3/api-docs/**", "/swagger-ui/**", "/css/**", "/images/**", "/js/**", "/favicon.ico",
+                        "/h2-console/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/**/*").permitAll() // options 무시
+                .antMatchers("/couple-certification", "/auto-login", "/invitation/share/*", "/user-logout").permitAll() // 커플 인증 요청 접근 가능
+                .anyRequest().authenticated() // 위의 경로 이외에는 모두 인증된 사용자만 접근 가능
+                .and()
 //				.addFilterBefore(jwtAuthenticationFilter(jwtProvider, cookieUtil, refreshRepository),
 //						UsernamePasswordAuthenticationFilter.class)
-				.oauth2Login()
-				.authorizationEndpoint()
-				.baseUri("/login")
-				.and()
-				.redirectionEndpoint()
-				.baseUri("/login/oauth2/code/github")
-				.and()
-				.successHandler(oAuth2LoginSuccessHandler)
-				.userInfoEndpoint()
-				.userService(customOAuth2UserService);
-		http.addFilterAfter(jwtAuthenticationProcessingFilter(), LogoutFilter.class);
-		return http.build();
+                .oauth2Login()
+                .authorizationEndpoint()
+                .baseUri("/login")
+                .and()
+                .redirectionEndpoint()
+                .baseUri("/login/oauth2/code/github")
+                .and()
+                .successHandler(oAuth2LoginSuccessHandler)
+                .userInfoEndpoint()
+                .userService(customOAuth2UserService);
+        http.addFilterAfter(jwtAuthenticationProcessingFilter(), LogoutFilter.class);
+        return http.build();
 
-	}
+    }
 
 //	@Bean
 //	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -125,85 +125,85 @@ public class SecurityConfig {
 //		return http.build();
 //	}
 
-	@Bean
-	CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
 
-		//허용할 url 설정
+        //허용할 url 설정
 //		configuration.addAllowedOrigin("http://43.200.254.50");
-		configuration.addAllowedOrigin("http://j9e205.p.ssafy.io");
-		configuration.addAllowedOrigin("http://192.168.30.227:3000");
+        configuration.addAllowedOrigin("http://j9e205.p.ssafy.io");
+        configuration.addAllowedOrigin("http://192.168.30.227:3000");
 //		configuration.addAllowedOrigin("https://j9e205.p.ssafy.io");
-		//허용할 헤더 설정
-		configuration.addAllowedHeader("*");
-		//허용할 http method
-		configuration.addAllowedMethod("*");
-		// 클라이언트가 접근 할 수 있는 서버 응답 헤더
-		configuration.addExposedHeader("Authorization");
-		configuration.addExposedHeader("Authorization_refresh");
-		//사용자 자격 증명이 지원되는지 여부
-		configuration.setAllowCredentials(true);
+        //허용할 헤더 설정
+        configuration.addAllowedHeader("*");
+        //허용할 http method
+        configuration.addAllowedMethod("*");
+        // 클라이언트가 접근 할 수 있는 서버 응답 헤더
+        configuration.addExposedHeader("Authorization");
+        configuration.addExposedHeader("Authorization_refresh");
+        //사용자 자격 증명이 지원되는지 여부
+        configuration.setAllowCredentials(true);
 
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration);
-		return source;
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
 
-	}
+    }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
 
-	//    /**
-	//     * AuthenticationManager 설정 후 등록
-	//     * PasswordEncoder를 사용하는 AuthenticationProvider 지정 (PasswordEncoder는 위에서 등록한 PasswordEncoder 사용)
-	//     * FormLogin(기존 스프링 시큐리티 로그인)과 동일하게 DaoAuthenticationProvider 사용
-	//     * UserDetailsService는 커스텀 LoginService로 등록
-	//     * 또한, FormLogin과 동일하게 AuthenticationManager로는 구현체인 ProviderManager 사용(return ProviderManager)
-	//     */
-	//    @Bean
-	//    public AuthenticationManager authenticationManager() {
-	//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-	//        provider.setPasswordEncoder(passwordEncoder());
-	//        provider.setUserDetailsService(loginService);
-	//        return new ProviderManager(provider);
-	//    }
-	//
-	//    /**
-	//     * 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
-	//     */
-	//    @Bean
-	//    public LoginSuccessHandler loginSuccessHandler() {
-	//        return new LoginSuccessHandler(jwtService, userRepository);
-	//    }
-	//
-	//    /**
-	//     * 로그인 실패 시 호출되는 LoginFailureHandler 빈 등록
-	//     */
-	//    @Bean
-	//    public LoginFailureHandler loginFailureHandler() {
-	//        return new LoginFailureHandler();
-	//    }
-	//
-	//    /**
-	//     * CustomJsonUsernamePasswordAuthenticationFilter 빈 등록
-	//     * 커스텀 필터를 사용하기 위해 만든 커스텀 필터를 Bean으로 등록
-	//     * setAuthenticationManager(authenticationManager())로 위에서 등록한 AuthenticationManager(ProviderManager) 설정
-	//     * 로그인 성공 시 호출할 handler, 실패 시 호출할 handler로 위에서 등록한 handler 설정
-	//     */
-	//    @Bean
-	//    public CustomJsonUsernamePasswordAuthenticationFilter customJsonUsernamePasswordAuthenticationFilter() {
-	//        CustomJsonUsernamePasswordAuthenticationFilter customJsonUsernamePasswordLoginFilter
-	//                = new CustomJsonUsernamePasswordAuthenticationFilter(objectMapper);
-	//        customJsonUsernamePasswordLoginFilter.setAuthenticationManager(authenticationManager());
-	//        customJsonUsernamePasswordLoginFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
-	//        customJsonUsernamePasswordLoginFilter.setAuthenticationFailureHandler(loginFailureHandler());
-	//        return customJsonUsernamePasswordLoginFilter;
-	//    }
+    //    /**
+    //     * AuthenticationManager 설정 후 등록
+    //     * PasswordEncoder를 사용하는 AuthenticationProvider 지정 (PasswordEncoder는 위에서 등록한 PasswordEncoder 사용)
+    //     * FormLogin(기존 스프링 시큐리티 로그인)과 동일하게 DaoAuthenticationProvider 사용
+    //     * UserDetailsService는 커스텀 LoginService로 등록
+    //     * 또한, FormLogin과 동일하게 AuthenticationManager로는 구현체인 ProviderManager 사용(return ProviderManager)
+    //     */
+    //    @Bean
+    //    public AuthenticationManager authenticationManager() {
+    //        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+    //        provider.setPasswordEncoder(passwordEncoder());
+    //        provider.setUserDetailsService(loginService);
+    //        return new ProviderManager(provider);
+    //    }
+    //
+    //    /**
+    //     * 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
+    //     */
+    //    @Bean
+    //    public LoginSuccessHandler loginSuccessHandler() {
+    //        return new LoginSuccessHandler(jwtService, userRepository);
+    //    }
+    //
+    //    /**
+    //     * 로그인 실패 시 호출되는 LoginFailureHandler 빈 등록
+    //     */
+    //    @Bean
+    //    public LoginFailureHandler loginFailureHandler() {
+    //        return new LoginFailureHandler();
+    //    }
+    //
+    //    /**
+    //     * CustomJsonUsernamePasswordAuthenticationFilter 빈 등록
+    //     * 커스텀 필터를 사용하기 위해 만든 커스텀 필터를 Bean으로 등록
+    //     * setAuthenticationManager(authenticationManager())로 위에서 등록한 AuthenticationManager(ProviderManager) 설정
+    //     * 로그인 성공 시 호출할 handler, 실패 시 호출할 handler로 위에서 등록한 handler 설정
+    //     */
+    //    @Bean
+    //    public CustomJsonUsernamePasswordAuthenticationFilter customJsonUsernamePasswordAuthenticationFilter() {
+    //        CustomJsonUsernamePasswordAuthenticationFilter customJsonUsernamePasswordLoginFilter
+    //                = new CustomJsonUsernamePasswordAuthenticationFilter(objectMapper);
+    //        customJsonUsernamePasswordLoginFilter.setAuthenticationManager(authenticationManager());
+    //        customJsonUsernamePasswordLoginFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
+    //        customJsonUsernamePasswordLoginFilter.setAuthenticationFailureHandler(loginFailureHandler());
+    //        return customJsonUsernamePasswordLoginFilter;
+    //    }
 
-	@Bean
-	public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
-		return new JwtAuthenticationProcessingFilter(jwtService, userRepository);
-	}
+    @Bean
+    public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
+        return new JwtAuthenticationProcessingFilter(jwtService, userRepository);
+    }
 }

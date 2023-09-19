@@ -4,8 +4,8 @@ package com.ssafy.backend.domain.user.service;
 import static com.ssafy.backend.domain.common.GlobalMethod.*;
 
 import com.ssafy.backend.domain.user.User;
-import com.ssafy.backend.domain.user.dto.UserDto;
-import com.ssafy.backend.domain.user.dto.UserSignUpDto;
+import com.ssafy.backend.domain.user.dto.UserInfo;
+import com.ssafy.backend.domain.user.dto.UserInfoResponse;
 import com.ssafy.backend.domain.user.exception.UserNotFoundException;
 import com.ssafy.backend.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,25 +22,27 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void signUp(UserSignUpDto userSignUpDto) {
+    public void signUp(UserInfo userInfo) {
         User findUser = userRepository.findById(getUserId())
                 .orElseThrow(UserNotFoundException::new);
 
-        findUser.updateFirst(userSignUpDto);
+        findUser.update(userInfo);
         findUser.authorizeUser();
     }
 
-    public User getUserProfile() {
-        return userRepository.findById(getUserId())
-                .orElseThrow(UserNotFoundException::new);
-    }
-
-    @Transactional
-    public void modifyUserProfile(UserDto userDto) {
+    public UserInfoResponse getUserProfile() {
         User findUser = userRepository.findById(getUserId())
                 .orElseThrow(UserNotFoundException::new);
 
-        findUser.updateProfile(userDto);
+        return UserInfoResponse.fromEntity(findUser);
+    }
+
+    @Transactional
+    public void modifyUserProfile(UserInfo userInfo) {
+        User findUser = userRepository.findById(getUserId())
+                .orElseThrow(UserNotFoundException::new);
+
+        findUser.update(userInfo);
     }
 
     @Transactional

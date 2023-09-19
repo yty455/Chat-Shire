@@ -11,14 +11,15 @@ import javax.persistence.Table;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.ssafy.backend.domain.common.BaseEntity;
-import com.ssafy.backend.domain.user.dto.UserDto;
-import com.ssafy.backend.domain.user.dto.UserSignUpDto;
+import com.ssafy.backend.domain.user.dto.UserInfo;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.function.Consumer;
 
 @Entity
 @Getter
@@ -41,7 +42,6 @@ public class User extends BaseEntity {
     private String introduction;
     private String detailIntroduction;
 
-
     private String email;
     private String password;
 
@@ -53,22 +53,43 @@ public class User extends BaseEntity {
 
 
     //== 유저 필드 업데이트 ==//
-    public void updateFirst(UserSignUpDto userSignUpDto) {
-        this.nickname = userSignUpDto.getNickname();
+    public void update(UserInfo userInfo) {
+        updateNickname(userInfo.getNickname());
+        updateProfileImage(userInfo.getProfileImage());
+        updateProfileColor(userInfo.getProfileColor());
+        updateIntroduction(userInfo.getIntroduction());
+        updateDetailIntroduction(userInfo.getDetailIntroduction());
     }
 
-    public void updateProfile(UserDto userDto) {
-        this.nickname = userDto.getNickname();
-        this.profileImage = userDto.getProfileImage();
+    private <T> void updateIfNotNull(Consumer<T> updater, T newValue) {
+        if (newValue != null) {
+            updater.accept(newValue);
+        }
+    }
+
+    public void updateNickname(String nickname) {
+        updateIfNotNull(newValue -> this.nickname = newValue, nickname);
+    }
+
+    public void updateProfileImage(String profileImage) {
+        updateIfNotNull(newValue -> this.profileImage = newValue, profileImage);
+    }
+
+    public void updateProfileColor(String profileColor) {
+        updateIfNotNull(newValue -> this.profileColor = newValue, profileColor);
+    }
+
+    public void updateIntroduction(String introduction) {
+        updateIfNotNull(newValue -> this.introduction = newValue, introduction);
+    }
+
+    public void updateDetailIntroduction(String detailIntroduction) {
+        updateIfNotNull(newValue -> this.detailIntroduction = newValue, detailIntroduction);
     }
 
     // 유저 권한 설정 메소드
     public void authorizeUser() {
         this.role = Role.USER;
-    }
-
-    public void updateNickname(String updateNickname) {
-        this.nickname = updateNickname;
     }
 
     public void updateRefreshToken(String updateRefreshToken) {
@@ -85,8 +106,14 @@ public class User extends BaseEntity {
         return "User{" +
                 "id=" + id +
                 ", socialId='" + socialId + '\'' +
-                ", nickname='" + nickname + '\'' +
                 ", githubId='" + githubId + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", profileImage='" + profileImage + '\'' +
+                ", profileColor='" + profileColor + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", detailIntroduction='" + detailIntroduction + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", role=" + role +
                 ", refreshToken='" + refreshToken + '\'' +
                 '}';
