@@ -65,9 +65,10 @@ const handleContentChange = (id:number) => (event:any) =>{
 
 return (
 <div className={styles.indivDiv}>
-  {/* <div style= */}
-  <h2 style={{fontFamily:'preBd',margin: '0 auto', textAlign:'center',alignItems:'center',display:'flex', justifyContent:'center'}}>자료공유</h2>
-  {/* <img alt="pin" src={pin} style={{zIndex:"9999", width:'0px' }}/> */}
+  <div style={{display:'flex', justifyContent:'center'}}>
+    <h2 style={{marginLeft:'10px',fontFamily:'preBd',margin: '0', textAlign:'center',alignItems:'center',display:'flex', justifyContent:'center'}}>자료공유</h2>
+    <img alt="pin" src={process.env.PUBLIC_URL + "assets/pin.png"} style={{zIndex:"9999", margin:'5px 0 0 5px', width:'50px' }}/>
+  </div>
   <Box sx={{p:0,}}>
     <Grid container spacing={2}>
     {checkboxItems.map(item=>(
