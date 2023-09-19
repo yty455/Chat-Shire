@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -49,7 +50,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuth2Attribute oAuth2Attribute =
                 OAuth2Attribute.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        var memberAttribute = oAuth2Attribute.convertToMap();
+        Map<String, Object> memberAttribute = oAuth2Attribute.convertToMap();
 
         User createdUser = getUser(oAuth2Attribute); // getUser() 메소드로 User 객체 생성 후 반환
 
