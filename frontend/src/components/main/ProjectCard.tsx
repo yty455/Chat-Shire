@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styles from "./ProjectCard.module.css";
 import ProfileImgBox from "../common/ProfileImgBox";
-import img from "../../assets/profile/m57.png";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
@@ -43,7 +42,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
                   margin="10px"
                   padding=""
                   display="flex"
-                  backgroundImage={img}
+                  backgroundImage={
+                    process.env.PUBLIC_URL + "assets/profile/m57.png"
+                  }
                 ></ProfileImgBox>
                 {/* {mem} */}
               </div>

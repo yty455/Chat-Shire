@@ -45,12 +45,12 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             if (oAuth2User.getRole() == Role.GUEST) {
 //                String accessToken = jwtService.createAccessToken(oAuth2User.getSocialId());
                 String accessToken = jwtService.createAccessToken(oAuth2User.getId());
-                // String refreshToken = jwtService.createRefreshToken();
+                String refreshToken = jwtService.createRefreshToken();
                 response.addHeader(jwtService.getAccessHeader(), "Bearer " + accessToken);
-                // response.addHeader(jwtService.getRefreshHeader(), "Bearer " + refreshToken);
+                response.addHeader(jwtService.getRefreshHeader(), "Bearer " + refreshToken);
 
-                // jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
-                // jwtService.updateRefreshToken(oAuth2User.getEmail(), refreshToken);
+                jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
+                jwtService.updateRefreshToken(oAuth2User.getId(), refreshToken);
 
                 response.sendRedirect(
                         redirectHost + "/oauth2/sign-up?" + "access_token=Bearer " + accessToken + "&is_user=F"); // 프론트의 회원가입 추가 정보 입력 폼으로 리다이렉트
@@ -69,7 +69,6 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private void loginSuccess(HttpServletResponse response, CustomOAuth2User oAuth2User) throws IOException {
         String accessToken = jwtService.createAccessToken(oAuth2User.getId());
-//        String accessToken = jwtService.createAccessToken(oAuth2User.getSocialId());
         String refreshToken = jwtService.createRefreshToken();
         response.addHeader(jwtService.getAccessHeader(), "Bearer " + accessToken);
         response.addHeader(jwtService.getRefreshHeader(), "Bearer " + refreshToken);
