@@ -15,6 +15,7 @@ function LoginPage() {
   const onClick = () => {
     // window.location.href = "http://j9e205.p.ssafy.io:8080/login";
     window.location.href = url;
+    // gitLogin();
     // usersign();
     // gitSign();
     // redirectToGithub();
@@ -34,16 +35,27 @@ function LoginPage() {
   //     console.error(error);
   //   }
   // };
-  const usersign = async () => {
-    try {
-      const response = await axios.post("abc", "ddd");
-      console.log(response);
-      // window.location.href = "http://j9e205.p.ssafy.io:8080/oauth2/sign-up";
-      // navigate("/oauth2/sign-up");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const usersign = async () => {
+  //   try {
+  //     const response = await axios.post();
+  //     console.log(response);
+  //     // window.location.href = "http://j9e205.p.ssafy.io:8080/oauth2/sign-up";
+  //     // navigate("/oauth2/sign-up");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // const gitLogin = async () => {
+  //   try {
+  //     const response = await axios.get("/api1/login");
+  //     console.log(response);
+  //     // window.location.href = "http://j9e205.p.ssafy.io:8080/oauth2/sign-up";
+  //     // navigate("/oauth2/sign-up");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <div className={styles.landingDiv}>

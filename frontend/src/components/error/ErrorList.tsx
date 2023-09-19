@@ -1,7 +1,11 @@
 import React from "react";
 import ErrorCard from "./ErrorCard";
 
-function ErrorList() {
+interface ErrorListProps {
+  onErrorCardClick: any;
+}
+
+function ErrorList({ onErrorCardClick }: ErrorListProps) {
   return (
     <div
       style={{
@@ -13,10 +17,10 @@ function ErrorList() {
         flexWrap: "wrap",
       }}
     >
-      <ErrorCard />
-      <ErrorCard />
-      <ErrorCard />
-      <ErrorCard />
+      <ErrorCard onCardClick={onErrorCardClick} />
+      <ErrorCard onCardClick={onErrorCardClick} />
+      <ErrorCard onCardClick={onErrorCardClick} />
+      <ErrorCard onCardClick={onErrorCardClick} />
     </div>
   );
 }
