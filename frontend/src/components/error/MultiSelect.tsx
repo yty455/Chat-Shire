@@ -23,6 +23,8 @@ const MenuProps = {
   },
 };
 
+
+
 const names = [
   "python",
   "java",
@@ -37,6 +39,7 @@ const names = [
 ];
 
 const CustomChip = styled(Chip)(({ theme }) => ({
+  fontFamily: 'preRg',
   '&.python': {
     backgroundColor: '#F08484',
   },
