@@ -9,7 +9,6 @@ import MessagePage from "./pages/MessagePage";
 import TaskPage from "./pages/TaskPage";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
-import sh from "./";
 
 const Login = lazy(() => import("./pages/LoginPage"));
 const Main = lazy(() => import("./pages/MainPage"));
