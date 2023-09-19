@@ -24,8 +24,11 @@ function Redirect() {
   const usersign = async () => {
     try {
       const response = await axios.post("/api1/users", {
-        name: "abc",
         nickname: "bdc",
+        profileImage: "asd",
+        profileColor: "asd",
+        introduction: "asd",
+        detailIntroduction: "asd",
       });
       console.log(response);
       // window.location.href = "http://j9e205.p.ssafy.io:8080/oauth2/sign-up";

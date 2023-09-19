@@ -8,17 +8,25 @@ import BarChart from "../components/analysis/BarChart";
 import LeftSide from "../components/common/LeftSide";
 
 import { BsGithub, BsCodeSlash, BsPersonFill } from "react-icons/bs";
-import { BiLogoTypescript, BiLogoJavascript, BiLogoHtml5, BiLogoPython, BiLogoReact, BiLogoVuejs, BiLogoDjango, BiLogoCss3, BiLogoFlutter, BiLogoGit, }  from "react-icons/bi";
-import { IoMdSettings } from 'react-icons/io'
+import {
+  BiLogoTypescript,
+  BiLogoJavascript,
+  BiLogoHtml5,
+  BiLogoPython,
+  BiLogoReact,
+  BiLogoVuejs,
+  BiLogoDjango,
+  BiLogoCss3,
+  BiLogoFlutter,
+  BiLogoGit,
+} from "react-icons/bi";
+import { IoMdSettings } from "react-icons/io";
 
-import LinearProgress, { LinearProgressProps } from "@mui/material/LinearProgress";
+import LinearProgress, {
+  LinearProgressProps,
+} from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
-import bronze from '../assets/achievements/bronze.png'
-import silver from '../assets/achievements/silver.png'
-import gold from '../assets/achievements/gold.png'
-
 
 const achievements = [
 ]
@@ -26,6 +34,7 @@ const achievements = [
 
 
 function LinearProgressWithLabel(props: LinearProgressProps & { value: number }) {
+
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Box sx={{ width: "100%", mr: 1 }}>
@@ -42,9 +51,12 @@ function LinearProgressWithLabel(props: LinearProgressProps & { value: number })
 
 export default function ProfilePage() {
   const navigate = useNavigate();
+  const bronze = process.env.PUBLIC_URL + '/assets/achievements/bronze.png'
+  const silver = process.env.PUBLIC_URL + '/assets/achievements/silver.png'
+  const gold = process.env.PUBLIC_URL + '/assets/achievements/gold.png'
 
-  function profileSetting () { 
-    navigate('/profile/setting')
+  function profileSetting() {
+    navigate("/profile/setting");
   }
 
   return (
@@ -114,7 +126,12 @@ export default function ProfilePage() {
                 <BarChart />
               </div>
             </div>
-            <IoMdSettings className={styles.profileSettingButton} color="#575757" size={30} onClick={profileSetting}/>
+            <IoMdSettings
+              className={styles.profileSettingButton}
+              color="#575757"
+              size={30}
+              onClick={profileSetting}
+            />
           </div>
         </div>
 
@@ -131,42 +148,258 @@ export default function ProfilePage() {
             </Box>
           </div>
           <div className={styles.AchievementContainer}>
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
-            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={bronze}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={bronze}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={bronze}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={bronze}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={bronze}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={bronze}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={bronze}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={bronze}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={bronze}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={bronze}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={bronze}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={bronze}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={silver}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={silver}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={silver}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={silver}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={silver}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={silver}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={silver}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={silver}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={silver}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={silver}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={silver}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={silver}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={gold}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={gold}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={gold}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={gold}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={gold}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={gold}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={gold}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={gold}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={gold}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={gold}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={gold}
+              alt=""
+            />
+            <img
+              width="78px"
+              height="78px"
+              style={{ margin: "0px 14px 14px 0px" }}
+              src={gold}
+              alt=""
+            />
           </div>
         </div>
       </div>

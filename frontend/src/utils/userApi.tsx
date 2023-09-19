@@ -6,10 +6,19 @@ import api from "./api";
 export const getGit = () => api.get(`/oauth2/sign-up`);
 
 // 유저 회원가입
-export const postUser = (name: string, nickname: string) =>
+export const postUser = (
+  nickname: string,
+  profileImage: string,
+  profileColor: string,
+  introduction: string,
+  detailIntroduction: string
+) =>
   api.post("/users", {
-    name,
     nickname,
+    profileImage,
+    profileColor,
+    introduction,
+    detailIntroduction,
   });
 
 // 내 정보 수정

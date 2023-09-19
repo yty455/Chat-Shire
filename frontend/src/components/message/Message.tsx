@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./Message.module.css";
-import photoImg from "../../assets/chat_icons/photo.png";
-import fileImage from "../../assets/chat_icons/file.png";
-import linkImg from "../../assets/chat_icons/link2.png";
-import searchImg from "../../assets/chat_icons/search.png";
+// import photoImg from "../../assets/chat_icons/photo.png";
+// import fileImage from "../../assets/chat_icons/file.png";
+// import linkImg from "../../assets/chat_icons/link2.png";
+// import searchImg from "../../assets/chat_icons/search.png";
 
 import MessageItem from "./MessageItem";
 import MessageRightBody from "./MessageRightBody";
@@ -50,13 +50,10 @@ function Message() {
       },
       () => {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
-        client.current?.subscribe(
-         `/topic/greetings`,
-          (message) => {
-            console.log(JSON.parse(message.body).content)
-            setMessage(JSON.parse(message.body));
-          },
-        );
+        client.current?.subscribe(`/topic/greetings`, (message) => {
+          console.log(JSON.parse(message.body).content);
+          setMessage(JSON.parse(message.body));
+        });
       }
     );
     axios
@@ -108,7 +105,7 @@ function Message() {
         <div className={styles.messageLeftFooter}>
           <div className={styles.messageInputContainer}>
             <Input
-              style={{fontFamily:'preRg', marginBottom:'10px'}}
+              style={{ fontFamily: "preRg", marginBottom: "10px" }}
               className={styles.messageInput}
               placeholder="메세지를 입력해주세요"
               inputProps={ariaLabel}
@@ -146,7 +143,7 @@ function Message() {
               icon={
                 <img
                   style={{ marginBottom: "4px", width: "40px" }}
-                  src={photoImg}
+                  src={process.env.PUBLIC_URL + "assets/chat_icons/photo.png"}
                   alt=""
                 />
               }
@@ -163,7 +160,7 @@ function Message() {
               icon={
                 <img
                   style={{ marginBottom: "4px", width: "40px" }}
-                  src={fileImage}
+                  src={process.env.PUBLIC_URL + "assets/chat_icons/file.png"}
                   alt=""
                 />
               }
@@ -180,7 +177,7 @@ function Message() {
               icon={
                 <img
                   style={{ marginBottom: "4px", width: "40px" }}
-                  src={linkImg}
+                  src={process.env.PUBLIC_URL + "assets/chat_icons/link2.png"}
                   alt=""
                 />
               }
@@ -197,7 +194,7 @@ function Message() {
               icon={
                 <img
                   style={{ marginBottom: "4px", width: "40px" }}
-                  src={searchImg}
+                  src={process.env.PUBLIC_URL + "assets/chat_icons/search.png"}
                   alt=""
                 />
               }
