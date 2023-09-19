@@ -10,6 +10,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+// import pin from '../../assets/pin.png'
 
 type CheckboxItem = {
   id: number;
@@ -64,12 +65,14 @@ const handleContentChange = (id:number) => (event:any) =>{
 
 return (
 <div className={styles.indivDiv}>
-  {/* <h2 style={{fontFamily:'preBd',margin: '0 20px'}}>자료공유</h2> */}
+  {/* <div style= */}
+  <h2 style={{fontFamily:'preBd',margin: '0 auto', textAlign:'center',alignItems:'center',display:'flex', justifyContent:'center'}}>자료공유</h2>
+  {/* <img alt="pin" src={pin} style={{zIndex:"9999", width:'0px' }}/> */}
   <Box sx={{p:0,}}>
     <Grid container spacing={2}>
     {checkboxItems.map(item=>(
       <Grid item xs={12} key={item.id}>
-        <Item className={styles.oneMemo} elevation={7}>
+        <Item sx={{margin:'0 10px', padding:0, minHeight: '20px'}} className={styles.oneMemo} elevation={7}>
           <div className={styles.indivTask}>
             <Checkbox 
             sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
@@ -78,7 +81,7 @@ return (
             onChange ={handleCheckboxChange(item.id)}
             />
             {item.isEditing?
-            <input type="text" onBlur ={handleContentChange(item.id)} placeholder="내용을 입력하세요"/> :
+            <input style={{fontFamily:'preRg',height: '30px', marginTop: '8px', border:'none'}} type="text" onBlur ={handleContentChange(item.id)} placeholder="내용을 입력하세요"/> :
             <p className={`${styles.taskContent} ${item.isChecked? styles.checked:''}`}>
               {item.content}
             </p>}
@@ -91,7 +94,7 @@ return (
     </Grid>
   </Box>
 
-  <Fab sx={{ mr: 'auto', ml: 'auto', display:'flex',justifyContent:'center' }} color="greenary" aria-label="add" onClick={addCheckbox}>
+  <Fab sx={{ mt: '15px', mb: '20px', mr: 'auto', ml: 'auto', display:'flex',justifyContent:'center' }} color="greenary" aria-label="add" onClick={addCheckbox}>
   <AddIcon/>
   </Fab>
 </div>  
