@@ -130,17 +130,15 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         //허용할 url 설정
-//		configuration.addAllowedOrigin("http://43.200.254.50");
         configuration.addAllowedOrigin("http://j9e205.p.ssafy.io");
         configuration.addAllowedOrigin("http://192.168.30.227:3000");
-//		configuration.addAllowedOrigin("https://j9e205.p.ssafy.io");
         //허용할 헤더 설정
         configuration.addAllowedHeader("*");
         //허용할 http method
         configuration.addAllowedMethod("*");
         // 클라이언트가 접근 할 수 있는 서버 응답 헤더
         configuration.addExposedHeader("Authorization");
-        configuration.addExposedHeader("Authorization_refresh");
+        configuration.addExposedHeader("Authorization-Refresh");
         //사용자 자격 증명이 지원되는지 여부
         configuration.setAllowCredentials(true);
 

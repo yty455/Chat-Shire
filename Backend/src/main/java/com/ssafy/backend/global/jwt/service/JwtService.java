@@ -53,7 +53,7 @@ public class JwtService {
      * AccessToken 생성 메소드
      */
     public String createAccessToken(Long id) {
-//    public String createAccessToken(String socialId) {
+        //    public String createAccessToken(String socialId) {
         Date now = new Date();
         return JWT.create() // JWT 토큰을 생성하는 빌더 반환
                 .withSubject(ACCESS_TOKEN_SUBJECT) // JWT의 Subject 지정 -> AccessToken이므로 AccessToken
@@ -63,7 +63,7 @@ public class JwtService {
                 //추가적으로 식별자나, 이름 등의 정보를 더 추가하셔도 됩니다.
                 //추가하실 경우 .withClaim(클래임 이름, 클래임 값) 으로 설정해주시면 됩니다
                 .withClaim(ID_CLAIM, id) // 아이디로 클레임설정
-//                .withClaim(SOCIALID_CLAIM, socialId)
+                //                .withClaim(SOCIALID_CLAIM, socialId)
                 .sign(Algorithm.HMAC512(secretKey)); // HMAC512 알고리즘 사용, application-jwt.yml에서 지정한 secret 키로 암호화
     }
 
@@ -97,9 +97,6 @@ public class JwtService {
 
         setAccessTokenHeader(response, accessToken);
         setRefreshTokenHeader(response, refreshToken);
-        // response.sendRedirect(
-        //     "http://43.200.254.50/kakaologin?" + "access_token=Bearer " + accessToken + "&refresh_token="
-        //         + "Bearer " + refreshToken + "&is_user=T");
         log.info("Access Token, Refresh Token 헤더 설정 완료");
     }
 
@@ -163,17 +160,13 @@ public class JwtService {
     /**
      * RefreshToken DB 저장(업데이트)
      */
-//    public void updateRefreshToken(String socialId, String refreshToken) {
+    //    public void updateRefreshToken(String socialId, String refreshToken) {
     public void updateRefreshToken(Long id, String refreshToken) {
-        User findUser = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("소셜아이디에 해당하는 유저가 없습니다."));
-        // .ifPresentOrElse(
-        //         user -> user.updateRefreshToken(refreshToken),
-        //         () -> new Exception("일치하는 회원이 없습니다.")
-        // );
-        findUser.updateRefreshToken(refreshToken);
-        System.out.println("findUser = " + findUser);
-        userRepository.saveAndFlush(findUser);
+        userRepository.findById(id)
+                .ifPresentOrElse(
+                        user -> user.updateRefreshToken(refreshToken),
+                        () -> new IllegalArgumentException("소셜아이디에 해당하는 유저가 없습니다.")
+                );
     }
 
     public boolean isTokenValid(String token) {
