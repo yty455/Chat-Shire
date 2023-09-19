@@ -48,7 +48,7 @@ function AppRouter() {
             <Route path="/idea" element={<IdeaPage />}></Route>
             <Route path="/message" element={<MessagePage />}></Route>
             <Route path="/task" element={<TaskPage />}></Route>
-            <Route path="/callback" element={<Redirect />}></Route>
+            <Route path="/oauth2/sign-up" element={<Redirect />}></Route>
           </Routes>
         </Suspense>
       </BrowserRouter>
