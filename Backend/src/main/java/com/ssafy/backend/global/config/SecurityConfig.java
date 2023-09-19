@@ -73,7 +73,7 @@ public class SecurityConfig {
                 .baseUri("/login")
                 .and()
                 .redirectionEndpoint()
-                .baseUri("/login/oauth2/code/github")
+                .baseUri("http://j9e205.p.ssafy.io/login/oauth2/code/github")
                 .and()
                 .successHandler(oAuth2LoginSuccessHandler)
                 .userInfoEndpoint()
