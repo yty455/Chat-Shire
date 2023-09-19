@@ -1,11 +1,12 @@
 package com.ssafy.backend.global.jwt.filter;
 
-import java.io.IOException;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.ssafy.backend.domain.user.Role;
+import com.ssafy.backend.domain.user.User;
+import com.ssafy.backend.domain.user.repository.UserRepository;
+import com.ssafy.backend.global.jwt.service.JwtService;
+import com.ssafy.backend.global.jwt.util.PasswordUtil;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,13 +17,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.ssafy.backend.domain.user.User;
-import com.ssafy.backend.domain.user.repository.UserRepository;
-import com.ssafy.backend.global.jwt.service.JwtService;
-import com.ssafy.backend.global.jwt.util.PasswordUtil;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -33,7 +34,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserRepository userRepository;
-    //    private final RedisTemplate redisTemplate;
+//    private final RedisTemplate redisTemplate;
 
     @Value("${redirect.host}")
     private String redirectHost;
@@ -52,17 +53,17 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                     .filter(jwtService::isTokenValid)
                     .ifPresent(accessToken -> {
                         // redis에서 access token 확인
-                        //                        String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
-                        //                        if (ObjectUtils.isEmpty(isLogout)) {
-                        //                            DecodedJWT jwt = JWT.decode(accessToken);
-                        //                            Date expiresDate = jwt.getExpiresAt();
-                        //
-                        //                            // 현재 시간과 만료 시간 사이의 시간 차이 계산
-                        //                            long nowMillis = System.currentTimeMillis();
-                        //                            long expirationMillis = expiresDate.getTime();
-                        //                            long remainingMillis = expirationMillis - nowMillis;
-                        ////                            redisTemplate.opsForValue().set(accessToken, "logout", remainingMillis, TimeUnit.MILLISECONDS);
-                        //                        }
+//                        String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
+//                        if (ObjectUtils.isEmpty(isLogout)) {
+//                            DecodedJWT jwt = JWT.decode(accessToken);
+//                            Date expiresDate = jwt.getExpiresAt();
+//
+//                            // 현재 시간과 만료 시간 사이의 시간 차이 계산
+//                            long nowMillis = System.currentTimeMillis();
+//                            long expirationMillis = expiresDate.getTime();
+//                            long remainingMillis = expirationMillis - nowMillis;
+////                            redisTemplate.opsForValue().set(accessToken, "logout", remainingMillis, TimeUnit.MILLISECONDS);
+//                        }
                     });
 
             filterChain.doFilter(request, response);
@@ -133,7 +134,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
      * 그 후 다음 인증 필터로 진행
      */
     public void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response,
-            FilterChain filterChain) throws ServletException, IOException {
+                                                  FilterChain filterChain) throws ServletException, IOException {
         log.info("checkAccessTokenAndAuthentication() 호출");
         //                     redis에서 access token blacklist 확인
         //                    String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
@@ -143,15 +144,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                 .filter(jwtService::isTokenValid)
                 .flatMap(jwtService::extractId)
                 .flatMap(userRepository::findById)
-                .ifPresentOrElse(
-                        this::saveAuthentication,
-                        () -> {
-                            // try {
-                            // response.sendRedirect(redirectHost + "/oauth2/sign-up"); // TODO: 추가 정보 받는 페이지로 리다이렉트
-                            // } catch (IOException e) {
-                            //     throw new RuntimeException(e);
-                            // }
-                        });
+                .ifPresent(this::saveAuthentication);
 
         filterChain.doFilter(request, response);
     }
