@@ -13,8 +13,11 @@ function LoginPage() {
   const navigate = useNavigate();
   // const url = `https://github.com/login/oauth/authorize?client_id=e5f1721b3eecc64f3c29&scope=repo:status read:repo_hook user:email&redirect_uri=http://localhost:3000/callback`;
   const onClick = () => {
-    window.location.href =
-      "https://github.com/login/oauth/authorize?client_id=a198f60dc8b32f295422";
+    gitLogin();
+    // window.location.href =
+    //   "http://j9e205.p.ssafy.io:8080/oauth2/authorization/github";
+    // window.location.href =
+    //   "https://github.com/login/oauth/authorize?client_id=a198f60dc8b32f295422";
     // window.location.href = url;
     // gitLogin();
     // usersign();
@@ -47,16 +50,14 @@ function LoginPage() {
   //   }
   // };
 
-  // const gitLogin = async () => {
-  //   try {
-  //     const response = await axios.get("/api1/login");
-  //     console.log(response);
-  //     // window.location.href = "http://j9e205.p.ssafy.io:8080/oauth2/sign-up";
-  //     // navigate("/oauth2/sign-up");
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const gitLogin = async () => {
+    try {
+      const response = await api.get("login/github");
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className={styles.landingDiv}>

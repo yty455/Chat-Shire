@@ -76,6 +76,7 @@ public class SecurityConfig {
                 .baseUri("/login/oauth2/code/github")
                 .and()
                 .successHandler(oAuth2LoginSuccessHandler)
+                .failureHandler(oAuth2LoginFailureHandler)
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService);
         http.addFilterAfter(jwtAuthenticationProcessingFilter(), LogoutFilter.class);
