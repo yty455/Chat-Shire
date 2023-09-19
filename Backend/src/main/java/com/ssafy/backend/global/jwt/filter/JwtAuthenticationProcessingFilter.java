@@ -33,7 +33,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserRepository userRepository;
-//    private final RedisTemplate redisTemplate;
+    //    private final RedisTemplate redisTemplate;
 
     @Value("${redirect.host}")
     private String redirectHost;
@@ -52,17 +52,17 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                     .filter(jwtService::isTokenValid)
                     .ifPresent(accessToken -> {
                         // redis에서 access token 확인
-//                        String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
-//                        if (ObjectUtils.isEmpty(isLogout)) {
-//                            DecodedJWT jwt = JWT.decode(accessToken);
-//                            Date expiresDate = jwt.getExpiresAt();
-//
-//                            // 현재 시간과 만료 시간 사이의 시간 차이 계산
-//                            long nowMillis = System.currentTimeMillis();
-//                            long expirationMillis = expiresDate.getTime();
-//                            long remainingMillis = expirationMillis - nowMillis;
-////                            redisTemplate.opsForValue().set(accessToken, "logout", remainingMillis, TimeUnit.MILLISECONDS);
-//                        }
+                        //                        String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
+                        //                        if (ObjectUtils.isEmpty(isLogout)) {
+                        //                            DecodedJWT jwt = JWT.decode(accessToken);
+                        //                            Date expiresDate = jwt.getExpiresAt();
+                        //
+                        //                            // 현재 시간과 만료 시간 사이의 시간 차이 계산
+                        //                            long nowMillis = System.currentTimeMillis();
+                        //                            long expirationMillis = expiresDate.getTime();
+                        //                            long remainingMillis = expirationMillis - nowMillis;
+                        ////                            redisTemplate.opsForValue().set(accessToken, "logout", remainingMillis, TimeUnit.MILLISECONDS);
+                        //                        }
                     });
 
             filterChain.doFilter(request, response);
@@ -133,7 +133,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
      * 그 후 다음 인증 필터로 진행
      */
     public void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                                  FilterChain filterChain) throws ServletException, IOException {
+            FilterChain filterChain) throws ServletException, IOException {
         log.info("checkAccessTokenAndAuthentication() 호출");
         //                     redis에서 access token blacklist 확인
         //                    String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
@@ -146,11 +146,11 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                 .ifPresentOrElse(
                         this::saveAuthentication,
                         () -> {
-                            try {
-                                response.sendRedirect(redirectHost + "/oauth2/sign-up"); // TODO: 추가 정보 받는 페이지로 리다이렉트
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
+                            // try {
+                            // response.sendRedirect(redirectHost + "/oauth2/sign-up"); // TODO: 추가 정보 받는 페이지로 리다이렉트
+                            // } catch (IOException e) {
+                            //     throw new RuntimeException(e);
+                            // }
                         });
 
         filterChain.doFilter(request, response);
