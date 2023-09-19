@@ -1,10 +1,10 @@
 import React from "react";
 import Analysis from "../components/analysis/Analysis";
-import passion from "../assets/analysisBg/passion/passion1.png";
 import LeftSide from "../components/common/LeftSide";
 
 export default function AnalysisPage() {
-  console.log(visualViewport)
+  const passion = process.env.PUBLIC_URL + '/assets/analysisBg/passion/passion1.png'
+
   return (
     <div
       style={{

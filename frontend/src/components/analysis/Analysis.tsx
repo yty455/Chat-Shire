@@ -8,8 +8,11 @@ import Cloud from "./Cloud";
 import Rocket from '../../assets/analysisBg/passion/passion3.png'
 
 export default function Analysis() {
+
+  const bgImg = process.env.PUBLIC_URL + '/assets/analysisBg/passion/passion2.png'
+
   return (
-    <div className={styles.analysisContainer}>
+    <div className={styles.analysisContainer} style={{backgroundImage: `${bgImg}`}}>
       <div className={styles.analysisHeader}>
         <img style={{position: "absolute", left: "23vw", top: "1vh", width: "300px"}} src={Rocket} alt="" />
         <div className={styles.analysisTopicsContainer}>

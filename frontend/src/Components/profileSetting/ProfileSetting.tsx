@@ -5,16 +5,16 @@ import reactCSS from 'reactcss'
 import { SketchPicker } from 'react-color'
 import styles from './ProfileSetting.module.css'
 
-import img from '../../assets/profile/male/m1.png'
-import male from '../../assets/profile/maleSelector.png'
-import female from '../../assets/profile/femaleSelector.png'
-
-
 export default function ProfileSetting() {
+  const male = process.env.PUBLIC_URL + '/assets/profile/maleSelector.png'
+  const female = process.env.PUBLIC_URL + '/assets/profile/femaleSelector.png'
   const [profileColor, setProfileColor] = useState("red")
   const [gender, setGender] = useState(female)
   const [displayColorPicker, setDisplayColorPicker] = useState(false)
-  const [profileImg, setProfileImg] = useState('../../assets/profile/male/m1.png')
+  const [profileImg, setProfileImg] = useState(process.env.PUBLIC_URL +'/assets/profile/m57.png')
+
+
+
 
   function handleClick() {
     setDisplayColorPicker(!displayColorPicker)
@@ -42,7 +42,7 @@ export default function ProfileSetting() {
       <div className={styles.profileImgSetting}>
         <div>
           <div className={styles.profilePreview} style={{backgroundColor: profileColor}}>
-            <img width="200px" height="200px" src={img} alt="" />
+            <img width="200px" height="200px" src={profileImg} alt="" />
           </div>
         </div>
         <div className={styles.profileImgSelector}>

@@ -15,17 +15,13 @@ import LinearProgress, { LinearProgressProps } from "@mui/material/LinearProgres
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-import bronze from '../assets/achievements/bronze.png'
-import silver from '../assets/achievements/silver.png'
-import gold from '../assets/achievements/gold.png'
-
-
 const achievements = [
 ]
 
 
 
 function LinearProgressWithLabel(props: LinearProgressProps & { value: number }) {
+
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Box sx={{ width: "100%", mr: 1 }}>
@@ -42,6 +38,9 @@ function LinearProgressWithLabel(props: LinearProgressProps & { value: number })
 
 export default function ProfilePage() {
   const navigate = useNavigate();
+  const bronze = process.env.PUBLIC_URL + '/assets/achievements/bronze.png'
+  const silver = process.env.PUBLIC_URL + '/assets/achievements/silver.png'
+  const gold = process.env.PUBLIC_URL + '/assets/achievements/gold.png'
 
   function profileSetting () { 
     navigate('/profile/setting')
