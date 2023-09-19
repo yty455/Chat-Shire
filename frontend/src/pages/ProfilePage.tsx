@@ -1,20 +1,29 @@
 import React from "react";
 import styles from "./ProfilePage.module.css";
 import ProfileLarge from "../components/profile/ProfileLarge";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import RadarChart from "../components/analysis/RadarChart";
 import BarChart from "../components/analysis/BarChart";
-import Achievement from "../components/profile/Achievement";
 import LeftSide from "../components/common/LeftSide";
 
 import { BsGithub, BsCodeSlash, BsPersonFill } from "react-icons/bs";
 import { BiLogoTypescript, BiLogoJavascript, BiLogoHtml5, BiLogoPython, BiLogoReact, BiLogoVuejs, BiLogoDjango, BiLogoCss3, BiLogoFlutter, BiLogoGit, }  from "react-icons/bi";
+import { IoMdSettings } from 'react-icons/io'
 
-import LinearProgress, {
-  LinearProgressProps,
-} from "@mui/material/LinearProgress";
+import LinearProgress, { LinearProgressProps } from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+
+import bronze from '../assets/achievements/bronze.png'
+import silver from '../assets/achievements/silver.png'
+import gold from '../assets/achievements/gold.png'
+
+
+const achievements = [
+]
+
+
 
 function LinearProgressWithLabel(props: LinearProgressProps & { value: number }) {
   return (
@@ -32,6 +41,12 @@ function LinearProgressWithLabel(props: LinearProgressProps & { value: number })
 }
 
 export default function ProfilePage() {
+  const navigate = useNavigate();
+
+  function profileSetting () { 
+    navigate('/profile/setting')
+  }
+
   return (
     <div
       style={{
@@ -99,6 +114,7 @@ export default function ProfilePage() {
                 <BarChart />
               </div>
             </div>
+            <IoMdSettings className={styles.profileSettingButton} color="#575757" size={30} onClick={profileSetting}/>
           </div>
         </div>
 
@@ -115,42 +131,42 @@ export default function ProfilePage() {
             </Box>
           </div>
           <div className={styles.AchievementContainer}>
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
-            <Achievement />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={bronze} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={silver} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
+            <img width="78px" height="78px" style={{margin: "0px 14px 14px 0px"}} src={gold} alt="" />
           </div>
         </div>
       </div>
