@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NowProject from "./NowProject";
 import ComProject from "./ComProject";
 import styles from "./Project.module.css";
 import Container from "../common/Container";
-import { getProjects } from "../../utils/apiService";
+import { getProjects } from "../../utils/projectApi";
 import { loginuser } from "../../stores/atom";
 import { useRecoilState } from "recoil";
+import ProjectModal from "./ProjectModal";
 
 const pjt = {
   now: [
@@ -52,38 +53,77 @@ const pjt = {
 
 function Project() {
   const [userDate, setUserDate] = useRecoilState(loginuser);
-  const [allPjt, setAllPjt] = useState("");
+  const [allPjt, setAllPjt] = useState([]);
+  const [nowPjt, setNowPjt] = useState<any[]>([]);
+  const [comPjt, setComPjt] = useState<any[]>([]);
+  const today = new Date();
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+
+  const handleProjectCardClick = (pjt: any) => {
+    setSelectedProject(pjt);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   const getMyProjects = async () => {
     try {
       const response = await getProjects();
-      console.log(response);
-      setAllPjt(response.data);
+      console.log(response.data.result[0], 123);
+      setAllPjt(response.data.result);
+      response.data.result[0].forEach((pjt: any) => {
+        // if (pjt.endDate < today) {
+
+        // } else {
+
+        // }
+        console.log(pjt.endDate);
+        // console.log(nowPjt);
+        // console.log(comPjt);
+      });
     } catch (error) {
       console.error(error);
     }
   };
 
+  useEffect(() => {
+    getMyProjects();
+  }, []);
+
   return (
     <Container
+      fontSize=""
       backgroundColor="white"
       text=""
       width="58vw"
       height="85vh"
       margin=""
       padding=""
+      border="1px solid #E5E8EB"
       borderRadius="20px"
-      boxShadow="0 8px 10px 0 rgba(131, 131, 131, 0.37)"
-      backdropFilter="blur(7px)"
-      transition="all 0.2s ease-in-out"
+      boxShadow=""
+      backdropFilter=""
+      transition=""
       display="flex"
       justifyContent="center"
     >
       <div className={styles.projectcontainer}>
         <h2 className={styles.projecttxt}>PROJECT</h2>
-        <NowProject nowpjt={pjt.now}></NowProject>
-        <ComProject compjt={pjt.com}></ComProject>
+        <NowProject
+          nowpjt={pjt.now}
+          onProjectCardClick={handleProjectCardClick}
+        ></NowProject>
+        <ComProject
+          compjt={pjt.com}
+          onProjectCardClick={handleProjectCardClick}
+        ></ComProject>
       </div>
+      {openModal && (
+        <ProjectModal pjt={selectedProject} closeModal={handleCloseModal} />
+      )}
     </Container>
   );
 }

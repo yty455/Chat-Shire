@@ -10,6 +10,13 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { styled } from '@mui/system';
+
+const CustomTabs = styled(Tabs)(({ theme }) => ({
+  '& .MuiTabs-indicator': {
+    backgroundColor: theme.palette.greenary.main,
+  },
+}));
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -56,9 +63,8 @@ export default function BasicTabs() {
       <LeftSide />
       <div className={styles.BoardContainer}>
         <div className={styles.BoardTabContainer}>
-          <Tabs
+          <CustomTabs
             textColor="inherit"
-            indicatorColor="greenary"
             sx={{ fontFamily: "preRg"}}
             value={value}
             onChange={handleChange}
@@ -70,7 +76,7 @@ export default function BasicTabs() {
               {...a11yProps(0)}
             />
             <Tab sx={{ fontFamily: "preBd" }} label="에러" {...a11yProps(1)} />
-          </Tabs>
+          </CustomTabs>
         </div>
         <CustomTabPanel value={value} index={0}>
           <div className={styles.ideaNshare}>

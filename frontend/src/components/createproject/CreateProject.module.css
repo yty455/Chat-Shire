@@ -1,6 +1,20 @@
-.inputbox {
+.hide {
+  transition: 0.3s;
+  opacity: 0;
 }
 
-.inputtag {
-  margin: 5%;
+.show {
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.stepperContainer span {
+  min-height: 12px;
+  border: none;
+}
+
+.CreateProjectTitle {
+  font-size: 34px;
+  font-family: "preBl";
+  color: #575757;
 }

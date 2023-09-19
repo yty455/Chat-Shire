@@ -10,9 +10,13 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
 interface ComProjectProps {
   compjt: Array<object>;
+  onProjectCardClick: any;
 }
 
-const ComProject: React.FC<ComProjectProps> = ({ compjt }) => {
+const ComProject: React.FC<ComProjectProps> = ({
+  compjt,
+  onProjectCardClick,
+}) => {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = compjt.length / 3;
@@ -28,9 +32,18 @@ const ComProject: React.FC<ComProjectProps> = ({ compjt }) => {
       <h3 className={styles.pjttxt}>완료한 PJT</h3>
       <Box sx={{ flexGrow: 1 }}>
         <div className={styles.comCardBox}>
-          <ProjectCard pjt={compjt[activeStep]} />
-          <ProjectCard pjt={compjt[activeStep + 1]} />
-          <ProjectCard pjt={compjt[activeStep + 2]} />
+          <ProjectCard
+            pjt={compjt[activeStep]}
+            onCardClick={() => onProjectCardClick(compjt[activeStep])}
+          />
+          <ProjectCard
+            pjt={compjt[activeStep + 1]}
+            onCardClick={() => onProjectCardClick(compjt[activeStep + 1])}
+          />
+          <ProjectCard
+            pjt={compjt[activeStep + 2]}
+            onCardClick={() => onProjectCardClick(compjt[activeStep + 2])}
+          />
         </div>
         <MobileStepper
           style={{ height: "20px", padding: "10px" }}
