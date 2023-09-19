@@ -7,7 +7,6 @@ import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import ProjectModal from "./ProjectModal";
 
 interface ProjectCardProps {
   pjt?: any;
@@ -18,21 +17,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    onCardClick?.(); // 부모 컴포넌트로 클릭 이벤트 전달
+    onCardClick?.();
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     navigate("/createpjt");
-  };
-
-  const handleModal = (event: React.MouseEvent<HTMLDivElement>) => {
-    // 프로젝트 생성 버튼 클릭 시 모달 창 활성화
-    setOpenModal(true);
-  };
-
-  const closeModal = () => {
-    // 모달 닫기 버튼 또는 모달 외부 클릭 시 모달 창 닫기
-    setOpenModal(false);
   };
 
   return (
@@ -76,7 +65,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
               <Link to="/createpjt">
                 <Fab
                   aria-label="add"
-                  // onClick={handleClick}
+                  onClick={handleClick}
                   style={{ backgroundColor: "#39a789", color: "white" }}
                 >
                   <AddIcon />
@@ -87,8 +76,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
           </div>
         </div>
       )}
-
-      {/* {openModal && <ProjectModal />} */}
     </div>
   );
 };
