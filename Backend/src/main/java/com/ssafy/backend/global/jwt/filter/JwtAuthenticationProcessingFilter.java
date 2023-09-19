@@ -64,14 +64,6 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
             return;
         }
 
-        Pattern pattern = Pattern.compile("/invitation/share/(\\d+)");
-        Matcher matcher = pattern.matcher(request.getRequestURI());
-
-        if (matcher.matches()) {
-            filterChain.doFilter(request, response); // "/invitation/{invitationId}" 요청이 들어오면, 다음 필터 호출
-            return; // return으로 이후 현재 필터 진행 막기 (안해주면 아래로 내려가서 계속 필터 진행시킴)
-        }
-
         // 사용자 요청 헤더에서 RefreshToken 추출
         // -> RefreshToken이 없거나 유효하지 않다면(DB에 저장된 RefreshToken과 다르다면) null을 반환
         // 사용자의 요청 헤더에 RefreshToken이 있는 경우는, AccessToken이 만료되어 요청한 경우밖에 없다.
@@ -144,9 +136,9 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 //                     redis에서 access token blacklist 확인
 //                    String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
 //                    if (ObjectUtils.isEmpty(isLogout)) {
-                        jwtService.extractEmail(accessToken)
-                                .ifPresent(email -> userRepository.findById(email)
-                                        .ifPresent(this::saveAuthentication));
+                    jwtService.extractEmail(accessToken)
+                            .ifPresent(email -> userRepository.findById(email)
+                                    .ifPresent(this::saveAuthentication));
 //                    }
                 });
 
