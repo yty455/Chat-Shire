@@ -1,14 +1,25 @@
 .indivDiv {
-  width: 20vw;
-  height: 70vh;
-  padding: 0;
+  width: 23vw;
+  height: 77vh;
+  padding: 0 10px 0px 10px;
   margin: 0;
   overflow: scroll;
 }
 
 .indivDiv::-webkit-scrollbar {
-  display: none;
+  width: 7px;  /* 스크롤바의 너비 */
 }
+
+.indivDiv::-webkit-scrollbar-thumb {
+  height: 5%; /* 스크롤바의 길이 */
+  background: #ababab; /* 스크롤바의 색상 */
+  border-radius: 10px;
+  opacity: 0.2
+}
+.indivDiv::-webkit-scrollbar-track {
+  background: none;  /*스크롤바 뒷 배경 색상*/
+}
+
 
 .indivTask {
   /* width: 380px;
