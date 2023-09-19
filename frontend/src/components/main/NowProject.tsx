@@ -11,9 +11,13 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
 interface NowProjectProps {
   nowpjt: Array<object>;
+  onProjectCardClick: any;
 }
 
-const NowProject: React.FC<NowProjectProps> = ({ nowpjt }) => {
+const NowProject: React.FC<NowProjectProps> = ({
+  nowpjt,
+  onProjectCardClick,
+}) => {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = Math.ceil((nowpjt.length + 1) / 3);
@@ -34,23 +38,38 @@ const NowProject: React.FC<NowProjectProps> = ({ nowpjt }) => {
           {activeStep + 1 === maxSteps ? (
             <>
               {nowpjt.length > activeStep && (
-                <ProjectCard pjt={nowpjt[activeStep]} />
+                <ProjectCard
+                  pjt={nowpjt[activeStep]}
+                  onCardClick={() => onProjectCardClick(nowpjt[activeStep])}
+                />
               )}
               {nowpjt.length > activeStep + 1 && (
-                <ProjectCard pjt={nowpjt[activeStep + 1]} />
+                <ProjectCard
+                  pjt={nowpjt[activeStep + 1]}
+                  onCardClick={() => onProjectCardClick(nowpjt[activeStep + 1])}
+                />
               )}
               <ProjectCard />
             </>
           ) : (
             <>
               {nowpjt.length > activeStep && (
-                <ProjectCard pjt={nowpjt[activeStep]} />
+                <ProjectCard
+                  pjt={nowpjt[activeStep]}
+                  onCardClick={() => onProjectCardClick(nowpjt[activeStep])}
+                />
               )}
               {nowpjt.length > activeStep + 1 && (
-                <ProjectCard pjt={nowpjt[activeStep + 1]} />
+                <ProjectCard
+                  pjt={nowpjt[activeStep + 1]}
+                  onCardClick={() => onProjectCardClick(nowpjt[activeStep + 1])}
+                />
               )}
               {nowpjt.length > activeStep + 2 && (
-                <ProjectCard pjt={nowpjt[activeStep + 2]} />
+                <ProjectCard
+                  pjt={nowpjt[activeStep + 2]}
+                  onCardClick={() => onProjectCardClick(nowpjt[activeStep + 2])}
+                />
               )}
             </>
           )}

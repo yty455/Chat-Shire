@@ -4,8 +4,11 @@ import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import img from "../../assets/profile/m57.png";
-import error from "../../assets/error.png"
+import error from "../../assets/error.png";
 
+interface ErrorCardProps {
+  onCardClick?: () => void;
+}
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -36,9 +39,13 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-function ErrorCard() {
+function ErrorCard({ onCardClick }: ErrorCardProps) {
+  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    onCardClick?.();
+  };
+
   return (
-    <div className={styles.errcard}>
+    <div className={styles.errcard} onClick={handleModalClick}>
       <div
         className="sideTabContainer"
         style={{
@@ -46,19 +53,19 @@ function ErrorCard() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "start",
-        }}>
-          <Avatar alt="Remy Sharp" src={img} sx={{ width: 80, height: 80 }} />
-          <h5 className={styles.status}>완료</h5>
+        }}
+      >
+        <Avatar alt="Remy Sharp" src={img} sx={{ width: 80, height: 80 }} />
+        <h5 className={styles.status}>완료</h5>
       </div>
       <div>
         <p className={styles.title}>Q. React npm no modules 에러</p>
         <h5 className={styles.language}>Python</h5>
-        <img className={styles.error} alt="error" src={error}/>
-        <img className={styles.error} alt="error" src={error}/>
-        <img className={styles.error} alt="error" src={error}/>
+        <img className={styles.error} alt="error" src={error} />
+        <img className={styles.error} alt="error" src={error} />
+        <img className={styles.error} alt="error" src={error} />
         <p className={styles.answer}>A. 이렇게 함 해볼래?</p>
         <p className={styles.more}>5개의 답변 더보기</p>
-
       </div>
     </div>
   );
