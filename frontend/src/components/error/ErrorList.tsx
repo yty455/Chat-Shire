@@ -1,22 +1,26 @@
 import React from "react";
 import ErrorCard from "./ErrorCard";
 
-function ErrorList() {
+interface ErrorListProps {
+  onErrorCardClick: any;
+}
+
+function ErrorList({ onErrorCardClick }: ErrorListProps) {
   return (
     <div
       style={{
         height: "calc(100% - 80px)",
         width: "100%",
         display: "flex",
-        justifyContent: "space-evenly",
+        justifyContent: "space-between",
         alignItems: "center",
         flexWrap: "wrap",
       }}
     >
-      <ErrorCard />
-      <ErrorCard />
-      <ErrorCard />
-      <ErrorCard />
+      <ErrorCard onCardClick={onErrorCardClick} />
+      <ErrorCard onCardClick={onErrorCardClick} />
+      <ErrorCard onCardClick={onErrorCardClick} />
+      <ErrorCard onCardClick={onErrorCardClick} />
     </div>
   );
 }

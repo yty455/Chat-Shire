@@ -25,12 +25,13 @@ function Invite() {
       text=""
       width="20vw"
       height="85vh"
-      margin=""
+      margin="0vh 0vw 0vh 1vw"
       padding=""
+      border="1px solid #E5E8EB"
       borderRadius="20px"
-      boxShadow="0 8px 10px 0 rgba(131, 131, 131, 0.37)"
-      backdropFilter="blur(7px)"
-      transition="all 0.2s ease-in-out"
+      boxShadow=""
+      backdropFilter=""
+      transition=""
     >
       <h5 style={{ marginTop: "20%", textAlign: "center" }}>초대함</h5>
       {invite.map((invi: any) => (

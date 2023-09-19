@@ -32,6 +32,13 @@ declare module '@mui/material/Fab' {
   }
 }
 
+declare module '@mui/material/TextField' {
+   
+  interface TextFieldPropsColorOverrides {
+    greenary: true;
+  }
+}
+
 const theme = createTheme({
   palette: {
     greenary: {

@@ -5,6 +5,16 @@ export const loginuser = atom({
   default: [],
 });
 
+export const projectId = atom ({
+  key: "projectId",
+  default: "",
+})
+
+export const message = atom({
+  key: "message",
+  default: "",
+})
+
 export const accessToken = atom({
   key: "accessToken ",
   default: "",
