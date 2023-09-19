@@ -3,7 +3,7 @@ import Container from "./Container";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
-import img from "../../assets/profile/m57.png";
+// import img from "../../assets/profile/m57.png";
 import styles from "./LeftSide.module.css";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
@@ -112,7 +112,11 @@ function LeftSide(props: Props) {
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           variant="dot"
         >
-          <Avatar alt="Remy Sharp" src={img} sx={{ width: 80, height: 80 }} />
+          <Avatar
+            alt="Remy Sharp"
+            src={process.env.PUBLIC_URL + "/assets/profile/m57.png"}
+            sx={{ width: 80, height: 80 }}
+          />
         </StyledBadge>
         <h5 className={styles.profilename}>CSI</h5>
       </div>

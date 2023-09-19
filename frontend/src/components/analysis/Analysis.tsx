@@ -5,13 +5,24 @@ import RadarChart from "./RadarChart";
 import BarChart from "./BarChart";
 import PiChart from "./PiChart";
 import Cloud from "./Cloud";
-import Rocket from '../../assets/analysisBg/passion/passion3.png'
+// import Rocket from "../../assets/analysisBg/passion/passion3.png";
 
 export default function Analysis() {
   return (
     <div className={styles.analysisContainer}>
       <div className={styles.analysisHeader}>
-        <img style={{position: "absolute", left: "23vw", top: "1vh", width: "300px"}} src={Rocket} alt="" />
+        <img
+          style={{
+            position: "absolute",
+            left: "23vw",
+            top: "1vh",
+            width: "300px",
+          }}
+          src={
+            process.env.PUBLIC_URL + "/assets/analysisBg/passion/passion3.png"
+          }
+          alt=""
+        />
         <div className={styles.analysisTopicsContainer}>
           <span className={styles.analysisItemTitle}>프로젝트 주제</span>
           <div className={styles.analysisKeywordsContainer}>

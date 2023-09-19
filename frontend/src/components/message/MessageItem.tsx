@@ -1,14 +1,11 @@
-import React from 'react'
-import styles from './MessageItem.module.css'
-
-import img from "../../assets/profile/m57.png";
+import React from "react";
+import styles from "./MessageItem.module.css";
 
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 
 export default function MessageItem(message: any) {
-
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
       backgroundColor: "#44b700",
@@ -46,7 +43,11 @@ export default function MessageItem(message: any) {
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         variant="dot"
       >
-        <Avatar alt="Remy Sharp" src={img} sx={{ width: 50, height: 50 }} />
+        <Avatar
+          alt="Remy Sharp"
+          src={process.env.PUBLIC_URL + "assets/profile/m57.png"}
+          sx={{ width: 50, height: 50 }}
+        />
       </StyledBadge>
       <div className={styles.messageItemBody}>
         <div className={styles.messageItemName}>
@@ -62,5 +63,5 @@ export default function MessageItem(message: any) {
         </div>
       </div>
     </div>
-  )
+  );
 }
