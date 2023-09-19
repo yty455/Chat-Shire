@@ -11,34 +11,42 @@ function Redirect() {
     ignoreQueryPrefix: true,
   });
 
+  const { access_token } = qs.parse(window.location.search, {
+    ignoreQueryPrefix: true,
+  });
+
   console.log(code);
+  console.log(access_token);
+  if (typeof access_token === "string") {
+    localStorage.setItem("token", access_token);
+  }
 
-  // const usersign = async () => {
-  //   try {
-  //     const response = await axios.post("/api1/users", {
-  //       name: "abc",
-  //       nickname: "bdc",
-  //     });
-  //     console.log(response);
-  //     // window.location.href = "http://j9e205.p.ssafy.io:8080/oauth2/sign-up";
-  //     // navigate("/oauth2/sign-up");
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  const login = async () => {
+  const usersign = async () => {
     try {
-      const response = await axios.get(
-        `http://j9e205.p.ssafy.io:8080/login/oauth2/code/github?code=${code}&state=yKSSNKuZSnFiyHgnCT_Jcw741bdp-vutjnQgH9XLRL0%3D`
-      );
-      // const data = await response.json();
+      const response = await axios.post("/api1/users", {
+        name: "abc",
+        nickname: "bdc",
+      });
       console.log(response);
-      // console.log(data);
-
-      localStorage.setItem("token", token);
-    } catch (error) {}
+      // window.location.href = "http://j9e205.p.ssafy.io:8080/oauth2/sign-up";
+      // navigate("/oauth2/sign-up");
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  // const login = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://j9e205.p.ssafy.io:8080/login/oauth2/code/github?code=${code}&state=yKSSNKuZSnFiyHgnCT_Jcw741bdp-vutjnQgH9XLRL0%3D`
+  //     );
+  //     // const data = await response.json();
+  //     console.log(response);
+  //     // console.log(data);
+
+  //     localStorage.setItem("token", token);
+  //   } catch (error) {}
+  // };
 
   // getToken();
   // try {
@@ -47,16 +55,19 @@ function Redirect() {
   // }
 
   useEffect(() => {
+    if (typeof access_token === "string") {
+      localStorage.setItem("token", access_token);
+    }
     // usersign();
     // login();
-  }, []);
+  }, [access_token]);
 
   return (
     <div>
       code-callback
       <button
         onClick={() => {
-          login();
+          usersign();
         }}
       >
         123
