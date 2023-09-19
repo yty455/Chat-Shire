@@ -83,7 +83,7 @@ return (
       ))}
       </Grid>
     </Box>
-    <Fab sx={{ mb: '10px', mt: '20px', mr: 'auto', ml: 'auto', display:'flex',justifyContent:'center' }} color="greenary" aria-label="add" onClick={addCheckbox}>
+    <Fab sx={{ mb: '20px', mt: '20px', mr: 'auto', ml: 'auto', display:'flex',justifyContent:'center' }} color="greenary" aria-label="add" onClick={addCheckbox}>
     <AddIcon/>
     </Fab>
   </div>  

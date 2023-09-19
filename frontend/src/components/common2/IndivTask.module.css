@@ -67,10 +67,24 @@
   text-decoration-color: #39A789;
   text-decoration-thickness: 2px;
 }
-.scroll::-webkit-scrollbar {
+/* .scroll::-webkit-scrollbar {
   display: none;
 }
 
 .indivDiv::-webkit-scrollbar {
   display: none;
+} */
+
+.indivDiv::-webkit-scrollbar {
+  width: 7px;  /* 스크롤바의 너비 */
+}
+
+.indivDiv::-webkit-scrollbar-thumb {
+  height: 5%; /* 스크롤바의 길이 */
+  background: #ababab; /* 스크롤바의 색상 */
+  border-radius: 10px;
+  opacity: 0.2
+}
+.indivDiv::-webkit-scrollbar-track {
+  background: none;  /*스크롤바 뒷 배경 색상*/
 }
