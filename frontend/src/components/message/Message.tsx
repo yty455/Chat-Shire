@@ -108,8 +108,9 @@ function Message() {
         <div className={styles.messageLeftFooter}>
           <div className={styles.messageInputContainer}>
             <Input
+              style={{fontFamily:'preRg', marginBottom:'10px'}}
               className={styles.messageInput}
-              placeholder="Placeholder"
+              placeholder="메세지를 입력해주세요"
               inputProps={ariaLabel}
             />
           </div>

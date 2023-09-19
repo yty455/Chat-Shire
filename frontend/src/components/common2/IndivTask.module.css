@@ -17,7 +17,7 @@
   min-height: 100px;
   border-radius: 20px;
   background-color: white; */
-  min-height: 60px;
+  min-height: 50px;
   overflow:hidden;
   word-wrap:break-word;
   padding: 0 10px;
@@ -46,8 +46,8 @@
   width: 320px;
   max-width: 320px;
   text-align: start;
-  margin-bottom: 0;
-  padding:0;
+  margin-bottom: 7px;
+  padding: 0 4px 0 0;
   font-family: 'preBd';
 }
 
