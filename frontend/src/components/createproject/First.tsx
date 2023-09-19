@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import styles from "./First.module.css";
-import { postProject } from "../../utils/apiService";
+import { postProject } from "../../utils/projectApi";
 
 function First() {
   const [name, setName] = useState("");
