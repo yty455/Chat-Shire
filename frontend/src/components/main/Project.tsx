@@ -6,6 +6,7 @@ import Container from "../common/Container";
 import { getProjects } from "../../utils/apiService";
 import { loginuser } from "../../stores/atom";
 import { useRecoilState } from "recoil";
+import ProjectModal from "./ProjectModal";
 
 const pjt = {
   now: [
@@ -56,6 +57,17 @@ function Project() {
   const [nowPjt, setNowPjt] = useState<any[]>([]);
   const [comPjt, setComPjt] = useState<any[]>([]);
   const today = new Date();
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+
+  const handleProjectCardClick = (pjt: any) => {
+    setSelectedProject(pjt);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   const getMyProjects = async () => {
     try {
@@ -100,9 +112,18 @@ function Project() {
     >
       <div className={styles.projectcontainer}>
         <h2 className={styles.projecttxt}>PROJECT</h2>
-        <NowProject nowpjt={pjt.now}></NowProject>
-        <ComProject compjt={pjt.com}></ComProject>
+        <NowProject
+          nowpjt={pjt.now}
+          onProjectCardClick={handleProjectCardClick}
+        ></NowProject>
+        <ComProject
+          compjt={pjt.com}
+          onProjectCardClick={handleProjectCardClick}
+        ></ComProject>
       </div>
+      {openModal && (
+        <ProjectModal pjt={selectedProject} closeModal={handleCloseModal} />
+      )}
     </Container>
   );
 }

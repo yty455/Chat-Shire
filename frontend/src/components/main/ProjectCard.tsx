@@ -11,11 +11,15 @@ import ProjectModal from "./ProjectModal";
 
 interface ProjectCardProps {
   pjt?: any;
+  onCardClick?: () => void;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ pjt }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
+  const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    onCardClick?.(); // 부모 컴포넌트로 클릭 이벤트 전달
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     navigate("/createpjt");
@@ -32,7 +36,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt }) => {
   };
 
   return (
-    <div className={styles.card} onClick={handleModal}>
+    <div className={styles.card} onClick={handleModalClick}>
       {pjt ? (
         <>
           <h3>{pjt.name}</h3>
