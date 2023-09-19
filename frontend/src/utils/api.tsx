@@ -4,6 +4,7 @@ import axios from "axios";
 const api = axios.create({
   // baseURL: "/api1/", // API의 기본 URL
   baseURL: "http://j9e205.p.ssafy.io:8080/", // API의 기본 URL
+  withCredentials: true,
 });
 
 // 요청 인터셉터 설정
