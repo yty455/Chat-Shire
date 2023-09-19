@@ -13,7 +13,8 @@ function LoginPage() {
   const navigate = useNavigate();
   // const url = `https://github.com/login/oauth/authorize?client_id=e5f1721b3eecc64f3c29&scope=repo:status read:repo_hook user:email&redirect_uri=http://localhost:3000/callback`;
   const onClick = () => {
-    gitLogin();
+    // gitLogin();
+    window.location.href = "http://j9e205.p.ssafy.io:8080/login/github";
     // window.location.href =
     //   "http://j9e205.p.ssafy.io:8080/oauth2/authorization/github";
     // window.location.href =
