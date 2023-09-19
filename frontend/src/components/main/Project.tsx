@@ -3,7 +3,7 @@ import NowProject from "./NowProject";
 import ComProject from "./ComProject";
 import styles from "./Project.module.css";
 import Container from "../common/Container";
-import { getProjects } from "../../utils/apiService";
+import { getProjects } from "../../utils/projectApi";
 import { loginuser } from "../../stores/atom";
 import { useRecoilState } from "recoil";
 import ProjectModal from "./ProjectModal";
