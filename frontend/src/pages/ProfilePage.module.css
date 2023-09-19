@@ -7,9 +7,9 @@
 
 .profileHeaderDesc {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-left: -120px;
-  padding: 20px 10px 20px 150px;
+  padding: 16px 20px 20px 150px;
   width: 67vw;
   height: 27vh;
   border: 1px solid #E5E8EB;
@@ -89,4 +89,8 @@
 
 .profileTag {
   color: #898989;
+}
+
+.profileSettingButton:hover {
+  cursor: pointer;
 }
