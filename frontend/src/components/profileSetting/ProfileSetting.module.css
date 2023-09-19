@@ -1,0 +1,48 @@
+.profileSettingContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #E5E8EB;
+  width: 75vw;
+  height: 81vh;
+  padding: 2vh 2vw;
+}
+
+.profileImgSetting {
+  display: flex;
+}
+
+.profilePreview {
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+}
+
+.profileImgSelector {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
+  width: 600px;
+  height: 500px;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+.profileImgSelectorRight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profileSelectItem {
+  width: 68px;
+  height: 68px;
+  border: 1px solid blue;
+  border-radius: 100px;
+}
+
+.profileSelectItem:hover {
+  cursor: pointer;
+}

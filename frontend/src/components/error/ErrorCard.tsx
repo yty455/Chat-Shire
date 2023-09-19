@@ -3,8 +3,8 @@ import styles from "./Error.module.css";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
-import img from "../../assets/profile/m57.png";
-import error from "../../assets/error.png";
+// import img from "../../assets/profile/m57.png";
+// import error from "../../assets/error.png";
 
 interface ErrorCardProps {
   onCardClick?: () => void;
@@ -55,15 +55,31 @@ function ErrorCard({ onCardClick }: ErrorCardProps) {
           justifyContent: "start",
         }}
       >
-        <Avatar alt="Remy Sharp" src={img} sx={{ width: 80, height: 80 }} />
+        <Avatar
+          alt="Remy Sharp"
+          src={process.env.PUBLIC_URL + "assets/profile/m57.png"}
+          sx={{ width: 80, height: 80 }}
+        />
         <h5 className={styles.status}>완료</h5>
       </div>
       <div>
         <p className={styles.title}>Q. React npm no modules 에러</p>
         <h5 className={styles.language}>Python</h5>
-        <img className={styles.error} alt="error" src={error} />
-        <img className={styles.error} alt="error" src={error} />
-        <img className={styles.error} alt="error" src={error} />
+        <img
+          className={styles.error}
+          alt="error"
+          src={process.env.PUBLIC_URL + "assets/error.png"}
+        />
+        <img
+          className={styles.error}
+          alt="error"
+          src={process.env.PUBLIC_URL + "assets/error.png"}
+        />
+        <img
+          className={styles.error}
+          alt="error"
+          src={process.env.PUBLIC_URL + "assets/error.png"}
+        />
         <p className={styles.answer}>A. 이렇게 함 해볼래?</p>
         <p className={styles.more}>5개의 답변 더보기</p>
       </div>
