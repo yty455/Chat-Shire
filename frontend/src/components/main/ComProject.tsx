@@ -34,7 +34,7 @@ const ComProject: React.FC<ComProjectProps> = ({
         <div className={styles.comCardBox}>
           {compjt.length === 0 ? (
             // 프로젝트가 없을 때 빈 카드 표시
-            <ProjectCard />
+            <ProjectCard showCreateButton={false} />
           ) : (
             <>
               <ProjectCard
