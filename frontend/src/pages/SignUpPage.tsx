@@ -25,13 +25,14 @@ function SignUpPage() {
   const usersign = async () => {
     try {
       const response = await api.post("/users", formData);
-      console.log(response.headers.Authorization);
-      console.log(response.headers.AuthorizationRefresh);
-      localStorage.setItem("token", response.headers.Authorization);
+      console.log(response.headers["authorization"]);
+      console.log(response.headers["authorization-refresh"]);
+      localStorage.setItem("token", response.headers["authorization"]);
       sessionStorage.setItem(
         "refreshToken",
         response.headers["authorization-refresh"]
       );
+      navigate("/main");
     } catch (error) {
       console.error(error);
     }
