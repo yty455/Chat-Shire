@@ -1,26 +1,25 @@
 package com.ssafy.backend.domain.chat.controller;
 
-import com.ssafy.backend.domain.chat.Greeting;
-import com.ssafy.backend.domain.chat.GreetingController;
-import com.ssafy.backend.domain.chat.HelloMessage;
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.ssafy.backend.domain.chat.dto.ChatInfo;
 import com.ssafy.backend.domain.chat.dto.ChatPost;
-import com.ssafy.backend.domain.chat.dto.ChatResponse;
 import com.ssafy.backend.domain.chat.service.ChatService;
 import com.ssafy.backend.domain.common.BasicResponse;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.HtmlUtils;
-
-import java.util.Collections;
-import java.util.List;
 
 @Tag(name = "채팅 API", description = "채팅관련 API 입니다.")
 @RestController
