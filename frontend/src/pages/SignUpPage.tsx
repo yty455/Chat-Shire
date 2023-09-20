@@ -4,6 +4,7 @@ import axios from "axios";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import { allLanguage } from "../utils/userApi";
+import { postUser } from "../utils/userApi";
 
 function SignUpPage() {
   const navigate = useNavigate();
