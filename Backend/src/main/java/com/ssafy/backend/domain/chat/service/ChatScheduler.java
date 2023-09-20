@@ -62,8 +62,8 @@ public class ChatScheduler {
 		String directoryPath = "output/" + dateStr;
 		File directory = new File(directoryPath);
 		if (!directory.exists()) {
-			if (!directory.mkdirs()) {
-				System.out.println("ChatScheduler.chatTransfer 폴더 못 만듬");
+			if (directory.mkdirs()) {
+				System.out.println("ChatScheduler.chatTransfer");
 			}
 		}
 
