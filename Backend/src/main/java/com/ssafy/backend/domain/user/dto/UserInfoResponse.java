@@ -21,6 +21,7 @@ public class UserInfoResponse {
     private String profileColor;
     private String introduction;
     private String detailIntroduction;
+    private String position;
 
     private List<String> mySkill;
 
@@ -33,6 +34,7 @@ public class UserInfoResponse {
                 .profileColor(user.getProfileColor())
                 .introduction(user.getIntroduction())
                 .detailIntroduction(user.getDetailIntroduction())
+                .position(user.getPosition())
                 .mySkill(mySkill).build();
     }
 
