@@ -10,9 +10,14 @@ import { Link } from "react-router-dom";
 interface ProjectCardProps {
   pjt?: any;
   onCardClick?: () => void;
+  showCreateButton?: boolean;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  pjt,
+  onCardClick,
+  showCreateButton,
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -27,29 +32,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
     <div className={styles.card} onClick={handleModalClick}>
       {pjt ? (
         <>
-          <h3>{pjt.name}</h3>
-          <p>{pjt.content}</p>
+          <h3>이름:{pjt.name}</h3>
+          <p>팀명:{pjt.teamName}</p>
+          <p>주제:{pjt.topic}</p>
           <br />
           <br />
-          <div className={styles.memberbox}>
-            {pjt.member.map((mem: any, index: number) => (
-              <div key={index}>
-                <ProfileImgBox
-                  backgroundColor="red"
-                  text=""
-                  width="25px"
-                  height="25px"
-                  margin="10px"
-                  padding=""
-                  display="flex"
-                  backgroundImage={
-                    process.env.PUBLIC_URL + "assets/profile/m57.png"
-                  }
-                ></ProfileImgBox>
-                {/* {mem} */}
-              </div>
-            ))}
-          </div>
+          <p>
+            기간:{pjt.startDate}~{pjt.endDate}
+          </p>
         </>
       ) : (
         <div
@@ -61,20 +51,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
             alignItems: "center",
           }}
         >
-          <div>
-            <Tooltip title="프로젝트 생성" arrow>
-              <Link to="/createpjt">
-                <Fab
-                  aria-label="add"
-                  onClick={handleClick}
-                  style={{ backgroundColor: "#39a789", color: "white" }}
-                >
-                  <AddIcon />
-                </Fab>
-              </Link>
-            </Tooltip>
-            <p>프로젝트 생성</p>
-          </div>
+          {showCreateButton && (
+            <div>
+              <Tooltip title="프로젝트 생성" arrow>
+                <Link to="/createpjt">
+                  <Fab
+                    aria-label="add"
+                    onClick={handleClick}
+                    style={{ backgroundColor: "#39a789", color: "white" }}
+                  >
+                    <AddIcon />
+                  </Fab>
+                </Link>
+              </Tooltip>
+              <p>프로젝트 생성</p>
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +22,9 @@ public class UserInfoResponse {
     private String introduction;
     private String detailIntroduction;
 
-    public static UserInfoResponse fromEntity(User user){
+    private List<String> mySkill;
+
+    public static UserInfoResponse fromEntity(User user, List<String> mySkill){
         return UserInfoResponse.builder()
                 .socialId(user.getSocialId())
                 .githubId(user.getGithubId())
@@ -28,7 +32,8 @@ public class UserInfoResponse {
                 .profileImage(user.getProfileImage())
                 .profileColor(user.getProfileColor())
                 .introduction(user.getIntroduction())
-                .detailIntroduction(user.getDetailIntroduction()).build();
+                .detailIntroduction(user.getDetailIntroduction())
+                .mySkill(mySkill).build();
     }
 
 }

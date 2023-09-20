@@ -32,18 +32,29 @@ const ComProject: React.FC<ComProjectProps> = ({
       <h3 className={styles.pjttxt}>완료한 PJT</h3>
       <Box sx={{ flexGrow: 1 }}>
         <div className={styles.comCardBox}>
-          <ProjectCard
-            pjt={compjt[activeStep]}
-            onCardClick={() => onProjectCardClick(compjt[activeStep])}
-          />
-          <ProjectCard
-            pjt={compjt[activeStep + 1]}
-            onCardClick={() => onProjectCardClick(compjt[activeStep + 1])}
-          />
-          <ProjectCard
-            pjt={compjt[activeStep + 2]}
-            onCardClick={() => onProjectCardClick(compjt[activeStep + 2])}
-          />
+          {compjt.length === 0 ? (
+            // 프로젝트가 없을 때 빈 카드 표시
+            <ProjectCard showCreateButton={false} />
+          ) : (
+            <>
+              <ProjectCard
+                pjt={compjt[activeStep * 3]}
+                onCardClick={() => onProjectCardClick(compjt[activeStep * 3])}
+              />
+              <ProjectCard
+                pjt={compjt[activeStep * 3 + 1]}
+                onCardClick={() =>
+                  onProjectCardClick(compjt[activeStep * 3 + 1])
+                }
+              />
+              <ProjectCard
+                pjt={compjt[activeStep * 3 + 2]}
+                onCardClick={() =>
+                  onProjectCardClick(compjt[activeStep * 3 + 2])
+                }
+              />
+            </>
+          )}
         </div>
         <MobileStepper
           style={{ height: "20px", padding: "10px" }}
