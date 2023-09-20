@@ -1,9 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Container from "./Container";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
-// import img from "../../assets/profile/m57.png";
 import styles from "./LeftSide.module.css";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
@@ -20,7 +19,9 @@ import { useMediaQuery } from "@mui/material";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import Box from "@mui/material/Box";
 import { useNavigate, useLocation } from "react-router-dom";
-// import styles from "./LeftSide.module.css";
+import { useRecoilState } from "recoil";
+import { loginuser, nowProject_recoil } from "../../stores/atom";
+import { getProfile } from "../../utils/userApi";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -55,10 +56,46 @@ interface Props {
   window?: () => Window;
 }
 
+const dummyData = [
+  {
+    id: 1,
+    name: "특화PJT",
+    teamName: "123",
+    topic: "123",
+    startDate: "2023-09-20",
+    endDate: "2023-09-27",
+    gitRepository: "123",
+    description: "123",
+  },
+  {
+    id: 2,
+    name: "공통PJT",
+    teamName: "123",
+    topic: "123",
+    startDate: "2023-09-20",
+    endDate: "2023-09-27",
+    gitRepository: "123",
+    description: "123",
+  },
+  {
+    id: 3,
+    name: "관통PJT",
+    teamName: "123",
+    topic: "123",
+    startDate: "2023-09-20",
+    endDate: "2023-09-27",
+    gitRepository: "123",
+    description: "123",
+  },
+];
+
 function LeftSide(props: Props) {
   const location = useLocation();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [userData, setUserData] = useRecoilState(loginuser);
+  const [pjtData, setPjtData] = useRecoilState(nowProject_recoil);
+
   const [expanded, setExpanded] = React.useState<string | false>(false);
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const navigate = useNavigate();
@@ -67,19 +104,37 @@ function LeftSide(props: Props) {
       setExpanded(isExpanded ? panel : false);
     };
 
-  const onClick = (link: String, id?: any) => {
+  const onClick = (link: String, id?: any, pjtId?: any) => {
     if (link === "Chat") {
-      navigate("/message");
+      navigate(`/message/${pjtId}`);
     } else if (link === "Board") {
-      navigate("/idea");
-    } else {
+      navigate(`/idea/${pjtId}`);
+    } else if (link === "main") {
       navigate(`/${link.toLowerCase()}`);
+    } else if (link === "profile") {
+      navigate(`/${link.toLowerCase()}`);
+    } else {
+      navigate(`/${link.toLowerCase()}/${pjtId}`);
     }
   };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const getProfilePage = async () => {
+    try {
+      const response = await getProfile();
+      console.log(response.data.result[0]);
+      setUserData(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getProfilePage();
+  }, []);
 
   return (
     <Container
@@ -118,7 +173,7 @@ function LeftSide(props: Props) {
             sx={{ width: 80, height: 80 }}
           />
         </StyledBadge>
-        <h5 className={styles.profilename}>CSI</h5>
+        <h5 className={styles.profilename}>{userData.nickname}CSI</h5>
       </div>
       <Divider />
       <List>
@@ -135,7 +190,7 @@ function LeftSide(props: Props) {
               className={styles.box}
             >
               <AccordionSummary
-                style={{
+                sx={{
                   display: "flex",
                   alignItems: "center",
                 }}
@@ -149,19 +204,18 @@ function LeftSide(props: Props) {
             </Accordion>
           </ListItemButton>
         </ListItem>
-
-        {["특화PJT", "공통PJT", "관통PJT"].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        {(pjtData.length > 0 ? pjtData : dummyData).map((pjt, index) => (
+          <ListItem key={pjt.id} disablePadding>
             <ListItemButton>
               <Accordion
                 className={styles.box}
-                expanded={expanded === text}
-                onChange={handleChange(text)}
+                expanded={expanded === pjt.id}
+                onChange={handleChange(pjt.id)}
                 style={{
                   width: "100%",
                   borderRadius: "10px",
-                  backgroundColor:
-                    location.pathname !== "/analysis" ? "#FFFFFF" : "#ffffff2a",
+                  // backgroundColor:
+                  //   location.pathname !== "/analysis" ? "#FFFFFF" : "#ffffff2a",
                 }}
               >
                 <AccordionSummary
@@ -177,7 +231,7 @@ function LeftSide(props: Props) {
                   <Box sx={{ width: "35px" }}>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                   </Box>
-                  <span>{text}</span>
+                  <span>{pjt.name}</span>
                 </AccordionSummary>
                 <AccordionDetails style={{ padding: "0px 16px 0px 16px" }}>
                   <List>
@@ -185,7 +239,7 @@ function LeftSide(props: Props) {
                       (text, index) => (
                         <ListItem key={text} disablePadding>
                           <ListItemButton
-                            onClick={() => onClick(text, index)}
+                            onClick={() => onClick(text, index, pjt.id)}
                             style={{ padding: "4px 16px 4px 16px" }}
                           >
                             <ListItemIcon>

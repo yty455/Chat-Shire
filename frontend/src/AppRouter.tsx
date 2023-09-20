@@ -2,8 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import AnalysisPage from "./pages/AnalysisPage";
 import ProfilePage from "./pages/ProfilePage";
-import ProfileSettingPage from "./pages/ProfileSettingPage";
-import Test from "./pages/Test";
+import CustomProfilePage from "./pages/CustomProfilePage";
 import IdeaPage from "./pages/IdeaPage";
 import MessagePage from "./pages/MessagePage";
 import TaskPage from "./pages/TaskPage";
@@ -43,16 +42,18 @@ function AppRouter() {
             <Route path="/" element={<Login />}></Route>
             <Route path="/main" element={<Main />}></Route>
             <Route path="/createpjt" element={<CreatePjt />}></Route>
-            <Route path="/analysis" element={<AnalysisPage />}></Route>
-            <Route path="/profile" element={<ProfilePage />}></Route>
             <Route
-              path="/profile/setting"
-              element={<ProfileSettingPage />}
+              path="/analysis/:projectId"
+              element={<AnalysisPage />}
             ></Route>
-            <Route path="/test" element={<Test />}></Route>
+            <Route path="/profile" element={<ProfilePage />}></Route>
+            <Route path="/profile/custom" element={<CustomProfilePage />}></Route>
             <Route path="/idea" element={<IdeaPage />}></Route>
             <Route path="/message" element={<MessagePage />}></Route>
             <Route path="/task" element={<TaskPage />}></Route>
+            <Route path="/idea/:projectId" element={<IdeaPage />}></Route>
+            <Route path="/message/:projectId" element={<MessagePage />}></Route>
+            <Route path="/task/:projectId" element={<TaskPage />}></Route>
             <Route path="/oauth2/sign-up" element={<Redirect />}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
           </Routes>

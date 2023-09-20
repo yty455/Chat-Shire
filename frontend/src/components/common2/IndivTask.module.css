@@ -90,5 +90,11 @@
 
 .icons {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+}
+
+.dateNpriority {
+  display: flex;
+  justify-content: start;
+  margin: 0;
 }

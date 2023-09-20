@@ -49,7 +49,7 @@ const NowProject: React.FC<NowProjectProps> = ({
                   onCardClick={() => onProjectCardClick(nowpjt[activeStep + 1])}
                 />
               )}
-              <ProjectCard />
+              <ProjectCard showCreateButton={true} />
             </>
           ) : (
             <>

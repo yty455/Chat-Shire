@@ -1,24 +1,20 @@
 package com.ssafy.backend.domain.user.controller;
 
-import static com.ssafy.backend.domain.common.GlobalMethod.*;
-
-import com.ssafy.backend.domain.user.User;
+import com.ssafy.backend.domain.common.BasicResponse;
+import com.ssafy.backend.domain.user.dto.UserInfo;
 import com.ssafy.backend.domain.user.dto.UserInfoResponse;
-import com.sun.xml.bind.v2.TODO;
+import com.ssafy.backend.domain.user.service.UserService;
+import com.ssafy.backend.global.jwt.service.JwtService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.ssafy.backend.domain.common.BasicResponse;
-import com.ssafy.backend.domain.user.dto.UserInfo;
-import com.ssafy.backend.domain.user.service.UserService;
-import com.ssafy.backend.global.jwt.service.JwtService;
-
-import io.swagger.v3.oas.annotations.Operation;
-import lombok.RequiredArgsConstructor;
-
 import java.util.Collections;
+
+import static com.ssafy.backend.domain.common.GlobalMethod.getUserId;
 
 @Tag(name = "유저 API", description = "유저 관련 API")
 @RestController

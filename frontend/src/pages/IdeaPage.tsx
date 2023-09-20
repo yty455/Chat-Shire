@@ -10,10 +10,11 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { styled } from '@mui/system';
+import { styled } from "@mui/system";
+import { useParams } from "react-router-dom";
 
 const CustomTabs = styled(Tabs)(({ theme }) => ({
-  '& .MuiTabs-indicator': {
+  "& .MuiTabs-indicator": {
     backgroundColor: theme.palette.greenary.main,
   },
 }));
@@ -25,6 +26,7 @@ interface TabPanelProps {
 }
 
 function CustomTabPanel(props: TabPanelProps) {
+  const { projectId } = useParams();
   const { children, value, index, ...other } = props;
 
   return (
@@ -65,7 +67,7 @@ export default function BasicTabs() {
         <div className={styles.BoardTabContainer}>
           <CustomTabs
             textColor="inherit"
-            sx={{ fontFamily: "preRg"}}
+            sx={{ fontFamily: "preRg" }}
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"

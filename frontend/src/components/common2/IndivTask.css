@@ -1,0 +1,9 @@
+.ant-select-selector {
+  padding: 0;
+  font-family: 'preRg'
+
+}
+
+input::placeholder {
+  font-family: 'preRg'
+}

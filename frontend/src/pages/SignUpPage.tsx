@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 // import { postUser } from "../utils/userApi";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
+import { allLanguage } from "../utils/userApi";
 
 function SignUpPage() {
   const navigate = useNavigate();
@@ -34,6 +35,10 @@ function SignUpPage() {
     }
   };
 
+  useEffect(() => {
+    getLan();
+  }, []);
+
   const usersign = async () => {
     try {
       const response = await api.post("/users", formData);
@@ -45,6 +50,14 @@ function SignUpPage() {
         response.headers["authorization-refresh"]
       );
       navigate("/main");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getLan = async () => {
+    try {
+      const response = await allLanguage();
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -79,13 +92,6 @@ function SignUpPage() {
         value={formData.introduction}
         onChange={handleInputChange}
         placeholder="Introduction"
-      />
-      <input
-        type="text"
-        name="detailIntroduction"
-        value={formData.detailIntroduction}
-        onChange={handleInputChange}
-        placeholder="Detail Introduction"
       />
       <input
         type="text"
