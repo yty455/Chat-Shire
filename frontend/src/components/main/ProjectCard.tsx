@@ -47,6 +47,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
           <p>
             기간:{pjt.startDate}~{pjt.endDate}
           </p>
+          <button onClick={deleteProject}>삭제</button>
+          <button>수정하기</button>
         </>
       ) : (
         <div
@@ -74,8 +76,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
           </div>
         </div>
       )}
-      <button onClick={deleteProject}>삭제</button>
-      <button>수정하기</button>
     </div>
   );
 };
