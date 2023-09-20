@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { outProject } from "../../utils/projectApi";
 
 interface ProjectCardProps {
   pjt?: any;
@@ -23,33 +24,31 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
     navigate("/createpjt");
   };
 
+  const deleteProject = async () => {
+    try {
+      const response = await outProject(pjt.id);
+      console.log(response);
+
+      navigate("/main");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className={styles.card} onClick={handleModalClick}>
       {pjt ? (
         <>
-          <h3>{pjt.name}</h3>
-          <p>{pjt.content}</p>
+          <h3>이름:{pjt.name}</h3>
+          <p>팀명:{pjt.teamName}</p>
+          <p>주제:{pjt.topic}</p>
           <br />
           <br />
-          <div className={styles.memberbox}>
-            {pjt.member.map((mem: any, index: number) => (
-              <div key={index}>
-                <ProfileImgBox
-                  backgroundColor="red"
-                  text=""
-                  width="25px"
-                  height="25px"
-                  margin="10px"
-                  padding=""
-                  display="flex"
-                  backgroundImage={
-                    process.env.PUBLIC_URL + "assets/profile/m57.png"
-                  }
-                ></ProfileImgBox>
-                {/* {mem} */}
-              </div>
-            ))}
-          </div>
+          <p>
+            기간:{pjt.startDate}~{pjt.endDate}
+          </p>
+          <button onClick={deleteProject}>삭제</button>
+          <button>수정하기</button>
         </>
       ) : (
         <div

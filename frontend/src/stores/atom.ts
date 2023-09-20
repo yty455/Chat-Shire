@@ -1,8 +1,11 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
+const { persistAtom } = recoilPersist();
 
 export const loginuser = atom({
   key: "loginuser",
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const projectId = atom({
@@ -18,4 +21,9 @@ export const message = atom({
 export const accessToken = atom({
   key: "accessToken ",
   default: "",
+});
+
+export const nowProject_recoil = atom<any[]>({
+  key: "nowProject_recoil",
+  default: [],
 });

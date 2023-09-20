@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 // import { postUser } from "../utils/userApi";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
+import { allLanguage } from "../utils/userApi";
 
 function SignUpPage() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ function SignUpPage() {
     profileColor: "",
     introduction: "",
     detailIntroduction: "",
+    mySkill: [] as string[],
   });
 
   const handleInputChange = (e: any) => {
@@ -21,6 +23,21 @@ function SignUpPage() {
       [name]: value,
     });
   };
+  const handleMySkillInputChange = (e: any) => {
+    if (e.key === "Enter" && e.target.value.trim() !== "") {
+      setFormData({
+        ...formData,
+        mySkill: [...formData.mySkill, e.target.value.trim()],
+      });
+
+      // 인풋창 비우기
+      e.target.value = "";
+    }
+  };
+
+  useEffect(() => {
+    getLan();
+  }, []);
 
   const usersign = async () => {
     try {
@@ -33,6 +50,14 @@ function SignUpPage() {
         response.headers["authorization-refresh"]
       );
       navigate("/main");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getLan = async () => {
+    try {
+      const response = await allLanguage();
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -75,6 +100,19 @@ function SignUpPage() {
         onChange={handleInputChange}
         placeholder="Detail Introduction"
       />
+      <div>
+        <input
+          type="text"
+          name="mySkill"
+          onKeyPress={handleMySkillInputChange}
+          placeholder="mySkill"
+        />
+        <ul>
+          {formData.mySkill.map((skill, index) => (
+            <li key={index}>{skill}</li>
+          ))}
+        </ul>
+      </div>
       <button onClick={usersign}>회원가입</button>
     </div>
   );
