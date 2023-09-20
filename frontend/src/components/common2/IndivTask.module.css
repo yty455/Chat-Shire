@@ -1,7 +1,7 @@
 .indivDiv {
   max-width: 20vw;
   width: 24vw;
-  height: 87.5vh;
+  height: 85vh;
   padding: 0;
   /* 구분을 위한 색, 나중에 지우기
     /* display: flex; */
@@ -36,7 +36,6 @@
   &:hover {
     box-shadow: -2px -2px 5px white, 2px 2px 5px #BABECC
   }
-    
   /* &:active {
     box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px white;
   } */
@@ -87,4 +86,9 @@
 }
 .indivDiv::-webkit-scrollbar-track {
   background: none;  /*스크롤바 뒷 배경 색상*/
+}
+
+.icons {
+  display: flex;
+  justify-content: end;
 }
