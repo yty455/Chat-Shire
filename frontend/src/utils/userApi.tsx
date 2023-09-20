@@ -46,3 +46,6 @@ export const getProfile = () => api.get(`/users`);
 
 // 내 정보 삭제
 export const deleteUser = () => api.delete(`/users`);
+
+// 내 정보 삭제
+export const allLanguage = () => api.get(`/skills`);
