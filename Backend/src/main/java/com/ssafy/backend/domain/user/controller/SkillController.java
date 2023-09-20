@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class SkillController {
     public ResponseEntity<BasicResponse> getSkills() {
 
         List<Skill> skills = skillService.getSkills();
-
+        if(skills == null) skills = new ArrayList<>(); // TODO - 나중에 DB 안지워 지면 삭제
         BasicResponse basicResponse = BasicResponse.builder()
                 .message("프로그래밍 언어 조회 성공")
                 .count(skills.size())
