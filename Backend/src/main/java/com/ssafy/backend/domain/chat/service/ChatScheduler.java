@@ -85,7 +85,7 @@ public class ChatScheduler {
 					if (chatMap.containsKey(chatInfo.getUserId())) {
 						chatMap.put(chatInfo.getUserId(), chatMap.get(chatInfo.getUserId()) + chatInfo.getContent());
 					} else {
-						chatMap.put(chatInfo.getUserId(), "");
+						chatMap.put(chatInfo.getUserId(), chatInfo.getContent());
 					}
 
 					if (chatMap.get(chatInfo.getUserId()).length() >= 50) {
@@ -106,8 +106,6 @@ public class ChatScheduler {
 
 				chatRepository.saveAll(chats);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -138,9 +136,6 @@ public class ChatScheduler {
 						category.getName(), category.getConfidence());
 			}
 			return response.getCategoriesList();
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		return null;
 	}
 }
