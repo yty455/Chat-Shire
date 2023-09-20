@@ -51,10 +51,11 @@ function LinearProgressWithLabel(
 
 export default function ProfilePage() {
   const navigate = useNavigate();
-  const bronze = process.env.PUBLIC_URL + "/assets/achievements/bronze.png";
-  const silver = process.env.PUBLIC_URL + "/assets/achievements/silver.png";
-  const gold = process.env.PUBLIC_URL + "/assets/achievements/gold.png";
   const [userData, setUserData] = useRecoilState(loginuser);
+
+  function achievementPath(id: any) {
+    return process.env.PUBLIC_URL + '/assets/achievements/' + id + '.png'
+  }
 
   function profileSetting() {
     navigate("/profile/setting");
@@ -170,252 +171,252 @@ export default function ProfilePage() {
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={bronze}
+              src={achievementPath(1)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={bronze}
+              src={achievementPath(2)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={bronze}
+              src={achievementPath(3)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={bronze}
+              src={achievementPath(4)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={bronze}
+              src={achievementPath(5)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={bronze}
+              src={achievementPath(6)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={bronze}
+              src={achievementPath(7)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={bronze}
+              src={achievementPath(8)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={bronze}
+              src={achievementPath(9)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={bronze}
+              src={achievementPath(10)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={bronze}
+              src={achievementPath(11)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={bronze}
+              src={achievementPath(12)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={silver}
+              src={achievementPath(13)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={silver}
+              src={achievementPath(14)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={silver}
+              src={achievementPath(15)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={silver}
+              src={achievementPath(16)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={silver}
+              src={achievementPath(17)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={silver}
+              src={achievementPath(18)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={silver}
+              src={achievementPath(19)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={silver}
+              src={achievementPath(20)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={silver}
+              src={achievementPath(21)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={silver}
+              src={achievementPath(22)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={silver}
+              src={achievementPath(23)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={silver}
+              src={achievementPath(24)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={gold}
+              src={achievementPath(25)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={gold}
+              src={achievementPath(26)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={gold}
+              src={achievementPath(27)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={gold}
+              src={achievementPath(28)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={gold}
+              src={achievementPath(29)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={gold}
+              src={achievementPath(30)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={gold}
+              src={achievementPath(31)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={gold}
+              src={achievementPath(32)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={gold}
+              src={achievementPath(33)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={gold}
+              src={achievementPath(34)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={gold}
+              src={achievementPath(35)}
               alt=""
             />
             <img
               width="78px"
               height="78px"
               style={{ margin: "0px 14px 14px 0px" }}
-              src={gold}
+              src={achievementPath(36)}
               alt=""
             />
           </div>
