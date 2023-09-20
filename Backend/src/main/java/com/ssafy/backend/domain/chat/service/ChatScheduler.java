@@ -65,6 +65,8 @@ public class ChatScheduler {
 			if (directory.mkdirs()) {
 				String path = System.getProperty("user.dir");
 				System.out.println("Working Directory = " + path);
+			} else {
+				System.out.println("directory = " + directory);
 			}
 		}
 
