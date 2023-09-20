@@ -43,6 +43,7 @@ public class UserService {
         findUser.update(userInfo);
         findUser.authorizeUser();
 
+        if(userInfo.getMySkill() == null) return;
         // 언어 스킬 등록
         Map<String, Skill> skillMap = skillRepository.findAll().stream()
                 .collect(Collectors.toMap(Skill::getSkillName, skill -> skill));
