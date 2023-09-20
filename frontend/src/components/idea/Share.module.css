@@ -59,7 +59,9 @@
   margin-bottom: 0;
   font-family: 'preBd';
   margin-right: 8px;
-  margin-bottom:20px
+  margin-bottom:20px;
+  overflow-wrap: normal;
+  text-overflow:clip;
 }
 
 .test {
