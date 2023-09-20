@@ -63,7 +63,8 @@ public class ChatScheduler {
 		File directory = new File(directoryPath);
 		if (!directory.exists()) {
 			if (directory.mkdirs()) {
-				System.out.println("ChatScheduler.chatTransfer");
+				String path = System.getProperty("user.dir");
+				System.out.println("Working Directory = " + path);
 			}
 		}
 
