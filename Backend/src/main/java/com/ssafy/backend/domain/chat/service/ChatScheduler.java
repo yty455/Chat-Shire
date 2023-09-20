@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -88,16 +89,16 @@ public class ChatScheduler {
 						chatMap.put(chatInfo.getUserId(), chatInfo.getContent());
 					}
 
-					if (chatMap.get(chatInfo.getUserId()).length() >= 50) {
-						List<ClassificationCategory> classificationCategories = googleNaturalAPI(chatMap,
-								chatInfo);
-
-						for (ClassificationCategory classificationCategory : classificationCategories) {
-							String outputLine = String.format("%d, %s\n", chatInfo.getUserId(),
-									classificationCategory.getName());
-							writer.write(outputLine);
-						}
-					}
+					// if (chatMap.get(chatInfo.getUserId()).length() >= 50) {
+					// 	List<ClassificationCategory> classificationCategories = googleNaturalAPI(chatMap,
+					// 			chatInfo);
+					//
+					// 	for (ClassificationCategory classificationCategory : classificationCategories) {
+					// 		StringTokenizer st = new StringTokenizer(classificationCategory.getName(), "/");
+					// 		String outputLine = String.format("%d, %s\n", chatInfo.getUserId(), st.nextToken());
+					// 		writer.write(outputLine);
+					// 	}
+					// }
 				}
 
 				List<Chat> chats = chatInfos.stream()
