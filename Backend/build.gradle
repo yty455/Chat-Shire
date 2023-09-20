@@ -63,6 +63,9 @@ dependencies {
 
     // SSE
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // 구글 자연어처리
+    implementation 'com.google.cloud:google-cloud-language:2.24.0'
 }
 
 tasks.named('test') {
