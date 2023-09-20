@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import styles from "./ProjectModal.module.css";
 import { getProject } from "../../utils/projectApi";
+import { outProject } from "../../utils/projectApi";
+import { useNavigate } from "react-router-dom";
 
 interface ProjectModalProps {
   pjt: any;
@@ -8,6 +10,7 @@ interface ProjectModalProps {
 }
 
 function ProjectModal({ pjt, closeModal }: ProjectModalProps) {
+  const navigate = useNavigate();
   const getProjectDetail = async () => {
     try {
       const response = await getProject(pjt.id);
@@ -21,6 +24,16 @@ function ProjectModal({ pjt, closeModal }: ProjectModalProps) {
     getProjectDetail();
   }, []);
 
+  const deleteProject = async () => {
+    try {
+      const response = await outProject(pjt.id);
+      console.log(response);
+
+      navigate("/main");
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
@@ -38,6 +51,8 @@ function ProjectModal({ pjt, closeModal }: ProjectModalProps) {
         >
           X
         </button>
+        <button onClick={deleteProject}>삭제</button>
+        <button>수정하기</button>
       </div>
     </div>
   );

@@ -6,14 +6,18 @@ import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { outProject } from "../../utils/projectApi";
 
 interface ProjectCardProps {
   pjt?: any;
   onCardClick?: () => void;
+  showCreateButton?: boolean;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  pjt,
+  onCardClick,
+  showCreateButton,
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -22,17 +26,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     navigate("/createpjt");
-  };
-
-  const deleteProject = async () => {
-    try {
-      const response = await outProject(pjt.id);
-      console.log(response);
-
-      navigate("/main");
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   return (
@@ -47,8 +40,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
           <p>
             기간:{pjt.startDate}~{pjt.endDate}
           </p>
-          <button onClick={deleteProject}>삭제</button>
-          <button>수정하기</button>
         </>
       ) : (
         <div
@@ -60,20 +51,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
             alignItems: "center",
           }}
         >
-          <div>
-            <Tooltip title="프로젝트 생성" arrow>
-              <Link to="/createpjt">
-                <Fab
-                  aria-label="add"
-                  onClick={handleClick}
-                  style={{ backgroundColor: "#39a789", color: "white" }}
-                >
-                  <AddIcon />
-                </Fab>
-              </Link>
-            </Tooltip>
-            <p>프로젝트 생성</p>
-          </div>
+          {showCreateButton && (
+            <div>
+              <Tooltip title="프로젝트 생성" arrow>
+                <Link to="/createpjt">
+                  <Fab
+                    aria-label="add"
+                    onClick={handleClick}
+                    style={{ backgroundColor: "#39a789", color: "white" }}
+                  >
+                    <AddIcon />
+                  </Fab>
+                </Link>
+              </Tooltip>
+              <p>프로젝트 생성</p>
+            </div>
+          )}
         </div>
       )}
     </div>

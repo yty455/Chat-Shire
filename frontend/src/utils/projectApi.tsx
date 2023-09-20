@@ -52,4 +52,4 @@ export const updateProject = (
 
 // 프로젝트 나가기
 export const outProject = (projectId: string) =>
-  api.put(`/projects/${projectId}`);
+  api.delete(`/projects/${projectId}`);
