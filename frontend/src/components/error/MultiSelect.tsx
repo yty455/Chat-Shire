@@ -138,7 +138,7 @@ function MultiSelect() {
                 '& .MuiInputBase-root': {
                   marginTop: '1px',
                   padding: '0 5px',
-
+                  fontFamily: 'preBd'
                 },
                 marginLeft: '10px',
              }}
