@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 // import { postUser } from "../utils/userApi";
 import api from "../utils/api";
+import { useNavigate } from "react-router-dom";
 
 function SignUpPage() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nickname: "",
     profileImage: "",
@@ -23,11 +25,13 @@ function SignUpPage() {
   const usersign = async () => {
     try {
       const response = await api.post("/users", formData);
-      console.log(response.headers);
+      console.log(response.headers.Authorization);
+      console.log(response.headers.AuthorizationRefresh);
       localStorage.setItem("token", response.headers.Authorization);
-      // sessionStorage.setItem("refreshtoken", response.headers.Authorization-Refresh);
-      // window.location.href = "http://j9e205.p.ssafy.io:8080/oauth2/sign-up";
-      // navigate("/oauth2/sign-up");
+      sessionStorage.setItem(
+        "refreshToken",
+        response.headers["authorization-refresh"]
+      );
     } catch (error) {
       console.error(error);
     }
