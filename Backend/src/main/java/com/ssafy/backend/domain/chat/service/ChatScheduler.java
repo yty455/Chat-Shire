@@ -62,7 +62,9 @@ public class ChatScheduler {
 		String directoryPath = "output/" + dateStr;
 		File directory = new File(directoryPath);
 		if (!directory.exists()) {
-			directory.mkdirs();
+			if (!directory.mkdirs()) {
+				System.out.println("ChatScheduler.chatTransfer 폴더 못 만듬");
+			}
 		}
 
 		try (PrintWriter writer = new PrintWriter(String.format(directoryPath + "/output_%d.csv", System.currentTimeMillis()))) {
