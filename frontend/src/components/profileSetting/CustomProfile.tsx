@@ -1,18 +1,19 @@
 "use strict";
 
 import React, { useState } from 'react'
-import reactCSS from 'reactcss'
+import styles from './CustomProfile.module.css'
 
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grow from '@mui/material/Zoom';
+import Slide from '@mui/material/Slide'
 import Collapse from '@mui/material/Collapse';
+import TextField from '@mui/material/TextField';
 import { BsGenderMale, BsGenderFemale } from 'react-icons/bs';
 
 import { ChromePicker } from 'react-color'
-import styles from './ProfileSetting.module.css'
-import { esES } from '@mui/x-date-pickers';
 
-export default function ProfileSetting() {
+export default function CustomProfile() {
   const male = process.env.PUBLIC_URL + '/assets/profile/maleSelector.png'
   const female = process.env.PUBLIC_URL + '/assets/profile/femaleSelector.png'
   const [profileColor, setProfileColor] = useState("red")
@@ -21,11 +22,11 @@ export default function ProfileSetting() {
   const [displayColorPicker, setDisplayColorPicker] = useState(false)
   const [profileImg, setProfileImg] = useState(process.env.PUBLIC_URL +'/assets/profile/male/m25.png')
   const [selectedImg, setSelectedImg] = useState('')
-
-  const marginVal = "-2px 0px 0px 11px"
+  const containerRef = React.useRef<HTMLElement>(null);
 
   function activateCustom() {
-    setActivateProfileCustom(activateProfileCustom => !activateProfileCustom)
+    console.log(activateProfileCustom)
+    setActivateProfileCustom(!activateProfileCustom)
   }
 
   function handleClick() {
@@ -57,21 +58,33 @@ export default function ProfileSetting() {
   }
 
   return (
-    <div className={styles.profileSettingContainer}>
-      <div className={styles.profileImgSetting}>
-        <div onClick={activateCustom} className={styles.profilePreview} style={{position: "relative", backgroundColor: profileColor}}>
-          <img style={{position: "absolute", bottom: "0"}} width="310px" height="310px" src={profileImg} alt="" />  
+    <div className={styles.AvatarCustomContainer}>
+      <div className={styles.AvatarCustomHeader}>
+        <span className={styles.AvatarCustomTitle}>MINIME CUSTOM</span>
+      </div>
+      <div className={styles.AvatarCustomBody}>
+        <div className={styles.AvatarCustomBodyLeft}>
+          <div id="#f78da7" onClick={selectExample} className={styles.exampleColor} style={{backgroundColor: "#f78da7"}}></div>
+          <div id="#7bdcb5" onClick={selectExample} className={styles.exampleColor} style={{backgroundColor: "#7bdcb5"}}></div>
+          <div id="#8ed1fc" onClick={selectExample} className={styles.exampleColor} style={{backgroundColor: "#8ed1fc"}}></div>
+          <div id="#abb8c3" onClick={selectExample} className={styles.exampleColor} style={{backgroundColor: "#abb8c3"}}></div>
+          <div style={{position: "relative"}}>
+            <div className={styles.exampleColor} style={{ backgroundImage: `url(${process.env.PUBLIC_URL + '/assets/rainbow.png'})`, backgroundPosition: "center center", backgroundSize: "50px 50px"}} onClick={handleClick}></div>
+            <Grow in={displayColorPicker} style={{ transformOrigin: "100% 100% 0"}}>
+              <div style={{position: "absolute", bottom: "30px", right: "30px"}}>
+                <ChromePicker disableAlpha={true} color={profileColor} onChange={handleChange} />
+              </div>
+            </Grow>
+          </div>
         </div>
-        <Collapse orientation="horizontal" in={activateProfileCustom} collapsedSize={100}>
+        <div className={styles.AvatarCustomBodyCenter}>
+          <div className={styles.profilePreview} style={{position: "relative", backgroundColor: profileColor}}>
+            <img style={{position: "absolute", bottom: "0"}} width="260px" height="260px" src={profileImg} alt="" />  
+          </div>
+        </div>
+        <div className={styles.AvatarCustomBodyRight}>
           <div className={styles.profileImgSelector}>
             <div className={styles.profileImgSelectorRight}>
-              <div className={styles.profileImgSelectorButtons}>
-                <span>SELECT YOUR MINIME</span>
-                <Button color="greenary" value="male" variant="contained" onClick={handleGender}>
-                  <BsGenderMale/>
-                  <BsGenderFemale/>
-                </Button>
-              </div>
               <div style={{ position: "relative" }}>
                 <div
                   style={{
@@ -83,7 +96,7 @@ export default function ProfileSetting() {
                     position: "absolute",
                     left: "10px",
                     width: "400px",
-                    height: "480px",
+                    height: "400px",
                   }}
                 >
                   <div className={styles.profileImgSelectorRow}>
@@ -247,30 +260,19 @@ export default function ProfileSetting() {
                       style={selectedImg === '25' ? { border: "3px solid #45CEA8"} : {}}
                     ></div>
                   </div>
-                  <div className={styles.profileImgSelectorRow}>
-                    <div id="#f78da7" onClick={selectExample} className={styles.exampleColor} style={{backgroundColor: "#f78da7"}}></div>
-                    <div id="#7bdcb5" onClick={selectExample} className={styles.exampleColor} style={{backgroundColor: "#7bdcb5"}}></div>
-                    <div id="#8ed1fc" onClick={selectExample} className={styles.exampleColor} style={{backgroundColor: "#8ed1fc"}}></div>
-                    <div id="#abb8c3" onClick={selectExample} className={styles.exampleColor} style={{backgroundColor: "#abb8c3"}}></div>
-                    <div style={{position: "relative"}}>
-                      <div className={styles.exampleColor} style={{ backgroundImage: `url(${process.env.PUBLIC_URL + '/assets/rainbow.png'})`, backgroundPosition: "center center", backgroundSize: "60px 60px"}} onClick={handleClick}></div>
-                      <Grow in={displayColorPicker} style={{ transformOrigin: "100% 100% 0"}}>
-                        <div style={{position: "absolute", bottom: "30px", right: "30px"}}>
-                          <ChromePicker disableAlpha={true} color={profileColor} onChange={handleChange} />
-                        </div>
-                      </Grow>
-                      {/* {displayColorPicker ? 
-                        : null
-                      } */}
-                    </div>
-                  </div>
                 </div>
                 { gender ? <img style={{ marginLeft: "10px" }} height="400px" src={male} alt=""/> : <img style={{ marginLeft: "10px" }} height="400px" src={female} alt=""/>}
               </div>
+              <div className={styles.profileImgSelectorButtons}>
+                <Button color="greenary" value="male" variant="contained" onClick={handleGender}>
+                  <BsGenderMale/>
+                  <BsGenderFemale/>
+                </Button>
+              </div>
             </div>
           </div>
-        </Collapse>
+        </div>
       </div>
     </div>
-  );
+  )
 }
