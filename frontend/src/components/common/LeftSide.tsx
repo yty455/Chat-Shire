@@ -104,13 +104,17 @@ function LeftSide(props: Props) {
       setExpanded(isExpanded ? panel : false);
     };
 
-  const onClick = (link: String, id?: any) => {
+  const onClick = (link: String, id?: any, pjtId?: any) => {
     if (link === "Chat") {
-      navigate("/message");
+      navigate(`/message/${pjtId}`);
     } else if (link === "Board") {
-      navigate("/idea");
-    } else {
+      navigate(`/idea/${pjtId}`);
+    } else if (link === "main") {
       navigate(`/${link.toLowerCase()}`);
+    } else if (link === "profile") {
+      navigate(`/${link.toLowerCase()}`);
+    } else {
+      navigate(`/${link.toLowerCase()}/${pjtId}`);
     }
   };
 
@@ -200,7 +204,7 @@ function LeftSide(props: Props) {
             </Accordion>
           </ListItemButton>
         </ListItem>
-        {(pjtData ? pjtData : dummyData).map((pjt, index) => (
+        {(pjtData.length > 0 ? pjtData : dummyData).map((pjt, index) => (
           <ListItem key={pjt.id} disablePadding>
             <ListItemButton>
               <Accordion
@@ -235,7 +239,7 @@ function LeftSide(props: Props) {
                       (text, index) => (
                         <ListItem key={text} disablePadding>
                           <ListItemButton
-                            onClick={() => onClick(text, index)}
+                            onClick={() => onClick(text, index, pjt.id)}
                             style={{ padding: "4px 16px 4px 16px" }}
                           >
                             <ListItemIcon>
