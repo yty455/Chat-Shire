@@ -1,10 +1,12 @@
 import React from "react";
 import Analysis from "../components/analysis/Analysis";
 import LeftSide from "../components/common/LeftSide";
+import { useParams } from "react-router-dom";
 
 export default function AnalysisPage() {
-  const passion = process.env.PUBLIC_URL + '/assets/analysisBg/passion/passion1.png'
-
+  const passion =
+    process.env.PUBLIC_URL + "/assets/analysisBg/passion/passion1.png";
+  const { projectId } = useParams();
   return (
     <div
       style={{
