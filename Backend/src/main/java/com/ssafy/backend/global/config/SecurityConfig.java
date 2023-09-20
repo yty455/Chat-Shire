@@ -133,7 +133,6 @@ public class SecurityConfig {
 
         //허용할 url 설정
         configuration.addAllowedOrigin("http://j9e205.p.ssafy.io");
-        configuration.addAllowedOrigin("http://192.168.30.227:3000");
         //허용할 헤더 설정
         configuration.addAllowedHeader("*");
         //허용할 http method
