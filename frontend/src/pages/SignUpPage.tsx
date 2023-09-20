@@ -12,6 +12,7 @@ function SignUpPage() {
     profileColor: "",
     introduction: "",
     detailIntroduction: "",
+    mySkill: [] as string[],
   });
 
   const handleInputChange = (e: any) => {
@@ -20,6 +21,17 @@ function SignUpPage() {
       ...formData,
       [name]: value,
     });
+  };
+  const handleMySkillInputChange = (e: any) => {
+    if (e.key === "Enter" && e.target.value.trim() !== "") {
+      setFormData({
+        ...formData,
+        mySkill: [...formData.mySkill, e.target.value.trim()],
+      });
+
+      // 인풋창 비우기
+      e.target.value = "";
+    }
   };
 
   const usersign = async () => {
@@ -75,6 +87,26 @@ function SignUpPage() {
         onChange={handleInputChange}
         placeholder="Detail Introduction"
       />
+      <input
+        type="text"
+        name="detailIntroduction"
+        value={formData.detailIntroduction}
+        onChange={handleInputChange}
+        placeholder="Detail Introduction"
+      />
+      <div>
+        <input
+          type="text"
+          name="mySkill"
+          onKeyPress={handleMySkillInputChange}
+          placeholder="mySkill"
+        />
+        <ul>
+          {formData.mySkill.map((skill, index) => (
+            <li key={index}>{skill}</li>
+          ))}
+        </ul>
+      </div>
       <button onClick={usersign}>회원가입</button>
     </div>
   );

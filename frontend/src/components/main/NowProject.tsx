@@ -110,22 +110,6 @@ const NowProject: React.FC<NowProjectProps> = ({
           }
         />
       </Box>
-      {/* <Carousel /> */}
-      {/* <div className={styles.nowCardBox}>
-        {nowpjt.map((pjt: any) => (
-          <ProjectCard key={pjt.id} pjt={pjt} />
-        ))}
-        <Tooltip title="프로젝트 생성" arrow>
-          <Fab
-            aria-label="add"
-            onClick={handleClick}
-            className={styles.hoverEffect}
-            style={{ backgroundColor: "#39a789", color: "white" }}
-          >
-            <AddIcon />
-          </Fab>
-        </Tooltip>
-      </div> */}
     </div>
   );
 };
