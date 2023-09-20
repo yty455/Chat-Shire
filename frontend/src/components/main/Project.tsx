@@ -83,12 +83,17 @@ function Project() {
 
       response.data.result[0].forEach((pjt: any) => {
         if (new Date(pjt.endDate) < today) {
+          console.log(pjt, 2);
           completedProjects.push(pjt);
         } else {
+          console.log(pjt, 1);
           nowProjects.push(pjt);
         }
         console.log(pjt.endDate);
       });
+      console.log(nowProjects);
+      console.log(completedProjects);
+
       setComPjt(completedProjects);
       setNowProject(nowProjects);
       console.log(nowProject);
