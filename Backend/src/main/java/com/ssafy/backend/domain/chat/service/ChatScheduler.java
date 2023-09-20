@@ -63,11 +63,13 @@ public class ChatScheduler {
 		File directory = new File(directoryPath);
 		if (!directory.exists()) {
 			if (directory.mkdirs()) {
+				System.out.println("디렉토리 만들었다!");
 				String path = System.getProperty("user.dir");
 				System.out.println("Working Directory = " + path);
-			} else {
-				System.out.println("directory = " + directory);
 			}
+		} else {
+			String path = System.getProperty("user.dir");
+			System.out.println("Working Directory = " + path);
 		}
 
 		try (PrintWriter writer = new PrintWriter(
