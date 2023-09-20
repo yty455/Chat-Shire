@@ -31,25 +31,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
           <p>{pjt.description}</p>
           <br />
           <br />
-          <div className={styles.memberbox}>
-            {pjt.member.map((mem: any, index: number) => (
-              <div key={index}>
-                <ProfileImgBox
-                  backgroundColor="red"
-                  text=""
-                  width="25px"
-                  height="25px"
-                  margin="10px"
-                  padding=""
-                  display="flex"
-                  backgroundImage={
-                    process.env.PUBLIC_URL + "assets/profile/m57.png"
-                  }
-                ></ProfileImgBox>
-                {/* {mem} */}
-              </div>
-            ))}
-          </div>
         </>
       ) : (
         <div
