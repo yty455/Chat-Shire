@@ -1,0 +1,24 @@
+.ProfileInfoContainer {
+  display: flex;
+  flex-direction: column;
+  width: 29.5vw;
+  height: 81vh;
+  padding: 2vh 2vw;
+  margin-left: 1vw;
+  background-color: #ffffff;
+  border: 1px solid #E5E8EB;
+  border-radius: 20px;
+}
+
+.AvatarCustomTitle {
+  font-size: 36px;
+  font-family: 'preBl';
+  color: #575757;
+}
+
+.ProfileInfoBody {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  height: 76vh;
+}
