@@ -35,8 +35,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <h3>이름:{pjt.name}</h3>
           <p>팀명:{pjt.teamName}</p>
           <p>주제:{pjt.topic}</p>
-          <br />
-          <br />
           <p>
             기간:{pjt.startDate}~{pjt.endDate}
           </p>
