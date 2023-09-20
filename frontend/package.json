@@ -59,6 +59,7 @@
     "reactcss": "^1.2.3",
     "reactflow": "^11.8.3",
     "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.7.2",
     "socketjs-client": "^1.0.2",
