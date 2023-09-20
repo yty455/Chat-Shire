@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./IndivTask.module.css";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -12,6 +12,7 @@ import { BsFillChatDotsFill } from "react-icons/bs";
 import { BsPencilFill } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
+import { getTask } from "../../utils/taskApi";
 
 type CheckboxItem = {
   id: number;
@@ -49,6 +50,20 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       )
     );
   };
+
+  const getInTask = async () => {
+    try {
+      if (projectId) {
+        const response = await getTask(projectId);
+        console.log(response);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getInTask();
+  }, []);
 
   const addCheckbox = () => {
     const newId = checkboxItems.length + 1;
