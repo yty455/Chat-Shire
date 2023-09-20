@@ -88,16 +88,16 @@ public class ChatScheduler {
 						chatMap.put(chatInfo.getUserId(), chatInfo.getContent());
 					}
 
-					if (chatMap.get(chatInfo.getUserId()).length() >= 50) {
-						List<ClassificationCategory> classificationCategories = googleNaturalAPI(chatMap,
-								chatInfo);
-
-						for (ClassificationCategory classificationCategory : classificationCategories) {
-							String outputLine = String.format("%d, %s\n", chatInfo.getUserId(),
-									classificationCategory.getName());
-							writer.write(outputLine);
-						}
-					}
+					// if (chatMap.get(chatInfo.getUserId()).length() >= 50) {
+					// 	List<ClassificationCategory> classificationCategories = googleNaturalAPI(chatMap,
+					// 			chatInfo);
+					//
+					// 	for (ClassificationCategory classificationCategory : classificationCategories) {
+					// 		String outputLine = String.format("%d, %s\n", chatInfo.getUserId(),
+					// 				classificationCategory.getName());
+					// 		writer.write(outputLine);
+					// 	}
+					// }
 				}
 
 				List<Chat> chats = chatInfos.stream()
