@@ -11,7 +11,8 @@ export const postUser = (
   profileImage: string,
   profileColor: string,
   introduction: string,
-  detailIntroduction: string
+  detailIntroduction: string,
+  mySkill: string[]
 ) =>
   api.post("/users", {
     nickname,
@@ -19,20 +20,25 @@ export const postUser = (
     profileColor,
     introduction,
     detailIntroduction,
+    mySkill,
   });
 
 // 내 정보 수정
 export const updateProfile = (
+  nickname: string,
   profileImage: string,
-  email: string,
-  name: string,
-  nickname: string
+  profileColor: string,
+  introduction: string,
+  detailIntroduction: string,
+  mySkill: string[]
 ) =>
   api.put(`/users`, {
-    profileImage,
-    email,
-    name,
     nickname,
+    profileImage,
+    profileColor,
+    introduction,
+    detailIntroduction,
+    mySkill,
   });
 
 // 내 정보 조회
