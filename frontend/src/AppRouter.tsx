@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import AnalysisPage from "./pages/AnalysisPage";
 import ProfilePage from "./pages/ProfilePage";
 import ProfileSettingPage from "./pages/ProfileSettingPage";
-import Test from "./pages/Test";
 import IdeaPage from "./pages/IdeaPage";
 import MessagePage from "./pages/MessagePage";
 import TaskPage from "./pages/TaskPage";
@@ -52,7 +51,6 @@ function AppRouter() {
               path="/profile/setting"
               element={<ProfileSettingPage />}
             ></Route>
-            <Route path="/test" element={<Test />}></Route>
             <Route path="/idea/:projectId" element={<IdeaPage />}></Route>
             <Route path="/message/:projectId" element={<MessagePage />}></Route>
             <Route path="/task/:projectId" element={<TaskPage />}></Route>
