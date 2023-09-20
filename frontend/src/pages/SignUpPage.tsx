@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+// import { postUser } from "../utils/userApi";
+import api from "../utils/api";
 
 function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -20,7 +22,7 @@ function SignUpPage() {
 
   const usersign = async () => {
     try {
-      const response = await axios.post("/api1/users", formData);
+      const response = await api.post("/users", formData);
       console.log(response.headers);
       localStorage.setItem("token", response.headers.Authorization);
       // sessionStorage.setItem("refreshtoken", response.headers.Authorization-Refresh);
