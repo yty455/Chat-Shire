@@ -1,8 +1,8 @@
 .profileimg {
   margin: 10% 0 0 0;
   /* padding-left: auto; */
-  border-right: 1px solid #39a789;
-  border-bottom: 1px solid #39a789;
+  border: 1px solid #d1d1d1;
+  /* border-bottom: 1px solid #39a789; */
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
   /* box-shadow: 0 8px 10px 0 rgba(131, 131, 131, 0.37);
