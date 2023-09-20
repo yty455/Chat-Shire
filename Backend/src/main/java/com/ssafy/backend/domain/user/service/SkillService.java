@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SkillService {
 
-    private static SkillRepository skillRepository;
+    private final SkillRepository skillRepository;
 
     public List<Skill> getSkills() {
         return skillRepository.findAll();
