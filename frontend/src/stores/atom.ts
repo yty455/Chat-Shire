@@ -19,3 +19,8 @@ export const accessToken = atom({
   key: "accessToken ",
   default: "",
 });
+
+export const nowProject_recoil = atom({
+  key: "nowProject_recoil",
+  default: [],
+});

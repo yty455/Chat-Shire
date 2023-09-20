@@ -4,7 +4,7 @@ import ComProject from "./ComProject";
 import styles from "./Project.module.css";
 import Container from "../common/Container";
 import { getProjects } from "../../utils/projectApi";
-import { loginuser } from "../../stores/atom";
+import { loginuser, nowProject_recoil } from "../../stores/atom";
 import { useRecoilState } from "recoil";
 import ProjectModal from "./ProjectModal";
 
@@ -53,10 +53,13 @@ const pjt = {
 
 function Project() {
   const [userDate, setUserDate] = useRecoilState(loginuser);
+  const [nowProject, setNowProject] = useRecoilState(nowProject_recoil);
+
   const [allPjt, setAllPjt] = useState([]);
   const [nowPjt, setNowPjt] = useState<any[]>([]);
   const [comPjt, setComPjt] = useState<any[]>([]);
   const today = new Date();
+
   const [openModal, setOpenModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState<any>(null);
 
@@ -75,14 +78,14 @@ function Project() {
       console.log(response.data.result[0], 123);
       setAllPjt(response.data.result);
       response.data.result[0].forEach((pjt: any) => {
-        // if (pjt.endDate < today) {
-
-        // } else {
-
-        // }
+        if (pjt.endDate < today) {
+          setComPjt(pjt);
+        } else {
+          setNowProject(pjt);
+        }
         console.log(pjt.endDate);
-        // console.log(nowPjt);
-        // console.log(comPjt);
+        console.log(nowProject);
+        console.log(comPjt);
       });
     } catch (error) {
       console.error(error);
