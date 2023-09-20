@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SkillController {
 
-    private static SkillService skillService;
+    private final SkillService skillService;
     @Operation(summary = "모든 프로그래밍언어 보기", description = "선택할 수 있는 모든 프로그래밍언어를 가져옵니다.")
     @GetMapping("/skills")
     public ResponseEntity<BasicResponse> getSkills() {
