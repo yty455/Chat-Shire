@@ -102,6 +102,7 @@ function CreateProject() {
       formattedStartDate,
       formattedEndDate
     );
+
     try {
       const response = await postProject(
         name,
