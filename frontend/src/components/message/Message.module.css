@@ -1,6 +1,6 @@
 .messageContainer {
   display: flex;
-  padding: 2vh 2vw 2vh 2vw;
+  padding: 2vh 2vw 0 2vw;
   width: 54vw;
   height: 81vh;
   border: 1px solid #E5E8EB;
@@ -76,6 +76,7 @@
   justify-content: space-around;
   align-items: flex-start;
   height: 100px;
+  padding-bottom: 2vh;
   /* border: 1px solid purple; */
 }
 
