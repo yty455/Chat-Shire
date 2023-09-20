@@ -132,7 +132,7 @@ function Project() {
           onProjectCardClick={handleProjectCardClick}
         ></NowProject>
         <ComProject
-          compjt={pjt.com}
+          compjt={comPjt || pjt.com}
           onProjectCardClick={handleProjectCardClick}
         ></ComProject>
       </div>

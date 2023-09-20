@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./ProfilePage.module.css";
 import ProfileLarge from "../components/profile/ProfileLarge";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import RadarChart from "../components/analysis/RadarChart";
 import BarChart from "../components/analysis/BarChart";
 import LeftSide from "../components/common/LeftSide";
+import { getProfile } from "../utils/userApi";
 
 import { BsGithub, BsCodeSlash, BsPersonFill } from "react-icons/bs";
 import {
@@ -28,13 +29,11 @@ import LinearProgress, {
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-const achievements = [
-]
+const achievements = [];
 
-
-
-function LinearProgressWithLabel(props: LinearProgressProps & { value: number }) {
-
+function LinearProgressWithLabel(
+  props: LinearProgressProps & { value: number }
+) {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Box sx={{ width: "100%", mr: 1 }}>
@@ -51,13 +50,26 @@ function LinearProgressWithLabel(props: LinearProgressProps & { value: number })
 
 export default function ProfilePage() {
   const navigate = useNavigate();
-  const bronze = process.env.PUBLIC_URL + '/assets/achievements/bronze.png'
-  const silver = process.env.PUBLIC_URL + '/assets/achievements/silver.png'
-  const gold = process.env.PUBLIC_URL + '/assets/achievements/gold.png'
+  const bronze = process.env.PUBLIC_URL + "/assets/achievements/bronze.png";
+  const silver = process.env.PUBLIC_URL + "/assets/achievements/silver.png";
+  const gold = process.env.PUBLIC_URL + "/assets/achievements/gold.png";
 
   function profileSetting() {
     navigate("/profile/setting");
   }
+
+  const getProfilePage = async () => {
+    try {
+      const response = await getProfile();
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getProfilePage();
+  }, []);
 
   return (
     <div
