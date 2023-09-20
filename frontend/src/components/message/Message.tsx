@@ -1,12 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./Message.module.css";
-// import photoImg from "../../assets/chat_icons/photo.png";
-// import fileImage from "../../assets/chat_icons/file.png";
-// import linkImg from "../../assets/chat_icons/link2.png";
-// import searchImg from "../../assets/chat_icons/search.png";
-
 import MessageItem from "./MessageItem";
 import MessageRightBody from "./MessageRightBody";
+
+import { getChat } from "../../utils/chatApi";
 
 import {
   BsPeopleFill,
@@ -26,7 +23,7 @@ import SockJS from "sockjs-client";
 import axios from "axios";
 import { useSetRecoilState } from "recoil";
 
-function Message() {
+function Message(projectId: any) {
   const [value, setValue] = React.useState("photos");
   const [preMessage, setPreMessage] = React.useState<any[]>([]);
   const [message, setMessage] = React.useState("");
@@ -56,19 +53,11 @@ function Message() {
         });
       }
     );
-    axios
-      .get("http://j9e205.p.ssafy.io:8080/projects/29/chats?page=0&size=100", {
-        headers: {
-          Accept: "application/json;charset=UTF-8",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NTAyMjg5MywiaWQiOjJ9.SmjHemubrN9lIiOPVXx_DX8Sffyix-iGWDfcvCv3vYwG-gdBPPXy4NUROQTP7cZ_9njfu9q302uB5C4-TDe7OA",
-        },
-      })
-      .then((res) => {
-        console.log(res.data.result[0]);
-        setPreMessage(res.data.result[0]);
-        console.log(preMessage);
-      });
+    getChat(projectId, 1, 1).then((res) => {
+      console.log(res.data.result[0]);
+      setPreMessage(res.data.result[0]);
+      console.log(preMessage);
+    });
   };
 
   const sendChat = () => {};
@@ -143,7 +132,7 @@ function Message() {
               icon={
                 <img
                   style={{ marginBottom: "4px", width: "40px" }}
-                  src={process.env.PUBLIC_URL + "assets/chat_icons/photo.png"}
+                  src={process.env.PUBLIC_URL + "/assets/chat_icons/photo.png"}
                   alt=""
                 />
               }
@@ -160,7 +149,7 @@ function Message() {
               icon={
                 <img
                   style={{ marginBottom: "4px", width: "40px" }}
-                  src={process.env.PUBLIC_URL + "assets/chat_icons/file.png"}
+                  src={process.env.PUBLIC_URL + "/assets/chat_icons/file.png"}
                   alt=""
                 />
               }
@@ -177,7 +166,7 @@ function Message() {
               icon={
                 <img
                   style={{ marginBottom: "4px", width: "40px" }}
-                  src={process.env.PUBLIC_URL + "assets/chat_icons/link2.png"}
+                  src={process.env.PUBLIC_URL + "/assets/chat_icons/link2.png"}
                   alt=""
                 />
               }
@@ -194,7 +183,7 @@ function Message() {
               icon={
                 <img
                   style={{ marginBottom: "4px", width: "40px" }}
-                  src={process.env.PUBLIC_URL + "assets/chat_icons/search.png"}
+                  src={process.env.PUBLIC_URL + "/assets/chat_icons/search.png"}
                   alt=""
                 />
               }
