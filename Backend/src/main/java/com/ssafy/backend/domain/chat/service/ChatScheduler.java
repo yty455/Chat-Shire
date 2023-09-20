@@ -70,7 +70,8 @@ public class ChatScheduler {
 			}
 		}
 
-		try (PrintWriter writer = new PrintWriter(String.format(directoryPath + "/output_%d.csv", System.currentTimeMillis()))) {
+		try (PrintWriter writer = new PrintWriter(
+				String.format(directoryPath + "/output_%d.csv", System.currentTimeMillis()))) {
 			for (ChatRoom chatRoom : chatRoomList) {
 				String chatKey = "chat";
 				List<ChatInfo> chatInfos = chatRedisTemplate.opsForList().range(chatKey + chatRoom.getId(), 0, -1);
@@ -103,6 +104,8 @@ public class ChatScheduler {
 
 				chatRepository.saveAll(chats);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -133,7 +136,9 @@ public class ChatScheduler {
 						category.getName(), category.getConfidence());
 			}
 			return response.getCategoriesList();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return null;
 	}
-
 }
