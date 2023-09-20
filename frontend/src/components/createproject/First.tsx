@@ -1,39 +1,27 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import styles from "./First.module.css";
-import { postProject } from "../../utils/projectApi";
 
-function First() {
+function First({
+  onData,
+}: {
+  onData: (name: string, teamName: string) => void;
+}) {
   const [name, setName] = useState("");
   const [teamName, setTeamName] = useState("");
-  const [topic, setTopic] = useState("");
-  const [description, setDescription] = useState("");
-  const [gitRepository, setGitRepository] = useState("");
-  // const [startDate, setStartDate] = useState("2023-09-14");
-  // const [endDate, setEndDate] = useState("2023-09-14");
 
-  const createProject = async () => {
-    console.log(teamName, name, topic, description, gitRepository);
-    try {
-      const response = await postProject(
-        name,
-        teamName,
-        topic,
-        description,
-        gitRepository,
-        { formattedStartDate: "2020-02-02" },
-        { formattedEndDate: "2020-02-02" }
-      );
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
+  // 입력 값이 변경될 때마다 상태 업데이트
+  const handleNameChange = (e: any) => {
+    setName(e.target.value);
+    // 변경된 값 전달
+    onData(e.target.value, teamName);
   };
 
-  const handleClick = async () => {
-    createProject();
+  const handleTeamNameChange = (e: any) => {
+    setTeamName(e.target.value);
+    // 변경된 값 전달
+    onData(name, e.target.value);
   };
-
   return (
     <div className={styles.inputBox}>
       <TextField
@@ -46,7 +34,7 @@ function First() {
         label="프로젝트 이름"
         defaultValue=""
         variant="standard"
-        onChange={(e) => setName(e.target.value)}
+        onChange={handleNameChange}
         // helperText="Please enter your name"
       />
       <TextField
@@ -58,18 +46,10 @@ function First() {
         id="standard-required"
         label="팀 이름"
         defaultValue=""
-        onChange={(e) => setTeamName(e.target.value)}
+        onChange={handleTeamNameChange}
         variant="standard"
         // helperText="Please enter your name"
       />
-
-      {/* <button
-        onClick={() => {
-          handleClick();
-        }}
-      >
-        생성
-      </button> */}
     </div>
   );
 }
