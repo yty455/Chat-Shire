@@ -18,5 +18,5 @@ public class Skill {
     @Column(name = "SKILL_ID")
     private Long id;
 
-    private String skillname;
+    private String skillName;
 }

@@ -20,4 +20,10 @@ public class MySkill {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "SKILL_ID")
+    private Skill skill;
+
+
 }
