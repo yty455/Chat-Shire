@@ -76,17 +76,23 @@ function Project() {
     try {
       const response = await getProjects();
       console.log(response.data.result[0], 123);
-      setAllPjt(response.data.result);
+      setAllPjt(response.data.result[0]);
+
+      const nowProjects: any[] = [];
+      const completedProjects: any[] = [];
+
       response.data.result[0].forEach((pjt: any) => {
-        if (pjt.endDate < today) {
-          setComPjt(pjt);
+        if (new Date(pjt.endDate) < today) {
+          completedProjects.push(pjt);
         } else {
-          setNowProject(pjt);
+          nowProjects.push(pjt);
         }
         console.log(pjt.endDate);
-        console.log(nowProject);
-        console.log(comPjt);
       });
+      setComPjt(completedProjects);
+      setNowProject(nowProjects);
+      console.log(nowProject);
+      console.log(comPjt);
     } catch (error) {
       console.error(error);
     }
