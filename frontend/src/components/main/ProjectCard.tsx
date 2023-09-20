@@ -28,7 +28,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
       {pjt ? (
         <>
           <h3>{pjt.name}</h3>
-          <p>{pjt.content}</p>
+          <p>{pjt.description}</p>
           <br />
           <br />
           <div className={styles.memberbox}>

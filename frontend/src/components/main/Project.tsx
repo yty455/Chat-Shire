@@ -4,7 +4,7 @@ import ComProject from "./ComProject";
 import styles from "./Project.module.css";
 import Container from "../common/Container";
 import { getProjects } from "../../utils/projectApi";
-import { loginuser } from "../../stores/atom";
+import { loginuser, nowProject_recoil } from "../../stores/atom";
 import { useRecoilState } from "recoil";
 import ProjectModal from "./ProjectModal";
 
@@ -13,19 +13,19 @@ const pjt = {
     {
       id: 1,
       name: "공통",
-      content: "공통",
+      description: "공통",
       member: ["mem1", "mem2", "mem3"],
     },
     {
       id: 2,
       name: "특화",
-      content: "특화",
+      description: "특화",
       member: ["mem1", "mem2", "mem3"],
     },
     {
       id: 3,
       name: "관통",
-      content: "관통",
+      description: "관통",
       member: ["mem1", "mem2", "mem3"],
     },
   ],
@@ -33,19 +33,19 @@ const pjt = {
     {
       id: 1,
       name: "자율",
-      content: "자율",
+      description: "자율",
       member: ["mem1", "mem2", "mem3"],
     },
     {
       id: 2,
       name: "공통",
-      content: "공통",
+      description: "공통",
       member: ["mem1", "mem2", "mem3"],
     },
     {
       id: 3,
       name: "관통",
-      content: "관통",
+      description: "관통",
       member: ["mem1", "mem2", "mem3"],
     },
   ],
@@ -53,10 +53,13 @@ const pjt = {
 
 function Project() {
   const [userDate, setUserDate] = useRecoilState(loginuser);
+  const [nowProject, setNowProject] = useRecoilState(nowProject_recoil);
+
   const [allPjt, setAllPjt] = useState([]);
   const [nowPjt, setNowPjt] = useState<any[]>([]);
   const [comPjt, setComPjt] = useState<any[]>([]);
   const today = new Date();
+
   const [openModal, setOpenModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState<any>(null);
 
@@ -73,17 +76,29 @@ function Project() {
     try {
       const response = await getProjects();
       console.log(response.data.result[0], 123);
-      setAllPjt(response.data.result);
-      response.data.result[0].forEach((pjt: any) => {
-        // if (pjt.endDate < today) {
+      const projects = response.data.result[0];
+      setAllPjt(response.data.result[0]);
 
-        // } else {
+      const nowProjects: any[] = [];
+      const completedProjects: any[] = [];
 
-        // }
+      for (const pjt of projects) {
+        if (new Date(pjt.endDate) < today) {
+          console.log(pjt, 2);
+          completedProjects.push(pjt);
+        } else {
+          console.log(pjt, 1);
+          nowProjects.push(pjt);
+        }
         console.log(pjt.endDate);
-        // console.log(nowPjt);
-        // console.log(comPjt);
-      });
+      }
+      console.log(nowProjects);
+      console.log(completedProjects);
+
+      setComPjt(completedProjects);
+      setNowProject(nowProjects);
+      console.log(nowProject);
+      console.log(comPjt);
     } catch (error) {
       console.error(error);
     }
@@ -113,7 +128,7 @@ function Project() {
       <div className={styles.projectcontainer}>
         <h2 className={styles.projecttxt}>PROJECT</h2>
         <NowProject
-          nowpjt={pjt.now}
+          nowpjt={nowProject || pjt.now}
           onProjectCardClick={handleProjectCardClick}
         ></NowProject>
         <ComProject

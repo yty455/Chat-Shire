@@ -57,26 +57,15 @@ function Redirect() {
 
   // }
 
-  useEffect(() => {
-    if (typeof access_token === "string") {
-      localStorage.setItem("token", access_token);
-    }
-    // usersign();
-    // login();
-  }, [access_token]);
+  // useEffect(() => {
+  //   if (typeof access_token === "string") {
+  //     localStorage.setItem("token", access_token);
+  //   }
+  //   // usersign();
+  //   // login();
+  // }, [access_token]);
 
-  return (
-    <div>
-      code-callback
-      <button
-      // onClick={() => {
-      //   usersign();
-      // }}
-      >
-        123
-      </button>
-    </div>
-  );
+  return <div>code-callback</div>;
 }
 
 export default Redirect;

@@ -45,20 +45,10 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
             if (oAuth2User.getRole() == Role.GUEST) {
 //                String accessToken = jwtService.createAccessToken(oAuth2User.getSocialId());
                 String accessToken = jwtService.createAccessToken(oAuth2User.getId());
-                String refreshToken = jwtService.createRefreshToken();
                 response.addHeader(jwtService.getAccessHeader(), "Bearer " + accessToken);
-                response.addHeader(jwtService.getRefreshHeader(), "Bearer " + refreshToken);
-
-                jwtService.sendAccessAndRefreshToken(response, accessToken, refreshToken);
-                jwtService.updateRefreshToken(oAuth2User.getId(), refreshToken);
 
                 response.sendRedirect(
-                        redirectHost + "/oauth2/sign-up?" + "access_token=Bearer " + accessToken + "&is_user=F"); // 프론트의 회원가입 추가 정보 입력 폼으로 리다이렉트
-                // response.sendRedirect(
-                //     "http://43.200.254.50/join"); // 프론트의 회원가입 추가 정보 입력 폼으로 리다이렉트
-                //                User findUser = userRepository.findByEmail(oAuth2User.getEmail())
-                //                                .orElseThrow(() -> new IllegalArgumentException("이메일에 해당하는 유저가 없습니다."));
-                //                findUser.authorizeUser();
+                        redirectHost + "/oauth2/sign-up?" + "access_token=Bearer " + accessToken);
             } else {
                 loginSuccess(response, oAuth2User); // 로그인에 성공한 경우 access, refresh 토큰 생성
             }
@@ -73,8 +63,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         response.addHeader(jwtService.getAccessHeader(), "Bearer " + accessToken);
         response.addHeader(jwtService.getRefreshHeader(), "Bearer " + refreshToken);
         response.sendRedirect(
-                redirectHost + "/oauth2/sign-up?" + "access_token=Bearer " + accessToken + "&refresh_token="
-                        + "Bearer " + refreshToken + "&is_user=T");
+                redirectHost + "/oauth2/sign-up?" + "access_token=Bearer " + accessToken + "&refresh_token=Bearer " + refreshToken); // TODO: refresh 토큰이 있으면 메인으로 없으면 추가정보 입력 폼으로
         jwtService.updateRefreshToken(oAuth2User.getId(), refreshToken);
     }
 

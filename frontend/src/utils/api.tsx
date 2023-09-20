@@ -2,19 +2,14 @@ import axios from "axios";
 
 // Axios 인스턴스 생성
 const api = axios.create({
-  baseURL: "/api1/", // API의 기본 URL
-  // baseURL: "http://j9e205.p.ssafy.io:8080/", // API의 기본 URL
+  // baseURL: "/api1", // API의 기본 URL
+  baseURL: "http://j9e205.p.ssafy.io:8080", // API의 기본 URL
   withCredentials: true,
 });
 
 // 요청 인터셉터 설정
 api.interceptors.request.use(
   (config) => {
-    // 로컬 스토리지에서 토큰 가져오기
-    // localStorage.setItem(
-    //   "token",
-    //   "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NTAyNjI3MywiaWQiOjF9.JIoqntlnxbtgw7UksxNvZCi8ef5UI0r-SQlCUlIqgEFOi8HgbJ7bkzGGaPftqaWI6fsq6rk_8fsDosGwkGIWTA"
-    // );
     const token = localStorage.getItem("token");
 
     // 헤더에 토큰 추가
@@ -32,13 +27,43 @@ api.interceptors.request.use(
 // 응답 인터셉터 설정
 api.interceptors.response.use(
   (response) => {
-    // 여기에 원하는 응답 후처리 로직을 추가할 수 있습니다.
-    // 예를 들어, 응답 데이터를 가공하거나 에러 처리를 수행할 수 있습니다.
-    // console.log(response);
     return response;
   },
-  (error) => {
-    // 에러 처리 로직을 추가합니다.
+  async (error) => {
+    if (error.response && error.response.status === 403) {
+      // 403 에러
+      // 리프레쉬 토큰 가져오기
+      const refreshToken = localStorage.getItem("refresh_token");
+
+      if (refreshToken) {
+        try {
+          // 새로운 토큰과 리프레쉬
+          const response = await axios.post("/api1/~~", {
+            refresh_token: refreshToken,
+          });
+
+          if (response.status === 200) {
+            const { access_token, refresh_token } = response.data;
+
+            // 새로운 토큰을 저장
+            localStorage.setItem("token", access_token);
+            localStorage.setItem("refresh_token", refresh_token);
+
+            // 요청 재시도
+            error.config.headers.Authorization = `Bearer ${access_token}`;
+            return axios.request(error.config);
+          }
+        } catch (refreshError) {
+          // 리프레쉬 토큰을 사용해도 또 에러
+          // 로그인 페이지로 이동
+          window.location.href = "/login";
+        }
+      } else {
+        // 리프레쉬 토큰 없어도 로그인 페이지로 이동
+        window.location.href = "/login";
+      }
+    }
+
     return Promise.reject(error);
   }
 );

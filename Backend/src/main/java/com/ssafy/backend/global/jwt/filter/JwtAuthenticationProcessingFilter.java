@@ -1,11 +1,14 @@
 package com.ssafy.backend.global.jwt.filter;
 
+import com.ssafy.backend.domain.user.Role;
 import com.ssafy.backend.domain.user.User;
 import com.ssafy.backend.domain.user.repository.UserRepository;
 import com.ssafy.backend.global.jwt.service.JwtService;
 import com.ssafy.backend.global.jwt.util.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
@@ -32,6 +35,9 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserRepository userRepository;
 //    private final RedisTemplate redisTemplate;
+
+    @Value("${redirect.host}")
+    private String redirectHost;
 
     private GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
 
@@ -72,7 +78,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                 .filter(jwtService::isTokenValid)
                 .orElse(null);
 
-        log.info(request.getHeader("Authorization_refresh"));
+        log.info(request.getHeader("Authorization-Refresh"));
         log.info(refreshToken);
 
         // 리프레시 토큰이 요청 헤더에 존재했다면, 사용자가 AccessToken이 만료되어서
@@ -130,17 +136,15 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     public void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response,
                                                   FilterChain filterChain) throws ServletException, IOException {
         log.info("checkAccessTokenAndAuthentication() 호출");
+        //                     redis에서 access token blacklist 확인
+        //                    String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
+        //                    if (ObjectUtils.isEmpty(isLogout)) {
+        //                    }
         jwtService.extractAccessToken(request)
                 .filter(jwtService::isTokenValid)
-                .ifPresent(accessToken -> {
-//                     redis에서 access token blacklist 확인
-//                    String isLogout = (String) redisTemplate.opsForValue().get(accessToken);
-//                    if (ObjectUtils.isEmpty(isLogout)) {
-                    jwtService.extractEmail(accessToken)
-                            .ifPresent(email -> userRepository.findById(email)
-                                    .ifPresent(this::saveAuthentication));
-//                    }
-                });
+                .flatMap(jwtService::extractId)
+                .flatMap(userRepository::findById)
+                .ifPresent(this::saveAuthentication);
 
         filterChain.doFilter(request, response);
     }
