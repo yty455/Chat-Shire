@@ -57,6 +57,7 @@ public class SecurityConfig {
                 .antMatchers("/webjars/**").permitAll() // 웹소켓 테스트
                 .antMatchers("/main.css").permitAll() // 웹소켓 테스트
                 .antMatchers("/home/**").permitAll()
+                .antMatchers("/skills").permitAll() // 회원가입 추가정보 받을때 언어스킬 목록 출력
                 .antMatchers("/oauth2/sign-up/**").permitAll()
                 // 아이콘, css, js 관련
                 // 기본 페이지, css, image, js 하위 폴더에 있는 자료들은 인증없이 모두 접근 가능, h2-console에 접근 가능

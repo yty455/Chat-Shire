@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./ProfilePage.module.css";
 import ProfileLarge from "../components/profile/ProfileLarge";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -6,7 +6,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import RadarChart from "../components/analysis/RadarChart";
 import BarChart from "../components/analysis/BarChart";
 import LeftSide from "../components/common/LeftSide";
-
+import { getProfile } from "../utils/userApi";
+import { loginuser } from "../stores/atom";
 import { BsGithub, BsCodeSlash, BsPersonFill } from "react-icons/bs";
 import {
   BiLogoTypescript,
@@ -27,14 +28,13 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { useRecoilState } from "recoil";
 
-const achievements = [
-]
+const achievements = [];
 
-
-
-function LinearProgressWithLabel(props: LinearProgressProps & { value: number }) {
-
+function LinearProgressWithLabel(
+  props: LinearProgressProps & { value: number }
+) {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Box sx={{ width: "100%", mr: 1 }}>
@@ -51,13 +51,28 @@ function LinearProgressWithLabel(props: LinearProgressProps & { value: number })
 
 export default function ProfilePage() {
   const navigate = useNavigate();
-  const bronze = process.env.PUBLIC_URL + '/assets/achievements/bronze.png'
-  const silver = process.env.PUBLIC_URL + '/assets/achievements/silver.png'
-  const gold = process.env.PUBLIC_URL + '/assets/achievements/gold.png'
+  const bronze = process.env.PUBLIC_URL + "/assets/achievements/bronze.png";
+  const silver = process.env.PUBLIC_URL + "/assets/achievements/silver.png";
+  const gold = process.env.PUBLIC_URL + "/assets/achievements/gold.png";
+  const [userData, setUserData] = useRecoilState(loginuser);
 
   function profileSetting() {
     navigate("/profile/setting");
   }
+
+  const getProfilePage = async () => {
+    try {
+      const response = await getProfile();
+      console.log(response.data.result[0]);
+      setUserData(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getProfilePage();
+  }, []);
 
   return (
     <div
@@ -87,11 +102,11 @@ export default function ProfilePage() {
           <ProfileLarge />
           <div className={styles.profileHeaderDesc}>
             <div className={styles.profileHeaderLeft}>
-              <span className={styles.profileName}>김구현 FE</span>
+              <span className={styles.profileName}>{userData.nickname} FE</span>
               <div className={styles.profileCareer}>
                 <div className={styles.profileCareerItem}>
                   <BsGithub size={30} style={{ marginRight: "8px" }} />
-                  <span>ggu123@gmail.com</span>
+                  <span>{userData.githubId}ggu123@gmail.com</span>
                 </div>
                 <div className={styles.profileCareerItem}>
                   <BsCodeSlash size={30} style={{ marginRight: "8px" }} />
@@ -112,10 +127,13 @@ export default function ProfilePage() {
                 </div>
               </div>
               <div className={styles.profileIntroduce}>
-                <span>안녕하세요 제 이름은 김구현이고 어쩌고 저쩌고</span>
+                <span>
+                  {userData.detailIntroduction}안녕하세요 제 이름은 김구현이고
+                  어쩌고 저쩌고
+                </span>
               </div>
               <div className={styles.profileTag}>
-                <span>#하하 #헤헤 #히히 #호호</span>
+                <span>{userData.introduction}#하하 #헤헤 #히히 #호호</span>
               </div>
             </div>
             <div className={styles.profileHeaderRight}>

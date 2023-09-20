@@ -10,9 +10,14 @@ import { Link } from "react-router-dom";
 interface ProjectCardProps {
   pjt?: any;
   onCardClick?: () => void;
+  showCreateButton?: boolean;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  pjt,
+  onCardClick,
+  showCreateButton,
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -27,10 +32,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
     <div className={styles.card} onClick={handleModalClick}>
       {pjt ? (
         <>
-          <h3>{pjt.name}</h3>
-          <p>{pjt.description}</p>
-          <br />
-          <br />
+          <h3>이름:{pjt.name}</h3>
+          <p>팀명:{pjt.teamName}</p>
+          <p>주제:{pjt.topic}</p>
+          <p>
+            기간:{pjt.startDate}~{pjt.endDate}
+          </p>
         </>
       ) : (
         <div
@@ -42,20 +49,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ pjt, onCardClick }) => {
             alignItems: "center",
           }}
         >
-          <div>
-            <Tooltip title="프로젝트 생성" arrow>
-              <Link to="/createpjt">
-                <Fab
-                  aria-label="add"
-                  onClick={handleClick}
-                  style={{ backgroundColor: "#39a789", color: "white" }}
-                >
-                  <AddIcon />
-                </Fab>
-              </Link>
-            </Tooltip>
-            <p>프로젝트 생성</p>
-          </div>
+          {showCreateButton && (
+            <div>
+              <Tooltip title="프로젝트 생성" arrow>
+                <Link to="/createpjt">
+                  <Fab
+                    aria-label="add"
+                    onClick={handleClick}
+                    style={{ backgroundColor: "#39a789", color: "white" }}
+                  >
+                    <AddIcon />
+                  </Fab>
+                </Link>
+              </Tooltip>
+              <p>프로젝트 생성</p>
+            </div>
+          )}
         </div>
       )}
     </div>

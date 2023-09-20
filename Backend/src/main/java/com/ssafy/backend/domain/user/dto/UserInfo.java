@@ -3,6 +3,8 @@ package com.ssafy.backend.domain.user.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Getter
 public class UserInfo {
@@ -11,4 +13,5 @@ public class UserInfo {
     private String profileColor;
     private String introduction;
     private String detailIntroduction;
+    private List<String> mySkill;
 }
