@@ -83,7 +83,11 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-export default function TeamTask() {
+interface TeamTaskProps {
+  projectId: string;
+}
+
+export default function TeamTask({ projectId }: TeamTaskProps) {
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
     {
       id: 1,

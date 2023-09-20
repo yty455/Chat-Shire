@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 
 export default function TaskPage() {
   const { projectId } = useParams();
+  const projectToPass = projectId || "defaultProjectId";
   return (
     <div
       style={{
@@ -20,8 +21,8 @@ export default function TaskPage() {
       }}
     >
       <LeftSide />
-      <TeamTask />
-      <IndivTask />
+      <TeamTask projectId={projectToPass} />
+      <IndivTask projectId={projectToPass} />
     </div>
   );
 }
