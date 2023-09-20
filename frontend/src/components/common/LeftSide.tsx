@@ -190,7 +190,7 @@ function LeftSide(props: Props) {
               className={styles.box}
             >
               <AccordionSummary
-                style={{
+                sx={{
                   display: "flex",
                   alignItems: "center",
                 }}
@@ -214,8 +214,8 @@ function LeftSide(props: Props) {
                 style={{
                   width: "100%",
                   borderRadius: "10px",
-                  backgroundColor:
-                    location.pathname !== "/analysis" ? "#FFFFFF" : "#ffffff2a",
+                  // backgroundColor:
+                  //   location.pathname !== "/analysis" ? "#FFFFFF" : "#ffffff2a",
                 }}
               >
                 <AccordionSummary
