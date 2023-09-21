@@ -20,24 +20,17 @@ import java.util.stream.Collectors;
 @Builder(toBuilder = true)
 public class TaskInfoResponse {
     private Long id;
-    private Long taskGroupId; // -1이면 개인 태스크인 상태
-    private String name;
+    private Long taskGroupId; // 0이면 개인 태스크인 상태
     private String description;
     @Enumerated(EnumType.STRING)
-    private Priority priority;
-    @Enumerated(EnumType.STRING)
     private Progress progress;
-    private LocalDate deadline;
 
     public static TaskInfoResponse fromEntity(Task task){
         return TaskInfoResponse.builder()
                 .id(task.getId())
                 .taskGroupId(task.getTaskGroupId())
-                .name(task.getName())
                 .description(task.getDescription())
-                .priority(task.getPriority())
-                .progress(task.getProgress())
-                .deadline(task.getDeadline()).build();
+                .progress(task.getProgress()).build();
     }
 
     public static List<TaskInfoResponse> fromEntityList(List<Task> tasks){
