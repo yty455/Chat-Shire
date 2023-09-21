@@ -170,20 +170,15 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
 
   return (
     <div className={styles.container}>
-      <div>
+      <div className={styles.title}>
         <p className={styles.messageLeftTitle}>2차 특화 PJT</p>
+        <AllBorderLinearProgress style={{marginTop: '29px', width: '500px'}} variant="determinate" value={50} />
+
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <div style={{ padding: "0 0 20px 20px", width: "50%" }}>
           <p className={styles.taskProgress}>Task 진행도</p>
           {/* <div className={styles.progressBar}> */}
-          <AllBorderLinearProgress variant="determinate" value={50} />
-          <Box flexGrow={1}>
-            <PieChart
-              series={[{ data: [{ value: 10 }, { value: 15 }, { value: 20 }] }]}
-              {...pieParams}
-            />
-          </Box>
 
           {/* </div> */}
           <p className={styles.taskProgress}>완료된 Task</p>

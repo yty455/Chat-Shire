@@ -16,12 +16,12 @@
 .messageLeftTitle {
   font-size: 30px;
   font-family: "preBl";
-  margin-right: auto;
+  /* margin-right: auto; */
   margin-top: 15px;
   margin-bottom: 0;
   padding: 5px 0 0 20px;
-  display: flex;
-  justify-content: start;
+  /* display: flex; */
+  /* justify-content: start; */
 }
 
 .indivTask {
@@ -123,4 +123,9 @@
 
 .taskContainer::-webkit-scrollbar {
   display: none;
+}
+
+.title {
+  display: flex;
+  justify-content: start;
 }
