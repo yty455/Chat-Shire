@@ -8,9 +8,15 @@ interface ProjectModalProps {
   pjt: any;
   closeModal: () => void;
   deleteProject: (projectId: any) => Promise<void>;
+  updatePJT: (pjtdata: any) => Promise<void>;
 }
 
-function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
+function ProjectModal({
+  pjt,
+  closeModal,
+  deleteProject,
+  updatePJT,
+}: ProjectModalProps) {
   const [editStates, setEditStates] = useState<{
     name: boolean;
     teamName: boolean;
@@ -29,6 +35,7 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
     endDate: false,
   });
   const [projectData, setProjectData] = useState({
+    id: pjt.id,
     name: pjt.name,
     teamName: pjt.teamName,
     description: pjt.description,
@@ -48,23 +55,23 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
     }
   };
 
-  const updatePJT = async () => {
-    try {
-      const response = await updateProject(
-        pjt.id,
-        projectData.name,
-        projectData.teamName,
-        projectData.topic,
-        projectData.description,
-        projectData.gitRepository,
-        projectData.startDate,
-        projectData.endDate
-      );
-      console.log(response.data.result);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const updatePJT = async () => {
+  //   try {
+  //     const response = await updateProject(
+  //       pjt.id,
+  //       projectData.name,
+  //       projectData.teamName,
+  //       projectData.topic,
+  //       projectData.description,
+  //       projectData.gitRepository,
+  //       projectData.startDate,
+  //       projectData.endDate
+  //     );
+  //     console.log(response.data.result);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const handleOutsideClick = (e: any) => {
     // 클릭한 요소가 인풋창 외부인 경우, 해당 인풋창의 상태를 닫음
@@ -104,7 +111,7 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
             onBlur={() => setEditStates({ ...editStates, name: false })}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                updatePJT();
+                updatePJT(projectData);
                 setEditStates({ ...editStates, name: false });
               }
             }}
@@ -124,7 +131,7 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
             onBlur={() => setEditStates({ ...editStates, topic: false })}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                updatePJT();
+                updatePJT(projectData);
                 setEditStates({ ...editStates, topic: false });
               }
             }}
@@ -145,7 +152,7 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
             onBlur={() => setEditStates({ ...editStates, teamName: false })}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                updatePJT();
+                updatePJT(projectData);
                 setEditStates({ ...editStates, teamName: false });
               }
             }}
@@ -166,7 +173,7 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
             onBlur={() => setEditStates({ ...editStates, description: false })}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                updatePJT();
+                updatePJT(projectData);
                 setEditStates({ ...editStates, description: false });
               }
             }}
@@ -191,7 +198,7 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
             }
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                updatePJT();
+                updatePJT(projectData);
                 setEditStates({ ...editStates, gitRepository: false });
               }
             }}

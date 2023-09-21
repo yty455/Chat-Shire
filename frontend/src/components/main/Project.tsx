@@ -8,6 +8,7 @@ import { loginuser, nowProject_recoil } from "../../stores/atom";
 import { useRecoilState } from "recoil";
 import ProjectModal from "./ProjectModal";
 import { outProject } from "../../utils/projectApi";
+import { updateProject } from "../../utils/projectApi";
 
 const pjt = {
   now: [
@@ -120,6 +121,25 @@ function Project() {
     }
   };
 
+  const updatePJT = async (pjtdata: any) => {
+    try {
+      const response = await updateProject(
+        pjtdata.id,
+        pjtdata.name,
+        pjtdata.teamName,
+        pjtdata.topic,
+        pjtdata.description,
+        pjtdata.gitRepository,
+        pjtdata.startDate,
+        pjtdata.endDate
+      );
+      console.log(response.data.result);
+      getMyProjects();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Container
       fontSize=""
@@ -153,6 +173,7 @@ function Project() {
           pjt={selectedProject}
           closeModal={handleCloseModal}
           deleteProject={(projectId: any) => deleteProject(projectId)}
+          updatePJT={(pjtdata: any) => updatePJT(pjtdata)}
         />
       )}
     </Container>
