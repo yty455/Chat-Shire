@@ -19,7 +19,8 @@ const ComProject: React.FC<ComProjectProps> = ({
 }) => {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = compjt.length / 3;
+  const maxSteps = Math.max(1, Math.ceil(compjt.length / 3));
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };

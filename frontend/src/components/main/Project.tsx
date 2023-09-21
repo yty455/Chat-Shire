@@ -7,6 +7,7 @@ import { getProjects } from "../../utils/projectApi";
 import { loginuser, nowProject_recoil } from "../../stores/atom";
 import { useRecoilState } from "recoil";
 import ProjectModal from "./ProjectModal";
+import { outProject } from "../../utils/projectApi";
 
 const pjt = {
   now: [
@@ -108,6 +109,17 @@ function Project() {
     getMyProjects();
   }, []);
 
+  const deleteProject = async (projectId: any) => {
+    try {
+      const response = await outProject(projectId);
+      console.log(response);
+      getMyProjects();
+      handleCloseModal();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Container
       fontSize=""
@@ -137,7 +149,11 @@ function Project() {
         ></ComProject>
       </div>
       {openModal && (
-        <ProjectModal pjt={selectedProject} closeModal={handleCloseModal} />
+        <ProjectModal
+          pjt={selectedProject}
+          closeModal={handleCloseModal}
+          deleteProject={(projectId: any) => deleteProject(projectId)}
+        />
       )}
     </Container>
   );

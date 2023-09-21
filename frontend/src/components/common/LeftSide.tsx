@@ -173,7 +173,7 @@ function LeftSide(props: Props) {
             sx={{ width: 80, height: 80 }}
           />
         </StyledBadge>
-        <h5 className={styles.profilename}>{userData.name}CSI</h5>
+        <h5 className={styles.profilename}>{userData.nickname}CSI</h5>
       </div>
       <Divider />
       <List>
@@ -190,7 +190,7 @@ function LeftSide(props: Props) {
               className={styles.box}
             >
               <AccordionSummary
-                style={{
+                sx={{
                   display: "flex",
                   alignItems: "center",
                 }}
@@ -214,8 +214,8 @@ function LeftSide(props: Props) {
                 style={{
                   width: "100%",
                   borderRadius: "10px",
-                  backgroundColor:
-                    location.pathname !== "/analysis" ? "#FFFFFF" : "#ffffff2a",
+                  // backgroundColor:
+                  //   location.pathname !== "/analysis" ? "#FFFFFF" : "#ffffff2a",
                 }}
               >
                 <AccordionSummary
