@@ -11,20 +11,32 @@ interface ProjectModalProps {
 }
 
 function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
-  const [isEditingName, setIsEditingName] = useState(false);
-  const [isEditingTeamName, setIsEditingTeamName] = useState(false);
-  const [isEditingDescription, setIsEditingDescription] = useState(false);
-  const [isEditingTopic, setIsEditingTopic] = useState(false);
-  const [isEditingGitRepository, setIsEditingGitRepository] = useState(false);
-  const [isEditingStartDate, setIsEditingStartDate] = useState(false);
-  const [isEditingEndDate, setIsEditingEndDate] = useState(false);
-  const [Name, setName] = useState(pjt.name);
-  const [TeamName, setTeamName] = useState(pjt.teamName);
-  const [Topic, setTopic] = useState(pjt.topic);
-  const [Description, setDescription] = useState(pjt.description);
-  const [GitRepository, setGitRepository] = useState(pjt.gitRepository);
-  const [StartDate, setStartDate] = useState(pjt.startDate);
-  const [EndDate, setEndDate] = useState(pjt.endDate);
+  const [editStates, setEditStates] = useState<{
+    name: boolean;
+    teamName: boolean;
+    description: boolean;
+    topic: boolean;
+    gitRepository: boolean;
+    startDate: boolean;
+    endDate: boolean;
+  }>({
+    name: false,
+    teamName: false,
+    description: false,
+    topic: false,
+    gitRepository: false,
+    startDate: false,
+    endDate: false,
+  });
+  const [projectData, setProjectData] = useState({
+    name: pjt.name,
+    teamName: pjt.teamName,
+    description: pjt.description,
+    topic: pjt.topic,
+    gitRepository: pjt.gitRepository,
+    startDate: pjt.startDate,
+    endDate: pjt.endDate,
+  });
   const modalRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
   const getProjectDetail = async () => {
@@ -36,31 +48,17 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
     }
   };
 
-  // 클릭 이벤트 핸들러 추가
-  const handleOutsideClick = (e: any) => {
-    if (modalRef.current && !modalRef.current.contains(e.target)) {
-      // 모달 외부를 클릭하면 모달을 닫습니다.
-      setIsEditingName(false);
-      setIsEditingTeamName(false);
-      setIsEditingDescription(false);
-      setIsEditingTopic(false);
-      setIsEditingGitRepository(false);
-      setIsEditingStartDate(false);
-      setIsEditingEndDate(false);
-    }
-  };
-
   const updatePJT = async () => {
     try {
       const response = await updateProject(
         pjt.id,
-        Name,
-        TeamName,
-        Topic,
-        Description,
-        GitRepository,
-        StartDate,
-        EndDate
+        projectData.name,
+        projectData.teamName,
+        projectData.topic,
+        projectData.description,
+        projectData.gitRepository,
+        projectData.startDate,
+        projectData.endDate
       );
       console.log(response.data.result);
     } catch (error) {
@@ -68,112 +66,135 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
     }
   };
 
+  const handleOutsideClick = (e: any) => {
+    // 클릭한 요소가 인풋창 외부인 경우, 해당 인풋창의 상태를 닫음
+    (Object.keys(editStates) as Array<keyof typeof editStates>).forEach(
+      (key) => {
+        if (
+          editStates[key] &&
+          modalRef.current &&
+          !modalRef.current.contains(e.target)
+        ) {
+          setEditStates({ ...editStates, [key]: false });
+        }
+      }
+    );
+  };
+
   useEffect(() => {
     getProjectDetail();
+    // 클릭 이벤트 핸들러 등록
+    document.addEventListener("click", handleOutsideClick);
+    // 컴포넌트 언마운트 시 클릭 이벤트 핸들러 제거
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
   }, []);
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        {isEditingName ? (
+        {editStates.name ? (
           <input
             type="text"
-            value={pjt.name}
+            value={projectData.name}
             onChange={(e) => {
-              setName(e.target.value);
-              // 이름을 수정할 때 상태 업데이트
-              // e.target.value에 새로운 이름이 들어옵니다.
+              setProjectData({ ...projectData, name: e.target.value });
             }}
-            onBlur={() => setIsEditingName(false)} // 포커스를 잃을 때 (인풋창 밖을 클릭하거나 다른 곳으로 이동할 때) 수정 모드 종료
+            onBlur={() => setEditStates({ ...editStates, name: false })}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 updatePJT();
-                setIsEditingName(false); // Enter 키를 누르면 수정 모드 종료
+                setEditStates({ ...editStates, name: false });
               }
             }}
           />
         ) : (
-          <p onClick={() => setIsEditingName(true)}>프로젝트 이름 {pjt.name}</p>
+          <p onClick={() => setEditStates({ ...editStates, name: true })}>
+            프로젝트 이름 {projectData.name}
+          </p>
         )}
-        {isEditingTopic ? (
+        {editStates.topic ? (
           <input
             type="text"
-            value={pjt.topic}
+            value={projectData.topic}
             onChange={(e) => {
-              setTopic(e.target.value);
+              setProjectData({ ...projectData, name: e.target.value });
             }}
-            onBlur={() => setIsEditingTopic(false)}
+            onBlur={() => setEditStates({ ...editStates, name: false })}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 updatePJT();
-                setIsEditingTopic(false);
+                setEditStates({ ...editStates, name: false });
               }
             }}
           />
         ) : (
-          <p onClick={() => setIsEditingTopic(true)}>주제 {pjt.topic}</p>
-        )}
-
-        {isEditingTeamName ? (
-          <input
-            type="text"
-            value={pjt.teamName}
-            onChange={(e) => {
-              setTeamName(e.target.value);
-            }}
-            onBlur={() => setIsEditingTeamName(false)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                updatePJT();
-                setIsEditingTeamName(false);
-              }
-            }}
-          />
-        ) : (
-          <p onClick={() => setIsEditingTeamName(true)}>
-            팀 이름 {pjt.teamName}
+          <p onClick={() => setEditStates({ ...editStates, name: true })}>
+            프로젝트 주제 {projectData.topic}
           </p>
         )}
 
-        {isEditingDescription ? (
+        {editStates.teamName ? (
           <input
             type="text"
-            value={pjt.description}
+            value={projectData.teamName}
             onChange={(e) => {
-              setDescription(e.target.value);
+              setProjectData({ ...projectData, name: e.target.value });
             }}
-            onBlur={() => setIsEditingDescription(false)}
+            onBlur={() => setEditStates({ ...editStates, name: false })}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 updatePJT();
-                setIsEditingDescription(false);
+                setEditStates({ ...editStates, name: false });
               }
             }}
           />
         ) : (
-          <p onClick={() => setIsEditingDescription(true)}>
-            설명 {pjt.description}
+          <p onClick={() => setEditStates({ ...editStates, name: true })}>
+            팀 이름 {projectData.teamName}
           </p>
         )}
 
-        {isEditingGitRepository ? (
+        {editStates.description ? (
           <input
             type="text"
-            value={pjt.gitRepository}
+            value={projectData.description}
             onChange={(e) => {
-              setGitRepository(e.target.value);
+              setProjectData({ ...projectData, name: e.target.value });
             }}
-            onBlur={() => setIsEditingGitRepository(false)}
+            onBlur={() => setEditStates({ ...editStates, name: false })}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 updatePJT();
-                setIsEditingGitRepository(false);
+                setEditStates({ ...editStates, name: false });
               }
             }}
           />
         ) : (
-          <p onClick={() => setIsEditingGitRepository(true)}>
-            깃 : {pjt.gitRepository}
+          <p onClick={() => setEditStates({ ...editStates, name: true })}>
+            설명 {projectData.description}
+          </p>
+        )}
+
+        {editStates.gitRepository ? (
+          <input
+            type="text"
+            value={projectData.gitRepository}
+            onChange={(e) => {
+              setProjectData({ ...projectData, name: e.target.value });
+            }}
+            onBlur={() => setEditStates({ ...editStates, name: false })}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                updatePJT();
+                setEditStates({ ...editStates, name: false });
+              }
+            }}
+          />
+        ) : (
+          <p onClick={() => setEditStates({ ...editStates, name: true })}>
+            깃 : {projectData.gitRepository}
           </p>
         )}
         <p>
