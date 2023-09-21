@@ -88,6 +88,13 @@ function ProjectModal({
     );
   };
 
+  const handleInputClick = (fieldName: keyof typeof editStates) => {
+    if (editStates[fieldName]) {
+      setEditStates({ ...editStates, [fieldName]: false });
+    }
+    setEditStates({ ...editStates, [fieldName]: true });
+  };
+
   useEffect(() => {
     getProjectDetail();
     // 클릭 이벤트 핸들러 등록
@@ -117,7 +124,7 @@ function ProjectModal({
             }}
           />
         ) : (
-          <p onClick={() => setEditStates({ ...editStates, name: true })}>
+          <p onClick={() => handleInputClick("name")}>
             프로젝트 이름 {projectData.name}
           </p>
         )}
@@ -137,7 +144,7 @@ function ProjectModal({
             }}
           />
         ) : (
-          <p onClick={() => setEditStates({ ...editStates, topic: true })}>
+          <p onClick={() => handleInputClick("topic")}>
             프로젝트 주제 {projectData.topic}
           </p>
         )}
@@ -158,7 +165,7 @@ function ProjectModal({
             }}
           />
         ) : (
-          <p onClick={() => setEditStates({ ...editStates, teamName: true })}>
+          <p onClick={() => handleInputClick("teamName")}>
             팀 이름 {projectData.teamName}
           </p>
         )}
@@ -179,9 +186,7 @@ function ProjectModal({
             }}
           />
         ) : (
-          <p
-            onClick={() => setEditStates({ ...editStates, description: true })}
-          >
+          <p onClick={() => handleInputClick("description")}>
             설명 {projectData.description}
           </p>
         )}
@@ -204,11 +209,7 @@ function ProjectModal({
             }}
           />
         ) : (
-          <p
-            onClick={() =>
-              setEditStates({ ...editStates, gitRepository: true })
-            }
-          >
+          <p onClick={() => handleInputClick("gitRepository")}>
             깃 : {projectData.gitRepository}
           </p>
         )}
