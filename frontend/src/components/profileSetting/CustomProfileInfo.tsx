@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import styles from "./CustomProfileInfo.module.css";
 
 import TextField from "@mui/material/TextField";
+import Button from '@mui/material/Button'
+
+import MultiSelect from "../error/MultiSelect";
+import { useRecoilState } from "recoil";
+import { isLogin_recoil } from "../../stores/atom";
 
 interface CustomProfileProps {
   onUpdatenickname: any;
@@ -10,6 +15,7 @@ interface CustomProfileProps {
   onUpdatemySkill: any;
   onUpdateposition: any;
   onUserLogin: () => void;
+  onUserUpdate: () => void;
 }
 
 export default function CustomProfileInfo({
@@ -19,12 +25,26 @@ export default function CustomProfileInfo({
   onUpdateposition,
   onUpdatemySkill,
   onUserLogin,
+  onUserUpdate,
 }: CustomProfileProps) {
   const [nickname, setnickname] = useState("");
+  const [position, setposition] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [detailIntroduction, setDetailIntroduction] = useState("");
-  const [position, setposition] = useState("");
   const [mySkill, setMySkill] = useState<string[]>([]);
+  const [isLogin, setIsLogin] = useRecoilState(isLogin_recoil)
+  const [selectedId, setSelectedId] = useState<any[]>([]);
+
+  const selectSkill = (e: any) => {
+    console.log(e.target.id)
+    if (selectedId.includes(String(e.target.id))) {
+      const newSelectedId = [selectedId.filter(item => item != e.target.id)]
+      setSelectedId(newSelectedId)
+    } else {
+      const newSelectedId = [...selectedId, String(e.target.id)]
+      setSelectedId(newSelectedId)
+    }
+  }
 
   const handleMySkillInputChange = (
     e: React.KeyboardEvent<HTMLInputElement>
@@ -69,61 +89,81 @@ export default function CustomProfileInfo({
       </div>
       <div className={styles.ProfileInfoBody}>
         <TextField
-          size="small"
-          sx={{ width: "340px", marginBottom: "20px" }}
-          id="nickname"
+          fullWidth
           name="nickname"
-          label="닉네임"
-          value={nickname}
+          color="greenary"
+          margin="dense"
+          required
+          id="nickname"
+          label="어떻게 부르면 될까요?"
+          defaultValue=""
+          variant="standard"
           onChange={handleInputChange}
-          variant="outlined"
+          // helperText="Please enter your name"
         />
+        <span style={{margin: "8px 0px -4px 0px", fontFamily: "preLt"}}>뭐할줄 알아여</span>
+        <div className={styles.ProfileInfoSkillSelector}>
+          <img id="1" onClick={selectSkill} className={styles.ProfileSkillIcon} src={selectedId.includes("1") ? `https://img.shields.io/badge/python-3777AB?style=for-the-badge&logo=python&logoColor=white` : `https://img.shields.io/badge/python-757575?style=for-the-badge&logo=python&logoColor=white`}/>
+          <img id="2" onClick={selectSkill} className={styles.ProfileSkillIcon} src={selectedId.includes("2") ? `https://img.shields.io/badge/html-red?style=for-the-badge&logo=html&logoColor=white` : `https://img.shields.io/badge/html-757575?style=for-the-badge&logo=html&logoColor=white`}/>
+        </div>
         <TextField
-          size="small"
-          sx={{ width: "340px", marginBottom: "20px" }}
-          id="skills"
-          label="기술스택"
-          name="mySkill"
-          InputProps={{ onKeyPress: handleMySkillInputChange }}
-          variant="outlined"
-        />
-        <ul>
-          {mySkill.map((skill, index) => (
-            <li key={index}>{skill}</li>
-          ))}
-        </ul>
-        <TextField
-          size="small"
-          sx={{ width: "340px", marginBottom: "20px" }}
-          id="position"
-          label="직무"
+          fullWidth
           name="position"
-          value={position}
+          color="greenary"
+          margin="dense"
+          required
+          id="standard-required"
+          label="어떤 포지션을 맡고 계신가요?"
+          defaultValue=""
+          variant="standard"
           onChange={handleInputChange}
-          variant="outlined"
+          // helperText="Please enter your name"
         />
         <TextField
-          size="small"
-          sx={{ width: "340px", marginBottom: "20px" }}
-          id="introduce"
-          label="소개"
+          fullWidth
           name="introduction"
-          value={introduction}
+          color="greenary"
+          margin="dense"
+          required
+          id="standard-required"
+          label="나를 자랑 해주세요"
+          defaultValue=""
+          variant="standard"
           onChange={handleInputChange}
-          variant="outlined"
+          // helperText="Please enter your name"
         />
         <TextField
-          size="small"
-          sx={{ width: "340px", marginBottom: "20px" }}
-          id="introduce2"
-          label="소개2"
+          fullWidth
           name="detailIntroduction"
-          value={detailIntroduction}
+          color="greenary"
+          margin="dense"
+          required
+          id="standard-required"
+          label="간단한 소개 부탁드려요"
+          defaultValue=""
+          variant="standard"
           onChange={handleInputChange}
-          variant="outlined"
+          // helperText="Please enter your name"
         />
       </div>
-      <button onClick={onUserLogin}>회원가입</button>
+      {isLogin ? <Button
+        sx={{width: "467px", height: "53px", fontFamily: "preBd", fontSize: "18px"}}
+        color="greenary"
+        variant="contained"
+        onClick={onUserLogin}
+      >
+        회원가입
+      </Button> : <Button
+        sx={{width: "467px", height: "53px", fontFamily: "preBd", fontSize: "18px"}}
+        color="greenary"
+        variant="contained"
+        onClick={onUserUpdate}
+      >
+        저장하기
+      </Button>
+      }
+      
+
     </div>
   );
 }

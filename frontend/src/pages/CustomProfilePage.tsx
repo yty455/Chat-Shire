@@ -82,18 +82,31 @@ export default function CustomProfilePage() {
     });
   };
 
-  const usersign = async () => {
+  const userSign = async () => {
     console.log(formData);
     try {
       const response = await api.post("/users", formData);
-      console.log(response.headers["authorization"]);
-      console.log(response.headers["authorization-refresh"]);
       localStorage.setItem("token", response.headers["authorization"]);
       sessionStorage.setItem(
         "refreshToken",
         response.headers["authorization-refresh"]
       );
       navigate("/main");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  ;
+  const userUpdate = async () => {
+    console.log(formData);
+    try {
+      const response = await api.patch("/users", formData);
+      localStorage.setItem("token", response.headers["authorization"]);
+      sessionStorage.setItem(
+        "refreshToken",
+        response.headers["authorization-refresh"]
+      );
+      navigate("/profile");
     } catch (error) {
       console.error(error);
     }
@@ -120,7 +133,8 @@ export default function CustomProfilePage() {
         onUpdatedetailIntroduction={updatedetailIntroduction}
         onUpdateposition={updateposition}
         onUpdatemySkill={updatemySkill}
-        onUserLogin={usersign}
+        onUserLogin={userSign}
+        onUserUpdate={userUpdate}
       />
     </div>
   );
