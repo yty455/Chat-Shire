@@ -7,6 +7,7 @@ import MobileStepper from "@mui/material/MobileStepper";
 import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import Slick from "../common/Slick";
 
 interface ComProjectProps {
   compjt: Array<object>;
@@ -31,6 +32,7 @@ const ComProject: React.FC<ComProjectProps> = ({
   return (
     <div>
       <h3 className={styles.pjttxt}>완료한 PJT</h3>
+      {/* <Slick /> */}
       <Box sx={{ flexGrow: 1 }}>
         <div className={styles.comCardBox}>
           {compjt.length === 0 ? (
