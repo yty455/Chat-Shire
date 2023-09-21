@@ -3,12 +3,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./CustomProfile.module.css";
 
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grow from "@mui/material/Zoom";
-import Slide from "@mui/material/Slide";
-import Collapse from "@mui/material/Collapse";
-import TextField from "@mui/material/TextField";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
 
 import { ChromePicker } from "react-color";

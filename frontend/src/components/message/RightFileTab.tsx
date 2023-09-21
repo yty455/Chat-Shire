@@ -14,7 +14,7 @@ export default function RightFileTab() {
         <div className={styles.fileThumbnail}>
           <CardActionArea style={{height: "120px", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", padding: "10px"}}>
             <div className={styles.fileThumbnailHeader}>
-              <BsMusicNoteBeamed size={30}/>
+              <BsMusicNoteBeamed size={24}/>
               <span className={styles.fileName}>
                 music.m4a
               </span>
@@ -27,7 +27,7 @@ export default function RightFileTab() {
         <div className={styles.fileThumbnail}>
           <CardActionArea style={{height: "120px", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", padding: "10px"}}>
             <div className={styles.fileThumbnailHeader}>
-              <BsCameraVideoFill size={30}/>
+              <BsCameraVideoFill size={24}/>
               <span className={styles.fileName}>
                 video.mp4
               </span>
@@ -40,7 +40,7 @@ export default function RightFileTab() {
         <div className={styles.fileThumbnail}>
           <CardActionArea style={{height: "120px", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", padding: "10px"}}>
             <div className={styles.fileThumbnailHeader}>
-              <BsFillFileTextFill size={30}/>
+              <BsFillFileTextFill size={24}/>
               <span className={styles.fileName}>
                 file.txt
               </span>
