@@ -4,10 +4,12 @@ package com.ssafy.backend.domain.user.service;
 import com.ssafy.backend.domain.user.MySkill;
 import com.ssafy.backend.domain.user.Skill;
 import com.ssafy.backend.domain.user.User;
+import com.ssafy.backend.domain.user.dto.ChallengeInfoResponse;
 import com.ssafy.backend.domain.user.dto.MySkillInfo;
 import com.ssafy.backend.domain.user.dto.UserInfo;
 import com.ssafy.backend.domain.user.dto.UserInfoResponse;
 import com.ssafy.backend.domain.user.exception.UserNotFoundException;
+import com.ssafy.backend.domain.user.repository.ChallengeRepository;
 import com.ssafy.backend.domain.user.repository.MySkillRepository;
 import com.ssafy.backend.domain.user.repository.SkillRepository;
 import com.ssafy.backend.domain.user.repository.UserRepository;
@@ -33,6 +35,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final SkillRepository skillRepository;
     private final MySkillRepository mySkillRepository;
+    private final ChallengeRepository challengeRepository;
 
 
     @Transactional
@@ -62,7 +65,10 @@ public class UserService {
         User findUser = userRepository.findById(getUserId())
                 .orElseThrow(UserNotFoundException::new);
         List<String> mySkills = mySkillRepository.findByUser(findUser);
-        return UserInfoResponse.fromEntity(findUser, mySkills);
+
+        ChallengeInfoResponse challengeInfoResponse = ChallengeInfoResponse.fromEntity(challengeRepository.findByUserId(getUserId()));
+
+        return UserInfoResponse.fromEntity(findUser, mySkills, challengeInfoResponse);
     }
 
     @Transactional
