@@ -51,6 +51,14 @@ interface Task {
 //   console.log(`selected ${priority}`);
 // };
 
+// const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+//   console.log(date, dateString);
+// };
+
+// const priorityHandleChange = (value: string) => {
+//   console.log(`selected ${value}`);
+// };
+
 export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([]);
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
@@ -198,11 +206,8 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
             item.TaskId === TaskId
               ? { ...item, description, isEditing: false }
               : item
-          )
-        );
-      }
-    }
-  };
+          ));
+      }}};
 
   return (
     <div className={styles.indivDiv}>
