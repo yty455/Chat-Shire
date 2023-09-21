@@ -14,7 +14,22 @@ export const updateTaskGroup = (taskGroupId: string) =>
   api.patch(`/taskgroup/${taskGroupId}`);
 
 // 태스크 그룹 생성
-export const postTaskGroup = () => api.post(`/taskgroup`);
+export const postTaskGroup = (
+  chatRoomId: String,
+  name: String,
+  description: String,
+  priority: String,
+  progress: String,
+  deadline: String
+) =>
+  api.post(`/taskgroup`, {
+    chatRoomId,
+    name,
+    description,
+    priority,
+    progress,
+    deadline,
+  });
 
 // 태스크 그룹 삭제
 export const deleteTaskGroup = (taskGroupId: string) =>
