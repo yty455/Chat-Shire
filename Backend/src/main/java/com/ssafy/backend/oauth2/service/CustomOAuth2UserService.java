@@ -1,7 +1,9 @@
 package com.ssafy.backend.oauth2.service;
 
 
+import com.ssafy.backend.domain.user.Challenge;
 import com.ssafy.backend.domain.user.User;
+import com.ssafy.backend.domain.user.repository.ChallengeRepository;
 import com.ssafy.backend.domain.user.repository.UserRepository;
 import com.ssafy.backend.oauth2.CustomOAuth2User;
 import com.ssafy.backend.oauth2.OAuth2Attribute;
@@ -24,6 +26,7 @@ import java.util.Map;
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final UserRepository userRepository;
+    private final ChallengeRepository challengeRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -83,6 +86,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
      */
     private User saveUser(OAuth2Attribute attributes) {
         User createdUser = attributes.toEntity(attributes);
-        return userRepository.save(createdUser);
+        User savedUser = userRepository.save(createdUser);
+        challengeRepository.save(Challenge.builder()
+                        .user(savedUser).build());
+        return savedUser;
     }
 }
