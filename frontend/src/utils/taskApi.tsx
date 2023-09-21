@@ -5,18 +5,12 @@ import api from "./api";
 // 태스크 등록
 export const postTask = (
   chatroomId: number,
-  name: string,
   description: string,
-  deadline: any,
-  priority: string,
   progress: string
 ) =>
   api.post("/task", {
     chatroomId,
-    name,
     description,
-    deadline,
-    priority,
     progress,
   });
 
@@ -26,20 +20,14 @@ export const getTask = (projectId: string) => api.get(`/tasks/${projectId}`);
 // 태스크 수정
 export const updateTask = (
   taskId: string,
-  name: string,
   taskGroupId: string,
   description: string,
-  priority: string,
   progress: string,
-  deadline: any
 ) =>
   api.patch(`/tasks/${taskId}`, {
     taskGroupId,
-    name,
     description,
-    priority,
     progress,
-    deadline,
   });
 
 // 태스크 삭제

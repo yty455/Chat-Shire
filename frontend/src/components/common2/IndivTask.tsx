@@ -8,20 +8,20 @@ import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-import { BsFillChatDotsFill } from "react-icons/bs";
-import { BsPencilFill } from "react-icons/bs";
+import { BsPencilFill, BsCheckAll, BsFillChatDotsFill } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
-import { getTask } from "../../utils/taskApi";
-import type { DatePickerProps } from 'antd';
-import { DatePicker, Space, Select } from 'antd';
+import { BiSolidCheckCircle } from "react-icons/bi";
+import { getTask, deleteTask, postTask, updateTask } from "../../utils/taskApi";
+// import type { DatePickerProps } from 'antd';
+// import { DatePicker, Space, Select } from 'antd';
 import './IndivTask.css'
 
 type CheckboxItem = {
-  id: number;
-  isChecked: boolean;
-  content: string;
+  TaskId: string;
+  description: string;
   isEditing: boolean;
+  progress: string;
 };
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -34,40 +34,126 @@ const Item = styled(Paper)(({ theme }) => ({
 interface SimpleContainerProps {
   projectId?: string;
 }
+interface taskInfo {
+  description: string;
+}
+interface Task {
+  TaskId: string;
+  description: string;
+}
+// // 마감일 정보
+// const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+//   console.log(date, dateString);
+// };
 
-const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-  console.log(date, dateString);
-};
-
-const priorityHandleChange = (value: string) => {
-  console.log(`selected ${value}`);
-};
+// // 우선순위 정보
+// const priorityHandleChange = (priority: string) => {
+//   console.log(`selected ${priority}`);
+// };
 
 export default function SimpleContainer({ projectId }: SimpleContainerProps) {
-  //   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
-  //     { id: 1, isChecked: false, content: '밥 맛깔나게 먹기! 밥 맛깔나게 먹기!', isEditing:false },
-  //     { id: 2, isChecked: false, content: '밥 맛깔나게 먹기! 밥 맛깔나게 먹기!밥 맛깔나게 먹기! 밥 맛깔나게 먹기!밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기! 밥 맛깔나게 먹기!', isEditing:false },
-  //     { id: 3, isChecked: false, content: '밥 맛깔나게 먹기! 밥 맛깔나게 먹기!', isEditing:false },
-  //     // ...
-  // ]);
-
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([]);
-  const [idCounter, setIdCounter] = useState(1);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
+  const [updatedDescription, setUpdatedDescription] = useState<string>("");
+  const [allTasks, setAllTasks] = useState<Task[]>([]);
 
-  const handleCheckboxChange = (id: number) => () => {
+
+
+  // 수정모드 진입
+  const enterEditMode = async (TaskId: string) => {
+    setEditingTaskId(TaskId);
+    try {
+      const taskToEdit = allTasks.find((task) => task.TaskId === TaskId);
+      if (taskToEdit) {
+        setUpdatedDescription(taskToEdit.description);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 수정완료 눌렀을 때
+  const handleEditComplete = async (TaskId: string) => {
+    try {
+      if (projectId) {
+        const taskGroupId = projectId;
+        const progress = '';
+        await updateInTask(TaskId, updatedDescription, taskGroupId, progress);
+        // 편집 모드를 종료
+        setEditingTaskId(null);
+      } else {
+        console.error("projectId is undefined.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCheckboxChange = (TaskId: string) => () => {
     setCheckboxItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id ? { ...item, isChecked: !item.isChecked } : item
+        item.TaskId === TaskId ? { ...item, checked: !item.progress } : item
       )
     );
   };
 
+  // 태스크 불러오는 함수
   const getInTask = async () => {
     try {
       if (projectId) {
         const response = await getTask(projectId);
         console.log(response);
+        // setCheckboxItems(response)
+        setAllTasks(response.data.result)
       }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 태스크 등록
+  const postInTask = async (
+    chatroomId: number,
+    description: string,
+    progress: string
+  ) =>  {
+    try {
+      const response = await postTask(
+        chatroomId,
+        description,
+        progress,);
+        console.log(response)
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+  // 태스크 수정
+  const updateInTask = async (
+    taskId: string,
+    taskGroupId: string,
+    description: string,
+    progress: string
+  ) => {
+    try {
+      const response = await updateTask(
+        taskId,
+        taskGroupId,
+        description,
+        progress
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 태스크 삭제
+  const deleteInTask = async (TaskId: string) => {
+    try {
+      const response = await deleteTask(TaskId);
+      console.log('삭제완료', response)
+      setCheckboxItems((prevItems) => prevItems.filter((item) => item.TaskId !== TaskId));
     } catch (error) {
       console.error(error);
     }
@@ -75,42 +161,48 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
 
   useEffect(() => {
     getInTask();
-  }, []);
+  }, [checkboxItems]);
 
+  // 체크박스 추가
   const addCheckbox = () => {
-    const newId = checkboxItems.length + 1;
+    const newId = (checkboxItems.length + 1).toString();
     setCheckboxItems([
       ...checkboxItems,
-      { id: newId, isChecked: false, content: "", isEditing: true },
+      { TaskId: newId, progress: 'ONGOING',description: "", isEditing: true },
     ]);
   };
 
-  const handleDelete = (id: number) => {
-    setCheckboxItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
-
-  const handleContentChange = (id: number) => (event: any) => {
+  // 이게뭐지
+  const handleContentChange = (TaskId : String) => (event: any) => {
     setCheckboxItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id
-          ? { ...item, content: event.target.value, isEditing: false }
+        item.TaskId === TaskId
+          ? { ...item, description: event.target.value, isEditing: false }
           : item
-      )
-    );
+      ));
   };
 
-  const handleKeyPress = (id: number) => (event: any) => {
+  // 엔터쳤을때 태스크 입력 완
+  const handleKeyPress = (TaskId : String) => async (event: any) => {
     if (event.key === "Enter") {
       if (event.target.value === "") {
         window.alert("내용을 입력해주세요");
       } else {
+        const chatroomId = 0;
+        const description = event.target.value;
+        const progress = "ONGOING";
+        await postInTask(chatroomId, description, progress);
+        
         setCheckboxItems((prevItems) =>
           prevItems.map((item) =>
-            item.id === id
-              ? { ...item, content: event.target.value, isEditing: false }
+            item.TaskId === TaskId
+              ? { ...item, description, isEditing: false }
               : item
-          ));
-      }}};
+          )
+        );
+      }
+    }
+  };
 
   return (
     <div className={styles.indivDiv}>
@@ -118,7 +210,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         <Grid container spacing={2}>
           {checkboxItems && checkboxItems.length !== 0 ? (
             checkboxItems.map((item) => (
-              <Grid sx={{ margin: 0, padding: 0 }} item xs={12} key={item.id}>
+              <Grid sx={{ margin: 0, padding: 0 }} item xs={12} key={item.TaskId}>
                 <Item
                   sx={{
                     borderRadius: "0px 20px 20px 20px",
@@ -136,12 +228,12 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                         "&.Mui-checked": { color: "#39A789" },
                       }}
                       style={{ height: "20px", margin: "14px 0" }}
-                      checked={item.isChecked}
-                      onChange={handleCheckboxChange(item.id)}
+                      checked={item.progress === "DONE"}
+                      onChange={handleCheckboxChange(item.TaskId)}
                     />
                     {item.isEditing ? (
                       <input
-                        onKeyPress={handleKeyPress(item.id)}
+                        onKeyPress={handleKeyPress(item.TaskId)}
                         style={{
                           fontFamily: "preRg",
                           height: "30px",
@@ -149,22 +241,23 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                           border: "none",
                         }}
                         type="text"
-                        onBlur={handleContentChange(item.id)}
+                        onBlur={handleContentChange(item.TaskId)}
                         placeholder="내용을 입력하세요"
+                        // value={updatedDescription}
                       />
                     ) : (
                       <p
                         className={`${styles.taskContent} ${
-                          item.isChecked ? styles.checked : ""
+                          item.progress === "DONE" ? styles.checked : ""
                         }`}
                       >
-                        {item.content}
+                        {item.description}
                       </p>
                     )}
                   </div>
                   <div className={styles.icons}>
                     <div style={{margin:'-4px 0 0 0'}}>
-                      <DatePicker style={{margin: '-8px 0 10px 7px', height: 24, fontFamily:'preRg', width:'110px'}} size="small" bordered={false} placeholder="마감일 선택" onChange={onChange} />
+                      {/* <DatePicker style={{margin: '-8px 0 10px 7px', height: 24, fontFamily:'preRg', width:'110px'}} size="small" bordered={false} placeholder="마감일 선택" onChange={onChange} />
                       <Select
                         bordered={false} 
                         defaultValue="🔴"
@@ -172,29 +265,33 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                         onChange={priorityHandleChange}
                         options={[
                           { value: 'HIGH', label: '🔴' },
-                          { value: 'MIDDLE', label: '🟡' },
+                          { value: 'MEDIUM', label: '🟡' },
                           { value: 'LOW', label: '🟢' },
                         ]}
-                      />
+                      /> */}
                     </div>
                     <div>
                     <BsFillChatDotsFill
                       style={{ fontSize: "17px", margin: "-5px 5px 10px 0" }}
                     />
+                    {editingTaskId === item.TaskId ? (
+                    <BiSolidCheckCircle
+                      style={{ fontSize: "17px", margin: "-5px 3px 10px 0" }}
+                      onClick={() => handleEditComplete(item.TaskId)}
+                    />
+                  ) : (
                     <BsPencilFill
                       style={{ fontSize: "17px", margin: "-5px 3px 10px 0" }}
+                      onClick={() => enterEditMode(item.TaskId)}
                     />
+                  )}
                     <MdDelete
-                      style={{ fontSize: "20px", margin: "-7px 10px 10px 0" }}
-                      onClick={() => handleDelete(item.id)}
+                      style={{ fontSize: "20px", margin: "-7px 10px 8px 0" }}
+                      onClick={() => deleteInTask(item.TaskId)}
                     />
                     </div>
                   </div>
-                  {/* <AiFillDelete style={{fontSize: '24px', margin: '0px 5px 20px 0', paddingTop: '-3px'}} onClick={() => handleDelete(item.id)} /> */}
-                  {/* <Button sx={{margin: '0 5px 20px 0' ,fontFamily:'preRg'}} color="greenary" size="small" variant="contained">관련 대화로 이동</Button>
-            <Button sx={{margin: '0 5px 20px 0',fontFamily:'preRg'}} color="primary" size="small" variant="contained">수정</Button>
-            <Button onClick={() => handleDelete(item.id)} sx={{margin: '0 0 20px 0',fontFamily:'preRg'}} color="error" size="small" variant="contained">삭제</Button> */}
-                </Item>
+                  </Item>
               </Grid>
             ))
           ) : (
