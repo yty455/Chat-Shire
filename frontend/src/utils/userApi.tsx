@@ -53,3 +53,7 @@ export const deleteUser = () => api.delete(`/users`);
 
 // 내 정보 삭제
 export const allLanguage = () => api.get(`/skills`);
+
+// 내 상태 변경
+export const userState = (state: string) =>
+  api.patch(`/users/state`, { state });
