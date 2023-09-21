@@ -1,5 +1,5 @@
 .AvatarCustomTitle {
-  font-size: 36px;
+  font-size: 30px;
   font-family: 'preBl';
   color: #575757;
 }
@@ -17,6 +17,7 @@
 
 .AvatarCustomBody {
   display: flex;
+  justify-content: space-around;
   height: 76vh;
 }
 
@@ -30,6 +31,7 @@
 .exampleColor {
   width: 50px;
   height: 50px;
+  margin-bottom: 14px;
   border: 1px solid #E5E8EB;
   border-radius: 40px;
   cursor: pointer;
@@ -56,10 +58,9 @@
 .AvatarCustomBodyRight {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   height: 76vh;
 }
-
 
 .profileImgSelector {
   display: flex;
@@ -67,13 +68,14 @@
   align-items: flex-start;
   width: 400px;
   height: 400px;
+  margin-top: 50px;
   border-radius: 20px;
 }
 
 .profileImgSelectorButtons {
   display: flex;
   justify-content: center;
-  width: 300px;
+  width: 400px;
   margin-bottom: 10px;
 }
 
@@ -89,8 +91,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
+  margin-right: 1px;
   border-radius: 100px;
 }
 
@@ -101,5 +104,8 @@
 .profileImgSelectorRow {
   display: flex;
   justify-content: space-between;
-  width: 392px;
+  padding-right: 8px;
+  height: 86px;
+  width: 430px;
 }
+

@@ -65,7 +65,7 @@ export default function CustomProfileInfo({
   return (
     <div className={styles.ProfileInfoContainer}>
       <div className={styles.ProfileInfoHeader}>
-        <span className={styles.AvatarCustomTitle}>INFO</span>
+        <span className={styles.AvatarCustomTitle}>내 정보</span>
       </div>
       <div className={styles.ProfileInfoBody}>
         <TextField
