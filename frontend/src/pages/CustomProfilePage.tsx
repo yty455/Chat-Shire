@@ -10,6 +10,7 @@ interface CustomProfilePageProps {
   onUpdatenickname: (nickname: string) => void;
   onUpdateintroduction: (introduction: string) => void;
   onUpdatedetailIntroduction: (detailIntroduction: string) => void;
+  onUpdateposition: (position: string) => void;
   onUpdatemySkill: (mySkill: []) => void;
 }
 
@@ -17,10 +18,11 @@ export default function CustomProfilePage() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nickname: "",
-    profileImage: "",
+    profileImage: process.env.PUBLIC_URL + "/assets/profile/male/m25.png",
     profileColor: "",
     introduction: "",
     detailIntroduction: "",
+    position: "",
     mySkill: [] as string[],
   });
   // 부모 컴포넌트에서 배경색 업데이트 함수
@@ -62,6 +64,13 @@ export default function CustomProfilePage() {
     setFormData({
       ...formData,
       detailIntroduction: detailIntroduction,
+    });
+  };
+  const updateposition = (position: string) => {
+    console.log(position);
+    setFormData({
+      ...formData,
+      position: position,
     });
   };
   // 부모 컴포넌트에서 프로필 이미지 업데이트 함수
@@ -109,6 +118,7 @@ export default function CustomProfilePage() {
         onUpdatenickname={updateNickName}
         onUpdateintroduction={updateintroduction}
         onUpdatedetailIntroduction={updatedetailIntroduction}
+        onUpdateposition={updateposition}
         onUpdatemySkill={updatemySkill}
         onUserLogin={usersign}
       />
