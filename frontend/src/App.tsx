@@ -26,6 +26,12 @@ declare module '@mui/material/Button' {
   }
 }
 
+declare module '@mui/material/IconButton' {
+  interface IconButtonPropsColorOverrides {
+    greenary: true;
+  }
+}
+
 declare module '@mui/material/Fab' {
   interface FabPropsColorOverrides {
     greenary: true;
