@@ -13,6 +13,11 @@ export const projectId = atom({
   default: "",
 });
 
+export const isLogin_recoil = atom({
+  key: "isLogin_recoil",
+  default: false,
+});
+
 export const message = atom({
   key: "message",
   default: "",

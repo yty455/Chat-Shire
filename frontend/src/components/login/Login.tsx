@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import { getGit, postUser } from "../../utils/userApi";
 import api from "../../utils/api";
 import axios from "axios";
+import Button from "@mui/material/Button";
 
 function LoginPage() {
   const [userData, setUserDate] = useRecoilState(loginuser);
@@ -81,14 +82,16 @@ function LoginPage() {
           효율적으로 관리해보세요{" "}
           대화에서 파생된 아이디어와 태스크를 실시간으로 기록하고 관리하세요.
         </p> */}
-        <button
-          className={styles.github}
+        <Button
+          sx={{width: "467px", height: "53px", fontFamily: "preBd", fontSize: "18px"}}
+          color="greenary"
+          variant="contained"
           onClick={() => {
             onClick();
           }}
         >
           깃허브로 로그인
-        </button>
+        </Button>
       </div>
       <div className={styles.circleNImg}>
         <div className={styles.circle}></div>
