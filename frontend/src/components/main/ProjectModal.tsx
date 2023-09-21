@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./ProjectModal.module.css";
 import { getProject } from "../../utils/projectApi";
 import { updateProject } from "../../utils/projectApi";
@@ -25,7 +25,7 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
   const [GitRepository, setGitRepository] = useState(pjt.gitRepository);
   const [StartDate, setStartDate] = useState(pjt.startDate);
   const [EndDate, setEndDate] = useState(pjt.endDate);
-
+  const modalRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
   const getProjectDetail = async () => {
     try {
@@ -33,6 +33,20 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
       console.log(response.data.result);
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  // 클릭 이벤트 핸들러 추가
+  const handleOutsideClick = (e: any) => {
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
+      // 모달 외부를 클릭하면 모달을 닫습니다.
+      setIsEditingName(false);
+      setIsEditingTeamName(false);
+      setIsEditingDescription(false);
+      setIsEditingTopic(false);
+      setIsEditingGitRepository(false);
+      setIsEditingStartDate(false);
+      setIsEditingEndDate(false);
     }
   };
 

@@ -5,13 +5,12 @@
   right: 0;
   bottom: 0;
   top: 50%;
-  left: 40%;
+  left: 45%;
   background-color: rgb(250, 250, 250);
   transform: translate(-50%, -50%);
   border-radius: 20px;
-  width: 60vw;
+  width: 50vw;
   height: 60vh;
-  height: auto;
   z-index: 9999;
 }
 
