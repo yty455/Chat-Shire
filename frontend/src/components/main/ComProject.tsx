@@ -7,6 +7,7 @@ import MobileStepper from "@mui/material/MobileStepper";
 import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import Slick from "../common/Slick";
 
 interface ComProjectProps {
   compjt: Array<object>;
@@ -19,7 +20,8 @@ const ComProject: React.FC<ComProjectProps> = ({
 }) => {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = compjt.length / 3;
+  const maxSteps = Math.max(1, Math.ceil(compjt.length / 3));
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -30,6 +32,7 @@ const ComProject: React.FC<ComProjectProps> = ({
   return (
     <div>
       <h3 className={styles.pjttxt}>완료한 PJT</h3>
+      {/* <Slick /> */}
       <Box sx={{ flexGrow: 1 }}>
         <div className={styles.comCardBox}>
           {compjt.length === 0 ? (

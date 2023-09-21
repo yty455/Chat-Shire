@@ -15,7 +15,8 @@ export const postTask = (
   });
 
 // 태스크 조회
-export const getTask = (projectId: string) => api.get(`/tasks/${projectId}`);
+export const getTask = (projectId: string) =>
+  api.get(`/projects/${projectId}/tasks`);
 
 // 태스크 수정
 export const updateTask = (

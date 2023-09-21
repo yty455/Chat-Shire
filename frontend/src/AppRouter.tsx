@@ -47,7 +47,10 @@ function AppRouter() {
               element={<AnalysisPage />}
             ></Route>
             <Route path="/profile" element={<ProfilePage />}></Route>
-            <Route path="/profile/custom" element={<CustomProfilePage />}></Route>
+            <Route
+              path="/profile/custom"
+              element={<CustomProfilePage />}
+            ></Route>
             <Route path="/idea" element={<IdeaPage />}></Route>
             <Route path="/message" element={<MessagePage />}></Route>
             <Route path="/task" element={<TaskPage />}></Route>

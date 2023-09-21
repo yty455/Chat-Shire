@@ -11,6 +11,7 @@ export const postUser = (
   profileImage: string,
   profileColor: string,
   introduction: string,
+  position: string,
   detailIntroduction: string,
   mySkill: string[]
 ) =>
@@ -20,6 +21,7 @@ export const postUser = (
     profileColor,
     introduction,
     detailIntroduction,
+    position,
     mySkill,
   });
 
@@ -30,6 +32,7 @@ export const updateProfile = (
   profileColor: string,
   introduction: string,
   detailIntroduction: string,
+  position: string,
   mySkill: string[]
 ) =>
   api.put(`/users`, {
@@ -37,6 +40,7 @@ export const updateProfile = (
     profileImage,
     profileColor,
     introduction,
+    position,
     detailIntroduction,
     mySkill,
   });
@@ -49,3 +53,7 @@ export const deleteUser = () => api.delete(`/users`);
 
 // 내 정보 삭제
 export const allLanguage = () => api.get(`/skills`);
+
+// 내 상태 변경
+export const userState = (state: string) =>
+  api.patch(`/users/state`, { state });
