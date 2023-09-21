@@ -10,8 +10,6 @@ function SignUpPage() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nickname: "",
-    profileImage: "",
-    profileColor: "",
     introduction: "",
     detailIntroduction: "",
     mySkill: [] as string[],
@@ -73,7 +71,7 @@ function SignUpPage() {
         onChange={handleInputChange}
         placeholder="Nickname"
       />
-      <input
+      {/* <input
         type="text"
         name="profileImage"
         value={formData.profileImage}
@@ -86,7 +84,7 @@ function SignUpPage() {
         value={formData.profileColor}
         onChange={handleInputChange}
         placeholder="Profile Color"
-      />
+      /> */}
       <input
         type="text"
         name="introduction"

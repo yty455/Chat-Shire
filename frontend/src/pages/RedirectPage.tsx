@@ -34,7 +34,7 @@ function Redirect() {
       navigate("/main");
     } else {
       // 리프레쉬 토큰이 없다면 회원가입 페이지로 이동
-      navigate("/signup");
+      navigate("/profile/custom");
     }
   }, [access_token, refreshToken]);
 
