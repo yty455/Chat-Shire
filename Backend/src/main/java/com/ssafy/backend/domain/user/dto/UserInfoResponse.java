@@ -25,7 +25,9 @@ public class UserInfoResponse {
 
     private List<String> mySkill;
 
-    public static UserInfoResponse fromEntity(User user, List<String> mySkill){
+    private ChallengeInfoResponse challengeInfoResponse;
+
+    public static UserInfoResponse fromEntity(User user, List<String> mySkill, ChallengeInfoResponse challengeInfoResponse){
         return UserInfoResponse.builder()
                 .socialId(user.getSocialId())
                 .githubId(user.getGithubId())
@@ -35,7 +37,8 @@ public class UserInfoResponse {
                 .introduction(user.getIntroduction())
                 .detailIntroduction(user.getDetailIntroduction())
                 .position(user.getPosition())
-                .mySkill(mySkill).build();
+                .mySkill(mySkill)
+                .challengeInfoResponse(challengeInfoResponse).build();
     }
 
 }
