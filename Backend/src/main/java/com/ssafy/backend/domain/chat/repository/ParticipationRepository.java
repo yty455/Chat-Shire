@@ -16,7 +16,7 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
 
 	Optional<Participation> findByUserIdAndChatRoomId(Long userId, Long chatRoomId);
 
-	@Query("select new com.ssafy.backend.domain.chat.dto.ChatRoomUserInfoResponse(u.id, u.nickname, u.profileImage, u.profileColor) from Participation p left join User u on p.user = u where p.chatRoom.id = :chatRoomId")
+	@Query("select new com.ssafy.backend.domain.chat.dto.ChatRoomUserInfoResponse(p.user.id, u.nickname, u.profileImage, u.profileColor) from Participation p left join User u on p.user = u where p.chatRoom.id = :chatRoomId")
 	List<ChatRoomUserInfoResponse> findByChatRoomId(@Param("chatRoomId") Long chatRoomId);
 
 	void deleteByUserIdAndChatRoomId(Long userId, Long chatRoomId);
