@@ -101,62 +101,62 @@ function MultiSelect() {
   };
   const filter = createFilterOptions<string>();
 
+
   return (
-    <div>
-        <Autocomplete
-            multiple
-            id="multiple-limit-tags"
-            options={names}
-            filterOptions={(options, params) => {
-              const filtered = filter(options, params);
+    <Autocomplete
+      forcePopupIcon={false}
+      multiple
+      id="custom-input-demo"
+      options={names}
+      filterOptions={(options, params) => {
+        const filtered = filter(options, params);
+        // At the opening of dropdown (when search is empty), no options will be shown.
+        if (params.inputValue === '') {
+            return [];
+        }
 
-              // At the opening of dropdown (when search is empty), no options will be shown.
-              if (params.inputValue === '') {
-                  return [];
-              }
-
-              return filtered as string[];
-          }}            
-          getOptionLabel={(option) => option}
-            renderInput={(params) => (
-                <TextField {...params} sx={{'& .MuiInputLabel-root': {
-                  fontFamily: 'preBd',margin: '-7px 0 0 1px'
-              },}} label="언어를 검색하세요" />
-            )}
-            sx={{ 
-                width: '300px', 
-                '& .MuiAutocomplete-tag': {
-                    maxWidth: '100%',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap'
-                },
-                '& .MuiAutocomplete-tagArea': {
-                    flexWrap: 'nowrap',
-                    overflowX: 'auto'
-                },
-                '& .MuiInputBase-root': {
-                  marginTop: '1px',
-                  padding: '0 5px',
-                  fontFamily: 'preBd'
-                },
-                marginLeft: '10px',
-             }}
-             PaperComponent={({ children }) => (
-              <Paper style={{ maxHeight: `Desired height for autocomplete dropdown`, fontFamily:'Your desired font for options'}}>{children}</Paper>
-            )}
-            renderTags={(selectedValues, getTagProps) =>
-                selectedValues.map((option, index) => (
-                    <CustomChip {...getTagProps({ index })} key={index} label={option} className={option} sx={{ margin: '0 2px' }}/>
-                ))
-            }
-            renderOption={(props, option, { selected }) => (
-                <li {...props}>
-                    <CustomChip label={option} className={option} color={selected ? 'primary' : undefined} />
-                </li>
-            )}
-        />
-    </div>
+        return filtered as string[];
+      }}
+      getOptionLabel={(option) => option}
+      renderInput={(params) => (
+          <TextField {...params} sx={{'& .MuiInputLabel-root': {fontFamily: 'preBd', margin: '-7px 0 0 1px'},}} label="언어를 검색하세요" />
+      )}
+      sx={{ 
+          width: '300px', 
+          '& .MuiAutocomplete-tag': {
+              maxWidth: '100%',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+          },
+          '& .MuiAutocomplete-tagArea': {
+              flexWrap: 'nowrap',
+              overflowX: 'auto',
+          },
+          '& .MuiInputBase-root': {
+            position: "fixed",
+            width: "300px",
+            padding: '2px 5px',
+            fontFamily: 'preBd',
+            backgroundColor: "#ffffff",
+            zIndex: "100",
+          },
+          marginLeft: '10px',
+        }}
+      PaperComponent={({ children }) => (
+        <Paper style={{ maxHeight: `Desired height for autocomplete dropdown`, fontFamily:'Your desired font for options'}}>{children}</Paper>
+      )}
+      renderTags={(selectedValues, getTagProps) =>
+          selectedValues.map((option, index) => (
+              <CustomChip {...getTagProps({ index })} key={index} label={option} className={option} sx={{ margin: '4px 4px' }}/>
+          ))
+      }
+      renderOption={(props, option, { selected }) => (
+          <li {...props}>
+              <CustomChip label={option} className={option} color={selected ? 'primary' : undefined} />
+          </li>
+      )}
+    />
   );
 }
 

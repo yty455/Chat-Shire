@@ -58,7 +58,7 @@ export default function ProfilePage() {
   }
 
   function profileSetting() {
-    navigate("/profile/setting");
+    navigate("/profile/custom");
   }
 
   const getProfilePage = async () => {

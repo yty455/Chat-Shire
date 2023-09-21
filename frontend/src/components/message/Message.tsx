@@ -57,9 +57,11 @@ function Message(projectId: any) {
         });
       }
     );
-    getChat(projectId, 1, 1).then((res) => {
+    getChat(projectId, 1, 1)
+    .then((res) => {
       setPreMessage(res.data.result[0]);
-    });
+    })
+    .catch(err => console.log(err));
   };
 
   const inputMessage = (e: any) => {
