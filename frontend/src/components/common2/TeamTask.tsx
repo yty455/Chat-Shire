@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./TeamTask.module.css";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import CreateIcon from "@mui/icons-material/Create";
@@ -10,11 +10,11 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 import { PieChart } from "@mui/x-charts/PieChart";
 import Box from "@mui/material/Box";
-
 import Grid from "@mui/material/Grid";
-
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
+import { getTaskGroup } from "../../utils/taskGroupApi";
+import { postTaskGroup } from "../../utils/taskGroupApi";
 
 const pieParams = { height: 200, margin: { right: 5 } };
 const palette = ["red", "blue", "green"];
@@ -88,6 +88,7 @@ interface TeamTaskProps {
 }
 
 export default function TeamTask({ projectId }: TeamTaskProps) {
+  const [allTeamTask, setAllTeamTask] = useState([]);
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
     {
       id: 1,
@@ -111,6 +112,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       )
     );
   };
+  const [taskData, setTaskData] = useState({
+    name: "string",
+    description: "string",
+    priority: "HIGH",
+    progress: "DONE",
+    deadline: "2023-09-21",
+  });
 
   const addCheckbox = () => {
     const newId = checkboxItems.length + 1;
@@ -129,6 +137,36 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       )
     );
   };
+
+  const getTeamTask = async () => {
+    try {
+      const response = await getTaskGroup(projectId);
+      console.log(response.data.result);
+      setAllTeamTask(response.data.result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const createProjectGroup = async () => {
+    try {
+      const response = await postTaskGroup(
+        projectId,
+        taskData.name,
+        taskData.description,
+        taskData.priority,
+        taskData.progress,
+        taskData.deadline
+      );
+      console.log(response.data.result);
+      getTeamTask();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getTeamTask();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -373,10 +411,44 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             }}
             color="greenary"
             aria-label="add"
-            onClick={addCheckbox}
+            // onClick={addCheckbox}
+            onClick={createProjectGroup}
           >
             <AddIcon />
           </Fab>
+          <input
+            type="text"
+            value={taskData.name}
+            onChange={(e) => setTaskData({ ...taskData, name: e.target.value })}
+          />
+          <input
+            type="text"
+            value={taskData.description}
+            onChange={(e) =>
+              setTaskData({ ...taskData, description: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            value={taskData.priority}
+            onChange={(e) =>
+              setTaskData({ ...taskData, priority: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            value={taskData.progress}
+            onChange={(e) =>
+              setTaskData({ ...taskData, progress: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            value={taskData.deadline}
+            onChange={(e) =>
+              setTaskData({ ...taskData, deadline: e.target.value })
+            }
+          />
         </div>
       </div>
     </div>
