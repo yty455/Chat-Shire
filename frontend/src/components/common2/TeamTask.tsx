@@ -350,57 +350,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             ))}
           </div>
 
-          <div className={styles.taskContainer}>
-            <div className={styles.taskHeader}>
-              <div className={styles.clockNday}>
-                <WatchLaterIcon />
-                <p className={styles.dday}> 6d 14h</p>
-              </div>
-              <CreateIcon />
-            </div>
-            <div className={styles.stepStatus}>
-              <StyledBadge
-                sx={{ margin: "14px 0 15px 20px" }}
-                overlap="circular"
-                anchorOrigin={{ vertical: "top", horizontal: "left" }}
-                variant="dot"
-              ></StyledBadge>
-              <p className={styles.step}>기획</p>
-            </div>
-            <BorderLinearProgress variant="determinate" value={50} />
-
-            {checkboxItems.map((item) => (
-              <Grid sx={{ margin: 0, padding: 0 }} item key={item.id}>
-                <div className={styles.indivTask}>
-                  <Checkbox
-                    sx={{
-                      color: "#39A789",
-                      "&.Mui-checked": { color: "#39A789" },
-                    }}
-                    style={{ height: "20px", margin: "4px 0" }}
-                    checked={item.isChecked}
-                    onChange={handleCheckboxChange(item.id)}
-                  />
-                  {item.isEditing ? (
-                    <input
-                      type="text"
-                      onBlur={handleContentChange(item.id)}
-                      placeholder="내용을 입력하세요"
-                    />
-                  ) : (
-                    <p
-                      className={`${styles.taskContent} ${
-                        item.isChecked ? styles.checked : ""
-                      }`}
-                    >
-                      {item.content}
-                    </p>
-                  )}
-                </div>
-                {/* <Button sx={{marginLeft: '5px', marginBottom:'20px',fontFamily:'preRg'}} color="error" size="small" onClick={() => removeCheckbox(item.id)} variant="contained">삭제</Button> */}
-              </Grid>
-            ))}
-          </div>
           <Fab
             sx={{
               mt: "20px",
