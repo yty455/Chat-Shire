@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ProjectModal.module.css";
 import { getProject } from "../../utils/projectApi";
-
+import { updateProject } from "../../utils/projectApi";
 import { useNavigate } from "react-router-dom";
 
 interface ProjectModalProps {
@@ -18,12 +18,36 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
   const [isEditingGitRepository, setIsEditingGitRepository] = useState(false);
   const [isEditingStartDate, setIsEditingStartDate] = useState(false);
   const [isEditingEndDate, setIsEditingEndDate] = useState(false);
-  const [Name, setName] = useState("");
+  const [Name, setName] = useState(pjt.name);
+  const [TeamName, setTeamName] = useState(pjt.teamName);
+  const [Topic, setTopic] = useState(pjt.topic);
+  const [Description, setDescription] = useState(pjt.description);
+  const [GitRepository, setGitRepository] = useState(pjt.gitRepository);
+  const [StartDate, setStartDate] = useState(pjt.startDate);
+  const [EndDate, setEndDate] = useState(pjt.endDate);
 
   const navigate = useNavigate();
   const getProjectDetail = async () => {
     try {
       const response = await getProject(pjt.id);
+      console.log(response.data.result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updatePJT = async () => {
+    try {
+      const response = await updateProject(
+        pjt.id,
+        Name,
+        TeamName,
+        Topic,
+        Description,
+        GitRepository,
+        StartDate,
+        EndDate
+      );
       console.log(response.data.result);
     } catch (error) {
       console.error(error);
@@ -42,28 +66,104 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
             type="text"
             value={pjt.name}
             onChange={(e) => {
+              setName(e.target.value);
               // 이름을 수정할 때 상태 업데이트
               // e.target.value에 새로운 이름이 들어옵니다.
             }}
             onBlur={() => setIsEditingName(false)} // 포커스를 잃을 때 (인풋창 밖을 클릭하거나 다른 곳으로 이동할 때) 수정 모드 종료
             onKeyPress={(e) => {
               if (e.key === "Enter") {
+                updatePJT();
                 setIsEditingName(false); // Enter 키를 누르면 수정 모드 종료
               }
             }}
           />
         ) : (
-          <>
-            프로젝트 이름 {pjt.name}
-            <button onClick={() => setIsEditingName(true)}>수정</button>
-          </>
+          <p onClick={() => setIsEditingName(true)}>프로젝트 이름 {pjt.name}</p>
         )}
-        <p>팀 이름 {pjt.teamName}</p>
-        <p>설명 {pjt.description}</p>
-        <p>주제 {pjt.topic}</p>
-        <p>깃 : {pjt.gitRepository}</p>
+        {isEditingTopic ? (
+          <input
+            type="text"
+            value={pjt.topic}
+            onChange={(e) => {
+              setTopic(e.target.value);
+            }}
+            onBlur={() => setIsEditingTopic(false)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                updatePJT();
+                setIsEditingTopic(false);
+              }
+            }}
+          />
+        ) : (
+          <p onClick={() => setIsEditingTopic(true)}>주제 {pjt.topic}</p>
+        )}
+
+        {isEditingTeamName ? (
+          <input
+            type="text"
+            value={pjt.teamName}
+            onChange={(e) => {
+              setTeamName(e.target.value);
+            }}
+            onBlur={() => setIsEditingTeamName(false)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                updatePJT();
+                setIsEditingTeamName(false);
+              }
+            }}
+          />
+        ) : (
+          <p onClick={() => setIsEditingTeamName(true)}>
+            팀 이름 {pjt.teamName}
+          </p>
+        )}
+
+        {isEditingDescription ? (
+          <input
+            type="text"
+            value={pjt.description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            onBlur={() => setIsEditingDescription(false)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                updatePJT();
+                setIsEditingDescription(false);
+              }
+            }}
+          />
+        ) : (
+          <p onClick={() => setIsEditingDescription(true)}>
+            설명 {pjt.description}
+          </p>
+        )}
+
+        {isEditingGitRepository ? (
+          <input
+            type="text"
+            value={pjt.gitRepository}
+            onChange={(e) => {
+              setGitRepository(e.target.value);
+            }}
+            onBlur={() => setIsEditingGitRepository(false)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                updatePJT();
+                setIsEditingGitRepository(false);
+              }
+            }}
+          />
+        ) : (
+          <p onClick={() => setIsEditingGitRepository(true)}>
+            깃 : {pjt.gitRepository}
+          </p>
+        )}
         <p>
-          기간 {pjt.startDate}~{pjt.endDate}
+          기간 <span>{pjt.startDate}</span>~<span>{pjt.endDate}</span>
         </p>
         <button
           onClick={closeModal}
