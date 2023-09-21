@@ -80,13 +80,6 @@
   /* border: 1px solid purple; */
 }
 
-.messageLeftFooter button {
-  min-width: 50px;
-  margin-left: 10px;
-  padding: 8px 20px;
-  border-radius: 30px;
-}
-
 .messageInput {
   margin: 0px 10px;
   width: 26vw;
@@ -119,6 +112,7 @@
   flex-direction: column;
   align-items: flex-start;
   width: 30vw;
+  height: 81vh;
   /* border: 1px solid red; */
 }
 
@@ -129,4 +123,11 @@
   width: 20vw;
   height: 19vh;
   padding-left: 4%;
+}
+
+.EmojiPickerContainer {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 100;
 }

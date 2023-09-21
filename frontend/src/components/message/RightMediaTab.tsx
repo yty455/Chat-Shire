@@ -5,23 +5,24 @@ import GoogleSearch from './GoogleSearch'
 export default function RightMediaTab() {
   return (
     <div className={styles.MessageRightBody}>
-      <span className={styles.MessageRightBodyTitle}>
+      <span style={{ marginBottom: "20px"}} className={styles.MessageRightBodyTitle}>
         미디어
       </span>
-      <div className={styles.MessageRightMediaStorage}>
-        <span className={styles.MediaStorageTitle}>
+      <span className={styles.MediaStorageTitle}>
           사진 보관함
-        </span>
+      </span>
+      <div style={{marginBottom: "20px"}} className={styles.MessageRightMediaStorage}>
         <div className={styles.MediaContainer}>
+          <div className={styles.photoThumbnail}>PHOTO</div>
           <div className={styles.photoThumbnail}>PHOTO</div>
           <div className={styles.photoThumbnail}>PHOTO</div>
           <div className={styles.photoThumbnail}>PHOTO</div>
         </div>
       </div>
+      <span className={styles.MediaStorageTitle}>
+        동영상 보관함
+      </span>
       <div className={styles.MessageRightMediaStorage}>
-        <span className={styles.MediaStorageTitle}>
-          동영상 보관함
-        </span>
         <div className={styles.MediaContainer}>
           <div className={styles.photoThumbnail}>
             VIDEO

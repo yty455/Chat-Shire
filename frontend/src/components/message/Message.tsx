@@ -1,9 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./Message.module.css";
 import MessageItem from "./MessageItem";
 import MessageRightBody from "./MessageRightBody";
-
-import { getChat } from "../../utils/chatApi";
 
 import {
   BsPeopleFill,
@@ -14,23 +12,29 @@ import {
 } from "react-icons/bs";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
+import Grow from "@mui/material/Grow";
 import SendIcon from "@mui/icons-material/Send";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 
-import { Stomp, CompatClient } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
+import { getChat, postChat } from "../../utils/chatApi";
+import { Stomp, CompatClient } from "@stomp/stompjs";
+
 import axios from "axios";
 import { useSetRecoilState } from "recoil";
 
+import EmojiPicker from 'emoji-picker-react';
+
 function Message(projectId: any) {
-  const [value, setValue] = React.useState("photos");
-  const [preMessage, setPreMessage] = React.useState<any[]>([]);
-  const [message, setMessage] = React.useState("");
+  const [value, setValue] = useState("photos");
+  const [preMessage, setPreMessage] = useState<any[]>([]);
+  const [message, setMessage] = useState("");
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    console.log(newValue);
     setValue(newValue);
   };
+
+  const [activateEmojiPicker, setActivateEmojiPicker] = useState(false)
 
   const client = useRef<CompatClient>();
 
@@ -54,13 +58,24 @@ function Message(projectId: any) {
       }
     );
     getChat(projectId, 1, 1).then((res) => {
-      console.log(res.data.result[0]);
       setPreMessage(res.data.result[0]);
-      console.log(preMessage);
     });
   };
 
-  const sendChat = () => {};
+  const inputMessage = (e: any) => {
+    if (e.code === 'Enter') {
+      postChat(projectId, e.target.value)
+    }
+  };
+  
+  const inputEmoji = (e: any) => {
+    postChat(projectId, e.emoji)
+  }
+
+  const handleEmojiPicker = () => {
+    setActivateEmojiPicker(!activateEmojiPicker)
+  }
+
 
   useEffect(() => {
     connectHandler();
@@ -94,23 +109,32 @@ function Message(projectId: any) {
         <div className={styles.messageLeftFooter}>
           <div className={styles.messageInputContainer}>
             <Input
+              id="chatInput"
               style={{ marginLeft: 0, fontFamily: "preRg", marginBottom: "10px" }}
               className={styles.messageInput}
               placeholder="메세지를 입력해주세요"
               inputProps={ariaLabel}
+              onKeyDown={inputMessage}
             />
           </div>
           <div className={styles.messageFooterButtonContainer}>
             <div className={styles.messageFooterButtonLeft}>
-              <BsPlus size={40} color="#39A789" />
-              <BsEmojiKiss size={30} color="#39A789" />
+              <BsPlus style={{cursor: "pointer"}} size={40} color="#39A789" />
+              <div style={{position: "relative"}}>
+                <Grow in={activateEmojiPicker} style={{ transformOrigin: "0 100% 0"}}>
+                  <div className={styles.EmojiPickerContainer}>
+                    <EmojiPicker onEmojiClick={inputEmoji} searchDisabled={true}/>
+                  </div>
+                </Grow>
+                <BsEmojiKiss style={{cursor: "pointer"}} onClick={handleEmojiPicker} size={30} color="#39A789" />
+              </div>
             </div>
             <Button
+              className={styles.messageSendButton}
               color="greenary"
               type="submit"
-              className={styles.messageSendButton}
               variant="contained"
-              endIcon={<SendIcon />}
+              endIcon={<SendIcon/>}
             ></Button>
           </div>
         </div>
