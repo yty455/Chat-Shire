@@ -8,6 +8,7 @@ interface CustomProfileProps {
   onUpdateintroduction: any;
   onUpdatedetailIntroduction: any;
   onUpdatemySkill: any;
+  onUpdateposition: any;
   onUserLogin: () => void;
 }
 
@@ -15,12 +16,14 @@ export default function CustomProfileInfo({
   onUpdatenickname,
   onUpdateintroduction,
   onUpdatedetailIntroduction,
+  onUpdateposition,
   onUpdatemySkill,
   onUserLogin,
 }: CustomProfileProps) {
   const [nickname, setnickname] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [detailIntroduction, setDetailIntroduction] = useState("");
+  const [position, setposition] = useState("");
   const [mySkill, setMySkill] = useState<string[]>([]);
 
   const handleMySkillInputChange = (
@@ -53,6 +56,9 @@ export default function CustomProfileInfo({
     } else if (name === "detailIntroduction") {
       setDetailIntroduction(value);
       onUpdatedetailIntroduction(value);
+    } else if (name === "position") {
+      setposition(value);
+      onUpdateposition(value);
     }
   };
 
@@ -86,6 +92,16 @@ export default function CustomProfileInfo({
             <li key={index}>{skill}</li>
           ))}
         </ul>
+        <TextField
+          size="small"
+          sx={{ width: "340px", marginBottom: "20px" }}
+          id="position"
+          label="직무"
+          name="position"
+          value={position}
+          onChange={handleInputChange}
+          variant="outlined"
+        />
         <TextField
           size="small"
           sx={{ width: "340px", marginBottom: "20px" }}
