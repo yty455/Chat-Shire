@@ -12,10 +12,7 @@ import java.time.LocalDate;
 public class TaskRegister {
 
     private Long chatroomId;
-    private String name;
     private String description;
-    private LocalDate deadline;
-    private Priority priority;
     private Progress progress;
 
 }
