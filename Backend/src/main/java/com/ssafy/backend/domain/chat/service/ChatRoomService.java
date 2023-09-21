@@ -2,9 +2,11 @@ package com.ssafy.backend.domain.chat.service;
 
 import static com.ssafy.backend.domain.common.GlobalMethod.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.ssafy.backend.domain.chat.dto.ChatRoomUserInfoResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +52,10 @@ public class ChatRoomService {
 				.orElseThrow(() -> new ResourceNotFoundException("Notification.getChatRoom", chatRoomId)).getContent();
 
 		return ChatRoomInfoDetailResponse.toDto(chatRoom, content);
+	}
+
+	public List<ChatRoomUserInfoResponse> getMyChatRoomUsers(Long chatRoomId) {
+		return participationRepository.findByChatRoomId(chatRoomId);
 	}
 
 	@Transactional
