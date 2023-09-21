@@ -1,24 +1,20 @@
 package com.ssafy.backend.domain.chat.service;
 
-import com.ssafy.backend.domain.chat.dto.ChatInfo;
-import com.ssafy.backend.domain.chat.dto.ChatPost;
-import com.ssafy.backend.domain.chat.dto.ChatResponse;
-import com.ssafy.backend.domain.chat.repository.ChatRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisOperations;
+import static com.ssafy.backend.domain.common.GlobalMethod.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.ssafy.backend.domain.chat.dto.ChatInfo;
+import com.ssafy.backend.domain.chat.dto.ChatPost;
+import com.ssafy.backend.domain.chat.repository.ChatRepository;
 
-import static com.ssafy.backend.domain.common.GlobalMethod.getUserId;
-import static java.lang.String.valueOf;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
@@ -30,13 +26,13 @@ public class ChatService {
     private final RedisTemplate<String, ChatInfo> chatRedisTemplate;
 
     private final SimpMessagingTemplate simpMessagingTemplate;
-    private final String chatNumberKey = "chatNumber";
     private final String chatKey = "chat";
 
     public void postChat(ChatPost chatPost) {
         Long chatRoomId = chatPost.getChatRoomId();
 
         // Redis에서 값을 가져옴
+        String chatNumberKey = "chatNumber";
         Object chatNumberValue = redisTemplate.opsForValue().get(chatNumberKey + chatRoomId);
 
         // chatNumberValue가 null인 경우 "0"으로 설정
