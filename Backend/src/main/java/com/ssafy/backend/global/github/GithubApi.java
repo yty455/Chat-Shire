@@ -18,6 +18,7 @@ public class GithubApi {
 	GitHub github;
 	String token = "개인 깃허브 access Token";
 
+	// TODO: since 는 redis 에서 최근 커밋 시간을 가져와서 전달한다.
 	public Map<String, List<Date>> getCommitDatesSince(String repoName, String branchName, Date since) {
 		Map<String, List<Date>> commitDates = new HashMap<>();
 
@@ -30,16 +31,22 @@ public class GithubApi {
 
 			PagedIterable<GHCommit> commits = commit.getOwner().listCommits();
 
+			Date latest = new Date(0);
 			for (GHCommit c : commits) {
 				if (c.getAuthoredDate().after(since)) {
-					if (c.getCommitter() == null) continue;
+					if (c.getCommitter() == null)
+						continue;
 					String committerName = c.getCommitter().getName();
 					if (!commitDates.containsKey(committerName)) {
 						commitDates.put(committerName, new ArrayList<>());
 					}
 					commitDates.get(committerName).add(c.getCommitDate());
 				}
+				if (c.getCommitDate().after(latest)) {
+					latest = c.getCommitDate();
+				}
 			}
+			// TODO: Redis 에 저장소를 Key 로 사용해서 최근 커밋 시간을 저장해둔다.
 
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Failed to connect to GitHub or retrieve data");
