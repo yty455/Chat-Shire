@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./IndivTask.module.css";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -12,6 +12,10 @@ import { BsFillChatDotsFill } from "react-icons/bs";
 import { BsPencilFill } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
+import { getTask } from "../../utils/taskApi";
+import type { DatePickerProps } from 'antd';
+import { DatePicker, Space, Select } from 'antd';
+import './IndivTask.css'
 
 type CheckboxItem = {
   id: number;
@@ -31,6 +35,14 @@ interface SimpleContainerProps {
   projectId?: string;
 }
 
+const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+  console.log(date, dateString);
+};
+
+const priorityHandleChange = (value: string) => {
+  console.log(`selected ${value}`);
+};
+
 export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   //   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
   //     { id: 1, isChecked: false, content: '밥 맛깔나게 먹기! 밥 맛깔나게 먹기!', isEditing:false },
@@ -49,6 +61,21 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       )
     );
   };
+
+  const getInTask = async () => {
+    try {
+      if (projectId) {
+        const response = await getTask(projectId);
+        console.log(response);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getInTask();
+  }, []);
 
   const addCheckbox = () => {
     const newId = checkboxItems.length + 1;
@@ -82,11 +109,8 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
             item.id === id
               ? { ...item, content: event.target.value, isEditing: false }
               : item
-          )
-        );
-      }
-    }
-  };
+          ));
+      }}};
 
   return (
     <div className={styles.indivDiv}>
@@ -139,6 +163,21 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                     )}
                   </div>
                   <div className={styles.icons}>
+                    <div style={{margin:'-4px 0 0 0'}}>
+                      <DatePicker style={{margin: '-8px 0 10px 7px', height: 24, fontFamily:'preRg', width:'110px'}} size="small" bordered={false} placeholder="마감일 선택" onChange={onChange} />
+                      <Select
+                        bordered={false} 
+                        defaultValue="🔴"
+                        style={{ padding: 0, width: 62, height: 24, margin: '-15px 0 10px 0' }}
+                        onChange={priorityHandleChange}
+                        options={[
+                          { value: 'HIGH', label: '🔴' },
+                          { value: 'MIDDLE', label: '🟡' },
+                          { value: 'LOW', label: '🟢' },
+                        ]}
+                      />
+                    </div>
+                    <div>
                     <BsFillChatDotsFill
                       style={{ fontSize: "17px", margin: "-5px 5px 10px 0" }}
                     />
@@ -149,6 +188,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                       style={{ fontSize: "20px", margin: "-7px 10px 10px 0" }}
                       onClick={() => handleDelete(item.id)}
                     />
+                    </div>
                   </div>
                   {/* <AiFillDelete style={{fontSize: '24px', margin: '0px 5px 20px 0', paddingTop: '-3px'}} onClick={() => handleDelete(item.id)} /> */}
                   {/* <Button sx={{margin: '0 5px 20px 0' ,fontFamily:'preRg'}} color="greenary" size="small" variant="contained">관련 대화로 이동</Button>

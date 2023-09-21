@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import styles from "./ProjectModal.module.css";
 import { getProject } from "../../utils/projectApi";
-import { outProject } from "../../utils/projectApi";
+
 import { useNavigate } from "react-router-dom";
 
 interface ProjectModalProps {
   pjt: any;
   closeModal: () => void;
+  deleteProject: (projectId: any) => Promise<void>;
 }
 
-function ProjectModal({ pjt, closeModal }: ProjectModalProps) {
+function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
   const navigate = useNavigate();
   const getProjectDetail = async () => {
     try {
@@ -24,16 +25,6 @@ function ProjectModal({ pjt, closeModal }: ProjectModalProps) {
     getProjectDetail();
   }, []);
 
-  const deleteProject = async () => {
-    try {
-      const response = await outProject(pjt.id);
-      console.log(response);
-
-      navigate("/main");
-    } catch (error) {
-      console.error(error);
-    }
-  };
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
@@ -51,7 +42,7 @@ function ProjectModal({ pjt, closeModal }: ProjectModalProps) {
         >
           X
         </button>
-        <button onClick={deleteProject}>삭제</button>
+        <button onClick={() => deleteProject(pjt.id)}>삭제</button>
         <button>수정하기</button>
       </div>
     </div>

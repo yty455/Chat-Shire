@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import AnalysisPage from "./pages/AnalysisPage";
 import ProfilePage from "./pages/ProfilePage";
-import ProfileSettingPage from "./pages/ProfileSettingPage";
+import CustomProfilePage from "./pages/CustomProfilePage";
 import IdeaPage from "./pages/IdeaPage";
 import MessagePage from "./pages/MessagePage";
 import TaskPage from "./pages/TaskPage";
@@ -48,9 +48,12 @@ function AppRouter() {
             ></Route>
             <Route path="/profile" element={<ProfilePage />}></Route>
             <Route
-              path="/profile/setting"
-              element={<ProfileSettingPage />}
+              path="/profile/custom"
+              element={<CustomProfilePage />}
             ></Route>
+            <Route path="/idea" element={<IdeaPage />}></Route>
+            <Route path="/message" element={<MessagePage />}></Route>
+            <Route path="/task" element={<TaskPage />}></Route>
             <Route path="/idea/:projectId" element={<IdeaPage />}></Route>
             <Route path="/message/:projectId" element={<MessagePage />}></Route>
             <Route path="/task/:projectId" element={<TaskPage />}></Route>

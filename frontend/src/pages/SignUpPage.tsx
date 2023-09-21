@@ -4,13 +4,12 @@ import axios from "axios";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import { allLanguage } from "../utils/userApi";
+import { postUser } from "../utils/userApi";
 
 function SignUpPage() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nickname: "",
-    profileImage: "",
-    profileColor: "",
     introduction: "",
     detailIntroduction: "",
     mySkill: [] as string[],
@@ -72,7 +71,7 @@ function SignUpPage() {
         onChange={handleInputChange}
         placeholder="Nickname"
       />
-      <input
+      {/* <input
         type="text"
         name="profileImage"
         value={formData.profileImage}
@@ -85,7 +84,7 @@ function SignUpPage() {
         value={formData.profileColor}
         onChange={handleInputChange}
         placeholder="Profile Color"
-      />
+      /> */}
       <input
         type="text"
         name="introduction"

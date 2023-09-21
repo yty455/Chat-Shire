@@ -18,7 +18,7 @@ export default function MessagePage() {
     >
       <div className={styles.messagePageContainer}>
         <LeftSide />
-        <Message />
+        <Message projectId = {projectToPass}/>
         <SimpleContainer projectId={projectToPass} />
       </div>
     </div>
