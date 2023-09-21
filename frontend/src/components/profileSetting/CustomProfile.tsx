@@ -4,8 +4,10 @@ import React, { useState, useEffect } from "react";
 import styles from "./CustomProfile.module.css";
 
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import Grow from "@mui/material/Zoom";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
+import { FaCheck } from 'react-icons/fa'
 
 import { ChromePicker } from "react-color";
 interface CustomProfilePageProps {
@@ -82,7 +84,7 @@ export default function CustomProfile({
   return (
     <div className={styles.AvatarCustomContainer}>
       <div className={styles.AvatarCustomHeader}>
-        <span className={styles.AvatarCustomTitle}>MINIME CUSTOM</span>
+        <span className={styles.AvatarCustomTitle}>미니미 커스텀</span>
       </div>
       <div className={styles.AvatarCustomBody}>
         <div className={styles.AvatarCustomBodyLeft}>
@@ -162,67 +164,114 @@ export default function CustomProfile({
                     justifyContent: "flex-start",
                     alignItems: "flex-start",
                     flexWrap: "wrap",
-                    padding: "6px 4px",
+                    padding: "2px 2px",
                     position: "absolute",
                     left: "10px",
-                    width: "400px",
-                    height: "400px",
+                    width: "430px",
+                    height: "430px",
                   }}
                 >
                   <div className={styles.profileImgSelectorRow}>
                     <div
                       id="1"
                       className={styles.profileSelectItem}
+                      onClick={changeAvatar}
                       style={
                         selectedImg === "1"
-                          ? {
-                              border: "2px solid #afafaf",
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
                             }
-                          : {}
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                      onClick={changeAvatar}
-                    ></div>
+                    >
+                      {selectedImg === "1"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="2"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "2"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "2"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="3"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "3"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "3"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="4"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "4"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "4"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="5"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "5"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "5"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                   </div>
                   <div className={styles.profileImgSelectorRow}>
                     <div
@@ -231,50 +280,100 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "6"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "6"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="7"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "7"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "7"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="8"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "8"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "8"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="9"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "9"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "9"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="10"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "10"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "10"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                   </div>
                   <div className={styles.profileImgSelectorRow}>
                     <div
@@ -283,50 +382,100 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "11"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "11"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="12"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "12"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "12"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="13"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "13"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "13"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="14"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "14"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "14"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="15"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "15"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "15"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                   </div>
                   <div className={styles.profileImgSelectorRow}>
                     <div
@@ -335,50 +484,100 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "16"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "16"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="17"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "17"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "17"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="18"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "18"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "18"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="19"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "19"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "19"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="20"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "20"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "20"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                   </div>
                   <div className={styles.profileImgSelectorRow}>
                     <div
@@ -387,78 +586,126 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "21"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "21"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="22"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "22"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "22"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="23"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "23"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "23"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="24"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "24"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "24"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                     <div
                       id="25"
                       className={styles.profileSelectItem}
                       onClick={changeAvatar}
                       style={
                         selectedImg === "25"
-                          ? { border: "3px solid #45CEA8" }
-                          : {}
+                          ? { 
+                              transition: "0.3s",
+                              border: "3px solid #39a789",
+                              backgroundColor: "#ffffffcc",
+                            }
+                          : {
+                              border: "3px solid #ffffff",
+                              transition: "0.3s",
+                            }
                       }
-                    ></div>
+                    >
+                      {selectedImg === "25"
+                          ? <FaCheck color="#39a789" size={30}/> : null}
+                    </div>
                   </div>
                 </div>
                 {gender ? (
                   <img
                     style={{ marginLeft: "10px" }}
-                    height="400px"
+                    height="430px"
                     src={male}
                     alt=""
                   />
                 ) : (
                   <img
                     style={{ marginLeft: "10px" }}
-                    height="400px"
+                    height="430px"
                     src={female}
                     alt=""
                   />
                 )}
               </div>
               <div className={styles.profileImgSelectorButtons}>
-                <Button
+                <IconButton
                   color="greenary"
                   value="male"
-                  variant="contained"
                   onClick={handleGender}
                 >
-                  <BsGenderMale />
-                  <BsGenderFemale />
-                </Button>
+                  {gender ? <BsGenderMale /> : <BsGenderFemale />}
+                </IconButton>
               </div>
             </div>
           </div>
