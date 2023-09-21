@@ -1,5 +1,8 @@
 package com.ssafy.backend.domain.chat.dto;
 
+import lombok.Getter;
+
+@Getter
 public class ChatRoomUserInfoResponse {
     private Long userId;
     private String nickname;
