@@ -119,18 +119,18 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
             type="text"
             value={projectData.topic}
             onChange={(e) => {
-              setProjectData({ ...projectData, name: e.target.value });
+              setProjectData({ ...projectData, topic: e.target.value });
             }}
-            onBlur={() => setEditStates({ ...editStates, name: false })}
+            onBlur={() => setEditStates({ ...editStates, topic: false })}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 updatePJT();
-                setEditStates({ ...editStates, name: false });
+                setEditStates({ ...editStates, topic: false });
               }
             }}
           />
         ) : (
-          <p onClick={() => setEditStates({ ...editStates, name: true })}>
+          <p onClick={() => setEditStates({ ...editStates, topic: true })}>
             프로젝트 주제 {projectData.topic}
           </p>
         )}
@@ -140,18 +140,18 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
             type="text"
             value={projectData.teamName}
             onChange={(e) => {
-              setProjectData({ ...projectData, name: e.target.value });
+              setProjectData({ ...projectData, teamName: e.target.value });
             }}
-            onBlur={() => setEditStates({ ...editStates, name: false })}
+            onBlur={() => setEditStates({ ...editStates, teamName: false })}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 updatePJT();
-                setEditStates({ ...editStates, name: false });
+                setEditStates({ ...editStates, teamName: false });
               }
             }}
           />
         ) : (
-          <p onClick={() => setEditStates({ ...editStates, name: true })}>
+          <p onClick={() => setEditStates({ ...editStates, teamName: true })}>
             팀 이름 {projectData.teamName}
           </p>
         )}
@@ -161,18 +161,20 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
             type="text"
             value={projectData.description}
             onChange={(e) => {
-              setProjectData({ ...projectData, name: e.target.value });
+              setProjectData({ ...projectData, description: e.target.value });
             }}
-            onBlur={() => setEditStates({ ...editStates, name: false })}
+            onBlur={() => setEditStates({ ...editStates, description: false })}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 updatePJT();
-                setEditStates({ ...editStates, name: false });
+                setEditStates({ ...editStates, description: false });
               }
             }}
           />
         ) : (
-          <p onClick={() => setEditStates({ ...editStates, name: true })}>
+          <p
+            onClick={() => setEditStates({ ...editStates, description: true })}
+          >
             설명 {projectData.description}
           </p>
         )}
@@ -182,18 +184,24 @@ function ProjectModal({ pjt, closeModal, deleteProject }: ProjectModalProps) {
             type="text"
             value={projectData.gitRepository}
             onChange={(e) => {
-              setProjectData({ ...projectData, name: e.target.value });
+              setProjectData({ ...projectData, gitRepository: e.target.value });
             }}
-            onBlur={() => setEditStates({ ...editStates, name: false })}
+            onBlur={() =>
+              setEditStates({ ...editStates, gitRepository: false })
+            }
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 updatePJT();
-                setEditStates({ ...editStates, name: false });
+                setEditStates({ ...editStates, gitRepository: false });
               }
             }}
           />
         ) : (
-          <p onClick={() => setEditStates({ ...editStates, name: true })}>
+          <p
+            onClick={() =>
+              setEditStates({ ...editStates, gitRepository: true })
+            }
+          >
             깃 : {projectData.gitRepository}
           </p>
         )}
