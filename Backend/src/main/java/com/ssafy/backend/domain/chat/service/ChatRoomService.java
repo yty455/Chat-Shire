@@ -1,18 +1,9 @@
 package com.ssafy.backend.domain.chat.service;
 
-import static com.ssafy.backend.domain.common.GlobalMethod.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.ssafy.backend.domain.chat.dto.ChatRoomUserInfoResponse;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfo;
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfoDetailResponse;
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfoResponse;
+import com.ssafy.backend.domain.chat.dto.ChatRoomUserInfoResponse;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.chat.entity.Notification;
 import com.ssafy.backend.domain.chat.entity.Participation;
@@ -23,8 +14,15 @@ import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
 import com.ssafy.backend.domain.user.User;
 import com.ssafy.backend.domain.user.exception.UserNotFoundException;
 import com.ssafy.backend.domain.user.repository.UserRepository;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.ssafy.backend.domain.common.GlobalMethod.getUserId;
 
 @Service
 @Transactional(readOnly = true)
@@ -35,6 +33,8 @@ public class ChatRoomService {
 	private final ParticipationRepository participationRepository;
 	private final UserRepository userRepository;
 	private final NotificationRepository notificationRepository;
+
+	private final RedisTemplate<String, String> redisTemplate;
 
 	public List<ChatRoomInfoResponse> getMyChatRoom() {
 		List<ChatRoom> chatRooms = participationRepository.findByUserId(getUserId()).stream()
@@ -55,7 +55,13 @@ public class ChatRoomService {
 	}
 
 	public List<ChatRoomUserInfoResponse> getMyChatRoomUsers(Long chatRoomId) {
-		return participationRepository.findByChatRoomId(chatRoomId);
+		List<ChatRoomUserInfoResponse> chatRoomUserInfoResponseList = participationRepository.findByChatRoomId(chatRoomId);
+		for(ChatRoomUserInfoResponse chatRoomUserInfoResponse : chatRoomUserInfoResponseList){
+			String state = redisTemplate.opsForValue().get("userState-"+chatRoomUserInfoResponse.getUserId());
+			chatRoomUserInfoResponse.setState(state);
+		}
+
+		return chatRoomUserInfoResponseList;
 	}
 
 	@Transactional

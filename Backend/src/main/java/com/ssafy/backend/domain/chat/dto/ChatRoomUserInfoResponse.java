@@ -7,6 +7,11 @@ public class ChatRoomUserInfoResponse {
     private String nickname;
     private String profileImage;
     private String profileColor;
+    private String state;
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     public ChatRoomUserInfoResponse(Long userId, String nickname, String profileImage, String profileColor){
         this.userId = userId;
