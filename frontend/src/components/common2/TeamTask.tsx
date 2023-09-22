@@ -12,11 +12,15 @@ import dayjs from "dayjs";
 import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-import { getTaskGroup } from "../../utils/taskGroupApi";
-import { postTaskGroup } from "../../utils/taskGroupApi";
+
 import TeamTaskCreateModal from "./TeamTaskCreateModal";
 import TaskModal from "./TaskModal";
-import { deleteTaskGroup } from "../../utils/taskGroupApi";
+import {
+  deleteTaskGroup,
+  updateTaskGroup,
+  postTaskGroup,
+  getTaskGroup,
+} from "../../utils/taskGroupApi";
 
 const pieParams = { height: 200, margin: { right: 5 } };
 const palette = ["red", "blue", "green"];
@@ -224,6 +228,23 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     }
   };
 
+  const updateTeamTask = async (taskGroupId: any, data: any) => {
+    try {
+      const response = await updateTaskGroup(
+        taskGroupId,
+        data.name,
+        data.description,
+        data.priority,
+        data.progress,
+        data.deadline
+      );
+
+      getTeamTask();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getTeamTask();
   }, []);
@@ -337,6 +358,18 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   )}
                   <p className={styles.step} onClick={() => openModal(task.id)}>
                     {task.name}
+                  </p>
+                  <p
+                    style={{
+                      color:
+                        task.priority === "HIGH"
+                          ? "red"
+                          : task.priority === "LOW"
+                          ? "orange"
+                          : "green",
+                    }}
+                  >
+                    {task.priority}
                   </p>
                 </div>
                 <BorderLinearProgress variant="determinate" value={50} />
@@ -456,6 +489,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
               closeModal={closeModal}
               taskId={selectedTaskId}
               deleteTeamTask={deleteTeamTask}
+              updateTeamTask={updateTeamTask}
             />
           )}
         </div>

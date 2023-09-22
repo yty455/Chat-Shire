@@ -9,6 +9,19 @@ import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
+function getPriorityColor(priority: any) {
+  switch (priority) {
+    case "HIGH":
+      return "red";
+    case "MEDIUM":
+      return "green";
+    case "LOW":
+      return "orange";
+    default:
+      return "black";
+  }
+}
+
 interface TeamTaskCreateModalProps {
   taskData: any;
   closeModal: () => void;
@@ -23,7 +36,6 @@ function TeamTaskCreateModal({
   setTaskData,
 }: TeamTaskCreateModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
-
   const handleChange = (event: SelectChangeEvent) => {
     const selectedPriority = event.target.value as string;
     setTaskData({ ...taskData, priority: selectedPriority });
@@ -67,9 +79,11 @@ function TeamTaskCreateModal({
             setTaskData({ ...taskData, description: e.target.value })
           }
         />
-
         <FormControl
-          sx={{ m: 1, minWidth: 120 }}
+          sx={{
+            m: 1,
+            minWidth: 120,
+          }}
           size="small"
           style={{ margin: "20px" }}
           onClick={(e) => e.stopPropagation()}
@@ -80,10 +94,17 @@ function TeamTaskCreateModal({
             id="priority-select"
             value={taskData.priority}
             onChange={handleChange}
+            sx={{ color: getPriorityColor(taskData.priority) }}
           >
-            <MenuItem value="HIGH">High</MenuItem>
-            <MenuItem value="MEDIUM">Medium</MenuItem>
-            <MenuItem value="LOW">Low</MenuItem>
+            <MenuItem value="HIGH" sx={{ color: "red" }}>
+              High
+            </MenuItem>
+            <MenuItem value="MEDIUM" sx={{ color: "green" }}>
+              Medium
+            </MenuItem>
+            <MenuItem value="LOW" sx={{ color: "orange" }}>
+              Low
+            </MenuItem>
           </Select>
         </FormControl>
 
