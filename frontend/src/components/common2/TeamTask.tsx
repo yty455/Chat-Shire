@@ -15,6 +15,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { getTaskGroup } from "../../utils/taskGroupApi";
 import { postTaskGroup } from "../../utils/taskGroupApi";
 import TeamTaskCreateModal from "./TeamTaskCreateModal";
+import TaskModal from "./TaskModal";
 
 const pieParams = { height: 200, margin: { right: 5 } };
 const palette = ["red", "blue", "green"];
@@ -118,7 +119,7 @@ interface TeamTaskProps {
 
 export default function TeamTask({ projectId }: TeamTaskProps) {
   const [allTeamTask, setAllTeamTask] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState("");
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
     {
       id: 1,
@@ -135,11 +136,11 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     // ...
   ]);
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const openModal = (data: string | number) => {
+    setIsModalOpen(data.toString());
   };
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsModalOpen("");
   };
 
   const handleCheckboxChange = (id: number) => () => {
@@ -306,7 +307,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       variant="dot"
                     ></StyledBadgeRed>
                   )}
-                  <p className={styles.step}>{task.name}</p>
+                  <p className={styles.step} onClick={() => openModal(task.id)}>
+                    {task.name}
+                  </p>
                 </div>
                 <BorderLinearProgress variant="determinate" value={50} />
 
@@ -340,6 +343,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     </div>
                   </Grid>
                 ))}
+
+                {isModalOpen === task.id && (
+                  <TaskModal closeModal={closeModal} taskId={task.id} /> // taskId를 전달
+                )}
               </div>
             ))}
 
@@ -407,12 +414,12 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             aria-label="add"
             // onClick={addCheckbox}
             // onClick={createProjectGroup}
-            onClick={openModal}
+            onClick={() => openModal("create")}
           >
             <AddIcon />
           </Fab>
 
-          {isModalOpen && (
+          {isModalOpen === "create" && (
             <TeamTaskCreateModal
               taskData={taskData}
               closeModal={closeModal}

@@ -6,7 +6,7 @@ export const getTaskGroup = (projectId: string) =>
   api.get(`/projects/${projectId}/taskgroup`);
 
 // 태스크 그룹 상세조회
-export const getTaskGroupDetail = (taskGroupId: string) =>
+export const getTaskGroupDetail = (taskGroupId: string | number) =>
   api.get(`/taskgroup/${taskGroupId}`);
 
 // 태스크 그룹 수정
