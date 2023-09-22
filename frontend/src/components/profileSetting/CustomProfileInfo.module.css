@@ -37,9 +37,15 @@
   margin-top: 10px;
   width: 460px;
   height: 160px;
+  overflow: scroll;
+}
+
+.ProfileInfoSkillSelector::-webkit-scrollbar {
+  display: none;
 }
 
 .ProfileSkillIcon {
+  cursor: pointer;
   height: 32px;
   margin-right: 4px;
   margin-bottom: 4px;
