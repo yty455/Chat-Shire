@@ -113,10 +113,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     );
   };
   const [taskData, setTaskData] = useState({
-    name: "string",
-    description: "string",
+    name: "이름",
+    description: "설명",
     priority: "HIGH",
-    progress: "DONE",
+    progress: "ONGOING",
     deadline: "2023-09-21",
   });
 
@@ -172,8 +172,11 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     <div className={styles.container}>
       <div className={styles.title}>
         <p className={styles.messageLeftTitle}>2차 특화 PJT</p>
-        <AllBorderLinearProgress style={{marginTop: '29px', width: '500px'}} variant="determinate" value={50} />
-
+        <AllBorderLinearProgress
+          style={{ marginTop: "29px", width: "500px" }}
+          variant="determinate"
+          value={50}
+        />
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <div style={{ padding: "0 0 20px 20px", width: "50%" }}>
@@ -377,13 +380,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             value={taskData.priority}
             onChange={(e) =>
               setTaskData({ ...taskData, priority: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            value={taskData.progress}
-            onChange={(e) =>
-              setTaskData({ ...taskData, progress: e.target.value })
             }
           />
           <input

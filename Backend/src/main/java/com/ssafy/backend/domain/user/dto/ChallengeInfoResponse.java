@@ -2,8 +2,10 @@ package com.ssafy.backend.domain.user.dto;
 
 import com.ssafy.backend.domain.user.Challenge;
 import lombok.Builder;
+import lombok.Getter;
 
 @Builder
+@Getter
 public class ChallengeInfoResponse {
     private int project;    // 프로젝트 수
     private int commit;     // 커밋 수
