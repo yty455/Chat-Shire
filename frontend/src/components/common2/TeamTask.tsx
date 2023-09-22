@@ -180,7 +180,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <div style={{ padding: "0 0 20px 20px", width: "50%" }}>
-          <p className={styles.taskProgress}>Task 진행도</p>
+          {/* <p className={styles.taskProgress}>Task 진행도</p> */}
           {/* <div className={styles.progressBar}> */}
 
           {/* </div> */}

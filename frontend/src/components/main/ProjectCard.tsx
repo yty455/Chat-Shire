@@ -34,8 +34,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const getProjectUsers = async () => {
     try {
       const response = await getProjectMem(pjt.id);
-      console.log(response.data.result);
-      setpjtMem(response.data.result);
+      console.log(response.data.result[0]);
+      setpjtMem(response.data.result[0]);
     } catch (error) {
       console.error(error);
     }
@@ -55,6 +55,27 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <p>
             기간:{pjt.startDate}~{pjt.endDate.substr(5, 9)}
           </p>
+          {pjtMem ? (
+            <ul>
+              {pjtMem.map((user: any) => (
+                <li key={user.userId}>
+                  <ProfileImgBox
+                    backgroundColor={user.profileColor}
+                    text=""
+                    width="25px"
+                    height="25px"
+                    margin="10px"
+                    padding=""
+                    display="flex"
+                    backgroundImage={process.env.PUBLIC_URL + user.profileImage}
+                  ></ProfileImgBox>
+                  <span>{user.nickname}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Loading...</p>
+          )}
         </>
       ) : (
         <div
