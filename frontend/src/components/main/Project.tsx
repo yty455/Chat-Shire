@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import NowProject from "./NowProject";
-import ComProject from "./ComProject";
-import styles from "./Project.module.css";
 import Container from "../common/Container";
 import { getProjects } from "../../utils/projectApi";
 import { loginuser, nowProject_recoil } from "../../stores/atom";
@@ -9,6 +6,11 @@ import { useRecoilState } from "recoil";
 import ProjectModal from "./ProjectModal";
 import { outProject } from "../../utils/projectApi";
 import { updateProject } from "../../utils/projectApi";
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css'
+
+import styles from "./Project.module.css";
 
 const pjt = {
   now: [
@@ -55,12 +57,7 @@ const pjt = {
 
 function Project() {
   const [userDate, setUserDate] = useRecoilState(loginuser);
-  const [nowProject, setNowProject] = useRecoilState(nowProject_recoil);
-
-  const [allPjt, setAllPjt] = useState([]);
-  const [nowPjt, setNowPjt] = useState<any[]>([]);
-  const [comPjt, setComPjt] = useState<any[]>([]);
-  const today = new Date();
+  const [myProjects, setMyProjects] = useState([]);
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState<any>(null);
@@ -77,30 +74,7 @@ function Project() {
   const getMyProjects = async () => {
     try {
       const response = await getProjects();
-      console.log(response.data.result[0], 123);
-      const projects = response.data.result[0];
-      setAllPjt(response.data.result[0]);
-
-      const nowProjects: any[] = [];
-      const completedProjects: any[] = [];
-
-      for (const pjt of projects) {
-        if (new Date(pjt.endDate) < today) {
-          console.log(pjt, 2);
-          completedProjects.push(pjt);
-        } else {
-          console.log(pjt, 1);
-          nowProjects.push(pjt);
-        }
-        console.log(pjt.endDate);
-      }
-      console.log(nowProjects);
-      console.log(completedProjects);
-
-      setComPjt(completedProjects);
-      setNowProject(nowProjects);
-      console.log(nowProject);
-      console.log(comPjt);
+      setMyProjects(response.data.result[0]);
     } catch (error) {
       console.error(error);
     }
@@ -145,10 +119,10 @@ function Project() {
       fontSize=""
       backgroundColor="white"
       text=""
-      width="58vw"
-      height="85vh"
+      width="54vw"
+      height="81vh"
       margin=""
-      padding=""
+      padding="2vh 2vw"
       border="1px solid #E5E8EB"
       borderRadius="20px"
       boxShadow=""
@@ -157,16 +131,30 @@ function Project() {
       display="flex"
       justifyContent="center"
     >
-      <div className={styles.projectcontainer}>
-        <h2 className={styles.projecttxt}>PROJECT</h2>
-        <NowProject
-          nowpjt={nowProject || pjt.now}
-          onProjectCardClick={handleProjectCardClick}
-        ></NowProject>
-        <ComProject
-          compjt={comPjt || pjt.com}
-          onProjectCardClick={handleProjectCardClick}
-        ></ComProject>
+      <div className={styles.projectContainer}>
+        <span className={styles.projectTitle}>PROJECT</span>
+        <div style={{position: "relative"}}>
+          <Swiper
+            slidesPerView={2}
+            // centeredSlides={true}
+            spaceBetween={40}
+            grabCursor={true}
+            className={styles.SwiperContainer}
+          >
+          <SwiperSlide className={styles.SwiperItem}>
+            <span className={styles.swiperItemTitle}>CHAT-SHIRE</span>
+          </SwiperSlide>
+          <SwiperSlide className={styles.SwiperItem}>
+            <span className={styles.swiperItemTitle}>CHAT-SHIRE</span>
+          </SwiperSlide>
+          <SwiperSlide className={styles.SwiperItem}>
+            <span className={styles.swiperItemTitle}>CHAT-SHIRE</span>
+          </SwiperSlide>
+          <SwiperSlide className={styles.SwiperItem}>
+            <span className={styles.swiperItemTitle}>CHAT-SHIRE</span>
+          </SwiperSlide>
+        </Swiper>
+      </div>
       </div>
       {openModal && (
         <ProjectModal

@@ -15,86 +15,16 @@ interface ComProjectProps {
 }
 
 const ComProject: React.FC<ComProjectProps> = ({
-  compjt,
-  onProjectCardClick,
-}) => {
-  const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = Math.max(1, Math.ceil(compjt.length / 3));
+    compjt,
+    onProjectCardClick,
+  }) => {
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
   return (
-    <div>
-      <h3 className={styles.pjttxt}>완료한 PJT</h3>
-      {/* <Slick /> */}
-      <Box sx={{ flexGrow: 1 }}>
-        <div className={styles.comCardBox}>
-          {compjt.length === 0 ? (
-            // 프로젝트가 없을 때 빈 카드 표시
-            <ProjectCard showCreateButton={false} />
-          ) : (
-            <>
-              <ProjectCard
-                pjt={compjt[activeStep * 3]}
-                onCardClick={() => onProjectCardClick(compjt[activeStep * 3])}
-              />
-              <ProjectCard
-                pjt={compjt[activeStep * 3 + 1]}
-                onCardClick={() =>
-                  onProjectCardClick(compjt[activeStep * 3 + 1])
-                }
-              />
-              <ProjectCard
-                pjt={compjt[activeStep * 3 + 2]}
-                onCardClick={() =>
-                  onProjectCardClick(compjt[activeStep * 3 + 2])
-                }
-              />
-            </>
-          )}
-        </div>
-        <MobileStepper
-          style={{ height: "20px", padding: "10px" }}
-          variant="dots"
-          steps={maxSteps}
-          position="static"
-          activeStep={activeStep}
-          nextButton={
-            <Button
-              size="small"
-              onClick={handleNext}
-              disabled={activeStep === maxSteps - 1}
-            >
-              Next
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowLeft />
-              ) : (
-                <KeyboardArrowRight />
-              )}
-            </Button>
-          }
-          backButton={
-            <Button
-              size="small"
-              onClick={handleBack}
-              disabled={activeStep === 0}
-            >
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowRight />
-              ) : (
-                <KeyboardArrowLeft />
-              )}
-              Back
-            </Button>
-          }
-        />
-      </Box>
+    <div className={styles.ComProjectContainer}>
+      <span className={styles.pjttxt}>완료한 PJT</span>
+      <div className={styles.ComProjectSwiper}>
+        Swiper
+      </div>
     </div>
   );
 };
