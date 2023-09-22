@@ -5,10 +5,23 @@ import { getTaskGroupDetail } from "../../utils/taskGroupApi";
 interface TaskModalProps {
   closeModal: () => void;
   taskId: string | number;
+  deleteTeamTask: (taskGroupId: any) => Promise<void>;
 }
 
-function TaskModal({ closeModal, taskId }: TaskModalProps) {
-  const [teamTaskDetail, setTeamTaskDetail] = useState({});
+interface TeamTaskDetail {
+  id: string;
+  name: string;
+  description: string;
+  priority: string;
+  progress: string;
+  deadline: string;
+  taskInfoDetailResponses: [];
+}
+
+function TaskModal({ closeModal, taskId, deleteTeamTask }: TaskModalProps) {
+  const [teamTaskDetail, setTeamTaskDetail] = useState<TeamTaskDetail | null>(
+    null
+  );
   const modalRef = useRef<HTMLDivElement | null>(null);
   const getTeamTask = async () => {
     try {
@@ -38,11 +51,23 @@ function TaskModal({ closeModal, taskId }: TaskModalProps) {
 
   return (
     <div className={styles.modalOverlay}>
-      <div className={styles.modalContent}>
-        <p>{taskId}</p>
+      {teamTaskDetail && (
+        <div className={styles.modalContent}>
+          <p>{taskId}</p>
+          <p>{teamTaskDetail.name}</p>
+          <p>{teamTaskDetail.description}</p>
+          <p>{teamTaskDetail.priority}</p>
+          <p>{teamTaskDetail.progress}</p>
+          <p>{teamTaskDetail.deadline}</p>
 
-        <button onClick={closeModal}>닫기</button>
-      </div>
+          <button onClick={closeModal}>닫기</button>
+        </div>
+      )}
+      <button
+        onClick={() => teamTaskDetail && deleteTeamTask(teamTaskDetail.id)}
+      >
+        삭제
+      </button>
     </div>
   );
 }

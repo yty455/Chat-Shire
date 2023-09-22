@@ -8,7 +8,7 @@ import { styled } from "@mui/material/styles";
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
-
+import dayjs from "dayjs";
 import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
@@ -16,6 +16,7 @@ import { getTaskGroup } from "../../utils/taskGroupApi";
 import { postTaskGroup } from "../../utils/taskGroupApi";
 import TeamTaskCreateModal from "./TeamTaskCreateModal";
 import TaskModal from "./TaskModal";
+import { deleteTaskGroup } from "../../utils/taskGroupApi";
 
 const pieParams = { height: 200, margin: { right: 5 } };
 const palette = ["red", "blue", "green"];
@@ -138,6 +139,17 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     // ...
   ]);
 
+  const deleteTeamTask = async (taskGroupId: any) => {
+    try {
+      const response = await deleteTaskGroup(taskGroupId);
+      console.log(response);
+      getTeamTask();
+      closeModal();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const openModal = (data: string | number) => {
     console.log(data);
     setIsModalOpen(data.toString());
@@ -163,7 +175,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     description: "설명",
     priority: "HIGH",
     progress: "ONGOING",
-    deadline: "2023-09-21",
+    deadline: dayjs().format("YYYY-MM-DD"),
   });
 
   const addCheckbox = () => {
@@ -440,7 +452,11 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             />
           )}
           {selectedTaskId !== null && (
-            <TaskModal closeModal={closeModal} taskId={selectedTaskId} />
+            <TaskModal
+              closeModal={closeModal}
+              taskId={selectedTaskId}
+              deleteTeamTask={deleteTeamTask}
+            />
           )}
         </div>
       </div>
