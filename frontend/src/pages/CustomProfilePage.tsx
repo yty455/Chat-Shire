@@ -32,7 +32,6 @@ export default function CustomProfilePage() {
   });
   // 부모 컴포넌트에서 배경색 업데이트 함수
   const updateProfileColor = (color: string) => {
-    console.log(color);
     setFormData({
       ...formData,
       profileColor: color,
@@ -41,7 +40,6 @@ export default function CustomProfilePage() {
 
   // 부모 컴포넌트에서 프로필 이미지 업데이트 함수
   const updateProfileImage = (image: string) => {
-    console.log(image);
     setFormData({
       ...formData,
       profileImage: image,
@@ -49,7 +47,6 @@ export default function CustomProfilePage() {
   };
 
   const updateNickName = (nickname: string) => {
-    console.log(nickname);
     setFormData({
       ...formData,
       nickname: nickname,
@@ -57,7 +54,6 @@ export default function CustomProfilePage() {
   };
 
   const updateintroduction = (introduction: string) => {
-    console.log(introduction);
     setFormData({
       ...formData,
       introduction: introduction,
@@ -65,14 +61,12 @@ export default function CustomProfilePage() {
   };
 
   const updatedetailIntroduction = (detailIntroduction: string) => {
-    console.log(detailIntroduction);
     setFormData({
       ...formData,
       detailIntroduction: detailIntroduction,
     });
   };
   const updateposition = (position: string) => {
-    console.log(position);
     setFormData({
       ...formData,
       position: position,
@@ -80,7 +74,6 @@ export default function CustomProfilePage() {
   };
   // 부모 컴포넌트에서 프로필 이미지 업데이트 함수
   const updatemySkill = (mySkill: []) => {
-    console.log(mySkill);
     setFormData({
       ...formData,
       mySkill: mySkill,
@@ -103,6 +96,7 @@ export default function CustomProfilePage() {
       console.error(error);
     }
   };
+
   const userUpdate = async () => {
     try {
       const response = await api.patch("/users", formData);
@@ -111,6 +105,8 @@ export default function CustomProfilePage() {
         "refreshToken",
         response.headers["authorization-refresh"]
       );
+      setUserData(response.data.result);
+      setIsLogin(true);
       navigate("/profile");
     } catch (error) {
       console.error(error);

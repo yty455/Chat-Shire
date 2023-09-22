@@ -10,6 +10,9 @@ import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
 import { FaCheck } from 'react-icons/fa'
 
 import { ChromePicker } from "react-color";
+
+import { useRecoilState } from "recoil";
+import { isLogin_recoil, loginuser } from '../../stores/atom'
 interface CustomProfilePageProps {
   onUpdateProfileColor: any;
   onUpdateProfileImage: any;
@@ -28,11 +31,12 @@ export default function CustomProfile({
   const [profileImg, setProfileImg] = useState(
     process.env.PUBLIC_URL + "/assets/profile/male/m25.png"
   );
+  const [isLogin, setIsLogin] = useRecoilState(isLogin_recoil)
+  const [userData, setUserData] = useRecoilState(loginuser);
   const [selectedImg, setSelectedImg] = useState("");
   const containerRef = React.useRef<HTMLElement>(null);
 
   function activateCustom() {
-    console.log(activateProfileCustom);
     setActivateProfileCustom(!activateProfileCustom);
   }
 
@@ -45,7 +49,6 @@ export default function CustomProfile({
   }
 
   function handleChange(color: any) {
-    console.log(color);
     setProfileColor(color.hex);
     // 변경된 색상을 부모 컴포넌트로 전달
     // onUpdateProfileColor(color.hex);
@@ -55,6 +58,13 @@ export default function CustomProfile({
     setGender(!gender);
     setSelectedImg("");
   }
+
+  useEffect(() => {
+    if (isLogin) {
+      setProfileImg(userData.profileImage)
+      setProfileColor(userData.profileColor)
+    }
+  }, [])
 
   useEffect(() => {
     onUpdateProfileImage(profileImg);

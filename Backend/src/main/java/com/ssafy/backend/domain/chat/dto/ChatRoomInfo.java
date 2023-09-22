@@ -15,6 +15,8 @@ public class ChatRoomInfo {
 	private String topic; // FIXME: 카테고리 정해지면 enum 타입도 고려
 	private String description;
 	private String gitRepository;
+	private String branch;
+	private String GitAccessToken;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -27,6 +29,8 @@ public class ChatRoomInfo {
 				.topic(this.getTopic())
 				.description(this.getDescription())
 				.gitRepository(this.getGitRepository())
+				.branch(this.getBranch())
+				.gitAccessToken(this.getGitAccessToken())
 				.startDate(this.getStartDate())
 				.endDate(this.getEndDate()).build();
 	}
