@@ -34,6 +34,8 @@ public class ChatRoom extends BaseEntity {
 	private String teamName;
 	private String description;
 	private String gitRepository;
+	private String branch;
+	private String gitAccessToken;
 	private LocalDate startDate;
 	private LocalDate endDate;
 
@@ -43,6 +45,8 @@ public class ChatRoom extends BaseEntity {
 		updateTeamName(chatRoomInfo.getTeamName());
 		updateDescription(chatRoomInfo.getDescription());
 		updateGitRepository(chatRoomInfo.getGitRepository());
+		updateBranch(chatRoomInfo.getBranch());
+		updateGitAccessToken(chatRoomInfo.getGitAccessToken());
 		updateStartDate(chatRoomInfo.getStartDate());
 		updateEndDate(chatRoomInfo.getEndDate());
 	}
@@ -71,6 +75,14 @@ public class ChatRoom extends BaseEntity {
 
 	public void updateGitRepository(String gitRepository) {
 		updateIfNotNull(newValue -> this.gitRepository = newValue, gitRepository);
+	}
+
+	public void updateBranch(String branch) {
+		updateIfNotNull(newValue -> this.branch = newValue, branch);
+	}
+
+	public void updateGitAccessToken(String gitAccessToken) {
+		updateIfNotNull(newValue -> this.gitAccessToken = newValue, gitAccessToken);
 	}
 
 	public void updateStartDate(LocalDate startDate) {
