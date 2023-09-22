@@ -81,16 +81,16 @@ export default function CustomProfilePage() {
   };
 
   const userSign = async () => {
-    console.log(formData)
     try {
+      setUserData(formData);
+      setIsLogin(true);
       const response = await api.post("/users", formData);
       localStorage.setItem("token", response.headers["authorization"]);
       sessionStorage.setItem(
         "refreshToken",
         response.headers["authorization-refresh"]
       );
-      setUserData(response.data.result);
-      setIsLogin(true);
+      console.log(response.data.result)
       navigate("/main");
     } catch (error) {
       console.error(error);

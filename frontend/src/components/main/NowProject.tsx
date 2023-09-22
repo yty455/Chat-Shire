@@ -15,101 +15,16 @@ interface NowProjectProps {
 }
 
 const NowProject: React.FC<NowProjectProps> = ({
-  nowpjt,
-  onProjectCardClick,
-}) => {
-  const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = Math.ceil((nowpjt.length + 1) / 3);
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+    nowpjt,
+    onProjectCardClick,
+  }) => {
 
   return (
-    <div>
-      <h3 className={styles.pjttxt}>진행중인 PJT</h3>
-      <Box sx={{ flexGrow: 1 }}>
-        <div className={styles.nowCardBox}>
-          {activeStep + 1 === maxSteps ? (
-            <>
-              {nowpjt.length > activeStep && (
-                <ProjectCard
-                  pjt={nowpjt[activeStep]}
-                  onCardClick={() => onProjectCardClick(nowpjt[activeStep])}
-                />
-              )}
-              {nowpjt.length > activeStep + 1 && (
-                <ProjectCard
-                  pjt={nowpjt[activeStep + 1]}
-                  onCardClick={() => onProjectCardClick(nowpjt[activeStep + 1])}
-                />
-              )}
-              <ProjectCard showCreateButton={true} />
-            </>
-          ) : (
-            <>
-              {nowpjt.length > activeStep && (
-                <ProjectCard
-                  pjt={nowpjt[activeStep]}
-                  onCardClick={() => onProjectCardClick(nowpjt[activeStep])}
-                />
-              )}
-              {nowpjt.length > activeStep + 1 && (
-                <ProjectCard
-                  pjt={nowpjt[activeStep + 1]}
-                  onCardClick={() => onProjectCardClick(nowpjt[activeStep + 1])}
-                />
-              )}
-              {nowpjt.length > activeStep + 2 && (
-                <ProjectCard
-                  pjt={nowpjt[activeStep + 2]}
-                  onCardClick={() => onProjectCardClick(nowpjt[activeStep + 2])}
-                />
-              )}
-            </>
-          )}
-        </div>
-        <MobileStepper
-          style={{ height: "20px", padding: "10px" }}
-          variant="dots"
-          steps={maxSteps}
-          position="static"
-          activeStep={activeStep}
-          nextButton={
-            <Button
-              size="small"
-              onClick={handleNext}
-              disabled={activeStep === maxSteps - 1}
-            >
-              Next
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowLeft />
-              ) : (
-                <KeyboardArrowRight />
-              )}
-            </Button>
-          }
-          backButton={
-            <Button
-              size="small"
-              onClick={handleBack}
-              disabled={activeStep === 0}
-            >
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowRight />
-              ) : (
-                <KeyboardArrowLeft />
-              )}
-              Back
-            </Button>
-          }
-        />
-      </Box>
+    <div className={styles.NowProjectContainer}>
+      <span className={styles.pjttxt}>진행중인 PJT</span>
+      <div className={styles.NowProjectSwiper}>
+          Swiper
+      </div>
     </div>
   );
 };
