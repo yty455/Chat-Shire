@@ -35,25 +35,21 @@ function TeamTaskCreateModal({
     const formattedLimitDate = newDate ? newDate.format("YYYY-MM-DD") : "";
     setTaskData({ ...taskData, deadline: formattedLimitDate });
   };
-  const handleSelectClick = (event: React.MouseEvent<HTMLElement>) => {
-    // 모달이 닫히지 않도록 클릭 이벤트 전파 중지
-    event.stopPropagation();
-  };
 
-  useEffect(() => {
-    const handleOutsideClick = (event: any) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        // 모달 외부를 클릭한 경우 모달을 닫음
-        closeModal();
-      }
-    };
-    // 이벤트 리스너 추가
-    document.addEventListener("mousedown", handleOutsideClick);
-    // 컴포넌트 언마운트 시 이벤트 리스너 제거
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [closeModal]);
+  // useEffect(() => {
+  //   const handleOutsideClick = (event: any) => {
+  //     if (modalRef.current && !modalRef.current.contains(event.target)) {
+  //       // 모달 외부를 클릭한 경우 모달을 닫음
+  //       closeModal();
+  //     }
+  //   };
+  //   // 이벤트 리스너 추가
+  //   document.addEventListener("mousedown", handleOutsideClick);
+  //   // 컴포넌트 언마운트 시 이벤트 리스너 제거
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleOutsideClick);
+  //   };
+  // }, [closeModal]);
 
   return (
     <div className={styles.modalOverlay} ref={modalRef}>
@@ -76,7 +72,7 @@ function TeamTaskCreateModal({
           sx={{ m: 1, minWidth: 120 }}
           size="small"
           style={{ margin: "20px" }}
-          onClick={handleSelectClick}
+          onClick={(e) => e.stopPropagation()}
         >
           <InputLabel id="priority-label">Priority</InputLabel>
           <Select
@@ -92,7 +88,7 @@ function TeamTaskCreateModal({
         </FormControl>
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <div onClick={handleSelectClick}>
+          <div onClick={(e) => e.stopPropagation()}>
             <DatePicker
               value={limitDate}
               onChange={handleDateChange}
@@ -109,6 +105,7 @@ function TeamTaskCreateModal({
         <button onClick={createTeampjt} style={{ margin: "20px" }}>
           생성
         </button>
+        <button onClick={closeModal}>닫기</button>
       </div>
     </div>
   );
