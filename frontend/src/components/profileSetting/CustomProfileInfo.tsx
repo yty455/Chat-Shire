@@ -27,8 +27,8 @@ export default function CustomProfileInfo({
   onUserLogin,
   onUserUpdate,
 }: CustomProfileProps) {
-  const [nickname, setnickname] = useState("");
-  const [position, setposition] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [position, setPosition] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [detailIntroduction, setDetailIntroduction] = useState("");
   const [userData, setUserData] = useRecoilState(loginuser);
@@ -50,7 +50,7 @@ export default function CustomProfileInfo({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "nickname") {
-      setnickname(value);
+      setNickname(value);
       onUpdatenickname(value);
     } else if (name === "introduction") {
       setIntroduction(value);
@@ -59,14 +59,18 @@ export default function CustomProfileInfo({
       setDetailIntroduction(value);
       onUpdatedetailIntroduction(value);
     } else if (name === "position") {
-      setposition(value);
+      setPosition(value);
       onUpdateposition(value);
     }
   };
 
   useEffect(() => {
     if (isLogin) {
-      console.log(userData)
+      setNickname(userData.nickname)
+      setPosition(userData.position)
+      setIntroduction(userData.introduction)
+      setDetailIntroduction(userData.detailIntroduction)
+      setSelectedId(userData.mySkill)
     }
   }, [])
 
@@ -84,7 +88,7 @@ export default function CustomProfileInfo({
           required
           id="nickname"
           label="어떻게 부르면 될까요?"
-          defaultValue={isLogin ? userData.nickname : ""}
+          defaultValue={nickname}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"
@@ -134,7 +138,7 @@ export default function CustomProfileInfo({
           required
           id="standard-required"
           label="어떤 포지션을 맡고 계신가요?"
-          defaultValue={isLogin ? userData.position : ""}
+          defaultValue={position}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"
@@ -147,7 +151,7 @@ export default function CustomProfileInfo({
           required
           id="standard-required"
           label="나를 자랑 해주세요"
-          defaultValue={isLogin ? userData.introduction : ""}
+          defaultValue={introduction}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"
@@ -160,7 +164,7 @@ export default function CustomProfileInfo({
           required
           id="standard-required"
           label="간단한 소개 부탁드려요"
-          defaultValue={isLogin ? userData.detailIntroduction : ""}
+          defaultValue={detailIntroduction}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"
