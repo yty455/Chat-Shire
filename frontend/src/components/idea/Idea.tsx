@@ -12,7 +12,6 @@ import ReactFlow, {
   NodeOrigin,
   ConnectionLineType,
   XYPosition,
-
 } from 'reactflow';
 
 import { shallow } from 'zustand/shallow';
@@ -81,8 +80,8 @@ function Flow() {
 
     // we are calculating with positionAbsolute here because child nodes are positioned relative to their parent
     return {
-      x: panePosition.x - parentNode.positionAbsolute.x + parentNode.width / 2,
-      y: panePosition.y - parentNode.positionAbsolute.y + parentNode.height / 2,
+      x: panePosition.x,
+      y: panePosition.y,
     };
   };
 
