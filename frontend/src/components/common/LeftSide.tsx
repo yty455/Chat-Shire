@@ -158,11 +158,7 @@ function LeftSide(props: Props) {
         >
           <Avatar
             alt="Remy Sharp"
-            src={
-              userData.profileImage != null
-                ? process.env.PUBLIC_URL + userData.profileImage
-                : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-            }
+            src={userData?.profileImage ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"}
             sx={{ width: 80, height: 80, bgcolor: userData?.profileColor }}
           />
         </StyledBadge>
