@@ -133,7 +133,9 @@ function LeftSide(props: Props) {
   };
 
   useEffect(() => {
-    getProfilePage();
+    {
+      userData && getProfilePage();
+    }
   }, []);
 
   return (
