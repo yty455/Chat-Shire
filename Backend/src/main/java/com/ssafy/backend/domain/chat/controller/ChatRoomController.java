@@ -3,6 +3,7 @@ package com.ssafy.backend.domain.chat.controller;
 import java.util.Collections;
 import java.util.List;
 
+import com.ssafy.backend.domain.chat.dto.ChatRoomUserInfoResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +53,20 @@ public class ChatRoomController {
 				.message("내 프로젝트 채팅방 상세 조회 성공")
 				.count(1)
 				.result(Collections.singletonList(myChatRoomDetail))
+				.build();
+
+		return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+	}
+
+	@Operation(summary = "내 프로젝트 모든 멤버 조회", description = "내가 참여하고 있는 프로젝트의 모든 멤버를 조회합니다.")
+	@GetMapping("/projects/{projectId}/users")
+	public ResponseEntity<BasicResponse> getMyChatRoomUsers(@PathVariable("projectId") Long projectId) {
+		List<ChatRoomUserInfoResponse> chatRoomUserInfoResponses = chatRoomService.getMyChatRoomUsers(projectId);
+
+		BasicResponse basicResponse = BasicResponse.builder()
+				.message("내 프로젝트 모든 멤버 조회")
+				.count(chatRoomUserInfoResponses.size())
+				.result(Collections.singletonList(chatRoomUserInfoResponses))
 				.build();
 
 		return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());

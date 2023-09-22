@@ -34,6 +34,9 @@ public class TaskGroupService {
 
         TaskGroup taskGroup = TaskGroup.builder()
                 .name(taskGroupRegister.getName())
+                .description(taskGroupRegister.getDescription())
+                .progress(taskGroupRegister.getProgress())
+                .deadline(taskGroupRegister.getDeadline())
                 .priority(taskGroupRegister.getPriority())
                 .chatRoom(chatRoom).build();
 

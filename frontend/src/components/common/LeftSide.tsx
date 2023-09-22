@@ -169,11 +169,17 @@ function LeftSide(props: Props) {
         >
           <Avatar
             alt="Remy Sharp"
-            src={process.env.PUBLIC_URL + "/assets/profile/m57.png"}
-            sx={{ width: 80, height: 80 }}
+            src={
+              userData && userData?.profileImage
+                ? process.env.PUBLIC_URL + userData?.profileImage
+                : process.env.PUBLIC_URL + "/assets/profile/m57.png"
+            }
+            sx={{ width: 80, height: 80, bgcolor: userData?.profileColor }}
           />
         </StyledBadge>
-        <h5 className={styles.profilename}>{userData.nickname}CSI</h5>
+        <h5 className={styles.profilename}>
+          {userData ? userData?.nickname : "CSI"}
+        </h5>
       </div>
       <Divider />
       <List>
@@ -205,12 +211,12 @@ function LeftSide(props: Props) {
           </ListItemButton>
         </ListItem>
         {(pjtData.length > 0 ? pjtData : dummyData).map((pjt, index) => (
-          <ListItem key={pjt.id} disablePadding>
+          <ListItem key={pjt?.id} disablePadding>
             <ListItemButton>
               <Accordion
                 className={styles.box}
-                expanded={expanded === pjt.id}
-                onChange={handleChange(pjt.id)}
+                expanded={expanded === pjt?.id}
+                onChange={handleChange(pjt?.id)}
                 style={{
                   width: "100%",
                   borderRadius: "10px",

@@ -1,6 +1,7 @@
 package com.ssafy.backend.domain.user.controller;
 
 import com.ssafy.backend.domain.common.BasicResponse;
+import com.ssafy.backend.domain.user.State;
 import com.ssafy.backend.domain.user.dto.UserInfo;
 import com.ssafy.backend.domain.user.dto.UserInfoResponse;
 import com.ssafy.backend.domain.user.service.UserService;
@@ -85,6 +86,19 @@ public class UserController {
 
         BasicResponse basicResponse = BasicResponse.builder()
                 .message("회원 탈퇴 성공")
+                .build();
+
+        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+    }
+
+    @Operation(summary = "회원 상태 변경", description = "회원 상태를 변경합니다. - ONLINE, OFFLINE, AWAY, DND")
+    @PatchMapping("/users/state")
+    public ResponseEntity<BasicResponse> updateState(@RequestBody State state) {
+
+        userService.updateState(state);
+
+        BasicResponse basicResponse = BasicResponse.builder()
+                .message("회원 상태 변경 성공")
                 .build();
 
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());

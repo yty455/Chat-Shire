@@ -53,6 +53,8 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const [userData, setUserData] = useRecoilState(loginuser);
 
+  console.log(userData.challengeInfoResponse)
+
   function achievementPath(id: any) {
     return process.env.PUBLIC_URL + '/assets/achievements/' + id + '.png'
   }
@@ -100,42 +102,42 @@ export default function ProfilePage() {
         }}
       >
         <div className={styles.profileHeader}>
-          <ProfileLarge />
+          <img
+            style={{
+              width: "220px",
+              height: "220px",
+              objectFit: "cover",
+              borderRadius: "140px",
+              backgroundColor: userData.profileColor,
+              zIndex: "5",
+            }}
+            src={process.env.PUBLIC_URL + userData.profileImage}
+            alt=""
+          />
           <div className={styles.profileHeaderDesc}>
             <div className={styles.profileHeaderLeft}>
-              <span className={styles.profileName}>{userData.nickname} FE</span>
+              <span className={styles.profileName}>{userData.nickname} {userData.position}</span>
               <div className={styles.profileCareer}>
                 <div className={styles.profileCareerItem}>
                   <BsGithub size={30} style={{ marginRight: "8px" }} />
-                  <span>{userData.githubId}ggu123@gmail.com</span>
+                  <span>{userData.githubId}</span>
                 </div>
                 <div className={styles.profileCareerItem}>
-                  <BsCodeSlash size={30} style={{ marginRight: "8px" }} />
-                  <BiLogoTypescript size={26} />
-                  <BiLogoJavascript size={26} />
-                  <BiLogoHtml5 size={26} />
-                  <BiLogoPython size={26} />
-                  <BiLogoReact size={26} />
-                  <BiLogoVuejs size={26} />
-                  <BiLogoDjango size={26} />
-                  <BiLogoFlutter size={26} />
-                  <BiLogoGit size={26} />
-                  <BiLogoCss3 size={26} />
+                  {userData.mySkill.map((item: any) => {
+                    <span>{item}</span>
+                  })}
                 </div>
                 <div className={styles.profileCareerItem}>
                   <BsPersonFill size={30} style={{ marginRight: "8px" }} />
-                  <span>장관상수상, 슈퍼개발자</span>
+                  <span>{userData.introduction}</span>
                 </div>
               </div>
               <div className={styles.profileIntroduce}>
-                <span>
-                  {userData.detailIntroduction}안녕하세요 제 이름은 김구현이고
-                  어쩌고 저쩌고
-                </span>
+                <span>{userData.detailIntroduction}</span>
               </div>
-              <div className={styles.profileTag}>
-                <span>{userData.introduction}#하하 #헤헤 #히히 #호호</span>
-              </div>
+              {/* <div className={styles.profileTag}>
+                <span>{userData.hashTag}</span>
+              </div> */}
             </div>
             <div className={styles.profileHeaderRight}>
               <div className={styles.profileRadarContainer}>
