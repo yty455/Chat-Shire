@@ -21,14 +21,10 @@ import java.util.stream.Collectors;
 @Builder(toBuilder = true)
 public class TaskInfoDetailResponse {
     private Long id;
-    private Long taskGroupId; // -1이면 개인 태스크인 상태
-    private String name;
+    private Long taskGroupId; // 0이면 개인 태스크인 상태
     private String description;
     @Enumerated(EnumType.STRING)
-    private Priority priority;
-    @Enumerated(EnumType.STRING)
     private Progress progress;
-    private LocalDate deadline;
 
     private List<ReferenceInfoResponse> referenceInfoResponses = new ArrayList<>();
 
@@ -40,11 +36,8 @@ public class TaskInfoDetailResponse {
         return TaskInfoDetailResponse.builder()
                 .id(task.getId())
                 .taskGroupId(task.getTaskGroupId())
-                .name(task.getName())
                 .description(task.getDescription())
-                .priority(task.getPriority())
-                .progress(task.getProgress())
-                .deadline(task.getDeadline()).build();
+                .progress(task.getProgress()).build();
     }
 
     public static List<TaskInfoDetailResponse> fromEntityList(List<Task> tasks){
