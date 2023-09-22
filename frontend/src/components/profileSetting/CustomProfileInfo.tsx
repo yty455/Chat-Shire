@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./CustomProfileInfo.module.css";
 
 import TextField from "@mui/material/TextField";
-import Button from '@mui/material/Button'
+import Button from "@mui/material/Button";
 
 import MultiSelect from "../error/MultiSelect";
 import { useRecoilState } from "recoil";
@@ -89,7 +89,9 @@ export default function CustomProfileInfo({
           onChange={handleInputChange}
           // helperText="Please enter your name"
         />
-        <span style={{margin: "8px 0px -4px 0px", fontFamily: "preLt"}}>뭐할줄 알아여</span>
+        <span style={{ margin: "8px 0px -4px 0px", fontFamily: "preLt" }}>
+          뭐할줄 알아여
+        </span>
         <div className={styles.ProfileInfoSkillSelector}>
           <img id="java" onClick={selectSkill} className={styles.ProfileSkillIcon} src={selectedId.includes("java") ? `https://img.shields.io/badge/java-437291?style=for-the-badge&logo=openjdk&logoColor=white` : `https://img.shields.io/badge/java-757575?style=for-the-badge&logo=openjdk&logoColor=white`}/>
           <img id="python" onClick={selectSkill} className={styles.ProfileSkillIcon} src={selectedId.includes("python") ? `https://img.shields.io/badge/python-3777AB?style=for-the-badge&logo=python&logoColor=white` : `https://img.shields.io/badge/python-757575?style=for-the-badge&logo=python&logoColor=white`}/>

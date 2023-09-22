@@ -3,6 +3,8 @@ import CustomProfile from "../components/profileSetting/CustomProfile";
 import CustomProfileInfo from "../components/profileSetting/CustomProfileInfo";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
+import { useRecoilState } from "recoil";
+import { loginuser, isLogin_recoil } from "../stores/atom";
 
 interface CustomProfilePageProps {
   onUpdateProfileColor: (color: string) => void;
@@ -16,6 +18,9 @@ interface CustomProfilePageProps {
 
 export default function CustomProfilePage() {
   const navigate = useNavigate();
+  const [userData, setUserData] = useRecoilState(loginuser);
+  const [isLogin, setIsLogin] = useRecoilState(isLogin_recoil);
+
   const [formData, setFormData] = useState({
     nickname: "",
     profileImage: process.env.PUBLIC_URL + "/assets/profile/male/m25.png",
@@ -83,12 +88,13 @@ export default function CustomProfilePage() {
         "refreshToken",
         response.headers["authorization-refresh"]
       );
+      setUserData(response.data.result);
+      setIsLogin(true);
       navigate("/main");
     } catch (error) {
       console.error(error);
     }
-  }
-  ;
+  };
   const userUpdate = async () => {
     try {
       const response = await api.patch("/users", formData);

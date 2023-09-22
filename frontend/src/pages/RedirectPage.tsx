@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router";
-import { loginuser, accessToken } from "../stores/atom";
+import { loginuser, accessToken, isLogin_recoil } from "../stores/atom";
 import qs from "qs";
 import { postUser } from "../utils/userApi";
 import axios from "axios";
 
 function Redirect() {
   const [token, setToken] = useRecoilState(accessToken);
+  const [islogin, setIslogin] = useRecoilState(isLogin_recoil);
   const navigate = useNavigate();
   // const { code } = qs.parse(window.location.search, {
   //   ignoreQueryPrefix: true,
@@ -31,6 +32,7 @@ function Redirect() {
     }
     if (refreshToken) {
       // 리프레쉬 토큰이 있다면 메인 페이지로 이동
+      setIslogin(true);
       navigate("/main");
     } else {
       // 리프레쉬 토큰이 없다면 회원가입 페이지로 이동
