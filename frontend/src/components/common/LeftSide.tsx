@@ -170,7 +170,7 @@ function LeftSide(props: Props) {
           <Avatar
             alt="Remy Sharp"
             src={
-              userData
+              userData && userData?.profileImage
                 ? process.env.PUBLIC_URL + userData?.profileImage
                 : process.env.PUBLIC_URL + "/assets/profile/m57.png"
             }
@@ -178,7 +178,7 @@ function LeftSide(props: Props) {
           />
         </StyledBadge>
         <h5 className={styles.profilename}>
-          {userData ? userData.nickname : "CSI"}
+          {userData ? userData?.nickname : "CSI"}
         </h5>
       </div>
       <Divider />
