@@ -314,6 +314,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         </Grid>
       </Box>
       <Fab
+        style={{ zIndex: 2 }}
         sx={{
           mb: "20px",
           mt: "20px",
