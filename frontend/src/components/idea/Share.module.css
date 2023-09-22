@@ -1,13 +1,14 @@
 .indivDiv {
   width: 23vw;
-  height: 77vh;
-  padding: 0 0 0px 10px;
+  height: 74.5vh;
+  padding: 0 0 0 10px;
   margin: 0;
   overflow: scroll;
 }
 
 .indivDiv::-webkit-scrollbar {
-  width: 7px;  /* 스크롤바의 너비 */
+  /* width: 7px;  스크롤바의 너비 */
+  display: none;
 }
 
 .indivDiv::-webkit-scrollbar-thumb {
@@ -15,6 +16,7 @@
   background: #ababab; /* 스크롤바의 색상 */
   border-radius: 10px;
   opacity: 0.2
+
 }
 .indivDiv::-webkit-scrollbar-track {
   background: none;  /*스크롤바 뒷 배경 색상*/
