@@ -17,6 +17,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { postProject } from "../../utils/projectApi";
 import dayjs, { Dayjs } from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 const steps = [
   {
@@ -53,6 +54,7 @@ function CreateProject() {
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");
   const [gitRepository, setGitRepository] = useState("");
+  const navigate = useNavigate();
   const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs());
   const [endDate, setEndDate] = React.useState<Dayjs | null>(
     dayjs().add(1, "week")
@@ -114,6 +116,7 @@ function CreateProject() {
         formattedEndDate
       );
       console.log(response);
+      navigate("/main");
     } catch (error) {
       console.error(error);
     }

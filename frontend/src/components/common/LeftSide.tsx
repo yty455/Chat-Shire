@@ -171,10 +171,10 @@ function LeftSide(props: Props) {
             alt="Remy Sharp"
             src={
               userData
-                ? process.env.PUBLIC_URL + userData.profileImage
+                ? process.env.PUBLIC_URL + userData?.profileImage
                 : process.env.PUBLIC_URL + "/assets/profile/m57.png"
             }
-            sx={{ width: 80, height: 80 }}
+            sx={{ width: 80, height: 80, bgcolor: userData?.profileColor }}
           />
         </StyledBadge>
         <h5 className={styles.profilename}>

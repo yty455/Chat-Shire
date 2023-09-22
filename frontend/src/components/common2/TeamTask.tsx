@@ -197,6 +197,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       );
       console.log(response.data.result);
       getTeamTask();
+      closeModal();
     } catch (error) {
       console.error(error);
     }
