@@ -81,7 +81,7 @@ export default function CustomProfilePage() {
   };
 
   const userSign = async () => {
-    console.log(formData)
+    console.log(formData);
     try {
       const response = await api.post("/users", formData);
       localStorage.setItem("token", response.headers["authorization"]);
