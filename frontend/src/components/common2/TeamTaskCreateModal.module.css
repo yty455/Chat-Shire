@@ -1,0 +1,25 @@
+.modalOverlay {
+  border: 1px solid #39a789;
+  position: fixed;
+  display: flex;
+  right: 0;
+  bottom: 0;
+  top: 50%;
+  left: 45%;
+  background-color: rgb(250, 250, 250);
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  width: 30vw;
+  height: 40vh;
+  z-index: 9999;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  /* padding: 10px; */
+}
