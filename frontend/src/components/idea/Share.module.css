@@ -1,7 +1,7 @@
 .indivDiv {
   width: 23vw;
   height: 77vh;
-  padding: 0 10px 0px 10px;
+  padding: 0 0 0px 10px;
   margin: 0;
   overflow: scroll;
 }
@@ -56,12 +56,13 @@
   width: 320px;
   max-width: 320px;
   text-align: start;
-  margin-bottom: 0;
+  /* margin-bottom: 0; */
   font-family: 'preBd';
-  margin-right: 8px;
-  margin-bottom:20px;
+  /* margin-right: 8px; */
+  /* margin-bottom:20px; */
   overflow-wrap: normal;
   text-overflow:clip;
+  margin: 4px 8px;
 }
 
 .test {
