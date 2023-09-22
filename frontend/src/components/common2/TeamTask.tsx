@@ -285,9 +285,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           {allTeamTask &&
             allTeamTask.map((task: any) => (
               <div className={styles.taskContainer} key={task.id}>
-                {isModalOpen === task.id && (
-                  <TaskModal closeModal={closeModal} taskId={task.id} /> // taskId를 전달
-                )}
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
                 <div className={styles.taskHeader}>
                   <div className={styles.clockNday}>
@@ -436,6 +433,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
               setTaskData={setTaskData}
             />
           )}
+          {/* {isModalOpen === task.id && (
+            <TaskModal closeModal={closeModal} taskId={task.id} /> // taskId를 전달
+          )} */}
         </div>
       </div>
     </div>
