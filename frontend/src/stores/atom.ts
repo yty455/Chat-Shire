@@ -16,6 +16,7 @@ export const projectId = atom({
 export const isLogin_recoil = atom({
   key: "isLogin_recoil",
   default: false,
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const message = atom({

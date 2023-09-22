@@ -122,18 +122,7 @@ function LeftSide(props: Props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const getProfilePage = async () => {
-    try {
-      const response = await getProfile();
-      console.log(response.data.result[0]);
-      setUserData(response.data.result[0]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    getProfilePage();
   }, []);
 
   return (
