@@ -96,6 +96,7 @@ export default function CustomProfilePage() {
       console.error(error);
     }
   };
+
   const userUpdate = async () => {
     try {
       const response = await api.patch("/users", formData);
@@ -104,6 +105,8 @@ export default function CustomProfilePage() {
         "refreshToken",
         response.headers["authorization-refresh"]
       );
+      setUserData(response.data.result);
+      setIsLogin(true);
       navigate("/profile");
     } catch (error) {
       console.error(error);
