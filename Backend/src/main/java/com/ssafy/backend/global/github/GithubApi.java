@@ -22,9 +22,8 @@ public class GithubApi {
 
 	private final RedisTemplate<String, Object> redisTemplate;
 	GitHub github;
-	String token = "개인 깃허브 access Token";
 
-	public Map<String, List<Date>> getCommitDatesSince(String repoName, String branchName) {
+	public Map<String, List<Date>> getCommitDatesSince(String repoName, String branchName, String token) {
 		Map<String, List<Date>> commitDates = new HashMap<>();
 
 		try {
