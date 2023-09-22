@@ -72,7 +72,7 @@ export default function BasicTabs() {
             onChange={handleChange}
             aria-label="basic tabs example"
           >
-            <Tab sx={{ fontSize: "18px", fontFamily: "preBd" }} label="아이디어 및 자료" {...a11yProps(0)}/>
+            <Tab sx={{ fontSize: "18px", fontFamily: "preBd" }} label="아이디어 및 자료공유" {...a11yProps(0)}/>
             <Tab sx={{ fontSize: "18px", fontFamily: "preBd" }} label="에러" {...a11yProps(1)} />
           </CustomTabs>
         </div>

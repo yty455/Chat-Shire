@@ -65,22 +65,19 @@ const handleContentChange = (id:number) => (event:any) =>{
 
 return (
 <div className={styles.indivDiv}>
-  <div style={{display:'flex', justifyContent:'center'}}>
-    <h2 style={{marginLeft:'10px',fontFamily:'preBd',margin: '0', textAlign:'center',alignItems:'center',display:'flex', justifyContent:'center'}}>자료공유</h2>
-    <img alt="pin" src={process.env.PUBLIC_URL + "assets/pin.png"} style={{zIndex:"9999", margin:'5px 0 0 5px', width:'50px' }}/>
-  </div>
+    {/* <h2 style={{marginLeft:'10px',fontFamily:'preBd',margin: '0', textAlign:'center',alignItems:'center',display:'flex', justifyContent:'center'}}>자료공유</h2> */}
   <Box sx={{p:0,}}>
     <Grid container spacing={2}>
     {checkboxItems.map(item=>(
       <Grid item xs={12} key={item.id}>
         <Item sx={{margin:'0 10px', padding:0, minHeight: '20px'}} className={styles.oneMemo} elevation={7}>
           <div className={styles.indivTask}>
-            <Checkbox 
+            {/* <Checkbox 
             sx={{color:'#39A789','&.Mui-checked':{color:'#39A789'}}} 
             style={{height:'20px',margin:'14px 0'}}
             checked ={item.isChecked}
             onChange ={handleCheckboxChange(item.id)}
-            />
+            /> */}
             {item.isEditing?
             <input style={{fontFamily:'preRg',height: '30px', marginTop: '8px', border:'none'}} type="text" onBlur ={handleContentChange(item.id)} placeholder="내용을 입력하세요"/> :
             <p className={`${styles.taskContent} ${item.isChecked? styles.checked:''}`}>
