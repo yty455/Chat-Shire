@@ -51,23 +51,25 @@ function TaskModal({ closeModal, taskId, deleteTeamTask }: TaskModalProps) {
 
   return (
     <div className={styles.modalOverlay}>
-      {teamTaskDetail && (
-        <div className={styles.modalContent}>
-          <p>{taskId}</p>
-          <p>{teamTaskDetail.name}</p>
-          <p>{teamTaskDetail.description}</p>
-          <p>{teamTaskDetail.priority}</p>
-          <p>{teamTaskDetail.progress}</p>
-          <p>{teamTaskDetail.deadline}</p>
+      <div>
+        {teamTaskDetail && (
+          <div className={styles.modalContent}>
+            <p>{taskId}</p>
+            <p>{teamTaskDetail.name}</p>
+            <p>{teamTaskDetail.description}</p>
+            <p>{teamTaskDetail.priority}</p>
+            <p>{teamTaskDetail.progress}</p>
+            <p>{teamTaskDetail.deadline}</p>
 
-          <button onClick={closeModal}>닫기</button>
-        </div>
-      )}
-      <button
-        onClick={() => teamTaskDetail && deleteTeamTask(teamTaskDetail.id)}
-      >
-        삭제
-      </button>
+            <button onClick={closeModal}>닫기</button>
+          </div>
+        )}
+        <button
+          onClick={() => teamTaskDetail && deleteTeamTask(teamTaskDetail.id)}
+        >
+          삭제
+        </button>
+      </div>
     </div>
   );
 }
