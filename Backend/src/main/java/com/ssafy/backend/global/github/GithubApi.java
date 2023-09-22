@@ -13,16 +13,24 @@ import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 import org.kohsuke.github.PagedIterable;
+import org.springframework.data.redis.core.RedisTemplate;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class GithubApi {
+
+	private final RedisTemplate<String, Object> redisTemplate;
 	GitHub github;
 	String token = "개인 깃허브 access Token";
 
-	// TODO: since 는 redis 에서 최근 커밋 시간을 가져와서 전달한다.
-	public Map<String, List<Date>> getCommitDatesSince(String repoName, String branchName, Date since) {
+	public Map<String, List<Date>> getCommitDatesSince(String repoName, String branchName) {
 		Map<String, List<Date>> commitDates = new HashMap<>();
 
 		try {
+			// since 는 redis 에서 최근 커밋 시간을 가져와서 전달한다.
+			Date since = (Date)redisTemplate.opsForValue().get("latest_commit:" + repoName);
+
 			connectToGithub(token);
 
 			GHRepository repo = github.getRepository(repoName);
@@ -36,7 +44,7 @@ public class GithubApi {
 				if (c.getAuthoredDate().after(since)) {
 					if (c.getCommitter() == null)
 						continue;
-					String committerName = c.getCommitter().getName();
+					String committerName = c.getCommitter().getLogin();
 					if (!commitDates.containsKey(committerName)) {
 						commitDates.put(committerName, new ArrayList<>());
 					}
@@ -46,7 +54,8 @@ public class GithubApi {
 					latest = c.getCommitDate();
 				}
 			}
-			// TODO: Redis 에 저장소를 Key 로 사용해서 최근 커밋 시간을 저장해둔다.
+			// Redis 에 저장소를 Key 로 사용해서 최근 커밋 시간을 저장해둔다.
+			redisTemplate.opsForValue().set("latest_commit:" + repoName, latest);
 
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Failed to connect to GitHub or retrieve data");
