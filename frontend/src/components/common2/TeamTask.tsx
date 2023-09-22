@@ -119,6 +119,7 @@ interface TeamTaskProps {
 
 export default function TeamTask({ projectId }: TeamTaskProps) {
   const currentDate = new Date();
+  const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [allTeamTask, setAllTeamTask] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState("");
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
@@ -140,6 +141,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const openModal = (data: string | number) => {
     console.log(data);
     setIsModalOpen(data.toString());
+    // setSelectedTaskId(data);
   };
   const closeModal = () => {
     setIsModalOpen("");
