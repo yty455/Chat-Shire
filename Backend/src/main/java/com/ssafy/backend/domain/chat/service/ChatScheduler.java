@@ -48,67 +48,67 @@ public class ChatScheduler {
 
 	private final String chatNumberKey = "chatNumber";
 
-	@Scheduled(cron = "0 * * * * ?")
-	public void chatTransfer() throws IOException {
-
-		System.out.println("채팅 저장 실행");
-		List<ChatRoom> chatRoomList = chatRoomRepository.findAll();
-		Map<Long, User> userMap = userRepository.findAll().stream()
-				.collect(Collectors.toMap(User::getId, Function.identity()));
-
-		Map<Long, String> chatMap = new HashMap<>();
-
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-		String dateStr = dateFormat.format(new Date());
-		String directoryPath = "output/" + dateStr;
-		File directory = new File(directoryPath);
-		if (!directory.exists()) {
-			if (directory.mkdirs()) {
-				System.out.println("디렉토리 만들었다!");
-				String path = System.getProperty("user.dir");
-				System.out.println("Working Directory = " + path);
-			}
-		} else {
-			String path = System.getProperty("user.dir");
-			System.out.println("Working Directory = " + path);
-		}
-
-		try (PrintWriter writer = new PrintWriter(
-				String.format(directoryPath + "/output_%d.csv", System.currentTimeMillis()))) {
-			for (ChatRoom chatRoom : chatRoomList) {
-				String chatKey = "chat";
-				List<ChatInfo> chatInfos = chatRedisTemplate.opsForList().range(chatKey + chatRoom.getId(), 0, -1);
-				if (chatInfos == null)
-					continue;
-
-				// 유저별 채팅 구분 필요
-				for (ChatInfo chatInfo : chatInfos) {
-					if (chatMap.containsKey(chatInfo.getUserId())) {
-						chatMap.put(chatInfo.getUserId(), chatMap.get(chatInfo.getUserId()) + chatInfo.getContent());
-					} else {
-						chatMap.put(chatInfo.getUserId(), chatInfo.getContent());
-					}
-
-					// if (chatMap.get(chatInfo.getUserId()).length() >= 50) {
-					// 	List<ClassificationCategory> classificationCategories = googleNaturalAPI(chatMap,
-					// 			chatInfo);
-					//
-					// 	for (ClassificationCategory classificationCategory : classificationCategories) {
-					// 		StringTokenizer st = new StringTokenizer(classificationCategory.getName(), "/");
-					// 		String outputLine = String.format("%d, %d, %s\n", chatInfo.getUserId(), chatRoom.getId(), st.nextToken());
-					// 		writer.write(outputLine);
-					// 	}
-					// }
-				}
-
-				List<Chat> chats = chatInfos.stream()
-						.map(chatInfo -> chatInfo.toEntity(userMap.get(chatInfo.getUserId()), chatRoom))
-						.collect(Collectors.toList());
-
-				chatRepository.saveAll(chats);
-			}
-		}
-	}
+	// @Scheduled(cron = "0 0 * * * ?")
+	// public void chatTransfer() throws IOException {
+	//
+	// 	System.out.println("채팅 저장 실행");
+	// 	List<ChatRoom> chatRoomList = chatRoomRepository.findAll();
+	// 	Map<Long, User> userMap = userRepository.findAll().stream()
+	// 			.collect(Collectors.toMap(User::getId, Function.identity()));
+	//
+	// 	Map<Long, String> chatMap = new HashMap<>();
+	//
+	// 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+	// 	String dateStr = dateFormat.format(new Date());
+	// 	String directoryPath = "output/" + dateStr;
+	// 	File directory = new File(directoryPath);
+	// 	if (!directory.exists()) {
+	// 		if (directory.mkdirs()) {
+	// 			System.out.println("디렉토리 만들었다!");
+	// 			String path = System.getProperty("user.dir");
+	// 			System.out.println("Working Directory = " + path);
+	// 		}
+	// 	} else {
+	// 		String path = System.getProperty("user.dir");
+	// 		System.out.println("Working Directory = " + path);
+	// 	}
+	//
+	// 	try (PrintWriter writer = new PrintWriter(
+	// 			String.format(directoryPath + "/output_%d.csv", System.currentTimeMillis()))) {
+	// 		for (ChatRoom chatRoom : chatRoomList) {
+	// 			String chatKey = "chat";
+	// 			List<ChatInfo> chatInfos = chatRedisTemplate.opsForList().range(chatKey + chatRoom.getId(), 0, -1);
+	// 			if (chatInfos == null)
+	// 				continue;
+	//
+	// 			// 유저별 채팅 구분 필요
+	// 			for (ChatInfo chatInfo : chatInfos) {
+	// 				if (chatMap.containsKey(chatInfo.getUserId())) {
+	// 					chatMap.put(chatInfo.getUserId(), chatMap.get(chatInfo.getUserId()) + chatInfo.getContent());
+	// 				} else {
+	// 					chatMap.put(chatInfo.getUserId(), chatInfo.getContent());
+	// 				}
+	//
+	// 				// if (chatMap.get(chatInfo.getUserId()).length() >= 50) {
+	// 				// 	List<ClassificationCategory> classificationCategories = googleNaturalAPI(chatMap,
+	// 				// 			chatInfo);
+	// 				//
+	// 				// 	for (ClassificationCategory classificationCategory : classificationCategories) {
+	// 				// 		StringTokenizer st = new StringTokenizer(classificationCategory.getName(), "/");
+	// 				// 		String outputLine = String.format("%d, %d, %s\n", chatInfo.getUserId(), chatRoom.getId(), st.nextToken());
+	// 				// 		writer.write(outputLine);
+	// 				// 	}
+	// 				// }
+	// 			}
+	//
+	// 			List<Chat> chats = chatInfos.stream()
+	// 					.map(chatInfo -> chatInfo.toEntity(userMap.get(chatInfo.getUserId()), chatRoom))
+	// 					.collect(Collectors.toList());
+	//
+	// 			chatRepository.saveAll(chats);
+	// 		}
+	// 	}
+	// }
 
 	private static List<ClassificationCategory> googleNaturalAPI(Map<Long, String> chatMap, ChatInfo chatInfo) throws IOException {
 		// Instantiate the Language client com.google.cloud.language.v1.LanguageServiceClient

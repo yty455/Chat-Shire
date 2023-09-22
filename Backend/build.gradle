@@ -66,6 +66,10 @@ dependencies {
 
     // 구글 자연어처리
     implementation 'com.google.cloud:google-cloud-language:2.24.0'
+
+    // github
+    implementation 'org.kohsuke:github-api:1.316'
+
 }
 
 tasks.named('test') {

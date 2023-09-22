@@ -9,6 +9,19 @@ import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
+function getPriorityColor(priority: any) {
+  switch (priority) {
+    case "HIGH":
+      return "red";
+    case "MEDIUM":
+      return "green";
+    case "LOW":
+      return "orange";
+    default:
+      return "black";
+  }
+}
+
 interface TeamTaskCreateModalProps {
   taskData: any;
   closeModal: () => void;
@@ -23,7 +36,6 @@ function TeamTaskCreateModal({
   setTaskData,
 }: TeamTaskCreateModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
-
   const handleChange = (event: SelectChangeEvent) => {
     const selectedPriority = event.target.value as string;
     setTaskData({ ...taskData, priority: selectedPriority });
@@ -36,20 +48,20 @@ function TeamTaskCreateModal({
     setTaskData({ ...taskData, deadline: formattedLimitDate });
   };
 
-  useEffect(() => {
-    const handleOutsideClick = (event: any) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        // 모달 외부를 클릭한 경우 모달을 닫음
-        closeModal();
-      }
-    };
-    // 이벤트 리스너 추가
-    document.addEventListener("mousedown", handleOutsideClick);
-    // 컴포넌트 언마운트 시 이벤트 리스너 제거
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [closeModal]);
+  // useEffect(() => {
+  //   const handleOutsideClick = (event: any) => {
+  //     if (modalRef.current && !modalRef.current.contains(event.target)) {
+  //       // 모달 외부를 클릭한 경우 모달을 닫음
+  //       closeModal();
+  //     }
+  //   };
+  //   // 이벤트 리스너 추가
+  //   document.addEventListener("mousedown", handleOutsideClick);
+  //   // 컴포넌트 언마운트 시 이벤트 리스너 제거
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleOutsideClick);
+  //   };
+  // }, [closeModal]);
 
   return (
     <div className={styles.modalOverlay} ref={modalRef}>
@@ -67,11 +79,14 @@ function TeamTaskCreateModal({
             setTaskData({ ...taskData, description: e.target.value })
           }
         />
-
         <FormControl
-          sx={{ m: 1, minWidth: 120 }}
+          sx={{
+            m: 1,
+            minWidth: 120,
+          }}
           size="small"
           style={{ margin: "20px" }}
+          onClick={(e) => e.stopPropagation()}
         >
           <InputLabel id="priority-label">Priority</InputLabel>
           <Select
@@ -79,19 +94,28 @@ function TeamTaskCreateModal({
             id="priority-select"
             value={taskData.priority}
             onChange={handleChange}
+            sx={{ color: getPriorityColor(taskData.priority) }}
           >
-            <MenuItem value="HIGH">High</MenuItem>
-            <MenuItem value="MEDIUM">Medium</MenuItem>
-            <MenuItem value="LOW">Low</MenuItem>
+            <MenuItem value="HIGH" sx={{ color: "red" }}>
+              High
+            </MenuItem>
+            <MenuItem value="MEDIUM" sx={{ color: "green" }}>
+              Medium
+            </MenuItem>
+            <MenuItem value="LOW" sx={{ color: "orange" }}>
+              Low
+            </MenuItem>
           </Select>
         </FormControl>
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            value={limitDate}
-            onChange={handleDateChange}
-            sx={{ width: "150px", height: "16px", margin: "20px" }}
-          />
+          <div onClick={(e) => e.stopPropagation()}>
+            <DatePicker
+              value={limitDate}
+              onChange={handleDateChange}
+              sx={{ width: "150px", height: "16px", margin: "20px" }}
+            />
+          </div>
         </LocalizationProvider>
         {/* <input
         type="text"
@@ -102,6 +126,7 @@ function TeamTaskCreateModal({
         <button onClick={createTeampjt} style={{ margin: "20px" }}>
           생성
         </button>
+        <button onClick={closeModal}>닫기</button>
       </div>
     </div>
   );

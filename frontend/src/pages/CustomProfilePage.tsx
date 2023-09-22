@@ -90,7 +90,8 @@ export default function CustomProfilePage() {
         "refreshToken",
         response.headers["authorization-refresh"]
       );
-      console.log(response.data.result)
+      setUserData(formData);
+      setIsLogin(true);
       navigate("/main");
     } catch (error) {
       console.error(error);

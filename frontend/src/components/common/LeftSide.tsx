@@ -122,7 +122,20 @@ function LeftSide(props: Props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const getProfilePage = async () => {
+    try {
+      const response = await getProfile();
+      console.log(response.data.result[0]);
+      setUserData(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
+    {
+      userData && getProfilePage();
+    }
   }, []);
 
   return (
@@ -158,7 +171,11 @@ function LeftSide(props: Props) {
         >
           <Avatar
             alt="Remy Sharp"
-            src={userData?.profileImage ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"}
+            src={
+              userData.profileImage != null
+                ? process.env.PUBLIC_URL + userData.profileImage
+                : process.env.PUBLIC_URL + "/assets/profile/m57.png"
+            }
             sx={{ width: 80, height: 80, bgcolor: userData?.profileColor }}
           />
         </StyledBadge>
