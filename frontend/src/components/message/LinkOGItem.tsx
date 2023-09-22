@@ -11,7 +11,8 @@ export default function LinkOGItem() {
   const [ domain, setDomain ] = useState(null)
   const [ favicon, setFavicon ] = useState(null)
 
-  const requestUrl = "https://www.npmjs.com/package/@dhaiwat10/react-link-preview"
+  // const requestUrl = "https://www.npmjs.com/package/@dhaiwat10/react-link-preview"
+  const requestUrl = "https://www.naver.com"
 
   const url = `https://jsonlink.io/api/extract?url=${requestUrl}`
 
