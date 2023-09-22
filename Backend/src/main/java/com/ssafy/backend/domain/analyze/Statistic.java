@@ -30,10 +30,6 @@ public class Statistic {
 	private Long morningCommit;
 	private Long afternoonCommit;
 	private Long nightCommit;
-	private Long issueCount;
-	private Long chatCount;
-	private Long topicChatCount;
-	private Long taskCount;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CHATROOM_ID")
