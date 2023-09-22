@@ -96,3 +96,58 @@
   cursor: pointer;
 }
 
+.AchievementItemContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 78px;
+  height: 78px;
+  margin: 0px 14px 14px 0px;
+}
+
+.AchievementItemDesc {
+  border-radius: 100px;
+  position: absolute;
+  left: 33px;
+  transition-duration: 0.3s;
+  transition-property: width, transform;
+  transition-timing-function: ease-in-out;
+}
+
+.AchievementItem {
+  transition-duration: 0.3s;
+  transition-delay: 0.2s;
+  transition-property: width, transform;
+  transition-timing-function: ease-in-out;
+}
+
+.AchievementItemCount {
+  position: absolute;
+  top: 30px;
+  left: 28px;
+  opacity: 0;
+  z-index: 100;
+  color: #575757;
+}
+
+.AchievementItemContainer:hover > .AchievementItem {
+  transition: 0.3s ease-in-out;
+  transform: scaleX(0);
+}
+
+.AchievementItemContainer:hover > .AchievementItemDesc {
+  width: 78px;
+  transform: translateX(-32px);
+  transition-duration: 0.3s;
+  transition-delay: 0.2s;
+  transition-property: width, transform;
+  transition-timing-function: ease-in-out;
+}
+
+.AchievementItemContainer:hover > .AchievementItemCount {
+  opacity: 1;
+  transition-duration: 0.3s;
+  transition-delay: 0.5s;
+  transition-property: opacity;
+}
