@@ -64,7 +64,7 @@ export default function CustomProfile({
       setProfileImg(userData.profileImage)
       setProfileColor(userData.profileColor)
     }
-  })
+  }, [])
 
   useEffect(() => {
     onUpdateProfileImage(profileImg);
