@@ -15,6 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import com.ssafy.backend.domain.analyze.service.StatisticService;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.chat.repository.ChatRoomRepository;
+import com.ssafy.backend.domain.user.service.ChallengeService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +24,7 @@ public class GithubScheduler {
 
 	private final ChatRoomRepository chatRoomRepository;
 	private final StatisticService statisticService;
+	private final ChallengeService challengeService;
 	private final GithubApi githubApi;
 
 	// @Scheduled(cron = "0 0 * * * ?")
@@ -38,9 +40,9 @@ public class GithubScheduler {
 	//
 	// 		Map<String, List<Date>> commitDatesSince = githubApi.getCommitDatesSince(chatRoom.getGitRepository(), chatRoom.getBranch(), chatRoom.getGitAccessToken());
 	//
-	// 		// 김성인 : [커밋한 시간1, 커밋한 시간2]...
-	// 		for (String key : commitDatesSince.keySet()) {
-	// 			Map<String, Long> counts = commitDatesSince.get(key).stream()
+	// 		// ksi2564 : [커밋한 시간1, 커밋한 시간2]...
+	// 		for (String githubId : commitDatesSince.keySet()) {
+	// 			Map<String, Long> counts = commitDatesSince.get(githubId).stream()
 	// 					.map(date -> date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime())
 	// 					.map(time -> {
 	// 						if (!time.isBefore(LocalTime.of(4, 0))
@@ -57,6 +59,7 @@ public class GithubScheduler {
 	//
 	// 			long myCommitCount = counts.get("morning") + counts.get("afternoon") + counts.get("night");
 	// 			// TODO: 유저의 도전과제 commit 수 추가 해야함
+	// 			challengeService.updateMyCommit(githubId, myCommitCount);
 	//
 	// 			morningCommitCount += counts.get("morning");
 	// 			afternoonCommitCount += counts.get("afternoon");
