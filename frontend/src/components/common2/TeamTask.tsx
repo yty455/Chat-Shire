@@ -118,6 +118,7 @@ interface TeamTaskProps {
 }
 
 export default function TeamTask({ projectId }: TeamTaskProps) {
+  const currentDate = new Date();
   const [allTeamTask, setAllTeamTask] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState("");
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
@@ -137,6 +138,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   ]);
 
   const openModal = (data: string | number) => {
+    console.log(data);
     setIsModalOpen(data.toString());
   };
   const closeModal = () => {
@@ -276,16 +278,27 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             ))}
           </div>
         </div>
+
         <div style={{ padding: "0 20px 0 20px", width: "50%" }}>
           <p className={styles.taskProgress}>진행중인 Task</p>
+
           {allTeamTask &&
             allTeamTask.map((task: any) => (
               <div className={styles.taskContainer} key={task.id}>
+                {isModalOpen === task.id && (
+                  <TaskModal closeModal={closeModal} taskId={task.id} /> // taskId를 전달
+                )}
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
                 <div className={styles.taskHeader}>
                   <div className={styles.clockNday}>
                     <WatchLaterIcon />
-                    <p className={styles.dday}> {task.deadline}</p>
+                    <p className={styles.dday}>
+                      {Math.floor(
+                        (new Date(task.deadline).getTime() -
+                          currentDate.getTime()) /
+                          (1000 * 60 * 60 * 24)
+                      )}
+                    </p>
                   </div>
                   <div onClick={addCheckbox}>
                     <CreateIcon />
@@ -343,10 +356,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     </div>
                   </Grid>
                 ))}
-
-                {isModalOpen === task.id && (
-                  <TaskModal closeModal={closeModal} taskId={task.id} /> // taskId를 전달
-                )}
               </div>
             ))}
 
