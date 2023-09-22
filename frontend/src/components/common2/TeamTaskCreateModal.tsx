@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import styles from "./TeamTaskCreateModal.module.css";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -22,6 +22,8 @@ function TeamTaskCreateModal({
   createTeampjt,
   setTaskData,
 }: TeamTaskCreateModalProps) {
+  const modalRef = useRef<HTMLDivElement | null>(null);
+
   const handleChange = (event: SelectChangeEvent) => {
     const selectedPriority = event.target.value as string;
     setTaskData({ ...taskData, priority: selectedPriority });
@@ -34,8 +36,23 @@ function TeamTaskCreateModal({
     setTaskData({ ...taskData, deadline: formattedLimitDate });
   };
 
+  useEffect(() => {
+    const handleOutsideClick = (event: any) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        // 모달 외부를 클릭한 경우 모달을 닫음
+        closeModal();
+      }
+    };
+    // 이벤트 리스너 추가
+    document.addEventListener("mousedown", handleOutsideClick);
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [closeModal]);
+
   return (
-    <div className={styles.modalOverlay}>
+    <div className={styles.modalOverlay} ref={modalRef}>
       <div className={styles.formContainer}>
         <h2>팀 태스크 생성</h2>
         <input
