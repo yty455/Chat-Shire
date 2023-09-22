@@ -170,7 +170,7 @@ function LeftSide(props: Props) {
           <Avatar
             alt="Remy Sharp"
             src={
-              userData && userData.profileImage
+              userData.profileImage != null
                 ? process.env.PUBLIC_URL + userData.profileImage
                 : process.env.PUBLIC_URL + "/assets/profile/m57.png"
             }
