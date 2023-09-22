@@ -24,7 +24,7 @@ public class Challenge {
     @Builder.Default()
     private int project=0;    // 프로젝트 수
     @Builder.Default()
-    private int commit=0;     // 커밋 수
+    private long commit=0;     // 커밋 수
     @Builder.Default()
     private int chat=0;       // 채팅 수
     @Builder.Default()
@@ -46,4 +46,7 @@ public class Challenge {
     @Builder.Default()
     private int done=0;       // 도전과제 달성
 
+    public void updateCommit(Long commitCount) {
+        commit = commitCount;
+    }
 }
