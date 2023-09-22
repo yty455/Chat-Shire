@@ -108,7 +108,7 @@ export default function ProfilePage() {
               height: "220px",
               objectFit: "cover",
               borderRadius: "140px",
-              backgroundColor: "#84B5FF",
+              backgroundColor: userData.profileColor,
               zIndex: "5",
             }}
             src={process.env.PUBLIC_URL + userData.profileImage}
@@ -123,17 +123,9 @@ export default function ProfilePage() {
                   <span>{userData.githubId}</span>
                 </div>
                 <div className={styles.profileCareerItem}>
-                  <BsCodeSlash size={30} style={{ marginRight: "8px" }} />
-                  <BiLogoTypescript size={26} />
-                  <BiLogoJavascript size={26} />
-                  <BiLogoHtml5 size={26} />
-                  <BiLogoPython size={26} />
-                  <BiLogoReact size={26} />
-                  <BiLogoVuejs size={26} />
-                  <BiLogoDjango size={26} />
-                  <BiLogoFlutter size={26} />
-                  <BiLogoGit size={26} />
-                  <BiLogoCss3 size={26} />
+                  {userData.mySkill.map((item: any) => {
+                    <span>{item}</span>
+                  })}
                 </div>
                 <div className={styles.profileCareerItem}>
                   <BsPersonFill size={30} style={{ marginRight: "8px" }} />
