@@ -141,7 +141,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const openModal = (data: string | number) => {
     console.log(data);
     setIsModalOpen(data.toString());
-    // setSelectedTaskId(data);
+    if (data != "create") {
+      const taskId = typeof data === "string" ? parseInt(data) : data;
+      setSelectedTaskId(taskId);
+    }
   };
   const closeModal = () => {
     setIsModalOpen("");
@@ -435,9 +438,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
               setTaskData={setTaskData}
             />
           )}
-          {/* {isModalOpen === task.id && (
-            <TaskModal closeModal={closeModal} taskId={task.id} /> // taskId를 전달
-          )} */}
+          {selectedTaskId !== null && (
+            <TaskModal closeModal={closeModal} taskId={selectedTaskId} />
+          )}
         </div>
       </div>
     </div>

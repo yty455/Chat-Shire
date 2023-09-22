@@ -71,7 +71,11 @@ export default function CustomProfileInfo({
       setIntroduction(userData.introduction);
       setDetailIntroduction(userData.detailIntroduction);
       setSelectedId(userData.mySkill);
+      console.log(nickname);
+      console.log(position);
     }
+    console.log(introduction);
+    console.log(position);
   }, []);
 
   return (
@@ -88,7 +92,8 @@ export default function CustomProfileInfo({
           required
           id="nickname"
           label="어떻게 부르면 될까요?"
-          defaultValue={nickname}
+          // defaultValue={nickname}
+          value={nickname}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"
@@ -426,12 +431,14 @@ export default function CustomProfileInfo({
           required
           id="standard-required"
           label="어떤 포지션을 맡고 계신가요?"
-          defaultValue={position}
+          // defaultValue={position}
+          value={position}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"
         />
         <TextField
+          value={introduction}
           fullWidth
           name="introduction"
           color="greenary"
@@ -439,7 +446,7 @@ export default function CustomProfileInfo({
           required
           id="standard-required"
           label="나를 자랑 해주세요"
-          defaultValue={introduction}
+          // defaultValue={introduction}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"
@@ -452,7 +459,8 @@ export default function CustomProfileInfo({
           required
           id="standard-required"
           label="간단한 소개 부탁드려요"
-          defaultValue={detailIntroduction}
+          // defaultValue={detailIntroduction}
+          value={detailIntroduction}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"
