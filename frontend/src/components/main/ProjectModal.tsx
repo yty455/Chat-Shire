@@ -55,24 +55,6 @@ function ProjectModal({
     }
   };
 
-  // const updatePJT = async () => {
-  //   try {
-  //     const response = await updateProject(
-  //       pjt.id,
-  //       projectData.name,
-  //       projectData.teamName,
-  //       projectData.topic,
-  //       projectData.description,
-  //       projectData.gitRepository,
-  //       projectData.startDate,
-  //       projectData.endDate
-  //     );
-  //     console.log(response.data.result);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   const handleOutsideClick = (e: any) => {
     // 클릭한 요소가 인풋창 외부인 경우, 해당 인풋창의 상태를 닫음
     (Object.keys(editStates) as Array<keyof typeof editStates>).forEach(

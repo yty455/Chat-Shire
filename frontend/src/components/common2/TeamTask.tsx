@@ -8,13 +8,14 @@ import { styled } from "@mui/material/styles";
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
-import { PieChart } from "@mui/x-charts/PieChart";
-import Box from "@mui/material/Box";
+
 import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { getTaskGroup } from "../../utils/taskGroupApi";
 import { postTaskGroup } from "../../utils/taskGroupApi";
+import TeamTaskCreateModal from "./TeamTaskCreateModal";
+import TaskModal from "./TaskModal";
 
 const pieParams = { height: 200, margin: { right: 5 } };
 const palette = ["red", "blue", "green"];
@@ -83,12 +84,42 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
+const StyledBadgeRed = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    backgroundColor: "#44b700",
+    color: "red",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    "&::after": {
+      // position: "relative",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
+      content: '""',
+    },
+  },
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
+      opacity: 1,
+    },
+    "100%": {
+      transform: "scale(2.4)",
+      opacity: 0,
+    },
+  },
+}));
+
 interface TeamTaskProps {
   projectId: string;
 }
 
 export default function TeamTask({ projectId }: TeamTaskProps) {
   const [allTeamTask, setAllTeamTask] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState("");
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
     {
       id: 1,
@@ -104,6 +135,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     },
     // ...
   ]);
+
+  const openModal = (data: string | number) => {
+    setIsModalOpen(data.toString());
+  };
+  const closeModal = () => {
+    setIsModalOpen("");
+  };
 
   const handleCheckboxChange = (id: number) => () => {
     setCheckboxItems((prevItems) =>
@@ -141,12 +179,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const getTeamTask = async () => {
     try {
       const response = await getTaskGroup(projectId);
-      console.log(response.data.result);
-      setAllTeamTask(response.data.result);
+      console.log(response.data.result[0]);
+      setAllTeamTask(response.data.result[0]);
     } catch (error) {
       console.error(error);
     }
   };
+
   const createProjectGroup = async () => {
     try {
       const response = await postTaskGroup(
@@ -159,6 +198,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       );
       console.log(response.data.result);
       getTeamTask();
+      closeModal();
     } catch (error) {
       console.error(error);
     }
@@ -180,10 +220,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <div style={{ padding: "0 0 20px 20px", width: "50%" }}>
-          {/* <p className={styles.taskProgress}>Task 진행도</p> */}
-          {/* <div className={styles.progressBar}> */}
-
-          {/* </div> */}
           <p className={styles.taskProgress}>완료된 Task</p>
 
           <div className={styles.taskContainer}>
@@ -242,59 +278,77 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         </div>
         <div style={{ padding: "0 20px 0 20px", width: "50%" }}>
           <p className={styles.taskProgress}>진행중인 Task</p>
-          <div className={styles.taskContainer}>
-            <div className={styles.taskHeader}>
-              <div className={styles.clockNday}>
-                <WatchLaterIcon />
-                <p className={styles.dday}> 6d 14h</p>
-              </div>
-              <div onClick={addCheckbox}>
-                <CreateIcon />
-              </div>
-            </div>
-            <div className={styles.stepStatus}>
-              <StyledBadge
-                sx={{ margin: "14px 0 15px 20px" }}
-                overlap="circular"
-                anchorOrigin={{ vertical: "top", horizontal: "left" }}
-                variant="dot"
-              ></StyledBadge>
-              <p className={styles.step}>기획</p>
-            </div>
-            <BorderLinearProgress variant="determinate" value={50} />
-
-            {checkboxItems.map((item) => (
-              <Grid sx={{ margin: 0, padding: 0 }} item key={item.id}>
-                <div className={styles.indivTask}>
-                  <Checkbox
-                    sx={{
-                      color: "#39A789",
-                      "&.Mui-checked": { color: "#39A789" },
-                    }}
-                    style={{ height: "20px", margin: "4px 0" }}
-                    checked={item.isChecked}
-                    onChange={handleCheckboxChange(item.id)}
-                  />
-                  {item.isEditing ? (
-                    <input
-                      type="text"
-                      onBlur={handleContentChange(item.id)}
-                      placeholder="내용을 입력하세요"
-                    />
-                  ) : (
-                    <p
-                      className={`${styles.taskContent} ${
-                        item.isChecked ? styles.checked : ""
-                      }`}
-                    >
-                      {item.content}
-                    </p>
-                  )}
+          {allTeamTask &&
+            allTeamTask.map((task: any) => (
+              <div className={styles.taskContainer} key={task.id}>
+                {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
+                <div className={styles.taskHeader}>
+                  <div className={styles.clockNday}>
+                    <WatchLaterIcon />
+                    <p className={styles.dday}> {task.deadline}</p>
+                  </div>
+                  <div onClick={addCheckbox}>
+                    <CreateIcon />
+                  </div>
                 </div>
-                {/* <Button sx={{marginLeft: '5px', marginBottom:'20px',fontFamily:'preRg'}} color="error" size="small" onClick={() => removeCheckbox(item.id)} variant="contained">삭제</Button> */}
-              </Grid>
+                <div className={styles.stepStatus}>
+                  {task.progress === "ONGOING" ? (
+                    <StyledBadge
+                      sx={{ margin: "14px 0 15px 20px" }}
+                      overlap="circular"
+                      anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                      variant="dot"
+                    ></StyledBadge>
+                  ) : (
+                    <StyledBadgeRed
+                      sx={{ margin: "14px 0 15px 20px" }}
+                      overlap="circular"
+                      anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                      variant="dot"
+                    ></StyledBadgeRed>
+                  )}
+                  <p className={styles.step} onClick={() => openModal(task.id)}>
+                    {task.name}
+                  </p>
+                </div>
+                <BorderLinearProgress variant="determinate" value={50} />
+
+                {checkboxItems.map((item) => (
+                  <Grid sx={{ margin: 0, padding: 0 }} item key={item.id}>
+                    <div className={styles.indivTask}>
+                      <Checkbox
+                        sx={{
+                          color: "#39A789",
+                          "&.Mui-checked": { color: "#39A789" },
+                        }}
+                        style={{ height: "20px", margin: "4px 0" }}
+                        checked={item.isChecked}
+                        onChange={handleCheckboxChange(item.id)}
+                      />
+                      {item.isEditing ? (
+                        <input
+                          type="text"
+                          onBlur={handleContentChange(item.id)}
+                          placeholder="내용을 입력하세요"
+                        />
+                      ) : (
+                        <p
+                          className={`${styles.taskContent} ${
+                            item.isChecked ? styles.checked : ""
+                          }`}
+                        >
+                          {item.content}
+                        </p>
+                      )}
+                    </div>
+                  </Grid>
+                ))}
+
+                {isModalOpen === task.id && (
+                  <TaskModal closeModal={closeModal} taskId={task.id} /> // taskId를 전달
+                )}
+              </div>
             ))}
-          </div>
 
           <div className={styles.taskContainer}>
             <div className={styles.taskHeader}>
@@ -359,36 +413,20 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             color="greenary"
             aria-label="add"
             // onClick={addCheckbox}
-            onClick={createProjectGroup}
+            // onClick={createProjectGroup}
+            onClick={() => openModal("create")}
           >
             <AddIcon />
           </Fab>
-          <input
-            type="text"
-            value={taskData.name}
-            onChange={(e) => setTaskData({ ...taskData, name: e.target.value })}
-          />
-          <input
-            type="text"
-            value={taskData.description}
-            onChange={(e) =>
-              setTaskData({ ...taskData, description: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            value={taskData.priority}
-            onChange={(e) =>
-              setTaskData({ ...taskData, priority: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            value={taskData.deadline}
-            onChange={(e) =>
-              setTaskData({ ...taskData, deadline: e.target.value })
-            }
-          />
+
+          {isModalOpen === "create" && (
+            <TeamTaskCreateModal
+              taskData={taskData}
+              closeModal={closeModal}
+              createTeampjt={createProjectGroup}
+              setTaskData={setTaskData}
+            />
+          )}
         </div>
       </div>
     </div>
