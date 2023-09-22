@@ -148,6 +148,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   };
   const closeModal = () => {
     setIsModalOpen("");
+    setSelectedTaskId(null);
   };
 
   const handleCheckboxChange = (id: number) => () => {
