@@ -133,7 +133,9 @@ function LeftSide(props: Props) {
   };
 
   useEffect(() => {
-    getProfilePage();
+    {
+      userData && getProfilePage();
+    }
   }, []);
 
   return (
@@ -170,8 +172,8 @@ function LeftSide(props: Props) {
           <Avatar
             alt="Remy Sharp"
             src={
-              userData && userData?.profileImage
-                ? process.env.PUBLIC_URL + userData?.profileImage
+              userData.profileImage != null
+                ? process.env.PUBLIC_URL + userData.profileImage
                 : process.env.PUBLIC_URL + "/assets/profile/m57.png"
             }
             sx={{ width: 80, height: 80, bgcolor: userData?.profileColor }}

@@ -81,21 +81,23 @@ export default function CustomProfilePage() {
   };
 
   const userSign = async () => {
-    console.log(formData)
     try {
+      setUserData(formData);
+      setIsLogin(true);
       const response = await api.post("/users", formData);
       localStorage.setItem("token", response.headers["authorization"]);
       sessionStorage.setItem(
         "refreshToken",
         response.headers["authorization-refresh"]
       );
-      setUserData(response.data.result);
+      setUserData(formData);
       setIsLogin(true);
       navigate("/main");
     } catch (error) {
       console.error(error);
     }
   };
+
   const userUpdate = async () => {
     try {
       const response = await api.patch("/users", formData);
@@ -104,6 +106,8 @@ export default function CustomProfilePage() {
         "refreshToken",
         response.headers["authorization-refresh"]
       );
+      setUserData(response.data.result);
+      setIsLogin(true);
       navigate("/profile");
     } catch (error) {
       console.error(error);

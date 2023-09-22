@@ -1,3 +1,7 @@
+.ComProjectContainer {
+
+}
+
 .comCardBox {
   display: flex;
   justify-content: space-around;
@@ -5,10 +9,13 @@
 }
 
 .pjttxt {
-  margin-left: 5%;
-  margin-top: 2%;
-  margin-bottom: 1%;
-  font-weight: bold;
-  font-family: "preLt";
-  font-size: large;
+  font-family: "preBd";
+  font-size: 24px;
+  color: #575757;
+}
+
+.ComProjectSwiper {
+  border: 1px solid black;
+  height: 30vh;
+  margin-top: 10px;
 }

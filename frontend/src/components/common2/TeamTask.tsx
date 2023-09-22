@@ -8,13 +8,19 @@ import { styled } from "@mui/material/styles";
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
-
+import dayjs from "dayjs";
 import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-import { getTaskGroup } from "../../utils/taskGroupApi";
-import { postTaskGroup } from "../../utils/taskGroupApi";
+
 import TeamTaskCreateModal from "./TeamTaskCreateModal";
+import TaskModal from "./TaskModal";
+import {
+  deleteTaskGroup,
+  updateTaskGroup,
+  postTaskGroup,
+  getTaskGroup,
+} from "../../utils/taskGroupApi";
 
 const pieParams = { height: 200, margin: { right: 5 } };
 const palette = ["red", "blue", "green"];
@@ -117,8 +123,10 @@ interface TeamTaskProps {
 }
 
 export default function TeamTask({ projectId }: TeamTaskProps) {
+  const currentDate = new Date();
+  const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [allTeamTask, setAllTeamTask] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState("");
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
     {
       id: 1,
@@ -135,11 +143,28 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     // ...
   ]);
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const deleteTeamTask = async (taskGroupId: any) => {
+    try {
+      const response = await deleteTaskGroup(taskGroupId);
+      console.log(response);
+      getTeamTask();
+      closeModal();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const openModal = (data: string | number) => {
+    console.log(data);
+    setIsModalOpen(data.toString());
+    if (data != "create") {
+      const taskId = typeof data === "string" ? parseInt(data) : data;
+      setSelectedTaskId(taskId);
+    }
   };
   const closeModal = () => {
-    setIsModalOpen(false);
+    setIsModalOpen("");
+    setSelectedTaskId(null);
   };
 
   const handleCheckboxChange = (id: number) => () => {
@@ -154,7 +179,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     description: "설명",
     priority: "HIGH",
     progress: "ONGOING",
-    deadline: "2023-09-21",
+    deadline: dayjs().format("YYYY-MM-DD"),
   });
 
   const addCheckbox = () => {
@@ -198,6 +223,23 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       console.log(response.data.result);
       getTeamTask();
       closeModal();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateTeamTask = async (taskGroupId: any, data: any) => {
+    try {
+      const response = await updateTaskGroup(
+        taskGroupId,
+        data.name,
+        data.description,
+        data.priority,
+        data.progress,
+        data.deadline
+      );
+
+      getTeamTask();
     } catch (error) {
       console.error(error);
     }
@@ -275,8 +317,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             ))}
           </div>
         </div>
+
         <div style={{ padding: "0 20px 0 20px", width: "50%" }}>
           <p className={styles.taskProgress}>진행중인 Task</p>
+
           {allTeamTask &&
             allTeamTask.map((task: any) => (
               <div className={styles.taskContainer} key={task.id}>
@@ -284,7 +328,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 <div className={styles.taskHeader}>
                   <div className={styles.clockNday}>
                     <WatchLaterIcon />
-                    <p className={styles.dday}> {task.deadline}</p>
+                    <p className={styles.dday}>
+                      {Math.floor(
+                        (new Date(task.deadline).getTime() -
+                          currentDate.getTime()) /
+                          (1000 * 60 * 60 * 24)
+                      )}
+                    </p>
                   </div>
                   <div onClick={addCheckbox}>
                     <CreateIcon />
@@ -306,7 +356,21 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       variant="dot"
                     ></StyledBadgeRed>
                   )}
-                  <p className={styles.step}>{task.name}</p>
+                  <p className={styles.step} onClick={() => openModal(task.id)}>
+                    {task.name}
+                  </p>
+                  <p
+                    style={{
+                      color:
+                        task.priority === "HIGH"
+                          ? "red"
+                          : task.priority === "LOW"
+                          ? "orange"
+                          : "green",
+                    }}
+                  >
+                    {task.priority}
+                  </p>
                 </div>
                 <BorderLinearProgress variant="determinate" value={50} />
 
@@ -407,17 +471,25 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             aria-label="add"
             // onClick={addCheckbox}
             // onClick={createProjectGroup}
-            onClick={openModal}
+            onClick={() => openModal("create")}
           >
             <AddIcon />
           </Fab>
 
-          {isModalOpen && (
+          {isModalOpen === "create" && (
             <TeamTaskCreateModal
               taskData={taskData}
               closeModal={closeModal}
               createTeampjt={createProjectGroup}
               setTaskData={setTaskData}
+            />
+          )}
+          {selectedTaskId !== null && (
+            <TaskModal
+              closeModal={closeModal}
+              taskId={selectedTaskId}
+              deleteTeamTask={deleteTeamTask}
+              updateTeamTask={updateTeamTask}
             />
           )}
         </div>
