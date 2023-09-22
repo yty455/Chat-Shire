@@ -10,8 +10,14 @@
   border-radius: 20px;
 }
 
+.ProfileInfoHeader {
+  display: flex;
+  align-items: flex-end;
+  height: 50px;
+}
+
 .AvatarCustomTitle {
-  font-size: 36px;
+  font-size: 30px;
   font-family: 'preBl';
   color: #575757;
 }
@@ -19,6 +25,28 @@
 .ProfileInfoBody {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 10px;
   height: 76vh;
+}
+
+.ProfileInfoSkillSelector {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  margin-top: 10px;
+  width: 460px;
+  height: 160px;
+  overflow: scroll;
+}
+
+.ProfileInfoSkillSelector::-webkit-scrollbar {
+  display: none;
+}
+
+.ProfileSkillIcon {
+  cursor: pointer;
+  height: 32px;
+  margin-right: 4px;
+  margin-bottom: 4px;
 }

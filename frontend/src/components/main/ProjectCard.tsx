@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ProjectCard.module.css";
 import ProfileImgBox from "../common/ProfileImgBox";
 import Fab from "@mui/material/Fab";
@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { getProjectMem } from "../../utils/projectApi";
 
 interface ProjectCardProps {
   pjt?: any;
@@ -19,6 +20,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   showCreateButton,
 }) => {
   const [openModal, setOpenModal] = useState(false);
+  const [pjtMem, setpjtMem] = useState([]);
+
   const navigate = useNavigate();
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
     onCardClick?.();
@@ -28,6 +31,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     navigate("/createpjt");
   };
 
+  const getProjectUsers = async () => {
+    try {
+      const response = await getProjectMem(pjt.id);
+      console.log(response.data.result[0]);
+      setpjtMem(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getProjectUsers();
+  }, []);
+
   return (
     <div className={styles.card} onClick={handleModalClick}>
       {pjt ? (
@@ -36,8 +53,29 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <p>팀명:{pjt.teamName}</p>
           <p>주제:{pjt.topic}</p>
           <p>
-            기간:{pjt.startDate}~{pjt.endDate}
+            기간:{pjt.startDate}~{pjt.endDate.substr(5, 9)}
           </p>
+          {pjtMem ? (
+            <ul>
+              {pjtMem.map((user: any) => (
+                <li key={user.userId}>
+                  <ProfileImgBox
+                    backgroundColor={user.profileColor}
+                    text=""
+                    width="25px"
+                    height="25px"
+                    margin="10px"
+                    padding=""
+                    display="flex"
+                    backgroundImage={process.env.PUBLIC_URL + user.profileImage}
+                  ></ProfileImgBox>
+                  <span>{user.nickname}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Loading...</p>
+          )}
         </>
       ) : (
         <div
