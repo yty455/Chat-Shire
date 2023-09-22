@@ -35,6 +35,10 @@ function TeamTaskCreateModal({
     const formattedLimitDate = newDate ? newDate.format("YYYY-MM-DD") : "";
     setTaskData({ ...taskData, deadline: formattedLimitDate });
   };
+  const handleSelectClick = (event: React.MouseEvent<HTMLElement>) => {
+    // 모달이 닫히지 않도록 클릭 이벤트 전파 중지
+    event.stopPropagation();
+  };
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
@@ -72,6 +76,7 @@ function TeamTaskCreateModal({
           sx={{ m: 1, minWidth: 120 }}
           size="small"
           style={{ margin: "20px" }}
+          onClick={handleSelectClick}
         >
           <InputLabel id="priority-label">Priority</InputLabel>
           <Select
@@ -87,11 +92,13 @@ function TeamTaskCreateModal({
         </FormControl>
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            value={limitDate}
-            onChange={handleDateChange}
-            sx={{ width: "150px", height: "16px", margin: "20px" }}
-          />
+          <div onClick={handleSelectClick}>
+            <DatePicker
+              value={limitDate}
+              onChange={handleDateChange}
+              sx={{ width: "150px", height: "16px", margin: "20px" }}
+            />
+          </div>
         </LocalizationProvider>
         {/* <input
         type="text"
