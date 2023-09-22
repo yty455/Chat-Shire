@@ -84,7 +84,7 @@ export default function CustomProfileInfo({
           required
           id="nickname"
           label="어떻게 부르면 될까요?"
-          defaultValue=""
+          defaultValue={isLogin ? userData.nickname : ""}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"
@@ -134,7 +134,7 @@ export default function CustomProfileInfo({
           required
           id="standard-required"
           label="어떤 포지션을 맡고 계신가요?"
-          defaultValue=""
+          defaultValue={isLogin ? userData.position : ""}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"
@@ -147,7 +147,7 @@ export default function CustomProfileInfo({
           required
           id="standard-required"
           label="나를 자랑 해주세요"
-          defaultValue=""
+          defaultValue={isLogin ? userData.introduction : ""}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"
@@ -160,7 +160,7 @@ export default function CustomProfileInfo({
           required
           id="standard-required"
           label="간단한 소개 부탁드려요"
-          defaultValue=""
+          defaultValue={isLogin ? userData.detailIntroduction : ""}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"

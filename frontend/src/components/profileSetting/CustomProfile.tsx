@@ -150,6 +150,18 @@ export default function CustomProfile({
           </div>
         </div>
         <div className={styles.AvatarCustomBodyCenter}>
+          {isLogin ? <div
+            className={styles.profilePreview}
+            style={{ position: "relative", backgroundColor: userData.profileColor }}
+          >
+            <img
+              style={{ position: "absolute", bottom: "0" }}
+              width="260px"
+              height="260px"
+              src={userData.profileImage}
+              alt=""
+            />
+          </div> :
           <div
             className={styles.profilePreview}
             style={{ position: "relative", backgroundColor: profileColor }}
@@ -161,7 +173,7 @@ export default function CustomProfile({
               src={profileImg}
               alt=""
             />
-          </div>
+          </div>}
         </div>
         <div className={styles.AvatarCustomBodyRight}>
           <div className={styles.profileImgSelector}>
