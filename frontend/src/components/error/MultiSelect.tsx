@@ -119,7 +119,35 @@ function MultiSelect() {
       }}
       getOptionLabel={(option) => option}
       renderInput={(params) => (
-          <TextField {...params} sx={{'& .MuiInputLabel-root': {fontFamily: 'preBd', margin: '-7px 0 0 1px'},}} label="언어를 검색하세요" />
+          <TextField {...params} sx={{
+            '& .MuiInputLabel-root': {
+              fontFamily: 'preRg', 
+              color:'#adb5bd', 
+              margin: '-16px 0 0 1px', 
+              zIndex:'200',
+            },
+            '& .MuiInputBase-root': {
+              marginTop: '-10px',
+              boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%)',
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: '#e9ecef',
+                border: '1px solid #e9ecef',
+                borderTop: '1px solid #f8f9fa'
+              },
+              '&:hover fieldset': {
+                borderColor: '#e9ecef',
+                border: '1px solid #e9ecef',
+                borderTop: '1px solid #f8f9fa'
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: '#e9ecef',
+                border: '1px solid #e9ecef',
+                borderTop: '1px solid #f8f9fa'
+              },
+            }
+          }} label="언어를 검색하세요" />
       )}
       sx={{ 
           width: '300px', 
