@@ -58,7 +58,7 @@ public class GithubScheduler {
 	// 					.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 	//
 	// 			long myCommitCount = counts.get("morning") + counts.get("afternoon") + counts.get("night");
-	// 			// TODO: 유저의 도전과제 commit 수 추가 해야함
+	// 			// 유저의 도전과제 commit 수 추가 함
 	// 			challengeService.updateMyCommit(githubId, myCommitCount);
 	//
 	// 			morningCommitCount += counts.get("morning");
