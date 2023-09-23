@@ -68,7 +68,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                     padding=""
                     display="flex"
                     backgroundImage={process.env.PUBLIC_URL + user.profileImage}
-                  ></ProfileImgBox>
+                  />
                   <span>{user.nickname}</span>
                 </li>
               ))}
