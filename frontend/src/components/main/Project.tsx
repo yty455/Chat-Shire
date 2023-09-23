@@ -14,7 +14,7 @@ import 'swiper/css'
 
 import styles from "./Project.module.css";
 
-import { BiSolidTime } from 'react-icons/bi'
+import { BsFillCalendarFill } from 'react-icons/bs'
 
 const pjt = {
   now: [
@@ -147,17 +147,16 @@ function Project() {
           >
           <SwiperSlide className={styles.SwiperItem}>
             <div className={styles.SwiperItemHeader}>
-              <div className={styles.ProjectDateContainer}>
-                <BiSolidTime size={20} color="#575757"/>
-                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
-              </div>
               <div className={styles.ProjectTitleContainer}>
-                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
-                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+                <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
+              </div>
+              <div className={styles.ProjectDateContainer}>
+                <BsFillCalendarFill size={16} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
               </div>
             </div>
             <div className={styles.SwiperItemBody}>
-              <div className={styles.ProjectDescContainer}>
+              <div style={{marginTop: "4px", marginLeft: "4px"}} className={styles.ProjectDescContainer}>
                 <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
               </div>
               <div className={styles.ProjectTopicConatiner}>
@@ -176,17 +175,16 @@ function Project() {
           </SwiperSlide>
           <SwiperSlide className={styles.SwiperItem}>
             <div className={styles.SwiperItemHeader}>
-              <div className={styles.ProjectDateContainer}>
-                <BiSolidTime size={20} color="#575757"/>
-                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
-              </div>
               <div className={styles.ProjectTitleContainer}>
-                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
-                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+                <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
+              </div>
+              <div className={styles.ProjectDateContainer}>
+                <BsFillCalendarFill size={16} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
               </div>
             </div>
             <div className={styles.SwiperItemBody}>
-              <div className={styles.ProjectDescContainer}>
+              <div style={{marginTop: "4px", marginLeft: "4px"}} className={styles.ProjectDescContainer}>
                 <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
               </div>
               <div className={styles.ProjectTopicConatiner}>
@@ -205,17 +203,16 @@ function Project() {
           </SwiperSlide>
           <SwiperSlide className={styles.SwiperItem}>
             <div className={styles.SwiperItemHeader}>
-              <div className={styles.ProjectDateContainer}>
-                <BiSolidTime size={20} color="#575757"/>
-                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
-              </div>
               <div className={styles.ProjectTitleContainer}>
-                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
-                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+                <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
+              </div>
+              <div className={styles.ProjectDateContainer}>
+                <BsFillCalendarFill size={16} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
               </div>
             </div>
             <div className={styles.SwiperItemBody}>
-              <div className={styles.ProjectDescContainer}>
+              <div style={{marginTop: "4px", marginLeft: "4px"}} className={styles.ProjectDescContainer}>
                 <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
               </div>
               <div className={styles.ProjectTopicConatiner}>
@@ -234,17 +231,16 @@ function Project() {
           </SwiperSlide>
           <SwiperSlide className={styles.SwiperItem}>
             <div className={styles.SwiperItemHeader}>
-              <div className={styles.ProjectDateContainer}>
-                <BiSolidTime size={20} color="#575757"/>
-                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
-              </div>
               <div className={styles.ProjectTitleContainer}>
-                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
-                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+                <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
+              </div>
+              <div className={styles.ProjectDateContainer}>
+                <BsFillCalendarFill size={16} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
               </div>
             </div>
             <div className={styles.SwiperItemBody}>
-              <div className={styles.ProjectDescContainer}>
+              <div style={{marginTop: "4px", marginLeft: "4px"}} className={styles.ProjectDescContainer}>
                 <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
               </div>
               <div className={styles.ProjectTopicConatiner}>
@@ -263,17 +259,16 @@ function Project() {
           </SwiperSlide>
           <SwiperSlide className={styles.SwiperItem}>
             <div className={styles.SwiperItemHeader}>
-              <div className={styles.ProjectDateContainer}>
-                <BiSolidTime size={20} color="#575757"/>
-                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
-              </div>
               <div className={styles.ProjectTitleContainer}>
-                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
-                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+                <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
+              </div>
+              <div className={styles.ProjectDateContainer}>
+                <BsFillCalendarFill size={16} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
               </div>
             </div>
             <div className={styles.SwiperItemBody}>
-              <div className={styles.ProjectDescContainer}>
+              <div style={{marginTop: "4px", marginLeft: "4px"}} className={styles.ProjectDescContainer}>
                 <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
               </div>
               <div className={styles.ProjectTopicConatiner}>
@@ -292,17 +287,16 @@ function Project() {
           </SwiperSlide>
           <SwiperSlide className={styles.SwiperItem}>
             <div className={styles.SwiperItemHeader}>
-              <div className={styles.ProjectDateContainer}>
-                <BiSolidTime size={20} color="#575757"/>
-                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
-              </div>
               <div className={styles.ProjectTitleContainer}>
-                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
-                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+                <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
+              </div>
+              <div className={styles.ProjectDateContainer}>
+                <BsFillCalendarFill size={16} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
               </div>
             </div>
             <div className={styles.SwiperItemBody}>
-              <div className={styles.ProjectDescContainer}>
+              <div style={{marginTop: "4px", marginLeft: "4px"}} className={styles.ProjectDescContainer}>
                 <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
               </div>
               <div className={styles.ProjectTopicConatiner}>
@@ -321,17 +315,16 @@ function Project() {
           </SwiperSlide>
           <SwiperSlide className={styles.SwiperItem}>
             <div className={styles.SwiperItemHeader}>
-              <div className={styles.ProjectDateContainer}>
-                <BiSolidTime size={20} color="#575757"/>
-                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
-              </div>
               <div className={styles.ProjectTitleContainer}>
-                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
-                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+                <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
+              </div>
+              <div className={styles.ProjectDateContainer}>
+                <BsFillCalendarFill size={16} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
               </div>
             </div>
             <div className={styles.SwiperItemBody}>
-              <div className={styles.ProjectDescContainer}>
+              <div style={{marginTop: "4px", marginLeft: "4px"}} className={styles.ProjectDescContainer}>
                 <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
               </div>
               <div className={styles.ProjectTopicConatiner}>
@@ -350,17 +343,16 @@ function Project() {
           </SwiperSlide>
           <SwiperSlide className={styles.SwiperItem}>
             <div className={styles.SwiperItemHeader}>
-              <div className={styles.ProjectDateContainer}>
-                <BiSolidTime size={20} color="#575757"/>
-                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
-              </div>
               <div className={styles.ProjectTitleContainer}>
-                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
-                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+                <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
+              </div>
+              <div className={styles.ProjectDateContainer}>
+                <BsFillCalendarFill size={16} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
               </div>
             </div>
             <div className={styles.SwiperItemBody}>
-              <div className={styles.ProjectDescContainer}>
+              <div style={{marginTop: "4px", marginLeft: "4px"}} className={styles.ProjectDescContainer}>
                 <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
               </div>
               <div className={styles.ProjectTopicConatiner}>

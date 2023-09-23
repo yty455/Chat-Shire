@@ -58,8 +58,7 @@
   padding: 0px 10px 10px 10px;;
   width: 340px;
   height: 237px;
-  background-color: #eeeeee;
-  border-top: 3px solid gray;
+  border-top: 2px solid gray;
   border-radius: 0px 0px 20px 20px;
 }
 
@@ -78,9 +77,10 @@
   justify-content: flex-start;
   align-content: flex-start;
   padding: 6px 0px;
-  width: 360px;
-  height: 108px;
+  width: 340px;
+  height: 88px;
   overflow: scroll;
+  background-color: #E5E8EB;
 }
 
 .ProjectTopicConatiner::-webkit-scrollbar {
