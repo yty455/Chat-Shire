@@ -6,11 +6,15 @@ import { useRecoilState } from "recoil";
 import ProjectModal from "./ProjectModal";
 import { outProject } from "../../utils/projectApi";
 import { updateProject } from "../../utils/projectApi";
+import { Avatar } from "@mui/material";
+import Keywords from "../analysis/Keywords";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css'
 
 import styles from "./Project.module.css";
+
+import { BiSolidTime } from 'react-icons/bi'
 
 const pjt = {
   now: [
@@ -56,7 +60,7 @@ const pjt = {
 };
 
 function Project() {
-  const [userDate, setUserDate] = useRecoilState(loginuser);
+  const [userData, setUserData] = useRecoilState(loginuser);
   const [myProjects, setMyProjects] = useState([]);
 
   const [openModal, setOpenModal] = useState(false);
@@ -132,26 +136,246 @@ function Project() {
       justifyContent="center"
     >
       <div className={styles.projectContainer}>
-        <span className={styles.projectTitle}>PROJECT</span>
+        <span className={styles.projectTitle}>CSI님의 프로젝트에요</span>
         <div style={{position: "relative"}}>
           <Swiper
-            slidesPerView={2}
+            slidesPerView={'auto'}
+            spaceBetween={30}
             // centeredSlides={true}
-            spaceBetween={40}
             grabCursor={true}
             className={styles.SwiperContainer}
           >
           <SwiperSlide className={styles.SwiperItem}>
-            <span className={styles.swiperItemTitle}>CHAT-SHIRE</span>
+            <div className={styles.SwiperItemHeader}>
+              <div className={styles.ProjectDateContainer}>
+                <BiSolidTime size={20} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
+              </div>
+              <div className={styles.ProjectTitleContainer}>
+                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
+                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+              </div>
+            </div>
+            <div className={styles.SwiperItemBody}>
+              <div className={styles.ProjectDescContainer}>
+                <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+              </div>
+              <div className={styles.ProjectTopicConatiner}>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+              </div>
+              <div className={styles.ProjectMemberContainer}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>
           </SwiperSlide>
           <SwiperSlide className={styles.SwiperItem}>
-            <span className={styles.swiperItemTitle}>CHAT-SHIRE</span>
+            <div className={styles.SwiperItemHeader}>
+              <div className={styles.ProjectDateContainer}>
+                <BiSolidTime size={20} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
+              </div>
+              <div className={styles.ProjectTitleContainer}>
+                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
+                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+              </div>
+            </div>
+            <div className={styles.SwiperItemBody}>
+              <div className={styles.ProjectDescContainer}>
+                <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+              </div>
+              <div className={styles.ProjectTopicConatiner}>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+              </div>
+              <div className={styles.ProjectMemberContainer}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>
           </SwiperSlide>
           <SwiperSlide className={styles.SwiperItem}>
-            <span className={styles.swiperItemTitle}>CHAT-SHIRE</span>
+            <div className={styles.SwiperItemHeader}>
+              <div className={styles.ProjectDateContainer}>
+                <BiSolidTime size={20} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
+              </div>
+              <div className={styles.ProjectTitleContainer}>
+                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
+                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+              </div>
+            </div>
+            <div className={styles.SwiperItemBody}>
+              <div className={styles.ProjectDescContainer}>
+                <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+              </div>
+              <div className={styles.ProjectTopicConatiner}>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+              </div>
+              <div className={styles.ProjectMemberContainer}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>
           </SwiperSlide>
           <SwiperSlide className={styles.SwiperItem}>
-            <span className={styles.swiperItemTitle}>CHAT-SHIRE</span>
+            <div className={styles.SwiperItemHeader}>
+              <div className={styles.ProjectDateContainer}>
+                <BiSolidTime size={20} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
+              </div>
+              <div className={styles.ProjectTitleContainer}>
+                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
+                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+              </div>
+            </div>
+            <div className={styles.SwiperItemBody}>
+              <div className={styles.ProjectDescContainer}>
+                <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+              </div>
+              <div className={styles.ProjectTopicConatiner}>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+              </div>
+              <div className={styles.ProjectMemberContainer}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className={styles.SwiperItem}>
+            <div className={styles.SwiperItemHeader}>
+              <div className={styles.ProjectDateContainer}>
+                <BiSolidTime size={20} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
+              </div>
+              <div className={styles.ProjectTitleContainer}>
+                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
+                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+              </div>
+            </div>
+            <div className={styles.SwiperItemBody}>
+              <div className={styles.ProjectDescContainer}>
+                <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+              </div>
+              <div className={styles.ProjectTopicConatiner}>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+              </div>
+              <div className={styles.ProjectMemberContainer}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className={styles.SwiperItem}>
+            <div className={styles.SwiperItemHeader}>
+              <div className={styles.ProjectDateContainer}>
+                <BiSolidTime size={20} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
+              </div>
+              <div className={styles.ProjectTitleContainer}>
+                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
+                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+              </div>
+            </div>
+            <div className={styles.SwiperItemBody}>
+              <div className={styles.ProjectDescContainer}>
+                <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+              </div>
+              <div className={styles.ProjectTopicConatiner}>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+              </div>
+              <div className={styles.ProjectMemberContainer}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className={styles.SwiperItem}>
+            <div className={styles.SwiperItemHeader}>
+              <div className={styles.ProjectDateContainer}>
+                <BiSolidTime size={20} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
+              </div>
+              <div className={styles.ProjectTitleContainer}>
+                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
+                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+              </div>
+            </div>
+            <div className={styles.SwiperItemBody}>
+              <div className={styles.ProjectDescContainer}>
+                <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+              </div>
+              <div className={styles.ProjectTopicConatiner}>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+              </div>
+              <div className={styles.ProjectMemberContainer}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className={styles.SwiperItem}>
+            <div className={styles.SwiperItemHeader}>
+              <div className={styles.ProjectDateContainer}>
+                <BiSolidTime size={20} color="#575757"/>
+                <span style={{fontFamily: "preRg", color: "#575757"}}>6d 14h</span>
+              </div>
+              <div className={styles.ProjectTitleContainer}>
+                <div style={{borderRadius: "30px", width: "20px", height: "20px", backgroundColor: "yellow", marginRight: "4px"}}></div>
+                <span className={styles.SwiperItemTitle}>CHAT-SHIRE | 오잉</span>
+              </div>
+            </div>
+            <div className={styles.SwiperItemBody}>
+              <div className={styles.ProjectDescContainer}>
+                <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+              </div>
+              <div className={styles.ProjectTopicConatiner}>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+                <Keywords/>
+              </div>
+              <div className={styles.ProjectMemberContainer}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>
           </SwiperSlide>
         </Swiper>
       </div>
