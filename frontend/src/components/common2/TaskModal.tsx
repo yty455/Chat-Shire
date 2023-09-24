@@ -1,9 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./TaskModal.module.css";
 import { getTaskGroupDetail } from "../../utils/taskGroupApi";
-import { DatePicker, LocalizationProvider } from "@mui/lab";
-import AdapterDayjs from "@mui/lab/AdapterDayjs";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs, { Dayjs } from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+
+import { FormControl, InputLabel, MenuItem } from "@mui/material";
 
 interface TaskModalProps {
   closeModal: () => void;
