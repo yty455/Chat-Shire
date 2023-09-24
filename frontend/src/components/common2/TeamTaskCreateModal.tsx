@@ -66,67 +66,91 @@ function TeamTaskCreateModal({
   return (
     <div className={styles.modalOverlay} ref={modalRef}>
       <div className={styles.formContainer}>
-        <h2>팀 태스크 생성</h2>
-        <input
-          type="text"
-          value={taskData.name}
-          onChange={(e) => setTaskData({ ...taskData, name: e.target.value })}
-        />
-        <input
-          type="text"
-          value={taskData.description}
-          onChange={(e) =>
-            setTaskData({ ...taskData, description: e.target.value })
-          }
-        />
-        <FormControl
-          sx={{
-            m: 1,
-            minWidth: 120,
-          }}
-          size="small"
-          style={{ margin: "20px" }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <InputLabel id="priority-label">Priority</InputLabel>
-          <Select
-            labelId="priority-label"
-            id="priority-select"
-            value={taskData.priority}
-            onChange={handleChange}
-            sx={{ color: getPriorityColor(taskData.priority) }}
-          >
-            <MenuItem value="HIGH" sx={{ color: "red" }}>
-              High
-            </MenuItem>
-            <MenuItem value="MEDIUM" sx={{ color: "green" }}>
-              Medium
-            </MenuItem>
-            <MenuItem value="LOW" sx={{ color: "orange" }}>
-              Low
-            </MenuItem>
-          </Select>
-        </FormControl>
-
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <div onClick={(e) => e.stopPropagation()}>
-            <DatePicker
-              value={limitDate}
-              onChange={handleDateChange}
-              sx={{ width: "150px", height: "16px", margin: "20px" }}
+        <div>
+          <h2>팀 태스크 생성</h2>
+          <div>
+            <input
+              type="text"
+              value={taskData.name}
+              onChange={(e) =>
+                setTaskData({ ...taskData, name: e.target.value })
+              }
             />
           </div>
-        </LocalizationProvider>
-        {/* <input
+          <div>
+            <input
+              type="text"
+              value={taskData.description}
+              onChange={(e) =>
+                setTaskData({ ...taskData, description: e.target.value })
+              }
+            />
+          </div>
+          <div>
+            <FormControl
+              sx={{
+                m: 1,
+                minWidth: 120,
+                marginLeft: "0px",
+              }}
+              size="small"
+              style={{ margin: "10px", marginLeft: "0px" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <InputLabel id="priority-label">Priority</InputLabel>
+              <Select
+                labelId="priority-label"
+                id="priority-select"
+                value={taskData.priority}
+                onChange={handleChange}
+                sx={{
+                  color: getPriorityColor(taskData.priority),
+                  marginLeft: "0px",
+                }}
+              >
+                <MenuItem value="HIGH" sx={{ color: "red" }}>
+                  High
+                </MenuItem>
+                <MenuItem value="MEDIUM" sx={{ color: "green" }}>
+                  Medium
+                </MenuItem>
+                <MenuItem value="LOW" sx={{ color: "orange" }}>
+                  Low
+                </MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <div onClick={(e) => e.stopPropagation()}>
+              <DatePicker
+                value={limitDate}
+                onChange={handleDateChange}
+                sx={{
+                  width: "150px",
+                  height: "16px",
+                  margin: "10px",
+                  marginLeft: "0px",
+                }}
+              />
+            </div>
+          </LocalizationProvider>
+          {/* <input
         type="text"
         value={taskData.deadline}
         onChange={(e) => setTaskData({ ...taskData, deadline: e.target.value })}
       /> */}
 
-        <button onClick={createTeampjt} style={{ margin: "20px" }}>
-          생성
+          <button
+            onClick={createTeampjt}
+            style={{ margin: "30px 20px 20px 0px" }}
+          >
+            생성
+          </button>
+        </div>
+        <button className={styles.closeButton} onClick={closeModal}>
+          X
         </button>
-        <button onClick={closeModal}>닫기</button>
       </div>
     </div>
   );
