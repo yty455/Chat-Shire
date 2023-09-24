@@ -49,17 +49,37 @@
   margin-top: 6px;
   padding: 0px 10px 10px 10px;;
   width: 340px;
-  height: 203px;
+  height: 123px;
   border-top: 2px solid gray;
   border-radius: 0px 0px 20px 20px;
+  transition-duration: 0.3s;
+}
+
+.SwiperItemBodyInactive {
+  border-top: 2px solid gray;
+  transition-duration: 0.3s;
+  width: 340px;
+  height: 3px;
+  margin-left: -10px;
 }
 
 .ProjectMemberContainer {
   display: flex;
+  margin-left: 10px;
   overflow: scroll;
 }
 
 .ProjectMemberContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.ProjectMemberContainerInactive {
+  display: flex;
+  margin-top: 10px;
+  overflow: scroll;
+}
+
+.ProjectMemberContainerInactive::-webkit-scrollbar {
   display: none;
 }
 
@@ -109,8 +129,7 @@
 }
 
 .ProjectTopicContainerInactive {
-  transition-duration: 0.3s;
-  height: 0px;
+  opacity: 0;
 }
 
 .ProjectTopicContainerInactive div {
@@ -127,7 +146,7 @@
   flex-direction: column;
   justify-content: center;
   width: 320px;
-  height: 124px;
-  margin: 20px;
+  height: 140px;
+  margin: 10px;
   /* border: #39A789 1px solid; */
 }
