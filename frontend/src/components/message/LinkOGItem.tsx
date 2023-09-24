@@ -3,6 +3,7 @@ import axios from 'axios'
 import styles from './LinkOGItem.module.css'
 import Card from '@mui/material/Card';
 import { CardActionArea } from '@mui/material';
+import Skeleton from '@mui/material/Skeleton';
 
 
 export default function LinkOGItem() {
@@ -26,14 +27,21 @@ export default function LinkOGItem() {
   
   return (
     <Card sx={{ boxShadow: "none", borderRadius: 2, marginTop: 2}}>
-      <CardActionArea sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", width: "100%", height: 100, borderRadius: 2, border: "1px solid #E5E8EB", boxShadow: "none", padding: 2 }}>
-        <span className={styles.BookMarkTitle}>{title}</span>
-        <span className={styles.BookMarkDesc}>{desc}</span>
-        <div className={styles.BookMarkLink}>
-          <img className={styles.BookMarkFavicon} src={`${favicon}`} alt={`${title}`} />
-          <span>{domain}</span>
-        </div>
-      </CardActionArea>
+      {favicon ? 
+        <CardActionArea sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", width: "100%", height: 100, borderRadius: 2, border: "1px solid #E5E8EB", boxShadow: "none", padding: 2 }}>
+          <span className={styles.BookMarkTitle}>{title}</span>
+          <span className={styles.BookMarkDesc}>{desc}</span>
+          <div className={styles.BookMarkLink}>
+            <img className={styles.BookMarkFavicon} src={`${favicon}`} alt={`${title}`} />
+            <span>{domain}</span>
+          </div>
+        </CardActionArea> :
+        <CardActionArea sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", width: "100%", height: 100, borderRadius: 2, border: "1px solid #E5E8EB", boxShadow: "none", padding: 2 }}>
+          <Skeleton animation="wave" style={{width: "140px", height: "46px"}} />
+          <Skeleton animation="wave" style={{width: "300px", height: "30px"}} />
+          <Skeleton animation="wave" style={{width: "200px", height: "20px"}} />
+        </CardActionArea>
+      }
     </Card>
   )
 }
