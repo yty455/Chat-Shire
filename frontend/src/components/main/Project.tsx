@@ -185,7 +185,11 @@ function Project() {
                 onClick={handleProjectCardClick}
               >
                 {({ isActive }) => (
-                  <ProjectSlide isActive={isActive} pjt={project} />
+                  <ProjectSlide
+                    isActive={isActive}
+                    pjt={project}
+                    onCardClick={() => handleProjectCardClick(project)}
+                  />
                 )}
               </SwiperSlide>
             ))}
