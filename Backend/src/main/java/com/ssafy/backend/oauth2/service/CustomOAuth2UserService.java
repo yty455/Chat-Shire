@@ -37,8 +37,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         //	2번
         OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest);
         String userToken = userRequest.getAccessToken().getTokenType().getValue();
-        System.out.println("AccessToken = "+ userRequest.getAccessToken());
-        System.out.println("userToken = "+userToken);
         // 유저 email 가져오기위해 access token 사용하기
 
 
