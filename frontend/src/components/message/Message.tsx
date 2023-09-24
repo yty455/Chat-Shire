@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./Message.module.css";
 import MessageItem from "./MessageItem";
 import MessageRightBody from "./MessageRightBody";
@@ -26,7 +27,8 @@ import { useSetRecoilState } from "recoil";
 
 import EmojiPicker from 'emoji-picker-react';
 
-function Message(projectId: any) {
+function Message() {
+  const projectId = useParams().projectId;
   const [value, setValue] = useState("photos");
   const [preMessage, setPreMessage] = useState<any[]>([]);
   const [message, setMessage] = useState("");
@@ -39,6 +41,7 @@ function Message(projectId: any) {
   const client = useRef<CompatClient>();
 
   const connectHandler = () => {
+    console.log(projectId)
     client.current = Stomp.over(() => {
       const sock = new SockJS(
         "http://j9e205.p.ssafy.io:8080/gs-guide-websocket"
@@ -52,12 +55,11 @@ function Message(projectId: any) {
       () => {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
         client.current?.subscribe(`/topic/greetings`, (message) => {
-          console.log(JSON.parse(message.body).content);
           setMessage(JSON.parse(message.body));
         });
       }
     );
-    getChat(projectId, 1, 1)
+    getChat(Number(projectId), 1, 1)
     .then((res) => {
       setPreMessage(res.data.result[0]);
     })
@@ -66,12 +68,20 @@ function Message(projectId: any) {
 
   const inputMessage = (e: any) => {
     if (e.code === 'Enter') {
-      postChat(projectId, e.target.value)
+      postChat(Number(projectId), e.target.value)
     }
   };
+
+  const sendMessage = (e: any) => {
+    const message = document.getElementById('chatInput') as HTMLInputElement
+    if (message.value != "") {
+      postChat(Number(projectId), message.value)
+    }
+
+  }
   
   const inputEmoji = (e: any) => {
-    postChat(projectId, e.emoji)
+    postChat(Number(projectId), e.emoji)
   }
 
   const handleEmojiPicker = () => {
@@ -136,6 +146,7 @@ function Message(projectId: any) {
               color="greenary"
               type="submit"
               variant="contained"
+              onClick={sendMessage}
               endIcon={<SendIcon/>}
             ></Button>
           </div>

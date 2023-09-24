@@ -28,7 +28,7 @@ const PiChart = () => {
         data={data}
         margin={{ top: 10, right: 0, bottom: 50, left: 0 }}
         sortByValue={true}
-        innerRadius={0.1}
+        innerRadius={0.8}
         padAngle={2}
         cornerRadius={3}
         fit={false}

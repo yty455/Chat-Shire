@@ -183,11 +183,11 @@ function Project() {
                   <Keywords/>
                   <Keywords/>
                 </div>
-                <div className={styles.ProjectMemberContainer}>
-                  <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
-                  <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
-                  <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
-                </div>
+              </div>
+              <div className={isActive ? styles.ProjectMemberContainer : styles.ProjectMemberContainerInactive}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
               </div>
             </div>)}
           </SwiperSlide>
@@ -215,11 +215,11 @@ function Project() {
                   <Keywords/>
                   <Keywords/>
                 </div>
-                <div className={styles.ProjectMemberContainer}>
-                  <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
-                  <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
-                  <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
-                </div>
+              </div>
+              <div className={isActive ? styles.ProjectMemberContainer : styles.ProjectMemberContainerInactive}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
               </div>
             </div>)}
           </SwiperSlide>
@@ -247,11 +247,11 @@ function Project() {
                   <Keywords/>
                   <Keywords/>
                 </div>
-                <div className={styles.ProjectMemberContainer}>
-                  <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
-                  <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
-                  <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
-                </div>
+              </div>
+              <div className={isActive ? styles.ProjectMemberContainer : styles.ProjectMemberContainerInactive}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
               </div>
             </div>)}
           </SwiperSlide>
@@ -279,11 +279,43 @@ function Project() {
                   <Keywords/>
                   <Keywords/>
                 </div>
-                <div className={styles.ProjectMemberContainer}>
-                  <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
-                  <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
-                  <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+              <div className={isActive ? styles.ProjectMemberContainer : styles.ProjectMemberContainerInactive}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>)}
+          </SwiperSlide>
+          <SwiperSlide className={styles.SwiperItem} onClick={handleProjectCardClick}>
+            {({ isActive }) => (
+            <div className={isActive ? styles.active : styles.Inactive}>
+              <div className={isActive ? styles.SwiperItemHeader : styles.SwiperItemHeaderInactive}>
+                <div className={styles.ProjectTitleContainer}>
+                  <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
                 </div>
+                <div className={styles.ProjectDateContainer}>
+                  <BsFillCalendarFill size={16} color="#575757"/>
+                  <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
+                </div>
+              </div>
+
+              <div className={isActive ? styles.SwiperItemBody : styles.SwiperItemBodyInactive}>
+                <div style={{marginTop: "4px", marginLeft: "4px"}} className={isActive ? styles.ProjectDescContainer : styles.ProjectDescContainerInactive}>
+                  <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+                </div>
+                <div className={isActive ? styles.ProjectTopicConatiner : styles.ProjectTopicContainerInactive}>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                </div>
+              </div>
+              <div className={isActive ? styles.ProjectMemberContainer : styles.ProjectMemberContainerInactive}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
               </div>
             </div>)}
           </SwiperSlide>
