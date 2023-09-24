@@ -24,4 +24,10 @@ public class StatisticService {
 
 		statistic.updateCommitCount(morningCommitCount, afternoonCommitCount, nightCommitCount);
 	}
+
+	public Statistic getCommitCount(Long chatRoomId) {
+		return statisticRepository.findByChatRoomId(chatRoomId)
+				.orElseThrow(() -> new ResourceNotFoundException("Statistic.ChatRoom", chatRoomId));
+	}
+
 }
