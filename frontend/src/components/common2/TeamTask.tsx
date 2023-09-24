@@ -333,7 +333,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                         (new Date(task.deadline).getTime() -
                           currentDate.getTime()) /
                           (1000 * 60 * 60 * 24)
-                      )}
+                      )}{" "}
+                      day
                     </p>
                   </div>
                   <div onClick={addCheckbox}>
@@ -360,6 +361,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     {task.name}
                   </p>
                   <p
+                    className={styles.step}
                     style={{
                       color:
                         task.priority === "HIGH"
