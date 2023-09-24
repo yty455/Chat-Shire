@@ -11,13 +11,13 @@ import AddIcon from "@mui/icons-material/Add";
 import { Avatar } from "@mui/material";
 import Keywords from "../analysis/Keywords";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css'
 
 import styles from "./Project.module.css";
 
-import { BsFillCalendarFill } from "react-icons/bs";
-import { FaExpand } from "react-icons/fa";
+import { BsFillCalendarFill } from 'react-icons/bs'
+import { FaExpand } from 'react-icons/fa'
 import { useNavigate } from "react-router-dom";
 
 const pjt = {
@@ -66,11 +66,11 @@ const pjt = {
 function Project() {
   const [userData, setUserData] = useRecoilState(loginuser);
   const [myProjects, setMyProjects] = useState([]);
-  const [nowProject, setNowProject] = useRecoilState(nowProject_recoil);
+
   const [openModal, setOpenModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState<any>(null);
-  const today = new Date();
-  const navigate = useNavigate();
+
+  const navigate = useNavigate()
 
   const handleProjectCardClick = (pjt: any) => {
     setSelectedProject(pjt);
@@ -84,35 +84,23 @@ function Project() {
   const getMyProjects = async () => {
     try {
       const response = await getProjects();
-      console.log(response.data.result[0], 123);
-      const projects = response.data.result[0];
       setMyProjects(response.data.result[0]);
-
-      const nowProjects: any[] = [];
-
-      for (const pjt of projects) {
-        if (new Date(pjt.endDate) < today) {
-        } else {
-          nowProjects.push(pjt);
-        }
-      }
-      setNowProject(nowProjects);
     } catch (error) {
       console.error(error);
     }
   };
 
   const navigateToProject = () => {
-    navigate("/message/1");
-  };
+    navigate('/message/1')
+  }
 
   useEffect(() => {
     getMyProjects();
   }, []);
 
   const createProject = () => {
-    navigate("/createpjt");
-  };
+    navigate('/createpjt')
+  }
 
   const deleteProject = async (projectId: any) => {
     try {
@@ -163,489 +151,196 @@ function Project() {
     >
       <div className={styles.projectContainer}>
         <span className={styles.projectTitle}>CSI님의 프로젝트에요</span>
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            height: "100%",
-          }}
-        >
+        <div style={{position: "relative", display: "flex", alignItems: "center", height: "100%"}}>
           <Swiper
-            slidesPerView={"auto"}
+            slidesPerView={'auto'}
             spaceBetween={30}
             centeredSlides={true}
             grabCursor={true}
             className={styles.SwiperContainer}
           >
-            <SwiperSlide
-              className={styles.SwiperItem}
-              onClick={handleProjectCardClick}
-            >
-              {({ isActive }) => (
-                <div className={isActive ? styles.active : styles.Inactive}>
-                  <div
-                    className={
-                      isActive
-                        ? styles.SwiperItemHeader
-                        : styles.SwiperItemHeaderInactive
-                    }
-                  >
-                    <div className={styles.ProjectTitleContainer}>
-                      <span className={styles.SwiperItemTitle}>
-                        PJT CHAT-SHIRE : 오잉
-                      </span>
-                    </div>
-                    <div className={styles.ProjectDateContainer}>
-                      <BsFillCalendarFill size={16} color="#575757" />
-                      <span
-                        style={{
-                          fontFamily: "preRg",
-                          color: "#575757",
-                          marginLeft: "4px",
-                          letterSpacing: "1px",
-                        }}
-                      >
-                        SEP.04~OCT.17
-                      </span>
-                    </div>
-                  </div>
-
-                  <div
-                    className={
-                      isActive
-                        ? styles.SwiperItemBody
-                        : styles.SwiperItemBodyInactive
-                    }
-                  >
-                    <div
-                      style={{ marginTop: "4px", marginLeft: "4px" }}
-                      className={
-                        isActive
-                          ? styles.ProjectDescContainer
-                          : styles.ProjectDescContainerInactive
-                      }
-                    >
-                      <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
-                    </div>
-                    <div
-                      className={
-                        isActive
-                          ? styles.ProjectTopicConatiner
-                          : styles.ProjectTopicContainerInactive
-                      }
-                    >
-                      <Keywords />
-                      <Keywords />
-                      <Keywords />
-                      <Keywords />
-                      <Keywords />
-                    </div>
-                    <div className={styles.ProjectMemberContainer}>
-                      <Avatar
-                        alt="Remy Sharp"
-                        src={
-                          userData.profileImage != null
-                            ? process.env.PUBLIC_URL + userData.profileImage
-                            : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-                        }
-                        sx={{
-                          width: 60,
-                          height: 60,
-                          bgcolor: "gray",
-                          marginRight: "10px",
-                        }}
-                      />
-                      <Avatar
-                        alt="Remy Sharp"
-                        src={
-                          userData.profileImage != null
-                            ? process.env.PUBLIC_URL + userData.profileImage
-                            : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-                        }
-                        sx={{
-                          width: 60,
-                          height: 60,
-                          bgcolor: "gray",
-                          marginRight: "10px",
-                        }}
-                      />
-                      <Avatar
-                        alt="Remy Sharp"
-                        src={
-                          userData.profileImage != null
-                            ? process.env.PUBLIC_URL + userData.profileImage
-                            : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-                        }
-                        sx={{
-                          width: 60,
-                          height: 60,
-                          bgcolor: "gray",
-                          marginRight: "10px",
-                        }}
-                      />
-                    </div>
-                  </div>
+          <SwiperSlide className={styles.SwiperItem} onClick={handleProjectCardClick}>
+            {({ isActive }) => (
+            <div className={isActive ? styles.active : styles.Inactive}>
+              <div className={isActive ? styles.SwiperItemHeader : styles.SwiperItemHeaderInactive}>
+                <div className={styles.ProjectTitleContainer}>
+                  <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
                 </div>
-              )}
-            </SwiperSlide>
-            <SwiperSlide
-              className={styles.SwiperItem}
-              onClick={handleProjectCardClick}
-            >
-              {({ isActive }) => (
-                <div className={isActive ? styles.active : styles.Inactive}>
-                  <div
-                    className={
-                      isActive
-                        ? styles.SwiperItemHeader
-                        : styles.SwiperItemHeaderInactive
-                    }
-                  >
-                    <div className={styles.ProjectTitleContainer}>
-                      <span className={styles.SwiperItemTitle}>
-                        PJT CHAT-SHIRE : 오잉
-                      </span>
-                    </div>
-                    <div className={styles.ProjectDateContainer}>
-                      <BsFillCalendarFill size={16} color="#575757" />
-                      <span
-                        style={{
-                          fontFamily: "preRg",
-                          color: "#575757",
-                          marginLeft: "4px",
-                          letterSpacing: "1px",
-                        }}
-                      >
-                        SEP.04~OCT.17
-                      </span>
-                    </div>
-                  </div>
-
-                  <div
-                    className={
-                      isActive
-                        ? styles.SwiperItemBody
-                        : styles.SwiperItemBodyInactive
-                    }
-                  >
-                    <div
-                      style={{ marginTop: "4px", marginLeft: "4px" }}
-                      className={
-                        isActive
-                          ? styles.ProjectDescContainer
-                          : styles.ProjectDescContainerInactive
-                      }
-                    >
-                      <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
-                    </div>
-                    <div
-                      className={
-                        isActive
-                          ? styles.ProjectTopicConatiner
-                          : styles.ProjectTopicContainerInactive
-                      }
-                    >
-                      <Keywords />
-                      <Keywords />
-                      <Keywords />
-                      <Keywords />
-                      <Keywords />
-                    </div>
-                    <div className={styles.ProjectMemberContainer}>
-                      <Avatar
-                        alt="Remy Sharp"
-                        src={
-                          userData.profileImage != null
-                            ? process.env.PUBLIC_URL + userData.profileImage
-                            : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-                        }
-                        sx={{
-                          width: 60,
-                          height: 60,
-                          bgcolor: "gray",
-                          marginRight: "10px",
-                        }}
-                      />
-                      <Avatar
-                        alt="Remy Sharp"
-                        src={
-                          userData.profileImage != null
-                            ? process.env.PUBLIC_URL + userData.profileImage
-                            : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-                        }
-                        sx={{
-                          width: 60,
-                          height: 60,
-                          bgcolor: "gray",
-                          marginRight: "10px",
-                        }}
-                      />
-                      <Avatar
-                        alt="Remy Sharp"
-                        src={
-                          userData.profileImage != null
-                            ? process.env.PUBLIC_URL + userData.profileImage
-                            : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-                        }
-                        sx={{
-                          width: 60,
-                          height: 60,
-                          bgcolor: "gray",
-                          marginRight: "10px",
-                        }}
-                      />
-                    </div>
-                  </div>
+                <div className={styles.ProjectDateContainer}>
+                  <BsFillCalendarFill size={16} color="#575757"/>
+                  <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
                 </div>
-              )}
-            </SwiperSlide>
-            <SwiperSlide
-              className={styles.SwiperItem}
-              onClick={handleProjectCardClick}
-            >
-              {({ isActive }) => (
-                <div className={isActive ? styles.active : styles.Inactive}>
-                  <div
-                    className={
-                      isActive
-                        ? styles.SwiperItemHeader
-                        : styles.SwiperItemHeaderInactive
-                    }
-                  >
-                    <div className={styles.ProjectTitleContainer}>
-                      <span className={styles.SwiperItemTitle}>
-                        PJT CHAT-SHIRE : 오잉
-                      </span>
-                    </div>
-                    <div className={styles.ProjectDateContainer}>
-                      <BsFillCalendarFill size={16} color="#575757" />
-                      <span
-                        style={{
-                          fontFamily: "preRg",
-                          color: "#575757",
-                          marginLeft: "4px",
-                          letterSpacing: "1px",
-                        }}
-                      >
-                        SEP.04~OCT.17
-                      </span>
-                    </div>
-                  </div>
-
-                  <div
-                    className={
-                      isActive
-                        ? styles.SwiperItemBody
-                        : styles.SwiperItemBodyInactive
-                    }
-                  >
-                    <div
-                      style={{ marginTop: "4px", marginLeft: "4px" }}
-                      className={
-                        isActive
-                          ? styles.ProjectDescContainer
-                          : styles.ProjectDescContainerInactive
-                      }
-                    >
-                      <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
-                    </div>
-                    <div
-                      className={
-                        isActive
-                          ? styles.ProjectTopicConatiner
-                          : styles.ProjectTopicContainerInactive
-                      }
-                    >
-                      <Keywords />
-                      <Keywords />
-                      <Keywords />
-                      <Keywords />
-                      <Keywords />
-                    </div>
-                    <div className={styles.ProjectMemberContainer}>
-                      <Avatar
-                        alt="Remy Sharp"
-                        src={
-                          userData.profileImage != null
-                            ? process.env.PUBLIC_URL + userData.profileImage
-                            : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-                        }
-                        sx={{
-                          width: 60,
-                          height: 60,
-                          bgcolor: "gray",
-                          marginRight: "10px",
-                        }}
-                      />
-                      <Avatar
-                        alt="Remy Sharp"
-                        src={
-                          userData.profileImage != null
-                            ? process.env.PUBLIC_URL + userData.profileImage
-                            : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-                        }
-                        sx={{
-                          width: 60,
-                          height: 60,
-                          bgcolor: "gray",
-                          marginRight: "10px",
-                        }}
-                      />
-                      <Avatar
-                        alt="Remy Sharp"
-                        src={
-                          userData.profileImage != null
-                            ? process.env.PUBLIC_URL + userData.profileImage
-                            : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-                        }
-                        sx={{
-                          width: 60,
-                          height: 60,
-                          bgcolor: "gray",
-                          marginRight: "10px",
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </SwiperSlide>
-            <SwiperSlide
-              className={styles.SwiperItem}
-              onClick={handleProjectCardClick}
-            >
-              {({ isActive }) => (
-                <div className={isActive ? styles.active : styles.Inactive}>
-                  <div
-                    className={
-                      isActive
-                        ? styles.SwiperItemHeader
-                        : styles.SwiperItemHeaderInactive
-                    }
-                  >
-                    <div className={styles.ProjectTitleContainer}>
-                      <span className={styles.SwiperItemTitle}>
-                        PJT CHAT-SHIRE : 오잉
-                      </span>
-                    </div>
-                    <div className={styles.ProjectDateContainer}>
-                      <BsFillCalendarFill size={16} color="#575757" />
-                      <span
-                        style={{
-                          fontFamily: "preRg",
-                          color: "#575757",
-                          marginLeft: "4px",
-                          letterSpacing: "1px",
-                        }}
-                      >
-                        SEP.04~OCT.17
-                      </span>
-                    </div>
-                  </div>
-
-                  <div
-                    className={
-                      isActive
-                        ? styles.SwiperItemBody
-                        : styles.SwiperItemBodyInactive
-                    }
-                  >
-                    <div
-                      style={{ marginTop: "4px", marginLeft: "4px" }}
-                      className={
-                        isActive
-                          ? styles.ProjectDescContainer
-                          : styles.ProjectDescContainerInactive
-                      }
-                    >
-                      <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
-                    </div>
-                    <div
-                      className={
-                        isActive
-                          ? styles.ProjectTopicConatiner
-                          : styles.ProjectTopicContainerInactive
-                      }
-                    >
-                      <Keywords />
-                      <Keywords />
-                      <Keywords />
-                      <Keywords />
-                      <Keywords />
-                    </div>
-                    <div className={styles.ProjectMemberContainer}>
-                      <Avatar
-                        alt="Remy Sharp"
-                        src={
-                          userData.profileImage != null
-                            ? process.env.PUBLIC_URL + userData.profileImage
-                            : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-                        }
-                        sx={{
-                          width: 60,
-                          height: 60,
-                          bgcolor: "gray",
-                          marginRight: "10px",
-                        }}
-                      />
-                      <Avatar
-                        alt="Remy Sharp"
-                        src={
-                          userData.profileImage != null
-                            ? process.env.PUBLIC_URL + userData.profileImage
-                            : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-                        }
-                        sx={{
-                          width: 60,
-                          height: 60,
-                          bgcolor: "gray",
-                          marginRight: "10px",
-                        }}
-                      />
-                      <Avatar
-                        alt="Remy Sharp"
-                        src={
-                          userData.profileImage != null
-                            ? process.env.PUBLIC_URL + userData.profileImage
-                            : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-                        }
-                        sx={{
-                          width: 60,
-                          height: 60,
-                          bgcolor: "gray",
-                          marginRight: "10px",
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </SwiperSlide>
-            <SwiperSlide className={styles.SwiperItem} onClick={createProject}>
-              <div className={styles.CreateProjectContainer}>
-                <span style={{ fontSize: "20px", fontFamily: "preBd" }}>
-                  새 프로젝트 생성하기
-                </span>
-                <Fab
-                  style={{ zIndex: 2 }}
-                  sx={{
-                    mb: "20px",
-                    mt: "20px",
-                    mr: "auto",
-                    ml: "auto",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                  color="greenary"
-                  aria-label="add"
-                >
-                  <AddIcon sx={{ width: "34px", height: "34px" }} />
-                </Fab>
               </div>
-            </SwiperSlide>
-          </Swiper>
-        </div>
+
+              <div className={isActive ? styles.SwiperItemBody : styles.SwiperItemBodyInactive}>
+                <div style={{marginTop: "4px", marginLeft: "4px"}} className={isActive ? styles.ProjectDescContainer : styles.ProjectDescContainerInactive}>
+                  <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+                </div>
+                <div className={isActive ? styles.ProjectTopicConatiner : styles.ProjectTopicContainerInactive}>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                </div>
+              </div>
+              <div className={isActive ? styles.ProjectMemberContainer : styles.ProjectMemberContainerInactive}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>)}
+          </SwiperSlide>
+          <SwiperSlide className={styles.SwiperItem} onClick={handleProjectCardClick}>
+            {({ isActive }) => (
+            <div className={isActive ? styles.active : styles.Inactive}>
+              <div className={isActive ? styles.SwiperItemHeader : styles.SwiperItemHeaderInactive}>
+                <div className={styles.ProjectTitleContainer}>
+                  <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
+                </div>
+                <div className={styles.ProjectDateContainer}>
+                  <BsFillCalendarFill size={16} color="#575757"/>
+                  <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
+                </div>
+              </div>
+
+              <div className={isActive ? styles.SwiperItemBody : styles.SwiperItemBodyInactive}>
+                <div style={{marginTop: "4px", marginLeft: "4px"}} className={isActive ? styles.ProjectDescContainer : styles.ProjectDescContainerInactive}>
+                  <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+                </div>
+                <div className={isActive ? styles.ProjectTopicConatiner : styles.ProjectTopicContainerInactive}>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                </div>
+              </div>
+              <div className={isActive ? styles.ProjectMemberContainer : styles.ProjectMemberContainerInactive}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>)}
+          </SwiperSlide>
+          <SwiperSlide className={styles.SwiperItem} onClick={handleProjectCardClick}>
+            {({ isActive }) => (
+            <div className={isActive ? styles.active : styles.Inactive}>
+              <div className={isActive ? styles.SwiperItemHeader : styles.SwiperItemHeaderInactive}>
+                <div className={styles.ProjectTitleContainer}>
+                  <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
+                </div>
+                <div className={styles.ProjectDateContainer}>
+                  <BsFillCalendarFill size={16} color="#575757"/>
+                  <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
+                </div>
+              </div>
+
+              <div className={isActive ? styles.SwiperItemBody : styles.SwiperItemBodyInactive}>
+                <div style={{marginTop: "4px", marginLeft: "4px"}} className={isActive ? styles.ProjectDescContainer : styles.ProjectDescContainerInactive}>
+                  <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+                </div>
+                <div className={isActive ? styles.ProjectTopicConatiner : styles.ProjectTopicContainerInactive}>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                </div>
+              </div>
+              <div className={isActive ? styles.ProjectMemberContainer : styles.ProjectMemberContainerInactive}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>)}
+          </SwiperSlide>
+          <SwiperSlide className={styles.SwiperItem} onClick={handleProjectCardClick}>
+            {({ isActive }) => (
+            <div className={isActive ? styles.active : styles.Inactive}>
+              <div className={isActive ? styles.SwiperItemHeader : styles.SwiperItemHeaderInactive}>
+                <div className={styles.ProjectTitleContainer}>
+                  <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
+                </div>
+                <div className={styles.ProjectDateContainer}>
+                  <BsFillCalendarFill size={16} color="#575757"/>
+                  <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
+                </div>
+              </div>
+
+              <div className={isActive ? styles.SwiperItemBody : styles.SwiperItemBodyInactive}>
+                <div style={{marginTop: "4px", marginLeft: "4px"}} className={isActive ? styles.ProjectDescContainer : styles.ProjectDescContainerInactive}>
+                  <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+                </div>
+                <div className={isActive ? styles.ProjectTopicConatiner : styles.ProjectTopicContainerInactive}>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                </div>
+              </div>
+              <div className={isActive ? styles.ProjectMemberContainer : styles.ProjectMemberContainerInactive}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>)}
+          </SwiperSlide>
+          <SwiperSlide className={styles.SwiperItem} onClick={handleProjectCardClick}>
+            {({ isActive }) => (
+            <div className={isActive ? styles.active : styles.Inactive}>
+              <div className={isActive ? styles.SwiperItemHeader : styles.SwiperItemHeaderInactive}>
+                <div className={styles.ProjectTitleContainer}>
+                  <span className={styles.SwiperItemTitle}>PJT CHAT-SHIRE : 오잉</span>
+                </div>
+                <div className={styles.ProjectDateContainer}>
+                  <BsFillCalendarFill size={16} color="#575757"/>
+                  <span style={{fontFamily: "preRg", color: "#575757", marginLeft: "4px", letterSpacing: "1px"}}>SEP.04~OCT.17</span>
+                </div>
+              </div>
+
+              <div className={isActive ? styles.SwiperItemBody : styles.SwiperItemBodyInactive}>
+                <div style={{marginTop: "4px", marginLeft: "4px"}} className={isActive ? styles.ProjectDescContainer : styles.ProjectDescContainerInactive}>
+                  <span>우리들의 프로젝트 쿠쿠루핑퐁</span>
+                </div>
+                <div className={isActive ? styles.ProjectTopicConatiner : styles.ProjectTopicContainerInactive}>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                  <Keywords/>
+                </div>
+              </div>
+              <div className={isActive ? styles.ProjectMemberContainer : styles.ProjectMemberContainerInactive}>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+                <Avatar alt="Remy Sharp" src={userData.profileImage != null ? process.env.PUBLIC_URL + userData.profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} sx={{ width: 60, height: 60, bgcolor: "gray", marginRight: "10px" }}/>
+              </div>
+            </div>)}
+          </SwiperSlide>
+          <SwiperSlide className={styles.SwiperItem} onClick={createProject}>
+            <div className={styles.CreateProjectContainer}>
+              <span style={{fontSize: "20px", fontFamily: "preBd"}}>새 프로젝트 생성하기</span>
+              <Fab
+                style={{ zIndex: 2 }}
+                sx={{
+                  mb: "20px",
+                  mt: "20px",
+                  mr: "auto",
+                  ml: "auto",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+                color="greenary"
+                aria-label="add"
+              >
+                <AddIcon sx={{width: "34px", height: "34px"}} />
+              </Fab>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </div>
       </div>
       {openModal && (
         <ProjectModal
