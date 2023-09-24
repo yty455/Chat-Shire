@@ -1,12 +1,28 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./TaskModal.module.css";
 import { getTaskGroupDetail } from "../../utils/taskGroupApi";
+import { DatePicker, LocalizationProvider } from "@mui/lab";
+import AdapterDayjs from "@mui/lab/AdapterDayjs";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 interface TaskModalProps {
   closeModal: () => void;
   taskId: string | number;
   deleteTeamTask: (taskGroupId: any) => Promise<void>;
   updateTeamTask: (taskGroupId: any, data: any) => Promise<void>;
+}
+
+function getPriorityColor(priority: any) {
+  switch (priority) {
+    case "HIGH":
+      return "red";
+    case "MEDIUM":
+      return "green";
+    case "LOW":
+      return "orange";
+    default:
+      return "black";
+  }
 }
 
 interface TeamTaskDetail {
@@ -109,16 +125,43 @@ function TaskModal({
 
             <p onClick={() => handleEditClick("priority")}>
               {editingField === "priority" ? (
-                <input
-                  type="text"
-                  value={teamTaskDetail.priority}
-                  onChange={(e) =>
-                    setTeamTaskDetail({
-                      ...teamTaskDetail,
-                      priority: e.target.value,
-                    })
-                  }
-                />
+                <FormControl
+                  sx={{
+                    m: 1,
+                    minWidth: 120,
+                    marginLeft: "0px",
+                  }}
+                  size="small"
+                  style={{ margin: "10px", marginLeft: "0px" }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <InputLabel id="priority-label">Priority</InputLabel>
+                  <Select
+                    labelId="priority-label"
+                    id="priority-select"
+                    value={teamTaskDetail.priority}
+                    onChange={(e) =>
+                      setTeamTaskDetail({
+                        ...teamTaskDetail,
+                        priority: e.target.value,
+                      })
+                    }
+                    sx={{
+                      color: getPriorityColor(teamTaskDetail.priority),
+                      marginLeft: "0px",
+                    }}
+                  >
+                    <MenuItem value="HIGH" sx={{ color: "red" }}>
+                      High
+                    </MenuItem>
+                    <MenuItem value="MEDIUM" sx={{ color: "green" }}>
+                      Medium
+                    </MenuItem>
+                    <MenuItem value="LOW" sx={{ color: "orange" }}>
+                      Low
+                    </MenuItem>
+                  </Select>
+                </FormControl>
               ) : (
                 teamTaskDetail.priority
               )}
@@ -141,16 +184,25 @@ function TaskModal({
             </p>
             <p onClick={() => handleEditClick("deadline")}>
               {editingField === "deadline" ? (
-                <input
-                  type="text"
-                  value={teamTaskDetail.deadline}
-                  onChange={(e) =>
-                    setTeamTaskDetail({
-                      ...teamTaskDetail,
-                      deadline: e.target.value,
-                    })
-                  }
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <div onClick={(e) => e.stopPropagation()}>
+                    <DatePicker
+                      value={teamTaskDetail.deadline}
+                      onChange={(date: any) => {
+                        setTeamTaskDetail({
+                          ...teamTaskDetail,
+                          deadline: date.toISOString(), // ISO 형식으로 변환
+                        });
+                      }}
+                      sx={{
+                        width: "150px",
+                        height: "16px",
+                        margin: "10px",
+                        marginLeft: "0px",
+                      }}
+                    />
+                  </div>
+                </LocalizationProvider>
               ) : (
                 teamTaskDetail.deadline
               )}
