@@ -13,7 +13,7 @@ import { getProjectMem } from "../../utils/projectApi";
 interface ProjectSlideProps {
   pjt?: any;
   onCardClick?: () => void;
-  isActive: any;
+  isActive?: any;
 }
 
 function ProjectSlide({ pjt, onCardClick, isActive }: ProjectSlideProps) {
@@ -89,10 +89,10 @@ function ProjectSlide({ pjt, onCardClick, isActive }: ProjectSlideProps) {
           }
         >
           <Keywords topic={pjt.topic} />
+          {/* <Keywords topic={pjt.topic} />
           <Keywords topic={pjt.topic} />
           <Keywords topic={pjt.topic} />
-          <Keywords topic={pjt.topic} />
-          <Keywords topic={pjt.topic} />
+          <Keywords topic={pjt.topic} /> */}
         </div>
       </div>
       <div
