@@ -14,16 +14,14 @@
 }
 
 .SwiperContainer {
-  margin-top: 100px;
   width: 54vw;
   height: 400px;
 }
 
 .SwiperItem {
-  transition-duration: 0.3s;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
   margin: 14px;
   width: 360px;
@@ -32,12 +30,6 @@
   border: 1px solid #E5E8EB;
   color: #575757;
   box-shadow: 3px 3px 10px 3px rgb(241, 241, 241);
-}
-
-.SwiperItem:hover {
-  transition-duration: 0.3s;
-  transform: scale(1.04);
-  border: 1px solid #39A789;
 }
 
 .SwiperItemTitle {
@@ -57,7 +49,7 @@
   margin-top: 6px;
   padding: 0px 10px 10px 10px;;
   width: 340px;
-  height: 237px;
+  height: 203px;
   border-top: 2px solid gray;
   border-radius: 0px 0px 20px 20px;
 }
@@ -80,7 +72,10 @@
   width: 340px;
   height: 88px;
   overflow: scroll;
+  opacity: 1;
   background-color: #E5E8EB;
+  transition-delay: 0.2s;
+  transition-duration: 0.3s;
 }
 
 .ProjectTopicConatiner::-webkit-scrollbar {
@@ -95,5 +90,44 @@
 
 .ProjectTitleContainer {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+}
+
+.CreateProjectContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 320px;
+  height: 294px;
+  margin: 20px;
+}
+
+.ProjectDescContainerInactive {
+  display: none;
+}
+
+.ProjectTopicContainerInactive {
+  transition-duration: 0.3s;
+  height: 0px;
+}
+
+.ProjectTopicContainerInactive div {
+  opacity: 0;
+}
+
+.active {
+  transition-duration: 0.3s;
+}
+
+.Inactive {
+  transition-duration: 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 320px;
+  height: 124px;
+  margin: 20px;
+  /* border: #39A789 1px solid; */
 }
