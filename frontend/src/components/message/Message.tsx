@@ -29,8 +29,42 @@ import { useSetRecoilState } from "recoil";
 
 import EmojiPicker from "emoji-picker-react";
 
+import { useDrag } from "react-dnd";
+import { ItemTypes } from "./ItemTypes";
+
+// function DraggableMessageItem({ message }: { message: string }) {
+//   // 드래그 가능한 아이템으로 만들기 위해 useDrag 훅을 사용합니다.
+//   const [{ isDragging }, ref] = useDrag({
+//     type: ItemTypes.MESSAGE, // 드래그 타입
+//     item: { message }, // 전달할 데이터
+//     collect: (monitor) => ({
+//       isDragging: !!monitor.isDragging(),
+//     }),
+//   });
+
+//   return (
+//     <div
+//       ref={ref}
+//       style={{
+//         opacity: isDragging ? 0.5 : 1,
+//         cursor: "move",
+//         // ...추가적인 스타일 설정
+//       }}
+//     >
+//       {/* 메세지 아이템 내용 표시 */}
+//       {message}
+//     </div>
+//   );
+// }
+
 interface MessageProps {
   projectId: string;
+}
+
+interface MessageObject {
+  userId: string;
+  chatTime: string;
+  content: string;
 }
 
 function Message({ projectId }: MessageProps) {
