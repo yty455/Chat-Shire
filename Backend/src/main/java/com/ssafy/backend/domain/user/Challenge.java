@@ -1,5 +1,6 @@
 package com.ssafy.backend.domain.user;
 
+import com.ssafy.backend.domain.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Challenge {
+public class Challenge extends BaseEntity {
     @Id
     @GeneratedValue
     @Column(name = "CHALLENGE_ID")

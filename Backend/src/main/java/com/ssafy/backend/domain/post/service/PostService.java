@@ -14,6 +14,7 @@ import com.ssafy.backend.domain.post.repository.PostSkillRepository;
 import com.ssafy.backend.domain.post.repository.ReplyRepository;
 import com.ssafy.backend.domain.user.Skill;
 import com.ssafy.backend.domain.user.User;
+import com.ssafy.backend.domain.user.dto.MySkillInfo;
 import com.ssafy.backend.domain.user.exception.UserNotFoundException;
 import com.ssafy.backend.domain.user.repository.SkillRepository;
 import com.ssafy.backend.domain.user.repository.UserRepository;
@@ -21,8 +22,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.ssafy.backend.domain.common.GlobalMethod.getUserId;
@@ -39,13 +42,23 @@ public class PostService {
     private final SkillRepository skillRepository;
 
     public List<PostInfoResponse> getPosts(Long chatRoomId) {
-        List<PostInfoResponse> postInfoResponses = postRepository.findByChatRoomId(chatRoomId);
+        List<PostInfoResponse> postInfoResponses = postRepository.getInfoResponseByChatRoomId(chatRoomId);
         for (PostInfoResponse postInfoResponse : postInfoResponses) {
+            postInfoResponse.setReplyCount(replyRepository.countByPostId(postInfoResponse.getId()));
             postInfoResponse.setReply(replyRepository.findFirstByPostId(postInfoResponse.getId()).getContent());
             postInfoResponse.setSkillName(postSkillRepository.findByPostId(postInfoResponse.getId()));
         }
 
         return postInfoResponses;
+    }
+    
+    public PostInfoDetailResponse getDetailPost(Long postId){
+        PostInfoDetailResponse postInfoDetailResponse = postRepository.getInfoById(postId);
+        List<String> skillName = postSkillRepository.findByPostId(postId);
+        postInfoDetailResponse.setSkillName(skillName);
+        List<ReplyInfoResponse> replyInfoResponses = replyRepository.findByPostId(postId);
+        postInfoDetailResponse.setReply(replyInfoResponses);
+        return postInfoDetailResponse;
     }
 
     public Long registerPost(Long chatRoomId, PostInfo postInfo) {
@@ -67,15 +80,33 @@ public class PostService {
 
         return savedPost.getId();
     }
-    
-    public PostInfoDetailResponse getDetailPost(Long postId){
-        PostInfoDetailResponse postInfoDetailResponse = postRepository.findInfoById(postId);
-        List<ReplyInfoResponse> replyInfoResponses = replyRepository.findByPostId(postId);
-        postInfoDetailResponse.setReply(replyInfoResponses);
-        return postInfoDetailResponse;
-    }
 
     public void modifyPost(Long postId, PostInfo postInfo) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post.modifyPost", postId));
+        post.update(postInfo);
+
+        // 언어 스킬 재등록
+        Map<String, Skill> skillMap = skillRepository.findAll().stream()
+                .collect(Collectors.toMap(Skill::getSkillName, skill -> skill));
+        // 내가 등록한 언어 스킬
+        List<MySkillInfo> mySkills = postSkillRepository.getPostSkill(postId);
+        // 수정한 언어 목록
+        Set<String> modifySkillSet = new HashSet<>(postInfo.getSkillName());
+
+        for (MySkillInfo mySkill : mySkills) {
+            if (modifySkillSet.contains(mySkill.getSkillName())) {
+                modifySkillSet.remove(mySkill.getSkillName());
+            } else {
+                postSkillRepository.deleteById(mySkill.getId());
+            }
+        }
+
+        for (String name : modifySkillSet) {
+            postSkillRepository.save(PostSkill.builder()
+                    .skill(skillMap.get(name))
+                    .post(post).build());
+        }
     }
 
 
