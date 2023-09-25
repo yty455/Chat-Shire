@@ -14,6 +14,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findByTaskGroupId(Long taskGroupId);
 
 	@Query("select count(*) from Task t where t.chatRoom.id = :chatRoomId")
-	Long countByProjectId(@Param("chatRoomId") Long chatRoomId);
+	Long countByChatRoomId(@Param("chatRoomId") Long chatRoomId);
 
 }

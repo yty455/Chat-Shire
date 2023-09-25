@@ -2,9 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 14px;
-  padding-left: 20px;
-  width: 28vw;
+  padding-left: 10px;
+  width: 20vw;
   height: 700px;
   /* border: 1px solid blue; */
 }
@@ -20,8 +19,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  width: 26vw;
-  height: 20vh;
+  width: 20vw;
+  height: 24vh;
   margin-top: 10px;
   border-bottom: 1px solid #E5E8EB;
   overflow: scroll;
@@ -39,15 +38,15 @@
 .MediaContainer {
   display: flex;
   flex-wrap: nowrap;
-  height: 20vh;
+  height: 24vh;
 }
 
 .photoThumbnail {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 180px;
-  height: 120px;
+  width: 16vw;
+  height: 20vh;
   margin: 1vw 1vw 10px 0px;
   border-radius: 10px;
   background-color: #E5E8EB;
@@ -63,32 +62,4 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
-}
-
-.fileThumbnail {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 218px;
-  height: 120px;
-  margin: 20px 20px 0px 0px;
-  border-radius: 10px;
-  color: #575757;
-  border: 1px solid #E5E8EB;;
-  background-color: #ffffff;
-}
-
-.fileThumbnail:hover {
-  border-radius: 0px;
-}
-
-.fileThumbnailHeader {
-  display: flex;
-  align-items: center;
-  font-size: 20px;
-}
-
-.fileName {
-  margin-left: 4px;
 }

@@ -106,9 +106,9 @@ function ProjectModal({
             }}
           />
         ) : (
-          <p onClick={() => handleInputClick("name")}>
+          <span onClick={() => handleInputClick("name")}>
             프로젝트 이름 {projectData.name}
-          </p>
+          </span>
         )}
         {editStates.topic ? (
           <input

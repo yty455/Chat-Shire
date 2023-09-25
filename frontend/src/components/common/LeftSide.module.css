@@ -1,25 +1,9 @@
 .profileimg {
-  margin: 10% 0 0 0;
-  /* padding-left: auto; */
+  cursor: pointer;
   border: 1px solid #d1d1d1;
-  /* border-bottom: 1px solid #39a789; */
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
-  /* box-shadow: 0 8px 10px 0 rgba(131, 131, 131, 0.37);
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px); */
-  /* border: 1px solid rgba(255, 255, 255, 0.18); */
   transition: all 0.2s ease-in-out;
-  /* cursor: pointer; */
-  /* padding-bottom: 5px;
-  margin-bottom: 15px; */
-  /* &:hover {
-    box-shadow: -2px -2px 5px white, 2px 2px 5px #babecc;
-    border-left: 1px solid #39a789;
-    border-top: 1px solid #39a789;
-    border-right: none;
-    border-bottom: none;
-  } */
 }
 
 .leftcontainer {
@@ -62,6 +46,30 @@
   }
 }
 
+.sideTabItemContainer {
+  height: 430px;
+  overflow: scroll;
+}
+
+.sideTabItemContainer::-webkit-scrollbar {
+  display: none;
+}
+
 .sideTabContainer div {
   background-color: #ffffff00;
+}
+
+.AccordianItem {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid red; */
+  height: 30px;
+  padding-left: 6px;
+}
+
+.TabBarProject:hover {
+  .RocketIcon {
+    transition-duration: 1.6s;
+    transform: rotateY(720deg);
+  }
 }
