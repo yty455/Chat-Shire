@@ -333,7 +333,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                         (new Date(task.deadline).getTime() -
                           currentDate.getTime()) /
                           (1000 * 60 * 60 * 24)
-                      )}{" "}
+                      ) + 1}{" "}
                       day
                     </p>
                   </div>
