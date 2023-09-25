@@ -32,4 +32,5 @@ export const accessToken = atom({
 export const nowProject_recoil = atom<any[]>({
   key: "nowProject_recoil",
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
