@@ -128,6 +128,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     try {
       const response = await postTask(chatroomId, description, progress);
       console.log(response);
+      getInTask();
     } catch (error) {
       console.error(error);
     }
@@ -148,6 +149,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         progress
       );
       console.log(response);
+      getInTask();
     } catch (error) {
       console.error(error);
     }
@@ -158,9 +160,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     try {
       const response = await deleteTask(TaskId);
       console.log("삭제완료", response);
-      setCheckboxItems((prevItems) =>
-        prevItems.filter((item) => item.TaskId !== TaskId)
-      );
+      getInTask();
     } catch (error) {
       console.error(error);
     }
@@ -216,6 +216,115 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     <div className={styles.indivDiv}>
       <Box sx={{ p: 0, pt: 1 }}>
         <Grid container spacing={2}>
+          {allTasks && allTasks.length !== 0 ? (
+            allTasks.map((item) => (
+              <Grid
+                sx={{ margin: 0, padding: 0 }}
+                item
+                xs={12}
+                key={item.TaskId}
+              >
+                <Item
+                  sx={{
+                    borderRadius: "0px 20px 20px 20px",
+                    margin: "0 10px",
+                    padding: 0,
+                    minHeight: "30px",
+                  }}
+                  className={styles.oneMemo}
+                  elevation={7}
+                >
+                  <div className={styles.indivTask}>
+                    <Checkbox
+                      sx={{
+                        color: "#39A789",
+                        "&.Mui-checked": { color: "#39A789" },
+                      }}
+                      style={{ height: "20px", margin: "14px 0" }}
+                      checked={item.progress === "DONE"}
+                      onChange={handleCheckboxChange(item.TaskId)}
+                    />
+                    {item.isEditing ? (
+                      <input
+                        onKeyPress={handleKeyPress(item.TaskId)}
+                        style={{
+                          fontFamily: "preRg",
+                          height: "30px",
+                          marginTop: "9px",
+                          border: "none",
+                        }}
+                        type="text"
+                        // onBlur={handleContentChange(item.TaskId)}
+                        placeholder="내용을 입력하세요"
+                        // value={updatedDescription}
+                      />
+                    ) : (
+                      <p
+                        className={`${styles.taskContent} ${
+                          item.progress === "DONE" ? styles.checked : ""
+                        }`}
+                      >
+                        {item.description}
+                      </p>
+                    )}
+                  </div>
+                  <div className={styles.icons}>
+                    <div style={{ margin: "-4px 0 0 0" }}>
+                      {/* <DatePicker style={{margin: '-8px 0 10px 7px', height: 24, fontFamily:'preRg', width:'110px'}} size="small" bordered={false} placeholder="마감일 선택" onChange={onChange} />
+                      <Select
+                        bordered={false} 
+                        defaultValue="🔴"
+                        style={{ padding: 0, width: 62, height: 24, margin: '-15px 0 10px 0' }}
+                        onChange={priorityHandleChange}
+                        options={[
+                          { value: 'HIGH', label: '🔴' },
+                          { value: 'MEDIUM', label: '🟡' },
+                          { value: 'LOW', label: '🟢' },
+                        ]}
+                      /> */}
+                    </div>
+                    <div>
+                      <BsFillChatDotsFill
+                        style={{ fontSize: "17px", margin: "-5px 5px 10px 0" }}
+                      />
+                      {editingTaskId === item.TaskId ? (
+                        <BiSolidCheckCircle
+                          style={{
+                            fontSize: "17px",
+                            margin: "-5px 3px 10px 0",
+                          }}
+                          onClick={() => handleEditComplete(item.TaskId)}
+                        />
+                      ) : (
+                        <BsPencilFill
+                          style={{
+                            fontSize: "17px",
+                            margin: "-5px 3px 10px 0",
+                          }}
+                          onClick={() => enterEditMode(item.TaskId)}
+                        />
+                      )}
+                      <MdDelete
+                        style={{ fontSize: "20px", margin: "-7px 10px 8px 0" }}
+                        onClick={() => deleteInTask(item.TaskId)}
+                      />
+                    </div>
+                  </div>
+                </Item>
+              </Grid>
+            ))
+          ) : (
+            <p
+              style={{
+                color: "grey",
+                fontFamily: "preBd",
+                margin: "30px auto 0 auto",
+                paddingLeft: "10px",
+              }}
+            >
+              아직 등록된 태스크가 없습니다.
+            </p>
+          )}
           {checkboxItems && checkboxItems.length !== 0 ? (
             checkboxItems.map((item) => (
               <Grid
