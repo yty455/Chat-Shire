@@ -10,10 +10,12 @@ import TextField from '@mui/material/TextField';
 import { styled } from '@mui/system';
 import Paper from "@mui/material/Paper";
 import { PlusOutlined } from '@ant-design/icons';
-import { Modal, Upload } from 'antd';
+import { Modal, Upload, Button } from 'antd';
 import type { RcFile, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
 import axios from 'axios';
+
+const { TextArea } = Input;
 
 const getBase64 = (file: RcFile): Promise<string> =>
   new Promise((resolve, reject) => {
@@ -99,8 +101,9 @@ function ErrorCreate() {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
-  const [fileList, setFileList] = useState<UploadFile[]>([
-  ])
+  const [fileList, setFileList] = useState<UploadFile[]>([])
+  const [content, setContent] = useState('');
+
 
   const handleCancel = () => setPreviewOpen(false);
   const handlePreview = async (file: UploadFile) => {
@@ -160,7 +163,7 @@ function ErrorCreate() {
   // 이미지 url 보내기
   const handleSendRequest = async () => {
     try {
-      const response = await axios.post('YOUR_SERVER_URL', { image: previewImage });
+      const response = await axios.post('url', { image: previewImage });
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -173,9 +176,9 @@ function ErrorCreate() {
         <BsArrowLeftCircle onClick={reload} style={{marginRight: '5px', color: 'grey', fontSize: '25px'}}/>
         <p style={{color: 'grey', margin: 0, fontFamily:'preBd',fontSize:'20px'}}>뒤로가기</p>
       </div> */}
-      <div style={{marginTop: '30px', display:'flex',alignItems:'center'}}>
+      <div style={{marginTop: '20px', display:'flex',alignItems:'center'}}>
         <p style={{margin: 0, marginRight: '20px', fontFamily:'preRg'}}>제목</p>
-        <Input style={{width: '880px', height: '40px'}} showCount maxLength={50} onChange={onChange} />
+        <Input style={{width: '1100px', height: '40px'}} showCount maxLength={50} onChange={onChange} />
       </div>
       
       
@@ -222,7 +225,7 @@ function ErrorCreate() {
                   overflowX: 'auto',
               },
               '& .MuiInputBase-root': {
-                width: "880px",
+                width: "1100px",
                 padding: '2px 5px',
                 fontFamily: 'preBd',
                 backgroundColor: "#ffffff",
@@ -241,6 +244,15 @@ function ErrorCreate() {
               </li>
           )}
         />
+      </div>
+
+      <div style={{marginTop: '20px', display:'flex',alignItems:'center'}}>
+        <p style={{margin: 0, marginRight: '20px', fontFamily:'preRg'}}>내용</p>
+        <TextArea 
+              value={content} 
+              onChange={(e) => setContent(e.target.value)} 
+              style={{ width: '1100px', height: 170, resize: 'none' }}  
+              rows={8}/>
       </div>
 
       {/* <div style={{marginTop: '20px', display:'flex',alignItems:'center'}}> */}
@@ -267,7 +279,9 @@ function ErrorCreate() {
       {/* </div> */}
 
 
-      <button onClick={handleSendRequest}>작성</button>
+      <Button style={{justifyContent:'center',textAlign:'center',alignItems:'center',fontSize:'17px', width: '100px', height: '40px', display:'flex', marginLeft: 'auto', marginRight:'auto', color: 'white', backgroundColor:'#39A789', fontFamily:'preBd'}} onClick={handleSendRequest} shape="round">
+        작성하기
+      </Button>
     </div>
   );
 }
