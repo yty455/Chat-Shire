@@ -27,3 +27,15 @@ export const updateError = (
 
 // 에러 삭제
 export const deleteError = (postId: number) => api.delete(`/posts/${postId}`);
+
+// 에러 게시글 댓글 작성
+export const postErrorComent = (postId: number, content: string) =>
+  api.post(`/posts/${postId}/replies`, { content });
+
+// 에러 게시글 댓글 수정
+export const updateErrorComent = (replyId: number, content: string) =>
+  api.put(`/replies/${replyId}`, { content });
+
+// 에러 게시글 댓글 삭제
+export const deleteErrorComent = (replyId: number) =>
+  api.delete(`/replies/${replyId}`);

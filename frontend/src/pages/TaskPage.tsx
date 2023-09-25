@@ -6,10 +6,23 @@ import TeamTask from "../components/common2/TeamTask";
 import IndivTask from "../components/common2/IndivTask";
 import LeftSide from "../components/common/LeftSide";
 import { useParams } from "react-router-dom";
+import { changeTaskGroup } from "../utils/taskApi";
 
 export default function TaskPage() {
   const { projectId } = useParams();
   const projectToPass = projectId || "defaultProjectId";
+
+  // // 개인 태스크 > 팀 태스크
+  // const indivToTeam = async (teamId, indivId) => {
+  //   try {
+  //       const response = await changeTaskGroup(teamId , indivId);
+  //       console.log(response.data);
+
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
   return (
     <div
       style={{

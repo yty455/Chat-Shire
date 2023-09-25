@@ -19,8 +19,9 @@ import "./IndivTask.css";
 
 type CheckboxItem = {
   id: string;
+  taskGroupId?: string;
   description: string;
-  isEditing: boolean;
+  isEditing?: boolean;
   progress: string;
 };
 
@@ -39,10 +40,10 @@ interface taskInfo {
 }
 interface Task {
   id: string;
-  taskGroupId: string;
+  taskGroupId?: string;
   description: string;
   progress: string;
-  isEditing: string;
+  isEditing?: boolean;
 }
 // // 마감일 정보
 // const onChange: DatePickerProps['onChange'] = (date, dateString) => {
@@ -98,12 +99,10 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     }
   };
 
-  const handleCheckboxChange = (id: string) => () => {
-    setCheckboxItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, checked: !item.progress } : item
-      )
-    );
+  const handleCheckboxChange = (item: Task) => () => {
+    const progress = item.progress === "DONE" ? "ONGOING" : "DONE";
+    const taskGroupId = item.taskGroupId || "";
+    updateInTask(item.id, taskGroupId, item.description, progress);
   };
 
   // 태스크 불러오는 함수
@@ -238,7 +237,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                       }}
                       style={{ height: "20px", margin: "14px 0" }}
                       checked={item.progress === "DONE"}
-                      onChange={handleCheckboxChange(item.id)}
+                      onChange={handleCheckboxChange(item)}
                     />
                     {item.isEditing ? (
                       <input
@@ -342,7 +341,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                       }}
                       style={{ height: "20px", margin: "14px 0" }}
                       checked={item.progress === "DONE"}
-                      onChange={handleCheckboxChange(item.id)}
+                      onChange={handleCheckboxChange(item)}
                     />
                     {item.isEditing ? (
                       <input
@@ -414,16 +413,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
               </Grid>
             ))
           ) : (
-            <p
-              style={{
-                color: "grey",
-                fontFamily: "preBd",
-                margin: "30px auto 0 auto",
-                paddingLeft: "10px",
-              }}
-            >
-              아직 등록된 태스크가 없습니다.
-            </p>
+            <></>
           )}
         </Grid>
       </Box>
