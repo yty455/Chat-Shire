@@ -236,7 +236,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
             allTasks.map((item) => (
               <Grid sx={{ margin: 0, padding: 0 }} item xs={12} key={item.id}>
                 <Item
-                  ref={drop}
                   sx={{
                     borderRadius: "0px 20px 20px 20px",
                     margin: "0 10px",
@@ -437,6 +436,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         </Grid>
       </Box>
       <Fab
+        ref={drop}
         style={{ zIndex: 2 }}
         sx={{
           mb: "20px",
