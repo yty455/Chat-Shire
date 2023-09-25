@@ -4,8 +4,15 @@ import styles from "./MessageItem.module.css";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
+import { useDrag } from "react-dnd";
+import { ItemTypes } from "./ItemTypes";
 
 export default function MessageItem(message: any) {
+  const [, ref] = useDrag({
+    type: ItemTypes.MESSAGE_ITEM, // 드래그 타입을 정의합니다.
+    item: { message }, // 드래그할 데이터를 포함합니다.
+  });
+
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
       backgroundColor: "#44b700",
@@ -36,7 +43,7 @@ export default function MessageItem(message: any) {
   }));
 
   return (
-    <div className={styles.messageItemContainer}>
+    <div className={styles.messageItemContainer} ref={ref}>
       <StyledBadge
         className={styles.messageItemProfile}
         overlap="circular"

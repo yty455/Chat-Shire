@@ -16,7 +16,8 @@ import { getTask, deleteTask, postTask, updateTask } from "../../utils/taskApi";
 // import type { DatePickerProps } from 'antd';
 // import { DatePicker, Space, Select } from 'antd';
 import "./IndivTask.css";
-
+import { useDrop } from "react-dnd";
+import { ItemTypes } from "./ItemTypes";
 type CheckboxItem = {
   id: string;
   taskGroupId?: string;
@@ -68,6 +69,20 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [updatedDescription, setUpdatedDescription] = useState<string>("");
   const [allTasks, setAllTasks] = useState<Task[]>([]);
+
+  const [{ isOver }, drop] = useDrop({
+    accept: ItemTypes.MESSAGE, // 허용할 드래그 타입
+    drop: (item) => {
+      // 드롭이 발생할 때 실행할 동작
+      // item에는 드래그된 데이터가 포함됩니다.
+      // 이 데이터를 사용하여 SimpleContainer 내부에서 처리할 수 있습니다.
+      console.log("Dropped:", item);
+      // item.message를 이용해서 원하는 동작을 수행합니다.
+    },
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  });
 
   // 수정모드 진입
   const enterEditMode = async (TaskId: string) => {
@@ -209,13 +224,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
           console.log("수정", TaskId, "0", description, progress);
           await updateInTask(TaskId, "0", description, progress);
         }
-        // setCheckboxItems((prevItems) =>
-        //   prevItems.map((item) =>
-        //     item.TaskId === TaskId
-        //       ? { ...item, description, isEditing: false }
-        //       : item
-        //   )
-        // );
       }
     }
   };
@@ -228,6 +236,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
             allTasks.map((item) => (
               <Grid sx={{ margin: 0, padding: 0 }} item xs={12} key={item.id}>
                 <Item
+                  ref={drop}
                   sx={{
                     borderRadius: "0px 20px 20px 20px",
                     margin: "0 10px",
