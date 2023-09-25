@@ -26,8 +26,13 @@ import { useSetRecoilState } from "recoil";
 
 import EmojiPicker from "emoji-picker-react";
 
-function Message() {
-  const projectId = useParams().projectId;
+interface MessageProps {
+  projectId: string;
+}
+
+function Message({ projectId }: MessageProps) {
+  // const projectId = useParams().projectId;
+  console.log("Message", projectId);
   const [value, setValue] = useState("photos");
   const [preMessage, setPreMessage] = useState<any[]>([]);
   const [message, setMessage] = useState("");
