@@ -8,7 +8,7 @@ export const postTask = (
   description: string,
   progress: string
 ) =>
-  api.post("/task", {
+  api.post("/tasks", {
     chatroomId,
     description,
     progress,

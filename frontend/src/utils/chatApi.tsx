@@ -8,7 +8,7 @@ export const getChat = (projectId: number, page: number, size: number) =>
 
 // 채팅 작성
 export const postChat = (chatRoomId: number, content: string) =>
-  api.post("/chat", {
+  api.post("/chats", {
     chatRoomId,
     content,
   });
