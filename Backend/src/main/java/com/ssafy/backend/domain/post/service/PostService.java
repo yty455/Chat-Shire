@@ -39,7 +39,7 @@ public class PostService {
     private final SkillRepository skillRepository;
 
     public List<PostInfoResponse> getPosts(Long chatRoomId) {
-        List<PostInfoResponse> postInfoResponses = postRepository.findByChatRoomId(chatRoomId);
+        List<PostInfoResponse> postInfoResponses = postRepository.findAllByChatRoomId(chatRoomId);
         for (PostInfoResponse postInfoResponse : postInfoResponses) {
             postInfoResponse.setReply(replyRepository.findFirstByPostId(postInfoResponse.getId()).getContent());
             postInfoResponse.setSkillName(postSkillRepository.findByPostId(postInfoResponse.getId()));
