@@ -17,5 +17,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("select new com.ssafy.backend.domain.post.dto.PostInfoDetailResponse(p.id, p.title, p.content, u.id, u.githubId,u.profileImage, u.profileColor, u.nickname, p.state, p.createdDate, p.lastModifiedDate) from Post p left join User u on p.user = u where p.id = :postId")
     PostInfoDetailResponse getInfoById(@Param("postId") Long postId);
 
-
+    @Query("SELECT COUNT(p) FROM Post p WHERE p.chatRoom.id = :chatRoomId")
+    Long countByChatRoomId(Long chatRoomId);
 }
