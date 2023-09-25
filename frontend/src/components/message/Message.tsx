@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./Message.module.css";
 import MessageItem from "./MessageItem";
 import MessageRightBody from "./MessageRightBody";
@@ -21,12 +22,12 @@ import SockJS from "sockjs-client";
 import { getChat, postChat } from "../../utils/chatApi";
 import { Stomp, CompatClient } from "@stomp/stompjs";
 
-import axios from "axios";
 import { useSetRecoilState } from "recoil";
 
-import EmojiPicker from 'emoji-picker-react';
+import EmojiPicker from "emoji-picker-react";
 
-function Message(projectId: any) {
+function Message() {
+  const projectId = useParams().projectId;
   const [value, setValue] = useState("photos");
   const [preMessage, setPreMessage] = useState<any[]>([]);
   const [message, setMessage] = useState("");
@@ -34,11 +35,12 @@ function Message(projectId: any) {
     setValue(newValue);
   };
 
-  const [activateEmojiPicker, setActivateEmojiPicker] = useState(false)
+  const [activateEmojiPicker, setActivateEmojiPicker] = useState(false);
 
   const client = useRef<CompatClient>();
 
   const connectHandler = () => {
+    console.log(projectId);
     client.current = Stomp.over(() => {
       const sock = new SockJS(
         "http://j9e205.p.ssafy.io:8080/gs-guide-websocket"
@@ -52,32 +54,37 @@ function Message(projectId: any) {
       () => {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
         client.current?.subscribe(`/topic/greetings`, (message) => {
-          console.log(JSON.parse(message.body).content);
           setMessage(JSON.parse(message.body));
         });
       }
     );
-    getChat(projectId, 1, 1)
-    .then((res) => {
-      setPreMessage(res.data.result[0]);
-    })
-    .catch(err => console.log(err));
+    getChat(Number(projectId), 1, 1)
+      .then((res) => {
+        setPreMessage(res.data.result[0]);
+      })
+      .catch((err) => console.log(err));
   };
 
   const inputMessage = (e: any) => {
-    if (e.code === 'Enter') {
-      postChat(projectId, e.target.value)
+    if (e.code === "Enter") {
+      postChat(Number(projectId), e.target.value);
     }
   };
-  
+
+  const sendMessage = (e: any) => {
+    const message = document.getElementById("chatInput") as HTMLInputElement;
+    if (message.value != "") {
+      postChat(Number(projectId), message.value);
+    }
+  };
+
   const inputEmoji = (e: any) => {
-    postChat(projectId, e.emoji)
-  }
+    postChat(Number(projectId), e.emoji);
+  };
 
   const handleEmojiPicker = () => {
-    setActivateEmojiPicker(!activateEmojiPicker)
-  }
-
+    setActivateEmojiPicker(!activateEmojiPicker);
+  };
 
   useEffect(() => {
     connectHandler();
@@ -112,7 +119,11 @@ function Message(projectId: any) {
           <div className={styles.messageInputContainer}>
             <Input
               id="chatInput"
-              style={{ marginLeft: 0, fontFamily: "preRg", marginBottom: "10px" }}
+              style={{
+                marginLeft: 0,
+                fontFamily: "preRg",
+                marginBottom: "10px",
+              }}
               className={styles.messageInput}
               placeholder="메세지를 입력해주세요"
               inputProps={ariaLabel}
@@ -121,14 +132,25 @@ function Message(projectId: any) {
           </div>
           <div className={styles.messageFooterButtonContainer}>
             <div className={styles.messageFooterButtonLeft}>
-              <BsPlus style={{cursor: "pointer"}} size={40} color="#39A789" />
-              <div style={{position: "relative"}}>
-                <Grow in={activateEmojiPicker} style={{ transformOrigin: "0 100% 0"}}>
+              <BsPlus style={{ cursor: "pointer" }} size={40} color="#39A789" />
+              <div style={{ position: "relative" }}>
+                <Grow
+                  in={activateEmojiPicker}
+                  style={{ transformOrigin: "0 100% 0" }}
+                >
                   <div className={styles.EmojiPickerContainer}>
-                    <EmojiPicker onEmojiClick={inputEmoji} searchDisabled={true}/>
+                    <EmojiPicker
+                      onEmojiClick={inputEmoji}
+                      searchDisabled={true}
+                    />
                   </div>
                 </Grow>
-                <BsEmojiKiss style={{cursor: "pointer"}} onClick={handleEmojiPicker} size={30} color="#39A789" />
+                <BsEmojiKiss
+                  style={{ cursor: "pointer" }}
+                  onClick={handleEmojiPicker}
+                  size={30}
+                  color="#39A789"
+                />
               </div>
             </div>
             <Button
@@ -136,7 +158,8 @@ function Message(projectId: any) {
               color="greenary"
               type="submit"
               variant="contained"
-              endIcon={<SendIcon/>}
+              onClick={sendMessage}
+              endIcon={<SendIcon />}
             ></Button>
           </div>
         </div>

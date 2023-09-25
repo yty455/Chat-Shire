@@ -100,7 +100,7 @@ const BarChart = () => {
                   id: 'lines'
               }
           ]}
-          borderRadius={6}
+          borderRadius={4}
           borderWidth={1}
           borderColor={{
               from: 'color',

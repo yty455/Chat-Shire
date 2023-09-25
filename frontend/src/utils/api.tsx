@@ -14,7 +14,7 @@ api.interceptors.request.use(
 
     // 헤더에 토큰 추가
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `${token}`;
     }
 
     return config;

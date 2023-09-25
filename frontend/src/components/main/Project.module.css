@@ -14,29 +14,139 @@
 }
 
 .SwiperContainer {
-  margin-top: 100px;
   width: 54vw;
-  height: 360px;
+  height: 400px;
 }
 
 .SwiperItem {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
-  padding: 20px;
-  height: 280px;
+  margin: 14px;
+  width: 360px;
+  height: 294px;
   border-radius: 20px;
   border: 1px solid #E5E8EB;
+  color: #575757;
   box-shadow: 3px 3px 10px 3px rgb(241, 241, 241);
 }
 
-.swiper-slide {
-  width: 300px;
-  height: 200px;
-}
-
-.swiperItemTitle {
+.SwiperItemTitle {
   font-size: 28px;
   font-family: "preBd";
   color: #575757;;
+}
+
+.SwiperItemHeader {
+  margin: 10px 10px 0px 10px;
+}
+
+.SwiperItemBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 6px;
+  padding: 0px 10px 10px 10px;;
+  width: 340px;
+  height: 123px;
+  border-top: 2px solid gray;
+  border-radius: 0px 0px 20px 20px;
+  transition-duration: 0.3s;
+}
+
+.SwiperItemBodyInactive {
+  border-top: 2px solid gray;
+  transition-duration: 0.3s;
+  width: 340px;
+  height: 3px;
+  margin-left: -10px;
+}
+
+.ProjectMemberContainer {
+  display: flex;
+  margin-left: 10px;
+  overflow: scroll;
+}
+
+.ProjectMemberContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.ProjectMemberContainerInactive {
+  display: flex;
+  margin-top: 10px;
+  overflow: scroll;
+}
+
+.ProjectMemberContainerInactive::-webkit-scrollbar {
+  display: none;
+}
+
+.ProjectTopicConatiner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  padding: 6px 0px;
+  width: 340px;
+  height: 88px;
+  overflow: scroll;
+  opacity: 1;
+  background-color: #E5E8EB;
+  transition-delay: 0.2s;
+  transition-duration: 0.3s;
+}
+
+.ProjectTopicConatiner::-webkit-scrollbar {
+  display: none;
+}
+
+.ProjectDateContainer {
+  display: flex;
+  height: 30px;
+  align-items: center;
+}
+
+.ProjectTitleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.CreateProjectContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 320px;
+  height: 294px;
+  margin: 20px;
+}
+
+.ProjectDescContainerInactive {
+  display: none;
+}
+
+.ProjectTopicContainerInactive {
+  opacity: 0;
+}
+
+.ProjectTopicContainerInactive div {
+  opacity: 0;
+}
+
+.active {
+  transition-duration: 0.3s;
+}
+
+.Inactive {
+  transition-duration: 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 320px;
+  height: 140px;
+  margin: 10px;
+  /* border: #39A789 1px solid; */
 }
