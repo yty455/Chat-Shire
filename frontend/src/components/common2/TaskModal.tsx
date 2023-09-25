@@ -195,7 +195,7 @@ function TaskModal({
                       onChange={(date: any) => {
                         setTeamTaskDetail({
                           ...teamTaskDetail,
-                          deadline: date.toISOString(), // ISO 형식으로 변환
+                          deadline: date.toLocaleDateString(), // ISO 형식으로 변환
                         });
                       }}
                       sx={{

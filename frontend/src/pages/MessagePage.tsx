@@ -6,6 +6,8 @@ import SimpleContainer from "../components/common2/IndivTask";
 import { useParams } from "react-router-dom";
 
 export default function MessagePage() {
+  const { projectId } = useParams();
+  const projectToPass = projectId || "defaultProjectId";
   return (
     <div
       style={{
@@ -16,8 +18,8 @@ export default function MessagePage() {
     >
       <div className={styles.messagePageContainer}>
         <LeftSide />
-        <Message/>
-        <SimpleContainer/>
+        <Message projectId={projectToPass} />
+        <SimpleContainer projectId={projectToPass} />
       </div>
     </div>
   );
