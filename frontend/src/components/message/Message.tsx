@@ -3,17 +3,17 @@ import { useParams } from "react-router-dom";
 import styles from "./Message.module.css";
 import MessageItem from "./MessageItem";
 import MessageRightBody from "./MessageRightBody";
-import { UploadOutlined } from '@ant-design/icons';
-import type { UploadProps } from 'antd';
-import { message, Upload } from 'antd';
+import { UploadOutlined } from "@ant-design/icons";
+import type { UploadProps } from "antd";
+import { message, Upload } from "antd";
 import {
   BsPeopleFill,
   BsQuestionCircle,
   BsFillMegaphoneFill,
   BsEmojiKiss,
-  BsPaperclip
+  BsPaperclip,
 } from "react-icons/bs";
-import {HiOutlinePhoto} from "react-icons/hi2";
+import { HiOutlinePhoto } from "react-icons/hi2";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import Grow from "@mui/material/Grow";
@@ -74,7 +74,7 @@ function Message({ projectId }: MessageProps) {
   const [preMessage, setPreMessage] = useState<any[]>([]);
   const [message, setMessage] = useState("");
   const handleChange = (e: any) => {
-    setValue(e.target.value)
+    setValue(e.target.value);
   };
 
   const [activateEmojiPicker, setActivateEmojiPicker] = useState(false);
@@ -138,9 +138,16 @@ function Message({ projectId }: MessageProps) {
   const props: UploadProps = {
     // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
     beforeUpload: (file) => {
-      const isJpgOrPngOrGif = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/gif' || file.type === 'video/mp4' || file.type === 'video/x-msvideo' || file.type === 'video/quicktime';
+      const isJpgOrPngOrGif =
+        file.type === "image/jpeg" ||
+        file.type === "image/png" ||
+        file.type === "image/jpg" ||
+        file.type === "image/gif" ||
+        file.type === "video/mp4" ||
+        file.type === "video/x-msvideo" ||
+        file.type === "video/quicktime";
       if (!isJpgOrPngOrGif) {
-        window.alert('이미지 또는 동영상만 업로드해주세요');
+        window.alert("이미지 또는 동영상만 업로드해주세요");
       }
       return isJpgOrPngOrGif || Upload.LIST_IGNORE;
     },
@@ -153,14 +160,21 @@ function Message({ projectId }: MessageProps) {
       // url: 파일 URL (서버에서 지정)
     },
   };
-  
+
   // 파일 업로드
   const fileProps: UploadProps = {
     // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
     beforeUpload: (file) => {
-      const isFile = file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/jpg' && file.type !== 'image/gif' && file.type !== 'video/mp4' && file.type !== 'video/x-msvideo' && file.type !== 'video/quicktime';
+      const isFile =
+        file.type !== "image/jpeg" &&
+        file.type !== "image/png" &&
+        file.type !== "image/jpg" &&
+        file.type !== "image/gif" &&
+        file.type !== "video/mp4" &&
+        file.type !== "video/x-msvideo" &&
+        file.type !== "video/quicktime";
       if (!isFile) {
-        window.alert('이미지, 동영상을 제외한 파일만 업로드해주세요.');
+        window.alert("이미지, 동영상을 제외한 파일만 업로드해주세요.");
       }
       return isFile || Upload.LIST_IGNORE;
     },
@@ -168,7 +182,6 @@ function Message({ projectId }: MessageProps) {
       console.log(info.fileList);
     },
   };
-  
 
   return (
     <div className={styles.messageContainer}>
@@ -201,7 +214,7 @@ function Message({ projectId }: MessageProps) {
                 marginLeft: 0,
                 fontFamily: "preRg",
                 marginBottom: "5px",
-                fontSize: '17px'
+                fontSize: "17px",
               }}
               className={styles.messageInput}
               placeholder=" 메세지를 입력해주세요"
@@ -212,10 +225,18 @@ function Message({ projectId }: MessageProps) {
           <div className={styles.messageFooterButtonContainer}>
             <div className={styles.messageFooterButtonLeft}>
               <Upload showUploadList={false} multiple={true} {...fileProps}>
-                <BsPaperclip style={{ cursor: "pointer" }} size={28} color="#39A789"/>
+                <BsPaperclip
+                  style={{ cursor: "pointer" }}
+                  size={28}
+                  color="#39A789"
+                />
               </Upload>
               <Upload showUploadList={false} multiple={true} {...props}>
-                <HiOutlinePhoto style={{ marginRight: '7px', cursor: "pointer" }} size={30} color="#39A789"/>
+                <HiOutlinePhoto
+                  style={{ marginRight: "7px", cursor: "pointer" }}
+                  size={30}
+                  color="#39A789"
+                />
               </Upload>
               <div style={{ position: "relative" }}>
                 <Grow
@@ -250,10 +271,18 @@ function Message({ projectId }: MessageProps) {
       </div>
       <div className={styles.messageRight}>
         <div className={styles.messageRightTabContainer}>
-          <button value="media" onClick={handleChange}>MEDIA</button>
-          <button value="files" onClick={handleChange}>FILE</button>
-          <button value="links" onClick={handleChange}>LINK</button>
-          <button value="search" onClick={handleChange}>SEARCH</button>
+          <button value="media" onClick={handleChange}>
+            MEDIA
+          </button>
+          <button value="files" onClick={handleChange}>
+            FILE
+          </button>
+          <button value="links" onClick={handleChange}>
+            LINK
+          </button>
+          <button value="search" onClick={handleChange}>
+            SEARCH
+          </button>
         </div>
         <MessageRightBody value={value} />
       </div>
