@@ -28,11 +28,11 @@ import EmojiPicker from "emoji-picker-react";
 
 function Message() {
   const projectId = useParams().projectId;
-  const [value, setValue] = useState("photos");
+  const [value, setValue] = useState("media");
   const [preMessage, setPreMessage] = useState<any[]>([]);
   const [message, setMessage] = useState("");
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
+  const handleChange = (e: any) => {
+    setValue(e.target.value)
   };
 
   const [activateEmojiPicker, setActivateEmojiPicker] = useState(false);
@@ -166,85 +166,10 @@ function Message() {
       </div>
       <div className={styles.messageRight}>
         <div className={styles.messageRightTabContainer}>
-          <BottomNavigation
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-              height: "100%",
-            }}
-            value={value}
-            onChange={handleChange}
-          >
-            <BottomNavigationAction
-              value="photos"
-              icon={
-                <img
-                  style={{ marginBottom: "4px", width: "40px" }}
-                  src={process.env.PUBLIC_URL + "/assets/chat_icons/photo.png"}
-                  alt=""
-                />
-              }
-              style={{
-                color: "#39A789",
-                margin: "6px 10px 6px 6px",
-                padding: "0px",
-                borderRadius: "100px",
-                border: "1px solid #E5E8EB",
-              }}
-            />
-            <BottomNavigationAction
-              value="files"
-              icon={
-                <img
-                  style={{ marginBottom: "4px", width: "40px" }}
-                  src={process.env.PUBLIC_URL + "/assets/chat_icons/file.png"}
-                  alt=""
-                />
-              }
-              style={{
-                color: "#39A789",
-                margin: "6px 20px 6px 6px",
-                padding: "0px",
-                borderRadius: "100px",
-                border: "1px solid #E5E8EB",
-              }}
-            />
-            <BottomNavigationAction
-              value="links"
-              icon={
-                <img
-                  style={{ marginBottom: "4px", width: "40px" }}
-                  src={process.env.PUBLIC_URL + "/assets/chat_icons/link2.png"}
-                  alt=""
-                />
-              }
-              style={{
-                color: "#39A789",
-                margin: "6px 20px 6px 6px",
-                padding: "0px",
-                borderRadius: "100px",
-                border: "1px solid #E5E8EB",
-              }}
-            />
-            <BottomNavigationAction
-              value="search"
-              icon={
-                <img
-                  style={{ marginBottom: "4px", width: "40px" }}
-                  src={process.env.PUBLIC_URL + "/assets/chat_icons/search.png"}
-                  alt=""
-                />
-              }
-              style={{
-                color: "#39A789",
-                margin: "6px 20px 6px 6px",
-                padding: "0px",
-                borderRadius: "100px",
-                border: "1px solid #E5E8EB",
-              }}
-            />
-          </BottomNavigation>
+          <button value="media" onClick={handleChange}>MEDIA</button>
+          <button value="files" onClick={handleChange}>FILE</button>
+          <button value="links" onClick={handleChange}>LINK</button>
+          <button value="search" onClick={handleChange}>SEARCH</button>
         </div>
         <MessageRightBody value={value} />
       </div>

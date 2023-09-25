@@ -12,7 +12,7 @@ export default function RightFileTab() {
       </span>
       <div className={styles.MessageFileStorage}>
         <div className={styles.fileThumbnail}>
-          <CardActionArea style={{height: "120px", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", padding: "10px"}}>
+          <CardActionArea style={{height: "144px", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", padding: "10px"}}>
             <div className={styles.fileThumbnailHeader}>
               <BsMusicNoteBeamed size={24}/>
               <span className={styles.fileName}>

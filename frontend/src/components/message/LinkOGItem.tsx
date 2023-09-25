@@ -38,7 +38,7 @@ export default function LinkOGItem() {
         </CardActionArea> :
         <CardActionArea sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", width: "100%", height: 100, borderRadius: 2, border: "1px solid #E5E8EB", boxShadow: "none", padding: 2 }}>
           <Skeleton animation="wave" style={{width: "140px", height: "46px"}} />
-          <Skeleton animation="wave" style={{width: "300px", height: "30px"}} />
+          <Skeleton animation="wave" style={{width: "260px", height: "30px"}} />
           <Skeleton animation="wave" style={{width: "200px", height: "20px"}} />
         </CardActionArea>
       }
