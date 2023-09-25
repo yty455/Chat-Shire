@@ -1,10 +1,8 @@
 package com.ssafy.backend.domain.user.service;
 
 
-import com.ssafy.backend.domain.user.MySkill;
-import com.ssafy.backend.domain.user.Skill;
-import com.ssafy.backend.domain.user.State;
-import com.ssafy.backend.domain.user.User;
+import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
+import com.ssafy.backend.domain.user.*;
 import com.ssafy.backend.domain.user.dto.ChallengeInfoResponse;
 import com.ssafy.backend.domain.user.dto.MySkillInfo;
 import com.ssafy.backend.domain.user.dto.UserInfo;
@@ -68,8 +66,10 @@ public class UserService {
         User findUser = userRepository.findById(getUserId())
                 .orElseThrow(UserNotFoundException::new);
         List<String> mySkills = mySkillRepository.findByUser(findUser);
+        Challenge challenge = challengeRepository.findByUserId(getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User.getUser", getUserId()));
 
-        ChallengeInfoResponse challengeInfoResponse = ChallengeInfoResponse.fromEntity(challengeRepository.findByUserId(getUserId()));
+        ChallengeInfoResponse challengeInfoResponse = ChallengeInfoResponse.fromEntity(challenge);
 
         String state = redisTemplate.opsForValue().get("userState-"+getUserId());
         return UserInfoResponse.fromEntity(findUser, mySkills, challengeInfoResponse, state);
