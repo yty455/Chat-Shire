@@ -72,8 +72,6 @@ public class PostController {
         postService.modifyPost(postId, postInfo);
         BasicResponse basicResponse = BasicResponse.builder()
                 .message("에러 게시글 수정 성공")
-                .count(1)
-                .result(Collections.singletonList(postId))
                 .build();
 
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
@@ -85,9 +83,7 @@ public class PostController {
 
         postService.deletePost(postId);
         BasicResponse basicResponse = BasicResponse.builder()
-                .message("에러 게시글 수정 성공")
-                .count(1)
-                .result(Collections.singletonList(postId))
+                .message("에러 게시글 삭제 성공")
                 .build();
 
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());

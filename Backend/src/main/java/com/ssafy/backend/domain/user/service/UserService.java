@@ -12,10 +12,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssafy.backend.domain.user.MySkill;
-import com.ssafy.backend.domain.user.Skill;
-import com.ssafy.backend.domain.user.State;
-import com.ssafy.backend.domain.user.User;
+import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
+import com.ssafy.backend.domain.user.*;
 import com.ssafy.backend.domain.user.dto.ChallengeInfoResponse;
 import com.ssafy.backend.domain.user.dto.MySkillInfo;
 import com.ssafy.backend.domain.user.dto.SearchUser;
