@@ -83,12 +83,14 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   };
 
   // 수정완료 눌렀을 때
-  const handleEditComplete = async (TaskId: string) => {
+  const handleEditComplete = async (
+    TaskId: string,
+    updatedDescription: string
+  ) => {
     try {
       if (projectId) {
-        const taskGroupId = projectId;
-        const progress = "";
-        await updateInTask(TaskId, updatedDescription, taskGroupId, progress);
+        const progress = "ONGOING";
+        await updateInTask(TaskId, "0", updatedDescription, progress);
         // 편집 모드를 종료
         setEditingTaskId(null);
       } else {
@@ -149,6 +151,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         progress
       );
       console.log(response);
+      setEditingTaskId(null);
       getInTask();
     } catch (error) {
       console.error(error);
@@ -203,8 +206,8 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
           await postInTask(chatroomId, description, progress);
           setCheckboxItems([]);
         } else {
-          console.log(TaskId, "0", description, progress);
-          updateInTask(TaskId, "0", description, progress);
+          console.log("수정", TaskId, "0", description, progress);
+          await updateInTask(TaskId, "0", description, progress);
         }
         // setCheckboxItems((prevItems) =>
         //   prevItems.map((item) =>
@@ -293,7 +296,9 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                             fontSize: "17px",
                             margin: "-5px 3px 10px 0",
                           }}
-                          onClick={() => handleEditComplete(item.id)}
+                          onClick={() =>
+                            handleEditComplete(item.id, updatedDescription)
+                          }
                         />
                       ) : (
                         <BsPencilFill
@@ -397,7 +402,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                             fontSize: "17px",
                             margin: "-5px 3px 10px 0",
                           }}
-                          onClick={() => handleEditComplete(item.id)}
+                          // onClick={() => handleEditComplete(item.id)}
                         />
                       ) : (
                         <BsPencilFill
