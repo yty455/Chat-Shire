@@ -42,7 +42,7 @@ api.interceptors.response.use(
             method: error.config.method, // 원래 요청의 HTTP 메서드를 사용합니다.
             url: error.config.url, // 원래 요청의 URL을 사용합니다.
             headers: {
-              AuthorizationRefresh: `${refreshToken}`, // 리프레시 토큰을 사용하여 인증합니다.
+              "Authorization-Refresh": `${refreshToken}`, // 리프레시 토큰을 사용하여 인증합니다.
             },
           });
 
