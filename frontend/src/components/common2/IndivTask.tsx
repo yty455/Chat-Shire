@@ -110,7 +110,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     try {
       if (projectId) {
         const response = await getTask(projectId);
-        console.log(response);
+        console.log(response.data);
         // setCheckboxItems(response)
         setAllTasks(response.data.result);
       }
@@ -121,7 +121,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
 
   // 태스크 등록
   const postInTask = async (
-    chatroomId: number,
+    chatroomId: string,
     description: string,
     progress: string
   ) => {
@@ -168,7 +168,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
 
   useEffect(() => {
     getInTask();
-  }, [checkboxItems]);
+  }, []);
 
   // 체크박스 추가
   const addCheckbox = () => {
@@ -179,7 +179,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     ]);
   };
 
-  // 이게뭐지
+  // 내용 작성 완료
   const handleContentChange = (TaskId: String) => (event: any) => {
     setCheckboxItems((prevItems) =>
       prevItems.map((item) =>
@@ -196,18 +196,18 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       if (event.target.value === "") {
         window.alert("내용을 입력해주세요");
       } else {
-        const chatroomId = 0;
+        const chatroomId = projectId || "";
         const description = event.target.value;
         const progress = "ONGOING";
         await postInTask(chatroomId, description, progress);
-
-        setCheckboxItems((prevItems) =>
-          prevItems.map((item) =>
-            item.TaskId === TaskId
-              ? { ...item, description, isEditing: false }
-              : item
-          )
-        );
+        setCheckboxItems([]);
+        // setCheckboxItems((prevItems) =>
+        //   prevItems.map((item) =>
+        //     item.TaskId === TaskId
+        //       ? { ...item, description, isEditing: false }
+        //       : item
+        //   )
+        // );
       }
     }
   };
@@ -216,8 +216,8 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     <div className={styles.indivDiv}>
       <Box sx={{ p: 0, pt: 1 }}>
         <Grid container spacing={2}>
-          {allTasks && allTasks.length !== 0 ? (
-            allTasks.map((item) => (
+          {checkboxItems && checkboxItems.length !== 0 ? (
+            checkboxItems.map((item) => (
               <Grid
                 sx={{ margin: 0, padding: 0 }}
                 item
@@ -254,7 +254,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                           border: "none",
                         }}
                         type="text"
-                        onBlur={handleContentChange(item.TaskId)}
+                        // onBlur={handleContentChange(item.TaskId)}
                         placeholder="내용을 입력하세요"
                         // value={updatedDescription}
                       />
