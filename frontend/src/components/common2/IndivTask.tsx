@@ -191,7 +191,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   };
 
   // 엔터쳤을때 태스크 입력 완
-  const handleKeyPress = (TaskId: String) => async (event: any) => {
+  const handleKeyPress = (TaskId: string) => async (event: any) => {
     if (event.key === "Enter") {
       if (event.target.value === "") {
         window.alert("내용을 입력해주세요");
@@ -199,8 +199,12 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         const chatroomId = projectId || "";
         const description = event.target.value;
         const progress = "ONGOING";
-        await postInTask(chatroomId, description, progress);
-        setCheckboxItems([]);
+        if (TaskId === "create") {
+          await postInTask(chatroomId, description, progress);
+          setCheckboxItems([]);
+        } else {
+          updateInTask(TaskId, "0", description, progress);
+        }
         // setCheckboxItems((prevItems) =>
         //   prevItems.map((item) =>
         //     item.TaskId === TaskId
@@ -239,7 +243,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                       checked={item.progress === "DONE"}
                       onChange={handleCheckboxChange(item)}
                     />
-                    {item.isEditing ? (
+                    {editingTaskId === item.id ? (
                       <input
                         onKeyPress={handleKeyPress(item.id)}
                         style={{
@@ -251,7 +255,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                         type="text"
                         // onBlur={handleContentChange(item.TaskId)}
                         placeholder="내용을 입력하세요"
-                        // value={updatedDescription}
+                        value={item.description}
                       />
                     ) : (
                       <p
@@ -345,7 +349,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                     />
                     {item.isEditing ? (
                       <input
-                        onKeyPress={handleKeyPress(item.id)}
+                        onKeyPress={handleKeyPress("create")}
                         style={{
                           fontFamily: "preRg",
                           height: "30px",
