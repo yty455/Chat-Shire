@@ -4,7 +4,7 @@ import api from "./api";
 
 // 태스크 등록
 export const postTask = (
-  chatroomId: number,
+  chatroomId: string,
   description: string,
   progress: string
 ) =>
@@ -23,7 +23,7 @@ export const updateTask = (
   taskId: string,
   taskGroupId: string,
   description: string,
-  progress: string,
+  progress: string
 ) =>
   api.patch(`/tasks/${taskId}`, {
     taskGroupId,
