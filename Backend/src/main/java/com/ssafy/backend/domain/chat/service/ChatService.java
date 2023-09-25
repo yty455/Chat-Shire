@@ -56,7 +56,6 @@ public class ChatService {
     }
 
     public List<ChatInfo> getChats(Long chatRoomId, int page, int size){
-        List<ChatInfo> chatInfos = chatRedisTemplate.opsForList().range(chatKey+chatRoomId,0,-1);
-        return chatInfos;
+        return chatRedisTemplate.opsForList().range(chatKey+chatRoomId,0,-1);
     }
 }

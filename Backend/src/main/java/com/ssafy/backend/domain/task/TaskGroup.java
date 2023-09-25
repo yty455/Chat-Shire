@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
 
+import com.ssafy.backend.domain.common.BaseEntity;
 import com.ssafy.backend.domain.task.dto.TaskGroupInfo;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ import static javax.persistence.FetchType.LAZY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class TaskGroup {
+public class TaskGroup extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name = "TASKGROUP_ID")
