@@ -80,7 +80,7 @@ public class PostController {
     }
 
     @Operation(summary = "에러 게시판 삭제", description = "에러 게시글을 삭제합니다.")
-    @PatchMapping("/posts/{postId}")
+    @DeleteMapping("/posts/{postId}")
     public ResponseEntity<BasicResponse> deletePost(@PathVariable(name = "postId") Long postId) {
 
         postService.deletePost(postId);

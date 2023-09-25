@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
+
+    Long countByPostId(Long postId);
     Reply findFirstByPostId(Long postId);
 
     void deleteAllByPostId(Long postId);

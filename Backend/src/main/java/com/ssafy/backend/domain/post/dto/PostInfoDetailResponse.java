@@ -30,15 +30,18 @@ public class PostInfoDetailResponse {
     private Boolean state;
     private List<ReplyInfoResponse> replies;
 
+    public void setSkillName(List<String> skillName) {
+        this.skillName = skillName;
+    }
+
     public void setReply(List<ReplyInfoResponse> replies) {
         this.replies = replies;
     }
 
-    public PostInfoDetailResponse(Long id, String title, String content, List<String> skillName, Long userId, String githubId, String profileImage, String profileColor, String nickname, Boolean state, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
+    public PostInfoDetailResponse(Long id, String title, String content, Long userId, String githubId, String profileImage, String profileColor, String nickname, Boolean state, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.skillName = skillName;
         this.userId = userId;
         this.githubId = githubId;
         this.profileImage = profileImage;
@@ -48,8 +51,6 @@ public class PostInfoDetailResponse {
         this.createdDate = createdDate;
         this.lastModifiedDate = lastModifiedDate;
     }
-
-
 
 
 }
