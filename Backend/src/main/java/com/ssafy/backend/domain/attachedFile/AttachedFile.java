@@ -21,11 +21,15 @@ public class AttachedFile  extends BaseEntity {
 
     private String url;
     private String thumbnail;
-//    private
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
     private Long chatNumber;
     private Long postId;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "CHATROOM_ID")
     private ChatRoom chatRoom;
+
 }
