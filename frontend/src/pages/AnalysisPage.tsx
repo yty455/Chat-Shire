@@ -7,6 +7,8 @@ export default function AnalysisPage() {
   const passion =
     process.env.PUBLIC_URL + "/assets/analysisBg/passion/passion1.png";
   const { projectId } = useParams();
+  const projectToPass = projectId || "defaultProjectId";
+
   return (
     <div
       style={{
@@ -32,7 +34,7 @@ export default function AnalysisPage() {
         }}
       ></div> */}
       <LeftSide />
-      <Analysis />
+      <Analysis projectId={projectToPass} />
     </div>
   );
 }

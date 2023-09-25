@@ -18,7 +18,7 @@ import { getTask, deleteTask, postTask, updateTask } from "../../utils/taskApi";
 import "./IndivTask.css";
 
 type CheckboxItem = {
-  TaskId: string;
+  id: string;
   description: string;
   isEditing: boolean;
   progress: string;
@@ -38,7 +38,8 @@ interface taskInfo {
   description: string;
 }
 interface Task {
-  TaskId: string;
+  id: string;
+  taskGroupId: string;
   description: string;
   progress: string;
   isEditing: string;
@@ -71,7 +72,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const enterEditMode = async (TaskId: string) => {
     setEditingTaskId(TaskId);
     try {
-      const taskToEdit = allTasks.find((task) => task.TaskId === TaskId);
+      const taskToEdit = allTasks.find((task) => task.id === TaskId);
       if (taskToEdit) {
         setUpdatedDescription(taskToEdit.description);
       }
@@ -97,10 +98,10 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     }
   };
 
-  const handleCheckboxChange = (TaskId: string) => () => {
+  const handleCheckboxChange = (id: string) => () => {
     setCheckboxItems((prevItems) =>
       prevItems.map((item) =>
-        item.TaskId === TaskId ? { ...item, checked: !item.progress } : item
+        item.id === id ? { ...item, checked: !item.progress } : item
       )
     );
   };
@@ -110,9 +111,9 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     try {
       if (projectId) {
         const response = await getTask(projectId);
-        console.log(response.data);
+        console.log(response.data.result[0]);
         // setCheckboxItems(response)
-        setAllTasks(response.data.result);
+        setAllTasks(response.data.result[0]);
       }
     } catch (error) {
       console.error(error);
@@ -128,6 +129,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     try {
       const response = await postTask(chatroomId, description, progress);
       console.log(response);
+      getInTask();
     } catch (error) {
       console.error(error);
     }
@@ -148,6 +150,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         progress
       );
       console.log(response);
+      getInTask();
     } catch (error) {
       console.error(error);
     }
@@ -158,9 +161,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     try {
       const response = await deleteTask(TaskId);
       console.log("삭제완료", response);
-      setCheckboxItems((prevItems) =>
-        prevItems.filter((item) => item.TaskId !== TaskId)
-      );
+      getInTask();
     } catch (error) {
       console.error(error);
     }
@@ -175,7 +176,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     const newId = (checkboxItems.length + 1).toString();
     setCheckboxItems([
       ...checkboxItems,
-      { TaskId: newId, progress: "ONGOING", description: "", isEditing: true },
+      { id: newId, progress: "ONGOING", description: "", isEditing: true },
     ]);
   };
 
@@ -183,7 +184,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const handleContentChange = (TaskId: String) => (event: any) => {
     setCheckboxItems((prevItems) =>
       prevItems.map((item) =>
-        item.TaskId === TaskId
+        item.id === TaskId
           ? { ...item, description: event.target.value, isEditing: false }
           : item
       )
@@ -216,14 +217,9 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     <div className={styles.indivDiv}>
       <Box sx={{ p: 0, pt: 1 }}>
         <Grid container spacing={2}>
-          {checkboxItems && checkboxItems.length !== 0 ? (
-            checkboxItems.map((item) => (
-              <Grid
-                sx={{ margin: 0, padding: 0 }}
-                item
-                xs={12}
-                key={item.TaskId}
-              >
+          {allTasks && allTasks.length !== 0 ? (
+            allTasks.map((item) => (
+              <Grid sx={{ margin: 0, padding: 0 }} item xs={12} key={item.id}>
                 <Item
                   sx={{
                     borderRadius: "0px 20px 20px 20px",
@@ -242,11 +238,11 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                       }}
                       style={{ height: "20px", margin: "14px 0" }}
                       checked={item.progress === "DONE"}
-                      onChange={handleCheckboxChange(item.TaskId)}
+                      onChange={handleCheckboxChange(item.id)}
                     />
                     {item.isEditing ? (
                       <input
-                        onKeyPress={handleKeyPress(item.TaskId)}
+                        onKeyPress={handleKeyPress(item.id)}
                         style={{
                           fontFamily: "preRg",
                           height: "30px",
@@ -287,13 +283,13 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                       <BsFillChatDotsFill
                         style={{ fontSize: "17px", margin: "-5px 5px 10px 0" }}
                       />
-                      {editingTaskId === item.TaskId ? (
+                      {editingTaskId === item.id ? (
                         <BiSolidCheckCircle
                           style={{
                             fontSize: "17px",
                             margin: "-5px 3px 10px 0",
                           }}
-                          onClick={() => handleEditComplete(item.TaskId)}
+                          onClick={() => handleEditComplete(item.id)}
                         />
                       ) : (
                         <BsPencilFill
@@ -301,12 +297,116 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                             fontSize: "17px",
                             margin: "-5px 3px 10px 0",
                           }}
-                          onClick={() => enterEditMode(item.TaskId)}
+                          onClick={() => enterEditMode(item.id)}
                         />
                       )}
                       <MdDelete
                         style={{ fontSize: "20px", margin: "-7px 10px 8px 0" }}
-                        onClick={() => deleteInTask(item.TaskId)}
+                        onClick={() => deleteInTask(item.id)}
+                      />
+                    </div>
+                  </div>
+                </Item>
+              </Grid>
+            ))
+          ) : (
+            <p
+              style={{
+                color: "grey",
+                fontFamily: "preBd",
+                margin: "30px auto 0 auto",
+                paddingLeft: "10px",
+              }}
+            >
+              아직 등록된 태스크가 없습니다.
+            </p>
+          )}
+          {checkboxItems && checkboxItems.length !== 0 ? (
+            checkboxItems.map((item) => (
+              <Grid sx={{ margin: 0, padding: 0 }} item xs={12} key={item.id}>
+                <Item
+                  sx={{
+                    borderRadius: "0px 20px 20px 20px",
+                    margin: "0 10px",
+                    padding: 0,
+                    minHeight: "30px",
+                  }}
+                  className={styles.oneMemo}
+                  elevation={7}
+                >
+                  <div className={styles.indivTask}>
+                    <Checkbox
+                      sx={{
+                        color: "#39A789",
+                        "&.Mui-checked": { color: "#39A789" },
+                      }}
+                      style={{ height: "20px", margin: "14px 0" }}
+                      checked={item.progress === "DONE"}
+                      onChange={handleCheckboxChange(item.id)}
+                    />
+                    {item.isEditing ? (
+                      <input
+                        onKeyPress={handleKeyPress(item.id)}
+                        style={{
+                          fontFamily: "preRg",
+                          height: "30px",
+                          marginTop: "9px",
+                          border: "none",
+                        }}
+                        type="text"
+                        // onBlur={handleContentChange(item.TaskId)}
+                        placeholder="내용을 입력하세요"
+                        // value={updatedDescription}
+                      />
+                    ) : (
+                      <p
+                        className={`${styles.taskContent} ${
+                          item.progress === "DONE" ? styles.checked : ""
+                        }`}
+                      >
+                        {item.description}
+                      </p>
+                    )}
+                  </div>
+                  <div className={styles.icons}>
+                    <div style={{ margin: "-4px 0 0 0" }}>
+                      {/* <DatePicker style={{margin: '-8px 0 10px 7px', height: 24, fontFamily:'preRg', width:'110px'}} size="small" bordered={false} placeholder="마감일 선택" onChange={onChange} />
+                      <Select
+                        bordered={false} 
+                        defaultValue="🔴"
+                        style={{ padding: 0, width: 62, height: 24, margin: '-15px 0 10px 0' }}
+                        onChange={priorityHandleChange}
+                        options={[
+                          { value: 'HIGH', label: '🔴' },
+                          { value: 'MEDIUM', label: '🟡' },
+                          { value: 'LOW', label: '🟢' },
+                        ]}
+                      /> */}
+                    </div>
+                    <div>
+                      <BsFillChatDotsFill
+                        style={{ fontSize: "17px", margin: "-5px 5px 10px 0" }}
+                      />
+                      {editingTaskId === item.id ? (
+                        <BiSolidCheckCircle
+                          style={{
+                            fontSize: "17px",
+                            margin: "-5px 3px 10px 0",
+                          }}
+                          onClick={() => handleEditComplete(item.id)}
+                        />
+                      ) : (
+                        <BsPencilFill
+                          style={{
+                            fontSize: "17px",
+                            margin: "-5px 3px 10px 0",
+                          }}
+                          onClick={() => enterEditMode(item.id)}
+                        />
+                      )}
+                      <MdDelete
+                        style={{ fontSize: "20px", margin: "-7px 10px 8px 0" }}
+                        onClick={() => deleteInTask(item.id)}
                       />
                     </div>
                   </div>
