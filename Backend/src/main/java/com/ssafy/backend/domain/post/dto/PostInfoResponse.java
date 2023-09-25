@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -19,7 +20,9 @@ public class PostInfoResponse {
     private String profileColor;
     private Boolean state;
     private String reply;
-    private int replyCount;
+    private Long replyCount;
+    private LocalDateTime createdDate;
+    private LocalDateTime lastModifiedDate;
 
     public void setReply(String reply) {
         this.reply = reply;
@@ -29,13 +32,20 @@ public class PostInfoResponse {
         this.skillName = skillName;
     }
 
+    public void setReplyCount(Long replyCount) {
+        this.replyCount = replyCount;
+    }
 
-    public PostInfoResponse(Long id, String title, Boolean state, String profileImage, String profileColor, int replyCount) {
+    public PostInfoResponse(Long id, String title, Boolean state, String profileImage, String profileColor, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
+//    public PostInfoResponse(Long id, String title, Boolean state, String profileImage, String profileColor, int replyCount, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
         this.id = id;
         this.title = title;
         this.state = state;
         this.profileImage = profileImage;
         this.profileColor = profileColor;
-        this.replyCount = replyCount;
+//        this.replyCount = replyCount;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
+
     }
 }

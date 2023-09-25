@@ -87,7 +87,7 @@ export default function CustomProfilePage() {
       const response = await api.post("/users", formData);
       localStorage.setItem("token", response.headers["authorization"]);
       sessionStorage.setItem(
-        "refreshToken",
+        "refresh_token",
         response.headers["authorization-refresh"]
       );
       setUserData(formData);

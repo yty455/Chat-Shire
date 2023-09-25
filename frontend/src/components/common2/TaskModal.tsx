@@ -156,13 +156,13 @@ function TaskModal({
                     }}
                   >
                     <MenuItem value="HIGH" sx={{ color: "red" }}>
-                      High
+                      🔴
                     </MenuItem>
                     <MenuItem value="MEDIUM" sx={{ color: "green" }}>
-                      Medium
+                      🟢
                     </MenuItem>
                     <MenuItem value="LOW" sx={{ color: "orange" }}>
-                      Low
+                      🟡
                     </MenuItem>
                   </Select>
                 </FormControl>

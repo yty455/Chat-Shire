@@ -1,6 +1,7 @@
 package com.ssafy.backend.domain.post;
 
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
+import com.ssafy.backend.domain.common.BaseEntity;
 import com.ssafy.backend.domain.user.Skill;
 import com.ssafy.backend.domain.user.User;
 import lombok.*;
@@ -14,7 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder(toBuilder = true)
-public class PostSkill {
+public class PostSkill extends BaseEntity {
     @Id
     @GeneratedValue
     @Column(name = "POSTSKILL_ID")
