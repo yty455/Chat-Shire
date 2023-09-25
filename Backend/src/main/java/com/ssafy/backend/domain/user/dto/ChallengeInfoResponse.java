@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public class ChallengeInfoResponse {
     private int project;    // 프로젝트 수
-    private int commit;     // 커밋 수
+    private long commit;     // 커밋 수
     private int chat;       // 채팅 수
     private int task;       // 태스크 수
     private int error;      // 에러게시판 글 작성
