@@ -25,7 +25,7 @@ public class Challenge extends BaseEntity {
     @Builder.Default()
     private int project=0;    // 프로젝트 수
     @Builder.Default()
-    private long commit=0L;     // 커밋 수
+    private long commit=0;     // 커밋 수
     @Builder.Default()
     private int chat=0;       // 채팅 수
     @Builder.Default()
