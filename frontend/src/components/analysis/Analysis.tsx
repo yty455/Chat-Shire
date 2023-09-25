@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Analysis.module.css";
 import Keywords from "./Keywords";
 import RadarChart from "./RadarChart";
@@ -6,10 +6,30 @@ import BarChart from "./BarChart";
 import PiChart from "./PiChart";
 import Cloud from "./Cloud";
 // import Rocket from "../../assets/analysisBg/passion/passion3.png";
+import { getAnalysis } from "../../utils/analysisApi";
 
-export default function Analysis() {
+interface AnalysisProps {
+  projectId: string;
+}
+
+export default function Analysis({ projectId }: AnalysisProps) {
+  const [analysisData, setAnalysisData] = useState(null);
   const bgImg =
     process.env.PUBLIC_URL + "/assets/analysisBg/passion/passion2.png";
+
+  const getAnalysisPage = async () => {
+    try {
+      const response = await getAnalysis(projectId);
+      console.log(response.data.result[0]);
+      setAnalysisData(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getAnalysisPage();
+  }, []);
 
   return (
     <div

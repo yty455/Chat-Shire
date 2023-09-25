@@ -1,9 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./TaskModal.module.css";
 import { getTaskGroupDetail } from "../../utils/taskGroupApi";
-import { DatePicker, LocalizationProvider } from "@mui/lab";
-import AdapterDayjs from "@mui/lab/AdapterDayjs";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs, { Dayjs } from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+
+import { FormControl, InputLabel, MenuItem } from "@mui/material";
 
 interface TaskModalProps {
   closeModal: () => void;
@@ -152,13 +156,13 @@ function TaskModal({
                     }}
                   >
                     <MenuItem value="HIGH" sx={{ color: "red" }}>
-                      High
+                      🔴
                     </MenuItem>
                     <MenuItem value="MEDIUM" sx={{ color: "green" }}>
-                      Medium
+                      🟢
                     </MenuItem>
                     <MenuItem value="LOW" sx={{ color: "orange" }}>
-                      Low
+                      🟡
                     </MenuItem>
                   </Select>
                 </FormControl>
@@ -191,7 +195,7 @@ function TaskModal({
                       onChange={(date: any) => {
                         setTeamTaskDetail({
                           ...teamTaskDetail,
-                          deadline: date.toISOString(), // ISO 형식으로 변환
+                          deadline: date.toLocaleDateString(), // ISO 형식으로 변환
                         });
                       }}
                       sx={{

@@ -18,19 +18,19 @@ function Redirect() {
     ignoreQueryPrefix: true,
   });
 
-  const { refreshToken } = qs.parse(window.location.search, {
+  const { refresh_token } = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   });
 
   // console.log(code);
   console.log(access_token);
-  console.log(refreshToken);
+  console.log(refresh_token);
 
   useEffect(() => {
     if (typeof access_token === "string") {
       localStorage.setItem("token", access_token);
     }
-    if (refreshToken) {
+    if (refresh_token) {
       // 리프레쉬 토큰이 있다면 메인 페이지로 이동
       setIslogin(true);
       navigate("/main");
@@ -38,7 +38,7 @@ function Redirect() {
       // 리프레쉬 토큰이 없다면 회원가입 페이지로 이동
       navigate("/profile/custom");
     }
-  }, [access_token, refreshToken]);
+  }, [access_token, refresh_token]);
 
   // const login = async () => {
   //   try {

@@ -91,7 +91,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 const StyledBadgeRed = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
-    backgroundColor: "#44b700",
+    backgroundColor: "red",
     color: "red",
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
     "&::after": {
@@ -333,7 +333,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                         (new Date(task.deadline).getTime() -
                           currentDate.getTime()) /
                           (1000 * 60 * 60 * 24)
-                      )}{" "}
+                      ) + 1}{" "}
                       day
                     </p>
                   </div>
