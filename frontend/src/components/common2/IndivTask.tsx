@@ -203,6 +203,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
           await postInTask(chatroomId, description, progress);
           setCheckboxItems([]);
         } else {
+          console.log(TaskId, "0", description, progress);
           updateInTask(TaskId, "0", description, progress);
         }
         // setCheckboxItems((prevItems) =>
@@ -255,7 +256,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                         type="text"
                         // onBlur={handleContentChange(item.TaskId)}
                         placeholder="내용을 입력하세요"
-                        value={item.description}
+                        defaultValue={item.description}
                       />
                     ) : (
                       <p
