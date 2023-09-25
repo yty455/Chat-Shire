@@ -113,7 +113,7 @@ function ProjectSlide({ pjt, onCardClick, isActive }: ProjectSlideProps) {
             sx={{
               width: 60,
               height: 60,
-              bgcolor: "gray",
+              bgcolor: user.profileColor,
               marginRight: "10px",
             }}
           />
