@@ -180,10 +180,7 @@ function Project() {
             className={styles.SwiperContainer}
           >
             {myProjects.map((project) => (
-              <SwiperSlide
-                className={styles.SwiperItem}
-                onClick={handleProjectCardClick}
-              >
+              <SwiperSlide className={styles.SwiperItem}>
                 {({ isActive }) => (
                   <ProjectSlide
                     isActive={isActive}

@@ -91,7 +91,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 const StyledBadgeRed = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
-    backgroundColor: "#44b700",
+    backgroundColor: "red",
     color: "red",
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
     "&::after": {
