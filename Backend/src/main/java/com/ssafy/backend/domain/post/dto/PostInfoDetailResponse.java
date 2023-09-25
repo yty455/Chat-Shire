@@ -1,6 +1,5 @@
 package com.ssafy.backend.domain.post.dto;
 
-import com.ssafy.backend.domain.post.Reply;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
