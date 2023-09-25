@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { useRecoilState } from "recoil";
 import Idea from "../components/idea/Idea";
 import Share from "../components/idea/Share";
 import ErrorBoard from "../components/error/ErrorBoard";
 import LeftSide from "../components/common/LeftSide";
+import ErrorCreate from "../components/error/ErrorCreate"
 // import IndivTask from "../components/common2/IndivTask";
 import styles from "./IdeaPage.module.css";
 import Tabs from "@mui/material/Tabs";
@@ -55,9 +56,11 @@ function a11yProps(index: number) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
+  const [isCreating, setIsCreating] = useState(false);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+    setIsCreating(false);
   };
 
   return (
@@ -83,7 +86,7 @@ export default function BasicTabs() {
           </div>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <ErrorBoard />
+        {isCreating ? <ErrorCreate /> : <ErrorBoard isCreating={isCreating} setIsCreating={setIsCreating} />}
         </CustomTabPanel>
       </div>
     </div>

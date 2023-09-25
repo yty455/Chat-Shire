@@ -23,8 +23,6 @@ const MenuProps = {
   },
 };
 
-
-
 const names = [
   "python",
   "java",
@@ -171,9 +169,7 @@ function MultiSelect() {
           },
           marginLeft: '10px',
         }}
-      PaperComponent={({ children }) => (
-        <Paper style={{ maxHeight: `Desired height for autocomplete dropdown`, fontFamily:'Your desired font for options'}}>{children}</Paper>
-      )}
+
       renderTags={(selectedValues, getTagProps) =>
           selectedValues.map((option, index) => (
               <CustomChip {...getTagProps({ index })} key={index} label={option} className={option} sx={{ margin: '4px 4px' }}/>
