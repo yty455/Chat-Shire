@@ -1,4 +1,6 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import { QuestionCircleOutlined  } from '@ant-design/icons';
+import { FloatButton, Popover } from 'antd';
 
 import ReactFlow, {
   Controls,
@@ -112,6 +114,13 @@ function Flow() {
     [getChildNodePosition]
   );
 
+  // 가이드
+  const content = (
+    <div>
+      <p style={{margin: 0, fontFamily:'preRg'}}>각 노드의 왼쪽 점을 눌러 내용을 편집하고 위치를 옮겨보세요.</p>
+      <p style={{margin: 0, fontFamily:'preRg'}}>드래그 앤 드롭으로 새 노드를 생성하세요.</p>
+    </div>
+  );
 
   return (
     <div style={{backgroundColor: "#ffffff", width: "52vw", height: "74.7vh" }}>
@@ -132,10 +141,12 @@ function Flow() {
       >
         <Controls showInteractive={false} />
         <MiniMap style={minimapStyle} zoomable pannable />
-        {/* <Panel position="top-left" className="header">
-          아이디어를 자유롭게 나눠보세요!
-        </Panel> */}
+        <Popover placement="rightTop" content={content} trigger="click">
+          <FloatButton icon={<QuestionCircleOutlined />} type="default" style={{ width: 30, height: 30, bottom: 540, left: 320 }} />
+        </Popover>
+
       </ReactFlow>
+
     </div>
   );
 }
