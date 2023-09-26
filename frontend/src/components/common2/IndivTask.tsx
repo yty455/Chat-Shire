@@ -201,6 +201,9 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         { id: newId, progress: "ONGOING", description: "", isEditing: true },
       ]);
     }
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
   // 내용 작성 완료
@@ -370,6 +373,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                     />
                     {item.isEditing ? (
                       <input
+                        ref={inputRef}
                         onKeyPress={handleKeyPress("create")}
                         style={{
                           fontFamily: "preRg",
