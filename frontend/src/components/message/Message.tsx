@@ -81,8 +81,12 @@ function Message({ projectId }: MessageProps) {
 
   const client = useRef<CompatClient>();
 
+  function newMessage(newMessage: any) {
+    const newPreMessage = [...preMessage, newMessage]
+    setPreMessage(newPreMessage)
+  }
+
   const connectHandler = () => {
-    console.log(projectId);
     client.current = Stomp.over(() => {
       const sock = new SockJS(
         "http://j9e205.p.ssafy.io:8080/gs-guide-websocket"
@@ -96,27 +100,21 @@ function Message({ projectId }: MessageProps) {
       () => {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
         client.current?.subscribe(`/topic/greetings`, (message) => {
-          setMessage(JSON.parse(message.body));
+          setPreMessage(JSON.parse(message.body))
         });
-      }
-    );
-    getChat(Number(projectId), 1, 1)
-      .then((res) => {
-        setPreMessage(res.data.result[0]);
-      })
-      .catch((err) => console.log(err));
+      });
   };
 
   const inputMessage = (e: any) => {
     if (e.code === "Enter") {
-      postChat(Number(projectId), e.target.value);
+      postChat(Number(projectId), e.target.value)
     }
   };
 
   const sendMessage = (e: any) => {
     const message = document.getElementById("chatInput") as HTMLInputElement;
     if (message.value != "") {
-      postChat(Number(projectId), message.value);
+      postChat(Number(projectId), message.value)
     }
   };
 
