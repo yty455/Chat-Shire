@@ -96,7 +96,7 @@ export default function BasicTabs() {
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           {isCreating ? (
-            <ErrorCreate pjtId={projectToPass} />
+            <ErrorCreate pjtId={projectToPass} setIsCreating={setIsCreating} />
           ) : (
             <ErrorBoard
               pjtId={projectToPass}

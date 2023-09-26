@@ -22,6 +22,7 @@ import { postError } from "../../utils/errorApi";
 
 interface ErrorProps {
   pjtId: string;
+  setIsCreating: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const { TextArea } = Input;
@@ -106,7 +107,7 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
   };
 }
 
-function ErrorCreate({ pjtId }: ErrorProps) {
+function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
@@ -184,6 +185,7 @@ function ErrorCreate({ pjtId }: ErrorProps) {
     try {
       const response = await postError(pjtId, title, content, personName);
       console.log(response);
+      setIsCreating(false);
     } catch (error) {
       console.error(error);
     }

@@ -12,8 +12,13 @@ import {
   BsFillMegaphoneFill,
   BsEmojiKiss,
   BsPaperclip,
+  BsLink45Deg
+  
 } from "react-icons/bs";
-import { HiOutlinePhoto } from "react-icons/hi2";
+// import {HiOutlinePhoto} from "react-icons/hi"
+import {HiOutlinePhoto} from "react-icons/hi2";
+import {AiOutlineFolder} from "react-icons/ai";
+import {LiaSearchSolid} from "react-icons/lia";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import Grow from "@mui/material/Grow";
@@ -73,8 +78,11 @@ function Message({ projectId }: MessageProps) {
   const [value, setValue] = useState("media");
   const [preMessage, setPreMessage] = useState<any[]>([]);
   const [message, setMessage] = useState("");
+
   const handleChange = (e: any) => {
-    setValue(e.target.value);
+    console.log(e.currentTarget);
+    e.preventDefault();
+    setValue(e.currentTarget.value);
   };
 
   const [activateEmojiPicker, setActivateEmojiPicker] = useState(false);
@@ -153,16 +161,9 @@ function Message({ projectId }: MessageProps) {
   const props: UploadProps = {
     // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
     beforeUpload: (file) => {
-      const isJpgOrPngOrGif =
-        file.type === "image/jpeg" ||
-        file.type === "image/png" ||
-        file.type === "image/jpg" ||
-        file.type === "image/gif" ||
-        file.type === "video/mp4" ||
-        file.type === "video/x-msvideo" ||
-        file.type === "video/quicktime";
+      const isJpgOrPngOrGif = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'video/mp4';
       if (!isJpgOrPngOrGif) {
-        window.alert("이미지 또는 동영상만 업로드해주세요");
+        window.alert('jpg, jpeg, png, mp4만 업로드해주세요');
       }
       return isJpgOrPngOrGif || Upload.LIST_IGNORE;
     },
@@ -180,18 +181,12 @@ function Message({ projectId }: MessageProps) {
   const fileProps: UploadProps = {
     // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
     beforeUpload: (file) => {
-      const isFile =
-        file.type !== "image/jpeg" &&
-        file.type !== "image/png" &&
-        file.type !== "image/jpg" &&
-        file.type !== "image/gif" &&
-        file.type !== "video/mp4" &&
-        file.type !== "video/x-msvideo" &&
-        file.type !== "video/quicktime";
-      if (!isFile) {
-        window.alert("이미지, 동영상을 제외한 파일만 업로드해주세요.");
+      const acceptedExtensions = ['pdf', 'docx', 'doc', 'xlsx', 'xls', 'txt'];
+      const isFileAccepted = acceptedExtensions.some(ext => file.name.endsWith(`.${ext}`));
+      if (!isFileAccepted) {
+        window.alert('PDF, DOCX, DOC, XLSX, XLS 및 TXT 파일만 업로드해주세요.');
       }
-      return isFile || Upload.LIST_IGNORE;
+      return isFileAccepted || Upload.LIST_IGNORE;
     },
     onChange: (info) => {
       console.log(info.fileList);
@@ -286,17 +281,21 @@ function Message({ projectId }: MessageProps) {
       </div>
       <div className={styles.messageRight}>
         <div className={styles.messageRightTabContainer}>
-          <button value="media" onClick={handleChange}>
-            MEDIA
+          <button style={{border: 'none', background:'none'}} value="media" onClick={handleChange}>
+            {/* <img src={process.env.PUBLIC_URL + "assets/rainbow.png"} alt="file"/> */}
+            <HiOutlinePhoto style={{fontSize:'25px', color: '#39a789'}}/>
           </button>
-          <button value="files" onClick={handleChange}>
-            FILE
+          {/* <div onClick={() => handleChange('media')}>
+            <img src={process.env.PUBLIC_URL + "assets/rainbow.png"} alt="file"/>
+          </div> */}
+          <button style={{border: 'none', background:'none'}} value="files" onClick={handleChange}>
+            <AiOutlineFolder style={{fontSize:'25px', color: '#39a789'}}/>
           </button>
-          <button value="links" onClick={handleChange}>
-            LINK
+          <button style={{border: 'none', background:'none'}} value="links" onClick={handleChange}>
+            <BsLink45Deg style={{fontSize:'28', color: '#39a789'}}/>
           </button>
-          <button value="search" onClick={handleChange}>
-            SEARCH
+          <button style={{border: 'none', background:'none'}} value="search" onClick={handleChange}>
+            <LiaSearchSolid style={{fontSize:'25', color: '#39a789'}}/>
           </button>
         </div>
         <MessageRightBody value={value} />
