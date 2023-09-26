@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./IndivTask.module.css";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -69,6 +69,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [updatedDescription, setUpdatedDescription] = useState<string>("");
   const [allTasks, setAllTasks] = useState<Task[]>([]);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.MESSAGE, // 허용할 드래그 타입
@@ -84,13 +85,17 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     }),
   });
 
-  // 수정모드 진입
   const enterEditMode = async (TaskId: string) => {
     setEditingTaskId(TaskId);
     try {
       const taskToEdit = allTasks.find((task) => task.id === TaskId);
       if (taskToEdit) {
         setUpdatedDescription(taskToEdit.description);
+
+        // 편집 모드로 진입할 때 입력 필드에 포커스를 설정합니다.
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
       }
     } catch (error) {
       console.error(error);
@@ -190,11 +195,15 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
 
   // 체크박스 추가
   const addCheckbox = () => {
-    const newId = (checkboxItems.length + 1).toString();
-    setCheckboxItems([
-      ...checkboxItems,
-      { id: newId, progress: "ONGOING", description: "", isEditing: true },
-    ]);
+    if (checkboxItems.length === 0) {
+      const newId = "1";
+      setCheckboxItems([
+        { id: newId, progress: "ONGOING", description: "", isEditing: true },
+      ]);
+    }
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
   // 내용 작성 완료
@@ -257,6 +266,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                     />
                     {editingTaskId === item.id ? (
                       <input
+                        ref={inputRef}
                         onKeyPress={handleKeyPress(item.id)}
                         style={{
                           fontFamily: "preRg",
@@ -363,6 +373,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                     />
                     {item.isEditing ? (
                       <input
+                        ref={inputRef}
                         onKeyPress={handleKeyPress("create")}
                         style={{
                           fontFamily: "preRg",

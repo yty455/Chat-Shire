@@ -8,6 +8,7 @@ import { getGit, postUser } from "../../utils/userApi";
 import api from "../../utils/api";
 import axios from "axios";
 import Button from "@mui/material/Button";
+import {BsGithub} from "react-icons/bs"
 
 function LoginPage() {
   const [userData, setUserDate] = useRecoilState(loginuser);
@@ -90,6 +91,7 @@ function LoginPage() {
             onClick();
           }}
         >
+          <BsGithub style={{fontSize:'25px', marginRight: '8px'}} />
           깃허브로 로그인
         </Button>
       </div>

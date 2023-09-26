@@ -170,7 +170,7 @@ function TaskModal({
                 teamTaskDetail.priority
               )}
             </p>
-            <p onClick={() => handleEditClick("progress")}>
+            {/* <p onClick={() => handleEditClick("progress")}>
               {editingField === "progress" ? (
                 <input
                   type="text"
@@ -185,7 +185,7 @@ function TaskModal({
               ) : (
                 teamTaskDetail.progress
               )}
-            </p>
+            </p> */}
             <p onClick={() => handleEditClick("deadline")}>
               {editingField === "deadline" ? (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
