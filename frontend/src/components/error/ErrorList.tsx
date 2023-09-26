@@ -18,9 +18,9 @@ function ErrorList({ errors, onErrorCardClick }: ErrorListProps) {
         flexWrap: "wrap",
       }}
     >
-      {/* {errors.map((error, index) => (
+      {errors.map((error: any, index: number) => (
         <ErrorCard key={index} error={error} onCardClick={onErrorCardClick} />
-      ))} */}
+      ))}
 
       <ErrorCard onCardClick={onErrorCardClick} />
       <ErrorCard onCardClick={onErrorCardClick} />

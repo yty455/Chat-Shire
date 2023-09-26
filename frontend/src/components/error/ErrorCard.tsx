@@ -7,7 +7,8 @@ import { styled } from "@mui/material/styles";
 // import error from "../../assets/error.png";
 
 interface ErrorCardProps {
-  onCardClick?: () => void;
+  error?: any;
+  onCardClick?: (error: any) => void;
 }
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -39,9 +40,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-function ErrorCard({ onCardClick }: ErrorCardProps) {
+function ErrorCard({ error, onCardClick }: ErrorCardProps) {
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    onCardClick?.();
+    onCardClick?.(error);
   };
 
   return (
