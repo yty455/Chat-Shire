@@ -100,18 +100,10 @@ function Message({ projectId }: MessageProps) {
       () => {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
         client.current?.subscribe(`/topic/greetings`, (message) => {
-          newMessage(JSON.parse(message.body));
+          setPreMessage(JSON.parse(message.body))
         });
       });
-    getChat(Number(projectId), 1, 1)
-      .then((res) => {
-        setPreMessage(res.data.result[0]);
-      })
-      .catch((err) => console.log(err));
   };
-
-
-
 
   const inputMessage = (e: any) => {
     if (e.code === "Enter") {
@@ -123,7 +115,6 @@ function Message({ projectId }: MessageProps) {
     const message = document.getElementById("chatInput") as HTMLInputElement;
     if (message.value != "") {
       postChat(Number(projectId), message.value)
-
     }
   };
 
