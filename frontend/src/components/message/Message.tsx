@@ -98,8 +98,11 @@ function Message({ projectId }: MessageProps) {
     if (message) {
       newMessage(message);
     }
-    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
+
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [preMessage]);
 
   const connectHandler = () => {
     client.current = Stomp.over(() => {
