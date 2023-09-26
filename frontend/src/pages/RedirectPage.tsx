@@ -31,6 +31,7 @@ function Redirect() {
       localStorage.setItem("token", access_token);
     }
     if (refresh_token) {
+      sessionStorage.setItem("refresh_token", refresh_token.toString());
       // 리프레쉬 토큰이 있다면 메인 페이지로 이동
       setIslogin(true);
       navigate("/main");
