@@ -154,6 +154,7 @@ function Message({ projectId }: MessageProps) {
 
   useEffect(() => {
     connectHandler();
+    messageEndRef.current?.scrollIntoView()
   }, []);
 
   const ariaLabel = { "aria-label": "description" };
