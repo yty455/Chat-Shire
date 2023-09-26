@@ -7,7 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.ssafy.backend.domain.common.BaseEntity;
+import com.ssafy.backend.domain.user.User;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,27 +26,37 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-public class Notification {
-
+public class Notification extends BaseEntity {
 	@Id
 	@GeneratedValue
 	@Column(name = "NOTIFICATION_ID")
 	private Long id;
 
+	@Column(nullable = false)
 	private String content;
 
-	@OneToOne(fetch = LAZY)
-	@JoinColumn(name = "CHATROOM_ID")
-	private ChatRoom chatRoom;
+	@Column(nullable = false)
+	private String url;
 
-	public void update(String content) {
-		this.content = content;
-	}
+	@Column(nullable = false)
+	private AcceptanceStatus status;
 
-	public static Notification create(ChatRoom chatRoom) {
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "USER_ID")
+	private User receiver;
+
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "PARTICIPATION_ID")
+	private Participation participation;
+
+	public static Notification create(User receiver, Participation participation, String content, String url) {
 		return Notification.builder()
-				.content("")
-				.chatRoom(chatRoom)
+				.receiver(receiver)
+				.participation(participation)
+				.content(content)
+				.url(url)
+				.status(AcceptanceStatus.NOT_READ)
 				.build();
 	}
 }
