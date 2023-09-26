@@ -5,10 +5,10 @@ import com.ssafy.backend.domain.chat.dto.ChatRoomInfoDetailResponse;
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfoResponse;
 import com.ssafy.backend.domain.chat.dto.ChatRoomUserInfoResponse;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
-import com.ssafy.backend.domain.chat.entity.Notification;
+import com.ssafy.backend.domain.chat.entity.Notice;
 import com.ssafy.backend.domain.chat.entity.Participation;
 import com.ssafy.backend.domain.chat.repository.ChatRoomRepository;
-import com.ssafy.backend.domain.chat.repository.NotificationRepository;
+import com.ssafy.backend.domain.chat.repository.NoticeRepository;
 import com.ssafy.backend.domain.chat.repository.ParticipationRepository;
 import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
 import com.ssafy.backend.domain.user.User;
@@ -32,7 +32,7 @@ public class ChatRoomService {
 	private final ChatRoomRepository chatRoomRepository;
 	private final ParticipationRepository participationRepository;
 	private final UserRepository userRepository;
-	private final NotificationRepository notificationRepository;
+	private final NoticeRepository noticeRepository;
 
 	private final RedisTemplate<String, String> redisTemplate;
 
@@ -48,7 +48,7 @@ public class ChatRoomService {
 				.orElseThrow(() -> new ResourceNotFoundException("Participation.getChatRoom", chatRoomId))
 				.getChatRoom();
 
-		String content = notificationRepository.findByChatRoomId(chatRoomId)
+		String content = noticeRepository.findByChatRoomId(chatRoomId)
 				.orElseThrow(() -> new ResourceNotFoundException("Notification.getChatRoom", chatRoomId)).getContent();
 
 		return ChatRoomInfoDetailResponse.toDto(chatRoom, content);
@@ -71,7 +71,7 @@ public class ChatRoomService {
 				.orElseThrow(UserNotFoundException::new);
 		ChatRoom savedChatRoom = chatRoomRepository.save(chatRoomInfo.toEntity());
 
-		notificationRepository.save(Notification.create(savedChatRoom));
+		noticeRepository.save(Notice.create(savedChatRoom));
 		participationRepository.save(Participation.create(user, savedChatRoom));
 	}
 

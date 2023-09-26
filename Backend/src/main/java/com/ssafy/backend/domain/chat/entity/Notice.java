@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-public class Notification {
+public class Notice {
 
 	@Id
 	@GeneratedValue
@@ -37,8 +37,8 @@ public class Notification {
 		this.content = content;
 	}
 
-	public static Notification create(ChatRoom chatRoom) {
-		return Notification.builder()
+	public static Notice create(ChatRoom chatRoom) {
+		return Notice.builder()
 				.content("")
 				.chatRoom(chatRoom)
 				.build();

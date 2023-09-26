@@ -3,8 +3,8 @@ package com.ssafy.backend.domain.chat.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssafy.backend.domain.chat.entity.Notification;
-import com.ssafy.backend.domain.chat.repository.NotificationRepository;
+import com.ssafy.backend.domain.chat.entity.Notice;
+import com.ssafy.backend.domain.chat.repository.NoticeRepository;
 import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
 
 import lombok.RequiredArgsConstructor;
@@ -12,15 +12,15 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class NotificationService {
+public class NoticeService {
 
-	private final NotificationRepository notificationRepository;
+	private final NoticeRepository noticeRepository;
 
 	@Transactional
 	public void registerNotification(String content, Long chatRoomId) {
-		Notification notification = notificationRepository.findByChatRoomId(chatRoomId)
+		Notice notice = noticeRepository.findByChatRoomId(chatRoomId)
 				.orElseThrow(() -> new ResourceNotFoundException("Notification by planId", chatRoomId));
 
-		notification.update(content);
+		notice.update(content);
 	}
 }
