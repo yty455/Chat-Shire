@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import styles from "./Message.module.css";
 import MessageItem from "./MessageItem";
 import MessageRightBody from "./MessageRightBody";
-import { UploadOutlined } from '@ant-design/icons';
-import type { UploadProps } from 'antd';
-import { message, Upload } from 'antd';
+import { UploadOutlined } from "@ant-design/icons";
+import type { UploadProps } from "antd";
+import { message, Upload } from "antd";
 import {
   BsPeopleFill,
   BsQuestionCircle,
@@ -89,8 +89,18 @@ function Message({ projectId }: MessageProps) {
 
   const client = useRef<CompatClient>();
 
+  function newMessage(newMessage: any) {
+    const newPreMessage = [...preMessage, newMessage]
+    setPreMessage(newPreMessage)
+  }
+
+  useEffect(() => {
+    if (message) {
+      newMessage(message)
+    }
+  }, [message])
+
   const connectHandler = () => {
-    console.log(projectId);
     client.current = Stomp.over(() => {
       const sock = new SockJS(
         "http://j9e205.p.ssafy.io:8080/gs-guide-websocket"
@@ -104,10 +114,9 @@ function Message({ projectId }: MessageProps) {
       () => {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
         client.current?.subscribe(`/topic/greetings`, (message) => {
-          setMessage(JSON.parse(message.body));
+          setMessage(JSON.parse(message.body))
         });
-      }
-    );
+      });
     getChat(Number(projectId), 1, 1)
       .then((res) => {
         setPreMessage(res.data.result[0]);
@@ -115,16 +124,20 @@ function Message({ projectId }: MessageProps) {
       .catch((err) => console.log(err));
   };
 
+
+
+
   const inputMessage = (e: any) => {
     if (e.code === "Enter") {
-      postChat(Number(projectId), e.target.value);
+      postChat(Number(projectId), e.target.value)
     }
   };
 
   const sendMessage = (e: any) => {
     const message = document.getElementById("chatInput") as HTMLInputElement;
     if (message.value != "") {
-      postChat(Number(projectId), message.value);
+      postChat(Number(projectId), message.value)
+
     }
   };
 
@@ -161,7 +174,7 @@ function Message({ projectId }: MessageProps) {
       // url: 파일 URL (서버에서 지정)
     },
   };
-  
+
   // 파일 업로드
   const fileProps: UploadProps = {
     // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
@@ -209,7 +222,7 @@ function Message({ projectId }: MessageProps) {
                 marginLeft: 0,
                 fontFamily: "preRg",
                 marginBottom: "5px",
-                fontSize: '17px'
+                fontSize: "17px",
               }}
               className={styles.messageInput}
               placeholder=" 메세지를 입력해주세요"
@@ -220,10 +233,18 @@ function Message({ projectId }: MessageProps) {
           <div className={styles.messageFooterButtonContainer}>
             <div className={styles.messageFooterButtonLeft}>
               <Upload showUploadList={false} multiple={true} {...fileProps}>
-                <BsPaperclip style={{ cursor: "pointer" }} size={28} color="#39A789"/>
+                <BsPaperclip
+                  style={{ cursor: "pointer" }}
+                  size={28}
+                  color="#39A789"
+                />
               </Upload>
               <Upload showUploadList={false} multiple={true} {...props}>
-                <HiOutlinePhoto style={{ marginRight: '7px', cursor: "pointer" }} size={30} color="#39A789"/>
+                <HiOutlinePhoto
+                  style={{ marginRight: "7px", cursor: "pointer" }}
+                  size={30}
+                  color="#39A789"
+                />
               </Upload>
               <div style={{ position: "relative" }}>
                 <Grow
