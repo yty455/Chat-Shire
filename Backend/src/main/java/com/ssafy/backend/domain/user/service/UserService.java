@@ -1,9 +1,7 @@
 package com.ssafy.backend.domain.user.service;
 
-import com.ssafy.backend.domain.user.MySkill;
-import com.ssafy.backend.domain.user.Skill;
-import com.ssafy.backend.domain.user.State;
-import com.ssafy.backend.domain.user.User;
+import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
+import com.ssafy.backend.domain.user.*;
 import com.ssafy.backend.domain.user.dto.*;
 import com.ssafy.backend.domain.user.exception.UserNotFoundException;
 import com.ssafy.backend.domain.user.repository.ChallengeRepository;
