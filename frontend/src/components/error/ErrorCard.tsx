@@ -58,14 +58,29 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
       >
         <Avatar
           alt="Remy Sharp"
-          src={process.env.PUBLIC_URL + "assets/profile/m57.png"}
+          src={
+            process.env.PUBLIC_URL +
+            (error ? error.profileImage : "/assets/profile/m57.png")
+          }
           sx={{ width: 80, height: 80 }}
         />
-        <h5 className={styles.status}>완료</h5>
+        <h5 className={styles.status}>
+          {error && error.state === true ? "완료" : "진행"}
+        </h5>
       </div>
       <div>
-        <p className={styles.title}>Q. React npm no modules 에러</p>
-        <h5 className={styles.language}>Python</h5>
+        <p className={styles.title}>Q. {error ? error.title : ""}</p>
+        <div>
+          {error && Array.isArray(error.skillName) ? (
+            error.skillName.map((item: any, index: number) => (
+              <h5 key={index} className={styles.language}>
+                {item}
+              </h5>
+            ))
+          ) : (
+            <h5 className={styles.language}>Python</h5>
+          )}
+        </div>
         <img
           className={styles.error}
           alt="error"
@@ -81,8 +96,13 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
           alt="error"
           src={process.env.PUBLIC_URL + "assets/error.png"}
         />
-        <p className={styles.answer}>A. 이렇게 함 해볼래?</p>
-        <p className={styles.more}>5개의 답변 더보기</p>
+        <p className={styles.answer}>
+          {" "}
+          A. {error && error.reply ? error.reply[0] : "이렇게 함 해볼래?"}
+        </p>
+        <p className={styles.more}>
+          {error && error.replyCount}개의 답변 더보기
+        </p>
       </div>
     </div>
   );

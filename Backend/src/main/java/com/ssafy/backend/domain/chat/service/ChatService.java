@@ -1,20 +1,20 @@
 package com.ssafy.backend.domain.chat.service;
 
-import static com.ssafy.backend.domain.common.GlobalMethod.*;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
+import com.ssafy.backend.domain.attachedFile.AttachedFile;
+import com.ssafy.backend.domain.attachedFile.repository.AttachedFileRepository;
+import com.ssafy.backend.domain.chat.dto.ChatInfo;
+import com.ssafy.backend.domain.chat.dto.ChatPost;
+import com.ssafy.backend.domain.chat.repository.ChatRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssafy.backend.domain.chat.dto.ChatInfo;
-import com.ssafy.backend.domain.chat.dto.ChatPost;
-import com.ssafy.backend.domain.chat.repository.ChatRepository;
+import java.time.LocalDateTime;
+import java.util.List;
 
-import lombok.RequiredArgsConstructor;
+import static com.ssafy.backend.domain.common.GlobalMethod.getUserId;
 
 @Service
 @Transactional
@@ -24,7 +24,7 @@ public class ChatService {
     private final ChatRepository chatRepository;
     private final RedisTemplate<String, Object> redisTemplate;
     private final RedisTemplate<String, ChatInfo> chatRedisTemplate;
-
+    private final AttachedFileRepository attachedFileRepository;
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final String chatKey = "chat";
 
@@ -40,6 +40,19 @@ public class ChatService {
 
         // 문자열을 Long으로 변환
         Long chatNumber = Long.valueOf(strChatNumber);
+
+        // 첨부파일 검증
+        if(chatPost.getFiles() != null){
+            for(int idx=0;idx<chatPost.getFiles().size();idx++){
+                // 첨부파일 DB에 저장
+                AttachedFile attachedFile = AttachedFile.builder()
+                        .url(chatPost.getFiles().get(idx))
+                        .thumbnail(chatPost.getThumbnails().get(idx))
+                        .chatRoomId(chatRoomId)
+                        .chatNumber(chatNumber).build();
+                attachedFileRepository.save(attachedFile);
+            }
+        }
 
         ChatInfo chatInfo = ChatInfo.builder()
                 .userId(getUserId())
