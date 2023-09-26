@@ -10,7 +10,9 @@ import java.util.List;
 
 public interface AttachedFileRepository extends JpaRepository<AttachedFile, Long> {
     @Query("select new com.ssafy.backend.domain.attachedFile.dto.AttachedFileInfo(a.url, a.thumbnail) from AttachedFile a where a.postId = :postId")
-    List<AttachedFileInfo> findByPostId(@Param("postId") Long postId);
+    List<AttachedFileInfo> findInfoByPostId(@Param("postId") Long postId);
+
+    List<AttachedFile> findByPostId(Long postId);
 
     @Query("select new com.ssafy.backend.domain.attachedFile.dto.AttachedFileInfo(a.url, a.thumbnail) from AttachedFile a where a.chatRoomId = :chatRoomId and a.chatNumber = :chatNumber")
     List<AttachedFileInfo> findByChatRoomIdAndChatNumber(@Param("chatRoomId") Long chatRoomId, @Param("chatNumber") Long chatNumber);

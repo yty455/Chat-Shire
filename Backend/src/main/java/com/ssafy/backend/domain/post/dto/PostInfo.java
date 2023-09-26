@@ -16,7 +16,8 @@ public class PostInfo {
     private String content;
     private List<String> skillName;
     private List<AttachedFileInfo> attachedFileInfos;
-    public static Post toEntity(User user, ChatRoom chatRoom, PostInfo postInfo){
+
+    public static Post toEntity(User user, ChatRoom chatRoom, PostInfo postInfo) {
         return Post.builder()
                 .state(Boolean.FALSE)
                 .title(postInfo.getTitle())
