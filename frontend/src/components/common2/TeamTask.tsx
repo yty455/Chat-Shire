@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-
+import { getProject } from "../../utils/projectApi";
 import TeamTaskCreateModal from "./TeamTaskCreateModal";
 import TaskModal from "./TaskModal";
 import {
@@ -126,6 +126,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const currentDate = new Date();
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [allTeamTask, setAllTeamTask] = useState([]);
+  const [pjt, setPjt] = useState<any>({});
   const [isModalOpen, setIsModalOpen] = useState("");
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
     {
@@ -210,6 +211,16 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     }
   };
 
+  const getpjt = async () => {
+    try {
+      const response = await getProject(projectId);
+      console.log(response.data.result[0]);
+      setPjt(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const createProjectGroup = async () => {
     try {
       const response = await postTaskGroup(
@@ -260,12 +271,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
 
   useEffect(() => {
     getTeamTask();
+    getpjt();
   }, []);
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        <p className={styles.messageLeftTitle}>2차 특화 PJT</p>
+        <p className={styles.messageLeftTitle}>{pjt && pjt.title} </p>
         <AllBorderLinearProgress
           style={{ marginTop: "29px", width: "500px" }}
           variant="determinate"
@@ -369,6 +381,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       overlap="circular"
                       anchorOrigin={{ vertical: "top", horizontal: "left" }}
                       variant="dot"
+                      onClick={() => handleBadgeClick(task)}
                     ></StyledBadgeRed>
                   )}
                   <p className={styles.step} onClick={() => openModal(task.id)}>
