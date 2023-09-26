@@ -120,12 +120,14 @@ function Message({ projectId }: MessageProps) {
 
 
   const inputMessage = (e: any) => {
+    console.log("inputMessage")
     if (e.code === "Enter") {
       postChat(Number(projectId), e.target.value)
     }
   };
 
   const sendMessage = (e: any) => {
+    console.log("sendMessage")
     const message = document.getElementById("chatInput") as HTMLInputElement;
     if (message.value != "") {
       postChat(Number(projectId), message.value)
