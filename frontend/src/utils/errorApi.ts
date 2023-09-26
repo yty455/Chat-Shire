@@ -3,7 +3,7 @@ import api from "./api";
 //####### 에러 게시판
 
 // 에러 전체 불러오기
-export const getErrors = (projectId: number) =>
+export const getErrors = (projectId: string) =>
   api.get(`/projects/${projectId}/posts`);
 
 // 에러 단일 상세 불러오기
@@ -11,10 +11,10 @@ export const getErrorDetail = (postId: number) => api.get(`/posts/${postId}`);
 
 // 에러 작성
 export const postError = (
-  projectId: number,
+  projectId: string,
   title: string,
   content: string,
-  skillName: []
+  skillName: string[]
 ) => api.post(`/projects/${projectId}/posts`, { title, content, skillName });
 
 // 에러 수정
