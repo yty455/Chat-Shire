@@ -1,6 +1,18 @@
 package com.ssafy.backend.domain.user.service;
 
-import static com.ssafy.backend.domain.common.GlobalMethod.*;
+import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
+import com.ssafy.backend.domain.user.*;
+import com.ssafy.backend.domain.user.dto.*;
+import com.ssafy.backend.domain.user.exception.UserNotFoundException;
+import com.ssafy.backend.domain.user.repository.ChallengeRepository;
+import com.ssafy.backend.domain.user.repository.MySkillRepository;
+import com.ssafy.backend.domain.user.repository.SkillRepository;
+import com.ssafy.backend.domain.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -8,25 +20,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
-import com.ssafy.backend.domain.user.*;
-import com.ssafy.backend.domain.user.dto.ChallengeInfoResponse;
-import com.ssafy.backend.domain.user.dto.MySkillInfo;
-import com.ssafy.backend.domain.user.dto.SearchUser;
-import com.ssafy.backend.domain.user.dto.UserInfo;
-import com.ssafy.backend.domain.user.dto.UserInfoResponse;
-import com.ssafy.backend.domain.user.exception.UserNotFoundException;
-import com.ssafy.backend.domain.user.repository.ChallengeRepository;
-import com.ssafy.backend.domain.user.repository.MySkillRepository;
-import com.ssafy.backend.domain.user.repository.SkillRepository;
-import com.ssafy.backend.domain.user.repository.UserRepository;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import static com.ssafy.backend.domain.common.GlobalMethod.getUserId;
 
 @Slf4j
 @Service

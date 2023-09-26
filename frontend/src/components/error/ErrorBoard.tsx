@@ -69,7 +69,9 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
         <Search />
       </div>
       <ErrorList onErrorCardClick={handleErrorCardClick} errors={allErrors} />
-      {openModal && <ErrorModal closeModal={handleCloseModal} />}
+      {openModal && (
+        <ErrorModal closeModal={handleCloseModal} err={selectedError} />
+      )}
       {!isCreating && (
         <FloatButton
           icon={<EditOutlined />}
