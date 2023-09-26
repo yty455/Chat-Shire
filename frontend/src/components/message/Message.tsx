@@ -74,7 +74,7 @@ interface MessageObject {
 
 function Message({ projectId }: MessageProps) {
   // const projectId = useParams().projectId;
-  console.log("Message", projectId);
+  // console.log("Message", projectId);
   const [value, setValue] = useState("media");
   const [preMessage, setPreMessage] = useState<any[]>([]);
   const [message, setMessage] = useState("");
@@ -94,6 +94,8 @@ function Message({ projectId }: MessageProps) {
 
   const client = useRef<CompatClient>();
   const messageEndRef = useRef<HTMLDivElement | null>(null);
+
+
 
 
 
@@ -212,10 +214,13 @@ function Message({ projectId }: MessageProps) {
   // s3 이미지 업로드
   const onUpload = (e: any) => {
     const file = e.target.files[0];
+    if (!file) { // 파일 선택 취소 시
+      return Promise.resolve();
+    }
     const fileExt = file.name.split('.').pop();
     if (!['jpeg', 'png', 'jpg', 'JPG', 'PNG', 'JPEG', 'mp4', 'MP4'].includes(fileExt)) {
         window.alert('jpg, png, jpg, mp4 파일만 업로드가 가능합니다.');
-        return;
+        return Promise.resolve(); 
     }
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -247,7 +252,7 @@ function Message({ projectId }: MessageProps) {
         params: {
             ACL: 'public-read',
             Bucket: 'chat-shire',
-            Key: `upload/${imageFile.name}`,
+            Key: `chat/${imageFile.name}`,
             Body: imageFile,
         }
     })
@@ -299,7 +304,7 @@ function Message({ projectId }: MessageProps) {
           </div>
           <div className={styles.messageFooterButtonContainer}>
             <div className={styles.messageFooterButtonLeft}>
-              <input
+              {/* <input
               accept="image/*, video/*" 
               multiple 
               type="file"
@@ -319,7 +324,7 @@ function Message({ projectId }: MessageProps) {
 
                   uploadS3(formData);
               }}
-        >업로드!</button>
+        >업로드!</button> */}
               <Upload showUploadList={false} multiple={true} {...fileProps}>
                 <BsPaperclip
                   style={{ cursor: "pointer" }}
@@ -327,13 +332,35 @@ function Message({ projectId }: MessageProps) {
                   color="#39A789"
                 />
               </Upload>
-              <Upload showUploadList={false} multiple={true} {...props}>
+              {/* <Upload showUploadList={false} multiple={true} {...props}> */}
                 <HiOutlinePhoto
                   style={{ marginRight: "7px", cursor: "pointer" }}
                   size={30}
                   color="#39A789"
+                  onClick={() => inputRef.current[0].click()} 
                 />
-              </Upload>
+                <input
+                  hidden
+                  accept="image/*, video/*" 
+                  multiple 
+                  type="file"
+                  ref={el => (inputRef.current[0] = el)}
+                  onChange={e => {
+                    onUpload(e).then(() => {
+                      if (!imageSrc) {
+                        window.alert('이미지를 등록해 주세요.');
+                        return;
+                      }
+
+                      const formData = new FormData();
+                      formData.append('file', imageFile);
+                      formData.append('name', imageFile.name);
+
+                      uploadS3(formData);
+                    });
+                }}
+                />
+              {/* </Upload> */}
               <div style={{ position: "relative" }}>
                 <Grow
                   in={activateEmojiPicker}
