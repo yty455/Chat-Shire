@@ -11,7 +11,7 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 
-@RequestMapping("distributed")
+@RequestMapping("/distributed")
 public class ChatSchedulerContoller {
     final private ChatScheduler chatScheduler;
 
