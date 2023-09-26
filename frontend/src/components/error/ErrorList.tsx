@@ -21,10 +21,6 @@ function ErrorList({ errors, onErrorCardClick }: ErrorListProps) {
       {errors.map((error: any, index: number) => (
         <ErrorCard key={index} error={error} onCardClick={onErrorCardClick} />
       ))}
-
-      <ErrorCard onCardClick={onErrorCardClick} />
-      <ErrorCard onCardClick={onErrorCardClick} />
-      <ErrorCard onCardClick={onErrorCardClick} />
     </div>
   );
 }
