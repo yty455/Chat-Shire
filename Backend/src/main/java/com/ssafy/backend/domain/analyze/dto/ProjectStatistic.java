@@ -18,12 +18,12 @@ public class ProjectStatistic {
 	private Long topicCategoryCount;
 	private Long taskCount;
 
-	public static ProjectStatistic toProjectStatistic(Statistic statistic, Long taskCount) {
+	public static ProjectStatistic toDto(Statistic statistic, Long taskCount, Long issueCount) {
 		return ProjectStatistic.builder()
 				.morningCommit(statistic.getMorningCommit())
 				.afternoonCommit(statistic.getAfternoonCommit())
 				.nightCommit(statistic.getNightCommit())
-				.issueCount(0L)
+				.issueCount(issueCount)
 				.allCategoryCount(0L)
 				.topicCategoryCount(0L)
 				.taskCount(taskCount)

@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.backend.domain.analyze.Statistic;
 import com.ssafy.backend.domain.analyze.dto.ProjectStatistic;
 import com.ssafy.backend.domain.analyze.service.StatisticService;
 import com.ssafy.backend.domain.common.BasicResponse;
+import com.ssafy.backend.domain.post.repository.PostRepository;
 import com.ssafy.backend.domain.task.repository.TaskRepository;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,20 +23,13 @@ import lombok.RequiredArgsConstructor;
 public class AnalyzeController {
 	private final StatisticService statisticService;
 	private final TaskRepository taskRepository;
+	private final PostRepository postRepository;
 
 	@Operation(summary = "프로젝트 통계 조회", description = "프로젝트 전체 통계 관련 정보를 조회합니다.")
 	@GetMapping("/projects/{projectId}/statistic")
-	public ResponseEntity<BasicResponse> getChat(@PathVariable("projectId") Long chatRoomId){
+	public ResponseEntity<BasicResponse> getStatistic(@PathVariable("projectId") Long chatRoomId){
 
-		// 커밋 수 조회
-		Statistic statistic = statisticService.getCommitCount(chatRoomId);
-		// 태스크 수 조회
-		Long taskCount = taskRepository.countByProjectId(chatRoomId);
-		// TODO: 에러 게시판 + 댓글 수 합 조회(에러 게시판 만들면)
-		// TODO: 채팅에서 나온 카테고리 수 조회
-		// TODO: 주제 관련 카테고리 수 조회
-
-		ProjectStatistic projectStatistic = ProjectStatistic.toProjectStatistic(statistic, taskCount);
+		ProjectStatistic projectStatistic = statisticService.getStatistic(chatRoomId);
 
 		BasicResponse basicResponse = BasicResponse.builder()
 				.message("통계 조회 성공")

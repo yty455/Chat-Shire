@@ -1,6 +1,6 @@
 .messageContainer {
   display: flex;
-  padding: 2vh 2vw 1vh 2vw;
+  padding: 2vh 1.4vw 1vh 2vw;
   width: 54vw;
   height: 82vh;
   border: 1px solid #E5E8EB;
@@ -12,7 +12,7 @@
 .messageLeft {
   display: flex;
   flex-direction: column;
-  width: 28vw;
+  width: 34vw;
   border-right: 1px solid #E5E8EB;
   /* border: 1px solid red; */
 }
@@ -23,7 +23,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 26vw;
+  width: 33vw;
   height: 60px;
   color: #575757;
   /* border: 1px solid purple; */
@@ -82,7 +82,7 @@
 
 .messageInput {
   margin: 0px 10px;
-  width: 26vw;
+  width: 33vw;
   font-size: 18px;
 }
 
@@ -90,13 +90,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 26vw;
+  width: 33vw;
   height: 40px;
 }
 
 .messageFooterButtonLeft {
   display: flex;
-  align-items: center;
+  align-items: start;
 }
 
 .messageSendButton {
@@ -111,7 +111,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 30vw;
+  width: 20vw;
   height: 81vh;
   /* border: 1px solid red; */
 }
@@ -119,9 +119,9 @@
 .messageRightTabContainer {
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
   width: 20vw;
-  height: 19vh;
+  height: 10vh;
   padding-left: 4%;
 }
 

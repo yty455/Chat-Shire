@@ -65,8 +65,9 @@ public class UserService {
 				.orElseThrow(UserNotFoundException::new);
 		List<String> mySkills = mySkillRepository.findByUser(findUser);
 
-		ChallengeInfoResponse challengeInfoResponse = ChallengeInfoResponse.fromEntity(
-				challengeRepository.findByUserId(getUserId()).orElseThrow());
+		Challenge challenge = challengeRepository.findByUserId(getUserId())
+				.orElseThrow(() -> new ResourceNotFoundException("Challenge.user", getUserId()));
+		ChallengeInfoResponse challengeInfoResponse = ChallengeInfoResponse.fromEntity(challenge);
 
 		String state = redisTemplate.opsForValue().get("userState-" + getUserId());
 		return UserInfoResponse.fromEntity(findUser, mySkills, challengeInfoResponse, state);

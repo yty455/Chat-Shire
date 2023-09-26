@@ -10,7 +10,7 @@ interface Props {
 }
 
 const MessageRightBody: React.FC<Props>= ({ value }) => {
-  if ( value === "photos") {
+  if ( value === "media") {
     return (
       <RightMediaTab/>
     )

@@ -4,8 +4,31 @@ import styles from "./MessageItem.module.css";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
+import { useDrag } from "react-dnd";
+import { ItemTypes } from "./ItemTypes";
+import { postTask } from "../../utils/taskApi";
 
 export default function MessageItem(message: any) {
+  const [, ref] = useDrag({
+    type: ItemTypes.MESSAGE_ITEM, // 드래그 타입을 정의합니다.
+    item: { message }, // 드래그할 데이터를 포함합니다.
+  });
+
+  // 태스크 등록
+  const postInTask = async (
+    chatroomId: string,
+    description: string,
+    progress: string
+  ) => {
+    try {
+      const response = await postTask(chatroomId, description, progress);
+      console.log(response);
+      // getInTask();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
       backgroundColor: "#44b700",
@@ -35,8 +58,15 @@ export default function MessageItem(message: any) {
     },
   }));
 
+  const onClickDeleteChattingRoom = (e: React.MouseEvent<HTMLDivElement>) => {
+    console.log(e);
+    e.preventDefault();
+    // postInTask()
+    // alert("채팅방을 정말 삭제하시겠어요?");
+  };
+
   return (
-    <div className={styles.messageItemContainer}>
+    <div className={styles.messageItemContainer} ref={ref}>
       <StyledBadge
         className={styles.messageItemProfile}
         overlap="circular"
@@ -58,7 +88,12 @@ export default function MessageItem(message: any) {
             {message && message.message.chatTime}
           </span>
         </div>
-        <div className={styles.messageItemText}>
+        <div
+          className={styles.messageItemText}
+          onContextMenu={(e) => {
+            onClickDeleteChattingRoom(e);
+          }}
+        >
           <span>{message && message.message.content}</span>
         </div>
       </div>
