@@ -114,6 +114,9 @@ public class ChatScheduler {
 
             // 결과 리스트를 JSON 파일으로 ec서버에 생성
             try {
+                File file = new File("ChatScheduler.java");
+                String absolutePath = file.getAbsolutePath();
+                System.out.println(absolutePath);
                 jsch.addIdentity(privateKey);
                 // EC2 서버와 연결하기 위한 세션 생성
                 Session session = jsch.getSession(user, host, 22);

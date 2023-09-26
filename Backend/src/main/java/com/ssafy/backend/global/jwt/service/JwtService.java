@@ -2,13 +2,13 @@ package com.ssafy.backend.global.jwt.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.ssafy.backend.domain.user.User;
 import com.ssafy.backend.domain.user.repository.UserRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -160,12 +160,14 @@ public class JwtService {
      * RefreshToken DB 저장(업데이트)
      */
     //    public void updateRefreshToken(String socialId, String refreshToken) {
+    @Transactional
     public void updateRefreshToken(Long id, String refreshToken) {
-        userRepository.findById(id)
-                .ifPresentOrElse(
-                        user -> user.updateRefreshToken(refreshToken),
-                        () -> new IllegalArgumentException("소셜아이디에 해당하는 유저가 없습니다.")
-                );
+        userRepository.findById(id).ifPresentOrElse(
+                user -> user.updateRefreshToken(refreshToken),
+                () -> {
+                    throw new IllegalArgumentException("소셜아이디에 해당하는 유저가 없습니다.");
+                }
+        );
     }
 
     public boolean isTokenValid(String token) {
