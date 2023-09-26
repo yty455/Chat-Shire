@@ -100,7 +100,7 @@ function Message({ projectId }: MessageProps) {
   }, [message])
 
   useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
   }, [preMessage])
 
   const connectHandler = () => {
@@ -134,6 +134,7 @@ function Message({ projectId }: MessageProps) {
     if (e.code === "Enter" && e.target.value != "") {
       postChat(Number(projectId), e.target.value)
       e.target.value = ""
+      messageEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
     }
   };
 
@@ -142,6 +143,7 @@ function Message({ projectId }: MessageProps) {
     if (message.value != "") {
       postChat(Number(projectId), message.value)
       message.value = ""
+      messageEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
     }
   };
 
@@ -155,6 +157,7 @@ function Message({ projectId }: MessageProps) {
 
   useEffect(() => {
     connectHandler();
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
   }, []);
 
   const ariaLabel = { "aria-label": "description" };
