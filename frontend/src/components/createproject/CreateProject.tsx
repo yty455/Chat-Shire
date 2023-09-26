@@ -13,6 +13,7 @@ import First from "./First";
 import Second from "./Second";
 import Third from "./Third";
 import Fourth from "./Fourth";
+import Fifth from "./Fifth";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { postProject } from "../../utils/projectApi";
@@ -28,20 +29,25 @@ const steps = [
   {
     id: 1,
     label: "어떤 프로젝트를 시작하나요?",
-    description: "멤버를 초대하세요",
+    description: "주제 입력",
   },
   {
     id: 2,
+    label: "깃을 설정해주세요",
+    description: `깃 설정`,
+  },
+  {
+    id: 3,
     label: "팀원을 초대해주세요",
     description: `팀원 초대`,
   },
   {
-    id: 3,
+    id: 4,
     label: "언제까지 진행하시나요?",
     description: `기간 설정`,
   },
   {
-    id: 4,
+    id: 5,
     label: "마지막 단계입니다",
     description: `플젝 생성 완료입니당`,
   },
@@ -49,12 +55,19 @@ const steps = [
 
 function CreateProject() {
   const [activeStep, setActiveStep] = useState(0);
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [teamName, setTeamName] = useState("");
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");
+
   const [gitRepository, setGitRepository] = useState("");
-  const navigate = useNavigate();
+  const [branch, setBranch] = useState("");
+  const [gitAccessToken, setGitAccessToken] = useState("");
+
+  const [teamUser, setTeamUser] = useState<string[]>([]);
+
   const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs());
   const [endDate, setEndDate] = React.useState<Dayjs | null>(
     dayjs().add(1, "week")
@@ -77,19 +90,24 @@ function CreateProject() {
     setTeamName(teamName);
   };
 
-  const handleFourthStepData = (startDate: string, endDate: string) => {
-    setStartDate(dayjs(startDate));
-    setEndDate(dayjs(endDate));
+  const handleSecondStepData = (topic: string, description: string) => {
+    setTopic(topic);
+    setDescription(description);
   };
 
-  const handleSecondStepData = (
-    topic: string,
+  const handleThirdStepData = (
     gitRepository: string,
-    description: string
+    branch: string,
+    gitAccessToken: string
   ) => {
-    setTopic(topic);
     setGitRepository(gitRepository);
-    setDescription(description);
+    setBranch(branch);
+    setGitAccessToken(gitAccessToken);
+  };
+
+  const handleFifthStepData = (startDate: string, endDate: string) => {
+    setStartDate(dayjs(startDate));
+    setEndDate(dayjs(endDate));
   };
 
   const createProject = async () => {
@@ -101,8 +119,11 @@ function CreateProject() {
       topic,
       description,
       gitRepository,
+      branch,
+      teamUser,
       formattedStartDate,
-      formattedEndDate
+      formattedEndDate,
+      gitAccessToken
     );
 
     try {
@@ -112,8 +133,11 @@ function CreateProject() {
         topic,
         description,
         gitRepository,
+        branch,
+        teamUser,
         formattedStartDate,
-        formattedEndDate
+        formattedEndDate,
+        gitAccessToken
       );
       console.log(response);
       navigate("/main");
@@ -202,8 +226,9 @@ function CreateProject() {
               >
                 {index === 0 && <First onData={handleFirstStepData} />}
                 {index === 1 && <Second onData={handleSecondStepData} />}
-                {index === 2 && <Third />}
-                {index === 3 && <Fourth onData={handleFourthStepData} />}
+                {index === 2 && <Third onData={handleThirdStepData} />}
+                {index === 3 && <Fourth />}
+                {index === 4 && <Fifth onData={handleFifthStepData} />}
                 <div style={{}}>
                   <Button
                     variant="contained"
