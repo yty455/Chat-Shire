@@ -65,11 +65,11 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
           sx={{ width: 80, height: 80 }}
         />
         <h5 className={styles.status}>
-          {error.state === true ? "완료" : "진행"}
+          {error && error.state === true ? "완료" : "진행"}
         </h5>
       </div>
       <div>
-        <p className={styles.title}>Q. {error.title}</p>
+        <p className={styles.title}>Q. {error ? error.title : ""}</p>
         <div>
           {Array.isArray(error.title) ? (
             error.skillName.map((item: any, index: number) => (
@@ -98,7 +98,7 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
         />
         <p className={styles.answer}>
           {" "}
-          A. {error.reply ? error.reply[0] : "이렇게 함 해볼래?"}
+          A. {error && error.reply ? error.reply[0] : "이렇게 함 해볼래?"}
         </p>
         <p className={styles.more}>
           {error && error.replyCount}개의 답변 더보기
