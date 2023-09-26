@@ -230,7 +230,7 @@ function Message({ projectId }: MessageProps) {
       reader.readAsDataURL(file);
       
         reader.onload = () => {
-          setImageSrc(reader.result || null);
+          setImageSrc(reader.result || '');
           setImageFile(file);
   
             if (!reader.result) {
