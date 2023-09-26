@@ -4,7 +4,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { ItemState } from "./Types";
 import { COLUMN_NAMES, ITEM_TYPE } from "./Contants";
 
-import styles from './MovableItem.module.css'
+import styles from "./MovableItem.module.css";
 
 const MovableItem = ({ name, index, moveCardHandler, setItems }: any) => {
   const changeItemColumn = (currentItem: any, columnName: string) => {

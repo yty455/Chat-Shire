@@ -49,7 +49,7 @@ public class ChatScheduler {
     private final String chatNumberKey = "chatNumber";
     final static String user = "ubuntu";
     final static String host = "52.79.247.214";
-    final static String privateKey = "/home/ubuntu/identity/J9E205T.pem";
+    final static String privateKey = "/key/J9E205T.pem";
 
     //    @Scheduled(cron = "0 0 * * * ?")
     public void chatTransfer() throws IOException {
