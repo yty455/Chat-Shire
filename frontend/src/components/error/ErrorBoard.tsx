@@ -24,8 +24,8 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
   const [allErrors, setAllErrors] = useState([]);
   const [selectedError, setSelectedError] = useState<any>(null);
 
-  const handleErrorCardClick = (pjt: any) => {
-    setSelectedError(pjt);
+  const handleErrorCardClick = (err: any) => {
+    setSelectedError(err);
     setOpenModal(true);
   };
 
