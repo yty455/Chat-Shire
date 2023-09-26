@@ -41,33 +41,6 @@ function Redirect() {
     }
   }, [access_token, refresh_token]);
 
-  // const login = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://j9e205.p.ssafy.io:8080/login/oauth2/code/github?code=${code}&state=yKSSNKuZSnFiyHgnCT_Jcw741bdp-vutjnQgH9XLRL0%3D`
-  //     );
-  //     // const data = await response.json();
-  //     console.log(response);
-  //     // console.log(data);
-
-  //     localStorage.setItem("token", token);
-  //   } catch (error) {}
-  // };
-
-  // getToken();
-  // try {
-  //   const response = await  fetch.()
-
-  // }
-
-  // useEffect(() => {
-  //   if (typeof access_token === "string") {
-  //     localStorage.setItem("token", access_token);
-  //   }
-  //   // usersign();
-  //   // login();
-  // }, [access_token]);
-
   return <div>code-callback</div>;
 }
 

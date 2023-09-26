@@ -33,10 +33,10 @@ export default function CustomProfileInfo({
   const [detailIntroduction, setDetailIntroduction] = useState("");
   const [userData, setUserData] = useRecoilState(loginuser);
   const [isLogin, setIsLogin] = useRecoilState(isLogin_recoil);
-  const [selectedId, setSelectedId] = useState<any[]>([]);
+  const [selectedId, setSelectedId] = useState<string[]>([]);
 
   const selectSkill = (e: any) => {
-    if (selectedId?.includes(String(e.target.id))) {
+    if (selectedId && selectedId.includes(String(e.target.id))) {
       const newSelectedId = selectedId.filter((item) => item != e.target.id);
       setSelectedId(newSelectedId);
       onUpdatemySkill(newSelectedId);

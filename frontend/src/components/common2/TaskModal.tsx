@@ -191,7 +191,9 @@ function TaskModal({
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <div onClick={(e) => e.stopPropagation()}>
                     <DatePicker
-                      value={teamTaskDetail.deadline}
+                      value={dayjs(teamTaskDetail.deadline).format(
+                        "YYYY-MM-DD"
+                      )}
                       onChange={(date: any) => {
                         setTeamTaskDetail({
                           ...teamTaskDetail,
