@@ -43,10 +43,10 @@ public class ChatService {
         Long chatNumber = Long.valueOf(strChatNumber);
 
         // 첨부파일 검증
-        if (chatPost.getFiles() != null) {
-            for (int idx = 0; idx < chatPost.getFiles().size(); idx++) {
+        if (chatPost.getAttachedFileInfos() != null) {
+            for (int idx = 0; idx < chatPost.getAttachedFileInfos().size(); idx++) {
                 // 카테고리 븐류
-                String str = chatPost.getFiles().get(idx);
+                String str = chatPost.getAttachedFileInfos().get(idx).getUrl();
                 Category category;
                 if (str.endsWith(".jpg") || str.endsWith(".jpeg") || str.endsWith(".png")) {
                     category = Category.IMAGE;
@@ -59,8 +59,8 @@ public class ChatService {
 
                 // 첨부파일 DB에 저장
                 AttachedFile attachedFile = AttachedFile.builder()
-                        .url(chatPost.getFiles().get(idx))
-                        .thumbnail(chatPost.getThumbnails().get(idx))
+                        .url(chatPost.getAttachedFileInfos().get(idx).getUrl())
+                        .thumbnail(chatPost.getAttachedFileInfos().get(idx).getThumbnail())
                         .chatRoomId(chatRoomId)
                         .chatNumber(chatNumber)
                         .category(category).build();
