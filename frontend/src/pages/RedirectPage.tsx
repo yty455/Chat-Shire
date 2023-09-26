@@ -27,18 +27,20 @@ function Redirect() {
   console.log(refresh_token);
 
   useEffect(() => {
-    if (typeof access_token === "string") {
-      localStorage.setItem("token", access_token);
-    }
-    if (refresh_token) {
-      sessionStorage.setItem("refresh_token", refresh_token.toString());
-      // 리프레쉬 토큰이 있다면 메인 페이지로 이동
-      setIslogin(true);
-      navigate("/main");
-    } else {
-      // 리프레쉬 토큰이 없다면 회원가입 페이지로 이동
-      navigate("/profile/custom");
-    }
+    setTimeout(() => {
+      if (typeof access_token === "string") {
+        localStorage.setItem("token", access_token);
+      }
+      if (refresh_token) {
+        sessionStorage.setItem("refresh_token", refresh_token.toString());
+        // 리프레쉬 토큰이 있다면 메인 페이지로 이동
+        setIslogin(true);
+        navigate("/main");
+      } else {
+        // 리프레쉬 토큰이 없다면 회원가입 페이지로 이동
+        navigate("/profile/custom");
+      }
+    }, 1000); // 1초 대기 후에 실행
   }, [access_token, refresh_token]);
 
   return <div>code-callback</div>;
