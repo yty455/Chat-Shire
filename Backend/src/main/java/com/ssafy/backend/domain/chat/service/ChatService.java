@@ -1,6 +1,7 @@
 package com.ssafy.backend.domain.chat.service;
 
 import com.ssafy.backend.domain.attachedFile.AttachedFile;
+import com.ssafy.backend.domain.attachedFile.Category;
 import com.ssafy.backend.domain.attachedFile.repository.AttachedFileRepository;
 import com.ssafy.backend.domain.chat.dto.ChatInfo;
 import com.ssafy.backend.domain.chat.dto.ChatPost;
@@ -42,14 +43,27 @@ public class ChatService {
         Long chatNumber = Long.valueOf(strChatNumber);
 
         // 첨부파일 검증
-        if(chatPost.getFiles() != null){
-            for(int idx=0;idx<chatPost.getFiles().size();idx++){
+        if (chatPost.getAttachedFileInfos() != null) {
+            for (int idx = 0; idx < chatPost.getAttachedFileInfos().size(); idx++) {
+                // 카테고리 븐류
+                String str = chatPost.getAttachedFileInfos().get(idx).getUrl();
+                Category category;
+                if (str.endsWith(".jpg") || str.endsWith(".jpeg") || str.endsWith(".png")) {
+                    category = Category.IMAGE;
+                } else if (str.endsWith(".mp4")) {
+                    category = Category.VIDEO;
+                } else if (str.endsWith(".pdf") || str.endsWith(".docx") || str.endsWith(".doc")
+                        || str.endsWith(".xlsx") || str.endsWith(".xls") || str.endsWith(".txt")) {
+                    category = Category.FILE;
+                } else continue;
+
                 // 첨부파일 DB에 저장
                 AttachedFile attachedFile = AttachedFile.builder()
-                        .url(chatPost.getFiles().get(idx))
-                        .thumbnail(chatPost.getThumbnails().get(idx))
+                        .url(chatPost.getAttachedFileInfos().get(idx).getUrl())
+                        .thumbnail(chatPost.getAttachedFileInfos().get(idx).getThumbnail())
                         .chatRoomId(chatRoomId)
-                        .chatNumber(chatNumber).build();
+                        .chatNumber(chatNumber)
+                        .category(category).build();
                 attachedFileRepository.save(attachedFile);
             }
         }
@@ -68,7 +82,7 @@ public class ChatService {
         // SSE
     }
 
-    public List<ChatInfo> getChats(Long chatRoomId, int page, int size){
-        return chatRedisTemplate.opsForList().range(chatKey+chatRoomId,0,-1);
+    public List<ChatInfo> getChats(Long chatRoomId, int page, int size) {
+        return chatRedisTemplate.opsForList().range(chatKey + chatRoomId, 0, -1);
     }
 }

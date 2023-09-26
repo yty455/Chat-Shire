@@ -12,28 +12,26 @@ const url = "https://namu.wiki/w/%EC%82%AC%ED%83%95";
 const fa = "http://www.google.com/s2/favicons?domain=";
 
 function Invite() {
-  const url =
-    "http://github.com/samholmes/node-open-graph/raw/master/test.html";
-
-  // og(url, function (err, meta) {
-  //   console.log(meta);
-  // });
+  const url = "http://github.com/samholmes/node-open-graph/raw/master/test.html";
 
   return (
     <Container
       backgroundColor="white"
       text=""
+      display="flex"
+      flexDirection="column"
+      justifyContent="flex-start"
       width="20vw"
       height="85vh"
       margin="0vh 0vw 0vh 1vw"
-      padding=""
+      padding="20px"
       border="1px solid #E5E8EB"
       borderRadius="20px"
       boxShadow=""
       backdropFilter=""
       transition=""
     >
-      <h5 style={{ marginTop: "20%", textAlign: "center" }}>초대함</h5>
+      <span style={{ marginTop: "20%", textAlign: "center" }}>초대함</span>
       {invite.map((invi: any) => (
         <InviteCard key={invi.pjt} invite={invi} />
       ))}

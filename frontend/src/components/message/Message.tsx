@@ -111,8 +111,8 @@ function Message({ projectId }: MessageProps) {
   }, [message]);
 
   useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [preMessage]);
+    messageEndRef.current?.scrollIntoView({behavior: "smooth"})
+  }, [preMessage])
 
   const connectHandler = () => {
     client.current = Stomp.over(() => {
@@ -141,16 +141,16 @@ function Message({ projectId }: MessageProps) {
 
   const inputMessage = (e: any) => {
     if (e.code === "Enter" && e.target.value != "") {
-      postChat(Number(projectId), e.target.value);
-      e.target.value = "";
+      postChat(Number(projectId), e.target.value)
+      e.target.value = ""
     }
   };
 
   const sendMessage = (e: any) => {
     const message = document.getElementById("chatInput") as HTMLInputElement;
     if (message.value != "") {
-      postChat(Number(projectId), message.value);
-      message.value = "";
+      postChat(Number(projectId), message.value)
+      message.value = ""
     }
   };
 
@@ -164,6 +164,7 @@ function Message({ projectId }: MessageProps) {
 
   useEffect(() => {
     connectHandler();
+    messageEndRef.current?.scrollIntoView()
   }, []);
 
   const ariaLabel = { "aria-label": "description" };
@@ -292,9 +293,10 @@ function Message({ projectId }: MessageProps) {
             다음 회의 일정은 일요일 오후 3시 입니다.
           </span>
         </div>
-        <div ref={messageEndRef} className={styles.messageLeftBody}>
+        <div className={styles.messageLeftBody}>
           {preMessage &&
             preMessage.map((message) => <MessageItem message={message} />)}
+            <div style={{width: "0px", height: "0px", visibility: "hidden"}} ref={messageEndRef}></div>
         </div>
         <div className={styles.messageLeftFooter}>
           <div className={styles.messageInputContainer}>
