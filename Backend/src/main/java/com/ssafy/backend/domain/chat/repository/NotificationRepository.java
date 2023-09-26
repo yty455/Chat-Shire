@@ -1,12 +1,12 @@
 package com.ssafy.backend.domain.chat.repository;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ssafy.backend.domain.chat.entity.Notification;
+import com.ssafy.backend.domain.user.User;
 
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
-
-	Optional<Notification> findByChatRoomId(Long chatRoomId);
+	List<Notification> findAllByReceiver(User user);
 }
