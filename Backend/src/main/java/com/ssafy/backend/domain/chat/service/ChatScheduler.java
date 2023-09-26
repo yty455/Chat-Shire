@@ -52,7 +52,6 @@ public class ChatScheduler {
     final static String privateKey = "/home/ubuntu/identity/J9E205T.pem";
 
     //    @Scheduled(cron = "0 0 * * * ?")
-    @RequestMapping("/chatTransfer")
     public void chatTransfer() throws IOException {
 
         System.out.println("채팅 저장 실행");
@@ -105,6 +104,7 @@ public class ChatScheduler {
 
                     for (ClassificationCategory classificationCategory : classificationCategories) {
                         StringTokenizer st = new StringTokenizer(classificationCategory.getName(), "/");
+                        st.nextToken();
                         dto.getCategoryList().add(st.nextToken());
 //	 				 		writer.write(outputLine);
                     }
@@ -171,7 +171,6 @@ public class ChatScheduler {
     }
 
     //    @Scheduled(cron = "0 */5 * * * ?")
-    @RequestMapping("/sparkStart")
     public void sparkStart() {
         // spark 실행
         String msg = null;
