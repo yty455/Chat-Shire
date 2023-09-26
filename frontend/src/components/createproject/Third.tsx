@@ -7,7 +7,7 @@ import { COLUMN_NAMES } from "../reactDnd/Contants";
 import MovableItem from "../reactDnd/MovableItem";
 import Column from "../reactDnd/Column";
 
-import styles from './Third.module.css'
+import styles from "./Third.module.css";
 
 function Third() {
   const [items, setItems] = useState(tasks);
@@ -45,19 +45,26 @@ function Third() {
     <div className={styles.MemberInviteContainer}>
       <DndProvider backend={HTML5Backend}>
         <div>
-          <input style={{width: "234px", height: "14px"}} type="text" placeholder="닉네임을 검색 해보세요"/>
+          <input
+            style={{ width: "234px", height: "14px" }}
+            type="text"
+            placeholder="닉네임을 검색 해보세요"
+          />
           <Column title={MEMBERS} className={styles.MemberListContainer}>
             {returnItemsForColumn(MEMBERS)}
           </Column>
         </div>
         <div>
-          <Column title={INVITED_MEMBERS} className={styles.InvitedMemberListContainer}>
+          <Column
+            title={INVITED_MEMBERS}
+            className={styles.InvitedMemberListContainer}
+          >
             {returnItemsForColumn(INVITED_MEMBERS)}
           </Column>
         </div>
       </DndProvider>
     </div>
   );
-};
+}
 
-export default  Third;
+export default Third;
