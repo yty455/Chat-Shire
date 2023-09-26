@@ -141,7 +141,7 @@ function Flow() {
       >
         <Controls showInteractive={false} />
         <MiniMap style={minimapStyle} zoomable pannable />
-        <Popover placement="rightTop" content={content} trigger="click">
+        <Popover placement="rightTop" content={content} trigger="hover">
           <FloatButton icon={<QuestionCircleOutlined />} type="default" style={{ width: 30, height: 30, bottom: 540, left: 320 }} />
         </Popover>
 
