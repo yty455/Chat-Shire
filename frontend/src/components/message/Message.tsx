@@ -225,14 +225,25 @@ function Message({ projectId }: MessageProps) {
     reader.readAsDataURL(file);
     // 파일 업로드 
     return new Promise<void>((resolve) => { 
-        reader.onload = () => {
-          // 이미지 경로 선언
-            setImageSrc(reader.result || null);
-            // 이미지 파일 선언
-            setImageFile(file);
+      reader.onload = () => {
+        // 이미지 경로 선언
+          setImageSrc(reader.result || null);
+          // 이미지 파일 선언
+          setImageFile(file);
+
+          if (!reader.result) {
+            window.alert('이미지를 등록해 주세요.');
             resolve();
-        };
-    });
+            return;
+          }
+
+          const formData = new FormData();
+          formData.append('file', file);
+          formData.append('name', file.name);
+
+          uploadS3(formData).then(() => resolve());
+      };
+});
 }
 
   // s3에 업로드
@@ -240,13 +251,13 @@ function Message({ projectId }: MessageProps) {
     const REGION = process.env.REACT_APP_REGION;
     const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
     const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
-
+  
     AWS.config.update({
         region: REGION,
         accessKeyId: ACCESS_KEY_ID,
         secretAccessKey: SECRET_ACCESS_KEY,
     });
-
+  
     const upload = new AWS.S3.ManagedUpload({
         params: {
             ACL: 'public-read',
@@ -255,11 +266,12 @@ function Message({ projectId }: MessageProps) {
             Body: imageFile,
         }
     })
-
-    upload.promise()
-    .then(() => {
-      console.log('업로드')
-    })}
+  
+    return upload.promise()
+      .then(() => {
+          console.log('업로드')
+      })
+  }
 
   return (
     <div className={styles.messageContainer}>
@@ -337,27 +349,21 @@ function Message({ projectId }: MessageProps) {
                   color="#39A789"
                   onClick={() => inputRef.current[0].click()} 
                 />
-                <input
-                  hidden
-                  accept="image/*, video/*" 
-                  multiple 
-                  type="file"
-                  ref={el => (inputRef.current[0] = el)}
-                  onChange={e => {
-                    onUpload(e).then(() => {
-                      if (!imageSrc) {
-                        window.alert('이미지를 등록해 주세요.');
-                        return;
-                      }
-
-                      const formData = new FormData();
-                      formData.append('file', imageFile);
-                      formData.append('name', imageFile.name);
-
-                      uploadS3(formData);
-                    });
-                }}
-                />
+              <input
+                hidden
+                accept="image/*, video/*" 
+                multiple 
+                type="file"
+                ref={el => (inputRef.current[0] = el)}
+                onChange={e => {
+                  onUpload(e).then(() => {
+                    if (!imageSrc) {
+                      window.alert('이미지를 등록해 주세요.');
+                      return;
+                    }
+                  });
+              }}
+              />  
               {/* </Upload> */}
               <div style={{ position: "relative" }}>
                 <Grow
