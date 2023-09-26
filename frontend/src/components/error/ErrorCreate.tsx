@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { BsArrowLeftCircle } from "react-icons/bs"
-import { Input } from 'antd';
+import { BsArrowLeftCircle } from "react-icons/bs";
+import { Input } from "antd";
 import MultiSelect from "./MultiSelect";
 import { Theme, useTheme } from "@mui/material/styles";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete'; // import here
-import TextField from '@mui/material/TextField';
-import { styled } from '@mui/system';
+import Autocomplete, {
+  createFilterOptions,
+  AutocompleteChangeReason, // 추가
+  AutocompleteChangeDetails, // 추가
+} from "@mui/material/Autocomplete"; // import here
+import TextField from "@mui/material/TextField";
+import { styled } from "@mui/system";
 import Paper from "@mui/material/Paper";
-import { PlusOutlined } from '@ant-design/icons';
-import { Modal, Upload, Button } from 'antd';
-import type { RcFile, UploadProps } from 'antd/es/upload';
-import type { UploadFile } from 'antd/es/upload/interface';
-import axios from 'axios';
+import { PlusOutlined } from "@ant-design/icons";
+import { Modal, Upload, Button } from "antd";
+import type { RcFile, UploadProps } from "antd/es/upload";
+import type { UploadFile } from "antd/es/upload/interface";
+import axios from "axios";
+import { postError } from "../../utils/errorApi";
+
+interface ErrorProps {
+  pjtId: string;
+  setIsCreating: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const { TextArea } = Input;
 
@@ -50,41 +60,41 @@ const names = [
 ];
 
 const CustomChip = styled(Chip)(({ theme }) => ({
-  fontFamily: 'preRg',
-  '&.python': {
-    backgroundColor: '#F08484',
+  fontFamily: "preRg",
+  "&.python": {
+    backgroundColor: "#F08484",
   },
-  '&.java': {
-    backgroundColor: '#F9A686'
+  "&.java": {
+    backgroundColor: "#F9A686",
   },
-  '&.c#': {
-    backgroundColor: '#FBF6A4',
+  "&.c#": {
+    backgroundColor: "#FBF6A4",
   },
-  '&.docker': {
-    backgroundColor: 'F9BF64',
+  "&.docker": {
+    backgroundColor: "F9BF64",
   },
-  '&.curl': {
-    backgroundColor: '#A0D6B6',
+  "&.curl": {
+    backgroundColor: "#A0D6B6",
   },
-  '&.three.js': {
-    backgroundColor: '#30BA96',
+  "&.three.js": {
+    backgroundColor: "#30BA96",
   },
-  '&.react': {
-    backgroundColor: '#789CCE',
+  "&.react": {
+    backgroundColor: "#789CCE",
   },
-  '&.c++': {
-    backgroundColor: '#9E7EB9',
+  "&.c++": {
+    backgroundColor: "#9E7EB9",
   },
-  '&.clang': {
-    backgroundColor: '#EF404A',
+  "&.clang": {
+    backgroundColor: "#EF404A",
   },
-  '&.jenkins': {
-    backgroundColor: '#8ED2CD',
+  "&.jenkins": {
+    backgroundColor: "#8ED2CD",
   },
-  height: '25px',
-  '& .MuiChip-label': {
-    paddingTop: '0px',
-    paddingBottom: '0px',
+  height: "25px",
+  "& .MuiChip-label": {
+    paddingTop: "0px",
+    paddingBottom: "0px",
   },
 }));
 
@@ -97,13 +107,13 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
   };
 }
 
-function ErrorCreate() {
+function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
   const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
-  const [previewTitle, setPreviewTitle] = useState('');
-  const [fileList, setFileList] = useState<UploadFile[]>([])
-  const [content, setContent] = useState('');
-
+  const [previewImage, setPreviewImage] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [content, setContent] = useState("");
+  const [title, setTitle] = useState("");
 
   const handleCancel = () => setPreviewOpen(false);
   const handlePreview = async (file: UploadFile) => {
@@ -113,77 +123,96 @@ function ErrorCreate() {
 
     setPreviewImage(file.url || (file.preview as string));
     setPreviewOpen(true);
-    setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
+    setPreviewTitle(
+      file.name || file.url!.substring(file.url!.lastIndexOf("/") + 1)
+    );
   };
 
-  const handleChangePic: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-    setFileList(newFileList);
+  const handleChangePic: UploadProps["onChange"] = ({
+    fileList: newFileList,
+  }) => setFileList(newFileList);
 
   const uploadButton = (
     <div>
       <PlusOutlined />
-      <div style={{ fontFamily:'preBd', marginTop: 8 }}>업로드</div>
+      <div style={{ fontFamily: "preBd", marginTop: 8 }}>업로드</div>
     </div>
   );
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    console.log('Change:', e.target.value);
-  };
-
   const reload = () => {
-    window.location.reload()
+    window.location.reload();
   };
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       e.preventDefault();
-      e.returnValue = '';
+      e.returnValue = "";
     };
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
-
 
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
 
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+  // const handleChange = (
+  //   event: React.SyntheticEvent<Element, Event>,
+  //   value: string[],
+  //   reason: AutocompleteChangeReason,
+  //   details?: AutocompleteChangeDetails<string> | undefined
+  // ) => {
+  //   setPersonName([...value]); // 불변 배열을 가변 배열로 변환
+  //   console.log(personName);
+  // };
+
   const filter = createFilterOptions<string>();
 
   // 이미지 url 보내기
   const handleSendRequest = async () => {
     try {
-      const response = await axios.post('url', { image: previewImage });
+      const response = await axios.post("url", { image: previewImage });
       console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
+  // 에러 등록
+  const postInError = async () => {
+    console.log(pjtId, title, content, personName);
+    try {
+      const response = await postError(pjtId, title, content, personName);
+      console.log(response);
+      setIsCreating(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <div> 
+    <div>
       {/* <div style={{display:'flex', alignItems:'center'}}>
         <BsArrowLeftCircle onClick={reload} style={{marginRight: '5px', color: 'grey', fontSize: '25px'}}/>
         <p style={{color: 'grey', margin: 0, fontFamily:'preBd',fontSize:'20px'}}>뒤로가기</p>
       </div> */}
-      <div style={{marginTop: '20px', display:'flex',alignItems:'center'}}>
-        <p style={{margin: 0, marginRight: '20px', fontFamily:'preRg'}}>제목</p>
-        <Input style={{width: '1100px', height: '40px'}} showCount maxLength={50} onChange={onChange} />
+      <div style={{ marginTop: "20px", display: "flex", alignItems: "center" }}>
+        <p style={{ margin: 0, marginRight: "20px", fontFamily: "preRg" }}>
+          제목
+        </p>
+        <Input
+          style={{ width: "1100px", height: "40px" }}
+          showCount
+          maxLength={50}
+          onChange={(e) => setTitle(e.target.value)}
+        />
       </div>
-      
-      
-      <div style={{marginTop: '20px', display:'flex',alignItems:'center'}}>
-        <p style={{margin: 0, marginRight: '20px', fontFamily:'preRg'}}>언어</p>
+
+      <div style={{ marginTop: "20px", display: "flex", alignItems: "center" }}>
+        <p style={{ margin: 0, marginRight: "20px", fontFamily: "preRg" }}>
+          언어
+        </p>
         <Autocomplete
           forcePopupIcon={false}
           multiple
@@ -191,95 +220,137 @@ function ErrorCreate() {
           options={names}
           filterOptions={(options, params) => {
             const filtered = filter(options, params);
-            if (params.inputValue === '') {
-                return [];
+            if (params.inputValue === "") {
+              return [];
             }
 
             return filtered as string[];
           }}
           getOptionLabel={(option) => option}
           renderInput={(params) => (
-              <TextField {...params} sx={{
-                '& .MuiInputLabel-root': {
-                  fontFamily: 'preRg', 
-                  color:'#adb5bd', 
-                  margin: '-6px 0 0 1px', 
-                  zIndex:'200',
+            <TextField
+              {...params}
+              sx={{
+                "& .MuiInputLabel-root": {
+                  fontFamily: "preRg",
+                  color: "#adb5bd",
+                  margin: "-6px 0 0 1px",
+                  zIndex: "200",
                 },
-                '& .MuiInputBase-root': {
+                "& .MuiInputBase-root": {
                   // marginTop: '-10px',
                   // margin: '10px 0 0 10px'
                 },
-              }} label="언어를 검색하세요" />
+              }}
+              label="언어를 검색하세요"
+            />
           )}
-          sx={{ 
-              width: '300px', 
-              '& .MuiAutocomplete-tag': {
-                  maxWidth: '100%',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-              },
-              '& .MuiAutocomplete-tagArea': {
-                  flexWrap: 'nowrap',
-                  overflowX: 'auto',
-              },
-              '& .MuiInputBase-root': {
-                width: "1100px",
-                padding: '2px 5px',
-                fontFamily: 'preBd',
-                backgroundColor: "#ffffff",
-                zIndex: "100",
-              },
-            }}
-
+          sx={{
+            width: "300px",
+            "& .MuiAutocomplete-tag": {
+              maxWidth: "100%",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            },
+            "& .MuiAutocomplete-tagArea": {
+              flexWrap: "nowrap",
+              overflowX: "auto",
+            },
+            "& .MuiInputBase-root": {
+              width: "1100px",
+              padding: "2px 5px",
+              fontFamily: "preBd",
+              backgroundColor: "#ffffff",
+              zIndex: "100",
+            },
+          }}
           renderTags={(selectedValues, getTagProps) =>
-              selectedValues.map((option, index) => (
-                  <CustomChip {...getTagProps({ index })} key={index} label={option} className={option} sx={{ margin: '4px 4px' }}/>
-              ))
+            selectedValues.map((option, index) => (
+              <CustomChip
+                {...getTagProps({ index })}
+                key={index}
+                label={option}
+                className={option}
+                sx={{ margin: "4px 4px" }}
+              />
+            ))
           }
           renderOption={(props, option, { selected }) => (
-              <li {...props}>
-                  <CustomChip label={option} className={option} color={selected ? 'primary' : undefined} />
-              </li>
+            <li {...props}>
+              <CustomChip
+                label={option}
+                className={option}
+                color={selected ? "primary" : undefined}
+              />
+            </li>
           )}
+          onChange={(event, value) => {
+            // 여기에서 value를 string[] 타입으로 사용
+            setPersonName([...value]);
+            console.log(personName);
+          }}
         />
       </div>
 
-      <div style={{marginTop: '20px', display:'flex',alignItems:'center'}}>
-        <p style={{margin: 0, marginRight: '20px', fontFamily:'preRg'}}>내용</p>
-        <TextArea 
-              value={content} 
-              onChange={(e) => setContent(e.target.value)} 
-              style={{ width: '1100px', height: 170, resize: 'none' }}  
-              rows={8}/>
+      <div style={{ marginTop: "20px", display: "flex", alignItems: "center" }}>
+        <p style={{ margin: 0, marginRight: "20px", fontFamily: "preRg" }}>
+          내용
+        </p>
+        <TextArea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          style={{ width: "1100px", height: 170, resize: "none" }}
+          rows={8}
+        />
       </div>
 
       {/* <div style={{marginTop: '20px', display:'flex',alignItems:'center'}}> */}
-        <p style={{margin: '20px 0 10px 0', fontFamily:'preRg'}}>첨부파일</p>
-        <Upload
-          // action="localhost:3000"
-          listType="picture-card"
-          fileList={fileList}
-          onPreview={handlePreview}
-          onChange={handleChangePic}
-          customRequest={({ onSuccess }) => {
-            setTimeout(() => {
-              if (onSuccess) {
-                onSuccess("ok");
-              }
-            }, 0);
-          }}
-        >
-          {fileList.length >= 5 ? null : uploadButton}
-        </Upload>
-        <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
-          <img alt="example" style={{ width: '100%' }} src={previewImage} />
-        </Modal>
+      <p style={{ margin: "20px 0 10px 0", fontFamily: "preRg" }}>첨부파일</p>
+      <Upload
+        // action="localhost:3000"
+        listType="picture-card"
+        fileList={fileList}
+        onPreview={handlePreview}
+        onChange={handleChangePic}
+        customRequest={({ onSuccess }) => {
+          setTimeout(() => {
+            if (onSuccess) {
+              onSuccess("ok");
+            }
+          }, 0);
+        }}
+      >
+        {fileList.length >= 5 ? null : uploadButton}
+      </Upload>
+      <Modal
+        open={previewOpen}
+        title={previewTitle}
+        footer={null}
+        onCancel={handleCancel}
+      >
+        <img alt="example" style={{ width: "100%" }} src={previewImage} />
+      </Modal>
       {/* </div> */}
 
-
-      <Button style={{justifyContent:'center',textAlign:'center',alignItems:'center',fontSize:'17px', width: '100px', height: '40px', display:'flex', marginLeft: 'auto', marginRight:'auto', color: 'white', backgroundColor:'#39A789', fontFamily:'preBd'}} onClick={handleSendRequest} shape="round">
+      <Button
+        style={{
+          justifyContent: "center",
+          textAlign: "center",
+          alignItems: "center",
+          fontSize: "17px",
+          width: "100px",
+          height: "40px",
+          display: "flex",
+          marginLeft: "auto",
+          marginRight: "auto",
+          color: "white",
+          backgroundColor: "#39A789",
+          fontFamily: "preBd",
+        }}
+        onClick={postInError}
+        shape="round"
+      >
         작성하기
       </Button>
     </div>

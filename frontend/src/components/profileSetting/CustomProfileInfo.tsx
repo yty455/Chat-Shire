@@ -36,7 +36,7 @@ export default function CustomProfileInfo({
   const [selectedId, setSelectedId] = useState<any[]>([]);
 
   const selectSkill = (e: any) => {
-    if (selectedId.includes(String(e.target.id))) {
+    if (selectedId?.includes(String(e.target.id))) {
       const newSelectedId = selectedId.filter((item) => item != e.target.id);
       setSelectedId(newSelectedId);
       onUpdatemySkill(newSelectedId);
@@ -107,7 +107,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("java")
+              selectedId?.includes("java")
                 ? `https://img.shields.io/badge/java-437291?style=for-the-badge&logo=openjdk&logoColor=white`
                 : `https://img.shields.io/badge/java-757575?style=for-the-badge&logo=openjdk&logoColor=white`
             }
@@ -117,7 +117,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("python")
+              selectedId?.includes("python")
                 ? `https://img.shields.io/badge/python-3777AB?style=for-the-badge&logo=python&logoColor=white`
                 : `https://img.shields.io/badge/python-757575?style=for-the-badge&logo=python&logoColor=white`
             }
@@ -127,7 +127,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("javascript")
+              selectedId?.includes("javascript")
                 ? `https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white`
                 : `https://img.shields.io/badge/javascript-757575?style=for-the-badge&logo=javascript&logoColor=white`
             }
@@ -137,7 +137,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("html5")
+              selectedId?.includes("html5")
                 ? `https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white`
                 : `https://img.shields.io/badge/html5-757575?style=for-the-badge&logo=html5&logoColor=white`
             }
@@ -147,7 +147,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("css3")
+              selectedId?.includes("css3")
                 ? `https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white`
                 : `https://img.shields.io/badge/css3-757575?style=for-the-badge&logo=css3&logoColor=white`
             }
@@ -157,7 +157,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("c")
+              selectedId?.includes("c")
                 ? `https://img.shields.io/badge/c-A8B9CC?style=for-the-badge&logo=c&logoColor=white`
                 : `https://img.shields.io/badge/c-757575?style=for-the-badge&logo=c&logoColor=white`
             }
@@ -167,7 +167,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("c++")
+              selectedId?.includes("c++")
                 ? `https://img.shields.io/badge/c++-A8B9CC?style=for-the-badge&logo=c%2B%2B&&logoColor=white`
                 : `https://img.shields.io/badge/c++-757575?style=for-the-badge&logo=c%2B%2B&&logoColor=white`
             }
