@@ -2,6 +2,8 @@ import "./App.css";
 import AppRouter from "./AppRouter";
 import { RecoilRoot } from "recoil";
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -60,11 +62,13 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
-        <RecoilRoot>
-          <AppRouter />
-        </RecoilRoot>
-      </div>
+      <DndProvider backend={HTML5Backend}>
+        <div className="App">
+          <RecoilRoot>
+            <AppRouter />
+          </RecoilRoot>
+        </div>
+      </DndProvider>
     </ThemeProvider>
   );
 }

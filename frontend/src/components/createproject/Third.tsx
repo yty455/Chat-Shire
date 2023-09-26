@@ -1,220 +1,81 @@
-import * as React from "react";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
+import React, { useState } from "react";
+import TextField from "@mui/material/TextField";
+
 import styles from "./Third.module.css";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import Example from "./Example";
-import Grid from "@mui/material/Grid";
-import List from "@mui/material/List";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Checkbox from "@mui/material/Checkbox";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
 
-function not(a: readonly number[], b: readonly number[]) {
-  return a.filter((value) => b.indexOf(value) === -1);
-}
+export default function Third({
+  onData,
+}: {
+  onData: (
+    gitRepository: string,
+    branch: string,
+    gitAccessToken: string
+  ) => void;
+}) {
+  const [gitRepository, setGitRepository] = useState("");
+  const [branch, setBranch] = useState("");
+  const [gitAccessToken, setGitAccessToken] = useState("");
 
-function intersection(a: readonly number[], b: readonly number[]) {
-  return a.filter((value) => b.indexOf(value) !== -1);
-}
-
-function union(a: readonly number[], b: readonly number[]) {
-  return [...a, ...not(b, a)];
-}
-
-function Third() {
-  const [checked, setChecked] = React.useState<readonly number[]>([]);
-  const [left, setLeft] = React.useState<readonly number[]>([0, 1, 2]);
-  const [right, setRight] = React.useState<readonly number[]>([3, 4, 5]);
-
-  const leftChecked = intersection(checked, left);
-  const rightChecked = intersection(checked, right);
-
-  const handleToggle = (value: number) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
+  // 입력 값이 변경될 때마다 상태 업데이트
+  const handlegitRepositoryChange = (e: any) => {
+    setGitRepository(e.target.value);
+    // 변경된 값 전달
+    onData(e.target.value, branch, gitAccessToken);
   };
 
-  const numberOfChecked = (items: readonly number[]) =>
-    intersection(checked, items).length;
-
-  const handleToggleAll = (items: readonly number[]) => () => {
-    if (numberOfChecked(items) === items.length) {
-      setChecked(not(checked, items));
-    } else {
-      setChecked(union(checked, items));
-    }
+  const handlebranchChange = (e: any) => {
+    setBranch(e.target.value);
+    // 변경된 값 전달
+    onData(gitRepository, e.target.value, gitAccessToken);
   };
-
-  const handleCheckedRight = () => {
-    setRight(right.concat(leftChecked));
-    setLeft(not(left, leftChecked));
-    setChecked(not(checked, leftChecked));
+  const handlegitAccessTokenChange = (e: any) => {
+    setGitAccessToken(e.target.value);
+    // 변경된 값 전달
+    onData(gitRepository, branch, e.target.value);
   };
-
-  const handleCheckedLeft = () => {
-    setLeft(left.concat(rightChecked));
-    setRight(not(right, rightChecked));
-    setChecked(not(checked, rightChecked));
-  };
-
-  const customList = (title: React.ReactNode, items: readonly number[]) => (
-    <Card>
-      <CardHeader
-        sx={{ px: 2, py: 1 }}
-        avatar={
-          <Checkbox
-            onClick={handleToggleAll(items)}
-            checked={
-              numberOfChecked(items) === items.length && items.length !== 0
-            }
-            indeterminate={
-              numberOfChecked(items) !== items.length &&
-              numberOfChecked(items) !== 0
-            }
-            disabled={items.length === 0}
-            inputProps={{
-              "aria-label": "all items selected",
-            }}
-          />
-        }
-        title={title}
-        subheader={`${numberOfChecked(items)}/${items.length} selected`}
-      />
-      <Divider />
-      <List
-        sx={{
-          width: 200,
-          height: 200,
-          bgcolor: "background.paper",
-          overflow: "auto",
-        }}
-        dense
-        component="div"
-        role="list"
-      >
-        {items.map((value: number) => {
-          const labelId = `transfer-list-all-item-${value}-label`;
-
-          return (
-            <ListItem
-              key={value}
-              role="listitem"
-              button
-              onClick={handleToggle(value)}
-            >
-              <ListItemIcon>
-                <Checkbox
-                  checked={checked.indexOf(value) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                  inputProps={{
-                    "aria-labelledby": labelId,
-                  }}
-                />
-              </ListItemIcon>
-              <ListItemText id={labelId} primary={`member ${value + 1}`} />
-            </ListItem>
-          );
-        })}
-      </List>
-    </Card>
-  );
 
   return (
-    <div style={{ width: "500px" }}>
-      <Paper
-        component="form"
-        sx={{
-          p: "2px 4px",
-          display: "flex",
-          alignItems: "center",
-          // width: 400,
-        }}
-        style={{ margin: "3%" }}
-      >
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          placeholder="팀원들을 검색하여 추가하세요"
-          inputProps={{ "aria-label": "팀원 검색" }}
-        />
-        <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-          <SearchIcon />
-        </IconButton>
-      </Paper>
-      <Grid container spacing={1} justifyContent="center" alignItems="center">
-        <Grid item>{customList("Choices", left)}</Grid>
-        <Grid item>
-          <Grid container direction="column" alignItems="center">
-            <Button
-              sx={{ my: 0.5 }}
-              variant="outlined"
-              size="small"
-              onClick={handleCheckedRight}
-              disabled={leftChecked.length === 0}
-              aria-label="move selected right"
-            >
-              &gt;
-            </Button>
-            <Button
-              sx={{ my: 0.5 }}
-              variant="outlined"
-              size="small"
-              onClick={handleCheckedLeft}
-              disabled={rightChecked.length === 0}
-              aria-label="move selected left"
-            >
-              &lt;
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid item>{customList("Chosen", right)}</Grid>
-      </Grid>
+    <div>
+      <TextField
+        color="greenary"
+        margin="dense"
+        fullWidth
+        className={styles.inputtag}
+        required
+        id="standard-required"
+        label="깃 주소"
+        defaultValue=""
+        onChange={handlegitRepositoryChange}
+        variant="standard"
+        // helperText="Please enter your name"
+      />
+
+      <TextField
+        fullWidth
+        color="greenary"
+        margin="dense"
+        className={styles.inputtag}
+        required
+        id="outlined-multiline-static"
+        label="브랜치 설정"
+        onChange={handlebranchChange}
+        defaultValue=""
+        variant="standard"
+        // helperText="Please enter your name"
+      />
+      <TextField
+        fullWidth
+        color="greenary"
+        margin="dense"
+        className={styles.inputtag}
+        required
+        id="outlined-multiline-static"
+        label="깃 토큰"
+        onChange={handlegitAccessTokenChange}
+        defaultValue=""
+        variant="standard"
+        // helperText="Please enter your name"
+      />
     </div>
   );
 }
-
-export default Third;
-
-// <div className={styles.memberContainer}>
-//   <div className={styles.memberBox}>
-//     <Paper
-//       component="form"
-//       sx={{
-//         p: "2px 4px",
-//         display: "flex",
-//         alignItems: "center",
-//         // width: 400,
-//       }}
-//     >
-//       <InputBase
-//         sx={{ ml: 1, flex: 1 }}
-//         placeholder="팀원들을 검색하여 추가하세요"
-//         inputProps={{ "aria-label": "팀원 검색" }}
-//       />
-//       <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-//         <SearchIcon />
-//       </IconButton>
-//     </Paper>
-//     <DndProvider backend={HTML5Backend}>
-//       <Example />
-//     </DndProvider>
-//   </div>
-//   <div className={styles.memberBox}></div>
-// </div>
