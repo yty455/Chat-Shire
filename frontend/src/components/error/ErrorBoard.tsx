@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import Search from "./Search";
@@ -9,16 +9,19 @@ import ErrorList from "./ErrorList";
 import "./Error.css";
 import styles from "./Error.module.css";
 import ErrorModal from "./ErrortModal";
-import { EditOutlined } from '@ant-design/icons';
-import { FloatButton } from 'antd';
+import { EditOutlined } from "@ant-design/icons";
+import { FloatButton } from "antd";
+import { getErrors } from "../../utils/errorApi";
 
 interface ErrorProps {
+  pjtId: string;
   isCreating: boolean;
   setIsCreating: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Error({ isCreating, setIsCreating }: ErrorProps) {
+function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
   const [openModal, setOpenModal] = useState(false);
+  const [allErrors, setAllErrors] = useState([]);
   const [selectedError, setSelectedError] = useState<any>(null);
 
   const handleErrorCardClick = (pjt: any) => {
@@ -32,7 +35,24 @@ function Error({ isCreating, setIsCreating }: ErrorProps) {
 
   const handleCreateClick = () => {
     setIsCreating(true); // isCreating 상태를 true로 변경
-  }
+  };
+
+  // 에러 불러오기
+  const getInErrors = async () => {
+    try {
+      if (pjtId) {
+        const response = await getErrors(pjtId);
+        console.log(response.data.result[0]);
+        setAllErrors(response.data.result[0]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getInErrors();
+  }, []);
 
   return (
     <div className={styles.ErrorBoardContainer}>
@@ -48,13 +68,13 @@ function Error({ isCreating, setIsCreating }: ErrorProps) {
         <MultiSelect />
         <Search />
       </div>
-      <ErrorList onErrorCardClick={handleErrorCardClick} />
+      <ErrorList onErrorCardClick={handleErrorCardClick} errors={allErrors} />
       {openModal && <ErrorModal closeModal={handleCloseModal} />}
       {!isCreating && (
-        <FloatButton 
-          icon={<EditOutlined />} 
-          type="primary" 
-          style={{ width: '50px', height: '50px', bottom:85, right:75 }} 
+        <FloatButton
+          icon={<EditOutlined />}
+          type="primary"
+          style={{ width: "50px", height: "50px", bottom: 85, right: 75 }}
           onClick={handleCreateClick}
         />
       )}
