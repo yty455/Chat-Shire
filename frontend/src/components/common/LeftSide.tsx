@@ -137,6 +137,7 @@ function LeftSide(props: Props) {
     try {
       const response = await userState(state);
       console.log(response);
+      getProfilePage();
     } catch (error) {
       console.error(error);
     }
