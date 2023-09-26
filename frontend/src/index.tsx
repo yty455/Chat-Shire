@@ -4,11 +4,11 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-// 앱 종료 시 로컬 스토리지에서 Recoil 데이터 삭제
-window.addEventListener("unload", () => {
-  localStorage.removeItem("recoil-persist-root");
-  localStorage.removeItem("token");
-});
+// // 앱 종료 시 로컬 스토리지에서 Recoil 데이터 삭제
+// window.addEventListener("unload", () => {
+//   localStorage.removeItem("recoil-persist-root");
+//   localStorage.removeItem("token");
+// });
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
