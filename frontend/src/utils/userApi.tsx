@@ -55,4 +55,9 @@ export const deleteUser = () => api.delete(`/users`);
 export const allLanguage = () => api.get(`/skills`);
 
 // 내 상태 변경
-export const userState = (state: string) => api.patch(`/users/state`, state);
+export const userState = (state: string) =>
+  api.patch(`/users/state`, JSON.stringify(state), {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });

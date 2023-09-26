@@ -1,5 +1,6 @@
 package com.ssafy.backend.domain.post.dto;
 
+import com.ssafy.backend.domain.attachedFile.dto.AttachedFileInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class PostInfoDetailResponse {
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
     private List<String> skillName;
+    private List<AttachedFileInfo> attachedFileInfos;
 
     // 글 작성자
     private Long userId;
@@ -36,6 +38,10 @@ public class PostInfoDetailResponse {
 
     public void setReply(List<ReplyInfoResponse> replies) {
         this.replies = replies;
+    }
+
+    public void setAttachedFileInfos(List<AttachedFileInfo> attachedFileInfos) {
+        this.attachedFileInfos = attachedFileInfos;
     }
 
     public PostInfoDetailResponse(Long id, String title, String content, Long userId, String githubId, String profileImage, String profileColor, String nickname, Boolean state, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
