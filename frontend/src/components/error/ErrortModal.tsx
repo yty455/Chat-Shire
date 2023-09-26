@@ -79,6 +79,7 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
         <p>{errDetail && errDetail.title}</p>
         <div className={styles.reContainer}>
           {errDetail &&
+            errDetail?.reply &&
             errDetail.reply.map((item: any) => {
               return (
                 <div key={item.id}>
