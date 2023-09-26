@@ -35,8 +35,8 @@ export const nowProject_recoil = atom<any[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-// 앱 종료 시 로컬 스토리지에서 Recoil 데이터 삭제
-window.addEventListener("beforeunload", () => {
-  localStorage.removeItem("recoil-persist-root");
-  localStorage.removeItem("token");
-});
+// // 앱 종료 시 로컬 스토리지에서 Recoil 데이터 삭제
+// window.addEventListener("beforeunload", () => {
+//   localStorage.removeItem("recoil-persist-root");
+//   localStorage.removeItem("token");
+// });
