@@ -1,5 +1,14 @@
 package com.ssafy.backend.domain.chat.service;
 
+import static com.ssafy.backend.domain.common.GlobalMethod.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfo;
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfoDetailResponse;
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfoResponse;
@@ -14,15 +23,8 @@ import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
 import com.ssafy.backend.domain.user.User;
 import com.ssafy.backend.domain.user.exception.UserNotFoundException;
 import com.ssafy.backend.domain.user.repository.UserRepository;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.ssafy.backend.domain.common.GlobalMethod.getUserId;
 
 @Service
 @Transactional(readOnly = true)
@@ -33,6 +35,8 @@ public class ChatRoomService {
 	private final ParticipationRepository participationRepository;
 	private final UserRepository userRepository;
 	private final NoticeRepository noticeRepository;
+	private final NotificationService notificationService;
+
 
 	private final RedisTemplate<String, String> redisTemplate;
 
@@ -72,7 +76,21 @@ public class ChatRoomService {
 		ChatRoom savedChatRoom = chatRoomRepository.save(chatRoomInfo.toEntity());
 
 		noticeRepository.save(Notice.create(savedChatRoom));
-		participationRepository.save(Participation.create(user, savedChatRoom));
+		Participation participation = participationRepository.save(Participation.create(user, savedChatRoom));
+
+		inviteChatRoom(chatRoomInfo.getUsers(), participation);
+	}
+
+	@Transactional
+	public void inviteChatRoom(List<Long> users, Participation participation) {
+		for (Long userId : users) {
+			User receiver = userRepository.findById(userId)
+					.orElseThrow(UserNotFoundException::new);
+			String content = participation.getUser().getNickname() + "님이 " +
+					participation.getChatRoom().getName() + "에 초대하셨습니다.";
+			String url = "/temp-url/it/is/maybe/invitation-box" + userId;
+			notificationService.send(receiver, participation, content, url);
+		}
 	}
 
 	@Transactional

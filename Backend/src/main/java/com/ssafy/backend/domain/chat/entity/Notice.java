@@ -24,7 +24,7 @@ public class Notice {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "NOTIFICATION_ID")
+	@Column(name = "NOTICE_ID")
 	private Long id;
 
 	private String content;
