@@ -88,6 +88,7 @@ function Message({ projectId }: MessageProps) {
   const [activateEmojiPicker, setActivateEmojiPicker] = useState(false);
 
   const client = useRef<CompatClient>();
+  const messageEndRef = useRef<HTMLDivElement | null>(null);
 
   function newMessage(newMessage: any) {
     const newPreMessage = [...preMessage, newMessage]
@@ -95,9 +96,8 @@ function Message({ projectId }: MessageProps) {
   }
 
   useEffect(() => {
-    if (message) {
-      newMessage(message)
-    }
+    if (message) {newMessage(message)};
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [message])
 
   const connectHandler = () => {
@@ -128,18 +128,17 @@ function Message({ projectId }: MessageProps) {
 
 
   const inputMessage = (e: any) => {
-    console.log("inputMessage")
-    if (e.code === "Enter") {
-      console.log(e.code)
+    if (e.code === "Enter" && e.target.value != "") {
       postChat(Number(projectId), e.target.value)
+      e.target.value = ""
     }
   };
 
   const sendMessage = (e: any) => {
-    console.log("sendMessage")
     const message = document.getElementById("chatInput") as HTMLInputElement;
     if (message.value != "") {
       postChat(Number(projectId), message.value)
+      message.value = ""
     }
   };
 
@@ -212,7 +211,7 @@ function Message({ projectId }: MessageProps) {
             다음 회의 일정은 일요일 오후 3시 입니다.
           </span>
         </div>
-        <div className={styles.messageLeftBody}>
+        <div ref={messageEndRef} className={styles.messageLeftBody}>
           {preMessage &&
             preMessage.map((message) => <MessageItem message={message} />)}
         </div>
