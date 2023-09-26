@@ -170,82 +170,83 @@ function Message({ projectId }: MessageProps) {
   const ariaLabel = { "aria-label": "description" };
 
   // 미디어 업로드
-  const props: UploadProps = {
-    // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
-    beforeUpload: (file) => {
-      const isJpgOrPngOrGif =
-        file.type === "image/jpeg" ||
-        file.type === "image/png" ||
-        file.type === "image/jpg" ||
-        file.type === "video/mp4";
-      if (!isJpgOrPngOrGif) {
-        window.alert("jpg, jpeg, png, mp4만 업로드해주세요");
-      }
-      return isJpgOrPngOrGif || Upload.LIST_IGNORE;
-    },
-    onChange: (info) => {
-      console.log(info.fileList);
-      // uid: 고유 식별자
-      // name: 원래 이름
-      // status: 'uploading', 'done', 'error' 또는 'removed' 중 하나
-      // response: 서버 응답 (업로드가 성공한 경우)
-      // url: 파일 URL (서버에서 지정)
-    },
-  };
+  // const props: UploadProps = {
+  //   // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
+  //   beforeUpload: (file) => {
+  //     const isJpgOrPngOrGif =
+  //       file.type === "image/jpeg" ||
+  //       file.type === "image/png" ||
+  //       file.type === "image/jpg" ||
+  //       file.type === "video/mp4";
+  //     if (!isJpgOrPngOrGif) {
+  //       window.alert("jpg, jpeg, png, mp4만 업로드해주세요");
+  //     }
+  //     return isJpgOrPngOrGif || Upload.LIST_IGNORE;
+  //   },
+  //   onChange: (info) => {
+  //     console.log(info.fileList);
+  //     // uid: 고유 식별자
+  //     // name: 원래 이름
+  //     // status: 'uploading', 'done', 'error' 또는 'removed' 중 하나
+  //     // response: 서버 응답 (업로드가 성공한 경우)
+  //     // url: 파일 URL (서버에서 지정)
+  //   },
+  // };
 
-  // 파일 업로드
-  const fileProps: UploadProps = {
-    // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
-    beforeUpload: (file) => {
-      const acceptedExtensions = ["pdf", "docx", "doc", "xlsx", "xls", "txt"];
-      const isFileAccepted = acceptedExtensions.some((ext) =>
-        file.name.endsWith(`.${ext}`)
-      );
-      if (!isFileAccepted) {
-        window.alert("PDF, DOCX, DOC, XLSX, XLS 및 TXT 파일만 업로드해주세요.");
-      }
-      return isFileAccepted || Upload.LIST_IGNORE;
-    },
-    onChange: (info) => {
-      console.log(info.fileList);
-    },
-  };
+  // // 파일 업로드
+  // const fileProps: UploadProps = {
+  //   // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
+  //   beforeUpload: (file) => {
+  //     const acceptedExtensions = ["pdf", "docx", "doc", "xlsx", "xls", "txt"];
+  //     const isFileAccepted = acceptedExtensions.some((ext) =>
+  //       file.name.endsWith(`.${ext}`)
+  //     );
+  //     if (!isFileAccepted) {
+  //       window.alert("PDF, DOCX, DOC, XLSX, XLS 및 TXT 파일만 업로드해주세요.");
+  //     }
+  //     return isFileAccepted || Upload.LIST_IGNORE;
+  //   },
+  //   onChange: (info) => {
+  //     console.log(info.fileList);
+  //   },
+  // };
 
   // s3 이미지 업로드
-  const onUpload = (e: any) => {
-    const file = e.target.files[0];
-    if (!file) { // 파일 선택 취소 시
-      return Promise.resolve();
-    }
-    const fileExt = file.name.split('.').pop();
-    if (!['jpeg', 'png', 'jpg', 'JPG', 'PNG', 'JPEG', 'mp4', 'MP4'].includes(fileExt)) {
-        window.alert('jpg, png, jpg, mp4 파일만 업로드가 가능합니다.');
-        return Promise.resolve(); 
-    }
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    // 파일 업로드 
-    return new Promise<void>((resolve) => { 
-      reader.onload = () => {
-        // 이미지 경로 선언
+  const onUpload = (e: any): Promise<void> => { // Promise<void> 타입 지정
+    return new Promise((resolve, reject) => { 
+      const file = e.target.files[0];
+      if (!file) { 
+        resolve();
+        return;
+      }
+      const fileExt = file.name.split('.').pop();
+      if (!['jpeg', 'png', 'jpg', 'JPG', 'PNG', 'JPEG', 'mp4', 'MP4'].includes(fileExt)) {
+          window.alert('jpg, png, jpg, mp4 파일만 업로드가 가능합니다.');
+          resolve();
+          return; 
+      }
+      
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      
+        reader.onload = () => {
           setImageSrc(reader.result || null);
-          // 이미지 파일 선언
           setImageFile(file);
-
-          if (!reader.result) {
-            window.alert('이미지를 등록해 주세요.');
-            resolve();
-            return;
-          }
-
-          const formData = new FormData();
-          formData.append('file', file);
-          formData.append('name', file.name);
-
-          uploadS3(formData).then(() => resolve());
-      };
-});
-}
+  
+            if (!reader.result) {
+              window.alert('이미지를 등록해 주세요.');
+              resolve();
+              return;
+            }
+  
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('name', file.name);
+  
+             uploadS3(formData).then(() => resolve()).catch((error) => reject(error)); 
+        };
+    });
+  }
 
   // s3에 업로드
   const uploadS3 = (formData: any) => {
@@ -337,13 +338,13 @@ function Message({ projectId }: MessageProps) {
                   uploadS3(formData);
               }}
         >업로드!</button> */}
-              <Upload showUploadList={false} multiple={true} {...fileProps}>
+              {/* <Upload showUploadList={false} multiple={true} {...fileProps}> */}
                 <BsPaperclip
                   style={{ cursor: "pointer" }}
                   size={28}
                   color="#39A789"
                 />
-              </Upload>
+              {/* </Upload> */}
               {/* <Upload showUploadList={false} multiple={true} {...props}> */}
                 <HiOutlinePhoto
                   style={{ marginRight: "7px", cursor: "pointer" }}
