@@ -1,5 +1,8 @@
 package com.ssafy.backend.domain.post.service;
 
+import com.ssafy.backend.domain.attachedFile.AttachedFile;
+import com.ssafy.backend.domain.attachedFile.Category;
+import com.ssafy.backend.domain.attachedFile.repository.AttachedFileRepository;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.chat.repository.ChatRoomRepository;
 import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
@@ -8,7 +11,6 @@ import com.ssafy.backend.domain.post.PostSkill;
 import com.ssafy.backend.domain.post.dto.PostInfo;
 import com.ssafy.backend.domain.post.dto.PostInfoDetailResponse;
 import com.ssafy.backend.domain.post.dto.PostInfoResponse;
-import com.ssafy.backend.domain.post.dto.ReplyInfoResponse;
 import com.ssafy.backend.domain.post.repository.PostRepository;
 import com.ssafy.backend.domain.post.repository.PostSkillRepository;
 import com.ssafy.backend.domain.post.repository.ReplyRepository;
@@ -40,12 +42,13 @@ public class PostService {
     private final ReplyRepository replyRepository;
     private final PostSkillRepository postSkillRepository;
     private final SkillRepository skillRepository;
+    private final AttachedFileRepository attachedFileRepository;
 
     public List<PostInfoResponse> getPosts(Long chatRoomId) {
         List<PostInfoResponse> postInfoResponses = postRepository.getInfoResponseByChatRoomId(chatRoomId);
         for (PostInfoResponse postInfoResponse : postInfoResponses) {
             postInfoResponse.setReplyCount(replyRepository.countByPostId(postInfoResponse.getId()));
-
+            postInfoResponse.setAttachedFileInfos(attachedFileRepository.findByPostId(postInfoResponse.getId()));
             if (postInfoResponse.getReplyCount() != 0)
                 postInfoResponse.setReply(replyRepository.findFirstByPostId(postInfoResponse.getId()).getContent());
             postInfoResponse.setSkillName(postSkillRepository.findByPostId(postInfoResponse.getId()));
@@ -56,10 +59,11 @@ public class PostService {
 
     public PostInfoDetailResponse getDetailPost(Long postId) {
         PostInfoDetailResponse postInfoDetailResponse = postRepository.getInfoById(postId);
-        List<String> skillName = postSkillRepository.findByPostId(postId);
-        postInfoDetailResponse.setSkillName(skillName);
-        List<ReplyInfoResponse> replyInfoResponses = replyRepository.findByPostId(postId);
-        postInfoDetailResponse.setReply(replyInfoResponses);
+
+        postInfoDetailResponse.setSkillName(postSkillRepository.findByPostId(postId));
+        postInfoDetailResponse.setAttachedFileInfos(attachedFileRepository.findByPostId(postId));
+        postInfoDetailResponse.setReply(replyRepository.findByPostId(postId));
+
         return postInfoDetailResponse;
     }
 
@@ -70,6 +74,34 @@ public class PostService {
                 .orElseThrow(UserNotFoundException::new);
 
         Post savedPost = postRepository.save(PostInfo.toEntity(findUser, chatRoom, postInfo));
+
+        // 첨부파일 등록 TODO - 채팅, 게시판 작성 코드 중복인데 함수로 빼보기
+        if (postInfo.getAttachedFileInfos() != null) {
+            for (int idx = 0; idx < postInfo.getAttachedFileInfos().size(); idx++) {
+
+                // 카테고리 븐류
+                String str = postInfo.getAttachedFileInfos().get(idx).getUrl();
+                Category category;
+                if (str.endsWith(".jpg") || str.endsWith(".jpeg") || str.endsWith(".png")) {
+                    category = Category.IMAGE;
+                } else if (str.endsWith(".mp4")) {
+                    category = Category.VIDEO;
+                } else if (str.endsWith(".pdf") || str.endsWith(".docx") || str.endsWith(".doc")
+                        || str.endsWith(".xlsx") || str.endsWith(".xls") || str.endsWith(".txt")) {
+                    category = Category.FILE;
+                } else continue;
+
+
+                // 첨부파일 DB에 저장
+                AttachedFile attachedFile = AttachedFile.builder()
+                        .url(postInfo.getAttachedFileInfos().get(idx).getUrl())
+                        .thumbnail(postInfo.getAttachedFileInfos().get(idx).getThumbnail())
+                        .chatRoomId(chatRoomId)
+                        .postId(savedPost.getId())
+                        .category(category).build();
+                attachedFileRepository.save(attachedFile);
+            }
+        }
 
         Map<String, Skill> skillMap = skillRepository.findAll().stream()
                 .collect(Collectors.toMap(Skill::getSkillName, skill -> skill));
@@ -109,12 +141,16 @@ public class PostService {
                     .skill(skillMap.get(name))
                     .post(post).build());
         }
+
+        // 첨부파일 변동
+
     }
 
 
     public void deletePost(Long postId) {
         replyRepository.deleteAllByPostId(postId);
         postSkillRepository.deleteAllByPostId(postId);
+        attachedFileRepository.deleteAllByPostId(postId);
         postRepository.deleteById(postId);
     }
 

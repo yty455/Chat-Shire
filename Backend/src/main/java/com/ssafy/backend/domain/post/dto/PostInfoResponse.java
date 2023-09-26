@@ -1,5 +1,6 @@
 package com.ssafy.backend.domain.post.dto;
 
+import com.ssafy.backend.domain.attachedFile.dto.AttachedFileInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,12 +24,13 @@ public class PostInfoResponse {
     private Long replyCount;
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
+    private List<AttachedFileInfo> attachedFileInfos;
 
     public void setReply(String reply) {
         this.reply = reply;
     }
 
-    public void setSkillName(List<String> skillName){
+    public void setSkillName(List<String> skillName) {
         this.skillName = skillName;
     }
 
@@ -36,14 +38,16 @@ public class PostInfoResponse {
         this.replyCount = replyCount;
     }
 
+    public void setAttachedFileInfos(List<AttachedFileInfo> attachedFileInfos) {
+        this.attachedFileInfos = attachedFileInfos;
+    }
+
     public PostInfoResponse(Long id, String title, Boolean state, String profileImage, String profileColor, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
-//    public PostInfoResponse(Long id, String title, Boolean state, String profileImage, String profileColor, int replyCount, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
         this.id = id;
         this.title = title;
         this.state = state;
         this.profileImage = profileImage;
         this.profileColor = profileColor;
-//        this.replyCount = replyCount;
         this.createdDate = createdDate;
         this.lastModifiedDate = lastModifiedDate;
 
