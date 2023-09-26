@@ -1,42 +1,70 @@
-import React from "react";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs, { Dayjs } from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { useState } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
+import { tasks } from "../reactDnd/Tasks";
+import { COLUMN_NAMES } from "../reactDnd/Contants";
+import MovableItem from "../reactDnd/MovableItem";
+import Column from "../reactDnd/Column";
+
 import styles from "./Fourth.module.css";
 
-export default function Fourth({
-  onData,
-}: {
-  onData: (startDate: string, endDate: string) => void;
-}) {
-  const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs());
-  const [endDate, setEndDate] = React.useState<Dayjs | null>(
-    dayjs().add(1, "week")
-  );
+function Fourth() {
+  const [items, setItems] = useState(tasks);
 
-  const formattedStartDate = startDate ? startDate.format("YYYY-MM-DD") : "";
-  const formattedEndDate = endDate ? endDate.format("YYYY-MM-DD") : "";
-  const handleStartDateChange = (newValue: Dayjs | null) => {
-    setStartDate(newValue);
-    onData(newValue?.format("YYYY-MM-DD") || "", formattedEndDate);
+  const moveCardHandler = (dragIndex: number, hoverIndex: number) => {
+    const dragItem = items[dragIndex];
+
+    if (dragItem) {
+      setItems((prevState: any) => {
+        const coppiedStateArray = [...prevState];
+        const prevItem = coppiedStateArray.splice(hoverIndex, 1, dragItem);
+        coppiedStateArray.splice(dragIndex, 1, prevItem[0]);
+        return coppiedStateArray;
+      });
+    }
   };
 
-  const handleEndDateChange = (newValue: Dayjs | null) => {
-    setEndDate(newValue);
-    onData(formattedStartDate, newValue?.format("YYYY-MM-DD") || "");
+  const returnItemsForColumn = (columnName: string) => {
+    return items
+      .filter((item: any) => item.column === columnName)
+      .map((item: any, index: any) => (
+        <MovableItem
+          key={item.id}
+          name={item.name}
+          setItems={setItems}
+          index={index}
+          moveCardHandler={moveCardHandler}
+        />
+      ));
   };
+
+  const { MEMBERS, INVITED_MEMBERS } = COLUMN_NAMES;
 
   return (
-    <div>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker value={startDate} onChange={handleStartDateChange} />
-        <DatePicker
-          value={endDate}
-          onChange={handleEndDateChange}
-          className={styles.datepicker}
-        />
-      </LocalizationProvider>
+    <div className={styles.MemberInviteContainer}>
+      <DndProvider backend={HTML5Backend}>
+        <div>
+          <input
+            style={{ width: "234px", height: "14px" }}
+            type="text"
+            placeholder="Git-Id를 검색 해보세요"
+          />
+          <Column title={MEMBERS} className={styles.MemberListContainer}>
+            {returnItemsForColumn(MEMBERS)}
+          </Column>
+        </div>
+        <div>
+          <Column
+            title={INVITED_MEMBERS}
+            className={styles.InvitedMemberListContainer}
+          >
+            {returnItemsForColumn(INVITED_MEMBERS)}
+          </Column>
+        </div>
+      </DndProvider>
     </div>
   );
 }
+
+export default Fourth;
