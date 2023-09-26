@@ -130,6 +130,7 @@ function Message({ projectId }: MessageProps) {
   const inputMessage = (e: any) => {
     console.log("inputMessage")
     if (e.code === "Enter") {
+      console.log(e.code)
       postChat(Number(projectId), e.target.value)
     }
   };
@@ -139,7 +140,6 @@ function Message({ projectId }: MessageProps) {
     const message = document.getElementById("chatInput") as HTMLInputElement;
     if (message.value != "") {
       postChat(Number(projectId), message.value)
-
     }
   };
 
@@ -229,7 +229,7 @@ function Message({ projectId }: MessageProps) {
               className={styles.messageInput}
               placeholder=" 메세지를 입력해주세요"
               inputProps={ariaLabel}
-              onKeyDown={inputMessage}
+              onKeyPress={inputMessage}
             />
           </div>
           <div className={styles.messageFooterButtonContainer}>
