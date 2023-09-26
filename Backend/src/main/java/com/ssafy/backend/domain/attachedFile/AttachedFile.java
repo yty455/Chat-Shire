@@ -1,12 +1,9 @@
 package com.ssafy.backend.domain.attachedFile;
 
-import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
-
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
@@ -25,11 +22,8 @@ public class AttachedFile  extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Category category;
 
+    private Long chatRoomId;
     private Long chatNumber;
     private Long postId;
-
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "CHATROOM_ID")
-    private ChatRoom chatRoom;
 
 }
