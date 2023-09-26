@@ -82,7 +82,6 @@ function Message({ projectId }: MessageProps) {
   const client = useRef<CompatClient>();
 
   const connectHandler = () => {
-    console.log(projectId);
     client.current = Stomp.over(() => {
       const sock = new SockJS(
         "http://j9e205.p.ssafy.io:8080/gs-guide-websocket"
@@ -98,8 +97,7 @@ function Message({ projectId }: MessageProps) {
         client.current?.subscribe(`/topic/greetings`, (message) => {
           setMessage(JSON.parse(message.body));
         });
-      }
-    );
+      });
     getChat(Number(projectId), 1, 1)
       .then((res) => {
         setPreMessage(res.data.result[0]);
@@ -116,7 +114,8 @@ function Message({ projectId }: MessageProps) {
   const sendMessage = (e: any) => {
     const message = document.getElementById("chatInput") as HTMLInputElement;
     if (message.value != "") {
-      postChat(Number(projectId), message.value);
+      postChat(Number(projectId), message.value)
+      .then((res) => console.log(res))
     }
   };
 
