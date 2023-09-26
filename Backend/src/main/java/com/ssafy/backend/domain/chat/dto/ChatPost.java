@@ -1,5 +1,6 @@
 package com.ssafy.backend.domain.chat.dto;
 
+import com.ssafy.backend.domain.attachedFile.dto.AttachedFileInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,6 +11,5 @@ import java.util.List;
 public class ChatPost {
     private Long chatRoomId;
     private String content;
-    private List<String> files;
-    private List<String> thumbnails;
+    private List<AttachedFileInfo> attachedFileInfos;
 }
