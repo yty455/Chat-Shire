@@ -24,7 +24,7 @@ export default function CustomProfile({
 }: CustomProfilePageProps) {
   const male = process.env.PUBLIC_URL + "/assets/profile/maleSelector.png";
   const female = process.env.PUBLIC_URL + "/assets/profile/femaleSelector.png";
-  const [profileColor, setProfileColor] = useState("red");
+  const [profileColor, setProfileColor] = useState("grey");
   const [gender, setGender] = useState(true);
   const [activateProfileCustom, setActivateProfileCustom] = useState(false);
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
