@@ -86,6 +86,12 @@ function Message({ projectId }: MessageProps) {
     setPreMessage(newPreMessage)
   }
 
+  useEffect(() => {
+    if (message) {
+      newMessage(message)
+    }
+  }, [message])
+
   const connectHandler = () => {
     client.current = Stomp.over(() => {
       const sock = new SockJS(
@@ -100,10 +106,18 @@ function Message({ projectId }: MessageProps) {
       () => {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
         client.current?.subscribe(`/topic/greetings`, (message) => {
-          setPreMessage(JSON.parse(message.body))
+          setMessage(JSON.parse(message.body))
         });
       });
+    getChat(Number(projectId), 1, 1)
+      .then((res) => {
+        setPreMessage(res.data.result[0]);
+      })
+      .catch((err) => console.log(err));
   };
+
+
+
 
   const inputMessage = (e: any) => {
     if (e.code === "Enter") {
@@ -115,6 +129,7 @@ function Message({ projectId }: MessageProps) {
     const message = document.getElementById("chatInput") as HTMLInputElement;
     if (message.value != "") {
       postChat(Number(projectId), message.value)
+
     }
   };
 
