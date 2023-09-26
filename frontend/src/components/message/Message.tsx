@@ -352,21 +352,21 @@ function Message({ projectId }: MessageProps) {
                   color="#39A789"
                   onClick={() => inputRef.current[0].click()} 
                 />
-<input
-  hidden
-  accept="image/*, video/*" 
-  multiple 
-  type="file"
-  ref={el => (inputRef.current[0] = el)}
-  onChange={e => {
-      onUpload(e).then(() => {
-        if (!imageSrc) {
-            window.alert('이미지를 등록해 주세요.');
-            return;
-        }
-      }).catch((error) => console.error("Image upload failed:", error));
-}}
-/>
+              <input
+                hidden
+                accept="image/*, video/*" 
+                multiple 
+                type="file"
+                ref={el => (inputRef.current[0] = el)}
+                onChange={e => {
+                  onUpload(e).then(() => {
+                    if (!imageSrc) {
+                      window.alert('이미지를 등록해 주세요.');
+                      return;
+                    }
+                  });
+              }}
+              />  
               {/* </Upload> */}
               <div style={{ position: "relative" }}>
                 <Grow
