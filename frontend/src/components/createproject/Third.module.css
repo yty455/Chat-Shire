@@ -1,7 +1,44 @@
-.memberContainer {
+.MemberInviteContainer {
   display: flex;
+  justify-content: space-between;
+  width: 600px;
+  height: 270px;
 }
 
-.memberBox {
-  width: 50%;
+.MembersContainer {
+  width: 280px;
+  height: 270px;
+  border: 1px solid blue;
+}
+
+.MemberListContainer {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  height: 248px;
+  border: 1px solid purple;
+  overflow: scroll;
+}
+
+.MemberListContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.InvitedMembersContainer {
+  width: 280px;
+  height: 270px;
+  border: 1px solid purple;
+}
+
+.InvitedMemberListContainer {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  height: 270px;
+  border: 1px solid purple;
+  overflow: scroll;
+}
+
+.InvitedMemberListContainer::-webkit-scrollbar {
+  display: none;
 }

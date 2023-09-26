@@ -25,30 +25,28 @@ const InviteCard: React.FC<InviteCardProps> = ({ invite }) => {
   return (
     <div className={styles.invitebox}>
       <div className={styles.invitecard}>
-        <p>
-          <span> PJT {invite.pjt}: </span> {invite.people}의 초대
-          <Button
-            id="basic-button"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-          >
-            <TouchAppIcon />
-          </Button>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem onClick={handleClose}>수락</MenuItem>
-            <MenuItem onClick={handleClose}>거절</MenuItem>
-          </Menu>
-        </p>
+        <span> PJT {invite.pjt}: </span> {invite.people}의 초대
+        <Button
+          id="basic-button"
+          aria-controls={open ? "basic-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleClick}
+        >
+          <TouchAppIcon />
+        </Button>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <MenuItem onClick={handleClose}>수락</MenuItem>
+          <MenuItem onClick={handleClose}>거절</MenuItem>
+        </Menu>
       </div>
     </div>
   );
