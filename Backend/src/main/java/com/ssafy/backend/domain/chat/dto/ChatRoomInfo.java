@@ -1,6 +1,7 @@
 package com.ssafy.backend.domain.chat.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,6 +18,7 @@ public class ChatRoomInfo {
 	private String gitRepository;
 	private String branch;
 	private String GitAccessToken;
+	private List<Long> users;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
