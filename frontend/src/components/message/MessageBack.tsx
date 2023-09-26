@@ -12,12 +12,13 @@ import {
   BsFillMegaphoneFill,
   BsEmojiKiss,
   BsPaperclip,
-  BsLink45Deg,
+  BsLink45Deg
+  
 } from "react-icons/bs";
 // import {HiOutlinePhoto} from "react-icons/hi"
-import { HiOutlinePhoto } from "react-icons/hi2";
-import { AiOutlineFolder } from "react-icons/ai";
-import { LiaSearchSolid } from "react-icons/lia";
+import {HiOutlinePhoto} from "react-icons/hi2";
+import {AiOutlineFolder} from "react-icons/ai";
+import {LiaSearchSolid} from "react-icons/lia";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import Grow from "@mui/material/Grow";
@@ -35,7 +36,6 @@ import EmojiPicker from "emoji-picker-react";
 
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "./ItemTypes";
-import AWS from "aws-sdk";
 
 // function DraggableMessageItem({ message }: { message: string }) {
 //   // 드래그 가능한 아이템으로 만들기 위해 useDrag 훅을 사용합니다.
@@ -79,9 +79,6 @@ function Message({ projectId }: MessageProps) {
   const [preMessage, setPreMessage] = useState<any[]>([]);
   const [message, setMessage] = useState("");
   const [selectedButton, setSelectedButton] = useState("media");
-  const [imageFile, setImageFile]: any = useState(null);
-  const [imageSrc, setImageSrc]: any = useState(null);
-  const inputRef = useRef<any[]>([]);
 
   const handleChange = (e: any) => {
     console.log(e.currentTarget);
@@ -93,24 +90,19 @@ function Message({ projectId }: MessageProps) {
   const [activateEmojiPicker, setActivateEmojiPicker] = useState(false);
 
   const client = useRef<CompatClient>();
-  const messageEndRef = useRef<HTMLDivElement | null>(null);
 
 
 
   function newMessage(newMessage: any) {
-    const newPreMessage = [...preMessage, newMessage];
-    setPreMessage(newPreMessage);
+    const newPreMessage = [...preMessage, newMessage]
+    setPreMessage(newPreMessage)
   }
 
   useEffect(() => {
     if (message) {
-      newMessage(message);
+      newMessage(message)
     }
-  }, [message]);
-
-  useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [preMessage]);
+  }, [message])
 
   const connectHandler = () => {
     client.current = Stomp.over(() => {
@@ -126,10 +118,9 @@ function Message({ projectId }: MessageProps) {
       () => {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
         client.current?.subscribe(`/topic/greetings`, (message) => {
-          setMessage(JSON.parse(message.body));
+          setMessage(JSON.parse(message.body))
         });
-      }
-    );
+      });
     getChat(Number(projectId), 1, 1)
       .then((res) => {
         setPreMessage(res.data.result[0]);
@@ -137,18 +128,20 @@ function Message({ projectId }: MessageProps) {
       .catch((err) => console.log(err));
   };
 
+
+
+
   const inputMessage = (e: any) => {
-    if (e.code === "Enter" && e.target.value != "") {
-      postChat(Number(projectId), e.target.value);
-      e.target.value = "";
+    if (e.code === "Enter") {
+      postChat(Number(projectId), e.target.value)
     }
   };
 
   const sendMessage = (e: any) => {
     const message = document.getElementById("chatInput") as HTMLInputElement;
     if (message.value != "") {
-      postChat(Number(projectId), message.value);
-      message.value = "";
+      postChat(Number(projectId), message.value)
+
     }
   };
 
@@ -170,13 +163,9 @@ function Message({ projectId }: MessageProps) {
   const props: UploadProps = {
     // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
     beforeUpload: (file) => {
-      const isJpgOrPngOrGif =
-        file.type === "image/jpeg" ||
-        file.type === "image/png" ||
-        file.type === "image/jpg" ||
-        file.type === "video/mp4";
+      const isJpgOrPngOrGif = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'video/mp4';
       if (!isJpgOrPngOrGif) {
-        window.alert("jpg, jpeg, png, mp4만 업로드해주세요");
+        window.alert('jpg, jpeg, png, mp4만 업로드해주세요');
       }
       return isJpgOrPngOrGif || Upload.LIST_IGNORE;
     },
@@ -194,12 +183,10 @@ function Message({ projectId }: MessageProps) {
   const fileProps: UploadProps = {
     // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
     beforeUpload: (file) => {
-      const acceptedExtensions = ["pdf", "docx", "doc", "xlsx", "xls", "txt"];
-      const isFileAccepted = acceptedExtensions.some((ext) =>
-        file.name.endsWith(`.${ext}`)
-      );
+      const acceptedExtensions = ['pdf', 'docx', 'doc', 'xlsx', 'xls', 'txt'];
+      const isFileAccepted = acceptedExtensions.some(ext => file.name.endsWith(`.${ext}`));
       if (!isFileAccepted) {
-        window.alert("PDF, DOCX, DOC, XLSX, XLS 및 TXT 파일만 업로드해주세요.");
+        window.alert('PDF, DOCX, DOC, XLSX, XLS 및 TXT 파일만 업로드해주세요.');
       }
       return isFileAccepted || Upload.LIST_IGNORE;
     },
@@ -207,54 +194,6 @@ function Message({ projectId }: MessageProps) {
       console.log(info.fileList);
     },
   };
-
-  // s3 이미지 업로드
-  const onUpload = (e: any) => {
-    const file = e.target.files[0];
-    const fileExt = file.name.split('.').pop();
-    if (!['jpeg', 'png', 'jpg', 'JPG', 'PNG', 'JPEG', 'mp4', 'MP4'].includes(fileExt)) {
-        window.alert('jpg, png, jpg, mp4 파일만 업로드가 가능합니다.');
-        return;
-    }
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    // 파일 업로드 
-    return new Promise<void>((resolve) => { 
-        reader.onload = () => {
-          // 이미지 경로 선언
-            setImageSrc(reader.result || null);
-            // 이미지 파일 선언
-            setImageFile(file);
-            resolve();
-        };
-    });
-}
-
-  // s3에 업로드
-  const uploadS3 = (formData: any) => {
-    const REGION = process.env.REACT_APP_REGION;
-    const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
-    const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
-
-    AWS.config.update({
-        region: REGION,
-        accessKeyId: ACCESS_KEY_ID,
-        secretAccessKey: SECRET_ACCESS_KEY,
-    });
-
-    const upload = new AWS.S3.ManagedUpload({
-        params: {
-            ACL: 'public-read',
-            Bucket: 'chat-shire',
-            Key: `upload/${imageFile.name}`,
-            Body: imageFile,
-        }
-    })
-
-    upload.promise()
-    .then(() => {
-      console.log('업로드')
-    })}
 
   return (
     <div className={styles.messageContainer}>
@@ -275,7 +214,7 @@ function Message({ projectId }: MessageProps) {
             다음 회의 일정은 일요일 오후 3시 입니다.
           </span>
         </div>
-        <div ref={messageEndRef} className={styles.messageLeftBody}>
+        <div className={styles.messageLeftBody}>
           {preMessage &&
             preMessage.map((message) => <MessageItem message={message} />)}
         </div>
@@ -292,32 +231,11 @@ function Message({ projectId }: MessageProps) {
               className={styles.messageInput}
               placeholder=" 메세지를 입력해주세요"
               inputProps={ariaLabel}
-              onKeyPress={inputMessage}
+              onKeyDown={inputMessage}
             />
           </div>
           <div className={styles.messageFooterButtonContainer}>
             <div className={styles.messageFooterButtonLeft}>
-              <input
-              accept="image/*, video/*" 
-              multiple 
-              type="file"
-              ref={el => (inputRef.current[0] = el)}
-              onChange={e => onUpload(e)}
-              />
-              <button type="button"
-              onClick={() => {
-                  if (!imageSrc) {
-                      window.alert('이미지를 등록해 주세요.');
-                      return;
-                  }
-
-                  const formData = new FormData();
-                  formData.append('file', imageFile);
-                  formData.append('name', imageFile.name);
-
-                  uploadS3(formData);
-              }}
-        >업로드!</button>
               <Upload showUploadList={false} multiple={true} {...fileProps}>
                 <BsPaperclip
                   style={{ cursor: "pointer" }}
