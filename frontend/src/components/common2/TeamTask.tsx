@@ -245,6 +245,19 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     }
   };
 
+  // 뱃지 클릭 시 progress를 변경하는 함수
+  const handleBadgeClick = (task: any) => {
+    const updatedProgress = task.progress === "ONGOING" ? "DONE" : "ONGOING";
+    const data = {
+      name: task.name,
+      description: task.description,
+      priority: task.priority,
+      progress: updatedProgress,
+      deadline: task.deadline,
+    };
+    updateTeamTask(task.id, data);
+  };
+
   useEffect(() => {
     getTeamTask();
   }, []);
@@ -348,6 +361,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       overlap="circular"
                       anchorOrigin={{ vertical: "top", horizontal: "left" }}
                       variant="dot"
+                      onClick={() => handleBadgeClick(task)}
                     ></StyledBadge>
                   ) : (
                     <StyledBadgeRed
