@@ -71,10 +71,14 @@ function ProjectModal({
   };
 
   const handleInputClick = (fieldName: keyof typeof editStates) => {
-    if (editStates[fieldName]) {
-      setEditStates({ ...editStates, [fieldName]: false });
-    }
-    setEditStates({ ...editStates, [fieldName]: true });
+    // Create a copy of the editStates with all fields set to false
+    const newEditStates: typeof editStates = {
+      ...editStates,
+      [fieldName]: true,
+    };
+
+    // Update the state with the new editStates
+    setEditStates(newEditStates);
   };
 
   useEffect(() => {
