@@ -8,10 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.backend.domain.chat.dto.ChatRoomInfoResponse;
 import com.ssafy.backend.domain.chat.dto.MyInvitationResponse;
-import com.ssafy.backend.domain.chat.entity.Notification;
-import com.ssafy.backend.domain.chat.service.ChatRoomService;
 import com.ssafy.backend.domain.chat.service.InvitationService;
 import com.ssafy.backend.domain.common.BasicResponse;
 

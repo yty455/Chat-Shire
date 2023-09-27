@@ -7,11 +7,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssafy.backend.domain.chat.dto.ChatRoomInfoResponse;
 import com.ssafy.backend.domain.chat.entity.AcceptanceStatus;
 import com.ssafy.backend.domain.chat.entity.Notification;
 import com.ssafy.backend.domain.chat.repository.NotificationRepository;
-import com.ssafy.backend.domain.common.GlobalMethod;
 
 import lombok.RequiredArgsConstructor;
 
