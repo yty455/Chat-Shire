@@ -101,6 +101,7 @@
 
 .messageSendButton {
   width: 20px;
+  border-radius: 20px;
 }
 
 .messageSendButton span{
