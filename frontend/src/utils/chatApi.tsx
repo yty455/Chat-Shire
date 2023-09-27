@@ -17,6 +17,6 @@ export const postChat = (chatRoomId: number, content: string) =>
 
 // 채팅방 공지 등록
 export const putNotification = (projectId: string, content: string) =>
-  api.put(`/projects/${projectId}/notification`, {
+  api.put(`/projects/${projectId}/notice`, {
     content,
   });

@@ -27,6 +27,7 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 
 import SockJS from "sockjs-client";
 import { getChat, postChat, putNotification } from "../../utils/chatApi";
+import { getProject } from "../../utils/projectApi";
 import { Stomp, CompatClient } from "@stomp/stompjs";
 
 import { useSetRecoilState } from "recoil";
@@ -86,6 +87,7 @@ function Message({ projectId }: MessageProps) {
   const [noticeInputValue, setNoticeInputValue] = useState('');
   const [notice, setNotice] = useState('');
   const [showNotice, setShowNotice] = useState(false);
+  // const [pjt, setPjt] = useState<any>({});
 
 
   const handleChange = (e: any) => {
@@ -105,10 +107,23 @@ function Message({ projectId }: MessageProps) {
     setPreMessage(newPreMessage);
   }
 
+  const getpjt = async () => {
+    try {
+      const response = await getProject(projectId);
+      console.log(response.data.result[0]);
+      // setPjt(response.data.result[0]);
+      console.log('불러온 공지', response.data.result[0].notification)
+      setNotice(response.data.result[0].notification)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     if (message) {
       newMessage(message);
     }
+    getpjt()
   }, [message]);
 
   useEffect(() => {
@@ -159,7 +174,8 @@ function Message({ projectId }: MessageProps) {
   const makeNotice = (e: any) => {
     if (e.target.value != "") {
       putNotification(projectId, e.target.value);
-      setNotice(e.target.value);
+      // setNotice(e.target.value);
+      console.log('입력된 공지', e.target.value)
       setNoticeInputVisible(false);
       setShowNotice(true);
     }
@@ -361,6 +377,8 @@ function Message({ projectId }: MessageProps) {
         }} />
         {noticeInputVisible ? (
           <input 
+              style={{width: '330px', border: 'none', marginLeft: '5px', fontFamily:'preRg'}}
+              placeholder={notice}
               type="text"
               value={noticeInputValue}
               onChange={(e) => setNoticeInputValue(e.target.value)}
