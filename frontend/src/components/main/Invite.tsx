@@ -16,27 +16,12 @@ function Invite() {
     "http://github.com/samholmes/node-open-graph/raw/master/test.html";
 
   return (
-    <Container
-      backgroundColor="white"
-      text=""
-      display="flex"
-      flexDirection="column"
-      justifyContent="flex-start"
-      width="16vw"
-      height="81vh"
-      margin="0vh 0vw 0vh 1vw"
-      padding="2vh 2vw"
-      border="1px solid #E5E8EB"
-      borderRadius="20px"
-      boxShadow=""
-      backdropFilter=""
-      transition=""
-    >
-      <span style={{ marginTop: "20%", textAlign: "center" }}>초대함</span>
+    <div className={styles.InviteContainer}>
+      <span className={styles.InviteTitle}>초대함</span>
       {invite.map((invi: any) => (
         <InviteCard key={invi.pjt} invite={invi} />
       ))}
-    </Container>
+    </div>
   );
 }
 
