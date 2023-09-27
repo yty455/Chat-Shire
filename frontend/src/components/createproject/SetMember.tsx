@@ -36,7 +36,7 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void;}) {
   };
 
   const searchMember = (e: any) => {
-    api.get(`/users/search/${e.target.value}`)
+    api.get(`/users/search?githubId=${e.target.value}`)
     .then((res) => {
       console.log(res)
     })
