@@ -6,6 +6,8 @@ import {
   deleteErrorComent,
   updateErrorComent,
 } from "../../utils/errorApi";
+import ProfileImgBox from "../common/ProfileImgBox";
+import Avatar from "@mui/material/Avatar";
 
 interface ErrorModalProps {
   closeModal: () => void;
@@ -79,11 +81,20 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
         <p>{errDetail && errDetail.title}</p>
         <div className={styles.reContainer}>
           {errDetail &&
-            errDetail?.reply &&
-            errDetail.reply.map((item: any) => {
+            errDetail?.replies &&
+            errDetail.replies.map((item: any) => {
               return (
-                <div key={item.id}>
-                  {item.content}{" "}
+                <div className={styles.rep} key={item.id}>
+                  <Avatar
+                    alt={item.nickname}
+                    src={process.env.PUBLIC_URL + item.profileImage}
+                    sx={{
+                      width: 20,
+                      height: 20,
+                      backgroundColor: item.profileColor,
+                    }}
+                  />
+                  {item.nickname} : {item.content}{" "}
                   {editingCommentId === item.id ? (
                     <>
                       <input

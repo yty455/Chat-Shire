@@ -70,7 +70,7 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
       </div>
       <div>
         <p className={styles.title}>Q. {error ? error.title : ""}</p>
-        <div>
+        <div className={styles.skillbox}>
           {error && Array.isArray(error.skillName) ? (
             error.skillName.map((item: any, index: number) => (
               <h5 key={index} className={styles.language}>
