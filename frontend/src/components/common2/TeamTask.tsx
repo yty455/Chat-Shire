@@ -180,7 +180,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     description: "",
     priority: "MEDIUM",
     progress: "ONGOING",
-    deadline: dayjs().format("YYYY-MM-DD"),
+    deadline: dayjs().add(7, "day").format("YYYY-MM-DD"),
   });
 
   const addCheckbox = () => {
