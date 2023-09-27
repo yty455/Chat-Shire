@@ -13,7 +13,11 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import { useMediaQuery } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { loginuser, nowProject_recoil } from "../../stores/atom";
+import {
+  loginuser,
+  nowProject_recoil,
+  expandedState_recoil,
+} from "../../stores/atom";
 import { getProfile } from "../../utils/userApi";
 import { userState } from "../../utils/userApi";
 import { AiFillHome } from "react-icons/ai";
@@ -91,7 +95,7 @@ function LeftSide(props: Props) {
   const [selectedButtonIndex, setSelectedButtonIndex] = React.useState(-1); // 선택한 버튼 인덱스를 관리
   const [color, setColor] = React.useState(""); // 선택한 색상을 상태로 관리
 
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [expanded, setExpanded] = useRecoilState(expandedState_recoil);
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const navigate = useNavigate();
   const handleChange =
@@ -168,10 +172,12 @@ function LeftSide(props: Props) {
   }
 
   function navigateMain() {
+    setExpanded(false);
     navigate("/main");
   }
 
   function navigateProfile() {
+    setExpanded(false);
     navigate("/profile");
   }
 
