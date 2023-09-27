@@ -66,6 +66,7 @@ function Message({ projectId }: MessageProps) {
   const [noticeInputValue, setNoticeInputValue] = useState('');
   const [notice, setNotice] = useState('');
   const [showNotice, setShowNotice] = useState(false);
+  const [showNoticeInput, setShowNoticeInput] = useState(false); // 공지 입력 상태 여부
   const [pjtName, setPjtName] = useState<any>('');
   const [pjtMemCount, setPjtMemCount] = useState(0);
 
@@ -164,15 +165,29 @@ function Message({ projectId }: MessageProps) {
   };
 
   // 공지 등록
-  const makeNotice = (e: any) => {
-    if (e.target.value != "") {
-      putNotification(projectId, e.target.value);
-      // setNotice(e.target.value);
-      console.log('입력된 공지', e.target.value)
-      setNoticeInputVisible(false);
-      setShowNotice(true);
+  // const makeNotice = (e: any) => {
+  //   if (e.target.value != "") {
+  //     putNotification(projectId, e.target.value);
+  //     // setNotice(e.target.value);
+  //     console.log('입력된 공지', e.target.value)
+  //     setNoticeInputVisible(false);
+  //     setShowNotice(true);
+  //   }
+  // }
+
+  const makeNotice = () => {
+    if (noticeInputValue !== "") {
+      putNotification(projectId, noticeInputValue)
+        .then(() => {
+          setShowNoticeInput(false);
+          setShowNotice(true);
+          setNotice(noticeInputValue);
+        })
+        .catch((error) => {
+          console.error("공지 업데이트 오류:", error);
+        });
     }
-  }
+  };
 
   const inputEmoji = (e: any) => {
     postChat(Number(projectId), e.emoji);
@@ -360,36 +375,40 @@ function Message({ projectId }: MessageProps) {
         <div className={styles.messageLeftHeader}>
           <div className={styles.messageLeftHeader}>
             <div className={styles.messageLeftHeaderLeft}>
-              {/* <span className={styles.messageLeftTitle}>{pjtName}</span> */}
-              <span className={styles.messageLeftTitle}>2차 플젝</span>
+              <span className={styles.messageLeftTitle}>{pjtName}</span>
+              {/* <span className={styles.messageLeftTitle}>2차 플젝</span> */}
               <BsPeopleFill style={{color: 'grey', marginTop: '6px', marginLeft: '12px'}} size={20} />
               <span className={styles.messagePeopleNum}>{pjtMemCount}</span>
             </div>
             {/* <BsQuestionCircle style={{color: 'grey', marginTop: '6px'}} size={20} /> */}
             <Popover placement="left" content={content} trigger="hover">
-              <FloatButton icon={<QuestionCircleOutlined />} type="default" style={{ width: 22, height:20, top: 78, left: 765 }} />
+              <QuestionCircleOutlined style={{ color: 'grey', marginTop: '6px', fontSize:'20px'}}/>
             </Popover>
           </div>
         </div>
         <div className={styles.messageLeftNotification}>
         <BsFillMegaphoneFill size={20} onClick={() => {
-          if(noticeInputVisible) {
-            setNoticeInputVisible(false);
-            if(notice !== '') setShowNotice(true);
-          } else {
-            setNoticeInputVisible(true); 
-          }
-        }} />
-        {noticeInputVisible ? (
-          <input 
+                      setShowNoticeInput(!showNoticeInput);
+                    }} />
+        {showNoticeInput  ? (
+          <input
               maxLength={38}
-              style={{width: '460px',border: 'none',marginLeft: '5px', fontFamily:'preRg'}}
-              placeholder={notice}
+              style={{
+                width: "460px",
+                border: "none",
+                marginLeft: "5px",
+                fontFamily: "preRg",
+              }}
+              placeholder="공지를 입력하세요"
               type="text"
               value={noticeInputValue}
               onChange={(e) => setNoticeInputValue(e.target.value)}
-              onKeyPress={(e) => makeNotice(e)}
-          />
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  makeNotice();
+                }
+              }}
+            />
         ) : showNotice ? (
           <span className={styles.notificationText}>
             {notice}
