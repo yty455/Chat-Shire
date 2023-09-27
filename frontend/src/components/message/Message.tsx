@@ -37,31 +37,10 @@ import EmojiPicker from "emoji-picker-react";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "./ItemTypes";
 import AWS from "aws-sdk";
+import { getProjectMem } from "../../utils/projectApi";
 
-// function DraggableMessageItem({ message }: { message: string }) {
-//   // 드래그 가능한 아이템으로 만들기 위해 useDrag 훅을 사용합니다.
-//   const [{ isDragging }, ref] = useDrag({
-//     type: ItemTypes.MESSAGE, // 드래그 타입
-//     item: { message }, // 전달할 데이터
-//     collect: (monitor) => ({
-//       isDragging: !!monitor.isDragging(),
-//     }),
-//   });
-
-//   return (
-//     <div
-//       ref={ref}
-//       style={{
-//         opacity: isDragging ? 0.5 : 1,
-//         cursor: "move",
-//         // ...추가적인 스타일 설정
-//       }}
-//     >
-//       {/* 메세지 아이템 내용 표시 */}
-//       {message}
-//     </div>
-//   );
-// }
+import { QuestionCircleOutlined  } from '@ant-design/icons';
+import { FloatButton, Popover } from 'antd';
 
 interface MessageProps {
   projectId: string;
@@ -87,7 +66,9 @@ function Message({ projectId }: MessageProps) {
   const [noticeInputValue, setNoticeInputValue] = useState('');
   const [notice, setNotice] = useState('');
   const [showNotice, setShowNotice] = useState(false);
+  const [showNoticeInput, setShowNoticeInput] = useState(false); // 공지 입력 상태 여부
   const [pjtName, setPjtName] = useState<any>('');
+  const [pjtMemCount, setPjtMemCount] = useState(0);
 
 
   const handleChange = (e: any) => {
@@ -121,11 +102,22 @@ function Message({ projectId }: MessageProps) {
     }
   };
 
+  const getProjectUsers = async () => {
+    try {
+      const response = await getProjectMem(projectId);
+      console.log(response.data.count);
+      setPjtMemCount(response.data.count);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     if (message) {
       newMessage(message);
     }
     getpjt()
+    getProjectUsers()
   }, [message, notice]);
 
   useEffect(() => {
@@ -173,15 +165,29 @@ function Message({ projectId }: MessageProps) {
   };
 
   // 공지 등록
-  const makeNotice = (e: any) => {
-    if (e.target.value != "") {
-      putNotification(projectId, e.target.value);
-      // setNotice(e.target.value);
-      console.log('입력된 공지', e.target.value)
-      setNoticeInputVisible(false);
-      setShowNotice(true);
+  // const makeNotice = (e: any) => {
+  //   if (e.target.value != "") {
+  //     putNotification(projectId, e.target.value);
+  //     // setNotice(e.target.value);
+  //     console.log('입력된 공지', e.target.value)
+  //     setNoticeInputVisible(false);
+  //     setShowNotice(true);
+  //   }
+  // }
+
+  const makeNotice = () => {
+    if (noticeInputValue !== "") {
+      putNotification(projectId, noticeInputValue)
+        .then(() => {
+          setShowNoticeInput(false);
+          setShowNotice(true);
+          setNotice(noticeInputValue);
+        })
+        .catch((error) => {
+          console.error("공지 업데이트 오류:", error);
+        });
     }
-  }
+  };
 
   const inputEmoji = (e: any) => {
     postChat(Number(projectId), e.emoji);
@@ -355,39 +361,54 @@ function Message({ projectId }: MessageProps) {
     });
   };
 
+  // 가이드
+  const content = (
+    <div>
+      <p style={{margin: 0, fontFamily:'preRg'}}>드래그 앤 드롭으로 메세지를 태스크에 추가해보세요.</p>
+      {/* <p style={{margin: 0, fontFamily:'preRg'}}>멘트 추가</p> */}
+    </div>
+  );
+
   return (
     <div className={styles.messageContainer}>
       <div className={styles.messageLeft}>
         <div className={styles.messageLeftHeader}>
           <div className={styles.messageLeftHeader}>
             <div className={styles.messageLeftHeaderLeft}>
-              {/* <span className={styles.messageLeftTitle}>{pjtName}</span> */}
-              <span className={styles.messageLeftTitle}>2차 플젝</span>
+              <span className={styles.messageLeftTitle}>{pjtName}</span>
+              {/* <span className={styles.messageLeftTitle}>2차 플젝</span> */}
               <BsPeopleFill style={{color: 'grey', marginTop: '6px', marginLeft: '12px'}} size={20} />
-              <span className={styles.messagePeopleNum}>6</span>
+              <span className={styles.messagePeopleNum}>{pjtMemCount}</span>
             </div>
-            <BsQuestionCircle size={20} />
+            {/* <BsQuestionCircle style={{color: 'grey', marginTop: '6px'}} size={20} /> */}
+            <Popover placement="left" content={content} trigger="hover">
+              <QuestionCircleOutlined style={{ color: 'grey', marginTop: '6px', fontSize:'20px'}}/>
+            </Popover>
           </div>
         </div>
         <div className={styles.messageLeftNotification}>
         <BsFillMegaphoneFill size={20} onClick={() => {
-          if(noticeInputVisible) {
-            setNoticeInputVisible(false);
-            if(notice !== '') setShowNotice(true);
-          } else {
-            setNoticeInputVisible(true); 
-          }
-        }} />
-        {noticeInputVisible ? (
-          <input 
+                      setShowNoticeInput(!showNoticeInput);
+                    }} />
+        {showNoticeInput  ? (
+          <input
               maxLength={38}
-              style={{width: '460px',border: 'none',marginLeft: '5px', fontFamily:'preRg'}}
-              placeholder={notice}
+              style={{
+                width: "460px",
+                border: "none",
+                marginLeft: "5px",
+                fontFamily: "preRg",
+              }}
+              placeholder="공지를 입력하세요"
               type="text"
               value={noticeInputValue}
               onChange={(e) => setNoticeInputValue(e.target.value)}
-              onKeyPress={(e) => makeNotice(e)}
-          />
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  makeNotice();
+                }
+              }}
+            />
         ) : showNotice ? (
           <span className={styles.notificationText}>
             {notice}
