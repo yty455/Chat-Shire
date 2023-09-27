@@ -178,7 +178,7 @@ function LeftSide(props: Props) {
 
   function navigateProfile() {
     setExpanded(false);
-    navigate("/profile");
+    navigate("/profile/");
   }
 
   useEffect(() => {

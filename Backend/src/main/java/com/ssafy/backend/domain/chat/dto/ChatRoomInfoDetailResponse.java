@@ -26,7 +26,7 @@ public class ChatRoomInfoDetailResponse {
 	private LocalDate startDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
-	private String notification;
+	private String notice;
 
 	public static ChatRoomInfoDetailResponse toDto(ChatRoom chatRoom, String content) {
 		return ChatRoomInfoDetailResponse.builder()
@@ -38,7 +38,7 @@ public class ChatRoomInfoDetailResponse {
 				.gitRepository(chatRoom.getGitRepository())
 				.startDate(chatRoom.getStartDate())
 				.endDate(chatRoom.getEndDate())
-				.notification(content)
+				.notice(content)
 				.build();
 	}
 }
