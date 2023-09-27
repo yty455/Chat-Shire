@@ -14,6 +14,11 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { getProject } from "../../utils/projectApi";
 import TeamTaskCreateModal from "./TeamTaskCreateModal";
+import { BsPencilFill, BsCheckAll, BsFillChatDotsFill } from "react-icons/bs";
+import { MdDelete } from "react-icons/md";
+import Paper from "@mui/material/Paper";
+import { BiSolidCheckCircle } from "react-icons/bi";
+import { getTask, deleteTask, postTask, updateTask } from "../../utils/taskApi";
 import TaskModal from "./TaskModal";
 import {
   deleteTaskGroup,
@@ -31,6 +36,12 @@ type CheckboxItem = {
   content: string;
   isEditing: boolean;
 };
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+  minHeight: "110px",
+}));
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 5,
@@ -175,6 +186,92 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       )
     );
   };
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+  const [selectTask, setSelectTask] = useState(false);
+  const [updatedDescription, setUpdatedDescription] = useState<string>("");
+  const handleOpen = (id: any) => {
+    setOpen(true);
+    setSelectTask(id);
+  };
+  // 태스크 삭제
+  const deleteInTask = async (TaskId: string) => {
+    try {
+      const response = await deleteTask(TaskId);
+      console.log("삭제완료", response);
+      getTeamTask();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  // 태스크 등록
+  const postInTask = async (
+    chatroomId: string,
+    description: string,
+    progress: string
+  ) => {
+    try {
+      const response = await postTask(chatroomId, description, progress);
+      console.log(response);
+      getTeamTask();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 태스크 수정
+  const updateInTask = async (
+    taskId: string,
+    taskGroupId: string,
+    description: string,
+    progress: string
+  ) => {
+    try {
+      const response = await updateTask(
+        taskId,
+        taskGroupId,
+        description,
+        progress
+      );
+      console.log(response);
+      setEditingTaskId(null);
+      getTeamTask();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 엔터쳤을때 태스크 입력 완
+  const handleKeyPress = (TaskId: string) => async (event: any) => {
+    if (event.key === "Enter") {
+      if (event.target.value === "") {
+        window.alert("내용을 입력해주세요");
+      } else {
+        const chatroomId = projectId || "";
+        const description = event.target.value;
+        const progress = "ONGOING";
+        if (TaskId === "create") {
+          await postInTask(chatroomId, description, progress);
+          setCheckboxItems([]);
+        } else {
+          console.log("수정", TaskId, "0", description, progress);
+          await updateInTask(TaskId, "0", description, progress);
+        }
+      }
+    }
+  };
+  const enterEditMode = async (TaskId: string) => {
+    setEditingTaskId(TaskId);
+    // try {
+    //   const taskToEdit = allTasks.find((task) => task.id === TaskId);
+    //   if (taskToEdit) {
+    //     setUpdatedDescription(taskToEdit.description);
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  };
+
   const [taskData, setTaskData] = useState({
     name: "",
     description: "",
@@ -404,90 +501,102 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 </div>
                 <BorderLinearProgress variant="determinate" value={50} />
 
-                {checkboxItems.map((item) => (
-                  <Grid sx={{ margin: 0, padding: 0 }} item key={item.id}>
-                    <div className={styles.indivTask}>
-                      <Checkbox
-                        sx={{
-                          color: "#39A789",
-                          "&.Mui-checked": { color: "#39A789" },
-                        }}
-                        style={{ height: "20px", margin: "4px 0" }}
-                        checked={item.isChecked}
-                        onChange={handleCheckboxChange(item.id)}
-                      />
-                      {item.isEditing ? (
-                        <input
-                          type="text"
-                          onBlur={handleContentChange(item.id)}
-                          placeholder="내용을 입력하세요"
+                {task.taskInfoResponses.map((item: any) => (
+                  <Grid
+                    sx={{ margin: 0, padding: 0 }}
+                    item
+                    xs={12}
+                    key={item.id}
+                  >
+                    <Item
+                      sx={{
+                        borderRadius: "0px 20px 20px 20px",
+                        margin: "0 10px",
+                        padding: 0,
+                        minHeight: "30px",
+                      }}
+                      className={styles.oneMemo}
+                      elevation={7}
+                    >
+                      <div className={styles.indivTask}>
+                        <Checkbox
+                          sx={{
+                            color: "#39A789",
+                            "&.Mui-checked": { color: "#39A789" },
+                          }}
+                          style={{ height: "20px", margin: "14px 0" }}
+                          checked={item.progress === "DONE"}
+                          onChange={handleCheckboxChange(item)}
                         />
-                      ) : (
-                        <p
-                          className={`${styles.taskContent} ${
-                            item.isChecked ? styles.checked : ""
-                          }`}
-                        >
-                          {item.content}
-                        </p>
-                      )}
-                    </div>
+                        {editingTaskId === item.id ? (
+                          <input
+                            onKeyPress={handleKeyPress(item.id)}
+                            style={{
+                              fontFamily: "preRg",
+                              height: "30px",
+                              marginTop: "9px",
+                              border: "none",
+                            }}
+                            type="text"
+                            // onBlur={handleContentChange(item.TaskId)}
+                            placeholder="내용을 입력하세요"
+                            defaultValue={item.description}
+                          />
+                        ) : (
+                          <p
+                            className={`${styles.taskContent} ${
+                              item.progress === "DONE" ? styles.checked : ""
+                            }`}
+                          >
+                            {item.description}
+                          </p>
+                        )}
+                      </div>
+                      <div className={styles.icons}>
+                        <div style={{ margin: "-4px 0 0 0" }}></div>
+                        <div>
+                          <BsFillChatDotsFill
+                            onClick={() => {
+                              handleOpen(item.id);
+                            }}
+                            style={{
+                              fontSize: "17px",
+                              margin: "-5px 5px 10px 0",
+                            }}
+                          />
+                          {editingTaskId === item.id ? (
+                            <BiSolidCheckCircle
+                              style={{
+                                fontSize: "17px",
+                                margin: "-5px 3px 10px 0",
+                              }}
+                              // onClick={() =>
+                              //   handleEditComplete(item.id, updatedDescription)
+                              // }
+                            />
+                          ) : (
+                            <BsPencilFill
+                              style={{
+                                fontSize: "17px",
+                                margin: "-5px 3px 10px 0",
+                              }}
+                              onClick={() => enterEditMode(item.id)}
+                            />
+                          )}
+                          <MdDelete
+                            style={{
+                              fontSize: "20px",
+                              margin: "-7px 10px 8px 0",
+                            }}
+                            onClick={() => deleteInTask(item.id)}
+                          />
+                        </div>
+                      </div>
+                    </Item>
                   </Grid>
                 ))}
               </div>
             ))}
-
-          <div className={styles.taskContainer}>
-            <div className={styles.taskHeader}>
-              <div className={styles.clockNday}>
-                <WatchLaterIcon />
-                <p className={styles.dday}> 6d 14h</p>
-              </div>
-              <CreateIcon />
-            </div>
-            <div className={styles.stepStatus}>
-              <StyledBadge
-                sx={{ margin: "14px 0 15px 20px" }}
-                overlap="circular"
-                anchorOrigin={{ vertical: "top", horizontal: "left" }}
-                variant="dot"
-              ></StyledBadge>
-              <p className={styles.step}>기획</p>
-            </div>
-            <BorderLinearProgress variant="determinate" value={50} />
-
-            {checkboxItems.map((item) => (
-              <Grid sx={{ margin: 0, padding: 0 }} item key={item.id}>
-                <div className={styles.indivTask}>
-                  <Checkbox
-                    sx={{
-                      color: "#39A789",
-                      "&.Mui-checked": { color: "#39A789" },
-                    }}
-                    style={{ height: "20px", margin: "4px 0" }}
-                    checked={item.isChecked}
-                    onChange={handleCheckboxChange(item.id)}
-                  />
-                  {item.isEditing ? (
-                    <input
-                      type="text"
-                      onBlur={handleContentChange(item.id)}
-                      placeholder="내용을 입력하세요"
-                    />
-                  ) : (
-                    <p
-                      className={`${styles.taskContent} ${
-                        item.isChecked ? styles.checked : ""
-                      }`}
-                    >
-                      {item.content}
-                    </p>
-                  )}
-                </div>
-                {/* <Button sx={{marginLeft: '5px', marginBottom:'20px',fontFamily:'preRg'}} color="error" size="small" onClick={() => removeCheckbox(item.id)} variant="contained">삭제</Button> */}
-              </Grid>
-            ))}
-          </div>
 
           <Fab
             sx={{
