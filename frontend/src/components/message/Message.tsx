@@ -87,7 +87,7 @@ function Message({ projectId }: MessageProps) {
   const [noticeInputValue, setNoticeInputValue] = useState('');
   const [notice, setNotice] = useState('');
   const [showNotice, setShowNotice] = useState(false);
-  // const [pjt, setPjt] = useState<any>({});
+  const [pjtName, setPjtName] = useState<any>('');
 
 
   const handleChange = (e: any) => {
@@ -114,6 +114,8 @@ function Message({ projectId }: MessageProps) {
       // setPjt(response.data.result[0]);
       console.log('불러온 공지', response.data.result[0].notification)
       setNotice(response.data.result[0].notification)
+      console.log('플젝 이름', response.data.result[0].name)
+      setPjtName(response.data.result[0].name)
     } catch (error) {
       console.error(error);
     }
@@ -124,7 +126,7 @@ function Message({ projectId }: MessageProps) {
       newMessage(message);
     }
     getpjt()
-  }, [message]);
+  }, [message, notice]);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -359,11 +361,12 @@ function Message({ projectId }: MessageProps) {
         <div className={styles.messageLeftHeader}>
           <div className={styles.messageLeftHeader}>
             <div className={styles.messageLeftHeaderLeft}>
-              <span className={styles.messageLeftTitle}>2차 특화 PJT</span>
-              <BsPeopleFill size={20} />
+              {/* <span className={styles.messageLeftTitle}>{pjtName}</span> */}
+              <span className={styles.messageLeftTitle}>2차 플젝</span>
+              <BsPeopleFill style={{color: 'grey', marginTop: '6px', marginLeft: '12px'}} size={20} />
               <span className={styles.messagePeopleNum}>6</span>
             </div>
-            <BsQuestionCircle size={22} />
+            <BsQuestionCircle size={20} />
           </div>
         </div>
         <div className={styles.messageLeftNotification}>
@@ -377,7 +380,8 @@ function Message({ projectId }: MessageProps) {
         }} />
         {noticeInputVisible ? (
           <input 
-              style={{width: '330px', border: 'none', marginLeft: '5px', fontFamily:'preRg'}}
+              maxLength={38}
+              style={{width: '460px',border: 'none',marginLeft: '5px', fontFamily:'preRg'}}
               placeholder={notice}
               type="text"
               value={noticeInputValue}
