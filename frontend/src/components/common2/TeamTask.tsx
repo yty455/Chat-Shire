@@ -26,6 +26,7 @@ import {
   postTaskGroup,
   getTaskGroup,
 } from "../../utils/taskGroupApi";
+import IndivChatModal from "./IndivChatModal";
 
 const pieParams = { height: 200, margin: { right: 5 } };
 const palette = ["red", "blue", "green"];
@@ -132,7 +133,13 @@ const StyledBadgeRed = styled(Badge)(({ theme }) => ({
 interface TeamTaskProps {
   projectId: string;
 }
-
+interface Task {
+  id: string;
+  taskGroupId?: string;
+  description: string;
+  progress: string;
+  isEditing?: boolean;
+}
 export default function TeamTask({ projectId }: TeamTaskProps) {
   const currentDate = new Date();
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
@@ -165,7 +172,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       console.error(error);
     }
   };
-
+  const handleClose = () => setOpen(false);
   const openModal = (data: string | number) => {
     console.log(data);
     setIsModalOpen(data.toString());
@@ -179,12 +186,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     setSelectedTaskId(null);
   };
 
-  const handleCheckboxChange = (id: number) => () => {
-    setCheckboxItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, isChecked: !item.isChecked } : item
-      )
-    );
+  const handleCheckboxChange = (item: Task) => () => {
+    const progress = item.progress === "DONE" ? "ONGOING" : "DONE";
+    const taskGroupId = item.taskGroupId || "";
+    updateInTask(item.id, taskGroupId, item.description, progress);
   };
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
@@ -385,60 +390,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <div style={{ padding: "0 0 20px 20px", width: "50%" }}>
           <p className={styles.taskProgress}>완료된 Task</p>
-
-          <div className={styles.taskContainer}>
-            <div className={styles.taskHeader}>
-              <div className={styles.clockNday}>
-                <WatchLaterIcon />
-                <p className={styles.dday}> 6d 14h</p>
-              </div>
-              <div onClick={addCheckbox}>
-                <CreateIcon />
-              </div>
-            </div>
-            <div className={styles.stepStatus}>
-              <StyledBadge
-                sx={{ margin: "14px 0 15px 20px" }}
-                overlap="circular"
-                anchorOrigin={{ vertical: "top", horizontal: "left" }}
-                variant="dot"
-              ></StyledBadge>
-              <p className={styles.step}>기획</p>
-            </div>
-            <BorderLinearProgress variant="determinate" value={50} />
-
-            {checkboxItems.map((item) => (
-              <Grid sx={{ margin: 0, padding: 0 }} item key={item.id}>
-                <div className={styles.indivTask}>
-                  <Checkbox
-                    sx={{
-                      color: "#39A789",
-                      "&.Mui-checked": { color: "#39A789" },
-                    }}
-                    style={{ height: "20px", margin: "4px 0" }}
-                    checked={item.isChecked}
-                    onChange={handleCheckboxChange(item.id)}
-                  />
-                  {item.isEditing ? (
-                    <input
-                      type="text"
-                      onBlur={handleContentChange(item.id)}
-                      placeholder="내용을 입력하세요"
-                    />
-                  ) : (
-                    <p
-                      className={`${styles.taskContent} ${
-                        item.isChecked ? styles.checked : ""
-                      }`}
-                    >
-                      {item.content}
-                    </p>
-                  )}
-                </div>
-                {/* <Button sx={{marginLeft: '5px', marginBottom:'20px',fontFamily:'preRg'}} color="error" size="small" onClick={() => removeCheckbox(item.id)} variant="contained">삭제</Button> */}
-              </Grid>
-            ))}
-          </div>
         </div>
 
         <div style={{ padding: "0 20px 0 20px", width: "50%" }}>
@@ -633,6 +584,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           )}
         </div>
       </div>
+      {open && <IndivChatModal taskId={selectTask} onClose={handleClose} />}
     </div>
   );
 }
