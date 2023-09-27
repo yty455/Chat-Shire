@@ -164,7 +164,7 @@ function Project() {
     >
       <div className={styles.projectContainer}>
         <span className={styles.projectTitle}>
-          {userData && userData.nickname}의 프로젝트에요
+          {userData && userData.nickname}님의 프로젝트에요
         </span>
         <div
           style={{
