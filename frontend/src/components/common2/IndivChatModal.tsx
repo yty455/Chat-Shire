@@ -6,9 +6,15 @@ interface IndivChatModalProps {
   onClose: () => void;
   taskId: any;
 }
+interface ChatItem {
+  nickname: string;
+  content: string;
+  chatTime: string;
+  chatNumber: number;
+}
 
 function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
-  const [taskChat, setTaskChat] = useState({});
+  const [taskChat, setTaskChat] = useState<ChatItem[]>([]);
   const getTaskChat = async () => {
     try {
       const response = await getReferences(taskId);
@@ -18,6 +24,10 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
       console.error(error);
     }
   };
+  function formatChatTime(chatTime: any) {
+    const date = new Date(chatTime);
+    return date.toLocaleString(); // 브라우저 설정에 따라 로케일에 맞게 날짜 및 시간을 표시
+  }
 
   useEffect(() => {
     getTaskChat();
@@ -25,7 +35,15 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
 
   return (
     <div className={styles.modalOverlay}>
-      123
+      {taskChat &&
+        taskChat.map((chat) => (
+          <div key={chat.chatNumber}>
+            {" "}
+            <p>{chat.nickname}</p>
+            <p>{chat.content}</p>
+            <p>{formatChatTime(chat.chatTime)}</p>
+          </div>
+        ))}
       <button onClick={onClose}> 닫기 </button>
     </div>
   );
