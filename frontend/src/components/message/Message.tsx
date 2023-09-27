@@ -37,31 +37,10 @@ import EmojiPicker from "emoji-picker-react";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "./ItemTypes";
 import AWS from "aws-sdk";
+import { getProjectMem } from "../../utils/projectApi";
 
-// function DraggableMessageItem({ message }: { message: string }) {
-//   // 드래그 가능한 아이템으로 만들기 위해 useDrag 훅을 사용합니다.
-//   const [{ isDragging }, ref] = useDrag({
-//     type: ItemTypes.MESSAGE, // 드래그 타입
-//     item: { message }, // 전달할 데이터
-//     collect: (monitor) => ({
-//       isDragging: !!monitor.isDragging(),
-//     }),
-//   });
-
-//   return (
-//     <div
-//       ref={ref}
-//       style={{
-//         opacity: isDragging ? 0.5 : 1,
-//         cursor: "move",
-//         // ...추가적인 스타일 설정
-//       }}
-//     >
-//       {/* 메세지 아이템 내용 표시 */}
-//       {message}
-//     </div>
-//   );
-// }
+import { QuestionCircleOutlined  } from '@ant-design/icons';
+import { FloatButton, Popover } from 'antd';
 
 interface MessageProps {
   projectId: string;
@@ -88,6 +67,7 @@ function Message({ projectId }: MessageProps) {
   const [notice, setNotice] = useState('');
   const [showNotice, setShowNotice] = useState(false);
   const [pjtName, setPjtName] = useState<any>('');
+  const [pjtMemCount, setPjtMemCount] = useState(0);
 
 
   const handleChange = (e: any) => {
@@ -121,11 +101,22 @@ function Message({ projectId }: MessageProps) {
     }
   };
 
+  const getProjectUsers = async () => {
+    try {
+      const response = await getProjectMem(projectId);
+      console.log(response.data.count);
+      setPjtMemCount(response.data.count);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     if (message) {
       newMessage(message);
     }
     getpjt()
+    getProjectUsers()
   }, [message, notice]);
 
   useEffect(() => {
@@ -355,6 +346,14 @@ function Message({ projectId }: MessageProps) {
     });
   };
 
+  // 가이드
+  const content = (
+    <div>
+      <p style={{margin: 0, fontFamily:'preRg'}}>드래그 앤 드롭으로 메세지를 태스크에 추가해보세요.</p>
+      {/* <p style={{margin: 0, fontFamily:'preRg'}}>멘트 추가</p> */}
+    </div>
+  );
+
   return (
     <div className={styles.messageContainer}>
       <div className={styles.messageLeft}>
@@ -364,9 +363,12 @@ function Message({ projectId }: MessageProps) {
               {/* <span className={styles.messageLeftTitle}>{pjtName}</span> */}
               <span className={styles.messageLeftTitle}>2차 플젝</span>
               <BsPeopleFill style={{color: 'grey', marginTop: '6px', marginLeft: '12px'}} size={20} />
-              <span className={styles.messagePeopleNum}>6</span>
+              <span className={styles.messagePeopleNum}>{pjtMemCount}</span>
             </div>
-            <BsQuestionCircle size={20} />
+            {/* <BsQuestionCircle style={{color: 'grey', marginTop: '6px'}} size={20} /> */}
+            <Popover placement="left" content={content} trigger="hover">
+              <FloatButton icon={<QuestionCircleOutlined />} type="default" style={{ width: 22, height:20, top: 78, left: 765 }} />
+            </Popover>
           </div>
         </div>
         <div className={styles.messageLeftNotification}>
