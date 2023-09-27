@@ -50,6 +50,7 @@ function TaskModal({
   );
   const [editingField, setEditingField] = useState<string | null>(null);
   const modalRef = useRef<HTMLDivElement | null>(null);
+
   const getTeamTask = async () => {
     try {
       const response = await getTaskGroupDetail(taskId);
@@ -166,9 +167,13 @@ function TaskModal({
                     </MenuItem>
                   </Select>
                 </FormControl>
-              ) : (
-                teamTaskDetail.priority
-              )}
+              ) : teamTaskDetail.priority === "HIGH" ? (
+                "🔴"
+              ) : teamTaskDetail.priority === "MEDIUM" ? (
+                "🟢"
+              ) : teamTaskDetail.priority === "LOW" ? (
+                "🟡"
+              ) : null}
             </p>
             {/* <p onClick={() => handleEditClick("progress")}>
               {editingField === "progress" ? (
@@ -191,13 +196,11 @@ function TaskModal({
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <div onClick={(e) => e.stopPropagation()}>
                     <DatePicker
-                      value={dayjs(teamTaskDetail.deadline).format(
-                        "YYYY-MM-DD"
-                      )}
+                      value={teamTaskDetail.deadline}
                       onChange={(date: any) => {
                         setTeamTaskDetail({
                           ...teamTaskDetail,
-                          deadline: date.toLocaleDateString(), // ISO 형식으로 변환
+                          deadline: date, // ISO 형식으로 변환
                         });
                       }}
                       sx={{

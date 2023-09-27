@@ -9,11 +9,6 @@ import { ItemTypes } from "./ItemTypes";
 import { postTask } from "../../utils/taskApi";
 
 export default function MessageItem(message: any) {
-  const [, ref] = useDrag({
-    type: ItemTypes.MESSAGE_ITEM, // 드래그 타입을 정의합니다.
-    item: { message }, // 드래그할 데이터를 포함합니다.
-  });
-
   // 태스크 등록
   const postInTask = async (
     chatroomId: string,
@@ -66,7 +61,7 @@ export default function MessageItem(message: any) {
   };
 
   return (
-    <div className={styles.messageItemContainer} ref={ref}>
+    <div className={styles.messageItemContainer}>
       <StyledBadge
         className={styles.messageItemProfile}
         overlap="circular"
