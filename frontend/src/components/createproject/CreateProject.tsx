@@ -121,7 +121,7 @@ function CreateProject() {
       description,
       gitRepository,
       branch,
-      Members,
+      Members.current,
       formattedStartDate,
       formattedEndDate,
       gitAccessToken
@@ -135,7 +135,7 @@ function CreateProject() {
         description,
         gitRepository,
         branch,
-        Members,
+        Members.current,
         formattedStartDate,
         formattedEndDate,
         gitAccessToken
