@@ -84,7 +84,7 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
             errDetail?.replies &&
             errDetail.replies.map((item: any) => {
               return (
-                <div className={styles.rep} key={item.id}>
+                <div className={styles.rep} key={item.replyId}>
                   <Avatar
                     alt={item.nickname}
                     src={process.env.PUBLIC_URL + item.profileImage}
@@ -95,7 +95,7 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
                     }}
                   />
                   {item.nickname} : {item.content}{" "}
-                  {editingCommentId === item.id ? (
+                  {editingCommentId === item.replyId ? (
                     <>
                       <input
                         type="text"
@@ -103,17 +103,19 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
                         onChange={(e) => setEditedComment(e.target.value)}
                       />
                       <button
-                        onClick={() => updateReply(item.id, editedComment)}
+                        onClick={() => updateReply(item.replyId, editedComment)}
                       >
                         저장
                       </button>
                     </>
                   ) : (
                     <>
-                      <button onClick={() => setEditingCommentId(item.id)}>
+                      <button onClick={() => setEditingCommentId(item.replyId)}>
                         수정
                       </button>
-                      <button onClick={() => deleteReply(item.id)}>삭제</button>
+                      <button onClick={() => deleteReply(item.replyId)}>
+                        삭제
+                      </button>
                     </>
                   )}
                 </div>
