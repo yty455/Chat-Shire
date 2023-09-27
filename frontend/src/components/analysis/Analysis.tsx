@@ -29,7 +29,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
 
   useEffect(() => {
     getAnalysisPage();
-  }, []);
+  }, [projectId]);
 
   return (
     <div
