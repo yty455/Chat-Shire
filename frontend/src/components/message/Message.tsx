@@ -87,17 +87,13 @@ function Message({ projectId }: MessageProps) {
     console.log(e.currentTarget);
     e.preventDefault();
     setValue(e.currentTarget.value);
-    setSelectedButton(e.currentTarget.value); 
+    setSelectedButton(e.currentTarget.value);
   };
 
   const [activateEmojiPicker, setActivateEmojiPicker] = useState(false);
 
   const client = useRef<CompatClient>();
   const messageEndRef = useRef<HTMLDivElement | null>(null);
-
-
-
-
 
   function newMessage(newMessage: any) {
     const newPreMessage = [...preMessage, newMessage];
@@ -111,8 +107,8 @@ function Message({ projectId }: MessageProps) {
   }, [message]);
 
   useEffect(() => {
-    messageEndRef.current?.scrollIntoView({behavior: "smooth"})
-  }, [preMessage])
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [preMessage]);
 
   const connectHandler = () => {
     client.current = Stomp.over(() => {
@@ -141,16 +137,16 @@ function Message({ projectId }: MessageProps) {
 
   const inputMessage = (e: any) => {
     if (e.code === "Enter" && e.target.value != "") {
-      postChat(Number(projectId), e.target.value)
-      e.target.value = ""
+      postChat(Number(projectId), e.target.value);
+      e.target.value = "";
     }
   };
 
   const sendMessage = (e: any) => {
     const message = document.getElementById("chatInput") as HTMLInputElement;
     if (message.value != "") {
-      postChat(Number(projectId), message.value)
-      message.value = ""
+      postChat(Number(projectId), message.value);
+      message.value = "";
     }
   };
 
@@ -164,7 +160,7 @@ function Message({ projectId }: MessageProps) {
 
   useEffect(() => {
     connectHandler();
-    messageEndRef.current?.scrollIntoView()
+    messageEndRef.current?.scrollIntoView();
   }, []);
 
   const ariaLabel = { "aria-label": "description" };
@@ -212,68 +208,74 @@ function Message({ projectId }: MessageProps) {
   // };
 
   // s3 이미지 업로드
-  const onUpload = (e: any): Promise<void> => { // Promise<void> 타입 지정
-    return new Promise((resolve, reject) => { 
+  const onUpload = (e: any): Promise<void> => {
+    // Promise<void> 타입 지정
+    return new Promise((resolve, reject) => {
       const file = e.target.files[0];
-      if (!file) { 
+      if (!file) {
         resolve();
         return;
       }
-      const fileExt = file.name.split('.').pop();
-      if (!['jpeg', 'png', 'jpg', 'JPG', 'PNG', 'JPEG', 'mp4', 'MP4'].includes(fileExt)) {
-          window.alert('jpg, png, jpg, mp4 파일만 업로드가 가능합니다.');
-          resolve();
-          return; 
+      const fileExt = file.name.split(".").pop();
+      if (
+        !["jpeg", "png", "jpg", "JPG", "PNG", "JPEG", "mp4", "MP4"].includes(
+          fileExt
+        )
+      ) {
+        window.alert("jpg, png, jpg, mp4 파일만 업로드가 가능합니다.");
+        resolve();
+        return;
       }
-      
+
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      
-        reader.onload = () => {
-          setImageSrc(reader.result || null);
-          setImageFile(file);
-  
-            if (!reader.result) {
-              window.alert('이미지를 등록해 주세요.');
-              resolve();
-              return;
-            }
-  
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('name', file.name);
-  
-             uploadS3(formData).then(() => resolve()).catch((error) => reject(error)); 
-        };
+
+      reader.onload = () => {
+        setImageSrc(reader.result || "");
+        setImageFile(file);
+
+        if (!reader.result) {
+          window.alert("이미지를 등록해 주세요.");
+          resolve();
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("name", file.name);
+
+        uploadS3(formData)
+          .then(() => resolve())
+          .catch((error) => reject(error));
+      };
     });
-  }
+  };
 
   // s3에 업로드
   const uploadS3 = (formData: any) => {
     const REGION = process.env.REACT_APP_REGION;
     const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
     const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
-  
+
     AWS.config.update({
-        region: REGION,
-        accessKeyId: ACCESS_KEY_ID,
-        secretAccessKey: SECRET_ACCESS_KEY,
+      region: REGION,
+      accessKeyId: ACCESS_KEY_ID,
+      secretAccessKey: SECRET_ACCESS_KEY,
     });
-  
+
     const upload = new AWS.S3.ManagedUpload({
-        params: {
-            ACL: 'public-read',
-            Bucket: 'chat-shire',
-            Key: `chat/${imageFile.name}`,
-            Body: imageFile,
-        }
-    })
-  
-    return upload.promise()
-      .then(() => {
-          console.log('업로드')
-      })
-  }
+      params: {
+        ACL: "public-read",
+        Bucket: "chat-shire",
+        Key: `chat/${imageFile.name}`,
+        Body: imageFile,
+      },
+    });
+
+    return upload.promise().then(() => {
+      console.log("업로드");
+    });
+  };
 
   return (
     <div className={styles.messageContainer}>
@@ -297,7 +299,10 @@ function Message({ projectId }: MessageProps) {
         <div className={styles.messageLeftBody}>
           {preMessage &&
             preMessage.map((message) => <MessageItem message={message} />)}
-            <div style={{width: "0px", height: "0px", visibility: "hidden"}} ref={messageEndRef}></div>
+          <div
+            style={{ width: "0px", height: "0px", visibility: "hidden" }}
+            ref={messageEndRef}
+          ></div>
         </div>
         <div className={styles.messageLeftFooter}>
           <div className={styles.messageInputContainer}>
@@ -339,34 +344,34 @@ function Message({ projectId }: MessageProps) {
               }}
         >업로드!</button> */}
               {/* <Upload showUploadList={false} multiple={true} {...fileProps}> */}
-                <BsPaperclip
-                  style={{ cursor: "pointer" }}
-                  size={28}
-                  color="#39A789"
-                />
+              <BsPaperclip
+                style={{ cursor: "pointer" }}
+                size={28}
+                color="#39A789"
+              />
               {/* </Upload> */}
               {/* <Upload showUploadList={false} multiple={true} {...props}> */}
-                <HiOutlinePhoto
-                  style={{ marginRight: "7px", cursor: "pointer" }}
-                  size={30}
-                  color="#39A789"
-                  onClick={() => inputRef.current[0].click()} 
-                />
+              <HiOutlinePhoto
+                style={{ marginRight: "7px", cursor: "pointer" }}
+                size={30}
+                color="#39A789"
+                onClick={() => inputRef.current[0].click()}
+              />
               <input
                 hidden
-                accept="image/*, video/*" 
-                multiple 
+                accept="image/*, video/*"
+                multiple
                 type="file"
-                ref={el => (inputRef.current[0] = el)}
-                onChange={e => {
+                ref={(el) => (inputRef.current[0] = el)}
+                onChange={(e) => {
                   onUpload(e).then(() => {
                     if (!imageSrc) {
-                      window.alert('이미지를 등록해 주세요.');
+                      window.alert("이미지를 등록해 주세요.");
                       return;
                     }
                   });
-              }}
-              />  
+                }}
+              />
               {/* </Upload> */}
               <div style={{ position: "relative" }}>
                 <Grow
@@ -401,17 +406,57 @@ function Message({ projectId }: MessageProps) {
       </div>
       <div className={styles.messageRight}>
         <div className={styles.messageRightTabContainer}>
-          <button style={{border: 'none', background:'none'}} value="media" onClick={handleChange}>
-            <HiOutlinePhoto style={{background: selectedButton === "media" ? 'yellow' : 'none', fontSize:'25px', color: '#39a789'}}/>
+          <button
+            style={{ border: "none", background: "none" }}
+            value="media"
+            onClick={handleChange}
+          >
+            <HiOutlinePhoto
+              style={{
+                background: selectedButton === "media" ? "yellow" : "none",
+                fontSize: "25px",
+                color: "#39a789",
+              }}
+            />
           </button>
-          <button style={{border: 'none', background:'none'}} value="files" onClick={handleChange}>
-            <AiOutlineFolder style={{background: selectedButton === "files" ? 'yellow' : 'none', fontSize:'25px', color: '#39a789'}}/>
+          <button
+            style={{ border: "none", background: "none" }}
+            value="files"
+            onClick={handleChange}
+          >
+            <AiOutlineFolder
+              style={{
+                background: selectedButton === "files" ? "yellow" : "none",
+                fontSize: "25px",
+                color: "#39a789",
+              }}
+            />
           </button>
-          <button style={{border: 'none', background:'none'}} value="links" onClick={handleChange}>
-            <BsLink45Deg style={{background: selectedButton === "links" ? 'yellow' : 'none', fontSize:'28', color: '#39a789'}}/>
+          <button
+            style={{ border: "none", background: "none" }}
+            value="links"
+            onClick={handleChange}
+          >
+            <BsLink45Deg
+              style={{
+                background: selectedButton === "links" ? "yellow" : "none",
+                fontSize: "28",
+                color: "#39a789",
+              }}
+            />
           </button>
-          <button style={{border: 'none', background:'none'}} value="search" onClick={handleChange}>
-            <LiaSearchSolid style={{background: selectedButton === "search" ? 'yellow' : 'none', fontSize:'25', color: '#39a789'}}/>
+          <button
+            style={{ border: "none", background: "none" }}
+            value="search"
+            onClick={handleChange}
+          >
+            <LiaSearchSolid
+              style={{
+                background: selectedButton === "search" ? "yellow" : "none",
+                fontSize: "25",
+                color: "#39a789",
+              }}
+            />
           </button>
         </div>
         <MessageRightBody value={value} />

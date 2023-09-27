@@ -1,7 +1,9 @@
-.memberContainer {
-  display: flex;
+.inputBox {
+  height: 100px;
+  margin-bottom: 10px;
 }
 
-.memberBox {
-  width: 50%;
+.inputTag {
+  margin-top: 0px;
+  height: 50px;
 }

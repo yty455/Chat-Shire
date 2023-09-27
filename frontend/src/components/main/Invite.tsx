@@ -12,7 +12,8 @@ const url = "https://namu.wiki/w/%EC%82%AC%ED%83%95";
 const fa = "http://www.google.com/s2/favicons?domain=";
 
 function Invite() {
-  const url = "http://github.com/samholmes/node-open-graph/raw/master/test.html";
+  const url =
+    "http://github.com/samholmes/node-open-graph/raw/master/test.html";
 
   return (
     <Container
@@ -21,10 +22,10 @@ function Invite() {
       display="flex"
       flexDirection="column"
       justifyContent="flex-start"
-      width="20vw"
-      height="85vh"
+      width="16vw"
+      height="81vh"
       margin="0vh 0vw 0vh 1vw"
-      padding="20px"
+      padding="2vh 2vw"
       border="1px solid #E5E8EB"
       borderRadius="20px"
       boxShadow=""

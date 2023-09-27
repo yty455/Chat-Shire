@@ -33,9 +33,9 @@ export const postErrorComent = (postId: number, content: string) =>
   api.post(`/posts/${postId}/replies`, { content });
 
 // 에러 게시글 댓글 수정
-export const updateErrorComent = (replyId: number, content: string) =>
+export const updateErrorComent = (replyId: string, content: string) =>
   api.put(`/replies/${replyId}`, { content });
 
 // 에러 게시글 댓글 삭제
-export const deleteErrorComent = (replyId: number) =>
+export const deleteErrorComent = (replyId: string) =>
   api.delete(`/replies/${replyId}`);

@@ -6,29 +6,22 @@ import styles from "./Second.module.css";
 export default function Second({
   onData,
 }: {
-  onData: (topic: string, gitRepository: string, description: string) => void;
+  onData: (topic: string, description: string) => void;
 }) {
   const [topic, setTopic] = useState("");
-  const [gitRepository, setGitRepository] = useState("");
   const [description, setDescription] = useState("");
 
   // 입력 값이 변경될 때마다 상태 업데이트
   const handleTopicChange = (e: any) => {
     setTopic(e.target.value);
     // 변경된 값 전달
-    onData(e.target.value, gitRepository, description);
-  };
-
-  const handleGitRepositoryChange = (e: any) => {
-    setGitRepository(e.target.value);
-    // 변경된 값 전달
-    onData(topic, e.target.value, description);
+    onData(e.target.value, description);
   };
 
   const handleDescriptionChange = (e: any) => {
     setDescription(e.target.value);
     // 변경된 값 전달
-    onData(topic, gitRepository, e.target.value);
+    onData(topic, e.target.value);
   };
 
   return (
@@ -46,19 +39,7 @@ export default function Second({
         variant="standard"
         // helperText="Please enter your name"
       />
-      <TextField
-        color="greenary"
-        margin="dense"
-        fullWidth
-        className={styles.inputtag}
-        required
-        id="standard-required"
-        label="깃 등록"
-        defaultValue=""
-        onChange={handleGitRepositoryChange}
-        variant="standard"
-        // helperText="Please enter your name"
-      />
+
       <TextField
         fullWidth
         color="greenary"
