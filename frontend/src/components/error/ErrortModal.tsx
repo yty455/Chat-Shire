@@ -6,6 +6,8 @@ import {
   deleteErrorComent,
   updateErrorComent,
 } from "../../utils/errorApi";
+import ProfileImgBox from "../common/ProfileImgBox";
+import Avatar from "@mui/material/Avatar";
 
 interface ErrorModalProps {
   closeModal: () => void;
@@ -79,12 +81,21 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
         <p>{errDetail && errDetail.title}</p>
         <div className={styles.reContainer}>
           {errDetail &&
-            errDetail?.reply &&
-            errDetail.reply.map((item: any) => {
+            errDetail?.replies &&
+            errDetail.replies.map((item: any) => {
               return (
-                <div key={item.id}>
-                  {item.content}{" "}
-                  {editingCommentId === item.id ? (
+                <div className={styles.rep} key={item.replyId}>
+                  <Avatar
+                    alt={item.nickname}
+                    src={process.env.PUBLIC_URL + item.profileImage}
+                    sx={{
+                      width: 20,
+                      height: 20,
+                      backgroundColor: item.profileColor,
+                    }}
+                  />
+                  {item.nickname} : {item.content}{" "}
+                  {editingCommentId === item.replyId ? (
                     <>
                       <input
                         type="text"
@@ -92,17 +103,19 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
                         onChange={(e) => setEditedComment(e.target.value)}
                       />
                       <button
-                        onClick={() => updateReply(item.id, editedComment)}
+                        onClick={() => updateReply(item.replyId, editedComment)}
                       >
                         저장
                       </button>
                     </>
                   ) : (
                     <>
-                      <button onClick={() => setEditingCommentId(item.id)}>
+                      <button onClick={() => setEditingCommentId(item.replyId)}>
                         수정
                       </button>
-                      <button onClick={() => deleteReply(item.id)}>삭제</button>
+                      <button onClick={() => deleteReply(item.replyId)}>
+                        삭제
+                      </button>
                     </>
                   )}
                 </div>

@@ -176,11 +176,11 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     );
   };
   const [taskData, setTaskData] = useState({
-    name: "이름",
-    description: "설명",
-    priority: "HIGH",
+    name: "",
+    description: "",
+    priority: "MEDIUM",
     progress: "ONGOING",
-    deadline: dayjs().format("YYYY-MM-DD"),
+    deadline: dayjs().add(7, "day").format("YYYY-MM-DD"),
   });
 
   const addCheckbox = () => {
@@ -277,7 +277,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        <p className={styles.messageLeftTitle}>{pjt && pjt.title} </p>
+        {pjt && <p className={styles.messageLeftTitle}>{pjt.name}</p>}
         <AllBorderLinearProgress
           style={{ marginTop: "29px", width: "500px" }}
           variant="determinate"

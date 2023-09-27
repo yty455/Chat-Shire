@@ -26,7 +26,7 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 
 import SockJS from "sockjs-client";
-import { getChat, postChat } from "../../utils/chatApi";
+import { getChat, postChat, putNotification } from "../../utils/chatApi";
 import { Stomp, CompatClient } from "@stomp/stompjs";
 
 import { useSetRecoilState } from "recoil";
@@ -82,6 +82,11 @@ function Message({ projectId }: MessageProps) {
   const [imageFile, setImageFile]: any = useState(null);
   const [imageSrc, setImageSrc]: any = useState(null);
   const inputRef = useRef<any[]>([]);
+  const [noticeInputVisible, setNoticeInputVisible] = useState(false);
+  const [noticeInputValue, setNoticeInputValue] = useState('');
+  const [notice, setNotice] = useState('');
+  const [showNotice, setShowNotice] = useState(false);
+
 
   const handleChange = (e: any) => {
     console.log(e.currentTarget);
@@ -150,6 +155,16 @@ function Message({ projectId }: MessageProps) {
     }
   };
 
+  // 공지 등록
+  const makeNotice = (e: any) => {
+    if (e.target.value != "") {
+      putNotification(projectId, e.target.value);
+      setNotice(e.target.value);
+      setNoticeInputVisible(false);
+      setShowNotice(true);
+    }
+  }
+
   const inputEmoji = (e: any) => {
     postChat(Number(projectId), e.emoji);
   };
@@ -165,50 +180,10 @@ function Message({ projectId }: MessageProps) {
 
   const ariaLabel = { "aria-label": "description" };
 
-  // 미디어 업로드
-  // const props: UploadProps = {
-  //   // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
-  //   beforeUpload: (file) => {
-  //     const isJpgOrPngOrGif =
-  //       file.type === "image/jpeg" ||
-  //       file.type === "image/png" ||
-  //       file.type === "image/jpg" ||
-  //       file.type === "video/mp4";
-  //     if (!isJpgOrPngOrGif) {
-  //       window.alert("jpg, jpeg, png, mp4만 업로드해주세요");
-  //     }
-  //     return isJpgOrPngOrGif || Upload.LIST_IGNORE;
-  //   },
-  //   onChange: (info) => {
-  //     console.log(info.fileList);
-  //     // uid: 고유 식별자
-  //     // name: 원래 이름
-  //     // status: 'uploading', 'done', 'error' 또는 'removed' 중 하나
-  //     // response: 서버 응답 (업로드가 성공한 경우)
-  //     // url: 파일 URL (서버에서 지정)
-  //   },
-  // };
-
-  // // 파일 업로드
-  // const fileProps: UploadProps = {
-  //   // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
-  //   beforeUpload: (file) => {
   //     const acceptedExtensions = ["pdf", "docx", "doc", "xlsx", "xls", "txt"];
-  //     const isFileAccepted = acceptedExtensions.some((ext) =>
-  //       file.name.endsWith(`.${ext}`)
-  //     );
-  //     if (!isFileAccepted) {
-  //       window.alert("PDF, DOCX, DOC, XLSX, XLS 및 TXT 파일만 업로드해주세요.");
-  //     }
-  //     return isFileAccepted || Upload.LIST_IGNORE;
-  //   },
-  //   onChange: (info) => {
-  //     console.log(info.fileList);
-  //   },
-  // };
 
-  // s3 이미지 업로드
-  const onUpload = (e: any): Promise<void> => {
+  // 이미지 업로드
+  const onUploadImage = (e: any): Promise<void> => {
     // Promise<void> 타입 지정
     return new Promise((resolve, reject) => {
       const file = e.target.files[0];
@@ -251,7 +226,92 @@ function Message({ projectId }: MessageProps) {
     });
   };
 
-  // s3에 업로드
+  // 파일 업로드
+  const onUploadFile = (e: any): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const file = e.target.files[0];
+      if (!file) {
+        resolve();
+        return;
+      }
+      
+      const fileExt = file.name.split(".").pop();
+      if (!["pdf", "docx", "doc", "xlsx", "xls", "txt"].includes(fileExt)) {
+        window.alert("pdf, docx, doc, xlsx, xls, txt 파일만 업로드가 가능합니다.");
+        resolve();
+        return;
+      }
+  
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+  
+      reader.onload = () => {
+  
+        if (!reader.result) {
+          window.alert("파일을 등록해 주세요.");
+          resolve();
+          return;
+        }
+  
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('name', file.name);
+  
+        uploadS3File(formData)
+          .then(() => resolve())
+          .catch((error) => reject(error));
+       };
+    });
+  };
+
+  // s3에 파일 업로드
+  const uploadS3File = (formData: any) => {
+    return new Promise((resolve, reject) => {
+      const REGION = process.env.REACT_APP_REGION;
+      const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
+      const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+  
+      AWS.config.update({
+        region: REGION,
+        accessKeyId: ACCESS_KEY_ID,
+        secretAccessKey: SECRET_ACCESS_KEY,
+      });
+  
+      // 파일 이름 가져오기
+      let fileName; 
+      for (let value of formData.values()) { 
+         if(value instanceof File){
+           fileName=value.name; 
+           break;
+         }
+       }
+  
+       if(fileName){
+         // S3 ManagedUpload 객체 생성
+         const upload = new AWS.S3.ManagedUpload({
+           params: {
+             ACL: 'public-read',
+             Bucket: 'chat-shire',
+             Key: `chat/${fileName}`,
+             Body: formData.get('file'),
+           },
+         });
+  
+         // 업로드 시작하고 프로미스 반환
+         upload.promise().then(() => {
+            console.log("파일 업로드 완료");
+          }).catch((error) => {
+            console.error("업로드 실패", error);
+            reject(error);
+          });
+       } else{
+          console.error("파일 이름을 가져오는데 실패했습니다.");
+          reject(new Error("파일 이름을 가져오는데 실패했습니다."));
+       }
+    });
+  };
+
+  // s3에 이미지 업로드
   const uploadS3 = (formData: any) => {
     const REGION = process.env.REACT_APP_REGION;
     const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
@@ -291,10 +351,26 @@ function Message({ projectId }: MessageProps) {
           </div>
         </div>
         <div className={styles.messageLeftNotification}>
-          <BsFillMegaphoneFill size={20} />
+        <BsFillMegaphoneFill size={20} onClick={() => {
+          if(noticeInputVisible) {
+            setNoticeInputVisible(false);
+            if(notice !== '') setShowNotice(true);
+          } else {
+            setNoticeInputVisible(true); 
+          }
+        }} />
+        {noticeInputVisible ? (
+          <input 
+              type="text"
+              value={noticeInputValue}
+              onChange={(e) => setNoticeInputValue(e.target.value)}
+              onKeyPress={(e) => makeNotice(e)}
+          />
+        ) : showNotice ? (
           <span className={styles.notificationText}>
-            다음 회의 일정은 일요일 오후 3시 입니다.
+            {notice}
           </span>
+        ) : null }
         </div>
         <div className={styles.messageLeftBody}>
           {preMessage &&
@@ -322,35 +398,23 @@ function Message({ projectId }: MessageProps) {
           </div>
           <div className={styles.messageFooterButtonContainer}>
             <div className={styles.messageFooterButtonLeft}>
-              {/* <input
-              accept="image/*, video/*" 
-              multiple 
-              type="file"
-              ref={el => (inputRef.current[0] = el)}
-              onChange={e => onUpload(e)}
-              />
-              <button type="button"
-              onClick={() => {
-                  if (!imageSrc) {
-                      window.alert('이미지를 등록해 주세요.');
-                      return;
-                  }
-
-                  const formData = new FormData();
-                  formData.append('file', imageFile);
-                  formData.append('name', imageFile.name);
-
-                  uploadS3(formData);
-              }}
-        >업로드!</button> */}
-              {/* <Upload showUploadList={false} multiple={true} {...fileProps}> */}
               <BsPaperclip
                 style={{ cursor: "pointer" }}
                 size={28}
                 color="#39A789"
+                onClick={() => inputRef.current[1].click()}
               />
-              {/* </Upload> */}
-              {/* <Upload showUploadList={false} multiple={true} {...props}> */}
+              <input
+                hidden
+                accept=".pdf, .docx, .doc, .xlsx, .xls, .txt"
+                type="file"
+                ref={(el) => (inputRef.current[1] = el)}
+                onChange={(e) => {
+                  onUploadFile(e).then(() => {
+                    console.log('업로드??')
+                  });
+                }}
+              />
               <HiOutlinePhoto
                 style={{ marginRight: "7px", cursor: "pointer" }}
                 size={30}
@@ -364,7 +428,7 @@ function Message({ projectId }: MessageProps) {
                 type="file"
                 ref={(el) => (inputRef.current[0] = el)}
                 onChange={(e) => {
-                  onUpload(e).then(() => {
+                  onUploadImage(e).then(() => {
                     if (!imageSrc) {
                       window.alert("이미지를 등록해 주세요.");
                       return;
@@ -372,7 +436,6 @@ function Message({ projectId }: MessageProps) {
                   });
                 }}
               />
-              {/* </Upload> */}
               <div style={{ position: "relative" }}>
                 <Grow
                   in={activateEmojiPicker}
@@ -400,6 +463,7 @@ function Message({ projectId }: MessageProps) {
               variant="contained"
               onClick={sendMessage}
               endIcon={<SendIcon />}
+              style={{ borderRadius: '20px' }} 
             ></Button>
           </div>
         </div>
