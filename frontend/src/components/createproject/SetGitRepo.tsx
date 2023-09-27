@@ -1,17 +1,9 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 
-import styles from "./Third.module.css";
+import styles from "./SetGitRepo.module.css";
 
-export default function Third({
-  onData,
-}: {
-  onData: (
-    gitRepository: string,
-    branch: string,
-    gitAccessToken: string
-  ) => void;
-}) {
+export default function SetGitRepo({onData}: {onData: (gitRepository: string, branch: string, gitAccessToken: string) => void;}) {
   const [gitRepository, setGitRepository] = useState("");
   const [branch, setBranch] = useState("");
   const [gitAccessToken, setGitAccessToken] = useState("");
@@ -47,6 +39,7 @@ export default function Third({
         defaultValue=""
         onChange={handlegitRepositoryChange}
         variant="standard"
+        style={{ display: "flex", flexDirection: "column", border: "none", width: "600px" }}
         // helperText="Please enter your name"
       />
 

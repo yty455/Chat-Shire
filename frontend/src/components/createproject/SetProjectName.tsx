@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
-import styles from "./First.module.css";
+import styles from "./SetProjectName.module.css";
 
-function First({
+function SetProjectName({
   onData,
 }: {
   onData: (name: string, teamName: string) => void;
@@ -23,7 +23,7 @@ function First({
     onData(name, e.target.value);
   };
   return (
-    <div className={styles.inputBox}>
+    <div className={styles.inputBox} style={{ display: "flex", flexDirection: "column", border: "none", width: "600px" }}>
       <TextField
         fullWidth
         color="greenary"
@@ -54,4 +54,4 @@ function First({
   );
 }
 
-export default First;
+export default SetProjectName;

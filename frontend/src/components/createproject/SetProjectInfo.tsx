@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 
-import styles from "./Second.module.css";
+import styles from "./SetProjectInfo.module.css";
 
-export default function Second({
+export default function SetProjectInfo({
   onData,
 }: {
   onData: (topic: string, description: string) => void;
@@ -25,7 +25,7 @@ export default function Second({
   };
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", border: "none", width: "600px" }}>
       <TextField
         color="greenary"
         margin="dense"
@@ -44,7 +44,7 @@ export default function Second({
         fullWidth
         color="greenary"
         margin="normal"
-        className={styles.inputtag}
+        className={styles.inputTag}
         required
         id="outlined-multiline-static"
         label="설명"
