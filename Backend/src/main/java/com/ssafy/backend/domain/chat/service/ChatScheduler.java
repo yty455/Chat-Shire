@@ -131,7 +131,7 @@ public class ChatScheduler {
 
                 // 폴더 생성
                 // 현재 날짜와 시간 가져오기
-                LocalDateTime now = LocalDateTime.now();
+                LocalDateTime now = LocalDateTime.now().plusHours(9);
 // 날짜와 시간을 문자열로 변환
                 String date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH"));
                 String time = now.format(DateTimeFormatter.ofPattern("HH-mm"));

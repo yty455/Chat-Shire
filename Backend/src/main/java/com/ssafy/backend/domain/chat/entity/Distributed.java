@@ -15,7 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 public class Distributed {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "DISTRIBUTED_ID")
     private Long distributedId;
 

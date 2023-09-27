@@ -135,8 +135,9 @@ function LeftSide(props: Props) {
 
   const userStateChange = async (state: string) => {
     try {
-      const response = await userState(`"${state}"`);
+      const response = await userState(state);
       console.log(response);
+      getProfilePage();
     } catch (error) {
       console.error(error);
     }

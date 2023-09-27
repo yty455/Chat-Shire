@@ -1,63 +1,81 @@
-import { useState } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import React, { useState } from "react";
+import TextField from "@mui/material/TextField";
 
-import { tasks } from "../reactDnd/Tasks";
-import { COLUMN_NAMES } from "../reactDnd/Contants";
-import MovableItem from "../reactDnd/MovableItem";
-import Column from "../reactDnd/Column";
+import styles from "./Third.module.css";
 
-import styles from './Third.module.css'
+export default function Third({
+  onData,
+}: {
+  onData: (
+    gitRepository: string,
+    branch: string,
+    gitAccessToken: string
+  ) => void;
+}) {
+  const [gitRepository, setGitRepository] = useState("");
+  const [branch, setBranch] = useState("");
+  const [gitAccessToken, setGitAccessToken] = useState("");
 
-function Third() {
-  const [items, setItems] = useState(tasks);
-
-  const moveCardHandler = (dragIndex: number, hoverIndex: number) => {
-    const dragItem = items[dragIndex];
-
-    if (dragItem) {
-      setItems((prevState: any) => {
-        const coppiedStateArray = [...prevState];
-        const prevItem = coppiedStateArray.splice(hoverIndex, 1, dragItem);
-        coppiedStateArray.splice(dragIndex, 1, prevItem[0]);
-        return coppiedStateArray;
-      });
-    }
+  // 입력 값이 변경될 때마다 상태 업데이트
+  const handlegitRepositoryChange = (e: any) => {
+    setGitRepository(e.target.value);
+    // 변경된 값 전달
+    onData(e.target.value, branch, gitAccessToken);
   };
 
-  const returnItemsForColumn = (columnName: string) => {
-    return items
-      .filter((item: any) => item.column === columnName)
-      .map((item: any, index: any) => (
-        <MovableItem
-          key={item.id}
-          name={item.name}
-          setItems={setItems}
-          index={index}
-          moveCardHandler={moveCardHandler}
-        />
-      ));
+  const handlebranchChange = (e: any) => {
+    setBranch(e.target.value);
+    // 변경된 값 전달
+    onData(gitRepository, e.target.value, gitAccessToken);
   };
-
-  const { MEMBERS, INVITED_MEMBERS } = COLUMN_NAMES;
+  const handlegitAccessTokenChange = (e: any) => {
+    setGitAccessToken(e.target.value);
+    // 변경된 값 전달
+    onData(gitRepository, branch, e.target.value);
+  };
 
   return (
-    <div className={styles.MemberInviteContainer}>
-      <DndProvider backend={HTML5Backend}>
-        <div>
-          <input style={{width: "234px", height: "14px"}} type="text" placeholder="닉네임을 검색 해보세요"/>
-          <Column title={MEMBERS} className={styles.MemberListContainer}>
-            {returnItemsForColumn(MEMBERS)}
-          </Column>
-        </div>
-        <div>
-          <Column title={INVITED_MEMBERS} className={styles.InvitedMemberListContainer}>
-            {returnItemsForColumn(INVITED_MEMBERS)}
-          </Column>
-        </div>
-      </DndProvider>
+    <div>
+      <TextField
+        color="greenary"
+        margin="dense"
+        fullWidth
+        className={styles.inputtag}
+        required
+        id="standard-required"
+        label="깃 주소"
+        defaultValue=""
+        onChange={handlegitRepositoryChange}
+        variant="standard"
+        // helperText="Please enter your name"
+      />
+
+      <TextField
+        fullWidth
+        color="greenary"
+        margin="dense"
+        className={styles.inputtag}
+        required
+        id="outlined-multiline-static"
+        label="브랜치 설정"
+        onChange={handlebranchChange}
+        defaultValue=""
+        variant="standard"
+        // helperText="Please enter your name"
+      />
+      <TextField
+        fullWidth
+        color="greenary"
+        margin="dense"
+        className={styles.inputtag}
+        required
+        id="outlined-multiline-static"
+        label="깃 토큰"
+        onChange={handlegitAccessTokenChange}
+        defaultValue=""
+        variant="standard"
+        // helperText="Please enter your name"
+      />
     </div>
   );
-};
-
-export default  Third;
+}
