@@ -56,6 +56,9 @@ public class UserService {
 						.build())
 				.forEach(mySkillRepository::save);
 
+
+		redisTemplate.opsForValue().set("userState-" + getUserId(), String.valueOf(State.ONLINE));
+
 	}
 
 	public UserInfoResponse getUserProfile() {

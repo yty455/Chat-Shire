@@ -52,7 +52,7 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
 
   useEffect(() => {
     getInErrors();
-  }, []);
+  }, [pjtId]);
 
   return (
     <div className={styles.ErrorBoardContainer}>
