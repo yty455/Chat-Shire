@@ -94,7 +94,6 @@ function TaskModal({
       <div>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
-            <p>{taskId}</p>
             <p onClick={() => handleEditClick("name")}>
               {editingField === "name" ? (
                 <input
@@ -194,23 +193,21 @@ function TaskModal({
             <p onClick={() => handleEditClick("deadline")}>
               {editingField === "deadline" ? (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <div onClick={(e) => e.stopPropagation()}>
-                    <DatePicker
-                      value={teamTaskDetail.deadline}
-                      onChange={(date: any) => {
-                        setTeamTaskDetail({
-                          ...teamTaskDetail,
-                          deadline: date, // ISO 형식으로 변환
-                        });
-                      }}
-                      sx={{
-                        width: "150px",
-                        height: "16px",
-                        margin: "10px",
-                        marginLeft: "0px",
-                      }}
-                    />
-                  </div>
+                  <DatePicker
+                    value={dayjs(teamTaskDetail.deadline)}
+                    onChange={(date: any) => {
+                      setTeamTaskDetail({
+                        ...teamTaskDetail,
+                        deadline: date,
+                      });
+                    }}
+                    sx={{
+                      width: "150px",
+                      height: "16px",
+                      margin: "10px",
+                      marginLeft: "0px",
+                    }}
+                  />
                 </LocalizationProvider>
               ) : (
                 teamTaskDetail.deadline
