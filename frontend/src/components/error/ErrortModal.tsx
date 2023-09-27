@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styles from "./ErrorModal.module.css";
 import {
   getErrorDetail,
+  deleteError,
+  updateError,
   postErrorComent,
   deleteErrorComent,
   updateErrorComent,
@@ -26,6 +28,16 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
       const response = await getErrorDetail(err.id);
       console.log(response.data.result[0]);
       setErrDetail(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteInError = async () => {
+    try {
+      const response = await deleteError(err.id);
+      console.log(response.data.result);
+      getInError();
     } catch (error) {
       console.error(error);
     }
@@ -130,6 +142,7 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
           />
         </div>
         <button onClick={closeModal}>닫기</button>
+        <button onClick={deleteInError}>삭제</button>
       </div>
     </div>
   );

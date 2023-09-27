@@ -52,14 +52,14 @@ function LinearProgressWithLabel(
 export default function ProfilePage() {
   const navigate = useNavigate();
   const [userData, setUserData] = useRecoilState(loginuser);
-  const bronze = process.env.PUBLIC_URL + "/assets/achievements/bronze.png"
-  const silver = process.env.PUBLIC_URL + "/assets/achievements/silver.png"
-  const gold = process.env.PUBLIC_URL + "/assets/achievements/gold.png"
+  const bronze = process.env.PUBLIC_URL + "/assets/achievements/bronze.png";
+  const silver = process.env.PUBLIC_URL + "/assets/achievements/silver.png";
+  const gold = process.env.PUBLIC_URL + "/assets/achievements/gold.png";
 
-  console.log(userData.challengeInfoResponse)
+  console.log(userData.challengeInfoResponse);
 
   function achievementPath(id: any) {
-    return process.env.PUBLIC_URL + '/assets/achievements/' + id + '.png'
+    return process.env.PUBLIC_URL + "/assets/achievements/" + id + ".png";
   }
 
   function profileSetting() {
@@ -119,7 +119,9 @@ export default function ProfilePage() {
           />
           <div className={styles.profileHeaderDesc}>
             <div className={styles.profileHeaderLeft}>
-              <span className={styles.profileName}>{userData.nickname} {userData.position}</span>
+              <span className={styles.profileName}>
+                {userData.nickname} {userData.position}
+              </span>
               <div className={styles.profileCareer}>
                 <div className={styles.profileCareerItem}>
                   <BsGithub size={30} style={{ marginRight: "8px" }} />
@@ -127,7 +129,7 @@ export default function ProfilePage() {
                 </div>
                 <div className={styles.profileCareerItem}>
                   {userData.mySkill?.map((item: any) => {
-                    <span>{item}</span>
+                    <span>{item}</span>;
                   })}
                 </div>
                 <div className={styles.profileCareerItem}>
@@ -173,9 +175,7 @@ export default function ProfilePage() {
           </div>
           <div className={styles.AchievementContainer}>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -191,9 +191,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -209,9 +207,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -227,9 +223,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -245,9 +239,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -263,9 +255,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -281,9 +271,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -299,9 +287,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -317,9 +303,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -335,9 +319,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -353,9 +335,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -371,9 +351,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -389,9 +367,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -407,9 +383,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -425,9 +399,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -443,9 +415,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -461,9 +431,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -479,9 +447,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -497,9 +463,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -515,9 +479,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -533,9 +495,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -551,9 +511,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -569,9 +527,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -587,9 +543,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -605,9 +559,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -623,9 +575,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -641,9 +591,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -659,9 +607,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -677,9 +623,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -695,9 +639,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -713,9 +655,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -731,9 +671,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -749,9 +687,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -767,9 +703,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -785,9 +719,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
@@ -803,9 +735,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>
-                0/6
-              </span>
+              <span className={styles.AchievementItemCount}>0/6</span>
               <img
                 className={styles.AchievementItemDesc}
                 width="0px"
