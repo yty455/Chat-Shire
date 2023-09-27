@@ -16,6 +16,7 @@ public class SearchUser {
 	private String githubId;
 	private String nickname;
 	private String profileImage;
+	private String profileColor;
 	private String position;
 
 	public static SearchUser toDto(User user) {
@@ -24,7 +25,7 @@ public class SearchUser {
 				.githubId(user.getGithubId())
 				.nickname(user.getNickname())
 				.profileImage(user.getProfileImage())
+				.profileColor(user.getProfileColor())
 				.position(user.getPosition()).build();
 	}
-
 }
