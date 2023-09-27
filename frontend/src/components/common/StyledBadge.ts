@@ -69,8 +69,8 @@ export const StyledBadge1 = styled(Badge)(({ theme }) => ({
 
 export const StyledBadge2 = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
-    backgroundColor: "red",
-    color: "red",
+    backgroundColor: "gray",
+    color: "gray",
     width: "20px",
     height: "20px",
     borderRadius: "50%",
@@ -102,8 +102,8 @@ export const StyledBadge2 = styled(Badge)(({ theme }) => ({
 
 export const StyledBadge3 = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
-    backgroundColor: "gray",
-    color: "gray",
+    backgroundColor: "red",
+    color: "red",
     width: "20px",
     height: "20px",
     borderRadius: "50%",
