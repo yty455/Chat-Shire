@@ -1,39 +1,31 @@
 package com.ssafy.backend.domain.chat.service;
 
-import static com.google.cloud.language.v1.Document.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.cloud.language.v1.*;
+import com.jcraft.jsch.*;
+import com.ssafy.backend.domain.chat.Chat;
+import com.ssafy.backend.domain.chat.dto.ChatInfo;
+import com.ssafy.backend.domain.chat.dto.ChatWordDto;
+import com.ssafy.backend.domain.chat.entity.ChatRoom;
+import com.ssafy.backend.domain.chat.repository.ChatRepository;
+import com.ssafy.backend.domain.chat.repository.ChatRoomRepository;
+import com.ssafy.backend.domain.user.User;
+import com.ssafy.backend.domain.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jcraft.jsch.*;
-import com.ssafy.backend.domain.chat.dto.ChatWordDto;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-
-import com.google.cloud.language.v1.ClassificationCategory;
-import com.google.cloud.language.v1.ClassificationModelOptions;
-import com.google.cloud.language.v1.ClassifyTextRequest;
-import com.google.cloud.language.v1.ClassifyTextResponse;
-import com.google.cloud.language.v1.Document;
-import com.google.cloud.language.v1.LanguageServiceClient;
-import com.ssafy.backend.domain.chat.Chat;
-import com.ssafy.backend.domain.chat.dto.ChatInfo;
-import com.ssafy.backend.domain.chat.entity.ChatRoom;
-import com.ssafy.backend.domain.chat.repository.ChatRepository;
-import com.ssafy.backend.domain.chat.repository.ChatRoomRepository;
-import com.ssafy.backend.domain.user.User;
-import com.ssafy.backend.domain.user.repository.UserRepository;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
+import static com.google.cloud.language.v1.Document.Type;
+import static com.google.cloud.language.v1.Document.newBuilder;
 
 @Slf4j
 @Service
@@ -62,26 +54,11 @@ public class ChatScheduler {
 
         Map<Long, String> chatMap = new HashMap<>();
         List<ChatWordDto> result = new ArrayList<>();
-//	 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-//	 	String dateStr = dateFormat.format(new Date());
-//	 	String directoryPath = "output/" + dateStr;
-//	 	File directory = new File(directoryPath);
-//	 	if (!directory.exists()) {
-//	 		if (directory.mkdirs()) {
-//	 			System.out.println("디렉토리 만들었다!");
-//	 			String path = System.getProperty("user.dir");
-//	 			System.out.println("Working Directory = " + path);
-//	 		}
-//	 	} else {
-//	 		String path = System.getProperty("user.dir");
-//	 		System.out.println("Working Directory = " + path);
-//	 	}
-
-//	 	try (PrintWriter writer = new PrintWriter(
-//	 			String.format(directoryPath + "/output_%d.csv", System.currentTimeMillis()))) {
         for (ChatRoom chatRoom : chatRoomList) {
             String chatKey = "chat";
             List<ChatInfo> chatInfos = chatRedisTemplate.opsForList().range(chatKey + chatRoom.getId(), 0, -1);
+            // 레디스 비우기
+            chatRedisTemplate.delete(chatKey + chatRoom.getId());
             if (chatInfos == null)
                 continue;
 
@@ -111,65 +88,69 @@ public class ChatScheduler {
                 }
                 result.add(dto);
             }
+            List<Chat> chats = chatInfos.stream()
+                    .map(chatInfo -> chatInfo.toEntity(userMap.get(chatInfo.getUserId()), chatRoom))
+                    .collect(Collectors.toList());
+            chatRepository.saveAll(chats);
+        }
 
-            // 결과 리스트를 JSON 파일으로 ec서버에 생성
-            try {
-                File file = new File("ChatScheduler.java");
-                String absolutePath = file.getAbsolutePath();
-                System.out.println(absolutePath);
-                jsch.addIdentity(privateKey);
-                // EC2 서버와 연결하기 위한 세션 생성
-                Session session = jsch.getSession(user, host, 22);
+        // 결과 리스트를 JSON 파일으로 ec서버에 생성
+        try {
+            File file = new File("ChatScheduler.java");
+            String absolutePath = file.getAbsolutePath();
+            System.out.println(absolutePath);
+            jsch.addIdentity(privateKey);
+            // EC2 서버와 연결하기 위한 세션 생성
+            Session session = jsch.getSession(user, host, 22);
 
-                // 호스트 키 검사를 하지 않도록 설정
-                session.setConfig("StrictHostKeyChecking", "no");
-                // 세션 연결
-                session.connect();
-                // SFTP 채널을 열고 연결
-                ChannelSftp channel = (ChannelSftp) session.openChannel("sftp");
-                channel.connect();
+            // 호스트 키 검사를 하지 않도록 설정
+            session.setConfig("StrictHostKeyChecking", "no");
+            // 세션 연결
+            session.connect();
+            // SFTP 채널을 열고 연결
+            ChannelSftp channel = (ChannelSftp) session.openChannel("sftp");
+            channel.connect();
 
-                // 폴더 생성
-                // 현재 날짜와 시간 가져오기
-                LocalDateTime now = LocalDateTime.now().plusHours(9);
+            // 폴더 생성
+            // 현재 날짜와 시간 가져오기
+            LocalDateTime now = LocalDateTime.now().plusHours(9);
 // 날짜와 시간을 문자열로 변환
-                String date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH"));
-                String time = now.format(DateTimeFormatter.ofPattern("HH-mm"));
-                // EC2 서버에 날짜 폴더 생성
-                String dir = "/home/ubuntu/input/" + date;
+            String date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH"));
+            String time = now.format(DateTimeFormatter.ofPattern("HH-mm"));
+            // EC2 서버에 날짜 폴더 생성
+            String dir = "/home/ubuntu/input/" + date;
 
-                try {
-                    channel.lstat(dir);
-                } catch (SftpException e) {
-                    if (ChannelSftp.SSH_FX_NO_SUCH_FILE == e.id) {
-                        channel.mkdir(dir);
-                    }
+            try {
+                channel.lstat(dir);
+            } catch (SftpException e) {
+                if (ChannelSftp.SSH_FX_NO_SUCH_FILE == e.id) {
+                    channel.mkdir(dir);
                 }
-
-                // 임시 파일을 쓰기 모드로 열기
-                File tempFile = File.createTempFile("temp", ".json");
-                FileOutputStream fos = new FileOutputStream(tempFile);
-                // ObjectMapper 객체 생성
-                ObjectMapper mapper = new ObjectMapper();
-                // 객체를 JSON 형식으로 변환하여 임시 파일에 쓰기
-                mapper.writeValue(fos, result);
-                // 스트림 닫기
-                fos.close();
-                // 임시 파일을 읽기 모드로 열기
-                FileInputStream fis = new FileInputStream(tempFile);
-                // EC2 서버에 파일을 쓰기 모드로 열기. 기존 파일이 있으면 덮어쓰기
-                channel.put(fis, "/home/ubuntu/input/" + date + "/" + time + ".json", ChannelSftp.OVERWRITE);
-                // 스트림과 채널 닫기
-                fis.close();
-                channel.disconnect();
-                // 세션 닫기
-                session.disconnect();
-            } catch (IOException | SftpException e) {
-                // 예외 처리
-                e.printStackTrace();
-            } catch (JSchException e) {
-                throw new RuntimeException(e);
             }
+
+            // 임시 파일을 쓰기 모드로 열기
+            File tempFile = File.createTempFile("temp", ".json");
+            FileOutputStream fos = new FileOutputStream(tempFile);
+            // ObjectMapper 객체 생성
+            ObjectMapper mapper = new ObjectMapper();
+            // 객체를 JSON 형식으로 변환하여 임시 파일에 쓰기
+            mapper.writeValue(fos, result);
+            // 스트림 닫기
+            fos.close();
+            // 임시 파일을 읽기 모드로 열기
+            FileInputStream fis = new FileInputStream(tempFile);
+            // EC2 서버에 파일을 쓰기 모드로 열기. 기존 파일이 있으면 덮어쓰기
+            channel.put(fis, "/home/ubuntu/input/" + date + "/" + time + ".json", ChannelSftp.OVERWRITE);
+            // 스트림과 채널 닫기
+            fis.close();
+            channel.disconnect();
+            // 세션 닫기
+            session.disconnect();
+        } catch (IOException | SftpException e) {
+            // 예외 처리
+            e.printStackTrace();
+        } catch (JSchException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -204,13 +185,6 @@ public class ChatScheduler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//            List<Chat> chats = chatInfos.stream()
-//                    .map(chatInfo -> chatInfo.toEntity(userMap.get(chatInfo.getUserId()), chatRoom))
-//                    .collect(Collectors.toList());
-//
-//            chatRepository.saveAll(chats);
-
-//	 	}
     }
 
     private static List<ClassificationCategory> googleNaturalAPI(Map<Long, String> chatMap, ChatInfo chatInfo) throws IOException {
