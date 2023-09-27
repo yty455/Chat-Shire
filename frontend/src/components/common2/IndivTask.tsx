@@ -5,19 +5,16 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import Checkbox from "@mui/material/Checkbox";
-import Button from "@mui/material/Button";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { BsPencilFill, BsCheckAll, BsFillChatDotsFill } from "react-icons/bs";
-import { AiFillDelete } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import { BiSolidCheckCircle } from "react-icons/bi";
 import { getTask, deleteTask, postTask, updateTask } from "../../utils/taskApi";
-// import type { DatePickerProps } from 'antd';
-// import { DatePicker, Space, Select } from 'antd';
 import "./IndivTask.css";
 import { useDrop } from "react-dnd";
 import { ItemTypes } from "./ItemTypes";
+
 type CheckboxItem = {
   id: string;
   taskGroupId?: string;
@@ -46,24 +43,6 @@ interface Task {
   progress: string;
   isEditing?: boolean;
 }
-// // 마감일 정보
-// const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-//   console.log(date, dateString);
-// };
-
-// // 우선순위 정보
-// const priorityHandleChange = (priority: string) => {
-//   console.log(`selected ${priority}`);
-// };
-
-// const onChange: DatePickerProps['onChange'] = (date, dateString) => {
-//   console.log(date, dateString);
-// };
-
-// const priorityHandleChange = (value: string) => {
-//   console.log(`selected ${value}`);
-// };
-
 export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([]);
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
@@ -290,20 +269,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                     )}
                   </div>
                   <div className={styles.icons}>
-                    <div style={{ margin: "-4px 0 0 0" }}>
-                      {/* <DatePicker style={{margin: '-8px 0 10px 7px', height: 24, fontFamily:'preRg', width:'110px'}} size="small" bordered={false} placeholder="마감일 선택" onChange={onChange} />
-                      <Select
-                        bordered={false} 
-                        defaultValue="🔴"
-                        style={{ padding: 0, width: 62, height: 24, margin: '-15px 0 10px 0' }}
-                        onChange={priorityHandleChange}
-                        options={[
-                          { value: 'HIGH', label: '🔴' },
-                          { value: 'MEDIUM', label: '🟡' },
-                          { value: 'LOW', label: '🟢' },
-                        ]}
-                      /> */}
-                    </div>
                     <div>
                       <BsFillChatDotsFill
                         style={{ fontSize: "17px", margin: "-5px 5px 10px 0" }}
@@ -397,20 +362,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                     )}
                   </div>
                   <div className={styles.icons}>
-                    <div style={{ margin: "-4px 0 0 0" }}>
-                      {/* <DatePicker style={{margin: '-8px 0 10px 7px', height: 24, fontFamily:'preRg', width:'110px'}} size="small" bordered={false} placeholder="마감일 선택" onChange={onChange} />
-                      <Select
-                        bordered={false} 
-                        defaultValue="🔴"
-                        style={{ padding: 0, width: 62, height: 24, margin: '-15px 0 10px 0' }}
-                        onChange={priorityHandleChange}
-                        options={[
-                          { value: 'HIGH', label: '🔴' },
-                          { value: 'MEDIUM', label: '🟡' },
-                          { value: 'LOW', label: '🟢' },
-                        ]}
-                      /> */}
-                    </div>
                     <div>
                       <BsFillChatDotsFill
                         style={{ fontSize: "17px", margin: "-5px 5px 10px 0" }}
