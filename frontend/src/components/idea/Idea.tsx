@@ -141,8 +141,8 @@ function Flow() {
       >
         <Controls showInteractive={false} />
         <MiniMap style={minimapStyle} zoomable pannable />
-        <Popover placement="rightTop" content={content} trigger="hover">
-          <FloatButton icon={<QuestionCircleOutlined />} type="default" style={{ width: 30, height: 30, bottom: 540, left: 320 }} />
+        <Popover placement="right" content={content} trigger="hover">
+          <FloatButton icon={<QuestionCircleOutlined />} type="default" style={{ width: 22, height:20, bottom: 540, left: 310 }} />
         </Popover>
 
       </ReactFlow>
