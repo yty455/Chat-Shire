@@ -94,12 +94,12 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
                       backgroundColor: item.profileColor,
                     }}
                   />
-                  {item.nickname} : {item.content}{" "}
+                  {item.nickname} :{" "}
                   {editingCommentId === item.replyId ? (
                     <>
                       <input
                         type="text"
-                        value={editedComment}
+                        value={item.content}
                         onChange={(e) => setEditedComment(e.target.value)}
                       />
                       <button
@@ -110,6 +110,7 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
                     </>
                   ) : (
                     <>
+                      {item.content}
                       <button onClick={() => setEditingCommentId(item.replyId)}>
                         수정
                       </button>

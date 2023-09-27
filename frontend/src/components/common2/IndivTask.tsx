@@ -13,8 +13,9 @@ import { BiSolidCheckCircle } from "react-icons/bi";
 import { getTask, deleteTask, postTask, updateTask } from "../../utils/taskApi";
 import "./IndivTask.css";
 import { useDrop } from "react-dnd";
+import Modal from "@mui/material/Modal";
+import IndivChatModal from "./IndivChatModal";
 import { ItemTypes } from "./ItemTypes";
-
 type CheckboxItem = {
   id: string;
   taskGroupId?: string;
@@ -43,13 +44,21 @@ interface Task {
   progress: string;
   isEditing?: boolean;
 }
+
 export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([]);
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [updatedDescription, setUpdatedDescription] = useState<string>("");
   const [allTasks, setAllTasks] = useState<Task[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [open, setOpen] = useState(false);
+  const [selectTask, setSelectTask] = useState(false);
 
+  const handleOpen = (id: any) => {
+    setOpen(true);
+    setSelectTask(id);
+  };
+  const handleClose = () => setOpen(false);
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.MESSAGE, // 허용할 드래그 타입
     drop: (item) => {
@@ -269,8 +278,12 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                     )}
                   </div>
                   <div className={styles.icons}>
+                    <div style={{ margin: "-4px 0 0 0" }}></div>
                     <div>
                       <BsFillChatDotsFill
+                        onClick={() => {
+                          handleOpen(item.id);
+                        }}
                         style={{ fontSize: "17px", margin: "-5px 5px 10px 0" }}
                       />
                       {editingTaskId === item.id ? (
@@ -362,6 +375,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                     )}
                   </div>
                   <div className={styles.icons}>
+                    <div style={{ margin: "-4px 0 0 0" }}></div>
                     <div>
                       <BsFillChatDotsFill
                         style={{ fontSize: "17px", margin: "-5px 5px 10px 0" }}
@@ -414,6 +428,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       >
         <AddIcon />
       </Fab>
+      {open && <IndivChatModal taskId={selectTask} onClose={handleClose} />}
     </div>
   );
 }

@@ -272,7 +272,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   useEffect(() => {
     getTeamTask();
     getpjt();
-  }, []);
+    console.log(projectId);
+  }, [projectId]);
 
   return (
     <div className={styles.container}>

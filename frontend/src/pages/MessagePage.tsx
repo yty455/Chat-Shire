@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./MessagePage.module.css";
 import LeftSide from "../components/common/LeftSide";
 import Message from "../components/message/Message";
@@ -10,6 +10,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 export default function MessagePage() {
   const { projectId } = useParams();
   const projectToPass = projectId || "defaultProjectId";
+
   return (
     <div
       style={{

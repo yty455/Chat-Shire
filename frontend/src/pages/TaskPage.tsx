@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -13,7 +13,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 export default function TaskPage() {
   const { projectId } = useParams();
   const projectToPass = projectId || "defaultProjectId";
-
+  console.log(projectToPass);
   // // 개인 태스크 > 팀 태스크
   // const indivToTeam = async (teamId, indivId) => {
   //   try {
