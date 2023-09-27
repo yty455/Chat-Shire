@@ -13,6 +13,7 @@ import com.ssafy.backend.domain.user.User;
 import com.ssafy.backend.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.K;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,10 @@ public class ChatScheduler {
         List<ChatRoom> chatRoomList = chatRoomRepository.findAll();
         Map<Long, User> userMap = userRepository.findAll().stream()
                 .collect(Collectors.toMap(User::getId, Function.identity()));
+
+        // 도전과제 채팅 카운터 위한 맵
+        Map<Long, Integer> userChatCount = userMap.keySet().stream()
+                .collect(Collectors.toMap(Function.identity(), key -> 0));
 
         Map<Long, String> chatMap = new HashMap<>();
         List<ChatWordDto> result = new ArrayList<>();

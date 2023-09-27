@@ -19,7 +19,7 @@ public class NoticeService {
 	@Transactional
 	public void registerNotification(String content, Long chatRoomId) {
 		Notice notice = noticeRepository.findByChatRoomId(chatRoomId)
-				.orElseThrow(() -> new ResourceNotFoundException("Notification by planId", chatRoomId));
+				.orElseThrow(() -> new ResourceNotFoundException("Notification by chatRoomId", chatRoomId));
 
 		notice.update(content);
 	}
