@@ -3,9 +3,14 @@ import Container from "../common/Container";
 import InviteCard from "./InviteCard";
 import styles from "./invite.module.css";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+
+
 const invite = [
   { pjt: 1, people: "csi" },
   { pjt: 2, people: "sic" },
+  { pjt: 3, people: "ics" },
   { pjt: 3, people: "ics" },
 ];
 const url = "https://namu.wiki/w/%EC%82%AC%ED%83%95";
@@ -18,9 +23,19 @@ function Invite() {
   return (
     <div className={styles.InviteContainer}>
       <span className={styles.InviteTitle}>초대함</span>
-      {invite.map((invi: any) => (
-        <InviteCard key={invi.pjt} invite={invi} />
-      ))}
+      <Swiper
+        slidesPerView={"auto"}
+        spaceBetween={10}
+        direction={'vertical'}
+        grabCursor={true}
+        className={styles.InvitationItemContainer}
+      >
+        {invite.map((invi: any) => (
+          <SwiperSlide className={styles.SwiperItem}>
+            <InviteCard key={invi.pjt} invite={invi} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 }
