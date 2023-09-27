@@ -51,7 +51,7 @@ public class ChatScheduler {
     final static String host = "52.79.247.214";
     final static String privateKey = "/key/J9E205T.pem";
 
-    //    @Scheduled(cron = "0 0 * * * ?")
+    @Scheduled(cron = "0 1/5 * * * ?")
     public void chatTransfer() throws IOException {
 
         System.out.println("채팅 저장 실행");
@@ -173,7 +173,7 @@ public class ChatScheduler {
         }
     }
 
-    //    @Scheduled(cron = "0 */5 * * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
     public void sparkStart() {
         // spark 실행
         String msg = null;
