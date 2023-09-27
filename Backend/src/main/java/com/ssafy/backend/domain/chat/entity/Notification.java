@@ -59,4 +59,20 @@ public class Notification extends BaseEntity {
 				.status(AcceptanceStatus.NOT_READ)
 				.build();
 	}
+
+	public void accept() {
+		invitationValid();
+		this.status = AcceptanceStatus.ACCEPTANCE;
+	}
+
+	public void reject() {
+		invitationValid();
+		this.status = AcceptanceStatus.REFUSE;
+	}
+
+	private void invitationValid() {
+		if (this.status != AcceptanceStatus.NOT_READ) {
+			throw new IllegalArgumentException("이미 응답한 초대입니다.");
+		}
+	}
 }
