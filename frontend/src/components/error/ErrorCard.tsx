@@ -98,7 +98,7 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
         />
         <p className={styles.answer}>
           {" "}
-          A. {error && error.reply ? error.reply[0] : "이렇게 함 해볼래?"}
+          A. {error && error.reply ? error.reply : "이렇게 함 해볼래?"}
         </p>
         <p className={styles.more}>
           {error && error.replyCount}개의 답변 더보기

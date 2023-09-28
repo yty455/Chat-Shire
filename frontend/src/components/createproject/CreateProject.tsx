@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Box from "@mui/material/Box";
 import { Step, StepLabel, Stepper } from "@mui/material";
 import { Check } from "@mui/icons-material";
@@ -62,7 +62,7 @@ function CreateProject() {
   const [branch, setBranch] = useState("");
   const [gitAccessToken, setGitAccessToken] = useState("");
   // 
-  const [Members, setMembers] = useState<string[]>([]);
+  let Members = useRef<string[]>([]);
 
   const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs());
   const [endDate, setEndDate] = React.useState<Dayjs | null>(
@@ -91,8 +91,8 @@ function CreateProject() {
     setDescription(description);
   };
 
-  const handleMemberData = (membersData: string[]) => {
-    console.log(membersData)
+  const handleMemberData = (membersData: any) => {
+    Members.current = membersData
   }
 
   const handleDateData = (startDate: string, endDate: string) => {
@@ -121,7 +121,7 @@ function CreateProject() {
       description,
       gitRepository,
       branch,
-      Members,
+      Members.current,
       formattedStartDate,
       formattedEndDate,
       gitAccessToken
@@ -135,7 +135,7 @@ function CreateProject() {
         description,
         gitRepository,
         branch,
-        Members,
+        Members.current,
         formattedStartDate,
         formattedEndDate,
         gitAccessToken

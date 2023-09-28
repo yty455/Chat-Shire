@@ -14,13 +14,6 @@ import api from "../../utils/api";
 
 function SetMember({ onData }: { onData: (membersData: string[]) => void;}) {
   const [items, setItems] = useState(tasks);
-  const [members, setMembers] = useState<string[]>([])
-  const searchResult = [
-    {
-      id: 1,
-      githubId: "kdu201"
-    }
-  ]
 
   const moveCardHandler = (dragIndex: number, hoverIndex: number) => {
     const dragItem = items[dragIndex];
@@ -43,15 +36,20 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void;}) {
   }
 
   const returnItemsForColumn = (columnName: string) => {
- 
+
     if (columnName === "초대된 멤버") {
-      console.log(items.filter((item: any) => item.column === "초대된 멤버"))
+      const newMembers: any = items.map((member) => {
+        if (member.column === "초대된 멤버") {
+          return String(member.id)
+        }
+      }).filter(element => element)
+      onData(newMembers)
     }
 
     return items
       .filter((item: any) => item.column === columnName)
       .map((item: any, index: any) => (
-        <MovableItem key={item.id} name={item.name} setItems={setItems} index={index} moveCardHandler={moveCardHandler}/>
+        <MovableItem key={item.id} id={item.id} githubId={item.githubId} nickname={item.nickname} position={item.position} profileColor={item.profileColor} profileImage={item.profileImage}  setItems={setItems} moveCardHandler={moveCardHandler}/>
       ));
   };
 
