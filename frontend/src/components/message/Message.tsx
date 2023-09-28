@@ -394,12 +394,12 @@ function Message({ projectId }: MessageProps) {
           <input
               maxLength={50}
               style={{
-                width: "460px",
+                width: "450px",
                 border: "none",
                 marginLeft: "5px",
                 fontFamily: "preRg",
               }}
-              placeholder="공지를 입력하세요"
+              placeholder={notice}
               type="text"
               value={noticeInputValue}
               onChange={(e) => setNoticeInputValue(e.target.value)}
@@ -409,11 +409,11 @@ function Message({ projectId }: MessageProps) {
                 }
               }}
             />
-        ) : showNotice ? (
+        ) : (
           <span className={styles.notificationText}>
             {notice}
           </span>
-        ) : null }
+        )}
         </div>
         <div className={styles.messageLeftBody}>
           {preMessage &&
