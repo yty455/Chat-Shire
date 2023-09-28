@@ -392,7 +392,7 @@ function Message({ projectId }: MessageProps) {
                     }} />
         {showNoticeInput  ? (
           <input
-              maxLength={38}
+              maxLength={50}
               style={{
                 width: "460px",
                 border: "none",
