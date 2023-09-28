@@ -6,13 +6,13 @@ import { COLUMN_NAMES, ITEM_TYPE } from "./Contants";
 
 import styles from "./MovableItem.module.css";
 
-const MovableItem = ({ name, index, moveCardHandler, setItems }: any) => {
+const MovableItem = ({ id, githubId, nickname, position, profileColor, profileImage, moveCardHandler, setItems }: any) => {
   const changeItemColumn = (currentItem: any, columnName: string) => {
     setItems((prevState: ItemState[]) =>
       prevState.map((e: ItemState) => {
         return {
           ...e,
-          column: e.name === currentItem.name ? columnName : e.column,
+          column: e.githubId === currentItem.githubId ? columnName : e.column,
         };
       })
     );
@@ -25,12 +25,12 @@ const MovableItem = ({ name, index, moveCardHandler, setItems }: any) => {
   // - 위로 드래그할 때 커서가 50% 이상일 때만 이동
   const [, drop] = useDrop({
     accept: ITEM_TYPE,
-    hover(item: { index: number; name: string }, monitor: any) {
+    hover(item: { id: number; githubId: string }, monitor: any) {
       if (!ref.current) {
         return;
       }
-      const dragIndex = item.index;
-      const hoverIndex = index;
+      const dragIndex = item.id;
+      const hoverIndex = id;
 
       if (dragIndex === hoverIndex) {
         return;
@@ -53,15 +53,17 @@ const MovableItem = ({ name, index, moveCardHandler, setItems }: any) => {
       }
 
       moveCardHandler(dragIndex, hoverIndex);
-      item.index = hoverIndex;
+      item.id = hoverIndex;
     },
   });
 
   const [{ isDragging }, drag] = useDrag({
     type: ITEM_TYPE,
-    item: { index, name },
+    item: { id, githubId },
     end: (item, monitor) => {
+      console.log(item)
       const dropResult: any = monitor.getDropResult();
+      console.log(dropResult)
       if (dropResult) {
         const { name } = dropResult;
         const { MEMBERS, INVITED_MEMBERS } = COLUMN_NAMES;
@@ -87,7 +89,7 @@ const MovableItem = ({ name, index, moveCardHandler, setItems }: any) => {
   return (
     <div ref={ref} className={styles.MemberItemContainer} style={{ opacity }}>
       <div className={styles.MemberItemAvatar}></div>
-      {name}
+      {githubId}
     </div>
   );
 };

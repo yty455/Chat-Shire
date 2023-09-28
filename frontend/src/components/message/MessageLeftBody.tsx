@@ -1,5 +1,4 @@
 import React from 'react'
-import io from 'socket.io-client'
 import styles from './MessageLeftBody.module.css'
 
 import MessageItem from './MessageItem'

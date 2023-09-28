@@ -1,6 +1,10 @@
 export interface ItemState {
   id: number;
-  name: string;
+  githubId: string;
+  nickname: string; 
+  position: string;
+  profileColor: string;
+  profileImage: string;
   column: string;
 }
 

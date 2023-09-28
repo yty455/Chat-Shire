@@ -21,7 +21,7 @@ export const postProject = (
   description: string,
   gitRepository: string,
   branch: string,
-  users: string[],
+  users: any,
   startDate: any,
   endDate: any,
   gitAccessToken: string

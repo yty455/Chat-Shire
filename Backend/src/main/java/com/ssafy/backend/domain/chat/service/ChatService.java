@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.ssafy.backend.domain.common.GlobalMethod.getUserId;
@@ -83,6 +84,15 @@ public class ChatService {
     }
 
     public List<ChatInfo> getChats(Long chatRoomId, int page, int size) {
-        return chatRedisTemplate.opsForList().range(chatKey + chatRoomId, 0, -1);
+        // sql 먼저 조회
+        List<ChatInfo> chatSQL = chatRepository.findInfoByChatRoomId(chatRoomId);
+        chatSQL = chatSQL == null ? new ArrayList<>() : chatSQL;
+        // redis 조회
+        List<ChatInfo> chatRedis = chatRedisTemplate.opsForList().range(chatKey + chatRoomId, 0, -1);
+        chatRedis = chatRedis == null ? new ArrayList<>() : chatRedis;
+        // 둘이 합쳐서 주기 sql + redis
+        // TODO - 페이지네이션
+        chatSQL.addAll(chatRedis);
+        return chatSQL;
     }
 }
