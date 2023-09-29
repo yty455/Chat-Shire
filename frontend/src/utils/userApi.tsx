@@ -56,4 +56,8 @@ export const allLanguage = () => api.get(`/skills`);
 
 // 내 상태 변경
 export const userState = (state: string) =>
-  api.patch(`/users/state`, { state });
+  api.patch(`/users/state`, `"${state}"`, {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+  });

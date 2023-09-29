@@ -40,7 +40,9 @@ function TeamTaskCreateModal({
     const selectedPriority = event.target.value as string;
     setTaskData({ ...taskData, priority: selectedPriority });
   };
-  const [limitDate, setLimitDate] = React.useState<Dayjs | null>(dayjs());
+  const [limitDate, setLimitDate] = React.useState<Dayjs | null>(
+    dayjs().add(7, "day")
+  );
 
   const handleDateChange = (newDate: Dayjs | null) => {
     setLimitDate(newDate);
@@ -71,6 +73,7 @@ function TeamTaskCreateModal({
           <div>
             <input
               type="text"
+              placeholder="태스크 이름"
               value={taskData.name}
               onChange={(e) =>
                 setTaskData({ ...taskData, name: e.target.value })
@@ -80,6 +83,7 @@ function TeamTaskCreateModal({
           <div>
             <input
               type="text"
+              placeholder="태스크 상세설명"
               value={taskData.description}
               onChange={(e) =>
                 setTaskData({ ...taskData, description: e.target.value })

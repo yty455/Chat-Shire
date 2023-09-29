@@ -42,7 +42,7 @@ api.interceptors.response.use(
             method: error.config.method, // 원래 요청의 HTTP 메서드를 사용합니다.
             url: error.config.url, // 원래 요청의 URL을 사용합니다.
             headers: {
-              AuthorizationRefresh: `${refreshToken}`, // 리프레시 토큰을 사용하여 인증합니다.
+              "Authorization-Refresh": `${refreshToken}`, // 리프레시 토큰을 사용하여 인증합니다.
             },
           });
 
@@ -65,11 +65,11 @@ api.interceptors.response.use(
         } catch (refreshError) {
           // 리프레쉬 토큰을 사용해도 또 에러
           // 로그인 페이지로 이동
-          window.location.href = "/login";
+          window.location.href = "/main";
         }
       } else {
         // 리프레쉬 토큰 없어도 로그인 페이지로 이동
-        window.location.href = "/login";
+        window.location.href = "/main";
       }
     }
 

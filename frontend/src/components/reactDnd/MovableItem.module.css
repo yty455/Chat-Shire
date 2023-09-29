@@ -1,0 +1,18 @@
+.MemberItemContainer {
+  display: flex;
+  align-items: center;
+  border: 1px solid red;
+  border-radius: 20px;
+  min-height: 60px;
+  padding: 6px 4px;
+  margin-bottom: 10px;
+  cursor: grab;
+}
+
+.MemberItemAvatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  background-color: gray;
+  margin-right: 10px;
+}

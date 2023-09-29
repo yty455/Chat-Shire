@@ -29,11 +29,11 @@ const ModalComponent: React.FC<{open: boolean; setOpen: (open: boolean) => void}
         style={{zIndex:2000, fontFamily:'preRg'}}
         bodyStyle={{height: '200px'}}
         footer={[
-          <Button style={{fontFamily:'preRg'}} key="back" onClick={handleCancel}>
-            닫기
-          </Button>,
           <Button style={{backgroundColor:'#39A789', fontFamily:'preRg'}} key="submit" type="primary" loading={confirmLoading} onClick={handleOk}>
-            등록하기
+            완료
+          </Button>,
+          <Button style={{fontFamily:'preRg'}} key="back" onClick={handleCancel}>
+            취소
           </Button>,
         ]}
       >

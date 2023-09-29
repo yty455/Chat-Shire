@@ -20,7 +20,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
   const getAnalysisPage = async () => {
     try {
       const response = await getAnalysis(projectId);
-      console.log(response.data.result[0]);
+      console.log(response.data.result);
       setAnalysisData(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -29,7 +29,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
 
   useEffect(() => {
     getAnalysisPage();
-  }, []);
+  }, [projectId]);
 
   return (
     <div

@@ -20,8 +20,11 @@ export const postProject = (
   topic: string,
   description: string,
   gitRepository: string,
+  branch: string,
+  users: any,
   startDate: any,
-  endDate: any
+  endDate: any,
+  gitAccessToken: string
 ) =>
   api.post("/projects", {
     name,
@@ -29,8 +32,11 @@ export const postProject = (
     topic,
     description,
     gitRepository,
+    branch,
+    users,
     startDate,
     endDate,
+    gitAccessToken,
   });
 
 // 프로젝트 수정

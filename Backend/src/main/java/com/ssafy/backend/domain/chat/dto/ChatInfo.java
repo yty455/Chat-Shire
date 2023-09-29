@@ -7,7 +7,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.ssafy.backend.domain.chat.Chat;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.user.User;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 
 @Builder
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class ChatInfo {
     private Long userId;
@@ -27,12 +25,19 @@ public class ChatInfo {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime chatTime;
 
-    public Chat toEntity(User user, ChatRoom chatRoom){
+    public Chat toEntity(User user, ChatRoom chatRoom) {
         return Chat.builder()
                 .user(user)
                 .chatRoom(chatRoom)
                 .content(this.content)
                 .chatTime(this.chatTime)
                 .chatNumber(this.chatNumber).build();
+    }
+
+    public ChatInfo(Long userId, String content, Long chatNumber, LocalDateTime chatTime) {
+        this.userId = userId;
+        this.content = content;
+        this.chatNumber = chatNumber;
+        this.chatTime = chatTime;
     }
 }

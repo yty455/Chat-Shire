@@ -8,4 +8,6 @@ import com.ssafy.backend.domain.mindmap.MindMap;
 
 public interface MindMapRepository extends JpaRepository<MindMap, Long> {
 	List<MindMap> findByChatRoomId(Long chatRoomId);
+
+	void deleteByChatRoomId(Long chatRoomId);
 }

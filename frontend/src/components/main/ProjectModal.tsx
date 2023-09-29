@@ -17,23 +17,8 @@ function ProjectModal({
   deleteProject,
   updatePJT,
 }: ProjectModalProps) {
-  const [editStates, setEditStates] = useState<{
-    name: boolean;
-    teamName: boolean;
-    description: boolean;
-    topic: boolean;
-    gitRepository: boolean;
-    startDate: boolean;
-    endDate: boolean;
-  }>({
-    name: false,
-    teamName: false,
-    description: false,
-    topic: false,
-    gitRepository: false,
-    startDate: false,
-    endDate: false,
-  });
+  const [editState, setEditState] = useState<string | null>(null);
+
   const [projectData, setProjectData] = useState({
     id: pjt.id,
     name: pjt.name,
@@ -57,24 +42,13 @@ function ProjectModal({
 
   const handleOutsideClick = (e: any) => {
     // 클릭한 요소가 인풋창 외부인 경우, 해당 인풋창의 상태를 닫음
-    (Object.keys(editStates) as Array<keyof typeof editStates>).forEach(
-      (key) => {
-        if (
-          editStates[key] &&
-          modalRef.current &&
-          !modalRef.current.contains(e.target)
-        ) {
-          setEditStates({ ...editStates, [key]: false });
-        }
-      }
-    );
+    if (editState && modalRef.current && !modalRef.current.contains(e.target)) {
+      setEditState(null);
+    }
   };
 
-  const handleInputClick = (fieldName: keyof typeof editStates) => {
-    if (editStates[fieldName]) {
-      setEditStates({ ...editStates, [fieldName]: false });
-    }
-    setEditStates({ ...editStates, [fieldName]: true });
+  const handleInputClick = (fieldName: string) => {
+    setEditState(fieldName);
   };
 
   useEffect(() => {
@@ -90,38 +64,38 @@ function ProjectModal({
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        {editStates.name ? (
+        {editState === "name" ? (
           <input
             type="text"
             value={projectData.name}
             onChange={(e) => {
               setProjectData({ ...projectData, name: e.target.value });
             }}
-            onBlur={() => setEditStates({ ...editStates, name: false })}
+            onBlur={() => setEditState(null)}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 updatePJT(projectData);
-                setEditStates({ ...editStates, name: false });
+                setEditState(null);
               }
             }}
           />
         ) : (
-          <p onClick={() => handleInputClick("name")}>
+          <span onClick={() => handleInputClick("name")}>
             프로젝트 이름 {projectData.name}
-          </p>
+          </span>
         )}
-        {editStates.topic ? (
+        {editState === "topic" ? (
           <input
             type="text"
             value={projectData.topic}
             onChange={(e) => {
               setProjectData({ ...projectData, topic: e.target.value });
             }}
-            onBlur={() => setEditStates({ ...editStates, topic: false })}
+            onBlur={() => setEditState(null)}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 updatePJT(projectData);
-                setEditStates({ ...editStates, topic: false });
+                setEditState(null);
               }
             }}
           />
@@ -131,18 +105,18 @@ function ProjectModal({
           </p>
         )}
 
-        {editStates.teamName ? (
+        {editState === "teamName" ? (
           <input
             type="text"
             value={projectData.teamName}
             onChange={(e) => {
               setProjectData({ ...projectData, teamName: e.target.value });
             }}
-            onBlur={() => setEditStates({ ...editStates, teamName: false })}
+            onBlur={() => setEditState(null)}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 updatePJT(projectData);
-                setEditStates({ ...editStates, teamName: false });
+                setEditState(null);
               }
             }}
           />
@@ -152,18 +126,18 @@ function ProjectModal({
           </p>
         )}
 
-        {editStates.description ? (
+        {editState === "description" ? (
           <input
             type="text"
             value={projectData.description}
             onChange={(e) => {
               setProjectData({ ...projectData, description: e.target.value });
             }}
-            onBlur={() => setEditStates({ ...editStates, description: false })}
+            onBlur={() => setEditState(null)}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 updatePJT(projectData);
-                setEditStates({ ...editStates, description: false });
+                setEditState(null);
               }
             }}
           />
@@ -173,20 +147,18 @@ function ProjectModal({
           </p>
         )}
 
-        {editStates.gitRepository ? (
+        {editState === "gitRepository" ? (
           <input
             type="text"
             value={projectData.gitRepository}
             onChange={(e) => {
               setProjectData({ ...projectData, gitRepository: e.target.value });
             }}
-            onBlur={() =>
-              setEditStates({ ...editStates, gitRepository: false })
-            }
+            onBlur={() => setEditState(null)}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 updatePJT(projectData);
-                setEditStates({ ...editStates, gitRepository: false });
+                setEditState(null);
               }
             }}
           />

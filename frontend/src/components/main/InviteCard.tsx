@@ -1,9 +1,7 @@
 import React from "react";
 import styles from "./invite.module.css";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import TouchAppIcon from "@mui/icons-material/TouchApp";
+import { IconButton } from "@mui/material";
+import {BsFillCheckCircleFill, BsXCircle} from 'react-icons/bs'
 
 interface InviteCardProps {
   invite: {
@@ -22,33 +20,29 @@ const InviteCard: React.FC<InviteCardProps> = ({ invite }) => {
     setAnchorEl(null);
   };
 
+  const confirmInvitation = () => {
+    alert("프로젝트에 참여하시겠어요?")
+  }
+
+  const ignoreInvitation = () => {
+    alert("초대를 거절 하시겠어요?")
+  }
+
   return (
-    <div className={styles.invitebox}>
-      <div className={styles.invitecard}>
-        <p>
-          <span> PJT {invite.pjt}: </span> {invite.people}의 초대
-          <Button
-            id="basic-button"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-          >
-            <TouchAppIcon />
-          </Button>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem onClick={handleClose}>수락</MenuItem>
-            <MenuItem onClick={handleClose}>거절</MenuItem>
-          </Menu>
-        </p>
+    <div className={styles.InviteItemContainer}>
+      <div className={styles.InviteItem}>
+        <div className={styles.InviteItemTitle}>
+          <span style={{fontSize: "18px", marginBottom: "2px"}}>
+            CHAT-SHIRE{invite.pjt}
+          </span>
+          <span>
+            초대한 사람 : {invite.people}
+           </span>
+        </div>
+        <div style={{marginRight: "10px"}}>
+          <BsFillCheckCircleFill size={30} color="#39A789" style={{marginRight: "8px", cursor: "pointer"}} onClick={confirmInvitation}/>
+          <BsXCircle size={30} color="#39A789" style={{cursor: "pointer"}} onClick={ignoreInvitation}/>
+        </div>
       </div>
     </div>
   );
