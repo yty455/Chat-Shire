@@ -44,9 +44,10 @@ public class InvitationService {
         participationRepository.save(Participation.create(notification.getReceiver(), notification.getParticipation().getChatRoom()));
     }
 
-    public void rejectInvitation(Long invitationId) {
-        Notification notification = notificationRepository.findById(invitationId)
-                .orElseThrow(() -> new ResourceNotFoundException("Notification", invitationId));
-        notification.reject();
-    }
+	@Transactional
+	public void rejectInvitation(Long invitationId) {
+		Notification notification = notificationRepository.findById(invitationId)
+				.orElseThrow(() -> new ResourceNotFoundException("Notification", invitationId));
+		notification.reject();
+	}
 }
