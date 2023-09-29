@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MindMapNodeInfo {
-	private Long mindMapId;
-	private Integer id;
+	private String id;
 	private Data data;
 	private Position position;
 	private String parentNode;
