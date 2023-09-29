@@ -20,11 +20,11 @@ public class ChallengeService {
 	// 도전과제 12개
 	//프로젝트 5 / 10 / 25 - 플젝생성, 플젝가입
 	//커밋 개수 100 / 500 / 1000 -
-	//채팅 개수 1000 / 5000 / 10000
-	// 태스크 생성 개수 50 / 300 / 500
-	// 에러 게시판 글 생성 50 / 100 / 300
-	// 에러 해결 50 / 100 / 150
-	//사진, 링크 공유 개수 100 / 300 / 500
+	//채팅 개수 1000 / 5000 / 10000 - 채팅 스케쥴러
+	// 태스크 생성 개수 50 / 300 / 500 - 태스크 등록
+	// 에러 게시판 글 생성 50 / 100 / 300 - 에러게시판 등록
+	// 에러 해결 50 / 100 / 150 -
+	//사진, 링크 공유 개수 100 / 300 / 500 - 채팅 post 첨부파일 검증
 	// 자료공유 생성 개수 50 / 100 / 500
 	// 스낵바 알림 보낸 횟수 50 / 100 / 300
 	//동시에 진행한 프로젝트 개수 3 / 5 / 7
@@ -50,5 +50,67 @@ public class ChallengeService {
 				.orElseThrow(() -> new ResourceNotFoundException("Challenge.user", userId));
 		challenge.addChat(count);
 	}
+
+	public void addTask(Long userId) {
+		Challenge challenge = challengeRepository.findByUserId(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("Challenge.user", userId));
+		challenge.addTask();
+	}
+
+	public void addError(Long userId) {
+		Challenge challenge = challengeRepository.findByUserId(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("Challenge.user", userId));
+		challenge.addError();
+	}
+
+	public void addSolution(Long userId) {
+		Challenge challenge = challengeRepository.findByUserId(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("Challenge.user", userId));
+		challenge.addSolution();
+	}
+
+	public void addLink(Long userId) {
+		Challenge challenge = challengeRepository.findByUserId(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("Challenge.user", userId));
+		challenge.addLink();
+	}
+
+	public void addData(Long userId) {
+		Challenge challenge = challengeRepository.findByUserId(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("Challenge.user", userId));
+		challenge.addData();
+	}
+	public void addSnackbar(Long userId) {
+		Challenge challenge = challengeRepository.findByUserId(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("Challenge.user", userId));
+		challenge.addSnackbar();
+	}
+
+	public void addOngoing(Long userId) {
+		Challenge challenge = challengeRepository.findByUserId(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("Challenge.user", userId));
+		challenge.addOngoing(11); // FIX
+	}
+
+	public void addLogin(Long userId) {
+		Challenge challenge = challengeRepository.findByUserId(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("Challenge.user", userId));
+		challenge.addLogin();
+	}
+
+	public void addDone(Long userId) {
+		Challenge challenge = challengeRepository.findByUserId(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("Challenge.user", userId));
+		challenge.addDone();
+	}
+
+
+
+
+
+
+
+
+
 
 }

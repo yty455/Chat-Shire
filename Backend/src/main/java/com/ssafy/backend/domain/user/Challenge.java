@@ -58,4 +58,40 @@ public class Challenge extends BaseEntity {
     public void addChat(int count) {
         chat += count;
     }
+
+    public void addTask() {
+        task++;
+    }
+
+    public void addError() {
+        error++;
+    }
+
+    public void addSolution() {
+        solution++;
+    }
+
+    public void addLink() {
+        link++;
+    }
+
+    public void addData() {
+        data++;
+    }
+
+    public void addSnackbar() {
+        snackbar++;
+    }
+
+    public void addOngoing(int ongoing) {
+        this.ongoing = ongoing;
+    }
+
+    public void addLogin() {
+        login++;
+    }
+
+    public void addDone() {
+        done++;
+    }
 }

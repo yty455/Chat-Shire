@@ -21,6 +21,7 @@ import com.ssafy.backend.domain.user.dto.MySkillInfo;
 import com.ssafy.backend.domain.user.exception.UserNotFoundException;
 import com.ssafy.backend.domain.user.repository.SkillRepository;
 import com.ssafy.backend.domain.user.repository.UserRepository;
+import com.ssafy.backend.domain.user.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +42,7 @@ public class PostService {
     private final PostSkillRepository postSkillRepository;
     private final SkillRepository skillRepository;
     private final AttachedFileRepository attachedFileRepository;
+    private final ChallengeService challengeService;
 
     public List<PostInfoResponse> getPosts(Long chatRoomId) {
         List<PostInfoResponse> postInfoResponses = postRepository.getInfoResponseByChatRoomId(chatRoomId);
@@ -99,6 +101,9 @@ public class PostService {
                         .skill(skill)
                         .post(savedPost).build())
                 .forEach(postSkillRepository::save);
+
+        // 도전과제 추가
+        challengeService.addError(getUserId());
 
         return savedPost.getId();
     }
