@@ -1,7 +1,6 @@
 package com.ssafy.backend.domain.analyze.repository;
 
 import com.ssafy.backend.domain.analyze.Keyword;
-import com.ssafy.backend.domain.analyze.Word;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,5 +15,5 @@ public interface KeywordRepository  extends JpaRepository<Keyword, Long> {
     @Modifying
     @Transactional
     @Query("delete from Keyword k where k.chatRoom.id = :chatRoomId and k.word in :words")
-    void deleteByChatRoomIdAndWords(Long chatRoomId, List<Word> words);
+    void deleteByChatRoomIdAndWords(Long chatRoomId, List<String> words);
 }

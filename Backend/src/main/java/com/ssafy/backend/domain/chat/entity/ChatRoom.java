@@ -3,10 +3,7 @@ package com.ssafy.backend.domain.chat.entity;
 import java.time.LocalDate;
 import java.util.function.Consumer;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfo;
 import com.ssafy.backend.domain.common.BaseEntity;
@@ -25,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class ChatRoom extends BaseEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CHATROOM_ID")
 	private Long id;
 
