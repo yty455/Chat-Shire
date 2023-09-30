@@ -177,8 +177,8 @@ public class PostService {
         return category;
     }
 
-    public List<PostInfoResponse> getPostsBySkill(Long chatroomId, String skillName) {
-        List<PostInfoResponse> postInfoResponses = postRepository.findBySkillName(chatroomId, skillName);
+    public List<PostInfoResponse> getPostsBySkill(Long chatRoomId, String skillName) {
+        List<PostInfoResponse> postInfoResponses = postRepository.findBySkillName(chatRoomId, skillName);
         for (PostInfoResponse postInfoResponse : postInfoResponses) {
             postInfoResponse.setReplyCount(replyRepository.countByPostId(postInfoResponse.getId()));
             postInfoResponse.setAttachedFileInfos(attachedFileRepository.findInfoByPostId(postInfoResponse.getId()));
@@ -189,8 +189,8 @@ public class PostService {
         return postInfoResponses;
     }
 
-    public List<PostInfoResponse> getPostsByContent(Long chatroomId, String content) {
-        List<PostInfoResponse> postInfoResponses = postRepository.findByContent(chatroomId, content);
+    public List<PostInfoResponse> getPostsByContent(Long chatRoomId, String content) {
+        List<PostInfoResponse> postInfoResponses = postRepository.findByContent(chatRoomId, content);
         for (PostInfoResponse postInfoResponse : postInfoResponses) {
             postInfoResponse.setReplyCount(replyRepository.countByPostId(postInfoResponse.getId()));
             postInfoResponse.setAttachedFileInfos(attachedFileRepository.findInfoByPostId(postInfoResponse.getId()));
