@@ -1,17 +1,20 @@
 package com.ssafy.backend.domain.analyze.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.ssafy.backend.domain.analyze.Statistic;
 import com.ssafy.backend.domain.analyze.dto.ProjectStatistic;
 import com.ssafy.backend.domain.analyze.repository.StatisticRepository;
+import com.ssafy.backend.domain.chat.entity.Distributed;
+import com.ssafy.backend.domain.chat.repository.DistributedRepository;
 import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
 import com.ssafy.backend.domain.post.repository.PostRepository;
 import com.ssafy.backend.domain.post.repository.ReplyRepository;
 import com.ssafy.backend.domain.task.repository.TaskRepository;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,6 +25,7 @@ public class StatisticService {
 	private final TaskRepository taskRepository;
 	private final PostRepository postRepository;
 	private final ReplyRepository replyRepository;
+	private final DistributedRepository distributedRepository;
 
 	@Transactional
 	public void updateCommitCount(Long chatRoomId, Long morningCommitCount, Long afternoonCommitCount,
@@ -45,9 +49,10 @@ public class StatisticService {
 		// 에러 게시판 + 댓글 수 합 조회
 		Long postCount = postRepository.countByChatRoomId(chatRoomId);
 		Long replyCount = replyRepository.countByChatRoomId(chatRoomId);
-		// TODO: 채팅에서 나온 카테고리 수 조회
-		// TODO: 주제 관련 카테고리 수 조회
+		// 채팅에서 나온 카테고리 수 조회
+        Map<String, Long> categoryCount = distributedRepository.findByChatRoomId(chatRoomId).stream()
+                .collect(Collectors.groupingBy(Distributed::getWord, Collectors.summingLong(Distributed::getCount)));
 
-		return ProjectStatistic.toDto(commitCount, taskCount, postCount + replyCount);
+        return ProjectStatistic.toDto(commitCount, taskCount, postCount + replyCount, categoryCount);
 	}
 }
