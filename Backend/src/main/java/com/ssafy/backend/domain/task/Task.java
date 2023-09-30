@@ -9,7 +9,6 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.function.Consumer;
 
 import static javax.persistence.FetchType.LAZY;
@@ -22,7 +21,7 @@ import static javax.persistence.FetchType.LAZY;
 public class Task extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TASK_ID")
     private Long id;
 
@@ -43,21 +42,21 @@ public class Task extends BaseEntity {
     private Progress progress;
 
 
-    public Task(TaskRegister taskRegister){
+    public Task(TaskRegister taskRegister) {
         this.description = taskRegister.getDescription();
         this.progress = taskRegister.getProgress();
         this.taskGroupId = 0L;
     }
 
-    public void joinTaskGroup(Long taskGroupId){
+    public void joinTaskGroup(Long taskGroupId) {
         this.taskGroupId = taskGroupId;
     }
 
-    public void setUser(User user){
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public void setChatRoom(ChatRoom chatRoom){
+    public void setChatRoom(ChatRoom chatRoom) {
         this.chatRoom = chatRoom;
     }
 
@@ -72,8 +71,13 @@ public class Task extends BaseEntity {
         }
     }
 
-    public void updateDescription(String description) {updateIfNotNull(newValue -> this.description = newValue, description);}
-    public void updateProgress(Progress progress) {updateIfNotNull(newValue -> this.progress = newValue, progress);}
+    public void updateDescription(String description) {
+        updateIfNotNull(newValue -> this.description = newValue, description);
+    }
+
+    public void updateProgress(Progress progress) {
+        updateIfNotNull(newValue -> this.progress = newValue, progress);
+    }
 
 
 }

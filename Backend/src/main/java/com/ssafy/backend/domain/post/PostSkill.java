@@ -1,9 +1,7 @@
 package com.ssafy.backend.domain.post;
 
-import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.common.BaseEntity;
 import com.ssafy.backend.domain.user.Skill;
-import com.ssafy.backend.domain.user.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 @Builder(toBuilder = true)
 public class PostSkill extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "POSTSKILL_ID")
     private Long id;
 
@@ -28,7 +26,6 @@ public class PostSkill extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "SKILL_ID")
     private Skill skill;
-
 
 
 }
