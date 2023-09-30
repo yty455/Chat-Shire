@@ -177,4 +177,27 @@ public class PostService {
         return category;
     }
 
+    public List<PostInfoResponse> getPostsBySkill(Long chatroomId, String skillName) {
+        List<PostInfoResponse> postInfoResponses = postRepository.findBySkillName(chatroomId, skillName);
+        for (PostInfoResponse postInfoResponse : postInfoResponses) {
+            postInfoResponse.setReplyCount(replyRepository.countByPostId(postInfoResponse.getId()));
+            postInfoResponse.setAttachedFileInfos(attachedFileRepository.findInfoByPostId(postInfoResponse.getId()));
+            if (postInfoResponse.getReplyCount() != 0)
+                postInfoResponse.setReply(replyRepository.findFirstByPostId(postInfoResponse.getId()).getContent());
+            postInfoResponse.setSkillName(postSkillRepository.findByPostId(postInfoResponse.getId()));
+        }
+        return postInfoResponses;
+    }
+
+    public List<PostInfoResponse> getPostsByContent(Long chatroomId, String content) {
+        List<PostInfoResponse> postInfoResponses = postRepository.findByContent(chatroomId, content);
+        for (PostInfoResponse postInfoResponse : postInfoResponses) {
+            postInfoResponse.setReplyCount(replyRepository.countByPostId(postInfoResponse.getId()));
+            postInfoResponse.setAttachedFileInfos(attachedFileRepository.findInfoByPostId(postInfoResponse.getId()));
+            if (postInfoResponse.getReplyCount() != 0)
+                postInfoResponse.setReply(replyRepository.findFirstByPostId(postInfoResponse.getId()).getContent());
+            postInfoResponse.setSkillName(postSkillRepository.findByPostId(postInfoResponse.getId()));
+        }
+        return postInfoResponses;
+    }
 }

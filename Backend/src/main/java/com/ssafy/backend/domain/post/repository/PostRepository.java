@@ -19,4 +19,12 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query("SELECT COUNT(p) FROM Post p WHERE p.chatRoom.id = :chatRoomId")
     Long countByChatRoomId(Long chatRoomId);
+
+    @Query("SELECT new com.ssafy.backend.domain.post.dto.PostInfoResponse(p.id, p.title, p.state, u.profileImage, u.profileColor, p.createdDate, p.lastModifiedDate) from Post p left join User u on p.user = u where p.chatRoom.id = :chatRoomId " +
+            "and p.id in (Select ps.post.id from PostSkill ps  where ps.skill.id in (select s.id from Skill s where s.skillName like CONCAT('%',:skillName,'%')))")
+    List<PostInfoResponse> findBySkillName(Long chatroomId, String skillName);
+
+    @Query("SELECT new com.ssafy.backend.domain.post.dto.PostInfoResponse(p.id, p.title, p.state, u.profileImage, u.profileColor, p.createdDate, p.lastModifiedDate) from Post p left join User u on p.user = u where p.chatRoom.id = :chatRoomId " +
+            "and p.content like CONCAT('%', :content, '%') ")
+    List<PostInfoResponse> findByContent(Long chatroomId, String content);
 }
