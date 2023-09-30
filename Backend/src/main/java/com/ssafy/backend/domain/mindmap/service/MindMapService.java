@@ -17,37 +17,46 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MindMapService {
-	private final MindMapRepository mindMapRepository;
+    private final MindMapRepository mindMapRepository;
 
-	public List<MindMapNodeInfo> getMindMap(Long chatRoomId) {
-		return mindMapRepository.findByChatRoomId(chatRoomId).stream()
-				.map(chatroom -> MindMapNodeInfo.builder()
-						.id(chatroom.getNodeId() == 0 ? "root" : String.valueOf(chatroom.getNodeId()))
-						.position(MindMapNodeInfo.Position.builder().x(chatroom.getX()).y(chatroom.getY()).build())
-						.data(MindMapNodeInfo.Data.builder().label(chatroom.getContent()).build())
-						.parentNode(chatroom.getNodeId() == 0 ? null : chatroom.getParentId() == 0 ? "root" : String.valueOf(chatroom.getParentId()))
-						.build()).
-				collect(Collectors.toList());
-	}
+    public List<MindMapNodeInfo> getMindMap(Long chatRoomId) {
+        List<MindMapNodeInfo> mindMapNodeInfos = mindMapRepository.findByChatRoomId(chatRoomId).stream()
+                .map(chatroom -> MindMapNodeInfo.builder()
+                        .id(chatroom.getNodeId() == 0 ? "root" : String.valueOf(chatroom.getNodeId()))
+                        .position(MindMapNodeInfo.Position.builder().x(chatroom.getX()).y(chatroom.getY()).build())
+                        .data(MindMapNodeInfo.Data.builder().label(chatroom.getContent()).build())
+                        .parentNode(chatroom.getNodeId() == 0 ? null : chatroom.getParentId() == 0 ? "root" : String.valueOf(chatroom.getParentId()))
+                        .build()).
+                collect(Collectors.toList());
 
-	@Transactional
-	public void saveMinMap(Long chatRoomId, List<MindMapNodeInfo> mindMapNodes) {
-		// chatRoomId로 기존의 mindMap 삭제
-		mindMapRepository.deleteByChatRoomId(chatRoomId);
+        if (mindMapNodeInfos.isEmpty()) {
+            mindMapNodeInfos.add(MindMapNodeInfo.builder()
+                    .id("root")
+                    .data(MindMapNodeInfo.Data.builder().label("프로젝트").build())
+                    .position(MindMapNodeInfo.Position.builder().x((double) 0).y((double) 0).build())
+                    .build());
+        }
+        return mindMapNodeInfos;
+    }
 
-		// mindMapNodes를 모두 mindMap에 저장
-		for (MindMapNodeInfo node: mindMapNodes
-		) {
-			mindMapRepository.save(MindMap.builder()
-					.nodeId(node.getId().equals("root") ? 0 : Integer.parseInt(node.getId()))
-					.x(node.getPosition().getX())
-					.y(node.getPosition().getY())
-					.parentId(node.getId().equals("root") ? null : node.getParentNode().equals("root") ? 0 : Integer.parseInt(node.getParentNode()))
-					.content(node.getData().getLabel())
-					.chatRoom(ChatRoom.builder().id(chatRoomId).build())
-					.build()
-			);
-		}
-	}
+    @Transactional
+    public void saveMinMap(Long chatRoomId, List<MindMapNodeInfo> mindMapNodes) {
+        // chatRoomId로 기존의 mindMap 삭제
+        mindMapRepository.deleteByChatRoomId(chatRoomId);
+
+        // mindMapNodes를 모두 mindMap에 저장
+        for (MindMapNodeInfo node : mindMapNodes
+        ) {
+            mindMapRepository.save(MindMap.builder()
+                    .nodeId(node.getId().equals("root") ? 0 : Integer.parseInt(node.getId()))
+                    .x(node.getPosition().getX())
+                    .y(node.getPosition().getY())
+                    .parentId(node.getId().equals("root") ? null : node.getParentNode().equals("root") ? 0 : Integer.parseInt(node.getParentNode()))
+                    .content(node.getData().getLabel())
+                    .chatRoom(ChatRoom.builder().id(chatRoomId).build())
+                    .build()
+            );
+        }
+    }
 }
 
