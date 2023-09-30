@@ -1,5 +1,6 @@
 package com.ssafy.backend.domain.chat.entity;
 
+import com.ssafy.backend.domain.common.BaseEntity;
 import com.ssafy.backend.domain.user.User;
 import lombok.*;
 
@@ -12,10 +13,10 @@ import static javax.persistence.FetchType.LAZY;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-public class Distributed {
+public class Distributed extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DISTRIBUTED_ID")
     private Long id;
 

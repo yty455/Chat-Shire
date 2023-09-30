@@ -18,7 +18,7 @@ import static javax.persistence.FetchType.LAZY;
 @Builder(toBuilder = true)
 public class Post extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "POST_ID")
     private Long id;
 
