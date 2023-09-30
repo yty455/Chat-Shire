@@ -1,6 +1,7 @@
 package com.ssafy.backend.domain.analyze.service;
 
 import com.ssafy.backend.domain.analyze.Keyword;
+import com.ssafy.backend.domain.analyze.Word;
 import com.ssafy.backend.domain.analyze.dto.MyKeywords;
 import com.ssafy.backend.domain.analyze.repository.KeywordRepository;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
@@ -29,14 +30,19 @@ public class KeywordService {
     }
 
     @Transactional
-    public void registerKeywords(Long chatRoomId, List<String> keywords) {
+    public void registerKeywords(Long chatRoomId, List<Word> words) {
         ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId)
                 .orElseThrow(() -> new ResourceNotFoundException("ChatRoom", chatRoomId));
 
-        List<Keyword> collect = keywords.stream()
-                .map(keyword -> Keyword.create(chatRoom, keyword))
+        List<Keyword> collect = words.stream()
+                .map(word -> Keyword.create(chatRoom, word))
                 .collect(Collectors.toList());
 
         keywordRepository.saveAll(collect);
+    }
+
+    @Transactional
+    public void deleteKeywords(Long chatRoomId, List<Word> words) {
+        keywordRepository.deleteByChatRoomIdAndWords(chatRoomId, words);
     }
 }

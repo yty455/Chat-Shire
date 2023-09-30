@@ -39,10 +39,24 @@ public class KeywordController {
     public ResponseEntity<BasicResponse> registerKeywords(@PathVariable("projectId") Long chatRoomId,
                                                           @RequestBody KeywordsRequest keywordsRequest) {
 
-        keywordService.registerKeywords(chatRoomId, keywordsRequest.getKeywords());
+        keywordService.registerKeywords(chatRoomId, keywordsRequest.getWords());
 
         BasicResponse basicResponse = BasicResponse.builder()
                 .message("프로젝트 키워드 등록 성공")
+                .build();
+
+        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+    }
+
+    @Operation(summary = "프로젝트 키워드 삭제", description = "등록한 키워드를 삭제합니다.")
+    @DeleteMapping("/projects/{projectId}/keywords")
+    public ResponseEntity<BasicResponse> deleteKeywords(@PathVariable("projectId") Long chatRoomId,
+                                                          @RequestBody KeywordsRequest keywordsRequest) {
+
+        keywordService.deleteKeywords(chatRoomId, keywordsRequest.getWords());
+
+        BasicResponse basicResponse = BasicResponse.builder()
+                .message("프로젝트 키워드 삭제 성공")
                 .build();
 
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());

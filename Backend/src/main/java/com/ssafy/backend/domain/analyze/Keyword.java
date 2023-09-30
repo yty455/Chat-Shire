@@ -18,13 +18,14 @@ public class Keyword {
     @Column(name = "KEYWORD_ID")
     private Long id;
 
-    private String word;
+    @Enumerated(EnumType.STRING)
+    private Word word;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "CHATROOM_ID")
     private ChatRoom chatRoom;
 
-    public static Keyword create(ChatRoom chatRoom, String word) {
+    public static Keyword create(ChatRoom chatRoom, Word word) {
         Keyword keyword = new Keyword();
         keyword.word = word;
         keyword.chatRoom = chatRoom;

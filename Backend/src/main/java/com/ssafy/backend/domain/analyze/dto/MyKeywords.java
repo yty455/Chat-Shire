@@ -1,5 +1,6 @@
 package com.ssafy.backend.domain.analyze.dto;
 
+import com.ssafy.backend.domain.analyze.Word;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,11 +10,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class MyKeywords {
 
-    private String keyword;
+    private Word word;
 
-    public static MyKeywords toDto(String keyword) {
+    public static MyKeywords toDto(Word word) {
         return MyKeywords.builder()
-                .keyword(keyword)
+                .word(word)
                 .build();
     }
 }
