@@ -14,7 +14,8 @@ import { tasks } from "../reactDnd/Tasks";
 
 function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   const [items, setItems] = useState(tasks);
-  let InvitedMembers = useRef<string[]>([]);
+  let InvitedMembers = useRef<any[]>([]);
+  let InvitedMembersId = useRef<string[]>([]);
 
   console.log(items)
 
@@ -36,7 +37,7 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
     .then((res) => {
       let prevItem = res?.data.result[0]
       prevItem.map((item: any) => {
-        if (InvitedMembers.current.includes(String(item.id))) {
+        if (InvitedMembersId.current.includes(String(item.id))) {
           item.column = INVITED_MEMBERS
         } else {
           item.column = MEMBERS
@@ -53,15 +54,35 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
       const newMembers: any = items
         .map((member) => {
           if (member.column === "초대된 멤버") {
-            InvitedMembers.current.push(String(member.id))
+            InvitedMembersId.current.push(String(member.id))
+            InvitedMembers.current.push(member)
             return String(member.id);
           }
         })
         .filter((element) => element);
       onData(newMembers);
     }
-    
+
     return items
+      .filter((item: any) => item.column === columnName)
+      .map((item: any, index: any) => (
+        <MovableItem
+          key={item.id}
+          id={item.id}
+          githubId={item.githubId}
+          nickname={item.nickname}
+          position={item.position}
+          profileColor={item.profileColor}
+          profileImage={item.profileImage}
+          setItems={setItems}
+          moveCardHandler={moveCardHandler}
+        />
+      ));
+  };
+
+  const returnInvitedMembers = (columnName: string) => {
+
+    return InvitedMembers.current
       .filter((item: any) => item.column === columnName)
       .map((item: any, index: any) => (
         <MovableItem
@@ -87,7 +108,7 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
     .then((res) => {
       let prevItem = res?.data.result[0]
       prevItem.map((item: any) => {
-        if (InvitedMembers.current.includes(String(item.id))) {
+        if (InvitedMembersId.current.includes(String(item.id))) {
           item.column = INVITED_MEMBERS
         } else {
           item.column = MEMBERS
@@ -121,7 +142,7 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
             title={INVITED_MEMBERS}
             className={styles.InvitedMemberListContainer}
           >
-            {returnItemsForColumn(INVITED_MEMBERS)}
+            {returnInvitedMembers(INVITED_MEMBERS)}
           </Column>
         </div>
       </DndProvider>
