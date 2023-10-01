@@ -14,6 +14,7 @@ import { tasks } from "../reactDnd/Tasks";
 
 function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   const [items, setItems] = useState(tasks);
+  const [invitedMembers, setInvitedMembers] = useState();
 
   console.log(items)
 
@@ -35,7 +36,10 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
     .then((res) => {
       let prevItem = res?.data.result[0]
       prevItem.map((item: any) => {
-        item.column = MEMBERS
+        if (item.column === "초대된 멤버") {
+        } else {
+          item.column = MEMBERS
+        }
       })
       if (prevItem) {
         setItems(prevItem)
@@ -81,7 +85,10 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
     .then((res) => {
       let prevItem = res?.data.result[0]
       prevItem.map((item: any) => {
-        item.column = MEMBERS
+        if (item.column === "초대된 멤버") {
+        } else {
+          item.column = MEMBERS
+        }
       })
       if (prevItem) {
         setItems(prevItem)
