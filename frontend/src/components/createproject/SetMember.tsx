@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Autocomplete, TextField } from "@mui/material";
@@ -14,7 +14,7 @@ import { tasks } from "../reactDnd/Tasks";
 
 function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   const [items, setItems] = useState(tasks);
-  const [invitedMembers, setInvitedMembers] = useState();
+  let InvitedMembers = useRef<string[]>([]);
 
   console.log(items)
 
@@ -36,8 +36,10 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
     .then((res) => {
       let prevItem = res?.data.result[0]
       prevItem.map((item: any) => {
-        if (item.column === "초대된 멤버") {
+        if (InvitedMembers.current.includes(item.id)) {
+          item.column = INVITED_MEMBERS
         } else {
+          InvitedMembers.current.push(item.id)
           item.column = MEMBERS
         }
       })
@@ -85,8 +87,10 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
     .then((res) => {
       let prevItem = res?.data.result[0]
       prevItem.map((item: any) => {
-        if (item.column === "초대된 멤버") {
+        if (InvitedMembers.current.includes(item.id)) {
+          item.column = INVITED_MEMBERS
         } else {
+          InvitedMembers.current.push(item.id)
           item.column = MEMBERS
         }
       })
