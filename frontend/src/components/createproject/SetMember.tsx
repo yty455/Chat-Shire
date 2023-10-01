@@ -33,7 +33,13 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   const searchMember = (e: any) => {
     api.get(`/users/search?githubId=${e.target.value}`)
     .then((res) => {
-      setItems(res?.data.result[0])
+      let prevItem = res?.data.result[0]
+      prevItem.map((item: any) => {
+        item.column = MEMBERS
+      })
+      if (prevItem) {
+        setItems(prevItem)
+      }
     });
   };
 
@@ -73,7 +79,13 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   useEffect(() => {
     api.get("/users/search?githubId=")
     .then((res) => {
-      setItems(res?.data.result[0])
+      let prevItem = res?.data.result[0]
+      prevItem.map((item: any) => {
+        item.column = MEMBERS
+      })
+      if (prevItem) {
+        setItems(prevItem)
+      }
     });
   }, [])
 
