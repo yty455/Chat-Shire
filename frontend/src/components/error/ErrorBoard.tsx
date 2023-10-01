@@ -62,7 +62,13 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
       if (pjtId) {
         const response = await searchErrSkillName(pjtId, skill);
         console.log(response.data.result[0]);
-        setSkillErrors(response.data.result[0]);
+        if (response.data.result[0]) {
+          setContentErrors([]);
+          setSkillErrors([]);
+        } else {
+          setSkillErrors(response.data.result[0]);
+          setContentErrors([]);
+        }
       }
     } catch (error) {
       console.error(error);
@@ -73,9 +79,15 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
   const searchcontentErrors = async (content: string) => {
     try {
       if (pjtId) {
-        const response = await searchErrSkillName(pjtId, content);
+        const response = await searchErrConent(pjtId, content);
         console.log(response.data.result[0]);
-        setContentErrors(response.data.result[0]);
+        if (response.data.result[0]) {
+          setContentErrors([]);
+          setSkillErrors([]);
+        } else {
+          setContentErrors(response.data.result[0]);
+          setSkillErrors([]);
+        }
       }
     } catch (error) {
       console.error(error);
@@ -110,7 +122,22 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
         <MultiSelect onSearch={handleSearch1} />
         <Search onSearch={handleSearch} />
       </div>
-      <ErrorList onErrorCardClick={handleErrorCardClick} errors={allErrors} />
+      {skillErrors.length > 0 ? (
+        // skillErrors가 있으면 skillErrors를 보여줌
+        <ErrorList
+          onErrorCardClick={handleErrorCardClick}
+          errors={skillErrors}
+        />
+      ) : contentErrors.length > 0 ? (
+        // contentErrors가 있으면 contentErrors를 보여줌
+        <ErrorList
+          onErrorCardClick={handleErrorCardClick}
+          errors={contentErrors}
+        />
+      ) : (
+        // 둘 다 없으면 전체 에러를 보여줌
+        <ErrorList onErrorCardClick={handleErrorCardClick} errors={allErrors} />
+      )}
       {openModal && (
         <ErrorModal closeModal={handleCloseModal} err={selectedError} />
       )}
