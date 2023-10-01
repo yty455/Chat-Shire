@@ -144,6 +144,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const currentDate = new Date();
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [allTeamTask, setAllTeamTask] = useState([]);
+  const [comTeamTask, setComTeamTask] = useState([]);
   const [pjt, setPjt] = useState<any>({});
   const [isModalOpen, setIsModalOpen] = useState("");
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
@@ -306,8 +307,24 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const getTeamTask = async () => {
     try {
       const response = await getTaskGroup(projectId);
-      console.log(response.data.result[0]);
-      setAllTeamTask(response.data.result[0]);
+      const allTasks = response.data.result[0];
+
+      // ONGOING progress를 가진 항목 필터링
+      const ongoingTasks = allTasks.filter(
+        (task: any) => task.progress === "ONGOING"
+      );
+
+      // DONE progress를 가진 항목 필터링
+      const completedTasks = allTasks.filter(
+        (task: any) => task.progress === "DONE"
+      );
+
+      console.log(allTasks);
+      console.log(ongoingTasks);
+      console.log(completedTasks);
+
+      setAllTeamTask(allTasks);
+      setComTeamTask(completedTasks);
     } catch (error) {
       console.error(error);
     }
@@ -390,6 +407,159 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <div style={{ padding: "0 0 20px 20px", width: "50%" }}>
           <p className={styles.taskProgress}>완료된 Task</p>
+          {comTeamTask &&
+            comTeamTask.map((task: any) => (
+              <div className={styles.taskContainer} key={task.id}>
+                {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
+                <div className={styles.taskHeader}>
+                  <div className={styles.clockNday}>
+                    <WatchLaterIcon />
+                    <p className={styles.dday}>
+                      {Math.floor(
+                        (new Date(task.deadline).getTime() -
+                          currentDate.getTime()) /
+                          (1000 * 60 * 60 * 24)
+                      ) + 1}{" "}
+                      day
+                    </p>
+                  </div>
+                  <div onClick={addCheckbox}>
+                    <CreateIcon />
+                  </div>
+                </div>
+                <div className={styles.stepStatus}>
+                  {task.progress === "ONGOING" ? (
+                    <StyledBadge
+                      sx={{ margin: "14px 0 15px 20px" }}
+                      overlap="circular"
+                      anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                      variant="dot"
+                      onClick={() => handleBadgeClick(task)}
+                    ></StyledBadge>
+                  ) : (
+                    <StyledBadgeRed
+                      sx={{ margin: "14px 0 15px 20px" }}
+                      overlap="circular"
+                      anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                      variant="dot"
+                      onClick={() => handleBadgeClick(task)}
+                    ></StyledBadgeRed>
+                  )}
+                  <p className={styles.step} onClick={() => openModal(task.id)}>
+                    {task.name}
+                  </p>
+                  <p
+                    className={styles.step}
+                    style={{
+                      color:
+                        task.priority === "HIGH"
+                          ? "red"
+                          : task.priority === "LOW"
+                          ? "orange"
+                          : "green",
+                    }}
+                  >
+                    {task.priority}
+                  </p>
+                </div>
+                <BorderLinearProgress variant="determinate" value={50} />
+
+                {task.taskInfoResponses.map((item: any) => (
+                  <Grid
+                    sx={{ margin: 0, padding: 0 }}
+                    item
+                    xs={12}
+                    key={item.id}
+                  >
+                    <Item
+                      sx={{
+                        borderRadius: "0px 20px 20px 20px",
+                        margin: "0 10px",
+                        padding: 0,
+                        minHeight: "30px",
+                      }}
+                      className={styles.oneMemo}
+                      elevation={7}
+                    >
+                      <div className={styles.indivTask}>
+                        <Checkbox
+                          sx={{
+                            color: "#39A789",
+                            "&.Mui-checked": { color: "#39A789" },
+                          }}
+                          style={{ height: "20px", margin: "14px 0" }}
+                          checked={item.progress === "DONE"}
+                          onChange={handleCheckboxChange(item)}
+                        />
+                        {editingTaskId === item.id ? (
+                          <input
+                            onKeyPress={handleKeyPress(item.id)}
+                            style={{
+                              fontFamily: "preRg",
+                              height: "30px",
+                              marginTop: "9px",
+                              border: "none",
+                            }}
+                            type="text"
+                            // onBlur={handleContentChange(item.TaskId)}
+                            placeholder="내용을 입력하세요"
+                            defaultValue={item.description}
+                          />
+                        ) : (
+                          <p
+                            className={`${styles.taskContent} ${
+                              item.progress === "DONE" ? styles.checked : ""
+                            }`}
+                          >
+                            {item.description}
+                          </p>
+                        )}
+                      </div>
+                      <div className={styles.icons}>
+                        <div style={{ margin: "-4px 0 0 0" }}></div>
+                        <div>
+                          <BsFillChatDotsFill
+                            onClick={() => {
+                              handleOpen(item.id);
+                            }}
+                            style={{
+                              fontSize: "17px",
+                              margin: "-5px 5px 10px 0",
+                            }}
+                          />
+                          {editingTaskId === item.id ? (
+                            <BiSolidCheckCircle
+                              style={{
+                                fontSize: "17px",
+                                margin: "-5px 3px 10px 0",
+                              }}
+                              // onClick={() =>
+                              //   handleEditComplete(item.id, updatedDescription)
+                              // }
+                            />
+                          ) : (
+                            <BsPencilFill
+                              style={{
+                                fontSize: "17px",
+                                margin: "-5px 3px 10px 0",
+                              }}
+                              onClick={() => enterEditMode(item.id)}
+                            />
+                          )}
+                          <MdDelete
+                            style={{
+                              fontSize: "20px",
+                              margin: "-7px 10px 8px 0",
+                            }}
+                            onClick={() => deleteInTask(item.id)}
+                          />
+                        </div>
+                      </div>
+                    </Item>
+                  </Grid>
+                ))}
+              </div>
+            ))}
         </div>
 
         <div style={{ padding: "0 20px 0 20px", width: "50%" }}>
