@@ -62,13 +62,8 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
       if (pjtId) {
         const response = await searchErrSkillName(pjtId, skill);
         console.log(response.data.result[0]);
-        if (response.data.result[0]) {
-          setContentErrors([]);
-          setSkillErrors([]);
-        } else {
-          setSkillErrors(response.data.result[0]);
-          setContentErrors([]);
-        }
+        setSkillErrors(response.data.result[0] || []); // 결과가 없는 경우 빈 배열로 설정
+        setContentErrors([]); // 내용 에러 목록 비우기
       }
     } catch (error) {
       console.error(error);
@@ -81,13 +76,8 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
       if (pjtId) {
         const response = await searchErrConent(pjtId, content);
         console.log(response.data.result[0]);
-        if (response.data.result[0]) {
-          setContentErrors([]);
-          setSkillErrors([]);
-        } else {
-          setContentErrors(response.data.result[0]);
-          setSkillErrors([]);
-        }
+        setContentErrors(response.data.result[0] || []); // 결과가 없는 경우 빈 배열로 설정
+        setSkillErrors([]); // 기술 에러 목록 비우기
       }
     } catch (error) {
       console.error(error);
@@ -122,22 +112,17 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
         <MultiSelect onSearch={handleSearch1} />
         <Search onSearch={handleSearch} />
       </div>
-      {skillErrors.length > 0 ? (
-        // skillErrors가 있으면 skillErrors를 보여줌
-        <ErrorList
-          onErrorCardClick={handleErrorCardClick}
-          errors={skillErrors}
-        />
-      ) : contentErrors.length > 0 ? (
-        // contentErrors가 있으면 contentErrors를 보여줌
-        <ErrorList
-          onErrorCardClick={handleErrorCardClick}
-          errors={contentErrors}
-        />
-      ) : (
-        // 둘 다 없으면 전체 에러를 보여줌
-        <ErrorList onErrorCardClick={handleErrorCardClick} errors={allErrors} />
-      )}
+      <ErrorList
+        onErrorCardClick={handleErrorCardClick}
+        errors={
+          skillErrors.length > 0
+            ? skillErrors
+            : contentErrors.length > 0
+            ? contentErrors
+            : allErrors
+        }
+      />
+
       {openModal && (
         <ErrorModal closeModal={handleCloseModal} err={selectedError} />
       )}
