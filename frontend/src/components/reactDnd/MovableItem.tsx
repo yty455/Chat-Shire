@@ -88,8 +88,12 @@ const MovableItem = ({ id, githubId, nickname, position, profileColor, profileIm
 
   return (
     <div ref={ref} className={styles.MemberItemContainer} style={{ opacity }}>
-      <div className={styles.MemberItemAvatar}></div>
-      {githubId}
+      <div style={{backgroundColor: profileColor ? profileColor : "red"}} className={styles.MemberItemAvatar}>
+        <img style={{width: "60px", height: "60px"}} src={process.env.PUBLIC_URL + profileImage ? process.env.PUBLIC_URL + profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} alt="" />
+      </div>
+      <span style={{color: "#575757"}}>
+        {githubId}
+      </span>
     </div>
   );
 };
