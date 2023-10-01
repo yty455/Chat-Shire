@@ -49,49 +49,59 @@ public class Challenge extends BaseEntity {
 
     public void addProject() {
         project++;
+        if (project == 5 || project == 10 || project == 25) done++;
     }
 
     public void updateCommit(Long commitCount) {
-        commit = commitCount;
+        commit = commitCount; // TODO - 수정 필요
+        if (commit == 100 || commit == 500 || commit == 1000) done++;
     }
 
     public void addChat(int count) {
         chat += count;
+        if (chat - count < 1000 && chat >= 1000) done++;
+        if (chat - count < 5000 && chat >= 5000) done++;
+        if (chat - count < 10000 && chat >= 10000) done++;
     }
 
     public void addTask() {
         task++;
+        if (task == 50 || task == 300 || task == 500) done++;
     }
 
     public void addError() {
         error++;
+        if (error == 50 || error == 100 || error == 300) done++;
     }
 
     public void addSolution() {
         solution++;
+        if (solution == 50 || solution == 100 || solution == 150) done++;
     }
 
     public void addLink() {
         link++;
+        if (link == 100 || link == 300 || link == 500) done++;
     }
 
     public void addData() {
         data++;
+        if (data == 50 || data == 100 || data == 500) done++;
     }
 
     public void addSnackbar() {
         snackbar++;
+        if (snackbar == 50 || snackbar == 100 || snackbar == 300) done++;
     }
 
     public void addOngoing(int ongoing) {
         this.ongoing = ongoing;
+        if (ongoing == 3 || ongoing == 5 || ongoing == 7) done++;
     }
 
-    public void addLogin() {
-        login++;
+    public void addLogin(int login) {
+        this.login = login;
+        if (login == 7 || login == 30 || login == 365) done++;
     }
 
-    public void addDone() {
-        done++;
-    }
 }
