@@ -1,29 +1,26 @@
 package com.ssafy.backend.domain.analyze;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
 
+import com.ssafy.backend.domain.common.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static javax.persistence.FetchType.*;
+
 @Getter
 @Entity
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Statistic {
+public class Statistic extends BaseEntity {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "STATISTIC_ID")
 	private Long id;
 
@@ -31,7 +28,7 @@ public class Statistic {
 	private Long afternoonCommit;
 	private Long nightCommit;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = LAZY)
 	@JoinColumn(name = "CHATROOM_ID")
 	private ChatRoom chatRoom;
 

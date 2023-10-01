@@ -3,9 +3,9 @@ package com.ssafy.backend.domain.chat.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.cloud.language.v1.*;
 import com.jcraft.jsch.*;
-import com.ssafy.backend.domain.chat.Chat;
 import com.ssafy.backend.domain.chat.dto.ChatInfo;
 import com.ssafy.backend.domain.chat.dto.ChatWordDto;
+import com.ssafy.backend.domain.chat.entity.Chat;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.chat.repository.ChatRepository;
 import com.ssafy.backend.domain.chat.repository.ChatRoomRepository;
@@ -51,6 +51,10 @@ public class ChatScheduler {
         List<ChatRoom> chatRoomList = chatRoomRepository.findAll();
         Map<Long, User> userMap = userRepository.findAll().stream()
                 .collect(Collectors.toMap(User::getId, Function.identity()));
+
+        // 도전과제 채팅 카운터 위한 맵
+        Map<Long, Integer> userChatCount = userMap.keySet().stream()
+                .collect(Collectors.toMap(Function.identity(), key -> 0));
 
         Map<Long, String> chatMap = new HashMap<>();
         List<ChatWordDto> result = new ArrayList<>();

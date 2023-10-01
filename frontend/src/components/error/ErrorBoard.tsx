@@ -11,7 +11,11 @@ import styles from "./Error.module.css";
 import ErrorModal from "./ErrortModal";
 import { EditOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
-import { getErrors } from "../../utils/errorApi";
+import {
+  getErrors,
+  searchErrConent,
+  searchErrSkillName,
+} from "../../utils/errorApi";
 
 interface ErrorProps {
   pjtId: string;
@@ -22,6 +26,8 @@ interface ErrorProps {
 function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
   const [openModal, setOpenModal] = useState(false);
   const [allErrors, setAllErrors] = useState([]);
+  const [skillErrors, setSkillErrors] = useState([]);
+  const [contentErrors, setContentErrors] = useState([]);
   const [selectedError, setSelectedError] = useState<any>(null);
 
   const handleErrorCardClick = (err: any) => {
@@ -50,6 +56,42 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
     }
   };
 
+  // 기술 에러 검색
+  const searcgskillErrors = async (skill: string) => {
+    try {
+      if (pjtId) {
+        const response = await searchErrSkillName(pjtId, skill);
+        console.log(response.data.result[0]);
+        setSkillErrors(response.data.result[0]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 내용 에러 검색
+  const searchcontentErrors = async (content: string) => {
+    try {
+      if (pjtId) {
+        const response = await searchErrSkillName(pjtId, content);
+        console.log(response.data.result[0]);
+        setContentErrors(response.data.result[0]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSearch = async (searchText: string) => {
+    console.log("검색어:", searchText);
+    searchcontentErrors(searchText);
+  };
+
+  const handleSearch1 = async (searchText: string) => {
+    console.log("검색어:", searchText);
+    searcgskillErrors(searchText);
+  };
+
   useEffect(() => {
     getInErrors();
   }, [pjtId]);
@@ -65,8 +107,8 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
           alignItems: "center",
         }}
       >
-        <MultiSelect />
-        <Search />
+        <MultiSelect onSearch={handleSearch1} />
+        <Search onSearch={handleSearch} />
       </div>
       <ErrorList onErrorCardClick={handleErrorCardClick} errors={allErrors} />
       {openModal && (

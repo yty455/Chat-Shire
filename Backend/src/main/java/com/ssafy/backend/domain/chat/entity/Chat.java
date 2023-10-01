@@ -1,12 +1,10 @@
-package com.ssafy.backend.domain.chat;
+package com.ssafy.backend.domain.chat.entity;
 
-import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.common.BaseEntity;
 import com.ssafy.backend.domain.user.User;
 import lombok.*;
 
 import javax.persistence.*;
-
 import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.LAZY;
@@ -19,7 +17,7 @@ import static javax.persistence.FetchType.LAZY;
 public class Chat extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CHAT_ID")
     private Long id;
 
