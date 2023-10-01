@@ -3,7 +3,6 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Autocomplete, TextField } from "@mui/material";
 
-import { tasks } from "../reactDnd/Tasks";
 import { COLUMN_NAMES } from "../reactDnd/Contants";
 import MovableItem from "../reactDnd/MovableItem";
 import Column from "../reactDnd/Column";
@@ -11,6 +10,7 @@ import Column from "../reactDnd/Column";
 import styles from "./SetMember.module.css";
 
 import api from "../../utils/api";
+import { tasks } from "../reactDnd/Tasks";
 
 function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   const [items, setItems] = useState(tasks);
@@ -30,7 +30,11 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
 
   const searchMember = (e: any) => {
     api.get(`/users/search?githubId=${e.target.value}`).then((res) => {
-      console.log(res);
+      setItems(items => {
+        console.log(res?.data.result)
+        const newItems = res?.data.result[0]
+        return newItems
+      })
     });
   };
 
@@ -64,6 +68,8 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   };
 
   const { MEMBERS, INVITED_MEMBERS } = COLUMN_NAMES;
+
+  console.log(MEMBERS, INVITED_MEMBERS)
 
   return (
     <div
