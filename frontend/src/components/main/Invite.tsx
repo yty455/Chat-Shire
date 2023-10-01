@@ -70,9 +70,14 @@ function Invite() {
         grabCursor={true}
         className={styles.InvitationItemContainer}
       >
-        {invite.map((invi: any) => (
+        {invitation.map((invi: any) => (
           <SwiperSlide className={styles.SwiperItem}>
-            <InviteCard key={invi.pjt} invite={invi} />
+            <InviteCard
+              key={invi.id}
+              invite={invi}
+              acceptInvitation={acceptInInvitation}
+              rejectInvitation={rejectInInvitation}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
