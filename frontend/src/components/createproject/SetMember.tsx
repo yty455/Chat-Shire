@@ -36,6 +36,7 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
     .then((res) => {
       let prevItem = res?.data.result[0]
       prevItem.map((item: any) => {
+        console.log(InvitedMembers)
         if (InvitedMembers.current.includes(item.id)) {
           item.column = INVITED_MEMBERS
         } else {
