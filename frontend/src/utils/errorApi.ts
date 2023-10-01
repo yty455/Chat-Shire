@@ -39,3 +39,11 @@ export const updateErrorComent = (replyId: string, content: string) =>
 // 에러 게시글 댓글 삭제
 export const deleteErrorComent = (replyId: string) =>
   api.delete(`/replies/${replyId}`);
+
+// 에러 단일 상세 불러오기
+export const searchErrSkillName = (projectId: string, skillName: string) =>
+  api.get(`/projects/${projectId}/skill/${skillName}`);
+
+// 에러 단일 상세 불러오기
+export const searchErrConent = (projectId: string, content: String) =>
+  api.get(`/projects/${projectId}/content/${content}`);
