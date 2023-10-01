@@ -71,7 +71,10 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   console.log(MEMBERS, INVITED_MEMBERS)
 
   useEffect(() => {
-    searchMember("")
+    api.get("/users/search?githubId=")
+    .then((res) => {
+      setItems(res?.data.result[0])
+    });
   }, [])
 
   return (
