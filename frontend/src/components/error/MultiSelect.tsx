@@ -7,9 +7,13 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete'; // import here
-import TextField from '@mui/material/TextField';
-import { styled } from '@mui/system';
+import Autocomplete, {
+  createFilterOptions,
+  AutocompleteChangeReason,
+  AutocompleteChangeDetails,
+} from "@mui/material/Autocomplete"; // import here
+import TextField from "@mui/material/TextField";
+import { styled } from "@mui/system";
 import Paper from "@mui/material/Paper";
 
 const ITEM_HEIGHT = 48;
@@ -22,7 +26,9 @@ const MenuProps = {
     },
   },
 };
-
+interface searchProps {
+  onSearch: (searchText: string) => void;
+}
 const names = [
   "python",
   "java",
@@ -37,41 +43,41 @@ const names = [
 ];
 
 const CustomChip = styled(Chip)(({ theme }) => ({
-  fontFamily: 'preRg',
-  '&.python': {
-    backgroundColor: '#F08484',
+  fontFamily: "preRg",
+  "&.python": {
+    backgroundColor: "#F08484",
   },
-  '&.java': {
-    backgroundColor: '#F9A686'
+  "&.java": {
+    backgroundColor: "#F9A686",
   },
-  '&.c#': {
-    backgroundColor: '#FBF6A4',
+  "&.c#": {
+    backgroundColor: "#FBF6A4",
   },
-  '&.docker': {
-    backgroundColor: 'F9BF64',
+  "&.docker": {
+    backgroundColor: "F9BF64",
   },
-  '&.curl': {
-    backgroundColor: '#A0D6B6',
+  "&.curl": {
+    backgroundColor: "#A0D6B6",
   },
-  '&.three.js': {
-    backgroundColor: '#30BA96',
+  "&.three.js": {
+    backgroundColor: "#30BA96",
   },
-  '&.react': {
-    backgroundColor: '#789CCE',
+  "&.react": {
+    backgroundColor: "#789CCE",
   },
-  '&.c++': {
-    backgroundColor: '#9E7EB9',
+  "&.c++": {
+    backgroundColor: "#9E7EB9",
   },
-  '&.clang': {
-    backgroundColor: '#EF404A',
+  "&.clang": {
+    backgroundColor: "#EF404A",
   },
-  '&.jenkins': {
-    backgroundColor: '#8ED2CD',
+  "&.jenkins": {
+    backgroundColor: "#8ED2CD",
   },
-  height: '25px',
-  '& .MuiChip-label': {
-    paddingTop: '0px',
-    paddingBottom: '0px',
+  height: "25px",
+  "& .MuiChip-label": {
+    paddingTop: "0px",
+    paddingBottom: "0px",
   },
 }));
 
@@ -84,21 +90,44 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
   };
 }
 
-function MultiSelect() {
+function MultiSelect({ onSearch }: searchProps) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
 
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
-  const filter = createFilterOptions<string>();
+  // const handleSearchClick = () => {
+  //   if (personName.length > 0) {
+  //     const selectedLanguage = personName[0];
+  //     onSearch(selectedLanguage);
+  //   }
+  // };
 
+  // const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+  //   const {
+  //     target: { value },
+  //   } = event;
+  //   setPersonName(
+  //     // On autofill we get a stringified value.
+  //     typeof value === "string" ? value.split(",") : value
+  //   );
+  //   console.log(personName);
+  //   if (personName.length > 0) {
+  //     const selectedLanguage = personName[0];
+  //     onSearch(selectedLanguage);
+  //   }
+  // };
+
+  const handleChange = (
+    event: React.SyntheticEvent,
+    value: readonly string[],
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<string> | undefined
+  ) => {
+    setPersonName(value as string[]);
+    // console.log("선택된 기술 스택:", value);
+    onSearch(value[0]);
+  };
+
+  const filter = createFilterOptions<string>();
 
   return (
     <Autocomplete
@@ -109,76 +138,91 @@ function MultiSelect() {
       filterOptions={(options, params) => {
         const filtered = filter(options, params);
         // At the opening of dropdown (when search is empty), no options will be shown.
-        if (params.inputValue === '') {
-            return [];
+        if (params.inputValue === "") {
+          return [];
         }
 
         return filtered as string[];
       }}
       getOptionLabel={(option) => option}
+      value={personName}
+      onChange={handleChange}
       renderInput={(params) => (
-          <TextField {...params} sx={{
-            '& .MuiInputLabel-root': {
-              fontFamily: 'preRg', 
-              color:'#adb5bd', 
-              margin: '-16px 0 0 1px', 
-              zIndex:'200',
+        <TextField
+          {...params}
+          sx={{
+            "& .MuiInputLabel-root": {
+              fontFamily: "preRg",
+              color: "#adb5bd",
+              margin: "-16px 0 0 1px",
+              zIndex: "200",
             },
-            '& .MuiInputBase-root': {
-              marginTop: '-10px',
-              boxShadow: '0px 2px 1px -1px rgb(0 0 0 / 20%)',
+            "& .MuiInputBase-root": {
+              marginTop: "-10px",
+              boxShadow: "0px 2px 1px -1px rgb(0 0 0 / 20%)",
             },
-            '& .MuiOutlinedInput-root': {
-              '& fieldset': {
-                borderColor: '#e9ecef',
-                border: '1px solid #e9ecef',
-                borderTop: '1px solid #f8f9fa'
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "#e9ecef",
+                border: "1px solid #e9ecef",
+                borderTop: "1px solid #f8f9fa",
               },
-              '&:hover fieldset': {
-                borderColor: '#e9ecef',
-                border: '1px solid #e9ecef',
-                borderTop: '1px solid #f8f9fa'
+              "&:hover fieldset": {
+                borderColor: "#e9ecef",
+                border: "1px solid #e9ecef",
+                borderTop: "1px solid #f8f9fa",
               },
-              '&.Mui-focused fieldset': {
-                borderColor: '#e9ecef',
-                border: '1px solid #e9ecef',
-                borderTop: '1px solid #f8f9fa'
+              "&.Mui-focused fieldset": {
+                borderColor: "#e9ecef",
+                border: "1px solid #e9ecef",
+                borderTop: "1px solid #f8f9fa",
               },
-            }
-          }} label="언어를 검색하세요" />
+            },
+          }}
+          label="언어를 검색하세요"
+        />
       )}
-      sx={{ 
-          width: '300px', 
-          '& .MuiAutocomplete-tag': {
-              maxWidth: '100%',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-          },
-          '& .MuiAutocomplete-tagArea': {
-              flexWrap: 'nowrap',
-              overflowX: 'auto',
-          },
-          '& .MuiInputBase-root': {
-            position: "fixed",
-            width: "300px",
-            padding: '2px 5px',
-            fontFamily: 'preBd',
-            backgroundColor: "#ffffff",
-            zIndex: "100",
-          },
-          marginLeft: '10px',
-        }}
-
+      sx={{
+        width: "300px",
+        "& .MuiAutocomplete-tag": {
+          maxWidth: "100%",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+        },
+        "& .MuiAutocomplete-tagArea": {
+          flexWrap: "nowrap",
+          overflowX: "auto",
+        },
+        "& .MuiInputBase-root": {
+          position: "fixed",
+          width: "300px",
+          padding: "2px 5px",
+          fontFamily: "preBd",
+          backgroundColor: "#ffffff",
+          zIndex: "100",
+        },
+        marginLeft: "10px",
+      }}
       renderTags={(selectedValues, getTagProps) =>
-          selectedValues.map((option, index) => (
-              <CustomChip {...getTagProps({ index })} key={index} label={option} className={option} sx={{ margin: '4px 4px' }}/>
-          ))
+        selectedValues.map((option, index) => (
+          <CustomChip
+            {...getTagProps({ index })}
+            key={index}
+            label={option}
+            className={option}
+            sx={{ margin: "4px 4px" }}
+          />
+        ))
       }
       renderOption={(props, option, { selected }) => (
-          <li {...props}>
-              <CustomChip label={option} className={option} color={selected ? 'primary' : undefined} />
-          </li>
+        <li {...props}>
+          <CustomChip
+            label={option}
+            className={option}
+            color={selected ? "primary" : undefined}
+          />
+        </li>
       )}
     />
   );

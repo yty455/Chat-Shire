@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
-function Search() {
+interface searchProps {
+  onSearch: (searchText: string) => void;
+}
+
+function Search({ onSearch }: searchProps) {
+  const [searchText, setSearchText] = useState("");
+  const handleSearch = () => {
+    onSearch(searchText);
+  };
+
   return (
     <Paper
       component="form"
@@ -18,12 +27,13 @@ function Search() {
       style={{ margin: "1%" }}
     >
       <InputBase
-        sx={{ ml: 1, flex: 1, fontFamily:'preBd'}}
+        sx={{ ml: 1, flex: 1, fontFamily: "preBd" }}
         placeholder="에러 메세지로 검색해보세요"
         inputProps={{ "aria-label": "에러 검색" }}
+        onChange={(e) => setSearchText(e.target.value)}
       />
       <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-        <SearchIcon />
+        <SearchIcon onClick={handleSearch} />
       </IconButton>
     </Paper>
   );
