@@ -89,5 +89,34 @@ public class PostController {
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
     }
 
+    @Operation(summary = "에러 게시판 프로그래밍 언어 검색", description = "프로그래밍 언어로 에러 게시판을 검색합니다.")
+    @GetMapping("/projects/{projectId}/skill/{skillName}")
+    public ResponseEntity<BasicResponse> searchSkill(@PathVariable(name = "projectId") Long chatRoomId, @PathVariable(name = "skillName") String skillName) {
+
+        List<PostInfoResponse> postInfoResponses = postService.getPostsBySkill(chatRoomId, skillName);
+
+        BasicResponse basicResponse = BasicResponse.builder()
+                .message("에러 게시글 프로그래밍 언어로 검색 성공")
+                .count(postInfoResponses.size())
+                .result(Collections.singletonList(postInfoResponses))
+                .build();
+
+        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+    }
+
+    @Operation(summary = "에러 게시판 컨텐츠 검색", description = "컨텐츠로 에러 게시판을 검색합니다.")
+    @GetMapping("/projects/{projectId}/content/{content}")
+    public ResponseEntity<BasicResponse> searchContent(@PathVariable(name = "projectId") Long chatRoomId, @PathVariable(name = "content") String content) {
+
+        List<PostInfoResponse> postInfoResponses = postService.getPostsByContent(chatRoomId, content);
+
+        BasicResponse basicResponse = BasicResponse.builder()
+                .message("에러 게시글 컨텐츠로 검색 성공")
+                .count(postInfoResponses.size())
+                .result(Collections.singletonList(postInfoResponses))
+                .build();
+
+        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+    }
 
 }

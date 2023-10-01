@@ -1,6 +1,6 @@
 package com.ssafy.backend.domain.chat.repository;
 
-import com.ssafy.backend.domain.chat.Chat;
+import com.ssafy.backend.domain.chat.entity.Chat;
 import com.ssafy.backend.domain.chat.dto.ChatInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,6 +1,5 @@
 package com.ssafy.backend.domain.post;
 
-import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.common.BaseEntity;
 import com.ssafy.backend.domain.user.User;
 import lombok.*;
@@ -16,7 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 @Builder(toBuilder = true)
 public class Reply extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "REPLY_ID")
     private Long id;
 
