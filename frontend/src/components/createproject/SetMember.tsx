@@ -39,7 +39,6 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
         if (InvitedMembers.current.includes(item.id)) {
           item.column = INVITED_MEMBERS
         } else {
-          InvitedMembers.current.push(item.id)
           item.column = MEMBERS
         }
       })
@@ -54,6 +53,7 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
       const newMembers: any = items
         .map((member) => {
           if (member.column === "초대된 멤버") {
+            InvitedMembers.current.push(String(member.id))
             return String(member.id);
           }
         })
@@ -90,7 +90,6 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
         if (InvitedMembers.current.includes(item.id)) {
           item.column = INVITED_MEMBERS
         } else {
-          InvitedMembers.current.push(item.id)
           item.column = MEMBERS
         }
       })
