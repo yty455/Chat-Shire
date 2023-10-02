@@ -180,11 +180,7 @@ export default function ProfilePage() {
                   {userData.challengeInfoResponse.commit}/100{" "}
                 </span>
                 <img
-                  className={`${styles.AchievementItemDesc} ${
-                    userData.challengeInfoResponse.commit < 100
-                      ? styles.black
-                      : ""
-                  }`}
+                  className={`${styles.AchievementItemDesc} `}
                   width="0px"
                   height="78px"
                   src={bronze}
@@ -206,11 +202,7 @@ export default function ProfilePage() {
                   {userData.challengeInfoResponse.chat}/1000{" "}
                 </span>
                 <img
-                  className={`${styles.AchievementItemDesc} ${
-                    userData.challengeInfoResponse.chat < 1000
-                      ? styles.black
-                      : ""
-                  }`}
+                  className={`${styles.AchievementItemDesc} `}
                   width="0px"
                   height="78px"
                   src={bronze}
@@ -232,11 +224,7 @@ export default function ProfilePage() {
                   {userData.challengeInfoResponse.project}/5{" "}
                 </span>
                 <img
-                  className={`${styles.AchievementItemDesc} ${
-                    userData.challengeInfoResponse.project < 5
-                      ? styles.black
-                      : ""
-                  }`}
+                  className={`${styles.AchievementItemDesc} `}
                   width="0px"
                   height="78px"
                   src={bronze}
