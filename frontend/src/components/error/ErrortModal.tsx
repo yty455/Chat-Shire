@@ -10,6 +10,8 @@ import {
 } from "../../utils/errorApi";
 import ProfileImgBox from "../common/ProfileImgBox";
 import Avatar from "@mui/material/Avatar";
+import { useRecoilState } from "recoil";
+import { loginuser } from "../../stores/atom";
 
 interface ErrorModalProps {
   closeModal: () => void;
@@ -21,6 +23,7 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
   const [content, setContent] = useState("");
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editedComment, setEditedComment] = useState<string>("");
+  const [userData] = useRecoilState(loginuser);
 
   // 단일 에러 불러오기
   const getInError = async () => {
@@ -107,30 +110,36 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
                     }}
                   />
                   {item.nickname} :{" "}
-                  {editingCommentId === item.replyId ? (
-                    <>
-                      <input
-                        type="text"
-                        value={item.content}
-                        onChange={(e) => setEditedComment(e.target.value)}
-                      />
-                      <button
-                        onClick={() => updateReply(item.replyId, editedComment)}
-                      >
-                        저장
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      {item.content}
-                      <button onClick={() => setEditingCommentId(item.replyId)}>
-                        수정
-                      </button>
-                      <button onClick={() => deleteReply(item.replyId)}>
-                        삭제
-                      </button>
-                    </>
-                  )}
+                  {userData.nickname === item.nickname ? (
+                    editingCommentId === item.replyId ? (
+                      <>
+                        <input
+                          type="text"
+                          value={item.content}
+                          onChange={(e) => setEditedComment(e.target.value)}
+                        />
+                        <button
+                          onClick={() =>
+                            updateReply(item.replyId, editedComment)
+                          }
+                        >
+                          저장
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {item.content}
+                        <button
+                          onClick={() => setEditingCommentId(item.replyId)}
+                        >
+                          수정
+                        </button>
+                        <button onClick={() => deleteReply(item.replyId)}>
+                          삭제
+                        </button>
+                      </>
+                    )
+                  ) : null}
                 </div>
               );
             })}
@@ -142,7 +151,11 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
           />
         </div>
         <button onClick={closeModal}>닫기</button>
-        <button onClick={deleteInError}>삭제</button>
+        {userData.nickname === errDetail.nickname ? (
+          <button onClick={deleteInError}>삭제</button>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
