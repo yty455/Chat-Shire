@@ -16,7 +16,7 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   const [items, setItems] = useState(tasks);
   let InvitedMembers = useRef<string[]>([]);
 
-  console.log(items)
+  console.log(items);
 
   const moveCardHandler = (dragIndex: number, hoverIndex: number) => {
     const dragItem = items[dragIndex];
@@ -32,18 +32,17 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   };
 
   const searchMember = (e: any) => {
-    api.get(`/users/search?githubId=${e.target.value}`)
-    .then((res) => {
-      let prevItem = res?.data.result[0]
+    api.get(`/users/search?githubId=${e.target.value}`).then((res) => {
+      let prevItem = res?.data.result[0];
       prevItem.map((item: any) => {
         if (InvitedMembers.current.includes(String(item.id))) {
-          item.column = INVITED_MEMBERS
+          item.column = INVITED_MEMBERS;
         } else {
-          item.column = MEMBERS
+          item.column = MEMBERS;
         }
-      })
+      });
       if (prevItem) {
-        setItems(prevItem)
+        setItems(prevItem);
       }
     });
   };
@@ -53,14 +52,14 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
       const newMembers: any = items
         .map((member) => {
           if (member.column === "초대된 멤버") {
-            InvitedMembers.current.push(String(member.id))
+            InvitedMembers.current.push(String(member.id));
             return String(member.id);
           }
         })
         .filter((element) => element);
       onData(newMembers);
     }
-    
+
     return items
       .filter((item: any) => item.column === columnName)
       .map((item: any, index: any) => (
@@ -80,24 +79,23 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
 
   const { MEMBERS, INVITED_MEMBERS } = COLUMN_NAMES;
 
-  console.log(MEMBERS, INVITED_MEMBERS)
+  console.log(MEMBERS, INVITED_MEMBERS);
 
   useEffect(() => {
-    api.get("/users/search?githubId=")
-    .then((res) => {
-      let prevItem = res?.data.result[0]
+    api.get("/users/search?githubId=").then((res) => {
+      let prevItem = res?.data.result[0];
       prevItem.map((item: any) => {
         if (InvitedMembers.current.includes(String(item.id))) {
-          item.column = INVITED_MEMBERS
+          item.column = INVITED_MEMBERS;
         } else {
-          item.column = MEMBERS
+          item.column = MEMBERS;
         }
-      })
+      });
       if (prevItem) {
-        setItems(prevItem)
+        setItems(prevItem);
       }
     });
-  }, [])
+  }, []);
 
   return (
     <div
