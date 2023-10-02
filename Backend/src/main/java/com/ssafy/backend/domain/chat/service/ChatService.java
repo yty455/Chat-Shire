@@ -6,6 +6,7 @@ import com.ssafy.backend.domain.attachedFile.repository.AttachedFileRepository;
 import com.ssafy.backend.domain.chat.dto.ChatInfo;
 import com.ssafy.backend.domain.chat.dto.ChatPost;
 import com.ssafy.backend.domain.chat.repository.ChatRepository;
+import com.ssafy.backend.domain.user.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -28,6 +29,7 @@ public class ChatService {
     private final RedisTemplate<String, ChatInfo> chatRedisTemplate;
     private final AttachedFileRepository attachedFileRepository;
     private final SimpMessagingTemplate simpMessagingTemplate;
+    private final ChallengeService challengeService;
     private final String chatKey = "chat";
 
     public void postChat(ChatPost chatPost) {
@@ -45,6 +47,7 @@ public class ChatService {
 
         // 첨부파일 검증
         if (chatPost.getAttachedFileInfos() != null) {
+            boolean attachFlag = false;
             for (int idx = 0; idx < chatPost.getAttachedFileInfos().size(); idx++) {
                 // 카테고리 븐류
                 String str = chatPost.getAttachedFileInfos().get(idx).getUrl();
@@ -57,7 +60,7 @@ public class ChatService {
                         || str.endsWith(".xlsx") || str.endsWith(".xls") || str.endsWith(".txt")) {
                     category = Category.FILE;
                 } else continue;
-
+                attachFlag = true;
                 // 첨부파일 DB에 저장
                 AttachedFile attachedFile = AttachedFile.builder()
                         .url(chatPost.getAttachedFileInfos().get(idx).getUrl())
@@ -66,6 +69,10 @@ public class ChatService {
                         .chatNumber(chatNumber)
                         .category(category).build();
                 attachedFileRepository.save(attachedFile);
+            }
+
+            if(attachFlag){
+                challengeService.addLink(getUserId());
             }
         }
 

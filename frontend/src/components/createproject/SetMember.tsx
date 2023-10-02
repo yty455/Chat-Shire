@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Autocomplete, TextField } from "@mui/material";
@@ -14,6 +14,7 @@ import { tasks } from "../reactDnd/Tasks";
 
 function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   const [items, setItems] = useState(tasks);
+  let InvitedMembers = useRef<string[]>([]);
 
   console.log(items)
 
@@ -33,7 +34,17 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   const searchMember = (e: any) => {
     api.get(`/users/search?githubId=${e.target.value}`)
     .then((res) => {
-      setItems(res?.data.result[0])
+      let prevItem = res?.data.result[0]
+      prevItem.map((item: any) => {
+        if (InvitedMembers.current.includes(String(item.id))) {
+          item.column = INVITED_MEMBERS
+        } else {
+          item.column = MEMBERS
+        }
+      })
+      if (prevItem) {
+        setItems(prevItem)
+      }
     });
   };
 
@@ -42,6 +53,7 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
       const newMembers: any = items
         .map((member) => {
           if (member.column === "초대된 멤버") {
+            InvitedMembers.current.push(String(member.id))
             return String(member.id);
           }
         })
@@ -71,7 +83,20 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   console.log(MEMBERS, INVITED_MEMBERS)
 
   useEffect(() => {
-    searchMember("")
+    api.get("/users/search?githubId=")
+    .then((res) => {
+      let prevItem = res?.data.result[0]
+      prevItem.map((item: any) => {
+        if (InvitedMembers.current.includes(String(item.id))) {
+          item.column = INVITED_MEMBERS
+        } else {
+          item.column = MEMBERS
+        }
+      })
+      if (prevItem) {
+        setItems(prevItem)
+      }
+    });
   }, [])
 
   return (

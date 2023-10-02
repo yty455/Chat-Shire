@@ -20,6 +20,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,7 +83,12 @@ public class ChatRoomService {
 
         // 도전과제 추가
         challengeService.addProject(getUserId());
-
+        // 현재 동시에 진행중인 플젝 확인
+        List<LocalDate> endDates = participationRepository.findEndDateByUserId(getUserId());
+        int ongoing = (int) endDates.stream()
+                .filter(endDate -> LocalDate.now().isEqual(endDate) || LocalDate.now().isBefore(endDate))
+                .count();
+        challengeService.addOngoing(getUserId(), ongoing);
     }
 
     @Transactional

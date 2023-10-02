@@ -144,6 +144,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const currentDate = new Date();
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [allTeamTask, setAllTeamTask] = useState([]);
+  const [ongoingTeamTask, setOngoingTeamTask] = useState([]);
   const [comTeamTask, setComTeamTask] = useState([]);
   const [pjt, setPjt] = useState<any>({});
   const [isModalOpen, setIsModalOpen] = useState("");
@@ -324,6 +325,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       console.log(completedTasks);
 
       setAllTeamTask(allTasks);
+      setOngoingTeamTask(ongoingTasks);
       setComTeamTask(completedTasks);
     } catch (error) {
       console.error(error);
@@ -401,7 +403,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         <AllBorderLinearProgress
           style={{ marginTop: "29px", width: "500px" }}
           variant="determinate"
-          value={50}
+          value={comTeamTask.length / allTeamTask.length}
         />
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
@@ -565,8 +567,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         <div style={{ padding: "0 20px 0 20px", width: "50%" }}>
           <p className={styles.taskProgress}>진행중인 Task</p>
 
-          {allTeamTask &&
-            allTeamTask.map((task: any) => (
+          {ongoingTeamTask &&
+            ongoingTeamTask.map((task: any) => (
               <div className={styles.taskContainer} key={task.id}>
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
                 <div className={styles.taskHeader}>
