@@ -175,15 +175,25 @@ export default function ProfilePage() {
           </div>
           <div className={styles.AchievementContainer}>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>0/6</span>
+              <span className={styles.AchievementItemCount}>
+                {userData.challengeInfoResponse.commit}/100{" "}
+              </span>
               <img
-                className={styles.AchievementItemDesc}
+                className={`${styles.AchievementItemDesc} ${
+                  userData.challengeInfoResponse.commit < 100
+                    ? styles.Black
+                    : ""
+                }`}
                 width="0px"
                 height="78px"
                 src={bronze}
               />
               <img
-                className={styles.AchievementItem}
+                className={`${styles.AchievementItem} ${
+                  userData.challengeInfoResponse.commit < 100
+                    ? styles.Black
+                    : ""
+                }`}
                 width="78px"
                 height="78px"
                 src={achievementPath(1)}
@@ -191,15 +201,21 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>0/6</span>
+              <span className={styles.AchievementItemCount}>
+                {userData.challengeInfoResponse.chat}/1000{" "}
+              </span>
               <img
-                className={styles.AchievementItemDesc}
+                className={`${styles.AchievementItemDesc} ${
+                  userData.challengeInfoResponse.chat < 1000 ? styles.Black : ""
+                }`}
                 width="0px"
                 height="78px"
                 src={bronze}
               />
               <img
-                className={styles.AchievementItem}
+                className={`${styles.AchievementItem} ${
+                  userData.challengeInfoResponse.chat < 1000 ? styles.Black : ""
+                }`}
                 width="78px"
                 height="78px"
                 src={achievementPath(2)}
@@ -207,15 +223,21 @@ export default function ProfilePage() {
               />
             </div>
             <div className={styles.AchievementItemContainer}>
-              <span className={styles.AchievementItemCount}>0/6</span>
+              <span className={styles.AchievementItemCount}>
+                {userData.challengeInfoResponse.project}/5{" "}
+              </span>
               <img
-                className={styles.AchievementItemDesc}
+                className={`${styles.AchievementItemDesc} ${
+                  userData.challengeInfoResponse.project < 5 ? styles.Black : ""
+                }`}
                 width="0px"
                 height="78px"
                 src={bronze}
               />
               <img
-                className={styles.AchievementItem}
+                className={`${styles.AchievementItem} ${
+                  userData.challengeInfoResponse.project < 5 ? styles.Black : ""
+                }`}
                 width="78px"
                 height="78px"
                 src={achievementPath(3)}
