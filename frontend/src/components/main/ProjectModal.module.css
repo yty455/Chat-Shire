@@ -40,3 +40,9 @@
   background-color: red;
   font-family: preRg;
 }
+
+.ProjectMemberContainer {
+  display: flex;
+  margin-left: 10px;
+  overflow: scroll;
+}
