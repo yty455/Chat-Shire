@@ -12,6 +12,7 @@ import ProfileImgBox from "../common/ProfileImgBox";
 import Avatar from "@mui/material/Avatar";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../../stores/atom";
+import { Button } from "antd";
 
 interface ErrorModalProps {
   closeModal: () => void;
@@ -93,7 +94,24 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <p>{errDetail && errDetail.title}</p>
+        <div className={styles.deContainer}>
+          <h1>{errDetail && errDetail.title}</h1>
+          <p>{errDetail.content}</p>
+          <p>생성날짜:{errDetail.createdDate}</p>
+          <p>수정날짜:{errDetail.lastModifiedDate}</p>
+          <div>
+            작성자 {errDetail.nickname}
+            <Avatar
+              alt={errDetail.nickname}
+              src={process.env.PUBLIC_URL + errDetail.profileImage}
+              sx={{
+                width: 60,
+                height: 60,
+                backgroundColor: errDetail.profileColor,
+              }}
+            />
+          </div>
+        </div>
         <div className={styles.reContainer}>
           {errDetail &&
             errDetail?.replies &&
@@ -150,9 +168,19 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
             onKeyPress={handleEnterKeyPress}
           />
         </div>
-        <button onClick={closeModal}>닫기</button>
+        <button onClick={closeModal} className={styles.closebtn}>
+          X
+        </button>
         {userData.nickname === errDetail.nickname ? (
-          <button onClick={deleteInError}>삭제</button>
+          <Button
+            onClick={deleteInError}
+            style={{ backgroundColor: "red", fontFamily: "preRg" }}
+            key="submit"
+            type="primary"
+            className={styles.deletebtn}
+          >
+            삭제
+          </Button>
         ) : (
           <></>
         )}
