@@ -153,4 +153,5 @@
 }
 
 .black {
+  filter: grayscale(100%);
 }
