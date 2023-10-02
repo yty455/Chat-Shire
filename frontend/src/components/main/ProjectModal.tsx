@@ -5,6 +5,8 @@ import { updateProject } from "../../utils/projectApi";
 import { useNavigate } from "react-router-dom";
 import { getProjectMem } from "../../utils/projectApi";
 import ProfileImgBox from "../common/ProfileImgBox";
+import { Button } from "antd";
+import { Avatar } from "@mui/material";
 
 interface ProjectModalProps {
   pjt: any;
@@ -79,141 +81,154 @@ function ProjectModal({
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        {editState === "name" ? (
-          <input
-            type="text"
-            value={projectData.name}
-            onChange={(e) => {
-              setProjectData({ ...projectData, name: e.target.value });
-            }}
-            onBlur={() => setEditState(null)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                updatePJT(projectData);
-                setEditState(null);
-              }
-            }}
-          />
-        ) : (
-          <span onClick={() => handleInputClick("name")}>
-            프로젝트 이름 {projectData.name}
-          </span>
-        )}
-        {editState === "topic" ? (
-          <input
-            type="text"
-            value={projectData.topic}
-            onChange={(e) => {
-              setProjectData({ ...projectData, topic: e.target.value });
-            }}
-            onBlur={() => setEditState(null)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                updatePJT(projectData);
-                setEditState(null);
-              }
-            }}
-          />
-        ) : (
-          <p onClick={() => handleInputClick("topic")}>
-            프로젝트 주제 {projectData.topic}
+        <div>
+          {editState === "name" ? (
+            <input
+              type="text"
+              value={projectData.name}
+              onChange={(e) => {
+                setProjectData({ ...projectData, name: e.target.value });
+              }}
+              onBlur={() => setEditState(null)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  updatePJT(projectData);
+                  setEditState(null);
+                }
+              }}
+            />
+          ) : (
+            <span onClick={() => handleInputClick("name")}>
+              프로젝트 이름 {projectData.name}
+            </span>
+          )}
+        </div>
+        <div>
+          {editState === "topic" ? (
+            <input
+              type="text"
+              value={projectData.topic}
+              onChange={(e) => {
+                setProjectData({ ...projectData, topic: e.target.value });
+              }}
+              onBlur={() => setEditState(null)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  updatePJT(projectData);
+                  setEditState(null);
+                }
+              }}
+            />
+          ) : (
+            <p onClick={() => handleInputClick("topic")}>
+              프로젝트 주제 {projectData.topic}
+            </p>
+          )}
+        </div>
+        <div>
+          {editState === "teamName" ? (
+            <input
+              type="text"
+              value={projectData.teamName}
+              onChange={(e) => {
+                setProjectData({ ...projectData, teamName: e.target.value });
+              }}
+              onBlur={() => setEditState(null)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  updatePJT(projectData);
+                  setEditState(null);
+                }
+              }}
+            />
+          ) : (
+            <p onClick={() => handleInputClick("teamName")}>
+              팀 이름 {projectData.teamName}
+            </p>
+          )}
+        </div>
+        <div>
+          {editState === "description" ? (
+            <input
+              type="text"
+              value={projectData.description}
+              onChange={(e) => {
+                setProjectData({ ...projectData, description: e.target.value });
+              }}
+              onBlur={() => setEditState(null)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  updatePJT(projectData);
+                  setEditState(null);
+                }
+              }}
+            />
+          ) : (
+            <p onClick={() => handleInputClick("description")}>
+              설명 {projectData.description}
+            </p>
+          )}
+        </div>
+        <div>
+          {editState === "gitRepository" ? (
+            <input
+              type="text"
+              value={projectData.gitRepository}
+              onChange={(e) => {
+                setProjectData({
+                  ...projectData,
+                  gitRepository: e.target.value,
+                });
+              }}
+              onBlur={() => setEditState(null)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  updatePJT(projectData);
+                  setEditState(null);
+                }
+              }}
+            />
+          ) : (
+            <p onClick={() => handleInputClick("gitRepository")}>
+              깃 : {projectData.gitRepository}
+            </p>
+          )}
+        </div>
+        <div>
+          <p>
+            기간 <span>{pjt.startDate}</span>~<span>{pjt.endDate}</span>
           </p>
-        )}
-
-        {editState === "teamName" ? (
-          <input
-            type="text"
-            value={projectData.teamName}
-            onChange={(e) => {
-              setProjectData({ ...projectData, teamName: e.target.value });
-            }}
-            onBlur={() => setEditState(null)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                updatePJT(projectData);
-                setEditState(null);
+        </div>
+        <div>
+          {pjtMem.map((user: any) => (
+            <Avatar
+              alt="Remy Sharp"
+              src={
+                user.profileImage != null
+                  ? process.env.PUBLIC_URL + user.profileImage
+                  : process.env.PUBLIC_URL + "/assets/profile/m57.png"
               }
-            }}
-          />
-        ) : (
-          <p onClick={() => handleInputClick("teamName")}>
-            팀 이름 {projectData.teamName}
-          </p>
-        )}
-
-        {editState === "description" ? (
-          <input
-            type="text"
-            value={projectData.description}
-            onChange={(e) => {
-              setProjectData({ ...projectData, description: e.target.value });
-            }}
-            onBlur={() => setEditState(null)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                updatePJT(projectData);
-                setEditState(null);
-              }
-            }}
-          />
-        ) : (
-          <p onClick={() => handleInputClick("description")}>
-            설명 {projectData.description}
-          </p>
-        )}
-
-        {editState === "gitRepository" ? (
-          <input
-            type="text"
-            value={projectData.gitRepository}
-            onChange={(e) => {
-              setProjectData({ ...projectData, gitRepository: e.target.value });
-            }}
-            onBlur={() => setEditState(null)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                updatePJT(projectData);
-                setEditState(null);
-              }
-            }}
-          />
-        ) : (
-          <p onClick={() => handleInputClick("gitRepository")}>
-            깃 : {projectData.gitRepository}
-          </p>
-        )}
-        <p>
-          기간 <span>{pjt.startDate}</span>~<span>{pjt.endDate}</span>
-        </p>
-        {pjtMem ? (
-          <ul>
-            {pjtMem.map((user: any) => (
-              <li key={user.userId}>
-                <ProfileImgBox
-                  backgroundColor={user.profileColor}
-                  text=""
-                  width="25px"
-                  height="25px"
-                  margin="10px"
-                  padding=""
-                  display="flex"
-                  backgroundImage={process.env.PUBLIC_URL + user.profileImage}
-                />
-                <span>{user.nickname}</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Loading...</p>
-        )}
-        <button
-          onClick={closeModal}
-          style={{ position: "fixed", top: "5%", right: "5%" }}
-        >
-          X
-        </button>
-        <button onClick={() => deleteProject(pjt.id)}>삭제</button>
+              sx={{
+                width: 60,
+                height: 60,
+                bgcolor: user.profileColor,
+                marginRight: "10px",
+              }}
+            />
+          ))}
+        </div>
       </div>
+      <button onClick={closeModal} className={styles.closebtn}>
+        X
+      </button>
+      <Button
+        style={{ backgroundColor: "red", fontFamily: "preRg" }}
+        key="submit"
+        type="primary"
+        onClick={() => deleteProject(pjt.id)}
+      >
+        프로젝트 나가기
+      </Button>
     </div>
   );
 }
