@@ -22,13 +22,22 @@ export default function CustomProfilePage() {
   const [isLogin, setIsLogin] = useRecoilState(isLogin_recoil);
 
   const [formData, setFormData] = useState({
-    nickname: "",
-    profileImage: process.env.PUBLIC_URL + "/assets/profile/male/m25.png",
-    profileColor: "",
-    introduction: "",
-    detailIntroduction: "",
-    position: "",
-    mySkill: [] as string[],
+    nickname: userData && userData.nickname ? userData.nickname : "",
+    profileImage:
+      userData && userData.profileImage
+        ? process.env.PUBLIC_URL + userData.profileImage
+        : process.env.PUBLIC_URL + "/assets/profile/male/m25.png",
+
+    profileColor:
+      userData && userData.profileColor ? userData.profileColor : "",
+    introduction:
+      userData && userData.introduction ? userData.introduction : "",
+    detailIntroduction:
+      userData && userData.detailIntroduction
+        ? userData.detailIntroduction
+        : "",
+    position: userData && userData.position ? userData.position : "",
+    mySkill: userData && userData.mySkill ? userData.mySkill : ([] as string[]),
   });
   // 부모 컴포넌트에서 배경색 업데이트 함수
   const updateProfileColor = (color: string) => {
