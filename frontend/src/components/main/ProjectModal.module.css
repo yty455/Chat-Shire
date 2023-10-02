@@ -44,5 +44,5 @@
 .ProjectMemberContainer {
   display: flex;
   margin-left: 10px;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
