@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.ssafy.backend.domain.common.GlobalMethod.getUserId;
@@ -38,6 +39,12 @@ public class InvitationService {
 
         // 도전과제 추가
         challengeService.addProject(getUserId());
+        // 현재 동시에 진행중인 플젝 확인
+        List<LocalDate> endDates = participationRepository.findEndDateByUserId(getUserId());
+        int ongoing = (int) endDates.stream()
+                .filter(endDate -> LocalDate.now().isEqual(endDate) || LocalDate.now().isBefore(endDate))
+                .count();
+        challengeService.addOngoing(getUserId(), ongoing);
     }
 
     private void participation(Notification notification) {

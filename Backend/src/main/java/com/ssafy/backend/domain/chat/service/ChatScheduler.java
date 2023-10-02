@@ -11,6 +11,7 @@ import com.ssafy.backend.domain.chat.repository.ChatRepository;
 import com.ssafy.backend.domain.chat.repository.ChatRoomRepository;
 import com.ssafy.backend.domain.user.User;
 import com.ssafy.backend.domain.user.repository.UserRepository;
+import com.ssafy.backend.domain.user.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -35,10 +36,9 @@ public class ChatScheduler {
     private final ChatRoomRepository chatRoomRepository;
     private final UserRepository userRepository;
     private final ChatRepository chatRepository;
-    private final RedisTemplate<String, Object> redisTemplate;
     private final RedisTemplate<String, ChatInfo> chatRedisTemplate;
+    private final ChallengeService challengeService;
 
-    private final String chatNumberKey = "chatNumber";
     final static String user = "ubuntu";
     final static String host = "52.79.247.214";
     final static String privateKey = "/key/J9E205T.pem";
@@ -52,10 +52,8 @@ public class ChatScheduler {
         Map<Long, User> userMap = userRepository.findAll().stream()
                 .collect(Collectors.toMap(User::getId, Function.identity()));
 
-        // 도전과제 채팅 카운터 위한 맵
-        Map<Long, Integer> userChatCount = userMap.keySet().stream()
-                .collect(Collectors.toMap(Function.identity(), key -> 0));
-
+        // 도전과제 채팅 카운터 위한 맵 -> compute 사용해서 채팅 친 사람만 카운트
+        Map<Long, Integer> userChatCount = new HashMap<>();
         Map<Long, String> chatMap = new HashMap<>();
         List<ChatWordDto> result = new ArrayList<>();
         for (ChatRoom chatRoom : chatRoomList) {
@@ -93,10 +91,16 @@ public class ChatScheduler {
                 result.add(dto);
             }
             List<Chat> chats = chatInfos.stream()
-                    .map(chatInfo -> chatInfo.toEntity(userMap.get(chatInfo.getUserId()), chatRoom))
+                    .map(chatInfo -> {
+                        userChatCount.compute(chatInfo.getUserId(), (userId, count) -> count == null ? 1 : count + 1);
+                        return chatInfo.toEntity(userMap.get(chatInfo.getUserId()), chatRoom);
+                    })
                     .collect(Collectors.toList());
             chatRepository.saveAll(chats);
         }
+
+        // 도전과제 채팅 카운트
+        userChatCount.keySet().forEach(key -> challengeService.addChat(key, userChatCount.get(key)));
 
         // 결과 리스트를 JSON 파일으로 ec서버에 생성
         try {

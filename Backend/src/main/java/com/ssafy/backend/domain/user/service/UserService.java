@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -28,104 +28,126 @@ import static com.ssafy.backend.domain.common.GlobalMethod.getUserId;
 @RequiredArgsConstructor
 public class UserService {
 
-	private final UserRepository userRepository;
-	private final SkillRepository skillRepository;
-	private final MySkillRepository mySkillRepository;
-	private final ChallengeRepository challengeRepository;
-	private final RedisTemplate<String, String> redisTemplate;
+    private final UserRepository userRepository;
+    private final SkillRepository skillRepository;
+    private final MySkillRepository mySkillRepository;
+    private final ChallengeRepository challengeRepository;
+    private final RedisTemplate<String, String> redisTemplate;
+    private final ChallengeService challengeService;
 
-	@Transactional
-	public void signUp(UserInfo userInfo) {
-		User findUser = userRepository.findById(getUserId())
-				.orElseThrow(UserNotFoundException::new);
+    @Transactional
+    public void signUp(UserInfo userInfo) {
+        User findUser = userRepository.findById(getUserId())
+                .orElseThrow(UserNotFoundException::new);
 
-		findUser.update(userInfo);
-		findUser.authorizeUser();
+        findUser.update(userInfo);
+        findUser.authorizeUser();
 
-		if (userInfo.getMySkill() == null)
-			return;
-		// 언어 스킬 등록
-		Map<String, Skill> skillMap = skillRepository.findAll().stream()
-				.collect(Collectors.toMap(Skill::getSkillName, skill -> skill));
+        if (userInfo.getMySkill() == null)
+            return;
+        // 언어 스킬 등록
+        Map<String, Skill> skillMap = skillRepository.findAll().stream()
+                .collect(Collectors.toMap(Skill::getSkillName, skill -> skill));
 
-		userInfo.getMySkill().stream()
-				.map(skillMap::get)
-				.map(skill -> MySkill.builder()
-						.skill(skill)
-						.user(findUser)
-						.build())
-				.forEach(mySkillRepository::save);
+        userInfo.getMySkill().stream()
+                .map(skillMap::get)
+                .map(skill -> MySkill.builder()
+                        .skill(skill)
+                        .user(findUser)
+                        .build())
+                .forEach(mySkillRepository::save);
 
 
-		redisTemplate.opsForValue().set("userState-" + getUserId(), String.valueOf(State.ONLINE));
+        redisTemplate.opsForValue().set("userState-" + getUserId(), String.valueOf(State.ONLINE));
 
-	}
+    }
 
-	public UserInfoResponse getUserProfile() {
-		User findUser = userRepository.findById(getUserId())
-				.orElseThrow(UserNotFoundException::new);
-		List<String> mySkills = mySkillRepository.findByUser(findUser);
+    @Transactional
+    public UserInfoResponse getUserProfile() {
+        User findUser = userRepository.findById(getUserId())
+                .orElseThrow(UserNotFoundException::new);
+        List<String> mySkills = mySkillRepository.findByUser(findUser);
 
-		Challenge challenge = challengeRepository.findByUserId(getUserId())
-				.orElseThrow(() -> new ResourceNotFoundException("Challenge.user", getUserId()));
-		ChallengeInfoResponse challengeInfoResponse = ChallengeInfoResponse.fromEntity(challenge);
+        Challenge challenge = challengeRepository.findByUserId(getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("Challenge.user", getUserId()));
+        ChallengeInfoResponse challengeInfoResponse = ChallengeInfoResponse.fromEntity(challenge);
 
-		String state = redisTemplate.opsForValue().get("userState-" + getUserId());
-		return UserInfoResponse.fromEntity(findUser, mySkills, challengeInfoResponse, state);
-	}
+        String state = redisTemplate.opsForValue().get("userState-" + getUserId());
 
-	@Transactional
-	public void modifyUserProfile(UserInfo userInfo) {
-		User findUser = userRepository.findById(getUserId())
-				.orElseThrow(UserNotFoundException::new);
+        // 연속 로그인 검증
+        String lastLogin = redisTemplate.opsForValue().get("lastLogin-" + getUserId());
+        redisTemplate.opsForValue().set("lastLogin-" + getUserId(), LocalDate.now().toString());
+        if (lastLogin == null) {
+            redisTemplate.opsForValue().set("loginCount-" + getUserId(), "1");
+        } else {
+            LocalDate lastLoginDate = LocalDate.parse(lastLogin);
+            // 연속 로그인이면
+            if (LocalDate.now().isEqual(lastLoginDate.plusDays(1))) {
+                int loginCount = Integer.parseInt(redisTemplate.opsForValue().get("loginCount-" + getUserId())) + 1;
+                if (challenge.getLogin() < loginCount) {
+                    challenge.addLogin(loginCount);
+                }
+                redisTemplate.opsForValue().set("loginCount-" + getUserId(), String.valueOf(loginCount));
+            } else if (!LocalDate.now().isEqual(lastLoginDate)) {
+                redisTemplate.opsForValue().set("loginCount-" + getUserId(), "1");
+            }
+        }
 
-		findUser.update(userInfo);
+        return UserInfoResponse.fromEntity(findUser, mySkills, challengeInfoResponse, state);
+    }
 
-		if (userInfo.getMySkill() == null)
-			return;
+    @Transactional
+    public void modifyUserProfile(UserInfo userInfo) {
+        User findUser = userRepository.findById(getUserId())
+                .orElseThrow(UserNotFoundException::new);
 
-		// 언어 스킬 재등록
-		Map<String, Skill> skillMap = skillRepository.findAll().stream()
-				.collect(Collectors.toMap(Skill::getSkillName, skill -> skill));
-		// 내가 등록한 언어 스킬
-		List<MySkillInfo> mySkills = mySkillRepository.findByUserId(getUserId());
-		// 수정한 언어 목록
-		Set<String> modifySkillSet = new HashSet<>(userInfo.getMySkill());
+        findUser.update(userInfo);
 
-		for (MySkillInfo mySkill : mySkills) {
-			if (modifySkillSet.contains(mySkill.getSkillName())) {
-				modifySkillSet.remove(mySkill.getSkillName());
-			} else {
-				mySkillRepository.deleteById(mySkill.getId());
-			}
-		}
+        if (userInfo.getMySkill() == null)
+            return;
 
-		for (String name : modifySkillSet) {
-			mySkillRepository.save(MySkill.builder()
-					.skill(skillMap.get(name))
-					.user(findUser).build());
-		}
+        // 언어 스킬 재등록
+        Map<String, Skill> skillMap = skillRepository.findAll().stream()
+                .collect(Collectors.toMap(Skill::getSkillName, skill -> skill));
+        // 내가 등록한 언어 스킬
+        List<MySkillInfo> mySkills = mySkillRepository.findByUserId(getUserId());
+        // 수정한 언어 목록
+        Set<String> modifySkillSet = new HashSet<>(userInfo.getMySkill());
 
-	}
+        for (MySkillInfo mySkill : mySkills) {
+            if (modifySkillSet.contains(mySkill.getSkillName())) {
+                modifySkillSet.remove(mySkill.getSkillName());
+            } else {
+                mySkillRepository.deleteById(mySkill.getId());
+            }
+        }
 
-	@Transactional
-	public void withdrawal() {
-		User findUser = userRepository.findById(getUserId())
-				.orElseThrow(UserNotFoundException::new);
+        for (String name : modifySkillSet) {
+            mySkillRepository.save(MySkill.builder()
+                    .skill(skillMap.get(name))
+                    .user(findUser).build());
+        }
 
-		// TODO - CASCADE 적용하기
+    }
 
-		userRepository.delete(findUser);
-	}
+    @Transactional
+    public void withdrawal() {
+        User findUser = userRepository.findById(getUserId())
+                .orElseThrow(UserNotFoundException::new);
 
-	@Transactional
-	public void updateState(State state) {
-		redisTemplate.opsForValue().set("userState-" + getUserId(), String.valueOf(state));
-	}
+        // TODO - CASCADE 적용하기
 
-	public List<SearchUser> getUserInfo(String githubId) {
-		return userRepository.findByGithubIdContaining(githubId).stream()
-				.map(SearchUser::toDto)
-				.collect(Collectors.toList());
-	}
+        userRepository.delete(findUser);
+    }
+
+    @Transactional
+    public void updateState(State state) {
+        redisTemplate.opsForValue().set("userState-" + getUserId(), String.valueOf(state));
+    }
+
+    public List<SearchUser> getUserInfo(String githubId) {
+        return userRepository.findByGithubIdContaining(githubId).stream()
+                .map(SearchUser::toDto)
+                .collect(Collectors.toList());
+    }
 }
