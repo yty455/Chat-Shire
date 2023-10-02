@@ -90,19 +90,21 @@ function Flow({ pjtId }: IdeaProps) {
   useEffect(() => {
     console.log(nodes);
     console.log(edges);
-    const transformedData = nodes.map((node) => {
-      // 마인드맵 노드의 각 항목을 원하는 형태로 가공
-      return {
-        id: node.id, // 노드의 id를 그대로 사용
+    // 노드 데이터를 원하는 형태로 가공
+    const transformedData: any[] = [];
+    nodes.forEach((node) => {
+      const parentNode = edges.find((edge) => edge.target === node.id);
+      transformedData.push({
+        id: node.id,
         data: {
-          label: node.data.label || "defaultLabel", // 노드의 label을 사용하거나 기본값 설정
+          label: node.data.label || "defaultLabel",
         },
         position: {
-          x: node.position.x || 0, // x 좌표를 사용하거나 기본값 설정
-          y: node.position.y || 0, // y 좌표를 사용하거나 기본값 설정
+          x: node.position.x || 0,
+          y: node.position.y || 0,
         },
-        parentNode: "string", // parentNode 정보를 고정값 'string'으로 설정
-      };
+        parentNode: parentNode ? parentNode.source : "defaultParentNode",
+      });
     });
     saveMindmapData(transformedData);
   }, [nodes]);
