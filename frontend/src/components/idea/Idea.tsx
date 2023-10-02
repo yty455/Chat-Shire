@@ -56,33 +56,40 @@ const minimapStyle = {
 
 function Flow({ pjtId }: IdeaProps) {
   const [mindmap, setMindmap] = useState([]);
+  // whenever you use multiple values, you should use shallow for making sure that the component only re-renders when one of the values change
+  const { nodes, edges, onNodesChange, onEdgesChange, addChildNode } = useStore(
+    selector,
+    shallow
+  );
+  const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
   useEffect(() => {
     const getMindmapData = async () => {
       try {
         const response = await getMindMap(pjtId);
         const mindmapData = response.data.result[0];
-        setMindmap(mindmapData); // 마인드맵 데이터 설정
 
-        // 마인드맵 데이터를 ReactFlow 형식으로 변환
-        const mindmapNodes = mindmapData.map((node: any) => ({
+        // 초기 마인드맵 데이터를 React Flow 형식으로 변환
+        const initialMindmapNodes = mindmapData.map((node: any) => ({
           id: node.id,
-          data: { label: node.data.label }, // 노드 라벨 설정
+          type: "mindmap",
+          data: { label: node.data.label },
           position: { x: node.position.x, y: node.position.y },
+          deletable: true, // 마인드맵의 노드를 삭제할 수 있도록 설정
+          style: {}, // 스타일 설정
         }));
 
-        // nodes 업데이트
-        setNodes(mindmapNodes);
+        onNodesChange(initialMindmapNodes);
       } catch (error) {
         console.error(error);
       }
     };
 
     getMindmapData(); // 데이터 불러오기 함수 호출
-  }, [pjtId]);
+  }, [pjtId, onNodesChange]);
 
   useEffect(() => {
     console.log(nodes);
-  }, []);
+  }, [nodes]);
 
   const saveMindmapData = async (updatedMindmap: any) => {
     try {
@@ -94,12 +101,6 @@ function Flow({ pjtId }: IdeaProps) {
     }
   };
 
-  // whenever you use multiple values, you should use shallow for making sure that the component only re-renders when one of the values change
-  const { nodes, edges, onNodesChange, onEdgesChange, addChildNode } = useStore(
-    selector,
-    shallow
-  );
-  const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
   const connectingNodeId = useRef<string | null>(null);
   const store = useStoreApi();
   const { project } = useReactFlow();

@@ -403,7 +403,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         <AllBorderLinearProgress
           style={{ marginTop: "29px", width: "500px" }}
           variant="determinate"
-          value={comTeamTask.length / allTeamTask.length}
+          value={(comTeamTask.length / allTeamTask.length) * 100}
         />
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
