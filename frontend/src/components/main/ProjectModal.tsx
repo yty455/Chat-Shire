@@ -203,7 +203,7 @@ function ProjectModal({
               기간 <span>{pjt.startDate}</span>~<span>{pjt.endDate}</span>
             </p>
           </div>
-          <div>
+          <div className={styles.ProjectMemberContainer}>
             {pjtMem.map((user: any) => (
               <Avatar
                 alt="Remy Sharp"
