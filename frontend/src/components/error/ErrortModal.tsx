@@ -97,8 +97,19 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
         <div className={styles.deContainer}>
           <h1>Q {errDetail && errDetail.title}</h1>
           <p>{errDetail.content}</p>
-          <p>생성날짜:{errDetail.createdDate.toLocaleString()}</p>
-          <p>수정날짜:{errDetail.lastModifiedDate.toLocaleString()}</p>
+          <p>
+            생성날짜:
+            {errDetail.createdDate
+              ? errDetail.createdDate.toLocaleString()
+              : "날짜 없음"}
+          </p>
+          <p>
+            수정날짜:
+            {errDetail.lastModifiedDate
+              ? errDetail.lastModifiedDate.toLocaleString()
+              : "날짜 없음"}
+          </p>
+
           <h5 className={styles.status}>
             {errDetail && errDetail.state === true ? "완료" : "진행"}
           </h5>
