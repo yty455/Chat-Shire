@@ -65,7 +65,8 @@
   margin-bottom: 15px;
   &:hover {
     box-shadow: -2px -2px 5px white, 2px 2px 5px #babecc;
-  }}
+  }
+}
 
 .taskHeader {
   display: flex;
@@ -105,9 +106,9 @@
 .checked {
   text-decoration: line-through;
   /* text-decoration-style: wavy; */
-  text-decoration-color: #39A789;
+  text-decoration-color: #39a789;
   text-decoration-thickness: 2px;
-  margin: 0
+  margin: 0;
 }
 
 .taskContent {

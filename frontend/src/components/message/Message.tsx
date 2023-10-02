@@ -26,7 +26,12 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 
 import SockJS from "sockjs-client";
-import { getChat, postChat, putNotification } from "../../utils/chatApi";
+import {
+  getChat,
+  postChat,
+  putNotification,
+  getFiles,
+} from "../../utils/chatApi";
 import { getProject } from "../../utils/projectApi";
 import { Stomp, CompatClient } from "@stomp/stompjs";
 
@@ -39,8 +44,8 @@ import { ItemTypes } from "./ItemTypes";
 import AWS from "aws-sdk";
 import { getProjectMem } from "../../utils/projectApi";
 
-import { QuestionCircleOutlined  } from '@ant-design/icons';
-import { FloatButton, Popover } from 'antd';
+import { QuestionCircleOutlined } from "@ant-design/icons";
+import { FloatButton, Popover } from "antd";
 
 interface MessageProps {
   projectId: string;
@@ -63,13 +68,15 @@ function Message({ projectId }: MessageProps) {
   const [imageSrc, setImageSrc]: any = useState(null);
   const inputRef = useRef<any[]>([]);
   const [noticeInputVisible, setNoticeInputVisible] = useState(false);
-  const [noticeInputValue, setNoticeInputValue] = useState('');
-  const [notice, setNotice] = useState('');
+  const [noticeInputValue, setNoticeInputValue] = useState("");
+  const [notice, setNotice] = useState("");
   const [showNotice, setShowNotice] = useState(false);
   const [showNoticeInput, setShowNoticeInput] = useState(false); // 공지 입력 상태 여부
-  const [pjtName, setPjtName] = useState<any>('');
+  const [pjtName, setPjtName] = useState<any>("");
   const [pjtMemCount, setPjtMemCount] = useState(0);
-
+  const [image, setImage] = useState([]);
+  const [video, setVideo] = useState([]);
+  const [file, setFile] = useState([]);
 
   const handleChange = (e: any) => {
     console.log(e.currentTarget);
@@ -93,10 +100,38 @@ function Message({ projectId }: MessageProps) {
       const response = await getProject(projectId);
       console.log(response.data.result[0]);
       // setPjt(response.data.result[0]);
-      console.log('불러온 공지', response.data.result[0].notification)
-      setNotice(response.data.result[0].notification)
-      console.log('플젝 이름', response.data.result[0].name)
-      setPjtName(response.data.result[0].name)
+      console.log("불러온 공지", response.data.result[0].notification);
+      setNotice(response.data.result[0].notification);
+      console.log("플젝 이름", response.data.result[0].name);
+      setPjtName(response.data.result[0].name);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getImage = async () => {
+    try {
+      const response = await getFiles(projectId, "IMAGE");
+      console.log(response.data.result[0]);
+      setImage(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getVideo = async () => {
+    try {
+      const response = await getFiles(projectId, "VIDEO");
+      console.log(response.data.result[0]);
+      setVideo(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getFile = async () => {
+    try {
+      const response = await getFiles(projectId, "FILE");
+      console.log(response.data.result[0]);
+      setFile(response.data.result[0]);
     } catch (error) {
       console.error(error);
     }
@@ -116,8 +151,11 @@ function Message({ projectId }: MessageProps) {
     if (message) {
       newMessage(message);
     }
-    getpjt()
-    getProjectUsers()
+    getpjt();
+    getProjectUsers();
+    getFile();
+    getImage();
+    getVideo();
   }, [message, notice]);
 
   useEffect(() => {
@@ -258,33 +296,34 @@ function Message({ projectId }: MessageProps) {
         resolve();
         return;
       }
-      
+
       const fileExt = file.name.split(".").pop();
       if (!["pdf", "docx", "doc", "xlsx", "xls", "txt"].includes(fileExt)) {
-        window.alert("pdf, docx, doc, xlsx, xls, txt 파일만 업로드가 가능합니다.");
+        window.alert(
+          "pdf, docx, doc, xlsx, xls, txt 파일만 업로드가 가능합니다."
+        );
         resolve();
         return;
       }
-  
+
       const reader = new FileReader();
       reader.readAsDataURL(file);
-  
+
       reader.onload = () => {
-  
         if (!reader.result) {
           window.alert("파일을 등록해 주세요.");
           resolve();
           return;
         }
-  
+
         const formData = new FormData();
-        formData.append('file', file);
-        formData.append('name', file.name);
-  
+        formData.append("file", file);
+        formData.append("name", file.name);
+
         uploadS3File(formData)
           .then(() => resolve())
           .catch((error) => reject(error));
-       };
+      };
     });
   };
 
@@ -294,44 +333,47 @@ function Message({ projectId }: MessageProps) {
       const REGION = process.env.REACT_APP_REGION;
       const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
       const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
-  
+
       AWS.config.update({
         region: REGION,
         accessKeyId: ACCESS_KEY_ID,
         secretAccessKey: SECRET_ACCESS_KEY,
       });
-  
+
       // 파일 이름 가져오기
-      let fileName; 
-      for (let value of formData.values()) { 
-         if(value instanceof File){
-           fileName=value.name; 
-           break;
-         }
-       }
-  
-       if(fileName){
-         // S3 ManagedUpload 객체 생성
-         const upload = new AWS.S3.ManagedUpload({
-           params: {
-             ACL: 'public-read',
-             Bucket: 'chat-shire',
-             Key: `chat/${fileName}`,
-             Body: formData.get('file'),
-           },
-         });
-  
-         // 업로드 시작하고 프로미스 반환
-         upload.promise().then(() => {
+      let fileName;
+      for (let value of formData.values()) {
+        if (value instanceof File) {
+          fileName = value.name;
+          break;
+        }
+      }
+
+      if (fileName) {
+        // S3 ManagedUpload 객체 생성
+        const upload = new AWS.S3.ManagedUpload({
+          params: {
+            ACL: "public-read",
+            Bucket: "chat-shire",
+            Key: `chat/${fileName}`,
+            Body: formData.get("file"),
+          },
+        });
+
+        // 업로드 시작하고 프로미스 반환
+        upload
+          .promise()
+          .then(() => {
             console.log("파일 업로드 완료");
-          }).catch((error) => {
+          })
+          .catch((error) => {
             console.error("업로드 실패", error);
             reject(error);
           });
-       } else{
-          console.error("파일 이름을 가져오는데 실패했습니다.");
-          reject(new Error("파일 이름을 가져오는데 실패했습니다."));
-       }
+      } else {
+        console.error("파일 이름을 가져오는데 실패했습니다.");
+        reject(new Error("파일 이름을 가져오는데 실패했습니다."));
+      }
     });
   };
 
@@ -364,7 +406,9 @@ function Message({ projectId }: MessageProps) {
   // 가이드
   const content = (
     <div>
-      <p style={{margin: 0, fontFamily:'preRg'}}>드래그 앤 드롭으로 메세지를 태스크에 추가해보세요.</p>
+      <p style={{ margin: 0, fontFamily: "preRg" }}>
+        드래그 앤 드롭으로 메세지를 태스크에 추가해보세요.
+      </p>
       {/* <p style={{margin: 0, fontFamily:'preRg'}}>멘트 추가</p> */}
     </div>
   );
@@ -377,21 +421,29 @@ function Message({ projectId }: MessageProps) {
             <div className={styles.messageLeftHeaderLeft}>
               <span className={styles.messageLeftTitle}>{pjtName}</span>
               {/* <span className={styles.messageLeftTitle}>2차 플젝</span> */}
-              <BsPeopleFill style={{color: 'grey', marginTop: '6px', marginLeft: '12px'}} size={20} />
+              <BsPeopleFill
+                style={{ color: "grey", marginTop: "6px", marginLeft: "12px" }}
+                size={20}
+              />
               <span className={styles.messagePeopleNum}>{pjtMemCount}</span>
             </div>
             {/* <BsQuestionCircle style={{color: 'grey', marginTop: '6px'}} size={20} /> */}
             <Popover placement="left" content={content} trigger="hover">
-              <QuestionCircleOutlined style={{ color: 'grey', marginTop: '6px', fontSize:'20px'}}/>
+              <QuestionCircleOutlined
+                style={{ color: "grey", marginTop: "6px", fontSize: "20px" }}
+              />
             </Popover>
           </div>
         </div>
         <div className={styles.messageLeftNotification}>
-        <BsFillMegaphoneFill size={20} onClick={() => {
-                      setShowNoticeInput(!showNoticeInput);
-                    }} />
-        {showNoticeInput  ? (
-          <input
+          <BsFillMegaphoneFill
+            size={20}
+            onClick={() => {
+              setShowNoticeInput(!showNoticeInput);
+            }}
+          />
+          {showNoticeInput ? (
+            <input
               maxLength={50}
               style={{
                 width: "450px",
@@ -409,11 +461,9 @@ function Message({ projectId }: MessageProps) {
                 }
               }}
             />
-        ) : (
-          <span className={styles.notificationText}>
-            {notice}
-          </span>
-        )}
+          ) : (
+            <span className={styles.notificationText}>{notice}</span>
+          )}
         </div>
         <div className={styles.messageLeftBody}>
           {preMessage &&
@@ -454,7 +504,7 @@ function Message({ projectId }: MessageProps) {
                 ref={(el) => (inputRef.current[1] = el)}
                 onChange={(e) => {
                   onUploadFile(e).then(() => {
-                    console.log('업로드??')
+                    console.log("업로드??");
                   });
                 }}
               />
@@ -506,7 +556,7 @@ function Message({ projectId }: MessageProps) {
               variant="contained"
               onClick={sendMessage}
               endIcon={<SendIcon />}
-              style={{ borderRadius: '20px' }} 
+              style={{ borderRadius: "20px" }}
             ></Button>
           </div>
         </div>
