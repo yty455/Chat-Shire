@@ -182,7 +182,7 @@ export default function ProfilePage() {
                 <img
                   className={`${styles.AchievementItemDesc} ${
                     userData.challengeInfoResponse.commit < 100
-                      ? styles.Black
+                      ? styles.black
                       : ""
                   }`}
                   width="0px"
@@ -192,7 +192,7 @@ export default function ProfilePage() {
                 <img
                   className={`${styles.AchievementItem} ${
                     userData.challengeInfoResponse.commit < 100
-                      ? styles.Black
+                      ? styles.black
                       : ""
                   }`}
                   width="78px"
@@ -208,7 +208,7 @@ export default function ProfilePage() {
                 <img
                   className={`${styles.AchievementItemDesc} ${
                     userData.challengeInfoResponse.chat < 1000
-                      ? styles.Black
+                      ? styles.black
                       : ""
                   }`}
                   width="0px"
@@ -218,7 +218,7 @@ export default function ProfilePage() {
                 <img
                   className={`${styles.AchievementItem} ${
                     userData.challengeInfoResponse.chat < 1000
-                      ? styles.Black
+                      ? styles.black
                       : ""
                   }`}
                   width="78px"
@@ -234,7 +234,7 @@ export default function ProfilePage() {
                 <img
                   className={`${styles.AchievementItemDesc} ${
                     userData.challengeInfoResponse.project < 5
-                      ? styles.Black
+                      ? styles.black
                       : ""
                   }`}
                   width="0px"
@@ -244,7 +244,7 @@ export default function ProfilePage() {
                 <img
                   className={`${styles.AchievementItem} ${
                     userData.challengeInfoResponse.project < 5
-                      ? styles.Black
+                      ? styles.black
                       : ""
                   }`}
                   width="78px"

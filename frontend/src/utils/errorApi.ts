@@ -15,15 +15,29 @@ export const postError = (
   title: string,
   content: string,
   skillName: string[]
-) => api.post(`/projects/${projectId}/posts`, { title, content, skillName });
+  // attachedFileInfos: []
+) =>
+  api.post(`/projects/${projectId}/posts`, {
+    title,
+    content,
+    skillName,
+    // attachedFileInfos,
+  });
 
 // 에러 수정
 export const updateError = (
   postId: number,
   title: string,
   content: string,
-  skillName: []
-) => api.patch(`/posts/${postId}`, { title, content, skillName });
+  skillName: [],
+  attachedFileInfos: []
+) =>
+  api.patch(`/posts/${postId}`, {
+    title,
+    content,
+    skillName,
+    attachedFileInfos,
+  });
 
 // 에러 삭제
 export const deleteError = (postId: number) => api.delete(`/posts/${postId}`);
