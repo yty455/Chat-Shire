@@ -95,8 +95,10 @@ public class Challenge extends BaseEntity {
     }
 
     public void addOngoing(int ongoing) {
-        this.ongoing = ongoing;
-        if (ongoing == 3 || ongoing == 5 || ongoing == 7) done++;
+        if (this.ongoing < ongoing) {
+            this.ongoing = ongoing;
+            if (ongoing == 3 || ongoing == 5 || ongoing == 7) done++;
+        }
     }
 
     public void addLogin(int login) {

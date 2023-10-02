@@ -1,15 +1,12 @@
 package com.ssafy.backend.domain.user.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.ssafy.backend.domain.analyze.Statistic;
 import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
 import com.ssafy.backend.domain.user.Challenge;
 import com.ssafy.backend.domain.user.repository.ChallengeRepository;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -27,8 +24,8 @@ public class ChallengeService {
     // 사진, 링크 공유 개수 100 / 300 / 500 - 채팅 post 첨부파일 검증
     // 자료공유 생성 개수 50 / 100 / 500
     // 스낵바 알림 보낸 횟수 50 / 100 / 300
-    // 동시에 진행한 프로젝트 개수 3 / 5 / 7
-    // 최장 연속 접속 일수 7 / 30 / 365
+    // 동시에 진행한 프로젝트 개수 3 / 5 / 7 - 챗룸 등록, 초대 수락에서 갱신
+    // 최장 연속 접속 일수 7 / 30 / 365 - 유저 getUser 에서 갱신
     // 도전과제 달성 11 / 23 / 35
 
     private final ChallengeRepository challengeRepository;
@@ -74,8 +71,8 @@ public class ChallengeService {
         getChallenge(userId).addSnackbar();
     }
 
-    public void addOngoing(Long userId) {
-        getChallenge(userId).addOngoing(11); // FIX
+    public void addOngoing(Long userId, int count) {
+        getChallenge(userId).addOngoing(count); // FIX
     }
 
 //    public void addLogin(Long userId) {

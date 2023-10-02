@@ -13,9 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -78,8 +76,8 @@ public class UserService {
 
         // 연속 로그인 검증
         String lastLogin = redisTemplate.opsForValue().get("lastLogin-" + getUserId());
+        redisTemplate.opsForValue().set("lastLogin-" + getUserId(), LocalDate.now().toString());
         if (lastLogin == null) {
-            redisTemplate.opsForValue().set("lastLogin-" + getUserId(), LocalDate.now().toString());
             redisTemplate.opsForValue().set("loginCount-" + getUserId(), "1");
         } else {
             LocalDate lastLoginDate = LocalDate.parse(lastLogin);
@@ -93,7 +91,6 @@ public class UserService {
             } else if (!LocalDate.now().isEqual(lastLoginDate)) {
                 redisTemplate.opsForValue().set("loginCount-" + getUserId(), "1");
             }
-            redisTemplate.opsForValue().set("lastLogin-" + getUserId(), LocalDate.now().toString());
         }
 
         return UserInfoResponse.fromEntity(findUser, mySkills, challengeInfoResponse, state);
