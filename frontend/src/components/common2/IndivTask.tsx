@@ -218,39 +218,13 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     }
   };
 
-  const [isDragging, setIsDragging] = useState(false);
-
-  // useDrag hook을 사용하여 드래그 설정을 생성합니다.
-  const [, drag] = useDrag({
-    type: "YOUR_ITEM_TYPE", // 여기에 고유한 아이템 타입을 지정합니다.
-    item: { type: "YOUR_ITEM_TYPE" }, // 드래그하는 아이템에 대한 정보를 전달합니다.
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  });
-
-  // 드래그가 시작될 때 상태 업데이트
-  useEffect(() => {
-    setIsDragging(isDragging);
-  }, [isDragging]);
-
   return (
     <div className={styles.indivDiv}>
       <Box sx={{ p: 0, pt: 1 }}>
         <Grid container spacing={2}>
           {allTasks && allTasks.length !== 0 ? (
             allTasks.map((item) => (
-              <Grid
-                ref={drag}
-                style={{
-                  opacity: isDragging ? 0.5 : 1, // 드래그 중인 경우 투명도를 조절할 수 있습니다.
-                  cursor: "move", // 드래그 가능한 요소 위에 커서를 드래그 모양으로 변경합니다.
-                }}
-                sx={{ margin: 0, padding: 0 }}
-                item
-                xs={12}
-                key={item.id}
-              >
+              <Grid sx={{ margin: 0, padding: 0 }} item xs={12} key={item.id}>
                 <Item
                   sx={{
                     borderRadius: "0px 20px 20px 20px",

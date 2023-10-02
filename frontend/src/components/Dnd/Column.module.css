@@ -1,7 +1,0 @@
-.MemberList {
-  overflow: scroll;
-}
-
-.MemberList::-webkit-scrollbar {
-  display: none;
-}
