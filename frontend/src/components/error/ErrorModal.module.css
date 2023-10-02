@@ -49,3 +49,13 @@
   background-color: red;
   font-family: preRg;
 }
+
+.status {
+  margin: 3px 0;
+  font-family: "preRg";
+  width: 45px;
+  color: #39a789;
+  text-align: center;
+  border: 1px solid #39a789;
+  border-radius: 10px;
+}

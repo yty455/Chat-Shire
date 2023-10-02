@@ -95,10 +95,13 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <div className={styles.deContainer}>
-          <h1>{errDetail && errDetail.title}</h1>
+          <h1>Q {errDetail && errDetail.title}</h1>
           <p>{errDetail.content}</p>
-          <p>생성날짜:{errDetail.createdDate}</p>
-          <p>수정날짜:{errDetail.lastModifiedDate}</p>
+          <p>생성날짜:{errDetail.createdDate.toLocaleString()}</p>
+          <p>수정날짜:{errDetail.lastModifiedDate.toLocaleString()}</p>
+          <h5 className={styles.status}>
+            {errDetail && errDetail.state === true ? "완료" : "진행"}
+          </h5>
           <div>
             작성자 {errDetail.nickname}
             <Avatar
@@ -113,6 +116,7 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
           </div>
         </div>
         <div className={styles.reContainer}>
+          <p>A </p>
           {errDetail &&
             errDetail?.replies &&
             errDetail.replies.map((item: any) => {
