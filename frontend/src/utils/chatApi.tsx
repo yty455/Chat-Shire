@@ -23,4 +23,4 @@ export const putNotification = (projectId: string, content: string) =>
 
 // 첨부파일 서랍
 export const getFiles = (projectId: string, category: string) =>
-  api.put(`/projects/${projectId}/files/${category}`);
+  api.get(`/projects/${projectId}/files/${category}`);
