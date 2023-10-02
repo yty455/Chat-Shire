@@ -89,6 +89,22 @@ function Flow({ pjtId }: IdeaProps) {
 
   useEffect(() => {
     console.log(nodes);
+    console.log(edges);
+    const transformedData = nodes.map((node) => {
+      // 마인드맵 노드의 각 항목을 원하는 형태로 가공
+      return {
+        id: node.id, // 노드의 id를 그대로 사용
+        data: {
+          label: node.data.label || "defaultLabel", // 노드의 label을 사용하거나 기본값 설정
+        },
+        position: {
+          x: node.position.x || 0, // x 좌표를 사용하거나 기본값 설정
+          y: node.position.y || 0, // y 좌표를 사용하거나 기본값 설정
+        },
+        parentNode: "string", // parentNode 정보를 고정값 'string'으로 설정
+      };
+    });
+    saveMindmapData(transformedData);
   }, [nodes]);
 
   const saveMindmapData = async (updatedMindmap: any) => {
