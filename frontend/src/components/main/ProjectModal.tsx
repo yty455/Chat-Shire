@@ -3,6 +3,8 @@ import styles from "./ProjectModal.module.css";
 import { getProject } from "../../utils/projectApi";
 import { updateProject } from "../../utils/projectApi";
 import { useNavigate } from "react-router-dom";
+import { getProjectMem } from "../../utils/projectApi";
+import ProfileImgBox from "../common/ProfileImgBox";
 
 interface ProjectModalProps {
   pjt: any;
@@ -18,7 +20,7 @@ function ProjectModal({
   updatePJT,
 }: ProjectModalProps) {
   const [editState, setEditState] = useState<string | null>(null);
-
+  const [pjtMem, setpjtMem] = useState([]);
   const [projectData, setProjectData] = useState({
     id: pjt.id,
     name: pjt.name,
@@ -39,6 +41,19 @@ function ProjectModal({
       console.error(error);
     }
   };
+  const getProjectUsers = async () => {
+    try {
+      const response = await getProjectMem(pjt.id);
+      console.log(response.data.result[0]);
+      setpjtMem(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getProjectUsers();
+  }, []);
 
   const handleOutsideClick = (e: any) => {
     // 클릭한 요소가 인풋창 외부인 경우, 해당 인풋창의 상태를 닫음
@@ -170,6 +185,27 @@ function ProjectModal({
         <p>
           기간 <span>{pjt.startDate}</span>~<span>{pjt.endDate}</span>
         </p>
+        {pjtMem ? (
+          <ul>
+            {pjtMem.map((user: any) => (
+              <li key={user.userId}>
+                <ProfileImgBox
+                  backgroundColor={user.profileColor}
+                  text=""
+                  width="25px"
+                  height="25px"
+                  margin="10px"
+                  padding=""
+                  display="flex"
+                  backgroundImage={process.env.PUBLIC_URL + user.profileImage}
+                />
+                <span>{user.nickname}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Loading...</p>
+        )}
         <button
           onClick={closeModal}
           style={{ position: "fixed", top: "5%", right: "5%" }}
