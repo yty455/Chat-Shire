@@ -53,7 +53,9 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
     </div>
   ))
 
-  const searchResultItem = searchResult.map((item: any) => (
+  const searchResultItem = searchResult.map((item: any) => {
+    console.log(item)
+    return (
       <div className={styles.SearchResultItem}>
         <div style={{display: "flex", alignItems: "center"}}>
           <div style={{width: "50px", height: "50px", borderRadius: "100px", backgroundColor: item.profileColor}}>
@@ -65,12 +67,12 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
           </div>
         </div>
         { 
-          invitedMembers.includes(item.id) ? 
+          invitedMembers.includes(item.id) ?
           <Checkbox defaultChecked id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />  : 
           <Checkbox id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />
         }
       </div>
-    )
+    )}
   )
 
   useEffect(() => {
