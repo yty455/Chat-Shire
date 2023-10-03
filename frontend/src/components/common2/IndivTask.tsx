@@ -239,6 +239,14 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                 onDragStart={(e) => {
                   e.dataTransfer.setData("taskId", item.id);
                 }}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  const message = e.dataTransfer.getData("message");
+                  console.log(message);
+                }}
               >
                 <Item
                   sx={{
@@ -432,6 +440,14 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         color="greenary"
         aria-label="add"
         onClick={addCheckbox}
+        onDragOver={(e) => {
+          e.preventDefault();
+        }}
+        onDrop={(e) => {
+          e.preventDefault();
+          const message = e.dataTransfer.getData("message");
+          console.log(message);
+        }}
       >
         <AddIcon />
       </Fab>

@@ -74,7 +74,13 @@ export default function MessageItem(message: any) {
           sx={{ width: 50, height: 50 }}
         />
       </StyledBadge>
-      <div className={styles.messageItemBody}>
+      <div
+        className={styles.messageItemBody}
+        draggable="true"
+        onDragStart={(e) => {
+          e.dataTransfer.setData("message", message.message);
+        }}
+      >
         <div className={styles.messageItemName}>
           <span className={styles.messageProfileName}>
             {message && message.message.userId}

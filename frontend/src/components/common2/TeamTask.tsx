@@ -175,6 +175,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     try {
       const response = await changeTaskGroup(teamId, indivId);
       console.log(response.data);
+      getTeamTask();
     } catch (error) {
       console.error(error);
     }
@@ -454,7 +455,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     </p>
                   </div>
                   <div onClick={addCheckbox}>
-                    <CreateIcon />
+                    <CreateIcon onClick={() => openModal(task.id)} />
                   </div>
                 </div>
                 <div className={styles.stepStatus}>
@@ -475,9 +476,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       onClick={() => handleBadgeClick(task)}
                     ></StyledBadgeRed>
                   )}
-                  <p className={styles.step} onClick={() => openModal(task.id)}>
-                    {task.name}
-                  </p>
+                  <p className={styles.step}>{task.name}</p>
                   <p
                     className={styles.step}
                     style={{
@@ -495,21 +494,14 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 <BorderLinearProgress variant="determinate" value={50} />
 
                 {task.taskInfoResponses.map((item: any) => (
-                  <Grid
-                    sx={{ margin: 0, padding: 0 }}
-                    item
-                    xs={12}
-                    key={item.id}
-                  >
-                    <Item
-                      sx={{
+                  <div style={{ margin: 0, padding: 0 }} key={item.id}>
+                    <div
+                      style={{
                         borderRadius: "0px 20px 20px 20px",
                         margin: "0 10px",
                         padding: 0,
                         minHeight: "30px",
                       }}
-                      className={styles.oneMemo}
-                      elevation={7}
                     >
                       <div className={styles.indivTask}>
                         <Checkbox
@@ -585,8 +577,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           />
                         </div>
                       </div>
-                    </Item>
-                  </Grid>
+                    </div>
+                  </div>
                 ))}
               </div>
             ))}
@@ -624,7 +616,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     </p>
                   </div>
                   <div onClick={addCheckbox}>
-                    <CreateIcon />
+                    <CreateIcon onClick={() => openModal(task.id)} />
                   </div>
                 </div>
                 <div className={styles.stepStatus}>
@@ -645,9 +637,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       onClick={() => handleBadgeClick(task)}
                     ></StyledBadgeRed>
                   )}
-                  <p className={styles.step} onClick={() => openModal(task.id)}>
-                    {task.name}
-                  </p>
+                  <p className={styles.step}>{task.name}</p>
                   <p
                     className={styles.step}
                     style={{
@@ -726,9 +716,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                                 fontSize: "17px",
                                 margin: "-5px 3px 10px 0",
                               }}
-                              // onClick={() =>
-                              //   handleEditComplete(item.id, updatedDescription)
-                              // }
                             />
                           ) : (
                             <BsPencilFill
