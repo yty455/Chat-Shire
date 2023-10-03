@@ -411,7 +411,18 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           <p className={styles.taskProgress}>완료된 Task</p>
           {comTeamTask &&
             comTeamTask.map((task: any) => (
-              <div className={styles.taskContainer} key={task.id}>
+              <div
+                className={styles.taskContainer}
+                key={task.id}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  const taskId = e.dataTransfer.getData("taskId");
+                  console.log("개인" + taskId, "팀" + task.id);
+                }}
+              >
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
                 <div className={styles.taskHeader}>
                   <div className={styles.clockNday}>
