@@ -23,7 +23,6 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
 
   const moveCardHandler = (dragIndex: number, hoverIndex: number) => {
     const dragItem = items[dragIndex];
-    invitedItems.current = items
     if (dragItem) {
       setItems((prevState: any) => {
         const coppiedStateArray = [...prevState];
@@ -51,6 +50,13 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   };
 
   const returnItemsForColumn = (columnName: string) => {
+    const searchTextField = document.getElementById("searchTextField") as HTMLInputElement
+
+    console.log(searchTextField?.value)
+
+    if (searchTextField?.value !== undefined) {
+      invitedItems.current = items
+    }
 
     if (columnName === "초대된 멤버") {
       const newMembers: any = items
@@ -125,6 +131,7 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
       <DndProvider backend={HTML5Backend}>
         <div>
           <TextField
+            id="searchTextField"
             onChange={searchMember}
             style={{ width: "280px" }}
             color="greenary"
