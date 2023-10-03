@@ -6,9 +6,9 @@ export default function RightSearchTab() {
 
   return (
     <div className={styles.MessageRightBody}>
-      <span className={styles.MessageRightBodyTitle}>
+      {/* <span className={styles.MessageRightBodyTitle}>
         검색
-      </span>
+      </span> */}
       <div className={styles.GoogleSearchContainer}>
         <GoogleSearch/>
       </div>
