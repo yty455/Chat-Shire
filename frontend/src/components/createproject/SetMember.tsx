@@ -23,7 +23,7 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
 
   const moveCardHandler = (dragIndex: number, hoverIndex: number) => {
     const dragItem = items[dragIndex];
-
+    invitedItems.current = items
     if (dragItem) {
       setItems((prevState: any) => {
         const coppiedStateArray = [...prevState];
@@ -51,9 +51,6 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   };
 
   const returnItemsForColumn = (columnName: string) => {
-
-    invitedItems.current = items
-
     if (columnName === "초대된 멤버") {
       const newMembers: any = items
         .map((member) => {
@@ -64,8 +61,9 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
         })
         .filter((element) => element);
       onData(newMembers);
+      }
 
-      return invitedItems.current
+      return items
       .filter((item: any) => item.column === columnName)
       .map((item: any, index: any) => (
         <MovableItem
@@ -80,24 +78,37 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
           moveCardHandler={moveCardHandler}
         />
       ));
-    } else {
-      return items
-        .filter((item: any) => item.column === columnName)
-        .map((item: any, index: any) => (
-          <MovableItem
-            key={item.id}
-            id={item.id}
-            githubId={item.githubId}
-            nickname={item.nickname}
-            position={item.position}
-            profileColor={item.profileColor}
-            profileImage={item.profileImage}
-            setItems={setItems}
-            moveCardHandler={moveCardHandler}
-          />
-        ));
-    }
   };
+
+  const returnInvitedColumn = (columnName: string) => {
+    if (columnName === "초대된 멤버") {
+      const newMembers: any = items
+        .map((member) => {
+          if (member.column === "초대된 멤버") {
+            InvitedMembers.current.push(String(member.id));
+            return String(member.id);
+          }
+        })
+        .filter((element) => element);
+      onData(newMembers);
+      }
+
+    return invitedItems.current
+    .filter((item: any) => item.column === columnName)
+    .map((item: any, index: any) => (
+      <MovableItem
+        key={item.id}
+        id={item.id}
+        githubId={item.githubId}
+        nickname={item.nickname}
+        position={item.position}
+        profileColor={item.profileColor}
+        profileImage={item.profileImage}
+        setItems={setItems}
+        moveCardHandler={moveCardHandler}
+      />
+    ));
+  }
 
   const { MEMBERS, INVITED_MEMBERS } = COLUMN_NAMES;
 
@@ -127,6 +138,7 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
       <DndProvider backend={HTML5Backend}>
         <div>
           <TextField
+            id="searchTextField"
             onChange={searchMember}
             style={{ width: "280px" }}
             color="greenary"
@@ -141,7 +153,7 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
             title={INVITED_MEMBERS}
             className={styles.InvitedMemberListContainer}
           >
-            {returnItemsForColumn(INVITED_MEMBERS)}
+            {returnInvitedColumn(INVITED_MEMBERS)}
           </Column>
         </div>
       </DndProvider>

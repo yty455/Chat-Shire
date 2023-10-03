@@ -85,7 +85,7 @@ public class ChatService {
         redisTemplate.opsForValue().set(chatNumberKey + chatRoomId, chatNumber + 1L);
         chatRedisTemplate.opsForList().rightPush(chatKey + chatRoomId, chatInfo);
 
-        simpMessagingTemplate.convertAndSend("/topic/greetings", chatInfo);
+        simpMessagingTemplate.convertAndSend("/topic/greetings/"+chatRoomId, chatInfo);
 
         // SSE
     }

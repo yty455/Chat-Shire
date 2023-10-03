@@ -184,7 +184,7 @@ function Message({ projectId }: MessageProps) {
       },
       () => {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
-        client.current?.subscribe(`/topic/greetings`, (message) => {
+        client.current?.subscribe(`/topic/greetings/${projectId}`, (message) => {
           setMessage(JSON.parse(message.body));
         });
       }

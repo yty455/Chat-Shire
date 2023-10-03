@@ -224,7 +224,16 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         <Grid container spacing={2}>
           {allTasks && allTasks.length !== 0 ? (
             allTasks.map((item) => (
-              <Grid sx={{ margin: 0, padding: 0 }} item xs={12} key={item.id}>
+              <Grid
+                sx={{ margin: 0, padding: 0 }}
+                item
+                xs={12}
+                key={item.id}
+                draggable="true"
+                onDragStart={(e) => {
+                  e.dataTransfer.setData("taskId", item.id);
+                }}
+              >
                 <Item
                   sx={{
                     borderRadius: "0px 20px 20px 20px",
