@@ -65,7 +65,7 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
           </div>
         </div>
         { 
-          members.includes(item) ? 
+          invitedMembers.includes(item.id) ? 
           <Checkbox defaultChecked id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />  : 
           <Checkbox id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />
         }
