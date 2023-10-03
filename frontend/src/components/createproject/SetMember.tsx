@@ -18,6 +18,13 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
       profileColor: "#abb8c3",
       profileImage: "/assets/profile/male/m9.png",
     },
+    { id: 2,
+      githubId: "dfsdf56451",
+      nickname: "가영",
+      position: "ㄴ",
+      profileColor: "#abb8c3",
+      profileImage: "/assets/profile/male/m9.png",
+    },
   ])
   const [searchResultLength, setSearchResultLength] = useState(0)
 
@@ -33,14 +40,14 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
 
   const handleInviteBtnChange = (e: any) => {
     if (e.target.checked) {
-      const newMembers = [...members, {id: e.target.id, profileImage: e.target.value, profileColor: e.target.name}]
+      const newMembers = [...members, {id: String(e.target.id), profileImage: e.target.value, profileColor: e.target.name}]
       const newInvitedMembers = [...invitedMembers, String(e.target.id)]
 
       setMembers(newMembers)
       setInvitedMembers(newInvitedMembers)
     } else {
-      const newMembers = members.filter(item => item.id !== e.target.id)
-      const newInvitedMembers = invitedMembers.filter(item => !String(e.target.id))
+      const newMembers = members.filter(item => item.id !== String(e.target.id))
+      const newInvitedMembers = invitedMembers.filter(item => item !== String(e.target.id))
 
       setMembers(newMembers)
       setInvitedMembers(newInvitedMembers)
@@ -53,7 +60,9 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
     </div>
   ))
 
-  const searchResultItem = searchResult.map((item: any) => (
+  const searchResultItem = searchResult.map((item: any) => {
+    console.log(invitedMembers.includes(String(item.id)))
+    return (
       <div className={styles.SearchResultItem}>
         <div style={{display: "flex", alignItems: "center"}}>
           <div style={{width: "50px", height: "50px", borderRadius: "100px", backgroundColor: item.profileColor}}>
@@ -65,12 +74,12 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
           </div>
         </div>
         { 
-          members.includes(item) ? 
-          <Checkbox defaultChecked id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />  : 
-          <Checkbox id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />
+          invitedMembers.includes(String(item.id)) ?
+          <Checkbox checked={true} id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />  : 
+          <Checkbox checked={false} id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />
         }
       </div>
-    )
+    )}
   )
 
   useEffect(() => {
@@ -89,7 +98,7 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
       <div className={styles.SearchResultContainer}>
         <span style={{fontFamily: "preLt", fontSize: "14px"}}>검색 결과 : {searchResultLength}</span>
         <div className={styles.SearchResultItemContainer}>
-          {searchResult ? searchResultItem : <span>초대할 멤버를 검색해보세요</span>}
+          {searchResultItem}
         </div>
       </div>
     </div>
