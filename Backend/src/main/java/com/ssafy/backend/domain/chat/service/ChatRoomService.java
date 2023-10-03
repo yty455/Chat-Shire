@@ -9,6 +9,7 @@ import com.ssafy.backend.domain.chat.entity.Notice;
 import com.ssafy.backend.domain.chat.entity.Participation;
 import com.ssafy.backend.domain.chat.repository.ChatRoomRepository;
 import com.ssafy.backend.domain.chat.repository.NoticeRepository;
+import com.ssafy.backend.domain.chat.repository.NotificationRepository;
 import com.ssafy.backend.domain.chat.repository.ParticipationRepository;
 import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
 import com.ssafy.backend.domain.user.User;
@@ -37,6 +38,7 @@ public class ChatRoomService {
     private final NoticeRepository noticeRepository;
     private final NotificationService notificationService;
     private final ChallengeService challengeService;
+    private final NotificationRepository notificationRepository;
 
 
     private final RedisTemplate<String, String> redisTemplate;
@@ -114,6 +116,10 @@ public class ChatRoomService {
 
     @Transactional
     public void deleteMyChatRoom(Long chatRoomId) {
+        // 참여 테이블 참조해서 초대 만들어짐 -> 내가 만든 초대 다지우고 채팅방 나가기
+        Participation participation = participationRepository.findByUserIdAndChatRoomId(getUserId(), chatRoomId)
+                .orElseThrow(() -> new ResourceNotFoundException("Participation.getCharRoom", chatRoomId));
+        notificationRepository.deleteAllByParticipationId(participation.getId());
         participationRepository.deleteByUserIdAndChatRoomId(getUserId(), chatRoomId);
     }
 }

@@ -1,6 +1,17 @@
 package com.ssafy.backend.domain.user.service;
 
+import com.ssafy.backend.domain.chat.repository.ChatRepository;
+import com.ssafy.backend.domain.chat.repository.DistributedRepository;
+import com.ssafy.backend.domain.chat.repository.NotificationRepository;
+import com.ssafy.backend.domain.chat.repository.ParticipationRepository;
 import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
+import com.ssafy.backend.domain.post.Post;
+import com.ssafy.backend.domain.post.repository.PostRepository;
+import com.ssafy.backend.domain.post.repository.PostSkillRepository;
+import com.ssafy.backend.domain.post.repository.ReplyRepository;
+import com.ssafy.backend.domain.task.Task;
+import com.ssafy.backend.domain.task.repository.ReferenceRepository;
+import com.ssafy.backend.domain.task.repository.TaskRepository;
 import com.ssafy.backend.domain.user.*;
 import com.ssafy.backend.domain.user.dto.*;
 import com.ssafy.backend.domain.user.exception.UserNotFoundException;
@@ -13,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +46,15 @@ public class UserService {
     private final ChallengeRepository challengeRepository;
     private final RedisTemplate<String, String> redisTemplate;
     private final ChallengeService challengeService;
+    private final ChatRepository chatRepository;
+    private final TaskRepository taskRepository;
+    private final ReplyRepository replyRepository;
+    private final PostRepository postRepository;
+    private final DistributedRepository distributedRepository;
+    private final NotificationRepository notificationRepository;
+    private final ReferenceRepository referenceRepository;
+    private final PostSkillRepository postSkillRepository;
+    private final ParticipationRepository participationRepository;
 
     @Transactional
     public void signUp(UserInfo userInfo) {
@@ -134,8 +155,26 @@ public class UserService {
     public void withdrawal() {
         User findUser = userRepository.findById(getUserId())
                 .orElseThrow(UserNotFoundException::new);
-
         // TODO - CASCADE 적용하기
+        // 하나씩 차근차근 합시다
+        // 한큐 - 도전과제, 프로그래밍언어, 알림, 분산, 참여
+        challengeRepository.deleteAllByUserId(getUserId());
+        mySkillRepository.deleteAllByUserId(getUserId());
+        distributedRepository.deleteAllByUserId(getUserId());
+//        notificationRepository.deleteAllByUserId(getUserId()); // casecade 설정 해놨음 엔티티에
+        participationRepository.deleteAllByUserId(getUserId());
+        // 챗 TODO - 할거많음. 레디스에 있는 채팅 어케 저장안되게 할건지
+        chatRepository.deleteAllByUserId(getUserId());
+
+        // 한번 거쳐야 하는애들 - (태스크-참조), (댓글 먼저지우고, 게시판 언어 지우고 게시판 지우기)
+        List<Task> tasks = taskRepository.findAllByUserId(getUserId());
+        tasks.forEach(referenceRepository::deleteAllByTask);
+        taskRepository.deleteAllByUserId(getUserId());
+
+        replyRepository.deleteAllByUserId(getUserId());
+        List<Post> posts = postRepository.findAllByUserId(getUserId());
+        posts.forEach(postSkillRepository::deleteAllByPost);
+        postRepository.deleteAllByUserId(getUserId());
 
         userRepository.delete(findUser);
     }

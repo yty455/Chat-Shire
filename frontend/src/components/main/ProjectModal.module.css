@@ -1,23 +1,26 @@
 .modalOverlay {
-  border: 1px solid #39a789;
-  position: fixed;
   display: flex;
+  position: fixed;
+  border: 2px solid #39a789;
+  padding: 20px;
   right: 0;
   bottom: 0;
-  top: 50%;
-  left: 45%;
+  top: 54%;
+  left: 46%;
   background-color: rgb(250, 250, 250);
   transform: translate(-50%, -50%);
   border-radius: 20px;
   width: 50vw;
   height: 60vh;
   z-index: 9999;
+  color: #575757;
 }
 
 .modalContent {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   /* background-color: white;
   padding: 20px;
   border-radius: 5px;
@@ -45,4 +48,15 @@
   display: flex;
   margin-left: 10px;
   /* overflow: scroll; */
+}
+
+.projectModalContent {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+.projectModalContentTitle {
+  font-family: "preBd";
+  font-size: 18px;
 }
