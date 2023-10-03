@@ -594,27 +594,21 @@ function Message({ projectId }: MessageProps) {
       <div className={styles.messageRight}>
         <div className={styles.messageRightTabContainer}>
           <button
-            style={{
-              border: "none",
-              background: "none",
-              margin: 0,
-              // backgroundColor: selectedButton === "media" ? "aqua" : "transparent",
-              // borderRadius: '10px',
-            }}
+            style={{ border: "none", background: "none", cursor: "pointer"}}
             value="media"
             onClick={handleChange}
           >
             {selectedButton === "media" ? (
               <>
-                <HiPhoto className={styles.icon25} />
-                <p className={styles.tabTitle}>미디어</p>
+                <HiPhoto className={styles.icon25}/>
+                <p className={styles.tabTitle}>사진</p>
               </>
             ) : (
               <HiOutlinePhoto className={styles.icon25} />
             )}
           </button>
           <button
-            style={{ border: "none", background: "none" }}
+            style={{ border: "none", background: "none", cursor: "pointer" }}
             value="files"
             onClick={handleChange}
           >
@@ -628,7 +622,7 @@ function Message({ projectId }: MessageProps) {
             )}
           </button>
           <button
-            style={{ border: "none", background: "none" }}
+            style={{ border: "none", background: "none", cursor: "pointer" }}
             value="links"
             onClick={handleChange}
           >
@@ -653,7 +647,7 @@ function Message({ projectId }: MessageProps) {
             )}
           </button>
           <button
-            style={{ border: "none", background: "none" }}
+            style={{ border: "none", background: "none", cursor: "pointer" }}
             value="search"
             onClick={handleChange}
           >
