@@ -136,10 +136,10 @@ export default function CustomProfile({
             ></div>
             <Grow
               in={displayColorPicker}
-              style={{ transformOrigin: "100% 100% 0" }}
+              style={{ transformOrigin: "0 100% 0" }}
             >
               <div
-                style={{ position: "absolute", bottom: "30px", right: "30px" }}
+                style={{ position: "absolute", top: "25px", left: "25px", zIndex: 200 }}
               >
                 <ChromePicker
                   disableAlpha={true}
