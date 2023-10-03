@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styles from "./Share.module.css";
 import IndivTask from "../common2/IndivTask";
 import Box from "@mui/material/Box";
@@ -9,6 +9,7 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import LinkOGItem from "../message/LinkOGItem";
 import ModalComponent from "../message/CreateLinkModal";
+import { linkState } from '../../stores/linkState';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -19,6 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Share() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const links = useRecoilValue(linkState);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -28,11 +30,11 @@ export default function Share() {
     <div className={styles.indivDiv}>
       {/* <h2 style={{marginLeft:'10px',fontFamily:'preBd',margin: '0', textAlign:'center',alignItems:'center',display:'flex', justifyContent:'center'}}>자료공유</h2> */}
       <Box sx={{ p: 0 }}>
-        <LinkOGItem />
-        <LinkOGItem />
-        <LinkOGItem />
-        <LinkOGItem />
-        <LinkOGItem />
+        {links.length !== 0 ? links.map((link,index)=>(
+            <LinkOGItem key={index} requestUrl={link}/>
+          )) : (
+            <p className={styles.noPhoto}>등록된 링크가 없습니다.</p>
+          )}
       </Box>
 
       <Fab

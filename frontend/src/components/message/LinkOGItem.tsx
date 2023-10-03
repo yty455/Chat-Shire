@@ -1,29 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import styles from './LinkOGItem.module.css'
 import Card from '@mui/material/Card';
 import { CardActionArea } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 
+interface LinkOGItemProps {
+  requestUrl: string;
+}
 
-export default function LinkOGItem() {
+export default function LinkOGItem({ requestUrl }: LinkOGItemProps) {
   const [ title, setTitle ] = useState(null)
   const [ desc, setDesc ] = useState(null)
   const [ domain, setDomain ] = useState(null)
   const [ favicon, setFavicon ] = useState(null)
 
+  useEffect(() => {
+    const url = `https://jsonlink.io/api/extract?url=${requestUrl}`
+  
+    axios.get(url)
+      .then((res) => {
+        setTitle(res.data.title)
+        setDesc(res.data.description)
+        setDomain(res.data.domain)
+        setFavicon(res.data.images[0])
+      })
+  }, [requestUrl]);
+
   // const requestUrl = "https://www.npmjs.com/package/@dhaiwat10/react-link-preview"
-  const requestUrl = "https://www.naver.com"
+  // const requestUrl = "https://www.naver.com"
 
-  const url = `https://jsonlink.io/api/extract?url=${requestUrl}`
+  // const url = `https://jsonlink.io/api/extract?url=${requestUrl}`
 
-  axios.get(url)
-  .then((res) => {
-    setTitle(res.data.title)
-    setDesc(res.data.description)
-    setDomain(res.data.domain)
-    setFavicon(res.data.images[0])
-  })
+  // axios.get(url)
+  // .then((res) => {
+  //   setTitle(res.data.title)
+  //   setDesc(res.data.description)
+  //   setDomain(res.data.domain)
+  //   setFavicon(res.data.images[0])
+  // })
 
   function handleClick() {
     window.open(requestUrl, '_blank')

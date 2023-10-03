@@ -121,7 +121,7 @@ export default function RightMediaTab() {
         <div className={styles.MediaContainer}>
           {/* <div className={styles.photoThumbnail}> */}
             {images.length !== 0 ? images.map((url, index) => (
-              <img className={styles.photoThumbnail} key={index} src={url} alt="from S3" />
+              <img onClick={() => window.open(url, "_blank")} className={styles.photoThumbnail} key={index} src={url} alt="from S3" />
             )) : (
               <p className={styles.noPhoto}>업로드 된 사진이 없습니다.</p>
             )}
@@ -134,7 +134,7 @@ export default function RightMediaTab() {
       <div className={styles.MessageRightMediaStorage}>
         <div className={styles.MediaContainer}>
           {videos.length !== 0 ? videos.map((url, index) => (
-            <video className={styles.photoThumbnail} controls width="250" key={index} src={url}/>
+            <video onClick={() => window.open(url, "_blank")} className={styles.videoThumbnail} controls width="250" key={index} src={url}/>
           )) : (
             <p className={styles.noPhoto}>업로드 된 동영상이 없습니다.</p>
           )}

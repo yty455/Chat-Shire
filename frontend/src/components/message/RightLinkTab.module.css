@@ -86,3 +86,17 @@
   display: none;
 }
 
+.addLink {
+  font-size: 110%;
+  margin: 0;
+}
+
+.noPhoto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 0.9rem;
+  color: grey;
+  width: 20vw;
+}
