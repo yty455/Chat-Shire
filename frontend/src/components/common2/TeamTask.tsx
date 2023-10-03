@@ -370,6 +370,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         taskData.deadline
       );
       console.log(response.data.result);
+      setTaskData({
+        name: "",
+        description: "",
+        priority: "MEDIUM",
+        progress: "ONGOING",
+        deadline: dayjs().add(7, "day").format("YYYY-MM-DD"),
+      });
       getTeamTask();
       closeModal();
     } catch (error) {
