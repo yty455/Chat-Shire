@@ -55,6 +55,7 @@
   border-radius: 200%;
 }
 
+
 .AvatarCustomBodyRight {
   display: flex;
   flex-direction: column;
@@ -108,4 +109,3 @@
   height: 86px;
   width: 430px;
 }
-
