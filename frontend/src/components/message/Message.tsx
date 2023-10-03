@@ -14,8 +14,8 @@ import {
   BsPaperclip,
   BsLink45Deg,
 } from "react-icons/bs";
-import {FaLink} from "react-icons/fa";
-import {BiSearch, BiSolidSearch} from "react-icons/bi";
+import { FaLink } from "react-icons/fa";
+import { BiSearch, BiSolidSearch } from "react-icons/bi";
 // import {HiOutlinePhoto} from "react-icons/hi"
 import { HiOutlinePhoto, HiPhoto } from "react-icons/hi2";
 import { AiOutlineFolder, AiFillFolder } from "react-icons/ai";
@@ -282,7 +282,7 @@ function Message({ projectId }: MessageProps) {
       reader.onload = () => {
         setImageSrc(reader.result || "");
         setImageFile(file);
-        console.log('지금 업로드하는 이미지 src', imageSrc)
+        console.log("지금 업로드하는 이미지 src", imageSrc);
         if (!reader.result) {
           window.alert("이미지를 등록해 주세요.");
           resolve();
@@ -594,25 +594,23 @@ function Message({ projectId }: MessageProps) {
       <div className={styles.messageRight}>
         <div className={styles.messageRightTabContainer}>
           <button
-            style={{ 
-              border: "none", 
+            style={{
+              border: "none",
               background: "none",
               margin: 0,
               // backgroundColor: selectedButton === "media" ? "aqua" : "transparent",
               // borderRadius: '10px',
-             }}
+            }}
             value="media"
             onClick={handleChange}
           >
             {selectedButton === "media" ? (
               <>
-                <HiPhoto className={styles.icon25}/>
+                <HiPhoto className={styles.icon25} />
                 <p className={styles.tabTitle}>미디어</p>
               </>
             ) : (
-              <HiOutlinePhoto
-                className={styles.icon25}
-              />
+              <HiOutlinePhoto className={styles.icon25} />
             )}
           </button>
           <button
@@ -622,13 +620,11 @@ function Message({ projectId }: MessageProps) {
           >
             {selectedButton === "files" ? (
               <>
-                <AiFillFolder className={styles.icon25}/>
+                <AiFillFolder className={styles.icon25} />
                 <p className={styles.tabTitle}>파일</p>
               </>
             ) : (
-              <AiOutlineFolder
-                className={styles.icon25}
-              />
+              <AiOutlineFolder className={styles.icon25} />
             )}
           </button>
           <button
@@ -642,7 +638,7 @@ function Message({ projectId }: MessageProps) {
                   style={{
                     fontSize: "21",
                     color: "#39a789",
-                    marginBottom: '2px'
+                    marginBottom: "2px",
                   }}
                 />
                 <p className={styles.tabTitle}>링크</p>
@@ -663,19 +659,12 @@ function Message({ projectId }: MessageProps) {
           >
             {selectedButton === "search" ? (
               <>
-                <BiSolidSearch
-                  className={styles.icon25}
-                />
+                <BiSolidSearch className={styles.icon25} />
                 <p className={styles.tabTitle}>검색</p>
               </>
             ) : (
-              <BiSearch
-                className={styles.icon25}
-              />
+              <BiSearch className={styles.icon25} />
             )}
-
-
-
           </button>
         </div>
         <MessageRightBody value={value} />
