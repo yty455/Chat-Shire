@@ -13,4 +13,6 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
     List<Notification> findAllByReceiverIdAndStatus(Long receiverId, AcceptanceStatus status);
 
     void deleteAllByParticipationId(Long chatRoomId);
+
+//    void deleteAllByUserId(Long userId);
 }

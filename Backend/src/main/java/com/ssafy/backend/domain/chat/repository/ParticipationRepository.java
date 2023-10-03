@@ -23,4 +23,6 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
 
     @Query("select c.endDate from Participation p left join ChatRoom c on p.chatRoom = c where p.user.id = :userId")
     List<LocalDate> findEndDateByUserId(@Param("userId") Long userId);
+
+    void deleteAllByUserId(Long userId);
 }
