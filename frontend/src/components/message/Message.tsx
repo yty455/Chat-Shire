@@ -426,8 +426,7 @@ function Message({ projectId }: MessageProps) {
   const userList = (
     <div>
       <p style={{ margin: 0, fontFamily: "preRg" }}>
-        참여자들 목록
-        {users &&
+        {users && (
           users.map((user, index) => (
             <div key={index}>
               <img
@@ -436,6 +435,7 @@ function Message({ projectId }: MessageProps) {
                 src={user.profileImage}
               />
               <p>{user.nickname}</p>
+              <hr></hr>
             </div>
           ))}
       </p>
