@@ -437,7 +437,7 @@ function Message({ projectId }: MessageProps) {
               <p>{user.nickname}</p>
               <hr></hr>
             </div>
-          ))}
+          )))}
       </p>
     </div>
   );
