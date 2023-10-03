@@ -33,14 +33,14 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
 
   const handleInviteBtnChange = (e: any) => {
     if (e.target.checked) {
-      const newMembers = [...members, {id: e.target.id, profileImage: e.target.value, profileColor: e.target.name}]
+      const newMembers = [...members, {id: String(e.target.id), profileImage: e.target.value, profileColor: e.target.name}]
       const newInvitedMembers = [...invitedMembers, String(e.target.id)]
 
       setMembers(newMembers)
       setInvitedMembers(newInvitedMembers)
     } else {
-      const newMembers = members.filter(item => item.id !== e.target.id)
-      const newInvitedMembers = invitedMembers.filter(item => !String(e.target.id))
+      const newMembers = members.filter(item => item.id !== String(e.target.id))
+      const newInvitedMembers = invitedMembers.filter(item => item !== String(e.target.id))
 
       setMembers(newMembers)
       setInvitedMembers(newInvitedMembers)
@@ -54,7 +54,6 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
   ))
 
   const searchResultItem = searchResult.map((item: any) => {
-    console.log(item)
     return (
       <div className={styles.SearchResultItem}>
         <div style={{display: "flex", alignItems: "center"}}>
@@ -67,7 +66,7 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
           </div>
         </div>
         { 
-          invitedMembers.includes(item.id) ?
+          invitedMembers.includes(String(item.id)) ?
           <Checkbox defaultChecked id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />  : 
           <Checkbox id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />
         }
