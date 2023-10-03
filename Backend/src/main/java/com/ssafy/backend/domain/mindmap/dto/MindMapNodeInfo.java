@@ -2,6 +2,8 @@ package com.ssafy.backend.domain.mindmap.dto;
 
 import lombok.*;
 
+import javax.annotation.Nullable;
+
 @Builder
 @Getter
 @Setter
@@ -11,6 +13,7 @@ public class MindMapNodeInfo {
 	private String id;
 	private Data data;
 	private Position position;
+	@Nullable
 	private String parentNode;
 
 	@Builder
