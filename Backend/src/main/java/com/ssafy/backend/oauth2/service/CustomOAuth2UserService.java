@@ -82,11 +82,12 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
      * OAuthAttributes의 toEntity() 메소드를 통해 빌더로 User 객체 생성 후 반환
      * 생성된 User 객체를 DB에 저장 : socialType, socialId, email, role 값만 있는 상태
      */
+
     private User saveUser(OAuth2Attribute attributes) {
         User createdUser = attributes.toEntity(attributes);
         User savedUser = userRepository.save(createdUser);
         challengeRepository.save(Challenge.builder()
-                        .user(savedUser).build());
+                .user(savedUser).build());
         return savedUser;
     }
 }

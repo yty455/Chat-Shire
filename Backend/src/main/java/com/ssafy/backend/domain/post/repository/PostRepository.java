@@ -27,4 +27,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT new com.ssafy.backend.domain.post.dto.PostInfoResponse(p.id, p.title, p.state, u.profileImage, u.profileColor, p.createdDate, p.lastModifiedDate) from Post p left join User u on p.user = u where p.chatRoom.id = :chatRoomId " +
             "and (p.content like CONCAT('%', :content, '%') or p.title like CONCAT('%', :content, '%'))")
     List<PostInfoResponse> findByContent(Long chatRoomId, String content);
+
+    void deleteAllByUserId(Long userId);
+
+    List<Post> findAllByUserId(Long userId);
 }

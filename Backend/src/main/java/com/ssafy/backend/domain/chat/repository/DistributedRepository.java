@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface DistributedRepository extends JpaRepository<Distributed, Long> {
     List<Distributed> findByChatRoomId(Long id);
+
+    void deleteAllByUserId(Long userId);
 }

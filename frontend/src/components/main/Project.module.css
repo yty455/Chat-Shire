@@ -39,6 +39,7 @@
 }
 
 .SwiperItemHeader {
+  width: 340px;
   margin: 10px 10px 0px 10px;
 }
 
@@ -65,6 +66,7 @@
 
 .ProjectMemberContainer {
   display: flex;
+  width: 340px;
   margin-left: 10px;
   overflow: scroll;
 }
@@ -75,6 +77,7 @@
 
 .ProjectMemberContainerInactive {
   display: flex;
+  width: 340px;
   margin-top: 10px;
   overflow: scroll;
 }

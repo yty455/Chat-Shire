@@ -84,124 +84,145 @@ function ProjectModal({
         <div>
           <div>
             {editState === "name" ? (
-              <input
-                type="text"
-                value={projectData.name}
-                onChange={(e) => {
-                  setProjectData({ ...projectData, name: e.target.value });
-                }}
-                onBlur={() => setEditState(null)}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    updatePJT(projectData);
-                    setEditState(null);
-                  }
-                }}
-              />
+              <div style={{marginBottom: "6px"}}>
+                <input
+                  type="text"
+                  value={projectData.name}
+                  onChange={(e) => {
+                    setProjectData({ ...projectData, name: e.target.value });
+                  }}
+                  onBlur={() => setEditState(null)}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      updatePJT(projectData);
+                      setEditState(null);
+                    }
+                  }}
+                />
+              </div>
             ) : (
-              <span onClick={() => handleInputClick("name")}>
-                프로젝트 이름 {projectData.name}
-              </span>
-            )}
-          </div>
-          <div>
-            {editState === "topic" ? (
-              <input
-                type="text"
-                value={projectData.topic}
-                onChange={(e) => {
-                  setProjectData({ ...projectData, topic: e.target.value });
-                }}
-                onBlur={() => setEditState(null)}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    updatePJT(projectData);
-                    setEditState(null);
-                  }
-                }}
-              />
-            ) : (
-              <p onClick={() => handleInputClick("topic")}>
-                프로젝트 주제 {projectData.topic}
-              </p>
+              <div style={{marginBottom: "6px"}}>
+                <span style={{fontFamily: "preBd", fontSize: "24px"}} onClick={() => handleInputClick("name")}>{projectData.name}</span>
+              </div>
             )}
           </div>
           <div>
             {editState === "teamName" ? (
-              <input
-                type="text"
-                value={projectData.teamName}
-                onChange={(e) => {
-                  setProjectData({ ...projectData, teamName: e.target.value });
-                }}
-                onBlur={() => setEditState(null)}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    updatePJT(projectData);
-                    setEditState(null);
-                  }
-                }}
-              />
+              <div className={styles.projectModalContent}>
+                <input
+                  type="text"
+                  value={projectData.teamName}
+                  onChange={(e) => {
+                    setProjectData({ ...projectData, teamName: e.target.value });
+                  }}
+                  onBlur={() => setEditState(null)}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      updatePJT(projectData);
+                      setEditState(null);
+                    }
+                  }}
+                />
+              </div>
             ) : (
-              <p onClick={() => handleInputClick("teamName")}>
-                팀 이름 {projectData.teamName}
-              </p>
+              <div className={styles.projectModalContent}>
+              <span style={{fontFamily: "preBd", fontSize: "24px"}} onClick={() => handleInputClick("teamName")}>
+                 {projectData.teamName}
+              </span>
+              </div>
+            )}
+          </div>
+          <div>
+            {editState === "topic" ? (
+              <div className={styles.projectModalContent}>
+                <span className={styles.projectModalContentTitle}>프로젝트 주제</span>
+                <input
+                  type="text"
+                  value={projectData.topic}
+                  onChange={(e) => {
+                    setProjectData({ ...projectData, topic: e.target.value });
+                  }}
+                  onBlur={() => setEditState(null)}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      updatePJT(projectData);
+                      setEditState(null);
+                    }
+                  }}
+                />
+              </div>
+            ) : (
+              <div className={styles.projectModalContent}>
+                <span className={styles.projectModalContentTitle}>프로젝트 주제</span>
+                <span onClick={() => handleInputClick("topic")}>{projectData.topic}</span>
+              </div>
             )}
           </div>
           <div>
             {editState === "description" ? (
-              <input
-                type="text"
-                value={projectData.description}
-                onChange={(e) => {
-                  setProjectData({
-                    ...projectData,
-                    description: e.target.value,
-                  });
-                }}
-                onBlur={() => setEditState(null)}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    updatePJT(projectData);
-                    setEditState(null);
-                  }
-                }}
-              />
+              <div className={styles.projectModalContent}>
+                <span className={styles.projectModalContentTitle}>설명</span>
+                <input
+                  type="text"
+                  value={projectData.description}
+                  onChange={(e) => {
+                    setProjectData({
+                      ...projectData,
+                      description: e.target.value,
+                    });
+                  }}
+                  onBlur={() => setEditState(null)}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      updatePJT(projectData);
+                      setEditState(null);
+                    }
+                  }}
+                />
+              </div>
             ) : (
-              <p onClick={() => handleInputClick("description")}>
-                설명 {projectData.description}
-              </p>
+              <div className={styles.projectModalContent}>
+              <span className={styles.projectModalContentTitle}>설명</span>
+              <span onClick={() => handleInputClick("description")}>
+                 {projectData.description}
+              </span>
+              </div>
             )}
           </div>
           <div>
             {editState === "gitRepository" ? (
-              <input
-                type="text"
-                value={projectData.gitRepository}
-                onChange={(e) => {
-                  setProjectData({
-                    ...projectData,
-                    gitRepository: e.target.value,
-                  });
-                }}
-                onBlur={() => setEditState(null)}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    updatePJT(projectData);
-                    setEditState(null);
-                  }
-                }}
-              />
+              <div className={styles.projectModalContent}>
+                <span className={styles.projectModalContentTitle}>Github</span>
+                <input
+                  type="text"
+                  value={projectData.gitRepository}
+                  onChange={(e) => {
+                    setProjectData({
+                      ...projectData,
+                      gitRepository: e.target.value,
+                    });
+                  }}
+                  onBlur={() => setEditState(null)}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      updatePJT(projectData);
+                      setEditState(null);
+                    }
+                  }}
+                />
+              </div>
             ) : (
-              <p onClick={() => handleInputClick("gitRepository")}>
-                깃 : {projectData.gitRepository}
-              </p>
+              <div className={styles.projectModalContent}>
+              <span className={styles.projectModalContentTitle}>Github</span>
+              <span onClick={() => handleInputClick("gitRepository")}>
+                {projectData.gitRepository}
+              </span>
+              </div>
             )}
           </div>
-          <div>
-            <p>
-              기간 <span>{pjt.startDate}</span>~<span>{pjt.endDate}</span>
-            </p>
+          <div className={styles.projectModalContent}>
+            <span className={styles.projectModalContentTitle}>프로젝트 기간</span>
+            <span>{pjt.startDate}~{pjt.endDate}</span>
           </div>
           <div className={styles.ProjectMemberContainer}>
             {pjtMem.map((user: any) => (
@@ -223,7 +244,7 @@ function ProjectModal({
           </div>
         </div>
       </div>
-      <button onClick={closeModal} className={styles.closebtn}>
+      <button style={{cursor: "pointer"}} onClick={closeModal} className={styles.closebtn}>
         X
       </button>
       <Button

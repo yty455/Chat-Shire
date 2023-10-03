@@ -62,9 +62,12 @@ function Flow({ pjtId }: IdeaProps) {
     shallow
   );
   const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
+
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const getMindmapData = async () => {
       try {
+        setIsLoading(true);
         const response = await getMindMap(pjtId);
         console.log(response.data.result[0]);
         const mindmapData = response.data.result[0];
@@ -88,6 +91,7 @@ function Flow({ pjtId }: IdeaProps) {
 
         onNodesChange(initialMindmapNodes);
         onEdgesChange(initialMindmapEdges);
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -201,7 +205,9 @@ function Flow({ pjtId }: IdeaProps) {
       </p>
     </div>
   );
-
+  if (isLoading) {
+    return <div>Loading...</div>; // 데이터가 로딩되는 동안 표시할 내용
+  }
   return (
     <div
       style={{ backgroundColor: "#ffffff", width: "52vw", height: "74.7vh" }}
