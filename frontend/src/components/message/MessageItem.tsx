@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./MessageItem.module.css";
 
 import Avatar from "@mui/material/Avatar";
@@ -8,7 +8,22 @@ import { useDrag } from "react-dnd";
 import { ItemTypes } from "./ItemTypes";
 import { postTask } from "../../utils/taskApi";
 
-export default function MessageItem(message: any) {
+interface User {
+  nickname: string;
+  profileColor: string;
+  profileImage: string;
+  state: string;
+  userId: number;
+}
+
+export default function MessageItem(message: any, users: any) {
+  const [user, setUser] = useState<User>({
+    nickname: "",
+    profileColor: "",
+    profileImage: "",
+    state: "",
+    userId: 0,
+  });
   // 태스크 등록
   const postInTask = async (
     chatroomId: string,
@@ -59,6 +74,15 @@ export default function MessageItem(message: any) {
     // postInTask()
     // alert("채팅방을 정말 삭제하시겠어요?");
   };
+  useEffect(() => {
+    // users 배열을 필터링하여 userId가 message.message.userId와 같은 항목만 선택
+    const filteredUsers = users.filter(
+      (user: User) => user.userId === message.message.userId
+    );
+
+    // 선택된 사용자 정보를 setUser에 저장
+    setUser(filteredUsers);
+  }, [users, message.message.userId]);
 
   return (
     <div className={styles.messageItemContainer}>
@@ -70,8 +94,17 @@ export default function MessageItem(message: any) {
       >
         <Avatar
           alt="Remy Sharp"
-          src={process.env.PUBLIC_URL + "assets/profile/m57.png"}
-          sx={{ width: 50, height: 50 }}
+          src={
+            user && user.profileImage
+              ? process.env.PUBLIC_URL + user.profileImage
+              : process.env.PUBLIC_URL + "/assets/profile/m57.png"
+          }
+          sx={{
+            width: 50,
+            height: 50,
+            backgroundColor:
+              user && user.profileColor ? user.profileColor : "transparent",
+          }}
         />
       </StyledBadge>
       <div
@@ -79,6 +112,7 @@ export default function MessageItem(message: any) {
         draggable="true"
         onDragStart={(e) => {
           e.dataTransfer.setData("message", message.message);
+          e.dataTransfer.setData("nickname", user.nickname);
         }}
       >
         <div className={styles.messageItemName}>
