@@ -24,10 +24,6 @@ function MainPage() {
       <Project />
 
       <Invite />
-      {/* <LeftSideTab /> */}
-      {/* <div className={styles.mainContainer}>
-        <div className={styles.mainBox}>123</div>
-      </div> */}
     </div>
   );
 }
