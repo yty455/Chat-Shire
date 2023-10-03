@@ -7,7 +7,10 @@ import PiChart from "./PiChart";
 import Cloud from "./Cloud";
 // import Rocket from "../../assets/analysisBg/passion/passion3.png";
 
+import api from '../../utils/api'
 import { getAnalysis } from "../../utils/analysisApi";
+import { useRecoilState } from "recoil";
+import { keywords_recoil } from "../../stores/atom";
 
 interface AnalysisProps {
   projectId: string;
@@ -15,25 +18,27 @@ interface AnalysisProps {
 
 export default function Analysis({ projectId }: AnalysisProps) {
   const [analysisData, setAnalysisData] = useState(null);
-  const bgImg =
-    process.env.PUBLIC_URL + "/assets/analysisBg/passion/passion2.png";
+  const [keywords, setKeywords] = useRecoilState(keywords_recoil)
+  const bgImg = process.env.PUBLIC_URL + "/assets/analysisBg/passion/passion2.png";
 
-  const getAnalysisPage = async () => {
-    try {
-      const response = await getAnalysis(projectId);
-      console.log(response.data.result);
-      setAnalysisData(response.data.result[0]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const getAnalysisPage = async () => {
+  //   try {
+  //     const response = await getAnalysis(projectId);
+  //     console.log(response.data.result);
+  //     setAnalysisData(response.data.result[0]);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  useEffect(() => {
-
-  }, [])
+  const returnKeywords = keywords.map((item) => <Keywords topic={item}/>)
 
   useEffect(() => {
-    getAnalysisPage();
+    // getAnalysisPage();
+    api.get(`/projects/${projectId}/keywords`)
+    .then((res) => {
+      console.log(res)
+    })
   }, [projectId]);
 
   return (
@@ -57,11 +62,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
         <div className={styles.analysisTopicsContainer}>
           <span className={styles.analysisItemTitle}>프로젝트 주제</span>
           <div className={styles.analysisKeywordsContainer}>
-            <Keywords />
-            <Keywords />
-            <Keywords />
-            <Keywords />
-            <Keywords />
+            {returnKeywords}
           </div>
         </div>
         <div className={styles.analysisPiGraphContainer}>
