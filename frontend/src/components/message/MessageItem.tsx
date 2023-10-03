@@ -68,7 +68,7 @@ export default function MessageItem({
   };
   useEffect(() => {
     console.log(users, 12314);
-    console.log(message?.message?.userId, 2223);
+    console.log(message?.userId, 2223);
     if (Array.isArray(users) && users?.length > 0 && message?.message?.userId) {
       // users 배열을 필터링하여 userId가 message.message.userId와 같은 항목만 선택
       const filteredUsers = users.filter(
