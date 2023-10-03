@@ -13,10 +13,14 @@ export const deleteReferences = (taskId: string, referenceId: string) =>
 // 태스크 참조 등록
 export const postReferences = (
   taskId: string,
+  nickname: string,
+  content: string,
   chatNumber: number,
-  content: string
+  chatTime: any
 ) =>
   api.post(`/tasks/${taskId}/references`, {
-    chatNumber,
+    nickname,
     content,
+    chatNumber,
+    chatTime,
   });
