@@ -57,6 +57,12 @@ interface MessageObject {
   content: string;
 }
 
+interface User {
+  nickname: string;
+  profileImage: string;
+  profileColor: string;
+}
+
 function Message({ projectId }: MessageProps) {
   // const projectId = useParams().projectId;
   // console.log("Message", projectId);
@@ -71,15 +77,16 @@ function Message({ projectId }: MessageProps) {
   const [noticeInputValue, setNoticeInputValue] = useState("");
   const [notice, setNotice] = useState("");
   const [showNotice, setShowNotice] = useState(false);
-  const [showNoticeInput, setShowNoticeInput] = useState(false); // 공지 입력 상태 여부
-  const [pjtName, setPjtName] = useState<any>("");
+  const [showNoticeInput, setShowNoticeInput] = useState(false);
+  const [pjtName, setPjtName] = useState<any>('');
   const [pjtMemCount, setPjtMemCount] = useState(0);
   const [image, setImage] = useState([]);
   const [video, setVideo] = useState([]);
   const [file, setFile] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   const handleChange = (e: any) => {
-    console.log(e.currentTarget);
+    // console.log(e.currentTarget);
     e.preventDefault();
     setValue(e.currentTarget.value);
     setSelectedButton(e.currentTarget.value);
@@ -142,6 +149,8 @@ function Message({ projectId }: MessageProps) {
       const response = await getProjectMem(projectId);
       console.log(response.data.count);
       setPjtMemCount(response.data.count);
+      console.log(response.data.result);
+      setUsers(response.data.result);
     } catch (error) {
       console.error(error);
     }
@@ -175,7 +184,7 @@ function Message({ projectId }: MessageProps) {
       },
       () => {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
-        client.current?.subscribe(`/topic/greetings`, (message) => {
+        client.current?.subscribe(`/topic/greetings/${projectId}`, (message) => {
           setMessage(JSON.parse(message.body));
         });
       }
@@ -213,12 +222,10 @@ function Message({ projectId }: MessageProps) {
   //   }
   // }
 
-  const makeNotice = () => {
-    if (noticeInputValue !== "") {
+  const makeNotice = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && noticeInputValue !== "") {
       putNotification(projectId, noticeInputValue)
         .then(() => {
-          setShowNoticeInput(false);
-          setShowNotice(true);
           setNotice(noticeInputValue);
         })
         .catch((error) => {
@@ -399,7 +406,7 @@ function Message({ projectId }: MessageProps) {
     });
 
     return upload.promise().then(() => {
-      console.log("업로드");
+      console.log("미디어 업로드");
     });
   };
 
@@ -413,6 +420,23 @@ function Message({ projectId }: MessageProps) {
     </div>
   );
 
+  const userList = (
+    <div>
+      <p style={{ margin: 0, fontFamily: "preRg" }}>
+        참여자들 목록
+        {users && (
+          users.map((user, index) => (
+            <div key={index}>
+              <img style={{width: '20px'}} alt="profile" src={user.profileImage}/>
+              <p>{user.nickname}</p>
+            </div>
+          ))
+        )}
+      </p>
+    </div>
+  );
+
+
   return (
     <div className={styles.messageContainer}>
       <div className={styles.messageLeft}>
@@ -421,11 +445,13 @@ function Message({ projectId }: MessageProps) {
             <div className={styles.messageLeftHeaderLeft}>
               <span className={styles.messageLeftTitle}>{pjtName}</span>
               {/* <span className={styles.messageLeftTitle}>2차 플젝</span> */}
-              <BsPeopleFill
-                style={{ color: "grey", marginTop: "6px", marginLeft: "12px" }}
-                size={20}
-              />
-              <span className={styles.messagePeopleNum}>{pjtMemCount}</span>
+              <Popover placement="rightBottom" content={userList} trigger="click">
+                <BsPeopleFill
+                  style={{ color: "grey", marginTop: "6px", marginLeft: "12px" }}
+                  size={20}
+                />
+                <span className={styles.messagePeopleNum}>{pjtMemCount}</span>
+              </Popover>
             </div>
             {/* <BsQuestionCircle style={{color: 'grey', marginTop: '6px'}} size={20} /> */}
             <Popover placement="left" content={content} trigger="hover">
@@ -436,34 +462,21 @@ function Message({ projectId }: MessageProps) {
           </div>
         </div>
         <div className={styles.messageLeftNotification}>
-          <BsFillMegaphoneFill
-            size={20}
-            onClick={() => {
-              setShowNoticeInput(!showNoticeInput);
-            }}
-          />
-          {showNoticeInput ? (
-            <input
-              maxLength={50}
-              style={{
-                width: "450px",
-                border: "none",
-                marginLeft: "5px",
-                fontFamily: "preRg",
-              }}
-              placeholder={notice}
-              type="text"
-              value={noticeInputValue}
-              onChange={(e) => setNoticeInputValue(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  makeNotice();
-                }
-              }}
-            />
-          ) : (
-            <span className={styles.notificationText}>{notice}</span>
-          )}
+        <BsFillMegaphoneFill size={20} />
+        <input
+          maxLength={50}
+          style={{
+            width: "450px",
+            border: "none",
+            marginLeft: "5px",
+            fontFamily: "preRg",
+          }}
+          placeholder={notice}
+          type="text"
+          value={noticeInputValue}
+          onChange={(e) => setNoticeInputValue(e.target.value)}
+          onKeyPress={(e) => makeNotice(e)}
+        />
         </div>
         <div className={styles.messageLeftBody}>
           {preMessage &&
