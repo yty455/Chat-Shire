@@ -111,7 +111,7 @@ export default function MessageItem({
         className={styles.messageItemBody}
         draggable="true"
         onDragStart={(e) => {
-          e.dataTransfer.setData("message", message);
+          e.dataTransfer.setData("message", JSON.stringify(message));
           e.dataTransfer.setData("nickname", user?.nickname);
         }}
       >
