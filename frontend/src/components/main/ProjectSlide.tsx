@@ -79,7 +79,7 @@ function ProjectSlide({ pjt, onCardClick, isActive }: ProjectSlideProps) {
               : styles.ProjectDescContainerInactive
           }
         >
-          <span>{pjt.description}</span>
+          <span style={{fontSize: "18px"}}>{pjt.description}</span>
         </div>
         <div
           className={
@@ -88,11 +88,7 @@ function ProjectSlide({ pjt, onCardClick, isActive }: ProjectSlideProps) {
               : styles.ProjectTopicContainerInactive
           }
         >
-          <Keywords topic={pjt.topic} />
-          {/* <Keywords topic={pjt.topic} />
-          <Keywords topic={pjt.topic} />
-          <Keywords topic={pjt.topic} />
-          <Keywords topic={pjt.topic} /> */}
+          <span style={{fontSize: "14px"}}>{pjt.topic}</span>
         </div>
       </div>
       <div
