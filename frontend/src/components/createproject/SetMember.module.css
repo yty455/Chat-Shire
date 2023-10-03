@@ -9,12 +9,12 @@
 
 .InvitedMembersContainer {
   display: flex;
+  align-items: center;
   padding: 10px;
   flex-wrap: nowrap;
   width: 580px;
   height: 50px;
   overflow: scroll;
-  border: 1px solid orange;
 }
 
 .InvitedMembersContainer::-webkit-scrollbar {

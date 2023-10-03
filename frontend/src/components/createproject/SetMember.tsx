@@ -19,26 +19,28 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
       profileImage: "/assets/profile/male/m9.png",
     },
   ])
+  const [searchResultLength, setSearchResultLength] = useState(0)
 
   const handleSearchInput = (e: any) => {
     console.log(e.target.value)
     api.get('users/search?githubId=' + e.target.value)
     .then((res) => {
       setSearchResult(res.data.result[0])
+      setSearchResultLength(res.data.result[0].length)
     })
     .catch(err => console.log(err))
   }
 
   const handleInviteBtnChange = (e: any) => {
     if (e.target.checked) {
-      const newMembers = members.filter(item => !e.target.value)
-      const newInvitedMembers = invitedMembers.filter(item => !String(e.target.id))
+      const newMembers = [...members, {id: e.target.id, profileImage: e.target.value, profileColor: e.target.name}]
+      const newInvitedMembers = [...invitedMembers, String(e.target.id)]
 
       setMembers(newMembers)
       setInvitedMembers(newInvitedMembers)
     } else {
-      const newMembers = [...members, e.target.value]
-      const newInvitedMembers = [...invitedMembers, String(e.target.id)]
+      const newMembers = members.filter(item => item.id !== e.target.id)
+      const newInvitedMembers = invitedMembers.filter(item => !String(e.target.id))
 
       setMembers(newMembers)
       setInvitedMembers(newInvitedMembers)
@@ -64,8 +66,8 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
         </div>
         { 
           members.includes(item) ? 
-          <Checkbox defaultChecked id={item.id} value={item.profileImage} onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />  : 
-          <Checkbox id={item.id} value={item.profileImage} onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />
+          <Checkbox defaultChecked id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />  : 
+          <Checkbox id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />
         }
       </div>
     )
@@ -85,7 +87,7 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
         <input className={styles.SearchInput} placeholder='Github ID 검색' type="text" onChange={handleSearchInput}/>
       </div>
       <div className={styles.SearchResultContainer}>
-        <span style={{fontFamily: "preLt", fontSize: "14px"}}>검색 결과 : </span>
+        <span style={{fontFamily: "preLt", fontSize: "14px"}}>검색 결과 : {searchResultLength}</span>
         <div className={styles.SearchResultItemContainer}>
           {searchResult ? searchResultItem : <span>초대할 멤버를 검색해보세요</span>}
         </div>
