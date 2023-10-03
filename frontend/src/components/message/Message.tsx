@@ -14,9 +14,11 @@ import {
   BsPaperclip,
   BsLink45Deg,
 } from "react-icons/bs";
+import { FaLink } from "react-icons/fa";
+import { BiSearch, BiSolidSearch } from "react-icons/bi";
 // import {HiOutlinePhoto} from "react-icons/hi"
-import { HiOutlinePhoto } from "react-icons/hi2";
-import { AiOutlineFolder } from "react-icons/ai";
+import { HiOutlinePhoto, HiPhoto } from "react-icons/hi2";
+import { AiOutlineFolder, AiFillFolder } from "react-icons/ai";
 import { LiaSearchSolid } from "react-icons/lia";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
@@ -269,7 +271,7 @@ function Message({ projectId }: MessageProps) {
           fileExt
         )
       ) {
-        window.alert("jpg, png, jpg, mp4 파일만 업로드가 가능합니다.");
+        window.alert("jpeg, png, jpg, mp4 파일만 업로드가 가능합니다.");
         resolve();
         return;
       }
@@ -280,7 +282,7 @@ function Message({ projectId }: MessageProps) {
       reader.onload = () => {
         setImageSrc(reader.result || "");
         setImageFile(file);
-
+        console.log("지금 업로드하는 이미지 src", imageSrc);
         if (!reader.result) {
           window.alert("이미지를 등록해 주세요.");
           resolve();
@@ -365,7 +367,7 @@ function Message({ projectId }: MessageProps) {
           params: {
             ACL: "public-read",
             Bucket: "chat-shire",
-            Key: `chat/${fileName}`,
+            Key: `chat/file/${fileName}`,
             Body: formData.get("file"),
           },
         });
@@ -403,7 +405,7 @@ function Message({ projectId }: MessageProps) {
       params: {
         ACL: "public-read",
         Bucket: "chat-shire",
-        Key: `chat/${imageFile.name}`,
+        Key: `chat/media/${imageFile.name}`,
         Body: imageFile,
       },
     });
@@ -592,56 +594,77 @@ function Message({ projectId }: MessageProps) {
       <div className={styles.messageRight}>
         <div className={styles.messageRightTabContainer}>
           <button
-            style={{ border: "none", background: "none" }}
+            style={{
+              border: "none",
+              background: "none",
+              margin: 0,
+              // backgroundColor: selectedButton === "media" ? "aqua" : "transparent",
+              // borderRadius: '10px',
+            }}
             value="media"
             onClick={handleChange}
           >
-            <HiOutlinePhoto
-              style={{
-                background: selectedButton === "media" ? "yellow" : "none",
-                fontSize: "25px",
-                color: "#39a789",
-              }}
-            />
+            {selectedButton === "media" ? (
+              <>
+                <HiPhoto className={styles.icon25} />
+                <p className={styles.tabTitle}>미디어</p>
+              </>
+            ) : (
+              <HiOutlinePhoto className={styles.icon25} />
+            )}
           </button>
           <button
             style={{ border: "none", background: "none" }}
             value="files"
             onClick={handleChange}
           >
-            <AiOutlineFolder
-              style={{
-                background: selectedButton === "files" ? "yellow" : "none",
-                fontSize: "25px",
-                color: "#39a789",
-              }}
-            />
+            {selectedButton === "files" ? (
+              <>
+                <AiFillFolder className={styles.icon25} />
+                <p className={styles.tabTitle}>파일</p>
+              </>
+            ) : (
+              <AiOutlineFolder className={styles.icon25} />
+            )}
           </button>
           <button
             style={{ border: "none", background: "none" }}
             value="links"
             onClick={handleChange}
           >
-            <BsLink45Deg
-              style={{
-                background: selectedButton === "links" ? "yellow" : "none",
-                fontSize: "28",
-                color: "#39a789",
-              }}
-            />
+            {selectedButton === "links" ? (
+              <>
+                <FaLink
+                  style={{
+                    fontSize: "21",
+                    color: "#39a789",
+                    marginBottom: "2px",
+                  }}
+                />
+                <p className={styles.tabTitle}>링크</p>
+              </>
+            ) : (
+              <BsLink45Deg
+                style={{
+                  fontSize: "28",
+                  color: "#39a789",
+                }}
+              />
+            )}
           </button>
           <button
             style={{ border: "none", background: "none" }}
             value="search"
             onClick={handleChange}
           >
-            <LiaSearchSolid
-              style={{
-                background: selectedButton === "search" ? "yellow" : "none",
-                fontSize: "25",
-                color: "#39a789",
-              }}
-            />
+            {selectedButton === "search" ? (
+              <>
+                <BiSolidSearch className={styles.icon25} />
+                <p className={styles.tabTitle}>검색</p>
+              </>
+            ) : (
+              <BiSearch className={styles.icon25} />
+            )}
           </button>
         </div>
         <MessageRightBody value={value} />

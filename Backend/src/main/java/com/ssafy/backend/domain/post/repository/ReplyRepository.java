@@ -10,6 +10,7 @@ import java.util.List;
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
     Long countByPostId(Long postId);
+
     Reply findFirstByPostId(Long postId);
 
     void deleteAllByPostId(Long postId);
@@ -19,4 +20,6 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
     @Query("SELECT COUNT(r) FROM Reply r WHERE r.post.chatRoom.id = :chatRoomId")
     Long countByChatRoomId(Long chatRoomId);
+
+    void deleteAllByUserId(Long userId);
 }
