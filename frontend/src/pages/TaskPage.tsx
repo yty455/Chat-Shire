@@ -14,16 +14,6 @@ export default function TaskPage() {
   const { projectId } = useParams();
   const projectToPass = projectId || "defaultProjectId";
   console.log(projectToPass);
-  // // 개인 태스크 > 팀 태스크
-  // const indivToTeam = async (teamId, indivId) => {
-  //   try {
-  //       const response = await changeTaskGroup(teamId , indivId);
-  //       console.log(response.data);
-
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   return (
     <div
