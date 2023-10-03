@@ -66,6 +66,7 @@ function Flow({ pjtId }: IdeaProps) {
     const getMindmapData = async () => {
       try {
         const response = await getMindMap(pjtId);
+        console.log(response.data.result[0]);
         const mindmapData = response.data.result[0];
 
         // 초기 마인드맵 데이터를 React Flow 형식으로 변환
@@ -74,18 +75,26 @@ function Flow({ pjtId }: IdeaProps) {
           type: "mindmap",
           data: { label: node.data.label },
           position: { x: node.position.x, y: node.position.y },
-          deletable: true, // 마인드맵의 노드를 삭제할 수 있도록 설정
+          deletable: !(node.id === "root"), // parentNode가 없는 노드만 삭제 불가능하도록 설정
           style: {}, // 스타일 설정
         }));
+        const initialMindmapEdges = mindmapData
+          .filter((node: any) => node.parentNode !== null)
+          .map((node: any) => ({
+            id: `${node.parentNode}_${node.id}`,
+            source: node.parentNode, // 엣지의 출발 노드 ID
+            target: node.id, // 엣지의 도착 노드 ID
+          }));
 
         onNodesChange(initialMindmapNodes);
+        onEdgesChange(initialMindmapEdges);
       } catch (error) {
         console.error(error);
       }
     };
 
     getMindmapData(); // 데이터 불러오기 함수 호출
-  }, [pjtId, onNodesChange]);
+  }, [pjtId, onNodesChange, onEdgesChange]);
 
   useEffect(() => {
     console.log(nodes);
@@ -103,7 +112,7 @@ function Flow({ pjtId }: IdeaProps) {
           x: node.position.x || 0,
           y: node.position.y || 0,
         },
-        parentNode: parentNode ? parentNode.source : "defaultParentNode",
+        parentNode: parentNode ? parentNode.source : "null",
       });
     });
     saveMindmapData(transformedData);

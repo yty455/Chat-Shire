@@ -107,11 +107,11 @@ function Message({ projectId }: MessageProps) {
   const getpjt = async () => {
     try {
       const response = await getProject(projectId);
-      console.log(response.data.result[0]);
+      // console.log(response.data.result[0]);
       // setPjt(response.data.result[0]);
-      console.log("불러온 공지", response.data.result[0].notification);
+      // console.log("불러온 공지", response.data.result[0].notification);
       setNotice(response.data.result[0].notification);
-      console.log("플젝 이름", response.data.result[0].name);
+      // console.log("플젝 이름", response.data.result[0].name);
       setPjtName(response.data.result[0].name);
     } catch (error) {
       console.error(error);
@@ -121,7 +121,7 @@ function Message({ projectId }: MessageProps) {
   const getImage = async () => {
     try {
       const response = await getFiles(projectId, "IMAGE");
-      console.log(response.data.result[0]);
+      // console.log(response.data.result[0]);
       setImage(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -130,7 +130,7 @@ function Message({ projectId }: MessageProps) {
   const getVideo = async () => {
     try {
       const response = await getFiles(projectId, "VIDEO");
-      console.log(response.data.result[0]);
+      // console.log(response.data.result[0]);
       setVideo(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -139,7 +139,7 @@ function Message({ projectId }: MessageProps) {
   const getFile = async () => {
     try {
       const response = await getFiles(projectId, "FILE");
-      console.log(response.data.result[0]);
+      // console.log(response.data.result[0]);
       setFile(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -428,7 +428,7 @@ function Message({ projectId }: MessageProps) {
   const userList = (
     <div>
       <p style={{ margin: 0, fontFamily: "preRg" }}>
-        {users && (
+        {users &&
           users.map((user, index) => (
             <div key={index}>
               <img
@@ -439,7 +439,7 @@ function Message({ projectId }: MessageProps) {
               <p>{user.nickname}</p>
               <hr></hr>
             </div>
-          )))}
+          ))}
       </p>
     </div>
   );

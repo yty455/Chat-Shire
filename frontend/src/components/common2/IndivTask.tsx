@@ -14,6 +14,7 @@ import { getTask, deleteTask, postTask, updateTask } from "../../utils/taskApi";
 import "./IndivTask.css";
 import IndivChatModal from "./IndivChatModal";
 import { useDrag } from "react-dnd";
+import { postReferences } from "../../utils/taskReferenceApi";
 
 interface ItemState {
   id: number;
@@ -142,6 +143,28 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       console.error(error);
     }
   };
+  // 참조 등록
+  const postInReferences = async (
+    taskId: string,
+    nickname: string,
+    content: string,
+    chatNumber: number,
+    chatTime: string
+  ) => {
+    try {
+      const response = await postReferences(
+        taskId,
+        nickname,
+        content,
+        chatNumber,
+        chatTime
+      );
+      console.log(response);
+      getInTask();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // 태스크 수정
   const updateInTask = async (
@@ -246,7 +269,8 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                   e.preventDefault();
                   const message = e.dataTransfer.getData("message");
                   const nickname = e.dataTransfer.getData("nickname");
-                  console.log(message, nickname);
+                  console.log(message);
+                  console.log(nickname);
                 }}
               >
                 <Item
@@ -447,7 +471,8 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         onDrop={(e) => {
           e.preventDefault();
           const message = e.dataTransfer.getData("message");
-          console.log(message);
+          const nickname = e.dataTransfer.getData("nickname");
+          console.log(message, nickname);
         }}
       >
         <AddIcon />

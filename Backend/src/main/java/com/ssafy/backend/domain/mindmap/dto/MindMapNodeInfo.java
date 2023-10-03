@@ -1,18 +1,19 @@
 package com.ssafy.backend.domain.mindmap.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.annotation.Nullable;
 
 @Builder
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class MindMapNodeInfo {
 	private String id;
 	private Data data;
 	private Position position;
+	@Nullable
 	private String parentNode;
 
 	@Builder

@@ -1,6 +1,17 @@
-import { Edge, EdgeChange, Node, NodeChange, OnNodesChange, OnEdgesChange, applyNodeChanges, applyEdgeChanges, XYPosition, DeleteElementsOptions } from 'reactflow';
-import { create } from 'zustand';
-import { nanoid } from 'nanoid/non-secure';
+import {
+  Edge,
+  EdgeChange,
+  Node,
+  NodeChange,
+  OnNodesChange,
+  OnEdgesChange,
+  applyNodeChanges,
+  applyEdgeChanges,
+  XYPosition,
+  DeleteElementsOptions,
+} from "reactflow";
+import { create } from "zustand";
+import { nanoid } from "nanoid/non-secure";
 
 export type RFState = {
   nodes: Node[];
@@ -15,17 +26,16 @@ export type RFState = {
 const useStore = create<RFState>((set, get) => ({
   nodes: [
     {
-      id: 'root',
-      type: 'mindmap',
-      data: { label: '프로젝트' },
+      id: "root",
+      type: "mindmap",
+      data: { label: "프로젝트" },
       position: { x: 0, y: 0 },
       deletable: false,
       style: {},
     },
   ],
 
-  edges: [
-  ],
+  edges: [],
 
   onNodesChange: (changes: NodeChange[]) => {
     set({
@@ -42,8 +52,8 @@ const useStore = create<RFState>((set, get) => ({
   addChildNode: (parentNode: Node, position: XYPosition) => {
     const newNode = {
       id: nanoid(),
-      type: 'mindmap',
-      data: { label: '새 아이디어' },
+      type: "mindmap",
+      data: { label: "새 아이디어" },
       position,
       // parentNode: parentNode.id,
     };
@@ -62,8 +72,8 @@ const useStore = create<RFState>((set, get) => ({
 
   deleteNode: (nodeId: string) => {
     set({
-      nodes: [...get().nodes.filter(node => node.id !== nodeId)],
-    })
+      nodes: [...get().nodes.filter((node) => node.id !== nodeId)],
+    });
   },
 
   updateNodeLabel: (nodeId: string, label: string) => {
