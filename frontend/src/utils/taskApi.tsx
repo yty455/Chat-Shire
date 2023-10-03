@@ -36,4 +36,4 @@ export const deleteTask = (taskId: string) => api.delete(`/tasks/${taskId}`);
 
 // 태스크 소속 그룹 변경
 export const changeTaskGroup = (taskGroupId: string, taskId: string) =>
-  api.put(`/taskGroup/${taskGroupId}/tasks/taskId`);
+  api.put(`/taskGroup/${taskGroupId}/tasks/${taskId}`);
