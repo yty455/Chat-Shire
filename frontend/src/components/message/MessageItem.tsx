@@ -69,20 +69,7 @@ export default function MessageItem({
   useEffect(() => {
     console.log(users, 12314);
     console.log(message.message.userId, 2223);
-    // if (Array.isArray(users) && users.length > 0 && message.message.userId) {
-    //   // users 배열을 필터링하여 userId가 message.message.userId와 같은 항목만 선택
-    //   const filteredUsers = users.filter(
-    //     (user: User) => user?.userId === message?.message.userId
-    //   );
-
-    //   // 선택된 사용자 정보를 setUser에 저장
-    //   if (filteredUsers.length > 0) {
-    //     setUser(filteredUsers[0]); // filter 함수의 결과는 배열이므로 첫 번째 요소만 가져옵니다.
-    //   }
-    // }
-
-    // console.log(user);
-  }, [users]);
+  }, []);
 
   return (
     <div className={styles.messageItemContainer}>
