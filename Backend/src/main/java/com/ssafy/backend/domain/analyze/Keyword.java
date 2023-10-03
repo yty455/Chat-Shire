@@ -26,9 +26,8 @@ public class Keyword extends BaseEntity {
     private ChatRoom chatRoom;
 
     public static Keyword create(ChatRoom chatRoom, String word) {
-        Keyword keyword = new Keyword();
-        keyword.word = word;
-        keyword.chatRoom = chatRoom;
-        return keyword;
+        return Keyword.builder()
+                .chatRoom(chatRoom)
+                .word(word).build();
     }
 }
