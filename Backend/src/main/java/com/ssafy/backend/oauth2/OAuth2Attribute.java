@@ -62,6 +62,7 @@ public class OAuth2Attribute {
         map.put("socialId", id);
         return map;
     }
+
     /**
      * of메소드로 OAuthAttributes 객체가 생성되어, 유저 정보들이 담긴 OAuth2UserInfo가 소셜 타입별로 주입된 상태
      * OAuth2UserInfo에서 socialId(식별값), nickname, eamil, gender를 가져와서 build
@@ -71,7 +72,8 @@ public class OAuth2Attribute {
     public User toEntity(OAuth2Attribute oAuth2Attribute) {
         return User.builder()
                 .socialId(oAuth2Attribute.getId())
-                .profileImage(oAuth2Attribute.getProfileImage())
+                .profileImage("/assets/profile/male/m13.png")
+                .profileColor("grey")
                 .githubId(oAuth2Attribute.getGithubId())
                 .email(oAuth2Attribute.getEmail())
                 .nickname(oAuth2Attribute.getName())
