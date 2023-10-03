@@ -35,9 +35,11 @@ function Redirect() {
       // 리프레쉬 토큰이 있다면 메인 페이지로 이동
       setIslogin(true);
       navigate("/main");
-    } else {
+    } else if (islogin){
       // 리프레쉬 토큰이 없다면 회원가입 페이지로 이동
-      navigate("/profile/custom");
+      navigate("/main");
+    } else {
+      navigate("profile/custom")
     }
   }, [access_token, refresh_token]);
 
