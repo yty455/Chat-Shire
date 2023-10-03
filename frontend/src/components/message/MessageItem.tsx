@@ -6,7 +6,6 @@ import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "./ItemTypes";
-import { postTask } from "../../utils/taskApi";
 
 interface User {
   nickname: string;
@@ -17,6 +16,7 @@ interface User {
 }
 
 export default function MessageItem(message: any, users: any) {
+  console.log(users);
   const [user, setUser] = useState<User>({
     nickname: "",
     profileColor: "",
@@ -24,20 +24,6 @@ export default function MessageItem(message: any, users: any) {
     state: "",
     userId: 0,
   });
-  // 태스크 등록
-  const postInTask = async (
-    chatroomId: string,
-    description: string,
-    progress: string
-  ) => {
-    try {
-      const response = await postTask(chatroomId, description, progress);
-      console.log(response);
-      // getInTask();
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const StyledBadge = styled(Badge)(({ theme }) => ({
     "& .MuiBadge-badge": {
@@ -75,6 +61,7 @@ export default function MessageItem(message: any, users: any) {
     // alert("채팅방을 정말 삭제하시겠어요?");
   };
   useEffect(() => {
+    console.log(users);
     // users 배열을 필터링하여 userId가 message.message.userId와 같은 항목만 선택
     const filteredUsers = users.filter(
       (user: User) => user.userId === message.message.userId
