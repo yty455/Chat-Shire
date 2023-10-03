@@ -45,11 +45,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 16vw;
+  /* width: 16vw; */
   height: 20vh;
   margin: 1vw 1vw 10px 0px;
   border-radius: 10px;
-  background-color: #E5E8EB;
+  border: 1px dashed grey;
+  /* background-color: #E5E8EB; */
   font-size: 80%;
 }
 
@@ -62,4 +63,14 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
+}
+
+.noPhoto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 0.9rem;
+  color: grey;
+  width: 20vw;
 }
