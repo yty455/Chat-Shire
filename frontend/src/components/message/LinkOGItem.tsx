@@ -24,9 +24,13 @@ export default function LinkOGItem() {
     setDomain(res.data.domain)
     setFavicon(res.data.images[0])
   })
+
+  function handleClick() {
+    window.open(requestUrl, '_blank')
+  }
   
   return (
-    <Card sx={{ boxShadow: "none", borderRadius: 2, marginTop: 2}}>
+    <Card sx={{ boxShadow: "none", borderRadius: 2, marginTop: 2}} onClick={handleClick}>
       {favicon ? 
         <CardActionArea sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", width: "100%", height: 100, borderRadius: 2, border: "1px solid #E5E8EB", boxShadow: "none", padding: 2 }}>
           <span className={styles.BookMarkTitle}>{title}</span>
