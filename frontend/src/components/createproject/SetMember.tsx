@@ -90,7 +90,7 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
       <div className={styles.SearchResultContainer}>
         <span style={{fontFamily: "preLt", fontSize: "14px"}}>검색 결과 : {searchResultLength}</span>
         <div className={styles.SearchResultItemContainer}>
-          {searchResult ? searchResultItem : <span>초대할 멤버를 검색해보세요</span>}
+          {searchResultItem}
         </div>
       </div>
     </div>
