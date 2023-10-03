@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Input } from "antd";
+import { useSetRecoilState } from 'recoil';
+import { linkState } from '../../stores/linkState';
 
 const { TextArea } = Input;
 
@@ -9,12 +11,15 @@ const ModalComponent: React.FC<{
 }> = ({ open, setOpen }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [link, setLink] = useState("");
+  const setLinks = useSetRecoilState(linkState);
 
   const handleOk = () => {
     setConfirmLoading(true);
     setTimeout(() => {
       setOpen(false);
       setConfirmLoading(false);
+      setLinks((oldLinks) => [...oldLinks, link]);
+      setLink("");
     }, 2000);
   };
 
