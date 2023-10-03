@@ -15,7 +15,13 @@ interface User {
   userId: number;
 }
 
-export default function MessageItem(message: any, users: any) {
+export default function MessageItem({
+  message,
+  users,
+}: {
+  message: any;
+  users: [];
+}) {
   console.log(users);
   const [user, setUser] = useState<User>({
     nickname: "",
@@ -63,14 +69,14 @@ export default function MessageItem(message: any, users: any) {
   useEffect(() => {
     console.log(users, 12314);
     console.log(message.message.userId, 2223);
-    if (users) {
+    if (Array.isArray(users) && message.message.userId) {
       // users 배열을 필터링하여 userId가 message.message.userId와 같은 항목만 선택
       const filteredUsers = users?.filter(
-        (user: User) => user.userId === message.message.userId
+        (user: User) => user?.userId === message?.message.userId
       );
 
       // 선택된 사용자 정보를 setUser에 저장
-      setUser(filteredUsers);
+      setUser(filteredUsers[0]); // filter 함수의 결과는 배열이므로 첫 번째 요소만 가져옵니다.
     }
 
     console.log(user);
