@@ -77,8 +77,16 @@ function Flow({ pjtId }: IdeaProps) {
           deletable: !node.parentNode, // parentNode가 없는 노드만 삭제 불가능하도록 설정
           style: {}, // 스타일 설정
         }));
+        const initialMindmapEdges = mindmapData.edges.map((node: any) => ({
+          id: node.id,
+          source: node.parentNode, // 엣지의 출발 노드 ID
+          target: node.id, // 엣지의 도착 노드 ID
+          type: "mindmap", // 엣지의 타입 (마인드맵의 경우)
+          style: {}, // 엣지 스타일 설정
+        }));
 
         onNodesChange(initialMindmapNodes);
+        onEdgesChange(initialMindmapEdges);
       } catch (error) {
         console.error(error);
       }
@@ -103,7 +111,7 @@ function Flow({ pjtId }: IdeaProps) {
           x: node.position.x || 0,
           y: node.position.y || 0,
         },
-        parentNode: parentNode ? parentNode.source : "defaultParentNode",
+        parentNode: parentNode ? parentNode.source : "null",
       });
     });
     saveMindmapData(transformedData);
