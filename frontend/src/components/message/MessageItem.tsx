@@ -15,12 +15,17 @@ interface User {
   userId: number;
 }
 
+interface MessageItemProps {
+  message: any;
+  users: User[];
+}
+
 export default function MessageItem({
   message,
   users,
 }: {
   message: any;
-  users: [];
+  users: any;
 }) {
   console.log(users);
   const [user, setUser] = useState<User>({
@@ -66,10 +71,6 @@ export default function MessageItem({
     // postInTask()
     // alert("채팅방을 정말 삭제하시겠어요?");
   };
-  useEffect(() => {
-    console.log(users, 12314);
-    console.log(message.message.userId, 2223);
-  }, []);
 
   return (
     <div className={styles.messageItemContainer}>
