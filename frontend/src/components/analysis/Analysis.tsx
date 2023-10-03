@@ -6,6 +6,7 @@ import BarChart from "./BarChart";
 import PiChart from "./PiChart";
 import Cloud from "./Cloud";
 // import Rocket from "../../assets/analysisBg/passion/passion3.png";
+
 import { getAnalysis } from "../../utils/analysisApi";
 
 interface AnalysisProps {
@@ -26,6 +27,10 @@ export default function Analysis({ projectId }: AnalysisProps) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+
+  }, [])
 
   useEffect(() => {
     getAnalysisPage();
