@@ -47,11 +47,17 @@ public class MindMapService {
         // mindMapNodes를 모두 mindMap에 저장
         for (MindMapNodeInfo node : mindMapNodes
         ) {
+            for (MindMapNodeInfo nodeP : mindMapNodes
+                 ) {
+                if(nodeP.getParentNode().equals(node.getId())){
+                    nodeP.setParentNode(String.valueOf(mindMapNodes.indexOf(node)));
+                }
+            }
             mindMapRepository.save(MindMap.builder()
-                    .nodeId(node.getId().equals("root") ? 0 : Integer.parseInt(node.getId()))
+                    .nodeId(node.getId().equals("root") ? 0 : mindMapNodes.indexOf(node))
                     .x(node.getPosition().getX())
                     .y(node.getPosition().getY())
-                    .parentId(node.getId().equals("root") ? null : node.getParentNode().equals("root") ? 0 : Integer.parseInt(node.getParentNode()))
+                    .parentId(node.getId().equals("root") ? null : Integer.parseInt(node.getParentNode()))
                     .content(node.getData().getLabel())
                     .chatRoom(ChatRoom.builder().id(chatRoomId).build())
                     .build()

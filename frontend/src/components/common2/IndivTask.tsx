@@ -143,20 +143,26 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       console.error(error);
     }
   };
-  // // 참조 등록
-  // const postInReferences = async (
-  //   chatroomId: string,
-  //   description: string,
-  //   progress: string
-  // ) => {
-  //   try {
-  //     const response = await postReferences(chatroomId, description, progress);
-  //     console.log(response);
-  //     getInTask();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  // 참조 등록
+  const postInReferences = async (
+    taskId: string,
+    nickname: string,
+    content: string
+  ) => {
+    try {
+      const response = await postReferences(
+        taskId,
+        nickname,
+        content,
+        chatNumber,
+        chatTime
+      );
+      console.log(response);
+      getInTask();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // 태스크 수정
   const updateInTask = async (
