@@ -77,9 +77,10 @@ function Message({ projectId }: MessageProps) {
   const [image, setImage] = useState([]);
   const [video, setVideo] = useState([]);
   const [file, setFile] = useState([]);
+  const [users, setUsers] = useState([]);
 
   const handleChange = (e: any) => {
-    console.log(e.currentTarget);
+    // console.log(e.currentTarget);
     e.preventDefault();
     setValue(e.currentTarget.value);
     setSelectedButton(e.currentTarget.value);
@@ -142,6 +143,8 @@ function Message({ projectId }: MessageProps) {
       const response = await getProjectMem(projectId);
       console.log(response.data.count);
       setPjtMemCount(response.data.count);
+      console.log(response.data.result);
+      setUsers(response.data.result);
     } catch (error) {
       console.error(error);
     }
@@ -397,7 +400,7 @@ function Message({ projectId }: MessageProps) {
     });
 
     return upload.promise().then(() => {
-      console.log("업로드");
+      console.log("미디어 업로드");
     });
   };
 
@@ -411,6 +414,22 @@ function Message({ projectId }: MessageProps) {
     </div>
   );
 
+  const userList = (
+    <div>
+      <p style={{ margin: 0, fontFamily: "preRg" }}>
+        참여자들 목록
+        {users && (
+          users.map((item, index) => (
+            <div>
+              <p>{item}</p>
+            </div>
+          ))
+        )}
+      </p>
+    </div>
+  );
+
+
   return (
     <div className={styles.messageContainer}>
       <div className={styles.messageLeft}>
@@ -419,11 +438,13 @@ function Message({ projectId }: MessageProps) {
             <div className={styles.messageLeftHeaderLeft}>
               <span className={styles.messageLeftTitle}>{pjtName}</span>
               {/* <span className={styles.messageLeftTitle}>2차 플젝</span> */}
-              <BsPeopleFill
-                style={{ color: "grey", marginTop: "6px", marginLeft: "12px" }}
-                size={20}
-              />
-              <span className={styles.messagePeopleNum}>{pjtMemCount}</span>
+              <Popover placement="right" content={userList} trigger="hover">
+                <BsPeopleFill
+                  style={{ color: "grey", marginTop: "6px", marginLeft: "12px" }}
+                  size={20}
+                />
+                <span className={styles.messagePeopleNum}>{pjtMemCount}</span>
+              </Popover>
             </div>
             {/* <BsQuestionCircle style={{color: 'grey', marginTop: '6px'}} size={20} /> */}
             <Popover placement="left" content={content} trigger="hover">
