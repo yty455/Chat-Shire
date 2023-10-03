@@ -38,7 +38,6 @@ export default function Analysis({ projectId }: AnalysisProps) {
     api.get(`/projects/${projectId}/keywords`)
     .then((res) => {
       console.log(res)
-      setKeywords(res.data.result[0])
     })
   }, [projectId]);
 
