@@ -31,6 +31,9 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
         coppiedStateArray.splice(dragIndex, 1, prevItem[0]);
         return coppiedStateArray;
       });
+
+      invitedItems.current = items
+      
     }
   };
 
@@ -51,8 +54,6 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   };
 
   const returnItemsForColumn = (columnName: string) => {
-
-    invitedItems.current = items
 
     if (columnName === "초대된 멤버") {
       const newMembers: any = items
