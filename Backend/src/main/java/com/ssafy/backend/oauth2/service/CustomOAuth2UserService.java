@@ -87,6 +87,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         User savedUser = userRepository.save(createdUser);
         challengeRepository.save(Challenge.builder()
                         .user(savedUser).build());
+        // 프로필컬러, 이미지 기본값 주기
+        savedUser.updateProfileColor("grey");
+        savedUser.updateProfileImage("/assets/profile/male/m13.png");
         return savedUser;
     }
 }
