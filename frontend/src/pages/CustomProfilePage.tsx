@@ -132,6 +132,7 @@ export default function CustomProfilePage() {
         width: "100vw",
         height: "100vh",
         backgroundColor: "#F7F7F7",
+        overflow: "none"
       }}
     >
       <CustomProfile

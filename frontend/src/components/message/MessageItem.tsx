@@ -20,7 +20,7 @@ export default function MessageItem({
   users,
 }: {
   message: any;
-  users: [];
+  users: any;
 }) {
   console.log(users);
   const [user, setUser] = useState<User>({
@@ -68,8 +68,21 @@ export default function MessageItem({
   };
   useEffect(() => {
     console.log(users, 12314);
-    console.log(message.message.userId, 2223);
-  }, []);
+    console.log(message?.userId, 2223);
+    if (Array.isArray(users) && users?.length > 0 && message?.userId) {
+      // users 배열을 필터링하여 userId가 message.message.userId와 같은 항목만 선택
+      const filteredUsers = users.filter(
+        (user: User) => user?.userId === message?.userId
+      );
+
+      // 선택된 사용자 정보를 setUser에 저장
+      if (filteredUsers.length > 0) {
+        setUser(filteredUsers[0]); // filter 함수의 결과는 배열이므로 첫 번째 요소만 가져옵니다.
+      }
+    }
+
+    console.log(user);
+  }, [users]);
 
   return (
     <div className={styles.messageItemContainer}>
@@ -82,15 +95,15 @@ export default function MessageItem({
         <Avatar
           alt="Remy Sharp"
           src={
-            user && user.profileImage
-              ? process.env.PUBLIC_URL + user.profileImage
+            user && user?.profileImage
+              ? process.env.PUBLIC_URL + user?.profileImage
               : process.env.PUBLIC_URL + "/assets/profile/m57.png"
           }
           sx={{
             width: 50,
             height: 50,
             backgroundColor:
-              user && user.profileColor ? user.profileColor : "transparent",
+              user && user?.profileColor ? user?.profileColor : "transparent",
           }}
         />
       </StyledBadge>
@@ -98,16 +111,16 @@ export default function MessageItem({
         className={styles.messageItemBody}
         draggable="true"
         onDragStart={(e) => {
-          e.dataTransfer.setData("message", message.message);
-          e.dataTransfer.setData("nickname", user.nickname);
+          e.dataTransfer.setData("message", JSON.stringify(message));
+          e.dataTransfer.setData("nickname", user?.nickname);
         }}
       >
         <div className={styles.messageItemName}>
           <span className={styles.messageProfileName}>
-            {message && message.message.userId}
+            {message && message?.userId}
           </span>
           <span className={styles.messageTime}>
-            {message && message.message.chatTime}
+            {message && message?.chatTime}
           </span>
         </div>
         <div
@@ -116,7 +129,7 @@ export default function MessageItem({
             onClickDeleteChattingRoom(e);
           }}
         >
-          <span>{message && message.message.content}</span>
+          <span>{message && message?.content}</span>
         </div>
       </div>
     </div>

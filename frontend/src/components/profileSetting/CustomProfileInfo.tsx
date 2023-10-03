@@ -71,7 +71,7 @@ export default function CustomProfileInfo({
       setIntroduction(userData.introduction);
       setDetailIntroduction(userData.detailIntroduction);
       setSelectedId(userData.mySkill);
-      console.log(nickname);
+      console.log(selectedId);
       console.log(position);
     }
     console.log(introduction);

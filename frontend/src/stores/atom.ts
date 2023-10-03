@@ -42,32 +42,55 @@ export const expandedState_recoil = atom<string | false>({
 
 export const initialMember_recoil = atom({
   key: "initialMember_recoil",
-  default: [ 
-    { id: 1,
+  default: [
+    {
+      id: 1,
       githubId: "user",
       nickname: "user",
       position: "FE",
       profileColor: "#abb8c3",
       profileImage: "/assets/profile/male/m9.png",
-      column: "전체 멤버"
-    }],
-})
+      column: "전체 멤버",
+    },
+  ],
+});
 
 export const memberSearchResult_recoil = atom({
   key: "memberSearchResult_recoil",
-  default: [ 
-    { id: 1,
+  default: [
+    {
+      id: 1,
       githubId: "user",
       nickname: "user",
       position: "FE",
       profileColor: "#abb8c3",
       profileImage: "/assets/profile/male/m9.png",
-      column: "전체 멤버"
-    }],
-})
+      column: "전체 멤버",
+    },
+  ],
+});
 
 // // 앱 종료 시 로컬 스토리지에서 Recoil 데이터 삭제
 // window.addEventListener("beforeunload", () => {
 //   localStorage.removeItem("recoil-persist-root");
 //   localStorage.removeItem("token");
 // });
+
+interface Task {
+  id: string;
+  taskGroupId?: string;
+  description: string;
+  progress: string;
+  isEditing?: boolean;
+}
+
+export const task_recoil = atom<Task>({
+  key: "task",
+  default: {
+    id: "0",
+    taskGroupId: "0",
+    description: "0",
+    progress: "ONGOING",
+    isEditing: false,
+  },
+});
