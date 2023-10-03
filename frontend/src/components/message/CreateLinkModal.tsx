@@ -25,6 +25,7 @@ const ModalComponent: React.FC<{
 
   const handleCancel = () => {
     setOpen(false);
+    setLink("");
   };
 
   return (
@@ -67,6 +68,7 @@ const ModalComponent: React.FC<{
         <TextArea
           value={link}
           onChange={(e) => setLink(e.target.value)}
+          onPressEnter={handleOk}
           style={{ height: 100, resize: "none" }}
           allowClear
           rows={4}
