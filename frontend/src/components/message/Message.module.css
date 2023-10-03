@@ -127,6 +127,7 @@
   width: 20vw;
   height: 10vh;
   padding-left: 4%;
+  margin-bottom: 7px;
 }
 
 .EmojiPickerContainer {
@@ -134,4 +135,17 @@
   left: 14px;
   bottom: 14px;
   z-index: 100;
+}
+
+.icon25 {
+  font-size: 25px;
+  color: #39a789;
+  margin: 0;
+}
+
+.tabTitle {
+  margin: 0;
+  font-family: 'preBd';
+  font-size: 14px;
+  color: #39a789;
 }

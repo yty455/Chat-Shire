@@ -111,7 +111,7 @@ export default function ProfilePage() {
               height: "220px",
               objectFit: "cover",
               borderRadius: "140px",
-              backgroundColor: userData.profileColor,
+              backgroundColor: userData?.profileColor,
               zIndex: "5",
             }}
             src={process.env.PUBLIC_URL + userData.profileImage}
