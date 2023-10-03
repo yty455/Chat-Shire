@@ -70,6 +70,7 @@ export default function MessageItem(message: any, users: any) {
 
     // 선택된 사용자 정보를 setUser에 저장
     setUser(filteredUsers);
+    console.log(user);
   }, []);
 
   return (

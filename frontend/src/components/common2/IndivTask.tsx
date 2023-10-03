@@ -147,7 +147,9 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const postInReferences = async (
     taskId: string,
     nickname: string,
-    content: string
+    content: string,
+    chatNumber: number,
+    chatTime: string
   ) => {
     try {
       const response = await postReferences(
