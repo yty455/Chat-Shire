@@ -66,7 +66,7 @@ function Message({ projectId }: MessageProps) {
   const [noticeInputValue, setNoticeInputValue] = useState('');
   const [notice, setNotice] = useState('');
   const [showNotice, setShowNotice] = useState(false);
-  const [showNoticeInput, setShowNoticeInput] = useState(false); // 공지 입력 상태 여부
+  const [showNoticeInput, setShowNoticeInput] = useState(false);
   const [pjtName, setPjtName] = useState<any>('');
   const [pjtMemCount, setPjtMemCount] = useState(0);
 
@@ -175,12 +175,10 @@ function Message({ projectId }: MessageProps) {
   //   }
   // }
 
-  const makeNotice = () => {
-    if (noticeInputValue !== "") {
+  const makeNotice = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && noticeInputValue !== "") {
       putNotification(projectId, noticeInputValue)
         .then(() => {
-          setShowNoticeInput(false);
-          setShowNotice(true);
           setNotice(noticeInputValue);
         })
         .catch((error) => {
@@ -387,33 +385,21 @@ function Message({ projectId }: MessageProps) {
           </div>
         </div>
         <div className={styles.messageLeftNotification}>
-        <BsFillMegaphoneFill size={20} onClick={() => {
-                      setShowNoticeInput(!showNoticeInput);
-                    }} />
-        {showNoticeInput  ? (
-          <input
-              maxLength={50}
-              style={{
-                width: "450px",
-                border: "none",
-                marginLeft: "5px",
-                fontFamily: "preRg",
-              }}
-              placeholder={notice}
-              type="text"
-              value={noticeInputValue}
-              onChange={(e) => setNoticeInputValue(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  makeNotice();
-                }
-              }}
-            />
-        ) : (
-          <span className={styles.notificationText}>
-            {notice}
-          </span>
-        )}
+        <BsFillMegaphoneFill size={20} />
+        <input
+          maxLength={50}
+          style={{
+            width: "450px",
+            border: "none",
+            marginLeft: "5px",
+            fontFamily: "preRg",
+          }}
+          placeholder={notice}
+          type="text"
+          value={noticeInputValue}
+          onChange={(e) => setNoticeInputValue(e.target.value)}
+          onKeyPress={(e) => makeNotice(e)}
+        />
         </div>
         <div className={styles.messageLeftBody}>
           {preMessage &&
