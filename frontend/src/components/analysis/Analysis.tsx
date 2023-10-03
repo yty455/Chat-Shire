@@ -21,22 +21,23 @@ export default function Analysis({ projectId }: AnalysisProps) {
   const [keywords, setKeywords] = useRecoilState(keywords_recoil)
   const bgImg = process.env.PUBLIC_URL + "/assets/analysisBg/passion/passion2.png";
 
-  const getAnalysisPage = async () => {
-    try {
-      const response = await getAnalysis(projectId);
-      console.log(response.data.result);
-      setAnalysisData(response.data.result[0]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const getAnalysisPage = async () => {
+  //   try {
+  //     const response = await getAnalysis(projectId);
+  //     console.log(response.data.result);
+  //     setAnalysisData(response.data.result[0]);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const returnKeywords = keywords.map((item) => <Keywords topic={item}/>)
 
   useEffect(() => {
-    getAnalysisPage();
+    // getAnalysisPage();
     api.get(`/projects/${projectId}/keywords`)
     .then((res) => {
+      console.log(res)
       setKeywords(res.data.result[0])
     })
   }, [projectId]);
