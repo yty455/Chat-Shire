@@ -12,13 +12,12 @@ import {
   BsFillMegaphoneFill,
   BsEmojiKiss,
   BsPaperclip,
-  BsLink45Deg
-  
+  BsLink45Deg,
 } from "react-icons/bs";
 // import {HiOutlinePhoto} from "react-icons/hi"
-import {HiOutlinePhoto} from "react-icons/hi2";
-import {AiOutlineFolder} from "react-icons/ai";
-import {LiaSearchSolid} from "react-icons/lia";
+import { HiOutlinePhoto } from "react-icons/hi2";
+import { AiOutlineFolder } from "react-icons/ai";
+import { LiaSearchSolid } from "react-icons/lia";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import Grow from "@mui/material/Grow";
@@ -84,25 +83,23 @@ function Message({ projectId }: MessageProps) {
     console.log(e.currentTarget);
     e.preventDefault();
     setValue(e.currentTarget.value);
-    setSelectedButton(e.currentTarget.value); 
+    setSelectedButton(e.currentTarget.value);
   };
 
   const [activateEmojiPicker, setActivateEmojiPicker] = useState(false);
 
   const client = useRef<CompatClient>();
 
-
-
   function newMessage(newMessage: any) {
-    const newPreMessage = [...preMessage, newMessage]
-    setPreMessage(newPreMessage)
+    const newPreMessage = [...preMessage, newMessage];
+    setPreMessage(newPreMessage);
   }
 
   useEffect(() => {
     if (message) {
-      newMessage(message)
+      newMessage(message);
     }
-  }, [message])
+  }, [message]);
 
   const connectHandler = () => {
     client.current = Stomp.over(() => {
@@ -118,9 +115,10 @@ function Message({ projectId }: MessageProps) {
       () => {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
         client.current?.subscribe(`/topic/greetings`, (message) => {
-          setMessage(JSON.parse(message.body))
+          setMessage(JSON.parse(message.body));
         });
-      });
+      }
+    );
     getChat(Number(projectId), 1, 1)
       .then((res) => {
         setPreMessage(res.data.result[0]);
@@ -128,20 +126,16 @@ function Message({ projectId }: MessageProps) {
       .catch((err) => console.log(err));
   };
 
-
-
-
   const inputMessage = (e: any) => {
     if (e.code === "Enter") {
-      postChat(Number(projectId), e.target.value)
+      postChat(Number(projectId), e.target.value);
     }
   };
 
   const sendMessage = (e: any) => {
     const message = document.getElementById("chatInput") as HTMLInputElement;
     if (message.value != "") {
-      postChat(Number(projectId), message.value)
-
+      postChat(Number(projectId), message.value);
     }
   };
 
@@ -163,9 +157,13 @@ function Message({ projectId }: MessageProps) {
   const props: UploadProps = {
     // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
     beforeUpload: (file) => {
-      const isJpgOrPngOrGif = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'video/mp4';
+      const isJpgOrPngOrGif =
+        file.type === "image/jpeg" ||
+        file.type === "image/png" ||
+        file.type === "image/jpg" ||
+        file.type === "video/mp4";
       if (!isJpgOrPngOrGif) {
-        window.alert('jpg, jpeg, png, mp4만 업로드해주세요');
+        window.alert("jpg, jpeg, png, mp4만 업로드해주세요");
       }
       return isJpgOrPngOrGif || Upload.LIST_IGNORE;
     },
@@ -183,10 +181,12 @@ function Message({ projectId }: MessageProps) {
   const fileProps: UploadProps = {
     // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 업로드 할 서버
     beforeUpload: (file) => {
-      const acceptedExtensions = ['pdf', 'docx', 'doc', 'xlsx', 'xls', 'txt'];
-      const isFileAccepted = acceptedExtensions.some(ext => file.name.endsWith(`.${ext}`));
+      const acceptedExtensions = ["pdf", "docx", "doc", "xlsx", "xls", "txt"];
+      const isFileAccepted = acceptedExtensions.some((ext) =>
+        file.name.endsWith(`.${ext}`)
+      );
       if (!isFileAccepted) {
-        window.alert('PDF, DOCX, DOC, XLSX, XLS 및 TXT 파일만 업로드해주세요.');
+        window.alert("PDF, DOCX, DOC, XLSX, XLS 및 TXT 파일만 업로드해주세요.");
       }
       return isFileAccepted || Upload.LIST_IGNORE;
     },
@@ -215,8 +215,10 @@ function Message({ projectId }: MessageProps) {
           </span>
         </div>
         <div className={styles.messageLeftBody}>
-          {preMessage &&
-            preMessage.map((message) => <MessageItem message={message} />)}
+          {/* {preMessage &&
+            preMessage.map((message) => (
+              <MessageItem message={message} users={users} />
+            ))} */}
         </div>
         <div className={styles.messageLeftFooter}>
           <div className={styles.messageInputContainer}>
@@ -283,17 +285,57 @@ function Message({ projectId }: MessageProps) {
       </div>
       <div className={styles.messageRight}>
         <div className={styles.messageRightTabContainer}>
-          <button style={{border: 'none', background:'none'}} value="media" onClick={handleChange}>
-            <HiOutlinePhoto style={{background: selectedButton === "media" ? 'yellow' : 'none', fontSize:'25px', color: '#39a789'}}/>
+          <button
+            style={{ border: "none", background: "none" }}
+            value="media"
+            onClick={handleChange}
+          >
+            <HiOutlinePhoto
+              style={{
+                background: selectedButton === "media" ? "yellow" : "none",
+                fontSize: "25px",
+                color: "#39a789",
+              }}
+            />
           </button>
-          <button style={{border: 'none', background:'none'}} value="files" onClick={handleChange}>
-            <AiOutlineFolder style={{background: selectedButton === "files" ? 'yellow' : 'none', fontSize:'25px', color: '#39a789'}}/>
+          <button
+            style={{ border: "none", background: "none" }}
+            value="files"
+            onClick={handleChange}
+          >
+            <AiOutlineFolder
+              style={{
+                background: selectedButton === "files" ? "yellow" : "none",
+                fontSize: "25px",
+                color: "#39a789",
+              }}
+            />
           </button>
-          <button style={{border: 'none', background:'none'}} value="links" onClick={handleChange}>
-            <BsLink45Deg style={{background: selectedButton === "links" ? 'yellow' : 'none', fontSize:'28', color: '#39a789'}}/>
+          <button
+            style={{ border: "none", background: "none" }}
+            value="links"
+            onClick={handleChange}
+          >
+            <BsLink45Deg
+              style={{
+                background: selectedButton === "links" ? "yellow" : "none",
+                fontSize: "28",
+                color: "#39a789",
+              }}
+            />
           </button>
-          <button style={{border: 'none', background:'none'}} value="search" onClick={handleChange}>
-            <LiaSearchSolid style={{background: selectedButton === "search" ? 'yellow' : 'none', fontSize:'25', color: '#39a789'}}/>
+          <button
+            style={{ border: "none", background: "none" }}
+            value="search"
+            onClick={handleChange}
+          >
+            <LiaSearchSolid
+              style={{
+                background: selectedButton === "search" ? "yellow" : "none",
+                fontSize: "25",
+                color: "#39a789",
+              }}
+            />
           </button>
         </div>
         <MessageRightBody value={value} />
