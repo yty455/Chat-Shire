@@ -87,17 +87,17 @@ function Project() {
       const response = await getProjects();
       console.log(response.data.result[0], 123);
       const projects = response.data.result[0];
-      setMyProjects(response.data.result[0]);
-
+      // setMyProjects(response.data.result[0]);
+      setNowProject(response.data.result[0]);
       const nowProjects: any[] = [];
 
-      for (const pjt of projects) {
-        if (new Date(pjt.endDate) < today) {
-        } else {
-          nowProjects.push(pjt);
-        }
-      }
-      setNowProject(nowProjects);
+      // for (const pjt of projects) {
+      //   if (new Date(pjt.endDate) < today) {
+      //   } else {
+      //     nowProjects.push(pjt);
+      //   }
+      // }
+      // setNowProject(nowProjects);
     } catch (error) {
       console.error(error);
     }
@@ -181,7 +181,7 @@ function Project() {
             grabCursor={true}
             className={styles.SwiperContainer}
           >
-            {myProjects.map((project) => (
+            {nowProject.map((project) => (
               <SwiperSlide className={styles.SwiperItem}>
                 {({ isActive }) => (
                   <ProjectSlide

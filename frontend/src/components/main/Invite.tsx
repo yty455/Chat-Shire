@@ -9,6 +9,9 @@ import {
 } from "../../utils/invitationApi";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { useRecoilState } from "recoil";
+import { nowProject_recoil } from "../../stores/atom";
+import { getProjects } from "../../utils/projectApi";
 
 const invite = [
   { pjt: 1, people: "csi" },
@@ -19,6 +22,28 @@ const invite = [
 
 function Invite() {
   const [invitation, setInvitation] = useState([]);
+  const [nowProject, setNowProject] = useRecoilState(nowProject_recoil);
+  const today = new Date();
+
+  const getMyProjects = async () => {
+    try {
+      const response = await getProjects();
+      console.log(response.data.result[0], 123);
+      const projects = response.data.result[0];
+
+      const nowProjects: any[] = [];
+
+      for (const pjt of projects) {
+        if (new Date(pjt.endDate) < today) {
+        } else {
+          nowProjects.push(pjt);
+        }
+      }
+      setNowProject(nowProjects);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // 초대 불러오기
   const getInInvitation = async () => {
