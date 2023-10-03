@@ -39,7 +39,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 interface SimpleContainerProps {
-  projectId?: string;
+  projectId: string;
 }
 interface taskInfo {
   description: string;
@@ -116,13 +116,13 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         const response = await getTask(projectId);
         console.log(response.data.result[0]);
 
-        // taskGroupId가 0인 항목만 필터링하여 저장
-        const filteredTasks = response.data.result[0].filter(
-          (task: any) => task.taskGroupId === 0
-        );
+        // // taskGroupId가 0인 항목만 필터링하여 저장
+        // const filteredTasks = response.data.result[0].filter(
+        //   (task: any) => task.taskGroupId === 0
+        // );
 
         // 필터링된 항목을 저장
-        setAllTasks(filteredTasks);
+        setAllTasks(response.data.result[0]);
       }
     } catch (error) {
       console.error(error);
@@ -143,6 +143,32 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       console.error(error);
     }
   };
+
+  // 드래그 태스크 등록
+  const postDragTask = async (
+    chatroomId: string,
+    description: string,
+    progress: string,
+    nickname: string,
+    content: string,
+    chatNumber: number,
+    chatTime: string
+  ) => {
+    try {
+      const response = await postTask(chatroomId, description, progress);
+      console.log(response.data.result[0]);
+      postInReferences(
+        response.data.result[0],
+        nickname,
+        content,
+        chatNumber,
+        chatTime
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // 참조 등록
   const postInReferences = async (
     taskId: string,
@@ -267,10 +293,16 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                 }}
                 onDrop={(e) => {
                   e.preventDefault();
-                  const message = e.dataTransfer.getData("message");
+                  const rawMessage = e.dataTransfer.getData("message");
+                  const message = JSON.parse(rawMessage);
                   const nickname = e.dataTransfer.getData("nickname");
-                  console.log(message);
-                  console.log(nickname);
+                  postInReferences(
+                    item.id,
+                    nickname,
+                    message?.content,
+                    message?.chatNumber,
+                    message?.chatTime
+                  );
                 }}
               >
                 <Item
@@ -470,9 +502,19 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         }}
         onDrop={(e) => {
           e.preventDefault();
-          const message = e.dataTransfer.getData("message");
+          const rawMessage = e.dataTransfer.getData("message");
+          const message = JSON.parse(rawMessage);
           const nickname = e.dataTransfer.getData("nickname");
           console.log(message, nickname);
+          postDragTask(
+            projectId,
+            "임시태스크",
+            "ONGOING",
+            nickname,
+            message?.content,
+            message?.chatNumber,
+            message?.chatTime
+          );
         }}
       >
         <AddIcon />
