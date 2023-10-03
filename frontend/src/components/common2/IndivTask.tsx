@@ -116,13 +116,13 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         const response = await getTask(projectId);
         console.log(response.data.result[0]);
 
-        // taskGroupId가 0인 항목만 필터링하여 저장
-        const filteredTasks = response.data.result[0].filter(
-          (task: any) => task.taskGroupId === 0
-        );
+        // // taskGroupId가 0인 항목만 필터링하여 저장
+        // const filteredTasks = response.data.result[0].filter(
+        //   (task: any) => task.taskGroupId === 0
+        // );
 
         // 필터링된 항목을 저장
-        setAllTasks(filteredTasks);
+        setAllTasks(response.data.result[0]);
       }
     } catch (error) {
       console.error(error);
