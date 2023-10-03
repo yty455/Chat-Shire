@@ -10,6 +10,9 @@ import {
 } from "../../utils/errorApi";
 import ProfileImgBox from "../common/ProfileImgBox";
 import Avatar from "@mui/material/Avatar";
+import { useRecoilState } from "recoil";
+import { loginuser } from "../../stores/atom";
+import { Button } from "antd";
 
 interface ErrorModalProps {
   closeModal: () => void;
@@ -21,6 +24,7 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
   const [content, setContent] = useState("");
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editedComment, setEditedComment] = useState<string>("");
+  const [userData] = useRecoilState(loginuser);
 
   // 단일 에러 불러오기
   const getInError = async () => {
@@ -90,8 +94,40 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <p>{errDetail && errDetail.title}</p>
+        <div className={styles.deContainer}>
+          <h1>Q {errDetail && errDetail.title}</h1>
+          <p>{errDetail.content}</p>
+          <p>
+            생성날짜:
+            {errDetail.createdDate
+              ? errDetail.createdDate.toLocaleString()
+              : "날짜 없음"}
+          </p>
+          <p>
+            수정날짜:
+            {errDetail.lastModifiedDate
+              ? errDetail.lastModifiedDate.toLocaleString()
+              : "날짜 없음"}
+          </p>
+
+          <h5 className={styles.status}>
+            {errDetail && errDetail.state === true ? "완료" : "진행"}
+          </h5>
+          <div>
+            작성자 {errDetail.nickname}
+            <Avatar
+              alt={errDetail.nickname}
+              src={process.env.PUBLIC_URL + errDetail.profileImage}
+              sx={{
+                width: 60,
+                height: 60,
+                backgroundColor: errDetail.profileColor,
+              }}
+            />
+          </div>
+        </div>
         <div className={styles.reContainer}>
+          <p>A </p>
           {errDetail &&
             errDetail?.replies &&
             errDetail.replies.map((item: any) => {
@@ -107,30 +143,36 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
                     }}
                   />
                   {item.nickname} :{" "}
-                  {editingCommentId === item.replyId ? (
-                    <>
-                      <input
-                        type="text"
-                        value={item.content}
-                        onChange={(e) => setEditedComment(e.target.value)}
-                      />
-                      <button
-                        onClick={() => updateReply(item.replyId, editedComment)}
-                      >
-                        저장
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      {item.content}
-                      <button onClick={() => setEditingCommentId(item.replyId)}>
-                        수정
-                      </button>
-                      <button onClick={() => deleteReply(item.replyId)}>
-                        삭제
-                      </button>
-                    </>
-                  )}
+                  {userData.nickname === item.nickname ? (
+                    editingCommentId === item.replyId ? (
+                      <>
+                        <input
+                          type="text"
+                          value={item.content}
+                          onChange={(e) => setEditedComment(e.target.value)}
+                        />
+                        <button
+                          onClick={() =>
+                            updateReply(item.replyId, editedComment)
+                          }
+                        >
+                          저장
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {item.content}
+                        <button
+                          onClick={() => setEditingCommentId(item.replyId)}
+                        >
+                          수정
+                        </button>
+                        <button onClick={() => deleteReply(item.replyId)}>
+                          삭제
+                        </button>
+                      </>
+                    )
+                  ) : null}
                 </div>
               );
             })}
@@ -141,8 +183,22 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
             onKeyPress={handleEnterKeyPress}
           />
         </div>
-        <button onClick={closeModal}>닫기</button>
-        <button onClick={deleteInError}>삭제</button>
+        <button onClick={closeModal} className={styles.closebtn}>
+          X
+        </button>
+        {userData.nickname === errDetail.nickname ? (
+          <Button
+            onClick={deleteInError}
+            style={{ backgroundColor: "red", fontFamily: "preRg" }}
+            key="submit"
+            type="primary"
+            className={styles.deletebtn}
+          >
+            삭제
+          </Button>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

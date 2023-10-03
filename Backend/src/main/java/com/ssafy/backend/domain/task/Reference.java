@@ -4,7 +4,6 @@ import com.ssafy.backend.domain.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
 public class Reference extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "REFERENCE_ID")
     private Long id;
 

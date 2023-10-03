@@ -20,3 +20,7 @@ export const putNotification = (projectId: string, content: string) =>
   api.put(`/projects/${projectId}/notice`, {
     content,
   });
+
+// 첨부파일 서랍
+export const getFiles = (projectId: string, category: string) =>
+  api.get(`/projects/${projectId}/files/${category}`);

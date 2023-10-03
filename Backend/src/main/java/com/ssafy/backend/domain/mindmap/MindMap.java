@@ -1,11 +1,6 @@
 package com.ssafy.backend.domain.mindmap;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.common.BaseEntity;
@@ -24,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class MindMap extends BaseEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MINDMAP_ID")
 	private Long id;
 
