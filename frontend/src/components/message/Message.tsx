@@ -57,6 +57,12 @@ interface MessageObject {
   content: string;
 }
 
+interface User {
+  nickname: string;
+  profileImage: string;
+  profileColor: string;
+}
+
 function Message({ projectId }: MessageProps) {
   // const projectId = useParams().projectId;
   // console.log("Message", projectId);
@@ -77,7 +83,7 @@ function Message({ projectId }: MessageProps) {
   const [image, setImage] = useState([]);
   const [video, setVideo] = useState([]);
   const [file, setFile] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   const handleChange = (e: any) => {
     // console.log(e.currentTarget);
@@ -419,9 +425,10 @@ function Message({ projectId }: MessageProps) {
       <p style={{ margin: 0, fontFamily: "preRg" }}>
         참여자들 목록
         {users && (
-          users.map((item, index) => (
-            <div>
-              <p>{item}</p>
+          users.map((user, index) => (
+            <div key={index}>
+              <img style={{width: '20px'}} alt="profile" src={user.profileImage}/>
+              <p>{user.nickname}</p>
             </div>
           ))
         )}
@@ -438,7 +445,7 @@ function Message({ projectId }: MessageProps) {
             <div className={styles.messageLeftHeaderLeft}>
               <span className={styles.messageLeftTitle}>{pjtName}</span>
               {/* <span className={styles.messageLeftTitle}>2차 플젝</span> */}
-              <Popover placement="right" content={userList} trigger="hover">
+              <Popover placement="rightBottom" content={userList} trigger="click">
                 <BsPeopleFill
                   style={{ color: "grey", marginTop: "6px", marginLeft: "12px" }}
                   size={20}
