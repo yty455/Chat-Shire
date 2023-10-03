@@ -74,7 +74,7 @@ function Flow({ pjtId }: IdeaProps) {
           type: "mindmap",
           data: { label: node.data.label },
           position: { x: node.position.x, y: node.position.y },
-          deletable: true, // 마인드맵의 노드를 삭제할 수 있도록 설정
+          deletable: !node.parentNode, // parentNode가 없는 노드만 삭제 불가능하도록 설정
           style: {}, // 스타일 설정
         }));
 
