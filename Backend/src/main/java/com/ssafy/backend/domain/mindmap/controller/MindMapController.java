@@ -4,10 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ssafy.backend.domain.common.BasicResponse;
 import com.ssafy.backend.domain.mindmap.dto.MindMapNodeInfo;
@@ -40,7 +37,7 @@ public class MindMapController {
 
 	@Operation(summary = "프로젝트 아이디어 마인드맵 저장", description = "해당 프로젝트의 아이디어 마인드맵을 저장할 수 있습니다.")
 	@PostMapping("/projects/{projectId}/mind-map")
-	public ResponseEntity<BasicResponse> postMindMap(@PathVariable("projectId") Long chatRoomId, List<MindMapNodeInfo> mindMapNodes) {
+	public ResponseEntity<BasicResponse> postMindMap(@PathVariable("projectId") Long chatRoomId, @RequestBody List<MindMapNodeInfo> mindMapNodes) {
 		mindMapService.saveMinMap(chatRoomId, mindMapNodes);
 
 		BasicResponse basicResponse = BasicResponse.builder()

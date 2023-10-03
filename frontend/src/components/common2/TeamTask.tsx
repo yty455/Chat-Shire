@@ -18,7 +18,13 @@ import { BsPencilFill, BsCheckAll, BsFillChatDotsFill } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import Paper from "@mui/material/Paper";
 import { BiSolidCheckCircle } from "react-icons/bi";
-import { getTask, deleteTask, postTask, updateTask } from "../../utils/taskApi";
+import {
+  getTask,
+  deleteTask,
+  postTask,
+  updateTask,
+  changeTaskGroup,
+} from "../../utils/taskApi";
 import TaskModal from "./TaskModal";
 import {
   deleteTaskGroup,
@@ -163,6 +169,17 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     },
     // ...
   ]);
+
+  // 개인 태스크 > 팀 태스크
+  const indivToTeam = async (teamId: string, indivId: string) => {
+    try {
+      const response = await changeTaskGroup(teamId, indivId);
+      console.log(response.data);
+      getTeamTask();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const deleteTeamTask = async (taskGroupId: any) => {
     try {
@@ -421,6 +438,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   e.preventDefault();
                   const taskId = e.dataTransfer.getData("taskId");
                   console.log("개인" + taskId, "팀" + task.id);
+                  indivToTeam(task.id, taskId);
                 }}
               >
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
@@ -437,7 +455,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     </p>
                   </div>
                   <div onClick={addCheckbox}>
-                    <CreateIcon />
+                    <CreateIcon onClick={() => openModal(task.id)} />
                   </div>
                 </div>
                 <div className={styles.stepStatus}>
@@ -458,9 +476,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       onClick={() => handleBadgeClick(task)}
                     ></StyledBadgeRed>
                   )}
-                  <p className={styles.step} onClick={() => openModal(task.id)}>
-                    {task.name}
-                  </p>
+                  <p className={styles.step}>{task.name}</p>
                   <p
                     className={styles.step}
                     style={{
@@ -478,21 +494,14 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 <BorderLinearProgress variant="determinate" value={50} />
 
                 {task.taskInfoResponses.map((item: any) => (
-                  <Grid
-                    sx={{ margin: 0, padding: 0 }}
-                    item
-                    xs={12}
-                    key={item.id}
-                  >
-                    <Item
-                      sx={{
+                  <div style={{ margin: 0, padding: 0 }} key={item.id}>
+                    <div
+                      style={{
                         borderRadius: "0px 20px 20px 20px",
                         margin: "0 10px",
                         padding: 0,
                         minHeight: "30px",
                       }}
-                      className={styles.oneMemo}
-                      elevation={7}
                     >
                       <div className={styles.indivTask}>
                         <Checkbox
@@ -568,8 +577,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           />
                         </div>
                       </div>
-                    </Item>
-                  </Grid>
+                    </div>
+                  </div>
                 ))}
               </div>
             ))}
@@ -580,7 +589,19 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
 
           {ongoingTeamTask &&
             ongoingTeamTask.map((task: any) => (
-              <div className={styles.taskContainer} key={task.id}>
+              <div
+                className={styles.taskContainer}
+                key={task.id}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  const taskId = e.dataTransfer.getData("taskId");
+                  console.log("개인" + taskId, "팀" + task.id);
+                  indivToTeam(task.id, taskId);
+                }}
+              >
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
                 <div className={styles.taskHeader}>
                   <div className={styles.clockNday}>
@@ -595,7 +616,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     </p>
                   </div>
                   <div onClick={addCheckbox}>
-                    <CreateIcon />
+                    <CreateIcon onClick={() => openModal(task.id)} />
                   </div>
                 </div>
                 <div className={styles.stepStatus}>
@@ -616,9 +637,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       onClick={() => handleBadgeClick(task)}
                     ></StyledBadgeRed>
                   )}
-                  <p className={styles.step} onClick={() => openModal(task.id)}>
-                    {task.name}
-                  </p>
+                  <p className={styles.step}>{task.name}</p>
                   <p
                     className={styles.step}
                     style={{
@@ -636,21 +655,14 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 <BorderLinearProgress variant="determinate" value={50} />
 
                 {task.taskInfoResponses.map((item: any) => (
-                  <Grid
-                    sx={{ margin: 0, padding: 0 }}
-                    item
-                    xs={12}
-                    key={item.id}
-                  >
-                    <Item
-                      sx={{
+                  <div key={item.id}>
+                    <div
+                      style={{
                         borderRadius: "0px 20px 20px 20px",
                         margin: "0 10px",
                         padding: 0,
                         minHeight: "30px",
                       }}
-                      className={styles.oneMemo}
-                      elevation={7}
                     >
                       <div className={styles.indivTask}>
                         <Checkbox
@@ -704,9 +716,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                                 fontSize: "17px",
                                 margin: "-5px 3px 10px 0",
                               }}
-                              // onClick={() =>
-                              //   handleEditComplete(item.id, updatedDescription)
-                              // }
                             />
                           ) : (
                             <BsPencilFill
@@ -726,8 +735,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           />
                         </div>
                       </div>
-                    </Item>
-                  </Grid>
+                    </div>
+                  </div>
                 ))}
               </div>
             ))}

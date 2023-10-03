@@ -1,164 +1,69 @@
-import { useState, useEffect, useRef } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { Autocomplete, TextField } from "@mui/material";
+import React, { useState } from 'react'
+import styles from './SetMember.module.css'
 
-import { COLUMN_NAMES } from "../reactDnd/Contants";
-import MovableItem from "../reactDnd/MovableItem";
-import Column from "../reactDnd/Column";
+import Checkbox from '@mui/material/Checkbox';
+import {BsCircle, BsCheckCircleFill} from 'react-icons/bs'
+import { GoSearch } from 'react-icons/go'
 
-import styles from "./SetMember.module.css";
+import api from '../../utils/api'
 
-import api from "../../utils/api";
-import { tasks } from "../reactDnd/Tasks";
-import { initialMember_recoil, memberSearchResult_recoil } from "../../stores/atom";
-import { useRecoilState } from "recoil";
+export default function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
+  const [members, setMembers] = useState<any[]>([])
+  const [searchResult, setSearchResult] = useState<any[]>([
+    { id: 1,
+      githubId: "dfsdf56451",
+      nickname: "가영",
+      position: "ㄴ",
+      profileColor: "#abb8c3",
+      profileImage: "/assets/profile/male/m9.png",
+    },
+  ])
 
-function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
-  const [items, setItems] = useState(tasks);
-  let invitedItems = useRef<any[]>(tasks);
-  let InvitedMembers = useRef<string[]>([]);
+  const InvitedMembers = members.map((item: any) => (
+    <div>haha</div>
+  ))
 
-  console.log(items);
+  const searchResultItem = searchResult.map((item: any) => (
+      <div className={styles.SearchResultItem}>
+        <div style={{display: "flex", alignItems: "center"}}>
+          <div style={{width: "60px", height: "60px", borderRadius: "100px", backgroundColor: item.profileColor}}>
+            <img style={{width: "60px", height: "60px"}} src={process.env.PUBLIC_URL + item.profileImage} alt="" />
+          </div>
+          <div style={{display: "flex", flexDirection: "column", marginLeft: "6px"}}>
+            <span style={{fontFamily: "preRg", fontSize: "14px"}}>{item.githubId}</span>
+            <span style={{fontFamily: "preRg", fontSize: "14px"}}>{item.nickname}</span>
+          </div>
+        </div>
+        <Checkbox style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />
+      </div>
+    )
+  )
 
-  const moveCardHandler = (dragIndex: number, hoverIndex: number) => {
-    const dragItem = items[dragIndex];
-    invitedItems.current = items
-    if (dragItem) {
-      setItems((prevState: any) => {
-        const coppiedStateArray = [...prevState];
-        const prevItem = coppiedStateArray.splice(hoverIndex, 1, dragItem);
-        coppiedStateArray.splice(dragIndex, 1, prevItem[0]);
-        return coppiedStateArray;
-      });
-    }
-  };
-
-  const searchMember = (e: any) => {
-    api.get(`/users/search?githubId=${e.target.value}`).then((res) => {
-      let prevItem = res?.data.result[0];
-      prevItem.map((item: any) => {
-        if (InvitedMembers.current.includes(String(item.id))) {
-          item.column = INVITED_MEMBERS;
-        } else {
-          item.column = MEMBERS;
-        }
-      });
-      if (prevItem) {
-        setItems(prevItem);
-      }
-    });
-  };
-
-  const returnItemsForColumn = (columnName: string) => {
-    if (columnName === "초대된 멤버") {
-      const newMembers: any = items
-        .map((member) => {
-          if (member.column === "초대된 멤버") {
-            InvitedMembers.current.push(String(member.id));
-            return String(member.id);
-          }
-        })
-        .filter((element) => element);
-      onData(newMembers);
-      }
-
-      return items
-      .filter((item: any) => item.column === columnName)
-      .map((item: any, index: any) => (
-        <MovableItem
-          key={item.id}
-          id={item.id}
-          githubId={item.githubId}
-          nickname={item.nickname}
-          position={item.position}
-          profileColor={item.profileColor}
-          profileImage={item.profileImage}
-          setItems={setItems}
-          moveCardHandler={moveCardHandler}
-        />
-      ));
-  };
-
-  const returnInvitedColumn = (columnName: string) => {
-    if (columnName === "초대된 멤버") {
-      const newMembers: any = items
-        .map((member) => {
-          if (member.column === "초대된 멤버") {
-            InvitedMembers.current.push(String(member.id));
-            return String(member.id);
-          }
-        })
-        .filter((element) => element);
-      onData(newMembers);
-      }
-
-    return invitedItems.current
-    .filter((item: any) => item.column === columnName)
-    .map((item: any, index: any) => (
-      <MovableItem
-        key={item.id}
-        id={item.id}
-        githubId={item.githubId}
-        nickname={item.nickname}
-        position={item.position}
-        profileColor={item.profileColor}
-        profileImage={item.profileImage}
-        setItems={setItems}
-        moveCardHandler={moveCardHandler}
-      />
-    ));
+  const handleSearchInput = (e: any) => {
+    console.log(e.target.value)
+    api.get('users/search?githubId=' + e.target.value)
+    .then((res) => {
+      console.log(res)
+      setSearchResult(res.data.result[0])
+    })
+    .catch(err => console.log(err))
   }
 
-  const { MEMBERS, INVITED_MEMBERS } = COLUMN_NAMES;
-
-  console.log(MEMBERS, INVITED_MEMBERS);
-
-  useEffect(() => {
-    api.get("/users/search?githubId=").then((res) => {
-      let prevItem = res?.data.result[0];
-      prevItem.map((item: any) => {
-        if (InvitedMembers.current.includes(String(item.id))) {
-          item.column = INVITED_MEMBERS;
-        } else {
-          item.column = MEMBERS;
-        }
-      });
-      if (prevItem) {
-        setItems(prevItem);
-      }
-    });
-  }, []);
-
   return (
-    <div
-      className={styles.MemberInviteContainer}
-      style={{ border: "none", width: "600px" }}
-    >
-      <DndProvider backend={HTML5Backend}>
-        <div>
-          <TextField
-            id="searchTextField"
-            onChange={searchMember}
-            style={{ width: "280px" }}
-            color="greenary"
-            label="Git ID로 검색해보세요"
-          />
-          <Column title={MEMBERS} className={styles.MemberListContainer}>
-            {returnItemsForColumn(MEMBERS)}
-          </Column>
+    <div className={styles.SetMemberContainer}>
+      <div className={styles.InvitedMembersContainer}>
+        
+      </div>
+      <div className={styles.SearchInputContainer}>
+        <GoSearch size={16}/>
+        <input className={styles.SearchInput} placeholder='Github ID 검색' type="text" onChange={handleSearchInput}/>
+      </div>
+      <div className={styles.SearchResultContainer}>
+        <span style={{fontFamily: "preLt", fontSize: "14px"}}>검색 결과 : </span>
+        <div className={styles.SearchResultItemContainer}>
+          {searchResult ? searchResultItem : <span>초대할 멤버를 검색해보세요</span>}
         </div>
-        <div>
-          <Column
-            title={INVITED_MEMBERS}
-            className={styles.InvitedMemberListContainer}
-          >
-            {returnInvitedColumn(INVITED_MEMBERS)}
-          </Column>
-        </div>
-      </DndProvider>
+      </div>
     </div>
-  );
+  )
 }
-
-export default SetMember;

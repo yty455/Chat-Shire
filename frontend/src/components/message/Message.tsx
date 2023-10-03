@@ -78,7 +78,7 @@ function Message({ projectId }: MessageProps) {
   const [notice, setNotice] = useState("");
   const [showNotice, setShowNotice] = useState(false);
   const [showNoticeInput, setShowNoticeInput] = useState(false);
-  const [pjtName, setPjtName] = useState<any>('');
+  const [pjtName, setPjtName] = useState<any>("");
   const [pjtMemCount, setPjtMemCount] = useState(0);
   const [image, setImage] = useState([]);
   const [video, setVideo] = useState([]);
@@ -184,9 +184,12 @@ function Message({ projectId }: MessageProps) {
       },
       () => {
         // callback 함수 설정, 대부분 여기에 sub 함수 씀
-        client.current?.subscribe(`/topic/greetings/${projectId}`, (message) => {
-          setMessage(JSON.parse(message.body));
-        });
+        client.current?.subscribe(
+          `/topic/greetings/${projectId}`,
+          (message) => {
+            setMessage(JSON.parse(message.body));
+          }
+        );
       }
     );
     getChat(Number(projectId), 1, 1)
@@ -426,16 +429,18 @@ function Message({ projectId }: MessageProps) {
         {users && (
           users.map((user, index) => (
             <div key={index}>
-              <img style={{width: '20px'}} alt="profile" src={user.profileImage}/>
+              <img
+                style={{ width: "20px" }}
+                alt="profile"
+                src={user.profileImage}
+              />
               <p>{user.nickname}</p>
               <hr></hr>
             </div>
-          ))
-        )}
+          ))}
       </p>
     </div>
   );
-
 
   return (
     <div className={styles.messageContainer}>
@@ -445,9 +450,17 @@ function Message({ projectId }: MessageProps) {
             <div className={styles.messageLeftHeaderLeft}>
               <span className={styles.messageLeftTitle}>{pjtName}</span>
               {/* <span className={styles.messageLeftTitle}>2차 플젝</span> */}
-              <Popover placement="rightBottom" content={userList} trigger="click">
+              <Popover
+                placement="rightBottom"
+                content={userList}
+                trigger="click"
+              >
                 <BsPeopleFill
-                  style={{ color: "grey", marginTop: "6px", marginLeft: "12px" }}
+                  style={{
+                    color: "grey",
+                    marginTop: "6px",
+                    marginLeft: "12px",
+                  }}
                   size={20}
                 />
                 <span className={styles.messagePeopleNum}>{pjtMemCount}</span>
@@ -462,25 +475,27 @@ function Message({ projectId }: MessageProps) {
           </div>
         </div>
         <div className={styles.messageLeftNotification}>
-        <BsFillMegaphoneFill size={20} />
-        <input
-          maxLength={50}
-          style={{
-            width: "450px",
-            border: "none",
-            marginLeft: "5px",
-            fontFamily: "preRg",
-          }}
-          placeholder={notice}
-          type="text"
-          value={noticeInputValue}
-          onChange={(e) => setNoticeInputValue(e.target.value)}
-          onKeyPress={(e) => makeNotice(e)}
-        />
+          <BsFillMegaphoneFill size={20} />
+          <input
+            maxLength={50}
+            style={{
+              width: "450px",
+              border: "none",
+              marginLeft: "5px",
+              fontFamily: "preRg",
+            }}
+            placeholder={notice}
+            type="text"
+            value={noticeInputValue}
+            onChange={(e) => setNoticeInputValue(e.target.value)}
+            onKeyPress={(e) => makeNotice(e)}
+          />
         </div>
         <div className={styles.messageLeftBody}>
           {preMessage &&
-            preMessage.map((message) => <MessageItem message={message} />)}
+            preMessage.map((message) => (
+              <MessageItem message={message} users={users} />
+            ))}
           <div
             style={{ width: "0px", height: "0px", visibility: "hidden" }}
             ref={messageEndRef}
