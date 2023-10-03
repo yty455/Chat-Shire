@@ -8,4 +8,4 @@ export const getMindMap = (projectId: string) =>
 
 // 마인드맵 저장
 export const saveMindmap = (projectId: string, mindMapNodes: []) =>
-  api.post(`/projects/${projectId}/mind-map/?mindMapNodes=${mindMapNodes}`);
+  api.post(`/projects/${projectId}/mind-map`, { mindMapNodes });
