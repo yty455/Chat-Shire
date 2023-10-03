@@ -1,6 +1,7 @@
 package com.ssafy.backend.domain.mindmap.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
@@ -49,7 +50,7 @@ public class MindMapService {
         ) {
             for (MindMapNodeInfo nodeP : mindMapNodes
                  ) {
-                if(nodeP.getParentNode().equals(node.getId())){
+                if(Objects.equals(nodeP.getParentNode(), node.getId())){
                     nodeP.setParentNode(String.valueOf(mindMapNodes.indexOf(node)));
                 }
             }
@@ -57,7 +58,7 @@ public class MindMapService {
                     .nodeId(node.getId().equals("root") ? 0 : mindMapNodes.indexOf(node))
                     .x(node.getPosition().getX())
                     .y(node.getPosition().getY())
-                    .parentId(node.getId().equals("root") ? null : Integer.parseInt(node.getParentNode()))
+                    .parentId(node.getId().equals("root") ? null : Integer.parseInt(Objects.requireNonNull(node.getParentNode())))
                     .content(node.getData().getLabel())
                     .chatRoom(ChatRoom.builder().id(chatRoomId).build())
                     .build()

@@ -1,8 +1,22 @@
-import React, { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
-import { Handle, NodeProps, Position, useReactFlow, getIncomers, getOutgoers, getConnectedEdges } from 'reactflow';
-import { shallow } from 'zustand/shallow';
-import { ImCross } from 'react-icons/im'
-import useStore, { RFState } from '../../store';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+} from "react";
+import {
+  Handle,
+  NodeProps,
+  Position,
+  useReactFlow,
+  getIncomers,
+  getOutgoers,
+  getConnectedEdges,
+} from "reactflow";
+import { shallow } from "zustand/shallow";
+import { ImCross } from "react-icons/im";
+import useStore, { RFState } from "../../store";
 
 export type NodeData = {
   label: string;
@@ -10,17 +24,18 @@ export type NodeData = {
 
 function MindMapNode({ id, data }: NodeProps<NodeData>) {
   const [inputValue, setInputValue] = useState(data.label); // state variable for input value
-  const { setNodes, setEdges } = useReactFlow()
+  const { setNodes, setEdges } = useReactFlow();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value); // 입력 값 변경 시 inputValue 업데이트
   };
 
   const handleBlur = () => {
-    if (inputValue.trim() !== '') { // If the input is not empty
+    if (inputValue.trim() !== "") {
+      // If the input is not empty
       updateNodeLabel(id, inputValue); // Update the node label with the input value
-  
-      const updatedNode = nodes.find(node => node.id === id);
+
+      const updatedNode = nodes.find((node) => node.id === id);
       if (updatedNode) {
         setInputValue(updatedNode.data.label); // Reset the input value to the updated node label
       }
@@ -36,7 +51,6 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const updateNodeLabel = useStore((state) => state.updateNodeLabel);
 
-
   const selector = (state: RFState) => ({
     nodes: state.nodes,
     edges: state.edges,
@@ -45,7 +59,10 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
     addChildNode: state.addChildNode,
   });
 
-  const { nodes, edges, onNodesChange, onEdgesChange, addChildNode, } = useStore(selector, shallow);
+  const { nodes, edges, onNodesChange, onEdgesChange, addChildNode } = useStore(
+    selector,
+    shallow
+  );
 
   const deleteNode = useCallback(() => {
     setNodes((nodes) => nodes.filter((node) => node.id !== id));
@@ -73,7 +90,7 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
           </svg>
         </div>
         <input
-        onClick={handleNodeClick}
+          onClick={handleNodeClick}
           value={inputValue}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -81,13 +98,13 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
           ref={inputRef}
           defaultValue={data.label}
         />
-        { id !== "root" ?
+        {id !== "root" ? (
           <div className="deleteBtn" onClick={deleteNode}>
-            <ImCross size={10} color='#ffffff'/>
+            <ImCross size={10} color="#ffffff" />
           </div>
-          :
+        ) : (
           <></>
-        }
+        )}
       </div>
 
       <Handle type="target" position={Position.Top} />

@@ -269,7 +269,8 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                   e.preventDefault();
                   const message = e.dataTransfer.getData("message");
                   const nickname = e.dataTransfer.getData("nickname");
-                  console.log(message, nickname);
+                  console.log(message);
+                  console.log(nickname);
                 }}
               >
                 <Item

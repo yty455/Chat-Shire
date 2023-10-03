@@ -28,8 +28,8 @@
   align-items: center;
   width: 500px;
   height: 20px;
-  background-color: gray;
-  border: 1px solid gray;
+  background-color: #E5E8EB;
+  border: 1px solid #E5E8EB;
   border-radius: 20px;
 }
 
@@ -73,4 +73,5 @@
   align-items: center;
   width: 580px;
   height: 60px;
+  margin-bottom: 10px;
 }
