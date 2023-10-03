@@ -3,10 +3,15 @@ import { useDrag, useDrop } from "react-dnd";
 
 import { ItemState } from "./Types";
 import { COLUMN_NAMES, ITEM_TYPE } from "./Contants";
+import { initialMember_recoil, memberSearchResult_recoil } from "../../stores/atom";
+import { useRecoilState } from "recoil";
 
 import styles from "./MovableItem.module.css";
 
 const MovableItem = ({ id, githubId, nickname, position, profileColor, profileImage, moveCardHandler, setItems }: any) => {
+  const initialMember = useRecoilState(initialMember_recoil)
+  const memberSearchResult = useRecoilState(memberSearchResult_recoil)
+
   const changeItemColumn = (currentItem: any, columnName: string) => {
     setItems((prevState: ItemState[]) =>
       prevState.map((e: ItemState) => {
@@ -88,8 +93,12 @@ const MovableItem = ({ id, githubId, nickname, position, profileColor, profileIm
 
   return (
     <div ref={ref} className={styles.MemberItemContainer} style={{ opacity }}>
-      <div className={styles.MemberItemAvatar}></div>
-      {githubId}
+      <div style={{backgroundColor: profileColor ? profileColor : "red"}} className={styles.MemberItemAvatar}>
+        <img style={{width: "60px", height: "60px"}} src={process.env.PUBLIC_URL + profileImage ? process.env.PUBLIC_URL + profileImage : process.env.PUBLIC_URL + "/assets/profile/m57.png"} alt="" />
+      </div>
+      <span style={{color: "#575757"}}>
+        {githubId}
+      </span>
     </div>
   );
 };

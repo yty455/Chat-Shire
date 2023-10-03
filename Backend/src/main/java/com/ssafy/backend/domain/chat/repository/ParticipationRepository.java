@@ -1,5 +1,6 @@
 package com.ssafy.backend.domain.chat.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,4 +21,7 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
 	List<ChatRoomUserInfoResponse> findByChatRoomId(@Param("chatRoomId") Long chatRoomId);
 
 	void deleteByUserIdAndChatRoomId(Long userId, Long chatRoomId);
+
+	@Query("select c.endDate from Participation p left join ChatRoom c on p.chatRoom = c where p.user.id = :userId")
+	List<LocalDate> findEndDateByUserId(@Param("userId") Long userId);
 }

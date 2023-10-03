@@ -84,17 +84,17 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
         <img
           className={styles.error}
           alt="error"
-          src={process.env.PUBLIC_URL + "assets/error.png"}
+          src={process.env.PUBLIC_URL + "/assets/error.png"}
         />
         <img
           className={styles.error}
           alt="error"
-          src={process.env.PUBLIC_URL + "assets/error.png"}
+          src={process.env.PUBLIC_URL + "/assets/error.png"}
         />
         <img
           className={styles.error}
           alt="error"
-          src={process.env.PUBLIC_URL + "assets/error.png"}
+          src={process.env.PUBLIC_URL + "/assets/error.png"}
         />
         <p className={styles.answer}>
           {" "}

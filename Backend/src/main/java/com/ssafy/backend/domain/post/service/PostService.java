@@ -21,6 +21,7 @@ import com.ssafy.backend.domain.user.dto.MySkillInfo;
 import com.ssafy.backend.domain.user.exception.UserNotFoundException;
 import com.ssafy.backend.domain.user.repository.SkillRepository;
 import com.ssafy.backend.domain.user.repository.UserRepository;
+import com.ssafy.backend.domain.user.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +42,7 @@ public class PostService {
     private final PostSkillRepository postSkillRepository;
     private final SkillRepository skillRepository;
     private final AttachedFileRepository attachedFileRepository;
+    private final ChallengeService challengeService;
 
     public List<PostInfoResponse> getPosts(Long chatRoomId) {
         List<PostInfoResponse> postInfoResponses = postRepository.getInfoResponseByChatRoomId(chatRoomId);
@@ -99,6 +101,9 @@ public class PostService {
                         .skill(skill)
                         .post(savedPost).build())
                 .forEach(postSkillRepository::save);
+
+        // 도전과제 추가
+        challengeService.addError(getUserId());
 
         return savedPost.getId();
     }
@@ -177,4 +182,27 @@ public class PostService {
         return category;
     }
 
+    public List<PostInfoResponse> getPostsBySkill(Long chatRoomId, String skillName) {
+        List<PostInfoResponse> postInfoResponses = postRepository.findBySkillName(chatRoomId, skillName);
+        for (PostInfoResponse postInfoResponse : postInfoResponses) {
+            postInfoResponse.setReplyCount(replyRepository.countByPostId(postInfoResponse.getId()));
+            postInfoResponse.setAttachedFileInfos(attachedFileRepository.findInfoByPostId(postInfoResponse.getId()));
+            if (postInfoResponse.getReplyCount() != 0)
+                postInfoResponse.setReply(replyRepository.findFirstByPostId(postInfoResponse.getId()).getContent());
+            postInfoResponse.setSkillName(postSkillRepository.findByPostId(postInfoResponse.getId()));
+        }
+        return postInfoResponses;
+    }
+
+    public List<PostInfoResponse> getPostsByContent(Long chatRoomId, String content) {
+        List<PostInfoResponse> postInfoResponses = postRepository.findByContent(chatRoomId, content);
+        for (PostInfoResponse postInfoResponse : postInfoResponses) {
+            postInfoResponse.setReplyCount(replyRepository.countByPostId(postInfoResponse.getId()));
+            postInfoResponse.setAttachedFileInfos(attachedFileRepository.findInfoByPostId(postInfoResponse.getId()));
+            if (postInfoResponse.getReplyCount() != 0)
+                postInfoResponse.setReply(replyRepository.findFirstByPostId(postInfoResponse.getId()).getContent());
+            postInfoResponse.setSkillName(postSkillRepository.findByPostId(postInfoResponse.getId()));
+        }
+        return postInfoResponses;
+    }
 }

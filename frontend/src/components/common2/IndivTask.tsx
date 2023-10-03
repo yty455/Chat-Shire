@@ -12,10 +12,16 @@ import { MdDelete } from "react-icons/md";
 import { BiSolidCheckCircle } from "react-icons/bi";
 import { getTask, deleteTask, postTask, updateTask } from "../../utils/taskApi";
 import "./IndivTask.css";
-import { useDrop } from "react-dnd";
-import Modal from "@mui/material/Modal";
 import IndivChatModal from "./IndivChatModal";
-import { ItemTypes } from "./ItemTypes";
+import { useDrag } from "react-dnd";
+
+interface ItemState {
+  id: number;
+  taskGroupId: number;
+  description: string;
+  progress: string;
+}
+
 type CheckboxItem = {
   id: string;
   taskGroupId?: string;
@@ -59,19 +65,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     setSelectTask(id);
   };
   const handleClose = () => setOpen(false);
-  const [{ isOver }, drop] = useDrop({
-    accept: ItemTypes.MESSAGE, // 허용할 드래그 타입
-    drop: (item) => {
-      // 드롭이 발생할 때 실행할 동작
-      // item에는 드래그된 데이터가 포함됩니다.
-      // 이 데이터를 사용하여 SimpleContainer 내부에서 처리할 수 있습니다.
-      console.log("Dropped:", item);
-      // item.message를 이용해서 원하는 동작을 수행합니다.
-    },
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  });
 
   const enterEditMode = async (TaskId: string) => {
     setEditingTaskId(TaskId);
@@ -412,7 +405,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         </Grid>
       </Box>
       <Fab
-        ref={drop}
         style={{ zIndex: 2 }}
         sx={{
           mb: "20px",
