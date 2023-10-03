@@ -114,8 +114,14 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       if (projectId) {
         const response = await getTask(projectId);
         console.log(response.data.result[0]);
-        // setCheckboxItems(response)
-        setAllTasks(response.data.result[0]);
+
+        // taskGroupId가 0인 항목만 필터링하여 저장
+        const filteredTasks = response.data.result[0].filter(
+          (task: any) => task.taskGroupId === 0
+        );
+
+        // 필터링된 항목을 저장
+        setAllTasks(filteredTasks);
       }
     } catch (error) {
       console.error(error);
@@ -232,6 +238,15 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                 draggable="true"
                 onDragStart={(e) => {
                   e.dataTransfer.setData("taskId", item.id);
+                }}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  const message = e.dataTransfer.getData("message");
+                  const nickname = e.dataTransfer.getData("nickname");
+                  console.log(message, nickname);
                 }}
               >
                 <Item
@@ -426,6 +441,14 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         color="greenary"
         aria-label="add"
         onClick={addCheckbox}
+        onDragOver={(e) => {
+          e.preventDefault();
+        }}
+        onDrop={(e) => {
+          e.preventDefault();
+          const message = e.dataTransfer.getData("message");
+          console.log(message);
+        }}
       >
         <AddIcon />
       </Fab>
