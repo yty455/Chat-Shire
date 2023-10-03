@@ -61,15 +61,16 @@ export default function MessageItem(message: any, users: any) {
     // alert("채팅방을 정말 삭제하시겠어요?");
   };
   useEffect(() => {
-    console.log(users);
+    console.log(users, 12314);
+    console.log(message.message.userId, 2223);
     // users 배열을 필터링하여 userId가 message.message.userId와 같은 항목만 선택
-    const filteredUsers = users.filter(
-      (user: User) => user.userId === message.message.userId
-    );
+    // const filteredUsers = users.filter(
+    //   (user: User) => user.userId === message.message.userId
+    // );
 
-    // 선택된 사용자 정보를 setUser에 저장
-    setUser(filteredUsers);
-  }, [users, message.message.userId]);
+    // // 선택된 사용자 정보를 setUser에 저장
+    // setUser(filteredUsers);
+  }, []);
 
   return (
     <div className={styles.messageItemContainer}>
