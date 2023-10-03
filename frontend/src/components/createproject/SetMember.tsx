@@ -18,6 +18,13 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
       profileColor: "#abb8c3",
       profileImage: "/assets/profile/male/m9.png",
     },
+    { id: 2,
+      githubId: "dfsdf56451",
+      nickname: "가영",
+      position: "ㄴ",
+      profileColor: "#abb8c3",
+      profileImage: "/assets/profile/male/m9.png",
+    },
   ])
   const [searchResultLength, setSearchResultLength] = useState(0)
 
@@ -54,6 +61,7 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
   ))
 
   const searchResultItem = searchResult.map((item: any) => {
+    console.log(invitedMembers.includes(String(item.id)))
     return (
       <div className={styles.SearchResultItem}>
         <div style={{display: "flex", alignItems: "center"}}>
@@ -67,8 +75,8 @@ export default function SetMember({ onData }: { onData: (membersData: string[]) 
         </div>
         { 
           invitedMembers.includes(String(item.id)) ?
-          <Checkbox defaultChecked id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />  : 
-          <Checkbox id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />
+          <Checkbox checked={true} id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />  : 
+          <Checkbox checked={false} id={item.id} value={ item.profileImage } name={ item.profileColor } onClick={handleInviteBtnChange} style={{marginLeft: "280px"}} icon={<BsCircle size={26}/>} checkedIcon={<BsCheckCircleFill size={26}/>} />
         }
       </div>
     )}
