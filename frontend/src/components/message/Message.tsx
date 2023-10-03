@@ -149,8 +149,8 @@ function Message({ projectId }: MessageProps) {
       const response = await getProjectMem(projectId);
       console.log(response.data.count);
       setPjtMemCount(response.data.count);
-      console.log(response.data.result);
-      setUsers(response.data.result);
+      console.log(response.data.result[0]);
+      setUsers(response.data.result[0]);
     } catch (error) {
       console.error(error);
     }
@@ -423,12 +423,12 @@ function Message({ projectId }: MessageProps) {
   const userList = (
     <div>
       <p style={{ margin: 0, fontFamily: "preRg" }}>
-        참여자들 목록
         {users && (
           users.map((user, index) => (
             <div key={index}>
               <img style={{width: '20px'}} alt="profile" src={user.profileImage}/>
               <p>{user.nickname}</p>
+              <hr></hr>
             </div>
           ))
         )}
