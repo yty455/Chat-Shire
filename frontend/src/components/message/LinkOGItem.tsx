@@ -45,7 +45,7 @@ export default function LinkOGItem({ requestUrl }: LinkOGItemProps) {
   }
   
   return (
-    <Card sx={{ boxShadow: "none", borderRadius: 2, marginTop: 2}} onClick={handleClick}>
+    <Card sx={{ boxShadow: "none", borderRadius: 2, marginTop: 1.1}} onClick={handleClick}>
       {favicon ? 
         <CardActionArea sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "flex-start", width: "100%", height: 100, borderRadius: 2, border: "1px solid #E5E8EB", boxShadow: "none", padding: 2 }}>
           <span className={styles.BookMarkTitle}>{title}</span>
