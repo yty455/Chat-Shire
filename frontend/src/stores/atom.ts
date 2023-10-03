@@ -70,6 +70,11 @@ export const memberSearchResult_recoil = atom({
   ],
 });
 
+export const keywords_recoil = atom({
+  key: "keywords_recoil",
+  default: []
+})
+
 // // 앱 종료 시 로컬 스토리지에서 Recoil 데이터 삭제
 // window.addEventListener("beforeunload", () => {
 //   localStorage.removeItem("recoil-persist-root");
