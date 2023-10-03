@@ -11,9 +11,12 @@ import styles from "./SetMember.module.css";
 
 import api from "../../utils/api";
 import { tasks } from "../reactDnd/Tasks";
+import { initialMember_recoil, memberSearchResult_recoil } from "../../stores/atom";
+import { useRecoilState } from "recoil";
 
 function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   const [items, setItems] = useState(tasks);
+  let invitedItems = useRef<any[]>(tasks);
   let InvitedMembers = useRef<string[]>([]);
 
   console.log(items);
@@ -48,6 +51,9 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   };
 
   const returnItemsForColumn = (columnName: string) => {
+
+    invitedItems.current = items
+
     if (columnName === "초대된 멤버") {
       const newMembers: any = items
         .map((member) => {
@@ -58,9 +64,8 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
         })
         .filter((element) => element);
       onData(newMembers);
-    }
 
-    return items
+      return invitedItems.current
       .filter((item: any) => item.column === columnName)
       .map((item: any, index: any) => (
         <MovableItem
@@ -75,6 +80,23 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
           moveCardHandler={moveCardHandler}
         />
       ));
+    } else {
+      return items
+        .filter((item: any) => item.column === columnName)
+        .map((item: any, index: any) => (
+          <MovableItem
+            key={item.id}
+            id={item.id}
+            githubId={item.githubId}
+            nickname={item.nickname}
+            position={item.position}
+            profileColor={item.profileColor}
+            profileImage={item.profileImage}
+            setItems={setItems}
+            moveCardHandler={moveCardHandler}
+          />
+        ));
+    }
   };
 
   const { MEMBERS, INVITED_MEMBERS } = COLUMN_NAMES;
