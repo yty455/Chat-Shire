@@ -167,11 +167,11 @@ function Message({ projectId }: MessageProps) {
     getFile();
     getImage();
     getVideo();
-  }, [message, notice]);
+  }, [message, notice, projectId]);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [preMessage]);
+  }, [preMessage, projectId]);
 
   const connectHandler = () => {
     client.current = Stomp.over(() => {
@@ -250,7 +250,7 @@ function Message({ projectId }: MessageProps) {
   useEffect(() => {
     connectHandler();
     messageEndRef.current?.scrollIntoView();
-  }, []);
+  }, [projectId]);
 
   const ariaLabel = { "aria-label": "description" };
 
