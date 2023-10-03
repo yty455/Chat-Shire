@@ -23,7 +23,7 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
 
   const moveCardHandler = (dragIndex: number, hoverIndex: number) => {
     const dragItem = items[dragIndex];
-
+    invitedItems.current = items
     if (dragItem) {
       setItems((prevState: any) => {
         const coppiedStateArray = [...prevState];
@@ -31,9 +31,6 @@ function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
         coppiedStateArray.splice(dragIndex, 1, prevItem[0]);
         return coppiedStateArray;
       });
-
-      invitedItems.current = items
-      
     }
   };
 
