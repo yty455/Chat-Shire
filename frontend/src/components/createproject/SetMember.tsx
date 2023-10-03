@@ -10,22 +10,7 @@ import api from '../../utils/api'
 export default function SetMember({ onData }: { onData: (membersData: string[]) => void }) {
   const [invitedMembers, setInvitedMembers] = useState<string[]>([])
   const [members, setMembers] = useState<any[]>([])
-  const [searchResult, setSearchResult] = useState<any[]>([
-    { id: 1,
-      githubId: "dfsdf56451",
-      nickname: "가영",
-      position: "ㄴ",
-      profileColor: "#abb8c3",
-      profileImage: "/assets/profile/male/m9.png",
-    },
-    { id: 2,
-      githubId: "dfsdf56451",
-      nickname: "가영",
-      position: "ㄴ",
-      profileColor: "#abb8c3",
-      profileImage: "/assets/profile/male/m9.png",
-    },
-  ])
+  const [searchResult, setSearchResult] = useState<any[]>([])
   const [searchResultLength, setSearchResultLength] = useState(0)
 
   const handleSearchInput = (e: any) => {

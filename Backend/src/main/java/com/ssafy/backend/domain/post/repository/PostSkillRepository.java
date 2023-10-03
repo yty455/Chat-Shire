@@ -1,5 +1,6 @@
 package com.ssafy.backend.domain.post.repository;
 
+import com.ssafy.backend.domain.post.Post;
 import com.ssafy.backend.domain.post.PostSkill;
 import com.ssafy.backend.domain.user.dto.MySkillInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,4 +17,5 @@ public interface PostSkillRepository extends JpaRepository<PostSkill, Long> {
     List<MySkillInfo> getPostSkill(@Param("postId") Long postId);
 
     void deleteAllByPostId(Long postId);
+    void deleteAllByPost(Post post);
 }

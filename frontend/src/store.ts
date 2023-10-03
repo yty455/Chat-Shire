@@ -12,6 +12,7 @@ import {
 } from "reactflow";
 import { create } from "zustand";
 import { nanoid } from "nanoid/non-secure";
+import { getMindMap } from "./utils/mindmapApi";
 
 export type RFState = {
   nodes: Node[];
@@ -86,6 +87,37 @@ const useStore = create<RFState>((set, get) => ({
         return node;
       }),
     });
+  },
+
+  loadInitialData: async (pjtId: string) => {
+    try {
+      const response = await getMindMap(pjtId);
+      const mindmapData = response.data.result[0];
+
+      const initialMindmapNodes = mindmapData.map((node: any) => ({
+        id: node.id,
+        type: "mindmap",
+        data: { label: node.data.label },
+        position: { x: node.position.x, y: node.position.y },
+        deletable: !(node.id === "root"),
+        style: {},
+      }));
+
+      const initialMindmapEdges = mindmapData
+        .filter((node: any) => node.parentNode !== null)
+        .map((node: any) => ({
+          id: `${node.parentNode}_${node.id}`,
+          source: node.parentNode,
+          target: node.id,
+        }));
+
+      set({
+        nodes: initialMindmapNodes,
+        edges: initialMindmapEdges,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   },
 }));
 

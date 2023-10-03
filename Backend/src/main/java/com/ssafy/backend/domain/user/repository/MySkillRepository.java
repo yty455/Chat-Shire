@@ -15,4 +15,6 @@ public interface MySkillRepository extends JpaRepository<MySkill, Long> {
 
     @Query("select new com.ssafy.backend.domain.user.dto.MySkillInfo(m.id, s.skillName) from MySkill m left join Skill s on m.skill = s where m.user.id = :userId")
     List<MySkillInfo> findByUserId(@Param("userId") Long userId);
+
+    void deleteAllByUserId(Long userId);
 }
