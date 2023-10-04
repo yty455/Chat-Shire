@@ -57,6 +57,7 @@ const minimapStyle = {
 };
 
 function Flow({ pjtId }: IdeaProps) {
+
   const [mindmap, setMindmap] = useState([]);
   // whenever you use multiple values, you should use shallow for making sure that the component only re-renders when one of the values change
   const { nodes, edges, onNodesChange, onEdgesChange, addChildNode } = useStore(
@@ -68,6 +69,11 @@ function Flow({ pjtId }: IdeaProps) {
 
   useEffect(() => {
     loadInitialData(pjtId);
+    // setIsLoading(false);
+
+    return () => {    
+      saveMindmapData()
+    }
   }, [pjtId]);
 
   const saveMindmapData = async () => {
@@ -169,7 +175,9 @@ function Flow({ pjtId }: IdeaProps) {
       </p>
     </div>
   );
-
+  // if (isLoading) {
+  //   return <div>Loading...</div>; // 데이터가 로딩되는 동안 표시할 내용
+  // }
   return (
     <div
       style={{ backgroundColor: "#ffffff", width: "52vw", height: "74.7vh" }}
