@@ -13,4 +13,6 @@ public interface ChatRepository extends JpaRepository<Chat, Long> {
     List<ChatInfo> findInfoByChatRoomId(@Param("chatRoomId") Long chatRoomId);
 
     void deleteAllByUserId(Long userId);
+
+    int countByUserId(Long userId);
 }

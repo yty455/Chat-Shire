@@ -258,11 +258,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     setOpen(true);
     setSelectTask(id);
   };
+
   // 태스크 삭제
   const deleteInTask = async (TaskId: string) => {
     try {
       const response = await deleteTask(TaskId);
       console.log("삭제완료", response);
+      getInTask();
       getTeamTask();
     } catch (error) {
       console.error(error);
@@ -302,6 +304,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       setUpdatedDescription("");
       setEditingTaskId(null);
       getTeamTask();
+      getInTask();
     } catch (error) {
       console.error(error);
     }
@@ -379,10 +382,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         (task: any) => task.progress === "DONE"
       );
 
-      console.log(allTasks);
-      console.log(ongoingTasks);
-      console.log(completedTasks);
-      getInTask();
       setAllTeamTask(allTasks);
       setOngoingTeamTask(ongoingTasks);
       setComTeamTask(completedTasks);
@@ -394,7 +393,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const getpjt = async () => {
     try {
       const response = await getProject(projectId);
-      console.log(response.data.result[0]);
+
       setPjt(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -473,7 +472,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         />
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <div className={styles.TeamTaskContainer} style={{ padding: "0 0 20px 20px", width: "50%", height: "510px" }}>
+        <div
+          className={styles.TeamTaskContainer}
+          style={{ padding: "0 0 20px 20px", width: "50%", height: "510px" }}
+        >
           <p className={styles.taskProgress}>완료된 Task</p>
           {comTeamTask &&
             comTeamTask.map((task: any) => (
@@ -486,7 +488,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 onDrop={(e) => {
                   e.preventDefault();
                   const taskId = e.dataTransfer.getData("taskId");
-                  console.log("개인" + taskId, "팀" + task.id);
                   indivToTeam(task.id, taskId);
                 }}
               >
@@ -533,8 +534,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                         task.priority === "HIGH"
                           ? "#FF5B5B"
                           : task.priority === "LOW"
-                          ? "#5BFF83"
-                          : "#FFF05B",
+                          ? "#FFF05B"
+                          : "#5BFF83",
                     }}
                   >
                     {task.priority}
@@ -647,7 +648,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             ))}
         </div>
 
-        <div className={styles.TeamTaskContainer} style={{ padding: "0 20px 0 20px", width: "50%", height: "530px" }}>
+        <div
+          className={styles.TeamTaskContainer}
+          style={{ padding: "0 20px 0 20px", width: "50%", height: "530px" }}
+        >
           <p className={styles.taskProgress}>진행중인 Task</p>
 
           {ongoingTeamTask &&
@@ -715,7 +719,18 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     {task.priority}
                   </p>
                 </div>
-                <BorderLinearProgress variant="determinate" value={50} />
+                <BorderLinearProgress
+                  variant="determinate"
+                  value={
+                    task.taskInfoResponses.length > 0
+                      ? (task.taskInfoResponses.filter(
+                          (item: any) => item.progress === "DONE"
+                        ).length /
+                          task.taskInfoResponses.length) *
+                        100
+                      : 0
+                  }
+                />
 
                 {task.taskInfoResponses.map((item: any) => (
                   <div key={item.id}>
