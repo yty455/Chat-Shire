@@ -227,7 +227,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
 
   useEffect(() => {
     getInTask();
-  }, []);
+  }, [projectId]);
 
   // 체크박스 추가
   const addCheckbox = () => {
