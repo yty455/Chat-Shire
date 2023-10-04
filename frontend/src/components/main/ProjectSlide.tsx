@@ -72,7 +72,7 @@ function ProjectSlide({ pjt, onCardClick, isActive }: ProjectSlideProps) {
         }
       >
         <div
-          style={{ marginTop: "4px", marginLeft: "4px" }}
+          style={{ marginTop: "6px", marginLeft: "4px" }}
           className={
             isActive
               ? styles.ProjectDescContainer
@@ -82,6 +82,7 @@ function ProjectSlide({ pjt, onCardClick, isActive }: ProjectSlideProps) {
           <span style={{fontSize: "18px"}}>{pjt.description}</span>
         </div>
         <div
+          style={{ marginLeft: "4px"}}
           className={
             isActive
               ? styles.ProjectTopicConatiner
