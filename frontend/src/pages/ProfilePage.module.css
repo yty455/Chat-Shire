@@ -153,5 +153,6 @@
 }
 
 .black {
-  filter: blur(5px);
+  /* filter: blur(5px); */
+  background-color: #575757;
 }
