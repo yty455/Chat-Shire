@@ -9,7 +9,7 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import LinkOGItem from "../message/LinkOGItem";
 import ModalComponent from "../message/CreateLinkModal";
-import { linkState } from '../../stores/linkState';
+import { linkState } from "../../stores/linkState";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -18,7 +18,11 @@ const Item = styled(Paper)(({ theme }) => ({
   minHeight: "110px",
 }));
 
-export default function Share() {
+interface props {
+  pjtId: string;
+}
+
+export default function Share({ pjtId }: props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const links = useRecoilValue(linkState);
 
@@ -30,11 +34,13 @@ export default function Share() {
     <div className={styles.indivDiv}>
       {/* <h2 style={{marginLeft:'10px',fontFamily:'preBd',margin: '0', textAlign:'center',alignItems:'center',display:'flex', justifyContent:'center'}}>자료공유</h2> */}
       <Box sx={{ p: 0 }}>
-        {links.length !== 0 ? links.map((link,index)=>(
-            <LinkOGItem key={index} requestUrl={link}/>
-          )) : (
-            <p className={styles.noPhoto}>등록된 링크가 없습니다.</p>
-          )}
+        {links.length !== 0 ? (
+          links.map((link, index) => (
+            <LinkOGItem key={index} requestUrl={link} />
+          ))
+        ) : (
+          <p className={styles.noPhoto}>등록된 링크가 없습니다.</p>
+        )}
       </Box>
 
       <Fab
@@ -53,7 +59,11 @@ export default function Share() {
         <AddIcon />
       </Fab>
 
-      <ModalComponent open={isModalVisible} setOpen={setIsModalVisible} />
+      <ModalComponent
+        pjtId={pjtId}
+        open={isModalVisible}
+        setOpen={setIsModalVisible}
+      />
     </div>
   );
 }
