@@ -58,20 +58,42 @@ public class GithubScheduler {
 			for (String githubId : commitDatesSince.keySet()) {
 				System.out.println(commitDatesSince.get(githubId).size());
 				System.out.println(commitDatesSince.get(githubId));
+				// Map<String, Long> counts = commitDatesSince.get(githubId).stream()
+				// 		.map(date -> date.toInstant().atZone(ZoneId.of("Asia/Seoul")).toLocalTime())
+				// 		.map(time -> {
+				// 			if (!time.isBefore(LocalTime.of(4, 0))
+				// 					&& time.isBefore(LocalTime.of(12, 0))) {
+				// 				return "morning";
+				// 			} else if (!time.isBefore(LocalTime.of(12, 0))
+				// 					&& time.isBefore(LocalTime.of(20, 0))) {
+				// 				return "afternoon";
+				// 			} else {
+				// 				return "night";
+				// 			}
+				// 		})
+				// 		.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 				Map<String, Long> counts = commitDatesSince.get(githubId).stream()
-						.map(date -> date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime())
+						.map(date -> {
+							LocalTime time = date.toInstant().atZone(ZoneId.of("Asia/Seoul")).toLocalTime();
+							System.out.println("Converted time: " + time);
+							return time;
+						})
 						.map(time -> {
-							if (!time.isBefore(LocalTime.of(4, 0))
-									&& time.isBefore(LocalTime.of(12, 0))) {
-								return "morning";
-							} else if (!time.isBefore(LocalTime.of(12, 0))
-									&& time.isBefore(LocalTime.of(20, 0))) {
-								return "afternoon";
+							String period;
+							if (!time.isBefore(LocalTime.of(4, 0)) && time.isBefore(LocalTime.of(12, 0))) {
+								period = "morning";
+							} else if (!time.isBefore(LocalTime.of(12, 0)) && time.isBefore(LocalTime.of(20, 0))) {
+								period = "afternoon";
 							} else {
-								return "night";
+								period = "night";
 							}
+
+							System.out.println("Mapped to: " + period);
+
+							return period;
 						})
 						.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
 
 				long myCommitCount =
 						counts.getOrDefault("morning", 0L) + counts.getOrDefault("afternoon", 0L) + counts.getOrDefault(

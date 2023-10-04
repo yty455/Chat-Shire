@@ -67,15 +67,28 @@ export const tasks_recoil = atom<Task[]>({
   ],
 });
 
+export const allTeamTask_recoil = atom<[]>({
+  key: "allTeamTask_recoil",
+  default: [], // 초기값 설정
+});
+export const ongoingTeamTask_recoil = atom<[]>({
+  key: "ongoingTeamTask_recoil",
+  default: [], // 초기값 설정
+});
+export const comTeamTask_recoil = atom<[]>({
+  key: "comTeamTask_recoil",
+  default: [], // 초기값 설정
+});
+
 export const workStyle_recoil = atom({
   key: "workStyle_recoil",
   default: "baby",
-})
+});
 
 export const workStyleColor_recoil = atom({
   key: "workStyleColor_recoil",
-  default: { main: "#8BBCC1", sub: "#D6CB67"}
-})
+  default: { main: "#8BBCC1", sub: "#D6CB67" },
+});
 
 export const keywords_recoil = atom<string[]>({
   key: "keywords_recoil",
@@ -84,33 +97,30 @@ export const keywords_recoil = atom<string[]>({
 
 export const morningCount_recoil = atom({
   key: "morningCount_recoil",
-  default: 4
-})
+  default: 4,
+});
 
 export const afternoonCount_recoil = atom({
   key: "afternoonCount_recoil",
-  default: 8
-})
+  default: 8,
+});
 
 export const nightCount_recoil = atom({
   key: "nightCount_recoil",
-  default: 6
-})
+  default: 6,
+});
 
 export const issueCount_recoil = atom({
   key: "issueCount_recoil",
-  default: 20
-})
+  default: 20,
+});
 
 export const allCategoryCount_recoil = atom({
   key: "allCategoryCount_recoil",
-  default: {}
-})
+  default: {},
+});
 
 export const taskCount_recoil = atom({
   key: "taskCount_recoil",
-  default: 20
-})
-
-
-
+  default: 20,
+});
