@@ -331,14 +331,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   };
   const enterEditMode = async (TaskId: string) => {
     setEditingTaskId(TaskId);
-    // try {
-    //   const taskToEdit = allTasks.find((task) => task.id === TaskId);
-    //   if (taskToEdit) {
-    //     setUpdatedDescription(taskToEdit.description);
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
   };
 
   const [taskData, setTaskData] = useState({
