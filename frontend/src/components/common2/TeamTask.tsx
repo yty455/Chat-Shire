@@ -470,7 +470,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         />
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <div className={styles.TeamTaskContainer} style={{ padding: "0 0 20px 20px", width: "50%", height: "510px" }}>
+        <div
+          className={styles.TeamTaskContainer}
+          style={{ padding: "0 0 20px 20px", width: "50%", height: "510px" }}
+        >
           <p className={styles.taskProgress}>완료된 Task</p>
           {comTeamTask &&
             comTeamTask.map((task: any) => (
@@ -643,7 +646,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             ))}
         </div>
 
-        <div className={styles.TeamTaskContainer} style={{ padding: "0 20px 0 20px", width: "50%", height: "530px" }}>
+        <div
+          className={styles.TeamTaskContainer}
+          style={{ padding: "0 20px 0 20px", width: "50%", height: "530px" }}
+        >
           <p className={styles.taskProgress}>진행중인 Task</p>
 
           {ongoingTeamTask &&
@@ -711,7 +717,18 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     {task.priority}
                   </p>
                 </div>
-                <BorderLinearProgress variant="determinate" value={50} />
+                <BorderLinearProgress
+                  variant="determinate"
+                  value={
+                    task.taskInfoResponses.length > 0
+                      ? (task.taskInfoResponses.filter(
+                          (item: any) => item.progress === "DONE"
+                        ).length /
+                          task.taskInfoResponses.length) *
+                        100
+                      : 0
+                  }
+                />
 
                 {task.taskInfoResponses.map((item: any) => (
                   <div key={item.id}>
