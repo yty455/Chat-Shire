@@ -43,6 +43,36 @@ public class ChatScheduler {
     final static String host = "52.79.247.214";
     final static String privateKey = "/key/J9E205T.pem";
 
+    final static Map<String, String> CategoryMap = new HashMap<String, String>() {{
+        put("Adult", "성인");
+        put("Arts & Entertainment", "예술 및 엔터테인먼트");
+        put("Autos & Vehicles", "자동차 및 차량");
+        put("Beauty & Fitness", "미용 및 피트니스");
+        put("Books & Literature", "책 및 문학");
+        put("Business & Industrial", "비즈니스 및 산업");
+        put("Computers & Electronics", "컴퓨터 및 전자제품");
+        put("Finance", "금융");
+        put("Food & Drink", "음식 및 음료");
+        put("Games", "게임");
+        put("Health", "건강");
+        put("Hobbies & Leisure", "취미 및 여가");
+        put("Home & Garden", "집 및 정원");
+        put("Internet & Telecom", "인터넷 및 통신");
+        put("Jobs & Education", "직업 및 교육");
+        put("Law & Government", "법률 및 정부");
+        put("News", "뉴스");
+        put("Online Communities", "온라인 커뮤니티");
+        put("People & Society", "사람들과 사회");
+        put("Pets & Animals", "애완 동물 및 동물들");
+        put("Real Estate", "부동산");
+        put("Reference", "참고자료");
+        put("Science", "과학");
+        put("Sensitive Subjects", "민감한 주제들");
+        put("Shopping", "쇼핑");
+        put("Sports", "스포츠");
+        put("Travel & Transportation", "여행 및 교통");
+    }};
+
     @Scheduled(cron = "0 1/5 * * * ?")
     public void chatTransfer() throws IOException {
 
@@ -81,11 +111,11 @@ public class ChatScheduler {
                     List<ClassificationCategory> classificationCategories = googleNaturalAPI(chatMap,
                             chatInfo);
 
-                    if(classificationCategories.size() == 0) continue;
+                    if (classificationCategories.size() == 0) continue;
 
                     for (ClassificationCategory classificationCategory : classificationCategories) {
                         StringTokenizer st = new StringTokenizer(classificationCategory.getName(), "/");
-                        dto.getCategoryList().add(st.nextToken());
+                        dto.getCategoryList().add(CategoryMap.get(st.nextToken()));
 //	 				 		writer.write(outputLine);
                     }
                     chatMap.put(chatInfo.getUserId(), "");
