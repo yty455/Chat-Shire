@@ -80,9 +80,9 @@ public class GithubScheduler {
 						.orElseThrow(() -> new ResourceNotFoundException("githubId", githubId));
 				challengeService.updateMyCommit(user.getId(), myCommitCount);
 
-				morningCommitCount += counts.get("morning");
-				afternoonCommitCount += counts.get("afternoon");
-				nightCommitCount += counts.get("night");
+				morningCommitCount += counts.getOrDefault("morning", 0L);
+				afternoonCommitCount += counts.getOrDefault("afternoon", 0L);
+				nightCommitCount += counts.getOrDefault("night", 0L);
 			}
 			System.out.println("morningCommitCount = " + morningCommitCount);
 			System.out.println("afternoonCommitCount = " + afternoonCommitCount);
