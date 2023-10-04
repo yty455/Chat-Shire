@@ -56,7 +56,8 @@
   margin-left: 3px;
   margin-top: 8px;
   font-family: 'preRg';
-  color: 'grey'
+  color: 'grey';
+  cursor: pointer;
 }
 
 .messageLeftNotification {
