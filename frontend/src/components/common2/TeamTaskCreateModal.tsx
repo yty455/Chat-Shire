@@ -69,7 +69,7 @@ function TeamTaskCreateModal({
   return (
     <div className={styles.modalOverlay} ref={modalRef}>
       <div className={styles.formContainer}>
-        <div>
+        <div className={styles.formBox}>
           <h2>팀 태스크 생성</h2>
           <div>
             <input
@@ -147,6 +147,7 @@ function TeamTaskCreateModal({
       /> */}
 
           <Button
+            className={styles.savebtn}
             style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
             key="submit"
             type="primary"
