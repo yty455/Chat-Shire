@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./IndivChatModal.module.css";
 import { getReferences, deleteReferences } from "../../utils/taskReferenceApi";
+import { Button } from "antd";
 
 interface IndivChatModalProps {
   onClose: () => void;
@@ -46,18 +47,41 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
 
   return (
     <div className={styles.modalOverlay}>
-      {taskChat &&
-        taskChat.map((chat) => (
-          <div key={chat.chatNumber}>
-            {" "}
-            <span>{chat.nickname}</span>
-            <span>{chat.content}</span>
-            <span>{formatChatTime(chat.chatTime)}</span>
-            <button onClick={() => deleteRe(chat.id)}>삭제</button>
-          </div>
-        ))}
-      <div>
-        <button onClick={onClose}> 닫기 </button>
+      <div className={styles.modalBox}>
+        {taskChat &&
+          taskChat.map((chat) => (
+            <div key={chat.chatNumber} className={styles.chat}>
+              {" "}
+              <div className={styles.nickname}>{chat.nickname} : </div>
+              <div className={styles.content}>{chat.content}</div>
+              <div className={styles.chatTime}>
+                {" "}
+                : {formatChatTime(chat.chatTime)}
+              </div>
+              <Button
+                className={styles.deletebtn}
+                style={{
+                  backgroundColor: "red",
+                  fontFamily: "preRg",
+                  width: "30px",
+                  height: "40px",
+                }}
+                key="submit"
+                type="primary"
+                onClick={() => deleteRe(chat.id)}
+              >
+                삭제
+              </Button>
+            </div>
+          ))}
+        <div></div>
+        <button
+          style={{ cursor: "pointer" }}
+          onClick={onClose}
+          className={styles.closebtn}
+        >
+          X
+        </button>
       </div>
     </div>
   );
