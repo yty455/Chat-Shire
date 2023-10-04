@@ -331,6 +331,14 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   };
   const enterEditMode = async (TaskId: string) => {
     setEditingTaskId(TaskId);
+    try {
+      const taskToEdit = allTasks.find((task) => task.id === TaskId);
+      if (taskToEdit) {
+        setUpdatedDescription(taskToEdit.description);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const [taskData, setTaskData] = useState({
@@ -662,7 +670,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 }}
               >
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
-                <div className={styles.taskHeader} onClick={() => openModal(task.id)}>
+                <div
+                  className={styles.taskHeader}
+                  onClick={() => openModal(task.id)}
+                >
                   <div className={styles.clockNday}>
                     <WatchLaterIcon />
                     <p className={styles.dday}>
@@ -675,7 +686,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     </p>
                   </div>
                 </div>
-                <div className={styles.stepStatus} onClick={() => openModal(task.id)}>
+                <div
+                  className={styles.stepStatus}
+                  onClick={() => openModal(task.id)}
+                >
                   {task.progress === "ONGOING" ? (
                     <StyledBadge
                       sx={{ margin: "14px 0 15px 20px" }}
@@ -786,7 +800,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                                   margin: "-5px 3px 10px 4px",
                                 }}
                                 onClick={() =>
-                                  handleEditComplete(item.id, updatedDescription)
+                                  handleEditComplete(
+                                    item.id,
+                                    updatedDescription
+                                  )
                                 }
                               />
                             ) : (
