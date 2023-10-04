@@ -1,35 +1,51 @@
 import React, { useState } from "react";
 import { Button, Modal, Input } from "antd";
-import { useSetRecoilState } from 'recoil';
-import { linkState } from '../../stores/linkState';
+import { useSetRecoilState } from "recoil";
+import { linkState } from "../../stores/linkState";
+import { postLink } from "../../utils/linkApi";
 
 const { TextArea } = Input;
 
 const ModalComponent: React.FC<{
+  pjtId: string;
   open: boolean;
   setOpen: (open: boolean) => void;
-}> = ({ open, setOpen }) => {
+}> = ({ pjtId, open, setOpen }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [link, setLink] = useState("https://");
   const setLinks = useSetRecoilState(linkState);
 
+  // 링크 등록
+  const postInLink = async (link: string) => {
+    try {
+      const response = await postLink(pjtId, link);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleOk = () => {
-    const pattern = new RegExp('^https?:\\/\\/'+ // protocol (http:// or https://)
-    '(([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}'+ // domain name and extension
-    '(\\:\\d+)?'+ // port
-    '(\\/[-a-z\\d%_.~+]*)*'+ // path
-    '(\\?[;&amp;a-z\\d%_.~+=-]*)?'+ // query string
-    '(\\#[-a-z\\d_]*)?$','i');
+    const pattern = new RegExp(
+      "^https?:\\/\\/" + // protocol (http:// or https://)
+        "(([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}" + // domain name and extension
+        "(\\:\\d+)?" + // port
+        "(\\/[-a-z\\d%_.~+]*)*" + // path
+        "(\\?[;&amp;a-z\\d%_.~+=-]*)?" + // query string
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    );
 
     if (!pattern.test(link)) {
-        alert("올바른 URL을 입력해주세요.");
-        return;
+      alert("올바른 URL을 입력해주세요.");
+      return;
     }
 
     setConfirmLoading(true);
     setTimeout(() => {
       setOpen(false);
       setConfirmLoading(false);
+      postInLink(link);
       setLinks((oldLinks) => [...oldLinks, link]);
       setLink("https://");
     }, 2000);

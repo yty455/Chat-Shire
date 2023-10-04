@@ -91,7 +91,7 @@ export default function BasicTabs() {
         <CustomTabPanel value={value} index={0}>
           <div className={styles.ideaNshare}>
             <Idea pjtId={projectToPass} />
-            <Share />
+            <Share pjtId={projectToPass} />
           </div>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
