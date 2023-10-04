@@ -7,7 +7,7 @@ import Skeleton from "@mui/material/Skeleton";
 
 interface LinkOGItemProps {
   requestUrl: string;
-  isDragging: boolean;
+  isDragging?: boolean;
 }
 
 export default function LinkOGItem({
