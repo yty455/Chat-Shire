@@ -17,7 +17,7 @@ public class ChatRoomInfo {
 	private String description;
 	private String gitRepository;
 	private String branch;
-	private String GitAccessToken;
+	private String gitAccessToken;
 	private List<Long> users;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;

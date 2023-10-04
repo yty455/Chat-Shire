@@ -54,15 +54,17 @@ interface Task {
   isEditing?: boolean;
 }
 
-export const task_recoil = atom<Task>({
-  key: "task",
-  default: {
-    id: "0",
-    taskGroupId: "0",
-    description: "0",
-    progress: "ONGOING",
-    isEditing: false,
-  },
+export const tasks_recoil = atom<Task[]>({
+  key: "tasks",
+  default: [
+    {
+      id: "0",
+      taskGroupId: "0",
+      description: "0",
+      progress: "ONGOING",
+      isEditing: false,
+    },
+  ],
 });
 
 export const workStyle_recoil = atom({

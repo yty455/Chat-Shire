@@ -138,6 +138,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     try {
       const response = await postTask(chatroomId, description, progress);
       console.log(response);
+      setUpdatedDescription("");
       getInTask();
     } catch (error) {
       console.error(error);
@@ -207,6 +208,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         progress
       );
       console.log(response);
+      setUpdatedDescription("");
       setEditingTaskId(null);
       getInTask();
     } catch (error) {
@@ -227,7 +229,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
 
   useEffect(() => {
     getInTask();
-  }, []);
+  }, [projectId]);
 
   // 체크박스 추가
   const addCheckbox = () => {
@@ -328,7 +330,9 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                     {editingTaskId === item.id ? (
                       <input
                         ref={inputRef}
+                        // value={updatedDescription}
                         onKeyPress={handleKeyPress(item.id)}
+                        onChange={(e) => setUpdatedDescription(e.target.value)}
                         style={{
                           fontFamily: "preRg",
                           height: "30px",

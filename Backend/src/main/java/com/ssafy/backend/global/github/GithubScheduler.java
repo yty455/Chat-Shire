@@ -11,6 +11,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import com.ssafy.backend.domain.analyze.service.StatisticService;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
@@ -20,6 +21,7 @@ import com.ssafy.backend.domain.user.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Service
 public class GithubScheduler {
 
 	private final ChatRoomRepository chatRoomRepository;
@@ -27,13 +29,17 @@ public class GithubScheduler {
 	private final ChallengeService challengeService;
 	private final GithubApi githubApi;
 
-	@Scheduled(cron = "0 0 * * * ?")
+	@Scheduled(cron = "0 * * * * ?")
 	public void countCommitHistory() throws IOException {
 		System.out.println("커밋 히스토리 가져오기 실행");
 		LocalDate today = LocalDate.now();
 		List<ChatRoom> chatRooms = chatRoomRepository.findByDate(today);
 
 		for (ChatRoom chatRoom : chatRooms) {
+			if (chatRoom.getGitRepository() == null || chatRoom.getBranch() == null
+					|| chatRoom.getGitAccessToken() == null) {
+				continue;
+			}
 			Long morningCommitCount = 0L;
 			Long afternoonCommitCount = 0L;
 			Long nightCommitCount = 0L;

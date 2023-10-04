@@ -64,10 +64,10 @@ function Flow({ pjtId }: IdeaProps) {
   const loadInitialData = useStore((state) => state.loadInitialData);
   const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
 
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     loadInitialData(pjtId);
-    setIsLoading(false);
+    // setIsLoading(false);
   }, [pjtId]);
   // useEffect(() => {
   // const getMindmapData = async () => {
@@ -102,10 +102,29 @@ function Flow({ pjtId }: IdeaProps) {
   // getMindmapData(); // 데이터 불러오기 함수 호출
   // }, [pjtId, onNodesChange, onEdgesChange]);
 
-  useEffect(() => {
-    console.log(nodes);
-    console.log(edges);
-    // 노드 데이터를 원하는 형태로 가공
+  // useEffect(() => {
+  //   console.log(nodes);
+  //   console.log(edges);
+  //   // 노드 데이터를 원하는 형태로 가공
+  //   const transformedData: any[] = [];
+  //   nodes.forEach((node) => {
+  //     const parentNode = edges.find((edge) => edge.target === node.id);
+  //     transformedData.push({
+  //       id: node.id,
+  //       data: {
+  //         label: node.data.label || "defaultLabel",
+  //       },
+  //       position: {
+  //         x: node.position.x || 0,
+  //         y: node.position.y || 0,
+  //       },
+  //       parentNode: parentNode ? parentNode.source : "null",
+  //     });
+  //   });
+  //   saveMindmapData(transformedData);
+  // }, [nodes]);
+
+  const saveMindmapData = async () => {
     const transformedData: any[] = [];
     nodes.forEach((node) => {
       const parentNode = edges.find((edge) => edge.target === node.id);
@@ -121,13 +140,10 @@ function Flow({ pjtId }: IdeaProps) {
         parentNode: parentNode ? parentNode.source : "null",
       });
     });
-    saveMindmapData(transformedData);
-  }, [nodes]);
 
-  const saveMindmapData = async (updatedMindmap: any) => {
     try {
       // 업데이트된 마인드맵 데이터를 서버에 저장
-      await saveMindmap(pjtId, updatedMindmap);
+      await saveMindmap(pjtId, transformedData);
     } catch (error) {
       console.error("마인드맵 데이터 저장 실패:", error);
       // 저장 실패 시 예외 처리 로직 추가
@@ -207,9 +223,9 @@ function Flow({ pjtId }: IdeaProps) {
       </p>
     </div>
   );
-  if (isLoading) {
-    return <div>Loading...</div>; // 데이터가 로딩되는 동안 표시할 내용
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>; // 데이터가 로딩되는 동안 표시할 내용
+  // }
   return (
     <div
       style={{ backgroundColor: "#ffffff", width: "52vw", height: "74.7vh" }}
@@ -239,6 +255,7 @@ function Flow({ pjtId }: IdeaProps) {
           />
         </Popover>
       </ReactFlow>
+      <button onClick={saveMindmapData}>저장</button>
     </div>
   );
 }

@@ -23,6 +23,7 @@ export type RFState = {
   deleteNode: (nodeId: string) => void;
   updateNodeLabel: (nodeId: string, label: string) => void;
   loadInitialData: (pjtId: string) => Promise<void>;
+  reset: () => void;
 };
 
 const useStore = create<RFState>((set, get) => ({
@@ -94,7 +95,7 @@ const useStore = create<RFState>((set, get) => ({
     try {
       const response = await getMindMap(pjtId);
       const mindmapData = response.data.result[0];
-
+      get().reset();
       const initialMindmapNodes = mindmapData.map((node: any) => ({
         id: node.id,
         type: "mindmap",
@@ -120,6 +121,12 @@ const useStore = create<RFState>((set, get) => ({
       console.error(error);
     }
   },
+  reset: () =>
+    set({
+      nodes: [],
+      edges: [],
+      // 여기에 필요한 다른 초기화 로직 추가...
+    }),
 }));
 
 export default useStore;
