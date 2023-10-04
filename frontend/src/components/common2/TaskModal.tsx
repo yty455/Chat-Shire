@@ -91,7 +91,7 @@ function TaskModal({
 
   return (
     <div className={styles.modalOverlay}>
-      <div>
+      <div className={styles.modalBox}>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
             <p onClick={() => handleEditClick("name")}>

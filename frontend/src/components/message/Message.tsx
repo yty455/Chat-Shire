@@ -110,7 +110,7 @@ function Message({ projectId }: MessageProps) {
       console.log('플젝정보', response.data);
       // setPjt(response.data.result[0]);
       console.log("불러온 공지", response.data.result[0].notice);
-      setNotice(response.data.result[0].notification);
+      setNotice(response.data.result[0].notice);
       console.log("플젝 이름", response.data.result[0].name);
       setPjtName(response.data.result[0].name);
     } catch (error) {
@@ -486,9 +486,7 @@ function Message({ projectId }: MessageProps) {
         </div>
         <div className={styles.messageLeftNotification}>
           <BsFillMegaphoneFill size={20} />
-          {notice && (
-            <>
-            <p>{notice}</p>
+          {notice ? (
             <input
             maxLength={50}
             style={{
@@ -506,9 +504,25 @@ function Message({ projectId }: MessageProps) {
               console.log(e.target.value);
             }}
             onKeyPress={(e) => makeNotice(e)}
-          /></>
+          />
+          ) : (
+            <input
+            maxLength={50}
+            style={{
+              width: "450px",
+              border: "none",
+              marginLeft: "5px",
+              fontFamily: "preRg",
+            }}
+            type="text"
+            onChange={(e) => {
+              setNoticeInputValue(e.target.value);
+              console.log(e.target.value);
+            }}
+            onKeyPress={(e) => makeNotice(e)}
+          />
           )}
-          <input
+          {/* <input
             maxLength={50}
             style={{
               width: "450px",
@@ -525,7 +539,7 @@ function Message({ projectId }: MessageProps) {
               console.log(e.target.value);
             }}
             onKeyPress={(e) => makeNotice(e)}
-          />
+          /> */}
         </div>
         <div className={styles.messageLeftBody}>
           {preMessage &&

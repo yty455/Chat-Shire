@@ -2,6 +2,8 @@ import React, { useCallback, useRef, useState, useEffect } from "react";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { FloatButton, Popover } from "antd";
 import { getMindMap, saveMindmap } from "../../utils/mindmapApi";
+import { Button } from "antd";
+import styles from "./Idea.module.css";
 
 import ReactFlow, {
   Controls,
@@ -196,7 +198,15 @@ function Flow({ pjtId }: IdeaProps) {
             style={{ width: 22, height: 20, bottom: 540, left: 310 }}
           />
         </Popover>
-        <button onClick={saveMindmapData}>저장</button>
+        <Button
+          className={styles.savebtn}
+          style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
+          key="submit"
+          type="primary"
+          onClick={saveMindmapData}
+        >
+          저장
+        </Button>
       </ReactFlow>
     </div>
   );
