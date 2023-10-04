@@ -1,7 +1,7 @@
 .messageContainer {
   display: flex;
-  padding: 2vh 1.4vw 1vh 2vw;
-  width: 54vw;
+  padding: 2vh 0vw 1vh 2vw;
+  width: 56vw;
   height: 82vh;
   border: 1px solid #E5E8EB;
   border-radius: 20px;
