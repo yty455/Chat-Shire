@@ -1,6 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import styles from "./TeamTaskCreateModal.module.css";
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from '@mui/material'
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -65,12 +72,14 @@ function TeamTaskCreateModal({
 
   return (
     <div className={styles.modalOverlay} ref={modalRef}>
-      <div className={styles.formContainer} style={{color: "#575757"}}>
+      <div className={styles.formContainer} style={{ color: "#575757" }}>
         <div className={styles.formBox}>
-          <span style={{fontFamily: "preBd", fontSize: "24px"}}>팀 태스크 생성</span>
+          <span style={{ fontFamily: "preBd", fontSize: "24px" }}>
+            팀 태스크 생성
+          </span>
           <div>
             <TextField
-              sx={{width: "360px", marginTop: '4px'}}
+              sx={{ width: "360px", marginTop: "4px" }}
               color="greenary"
               variant="standard"
               type="text"
@@ -83,7 +92,7 @@ function TeamTaskCreateModal({
           </div>
           <div>
             <TextField
-              sx={{width: "360px", marginTop: '4px'}}
+              sx={{ width: "360px", marginTop: "4px" }}
               color="greenary"
               variant="standard"
               multiline
@@ -107,23 +116,56 @@ function TeamTaskCreateModal({
               style={{ margin: "10px", marginLeft: "0px" }}
               onClick={(e) => e.stopPropagation()}
             >
-              <InputLabel id="priority-label" style={{marginLeft: "-14px"}}>중요도</InputLabel>
-              <Select variant="standard" labelId="priority-label" id="priority-select" value={taskData.priority} onChange={handleChange} sx={{height: "30px", color: "#575757"}}>
-                <MenuItem value="HIGH" style={{paddingLeft: "2px"}}>
-                  <div style={{display: "flex"}}>
-                    <div style={{width: "20px", height: "20px", borderRadius: "30px", backgroundColor: "#FF5B5B", marginRight: "6px"}}/>
+              <InputLabel id="priority-label" style={{ marginLeft: "-14px" }}>
+                중요도
+              </InputLabel>
+              <Select
+                variant="standard"
+                labelId="priority-label"
+                id="priority-select"
+                value={taskData.priority}
+                onChange={handleChange}
+                sx={{ height: "30px", color: "#575757" }}
+              >
+                <MenuItem value="HIGH" style={{ paddingLeft: "2px" }}>
+                  <div style={{ display: "flex" }}>
+                    <div
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "30px",
+                        backgroundColor: "#FF5B5B",
+                        marginRight: "6px",
+                      }}
+                    />
                     <span>매우 중요</span>
                   </div>
                 </MenuItem>
-                <MenuItem value="MEDIUM" style={{paddingLeft: "2px"}}>
-                  <div style={{display: "flex"}}>
-                    <div style={{width: "20px", height: "20px", borderRadius: "30px", backgroundColor: "#FFF05B", marginRight: "6px"}}/>
+                <MenuItem value="MEDIUM" style={{ paddingLeft: "2px" }}>
+                  <div style={{ display: "flex" }}>
+                    <div
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "30px",
+                        backgroundColor: "#FFF05B",
+                        marginRight: "6px",
+                      }}
+                    />
                     <span>중요</span>
                   </div>
                 </MenuItem>
-                <MenuItem value="LOW" style={{paddingLeft: "2px"}}>
-                  <div style={{display: "flex"}}>
-                    <div style={{width: "20px", height: "20px", borderRadius: "30px", backgroundColor: "#5BFF83", marginRight: "6px"}}/>
+                <MenuItem value="LOW" style={{ paddingLeft: "2px" }}>
+                  <div style={{ display: "flex" }}>
+                    <div
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "30px",
+                        backgroundColor: "#5BFF83",
+                        marginRight: "6px",
+                      }}
+                    />
                     <span>보통</span>
                   </div>
                 </MenuItem>

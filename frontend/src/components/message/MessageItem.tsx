@@ -105,7 +105,10 @@ export default function MessageItem({
 
     console.log(user);
   }, [users]);
-
+  function formatChatTime(chatTime: any) {
+    const date = new Date(chatTime);
+    return date.toLocaleString(); // 브라우저 설정에 따라 로케일에 맞게 날짜 및 시간을 표시
+  }
   return (
     <div className={styles.messageItemContainer}>
       <StyledBadge
@@ -143,7 +146,7 @@ export default function MessageItem({
             {user && user?.nickname}
           </span>
           <span className={styles.messageTime}>
-            {message && message?.chatTime}
+            {message && formatChatTime(message.chatTime)}
           </span>
         </div>
         <div
