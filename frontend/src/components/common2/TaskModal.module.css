@@ -41,3 +41,12 @@
   background-color: red;
   font-family: preRg;
 }
+
+.savebtn {
+  position: fixed;
+  bottom: 2%;
+  right: 7%;
+  border: 0;
+  background-color: rgb(57, 167, 137);
+  font-family: preRg;
+}

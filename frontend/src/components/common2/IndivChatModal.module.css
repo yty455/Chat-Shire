@@ -35,7 +35,7 @@
 }
 
 .nickname {
-  width: 10%;
+  width: 8%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -53,6 +53,10 @@
   text-overflow: ellipsis;
 }
 .deletebtn {
-  width: 10%;
-  text-align: start;
+  width: 12%;
+  text-align: center;
+  background-color: red;
+  font-family: preRg;
+  width: 30px;
+  height: 25px;
 }
