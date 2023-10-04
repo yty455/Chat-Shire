@@ -23,6 +23,7 @@ export type RFState = {
   deleteNode: (nodeId: string) => void;
   updateNodeLabel: (nodeId: string, label: string) => void;
   loadInitialData: (pjtId: string) => Promise<void>;
+  reset: () => void;
 };
 
 const useStore = create<RFState>((set, get) => ({
@@ -113,13 +114,19 @@ const useStore = create<RFState>((set, get) => ({
         }));
 
       set({
-        nodes: initialMindmapNodes,
-        edges: initialMindmapEdges,
+        nodes: [...get().nodes, initialMindmapNodes],
+        edges: [...get().edges, initialMindmapEdges],
       });
     } catch (error) {
       console.error(error);
     }
   },
+  reset: () =>
+    set({
+      nodes: [],
+      edges: [],
+      // 여기에 필요한 다른 초기화 로직 추가...
+    }),
 }));
 
 export default useStore;
