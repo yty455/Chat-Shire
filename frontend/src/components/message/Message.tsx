@@ -107,11 +107,11 @@ function Message({ projectId }: MessageProps) {
   const getpjt = async () => {
     try {
       const response = await getProject(projectId);
-      // console.log(response.data.result[0]);
+      console.log('플젝정보', response.data);
       // setPjt(response.data.result[0]);
-      // console.log("불러온 공지", response.data.result[0].notification);
+      console.log("불러온 공지", response.data.result[0].notice);
       setNotice(response.data.result[0].notification);
-      // console.log("플젝 이름", response.data.result[0].name);
+      console.log("플젝 이름", response.data.result[0].name);
       setPjtName(response.data.result[0].name);
     } catch (error) {
       console.error(error);
@@ -159,6 +159,10 @@ function Message({ projectId }: MessageProps) {
   };
 
   useEffect(() => {
+    getpjt();
+  }, [])
+
+  useEffect(() => {
     if (message) {
       newMessage(message);
     }
@@ -202,7 +206,7 @@ function Message({ projectId }: MessageProps) {
   };
 
   const inputMessage = (e: any) => {
-    if (e.code === "Enter" && e.target.value != "") {
+    if (e.code === "Enter" && e.target.value !== "") {
       postChat(Number(projectId), e.target.value);
       e.target.value = "";
     }
@@ -216,22 +220,13 @@ function Message({ projectId }: MessageProps) {
     }
   };
 
-  // 공지 등록
-  // const makeNotice = (e: any) => {
-  //   if (e.target.value != "") {
-  //     putNotification(projectId, e.target.value);
-  //     // setNotice(e.target.value);
-  //     console.log('입력된 공지', e.target.value)
-  //     setNoticeInputVisible(false);
-  //     setShowNotice(true);
-  //   }
-  // }
-
   const makeNotice = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && noticeInputValue !== "") {
+      console.log('공지 put')
       putNotification(projectId, noticeInputValue)
         .then(() => {
           setNotice(noticeInputValue);
+          console.log('새로운 공지 등록')
         })
         .catch((error) => {
           console.error("공지 업데이트 오류:", error);
@@ -431,18 +426,28 @@ function Message({ projectId }: MessageProps) {
         {users &&
           users.map((user, index) => (
             <div key={index}>
-              <img
-                style={{ width: "20px" }}
-                alt="profile"
-                src={user.profileImage}
-              />
-              <p>{user.nickname}</p>
-              <hr></hr>
+              <div style={{ marginBottom: '5px', display: 'flex', alignItems:'center', justifyContent:'start' }}>
+                <img
+                  style={{ 
+                    width: "30px",
+                    height: "30px",
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                    backgroundColor: user.profileColor,
+                    zIndex: "5",
+                  }}
+                  alt="profile"
+                  src={user.profileImage}
+                />
+                <p style={{ margin: '0 0 0 3px', fontFamily: "preRg" }}>{user.nickname}</p>
+              </div>
+              {/* <hr style={{ margin: '2px 0', border: '1px solid grey' }} /> */}
             </div>
           ))}
       </p>
     </div>
   );
+  
 
   return (
     <div className={styles.messageContainer}>
@@ -450,7 +455,9 @@ function Message({ projectId }: MessageProps) {
         <div className={styles.messageLeftHeader}>
           <div className={styles.messageLeftHeader}>
             <div className={styles.messageLeftHeaderLeft}>
-              <span className={styles.messageLeftTitle}>{pjtName}</span>
+              {pjtName.length !== 0 && (
+                <span className={styles.messageLeftTitle}>{pjtName}</span>
+              )}
               {/* <span className={styles.messageLeftTitle}>2차 플젝</span> */}
               <Popover
                 placement="rightBottom"
@@ -462,6 +469,7 @@ function Message({ projectId }: MessageProps) {
                     color: "grey",
                     marginTop: "6px",
                     marginLeft: "12px",
+                    cursor: "pointer"
                   }}
                   size={20}
                 />
@@ -478,6 +486,28 @@ function Message({ projectId }: MessageProps) {
         </div>
         <div className={styles.messageLeftNotification}>
           <BsFillMegaphoneFill size={20} />
+          {notice && (
+            <>
+            <p>{notice}</p>
+            <input
+            maxLength={50}
+            style={{
+              width: "450px",
+              border: "none",
+              marginLeft: "5px",
+              fontFamily: "preRg",
+            }}
+            placeholder={notice}
+            type="text"
+            defaultValue={notice}
+            // value={noticeInputValue}
+            onChange={(e) => {
+              setNoticeInputValue(e.target.value);
+              console.log(e.target.value);
+            }}
+            onKeyPress={(e) => makeNotice(e)}
+          /></>
+          )}
           <input
             maxLength={50}
             style={{
@@ -488,8 +518,12 @@ function Message({ projectId }: MessageProps) {
             }}
             placeholder={notice}
             type="text"
-            value={noticeInputValue}
-            onChange={(e) => setNoticeInputValue(e.target.value)}
+            defaultValue={notice}
+            // value={noticeInputValue}
+            onChange={(e) => {
+              setNoticeInputValue(e.target.value);
+              console.log(e.target.value);
+            }}
             onKeyPress={(e) => makeNotice(e)}
           />
         </div>

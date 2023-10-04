@@ -72,27 +72,24 @@ function ProjectSlide({ pjt, onCardClick, isActive }: ProjectSlideProps) {
         }
       >
         <div
-          style={{ marginTop: "4px", marginLeft: "4px" }}
+          style={{ marginTop: "6px", marginLeft: "4px" }}
           className={
             isActive
               ? styles.ProjectDescContainer
               : styles.ProjectDescContainerInactive
           }
         >
-          <span>{pjt.description}</span>
+          <span style={{fontSize: "18px"}}>{pjt.description}</span>
         </div>
         <div
+          style={{ marginLeft: "4px"}}
           className={
             isActive
               ? styles.ProjectTopicConatiner
               : styles.ProjectTopicContainerInactive
           }
         >
-          <Keywords topic={pjt.topic} />
-          {/* <Keywords topic={pjt.topic} />
-          <Keywords topic={pjt.topic} />
-          <Keywords topic={pjt.topic} />
-          <Keywords topic={pjt.topic} /> */}
+          <span style={{fontSize: "14px"}}>{pjt.topic}</span>
         </div>
       </div>
       <div

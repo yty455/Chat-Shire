@@ -73,3 +73,7 @@
     transform: rotateY(720deg);
   }
 }
+
+.TabBarProjectTitle div.Mui-expanded {
+  color: #39a789;
+}

@@ -1,25 +1,30 @@
 import React from 'react'
 import { ResponsivePie } from '@nivo/pie'
 
+import { useRecoilState } from 'recoil'
+import { morningCount_recoil, afternoonCount_recoil, nightCount_recoil, workStyleColor_recoil } from '../../stores/atom'
+
 const PiChart = () => {
+  const [workStyleColor, setWorkStyleColor] = useRecoilState(workStyleColor_recoil)
+  const [morningCommit, setMorningCommit] = useRecoilState(morningCount_recoil)
+  const [afternoonCommit, setAfternoonCommit] = useRecoilState(afternoonCount_recoil)
+  const [nightCommit, setNightCommit] = useRecoilState(nightCount_recoil)
+
   const data = [
     {
       "id": "오전",
       "label": "오전",
-      "value": 20,
-      "color": "hsl(68, 70%, 50%)"
+      "value": morningCommit,
     },
     {
       "id": "오후",
       "label": "오후",
-      "value": 30,
-      "color": "hsl(341, 70%, 50%)"
+      "value": afternoonCommit,
     },
     {
       "id": "새벽",
       "label": "새벽",
-      "value": 88,
-      "color": "hsl(33, 70%, 50%)"
+      "value": nightCommit,
     }
   ]
 
@@ -33,17 +38,7 @@ const PiChart = () => {
         cornerRadius={3}
         fit={false}
         activeOuterRadiusOffset={0}
-        colors={[ '#EB9042', '#EDA568', '#EFC5A0']}
-        borderWidth={1}
-        borderColor={{
-            from: 'color',
-            modifiers: [
-                [
-                    'brighter',
-                    0.6
-                ]
-            ]
-        }}
+        colors={[ workStyleColor.main ]}
         enableArcLinkLabels={false}
         enableArcLabels={false}
         legends={[]}
