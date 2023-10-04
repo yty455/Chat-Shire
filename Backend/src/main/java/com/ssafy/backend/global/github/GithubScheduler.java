@@ -56,6 +56,7 @@ public class GithubScheduler {
 
 			// ksi2564 : [커밋한 시간1, 커밋한 시간2]...
 			for (String githubId : commitDatesSince.keySet()) {
+				System.out.println(commitDatesSince.get(githubId).size());
 				Map<String, Long> counts = commitDatesSince.get(githubId).stream()
 						.map(date -> date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime())
 						.map(time -> {
