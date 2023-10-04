@@ -206,7 +206,7 @@ function Message({ projectId }: MessageProps) {
   };
 
   const inputMessage = (e: any) => {
-    if (e.code === "Enter" && e.target.value != "") {
+    if (e.code === "Enter" && e.target.value !== "") {
       postChat(Number(projectId), e.target.value);
       e.target.value = "";
     }
@@ -425,21 +425,23 @@ function Message({ projectId }: MessageProps) {
       <p style={{ margin: 0, fontFamily: "preRg" }}>
         {users &&
           users.map((user, index) => (
-            <div style={{ display: 'flex', justifyContent:'start' }} key={index}>
-              <img
-                style={{ 
-                  width: "30px",
-                  height: "30px",
-                  objectFit: "cover",
-                  borderRadius: "50%",
-                  backgroundColor: user.profileColor,
-                  zIndex: "5",
-                }}
-                alt="profile"
-                src={user.profileImage}
-              />
-              <p style={{ margin: 0, fontFamily: "preRg" }}>{user.nickname}</p>
-              <hr style={{ border: '1px solid grey' }}></hr>
+            <div key={index}>
+              <div style={{ display: 'flex', alignItems:'center', justifyContent:'start' }}>
+                <img
+                  style={{ 
+                    width: "30px",
+                    height: "30px",
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                    backgroundColor: user.profileColor,
+                    zIndex: "5",
+                  }}
+                  alt="profile"
+                  src={user.profileImage}
+                />
+                <p style={{ margin: '0 0 0 3px', fontFamily: "preRg" }}>{user.nickname}</p>
+              </div>
+              <hr style={{ margin: '2px 0', border: '1px solid grey' }} />
             </div>
           ))}
       </p>
