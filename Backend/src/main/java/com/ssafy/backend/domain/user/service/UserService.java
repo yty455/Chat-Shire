@@ -111,7 +111,21 @@ public class UserService {
             }
         }
 
-        return UserInfoResponse.fromEntity(findUser, mySkills, challengeInfoResponse, state);
+        UserInfoResponse userInfoResponse = UserInfoResponse.fromEntity(findUser, mySkills, challengeInfoResponse, state);
+
+        // 커밋 수
+        userInfoResponse.setDayCommit(challenge);
+        // 에러 게시글, 댓글 수
+        int errorCount = postRepository.countByUserId(getUserId()) + replyRepository.countByUserId(getUserId());
+        // 총 채팅 수
+        int chatCount = chatRepository.countByUserId(getUserId());
+        // 주제 관련 채팅 수
+        int topicCount = distributedRepository.findSumOfCountByUserId(getUserId())
+                .orElse(0);
+        // 일정 관리
+        int taskCount = taskRepository.countByUserId(getUserId());
+        userInfoResponse.setCount(errorCount, chatCount, topicCount, taskCount);
+        return userInfoResponse;
     }
 
     @Transactional

@@ -2,7 +2,10 @@ package com.ssafy.backend.domain.user.service;
 
 import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
 import com.ssafy.backend.domain.user.Challenge;
+import com.ssafy.backend.domain.user.User;
+import com.ssafy.backend.domain.user.exception.UserNotFoundException;
 import com.ssafy.backend.domain.user.repository.ChallengeRepository;
+import com.ssafy.backend.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,7 +19,7 @@ public class ChallengeService {
 
     // 도전과제 12개
     // 프로젝트 5 / 10 / 25 - 플젝생성, 플젝가입
-    // 커밋 개수 100 / 500 / 1000 -
+    // 커밋 개수 100 / 500 / 1000 - 커밋 깃허브 스케쥴러에서 갱신
     // 채팅 개수 1000 / 5000 / 10000 - 채팅 스케쥴러
     // 태스크 생성 개수 50 / 300 / 500 - 태스크 등록
     // 에러 게시판 글 생성 50 / 100 / 300 - 에러게시판 등록
@@ -29,6 +32,7 @@ public class ChallengeService {
     // 도전과제 달성 11 / 23 / 35
 
     private final ChallengeRepository challengeRepository;
+    private final UserRepository userRepository;
 
     public Challenge getChallenge(Long userId) {
         return challengeRepository.findByUserId(userId)
@@ -39,8 +43,10 @@ public class ChallengeService {
         getChallenge(userId).addProject();
     }
 
-    public void updateMyCommit(Long userId, Long commitCount) {
-        getChallenge(userId).updateCommit(commitCount);
+    public void updateMyCommit(String githubId, long morning, long afternoon, long night) {
+        User user = userRepository.findByGithubId(githubId)
+                        .orElseThrow(UserNotFoundException::new);
+        getChallenge(user.getId()).addDayCommit(morning, afternoon, night);
     }
 
     public void addChat(Long userId, int count) {
