@@ -128,7 +128,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         const response = await getTask(projectId);
         console.log(response.data.result[0]);
 
-        getTeamTask();
         setAllTasks(response.data.result[0]);
       }
     } catch (error) {
@@ -218,6 +217,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       setUpdatedDescription("");
       setEditingTaskId(null);
       getInTask();
+      getTeamTask();
     } catch (error) {
       console.error(error);
     }
@@ -229,6 +229,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       const response = await deleteTask(TaskId);
       console.log("삭제완료", response);
       getInTask();
+      getTeamTask();
     } catch (error) {
       console.error(error);
     }
