@@ -492,7 +492,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 }}
               >
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
-                <div className={styles.taskHeader}>
+                <div
+                  className={styles.taskHeader}
+                  onClick={() => openModal(task.id)}
+                >
                   <div className={styles.clockNday}>
                     <WatchLaterIcon />
                     <p className={styles.dday}>
@@ -503,9 +506,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       ) + 1}{" "}
                       day
                     </p>
-                  </div>
-                  <div onClick={addCheckbox}>
-                    <CreateIcon onClick={() => openModal(task.id)} />
                   </div>
                 </div>
                 <div className={styles.stepStatus}>
@@ -715,8 +715,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                         task.priority === "HIGH"
                           ? "#FF5B5B"
                           : task.priority === "LOW"
-                          ? "#FFF05B"
-                          : "#5BFF83",
+                          ? "#5BFF83"
+                          : "#FFF05B",
                     }}
                   >
                     {task.priority}
