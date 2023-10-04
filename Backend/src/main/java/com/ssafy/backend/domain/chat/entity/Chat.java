@@ -21,6 +21,7 @@ public class Chat extends BaseEntity {
     @Column(name = "CHAT_ID")
     private Long id;
 
+    @Column(length = 500)
     private String content;
     private Long chatNumber;
     private LocalDateTime chatTime;
