@@ -29,7 +29,7 @@ public class GithubScheduler {
 	private final ChallengeService challengeService;
 	private final GithubApi githubApi;
 
-	@Scheduled(cron = "0 * * * * ?")
+	// @Scheduled(cron = "0 * * * * ?")
 	public void countCommitHistory() throws IOException {
 		System.out.println("커밋 히스토리 가져오기 실행");
 		LocalDate today = LocalDate.now();
