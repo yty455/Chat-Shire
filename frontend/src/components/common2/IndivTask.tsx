@@ -15,6 +15,8 @@ import "./IndivTask.css";
 import IndivChatModal from "./IndivChatModal";
 import { useDrag } from "react-dnd";
 import { postReferences } from "../../utils/taskReferenceApi";
+import { useRecoilState } from "recoil";
+import { tasks_recoil } from "../../stores/atom";
 
 interface ItemState {
   id: number;
@@ -56,7 +58,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([]);
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [updatedDescription, setUpdatedDescription] = useState<string>("");
-  const [allTasks, setAllTasks] = useState<Task[]>([]);
+  const [allTasks, setAllTasks] = useRecoilState(tasks_recoil);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [open, setOpen] = useState(false);
   const [selectTask, setSelectTask] = useState(false);
