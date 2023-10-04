@@ -13,3 +13,34 @@
   height: 50vh;
   z-index: 9999;
 }
+
+.modalBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.closebtn {
+  position: fixed;
+  top: 2%;
+  right: 2%;
+  border: 0;
+  background-color: transparent;
+}
+
+.chat {
+  display: flex;
+}
+
+.nickname {
+  width: 10%;
+}
+.content {
+  width: 50%;
+}
+.chatTime {
+  width: 30%;
+}
+.deletebtn {
+  width: 10%;
+}
