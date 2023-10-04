@@ -473,7 +473,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         />
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <div className={styles.TeamTaskContainer} style={{ padding: "0 0 20px 20px", width: "50%" }}>
+        <div className={styles.TeamTaskContainer} style={{ padding: "0 0 20px 20px", width: "50%", height: "510px" }}>
           <p className={styles.taskProgress}>완료된 Task</p>
           {comTeamTask &&
             comTeamTask.map((task: any) => (
@@ -529,7 +529,12 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   <p
                     className={styles.step}
                     style={{
-                      color: task.priority === "HIGH" ? "#FF5B5B" : task.priority === "LOW" ? "#5BFF83" : "#FFF05B",
+                      color:
+                        task.priority === "HIGH"
+                          ? "#FF5B5B"
+                          : task.priority === "LOW"
+                          ? "#5BFF83"
+                          : "#FFF05B",
                     }}
                   >
                     {task.priority}
@@ -642,7 +647,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             ))}
         </div>
 
-        <div className={styles.TeamTaskContainer} style={{ padding: "0 20px 0 20px", width: "50%" }}>
+        <div className={styles.TeamTaskContainer} style={{ padding: "0 20px 0 20px", width: "50%", height: "530px" }}>
           <p className={styles.taskProgress}>진행중인 Task</p>
 
           {ongoingTeamTask &&
@@ -699,7 +704,12 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   <p
                     className={styles.step}
                     style={{
-                      color: task.priority === "HIGH" ? "#FF5B5B" : task.priority === "LOW" ? "#FFF05B" : "#5BFF83",
+                      color:
+                        task.priority === "HIGH"
+                          ? "#FF5B5B"
+                          : task.priority === "LOW"
+                          ? "#FFF05B"
+                          : "#5BFF83",
                     }}
                   >
                     {task.priority}
