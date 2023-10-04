@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import com.ssafy.backend.domain.analyze.service.StatisticService;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.chat.repository.ChatRoomRepository;
+import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
+import com.ssafy.backend.domain.user.User;
+import com.ssafy.backend.domain.user.repository.UserRepository;
 import com.ssafy.backend.domain.user.service.ChallengeService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class GithubScheduler {
 
 	private final ChatRoomRepository chatRoomRepository;
+	private final UserRepository userRepository;
 	private final StatisticService statisticService;
 	private final ChallengeService challengeService;
 	private final GithubApi githubApi;
@@ -71,7 +75,9 @@ public class GithubScheduler {
 						counts.getOrDefault("morning", 0L) + counts.getOrDefault("afternoon", 0L) + counts.getOrDefault(
 								"night", 0L);
 				// 유저의 도전과제 commit 수 추가 함
-				challengeService.updateMyCommit(Long.valueOf(githubId), myCommitCount);
+				User user = userRepository.findByGithubId(githubId)
+						.orElseThrow(() -> new ResourceNotFoundException("githubId", githubId));
+				challengeService.updateMyCommit(user.getId(), myCommitCount);
 
 				morningCommitCount += counts.get("morning");
 				afternoonCommitCount += counts.get("afternoon");
