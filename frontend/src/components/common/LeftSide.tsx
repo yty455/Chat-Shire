@@ -216,8 +216,8 @@ function LeftSide(props: Props) {
           placement="rightBottom"
           content={
             <ColorPickerDialog
-              open={colorPickerOpen}
-              onClose={() => setColorPickerOpen(false)}
+              // open={colorPickerOpen}
+              // onClose={() => setColorPickerOpen(false)}
               onSelectColor={handleColorSelect}
             />
           }
