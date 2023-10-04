@@ -46,6 +46,7 @@ public class GithubScheduler {
 
 			System.out.println("chatRoom.getGitRepository() = " + chatRoom.getGitRepository());
 			System.out.println("chatRoom.getBranch() = " + chatRoom.getBranch());
+			System.out.println("chatRoom.getGitAccessToken() = " + chatRoom.getGitAccessToken());
 			Map<String, List<Date>> commitDatesSince = githubApi.getCommitDatesSince(chatRoom.getGitRepository(), chatRoom.getBranch(), chatRoom.getGitAccessToken());
 
 			// ksi2564 : [커밋한 시간1, 커밋한 시간2]...
