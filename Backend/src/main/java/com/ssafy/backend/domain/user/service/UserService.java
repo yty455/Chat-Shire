@@ -26,10 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.ssafy.backend.domain.common.GlobalMethod.getUserId;
@@ -186,6 +183,7 @@ public class UserService {
 
     public List<SearchUser> getUserInfo(String githubId) {
         return userRepository.findByGithubIdContaining(githubId).stream()
+                .filter(user -> !Objects.equals(user.getId(), getUserId()))
                 .map(SearchUser::toDto)
                 .collect(Collectors.toList());
     }

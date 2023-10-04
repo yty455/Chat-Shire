@@ -34,7 +34,6 @@ public class GithubApi {
 			Long sinceMillis = (Long)redisTemplate.opsForValue().get("latest_commit:" + repoName);
 			Date since = sinceMillis != null ? new Date(sinceMillis) : null;
 
-
 			connectToGithub(token);
 
 			GHRepository repo = github.getRepository(repoName);

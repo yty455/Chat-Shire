@@ -14,7 +14,9 @@ interface User {
   state: string;
   userId: number;
 }
-
+interface StyledBadgeProps {
+  userState: string;
+}
 export default function MessageItem({
   message,
   users,
@@ -31,34 +33,54 @@ export default function MessageItem({
     userId: 0,
   });
 
-  const StyledBadge = styled(Badge)(({ theme }) => ({
-    "& .MuiBadge-badge": {
-      backgroundColor: "#44b700",
-      color: "#44b700",
-      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-      "&::after": {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        borderRadius: "50%",
-        animation: "ripple 1.2s infinite ease-in-out",
-        border: "1px solid currentColor",
-        content: '""',
+  const StyledBadge = styled(Badge)<StyledBadgeProps>(
+    ({ theme, userState }) => ({
+      "& .MuiBadge-badge": {
+        backgroundColor:
+          userState === "ONLINE"
+            ? "#44b700"
+            : userState === "AWAY"
+            ? "orange"
+            : userState === "OFFLINE"
+            ? "gray"
+            : userState === "DND"
+            ? "red"
+            : "#444444",
+        color:
+          userState === "ONLINE"
+            ? "#44b700"
+            : userState === "AWAY"
+            ? "orange"
+            : userState === "OFFLINE"
+            ? "gray"
+            : userState === "DND"
+            ? "red"
+            : "#444444",
+        boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+        "&::after": {
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          borderRadius: "50%",
+          animation: "ripple 1.2s infinite ease-in-out",
+          border: "1px solid currentColor",
+          content: '""',
+        },
       },
-    },
-    "@keyframes ripple": {
-      "0%": {
-        transform: "scale(.8)",
-        opacity: 1,
+      "@keyframes ripple": {
+        "0%": {
+          transform: "scale(.8)",
+          opacity: 1,
+        },
+        "100%": {
+          transform: "scale(2.4)",
+          opacity: 0,
+        },
       },
-      "100%": {
-        transform: "scale(2.4)",
-        opacity: 0,
-      },
-    },
-  }));
+    })
+  );
 
   const onClickDeleteChattingRoom = (e: React.MouseEvent<HTMLDivElement>) => {
     console.log(e);
@@ -91,6 +113,7 @@ export default function MessageItem({
         overlap="circular"
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         variant="dot"
+        userState={user?.state}
       >
         <Avatar
           alt="Remy Sharp"
@@ -117,7 +140,7 @@ export default function MessageItem({
       >
         <div className={styles.messageItemName}>
           <span className={styles.messageProfileName}>
-            {message && message?.userId}
+            {user && user?.nickname}
           </span>
           <span className={styles.messageTime}>
             {message && message?.chatTime}

@@ -64,8 +64,8 @@ public class TaskService {
 
     // 태스크 삭제
     public void deleteTask(Long taskId){
+        referenceRepository.deleteAllByTaskId(taskId);
         taskRepository.deleteById(taskId);
-
     }
 
     // 태스크 그룹에 등록
