@@ -81,6 +81,8 @@ public class ChatScheduler {
                     List<ClassificationCategory> classificationCategories = googleNaturalAPI(chatMap,
                             chatInfo);
 
+                    if(classificationCategories.size() == 0) continue;
+
                     for (ClassificationCategory classificationCategory : classificationCategories) {
                         StringTokenizer st = new StringTokenizer(classificationCategory.getName(), "/");
                         st.nextToken();
@@ -88,8 +90,9 @@ public class ChatScheduler {
 //	 				 		writer.write(outputLine);
                     }
                     chatMap.put(chatInfo.getUserId(), "");
+                    result.add(dto);
                 }
-                result.add(dto);
+
             }
             List<Chat> chats = chatInfos.stream()
                     .map(chatInfo -> {
