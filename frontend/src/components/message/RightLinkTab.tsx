@@ -20,6 +20,31 @@ export default function RightLinkTab({ projectId }: Props) {
     setIsModalVisible(true);
   };
 
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = (linkId: string) => {
+    if (
+      touchEndX < touchStartX &&
+      Math.abs(touchStartX - touchEndX) > window.innerWidth / 4
+    ) {
+      // 오른쪽으로 스와이프
+      console.log("우");
+      // deleteLink(linkId);
+    }
+    // 초기화
+    touchStartX = 0;
+    touchEndX = 0;
+  };
+
   // 링크 등록
   const getInLinks = async () => {
     try {
@@ -55,7 +80,14 @@ export default function RightLinkTab({ projectId }: Props) {
       <div className={styles.BookMarkContainer}>
         {links.length !== 0 ? (
           links.map((link: any) => (
-            <LinkOGItem key={link.linkId} requestUrl={link.content} />
+            <div
+              key={link.linkId}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={() => handleTouchEnd(link.linkId)}
+            >
+              <LinkOGItem requestUrl={link.content} />
+            </div>
           ))
         ) : (
           <p className={styles.noPhoto}>등록된 링크가 없습니다.</p>
