@@ -9,5 +9,6 @@ import java.util.List;
 public interface ReferenceRepository extends JpaRepository<Reference, Long> {
     List<Reference> findByTaskId(Long taskId);
 
+    void deleteAllByTaskId(Long taskId);
     void deleteAllByTask(Task task);
 }

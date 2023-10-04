@@ -6,7 +6,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-
+import { Button } from "antd";
 import { FormControl, InputLabel, MenuItem } from "@mui/material";
 
 interface TaskModalProps {
@@ -91,7 +91,7 @@ function TaskModal({
 
   return (
     <div className={styles.modalOverlay}>
-      <div>
+      <div className={styles.modalBox}>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
             <p onClick={() => handleEditClick("name")}>
@@ -230,14 +230,24 @@ function TaskModal({
                 저장
               </button>
             )}
-            <button onClick={closeModal}>닫기</button>
+            <button
+              style={{ cursor: "pointer" }}
+              onClick={closeModal}
+              className={styles.closebtn}
+            >
+              X
+            </button>
           </div>
         )}
-        <button
+        <Button
+          className={styles.deletebtn}
+          style={{ backgroundColor: "red", fontFamily: "preRg" }}
+          key="submit"
+          type="primary"
           onClick={() => teamTaskDetail && deleteTeamTask(teamTaskDetail.id)}
         >
-          삭제
-        </button>
+          팀 태스크 삭제
+        </Button>
       </div>
     </div>
   );

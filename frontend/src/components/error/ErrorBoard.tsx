@@ -124,7 +124,11 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
       />
 
       {openModal && (
-        <ErrorModal closeModal={handleCloseModal} err={selectedError} />
+        <ErrorModal
+          pjtId={pjtId}
+          closeModal={handleCloseModal}
+          err={selectedError}
+        />
       )}
       {!isCreating && (
         <FloatButton

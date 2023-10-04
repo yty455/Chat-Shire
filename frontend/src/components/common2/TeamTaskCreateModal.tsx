@@ -8,6 +8,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { Button } from "antd";
 
 function getPriorityColor(priority: any) {
   switch (priority) {
@@ -68,7 +69,7 @@ function TeamTaskCreateModal({
   return (
     <div className={styles.modalOverlay} ref={modalRef}>
       <div className={styles.formContainer}>
-        <div>
+        <div className={styles.formBox}>
           <h2>팀 태스크 생성</h2>
           <div>
             <input
@@ -145,14 +146,21 @@ function TeamTaskCreateModal({
         onChange={(e) => setTaskData({ ...taskData, deadline: e.target.value })}
       /> */}
 
-          <button
+          <Button
+            className={styles.savebtn}
+            style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
+            key="submit"
+            type="primary"
             onClick={createTeampjt}
-            style={{ margin: "30px 20px 20px 0px" }}
           >
             생성
-          </button>
+          </Button>
         </div>
-        <button className={styles.closeButton} onClick={closeModal}>
+        <button
+          style={{ cursor: "pointer" }}
+          onClick={closeModal}
+          className={styles.closebtn}
+        >
           X
         </button>
       </div>

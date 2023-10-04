@@ -30,7 +30,9 @@ public class GithubApi {
 
 		try {
 			// since 는 redis 에서 최근 커밋 시간을 가져와서 전달한다.
-			Date since = (Date)redisTemplate.opsForValue().get("latest_commit:" + repoName);
+			// Date since = (Date)redisTemplate.opsForValue().get("latest_commit:" + repoName);
+			Long sinceMillis = (Long)redisTemplate.opsForValue().get("latest_commit:" + repoName);
+			Date since = sinceMillis != null ? new Date(sinceMillis) : null;
 
 			connectToGithub(token);
 
@@ -40,7 +42,9 @@ public class GithubApi {
 
 			PagedIterable<GHCommit> commits = commit.getOwner().listCommits();
 
-			Date latest = new Date(0);
+			if (since == null) {
+				since = new Date(0);
+			}
 			for (GHCommit c : commits) {
 				if (c.getAuthoredDate().after(since)) {
 					if (c.getCommitter() == null)
@@ -51,12 +55,12 @@ public class GithubApi {
 					}
 					commitDates.get(committerName).add(c.getCommitDate());
 				}
-				if (c.getCommitDate().after(latest)) {
-					latest = c.getCommitDate();
+				if (c.getCommitDate().after(since)) {
+					since = c.getCommitDate();
 				}
 			}
 			// Redis 에 저장소를 Key 로 사용해서 최근 커밋 시간을 저장해둔다.
-			redisTemplate.opsForValue().set("latest_commit:" + repoName, latest);
+			redisTemplate.opsForValue().set("latest_commit:" + repoName, since);
 
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Failed to connect to GitHub or retrieve data");

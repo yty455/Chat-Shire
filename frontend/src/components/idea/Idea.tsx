@@ -2,6 +2,8 @@ import React, { useCallback, useRef, useState, useEffect } from "react";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { FloatButton, Popover } from "antd";
 import { getMindMap, saveMindmap } from "../../utils/mindmapApi";
+import { Button } from "antd";
+import styles from "./Idea.module.css";
 
 import ReactFlow, {
   Controls,
@@ -65,7 +67,6 @@ function Flow({ pjtId }: IdeaProps) {
   const loadInitialData = useStore((state) => state.loadInitialData);
   const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
 
-  // const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     loadInitialData(pjtId);
     // setIsLoading(false);
@@ -88,7 +89,7 @@ function Flow({ pjtId }: IdeaProps) {
           x: node.position.x || 0,
           y: node.position.y || 0,
         },
-        parentNode: parentNode ? parentNode.source : "null",
+        parentNode: parentNode ? parentNode.source : null,
       });
     });
 
@@ -177,7 +178,6 @@ function Flow({ pjtId }: IdeaProps) {
   // if (isLoading) {
   //   return <div>Loading...</div>; // 데이터가 로딩되는 동안 표시할 내용
   // }
-
   return (
     <div
       style={{ backgroundColor: "#ffffff", width: "52vw", height: "74.7vh" }}
@@ -206,8 +206,16 @@ function Flow({ pjtId }: IdeaProps) {
             style={{ width: 22, height: 20, bottom: 540, left: 310 }}
           />
         </Popover>
+        <Button
+          className={styles.savebtn}
+          style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
+          key="submit"
+          type="primary"
+          onClick={saveMindmapData}
+        >
+          저장
+        </Button>
       </ReactFlow>
-      <button onClick={saveMindmapData}>저장</button>
     </div>
   );
 }
