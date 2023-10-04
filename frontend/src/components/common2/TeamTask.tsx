@@ -258,11 +258,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     setOpen(true);
     setSelectTask(id);
   };
+
   // 태스크 삭제
   const deleteInTask = async (TaskId: string) => {
     try {
       const response = await deleteTask(TaskId);
       console.log("삭제완료", response);
+      getInTask();
       getTeamTask();
     } catch (error) {
       console.error(error);
@@ -302,6 +304,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       setUpdatedDescription("");
       setEditingTaskId(null);
       getTeamTask();
+      getInTask();
     } catch (error) {
       console.error(error);
     }
@@ -379,7 +382,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         (task: any) => task.progress === "DONE"
       );
 
-      getInTask();
       setAllTeamTask(allTasks);
       setOngoingTeamTask(ongoingTasks);
       setComTeamTask(completedTasks);
