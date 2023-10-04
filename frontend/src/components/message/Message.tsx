@@ -486,10 +486,7 @@ function Message({ projectId }: MessageProps) {
         </div>
         <div className={styles.messageLeftNotification}>
           <BsFillMegaphoneFill size={20} />
-          <p>{notice}</p>
           {notice && (
-            <>
-            <p>{notice}</p>
             <input
             maxLength={50}
             style={{
@@ -507,7 +504,7 @@ function Message({ projectId }: MessageProps) {
               console.log(e.target.value);
             }}
             onKeyPress={(e) => makeNotice(e)}
-          /></>
+          />
           )}
           {/* <input
             maxLength={50}
