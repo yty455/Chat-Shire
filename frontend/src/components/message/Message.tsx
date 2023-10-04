@@ -500,7 +500,7 @@ function Message({ projectId }: MessageProps) {
             placeholder={notice}
             type="text"
             defaultValue={notice}
-            value={noticeInputValue}
+            // value={noticeInputValue}
             onChange={(e) => {
               setNoticeInputValue(e.target.value);
               console.log(e.target.value);
@@ -519,7 +519,7 @@ function Message({ projectId }: MessageProps) {
             placeholder={notice}
             type="text"
             defaultValue={notice}
-            value={noticeInputValue}
+            // value={noticeInputValue}
             onChange={(e) => {
               setNoticeInputValue(e.target.value);
               console.log(e.target.value);

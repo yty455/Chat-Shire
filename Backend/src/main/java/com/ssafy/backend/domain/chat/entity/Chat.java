@@ -24,6 +24,7 @@ public class Chat extends BaseEntity {
     private String content;
     private Long chatNumber;
     private LocalDateTime chatTime;
+    private Boolean isAttached;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "USER_ID")

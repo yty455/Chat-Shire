@@ -2,8 +2,10 @@ package com.ssafy.backend.domain.chat.service;
 
 import com.ssafy.backend.domain.attachedFile.AttachedFile;
 import com.ssafy.backend.domain.attachedFile.Category;
+import com.ssafy.backend.domain.attachedFile.dto.AttachedFileInfo;
 import com.ssafy.backend.domain.attachedFile.repository.AttachedFileRepository;
 import com.ssafy.backend.domain.chat.dto.ChatInfo;
+import com.ssafy.backend.domain.chat.dto.ChatInfoResponse;
 import com.ssafy.backend.domain.chat.dto.ChatPost;
 import com.ssafy.backend.domain.chat.repository.ChatRepository;
 import com.ssafy.backend.domain.user.service.ChallengeService;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.ssafy.backend.domain.common.GlobalMethod.getUserId;
 
@@ -44,10 +47,10 @@ public class ChatService {
 
         // 문자열을 Long으로 변환
         Long chatNumber = Long.valueOf(strChatNumber);
-
+        boolean attachFlag = false;
+        List<AttachedFileInfo> attachedFileInfos = new ArrayList<>();
         // 첨부파일 검증
         if (chatPost.getAttachedFileInfos() != null) {
-            boolean attachFlag = false;
             for (int idx = 0; idx < chatPost.getAttachedFileInfos().size(); idx++) {
                 // 카테고리 븐류
                 String str = chatPost.getAttachedFileInfos().get(idx).getUrl();
@@ -69,9 +72,10 @@ public class ChatService {
                         .chatNumber(chatNumber)
                         .category(category).build();
                 attachedFileRepository.save(attachedFile);
+                attachedFileInfos.add(new AttachedFileInfo(attachedFile.getUrl(), attachedFile.getThumbnail()));
             }
 
-            if(attachFlag){
+            if (attachFlag) {
                 challengeService.addLink(getUserId());
             }
         }
@@ -80,17 +84,18 @@ public class ChatService {
                 .userId(getUserId())
                 .content(chatPost.getContent())
                 .chatTime(LocalDateTime.now())
-                .chatNumber(chatNumber).build();
+                .chatNumber(chatNumber)
+                .isAttached(attachFlag).build();
 
         redisTemplate.opsForValue().set(chatNumberKey + chatRoomId, chatNumber + 1L);
         chatRedisTemplate.opsForList().rightPush(chatKey + chatRoomId, chatInfo);
 
-        simpMessagingTemplate.convertAndSend("/topic/greetings/"+chatRoomId, chatInfo);
+        simpMessagingTemplate.convertAndSend("/topic/greetings/" + chatRoomId, ChatInfoResponse.fromChatInfo(chatInfo, attachedFileInfos));
 
         // SSE
     }
 
-    public List<ChatInfo> getChats(Long chatRoomId, int page, int size) {
+    public List<ChatInfoResponse> getChats(Long chatRoomId, int page, int size) {
         // sql 먼저 조회
         List<ChatInfo> chatSQL = chatRepository.findInfoByChatRoomId(chatRoomId);
         chatSQL = chatSQL == null ? new ArrayList<>() : chatSQL;
@@ -100,6 +105,16 @@ public class ChatService {
         // 둘이 합쳐서 주기 sql + redis
         // TODO - 페이지네이션
         chatSQL.addAll(chatRedis);
-        return chatSQL;
+        // 첨부파일 있는애들 첨부파일 붙여주기
+        return chatSQL.stream().map(chatInfo -> chatAttached(chatInfo, chatRoomId)).collect(Collectors.toList());
+    }
+
+    public ChatInfoResponse chatAttached(ChatInfo chatInfo, Long chatRoomId) {
+        if (chatInfo.getIsAttached()) {
+            List<AttachedFileInfo> attachedFileInfos = attachedFileRepository.findByChatRoomIdAndChatNumber(chatRoomId, chatInfo.getChatNumber());
+            return ChatInfoResponse.fromChatInfo(chatInfo, attachedFileInfos);
+        } else {
+            return ChatInfoResponse.fromChatInfo(chatInfo, new ArrayList<>());
+        }
     }
 }
