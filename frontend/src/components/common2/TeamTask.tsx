@@ -452,7 +452,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         />
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <div style={{ padding: "0 0 20px 20px", width: "50%" }}>
+        <div className={styles.TeamTaskContainer} style={{ padding: "0 0 20px 20px", width: "50%" }}>
           <p className={styles.taskProgress}>완료된 Task</p>
           {comTeamTask &&
             comTeamTask.map((task: any) => (
@@ -508,12 +508,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   <p
                     className={styles.step}
                     style={{
-                      color:
-                        task.priority === "HIGH"
-                          ? "red"
-                          : task.priority === "LOW"
-                          ? "orange"
-                          : "green",
+                      color: task.priority === "HIGH" ? "#FF5B5B" : task.priority === "LOW" ? "#5BFF83" : "#FFF05B",
                     }}
                   >
                     {task.priority}
@@ -577,14 +572,14 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             }}
                             style={{
                               fontSize: "17px",
-                              margin: "-5px 5px 10px 0",
+                              margin: "-5px 5px 10px 4px",
                             }}
                           />
                           {editingTaskId === item.id ? (
                             <BiSolidCheckCircle
                               style={{
                                 fontSize: "17px",
-                                margin: "-5px 3px 10px 0",
+                                margin: "-5px 3px 10px 4px",
                               }}
                               onClick={() =>
                                 handleEditComplete(item.id, updatedDescription)
@@ -594,7 +589,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             <BsPencilFill
                               style={{
                                 fontSize: "17px",
-                                margin: "-5px 3px 10px 0",
+                                margin: "-5px 3px 10px 4px",
                               }}
                               onClick={() => enterEditMode(item.id)}
                             />
@@ -602,7 +597,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           <MdDelete
                             style={{
                               fontSize: "20px",
-                              margin: "-7px 10px 8px 0",
+                              margin: "-7px 10px 8px 4px",
                             }}
                             onClick={() => deleteInTask(item.id)}
                           />
@@ -615,7 +610,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             ))}
         </div>
 
-        <div style={{ padding: "0 20px 0 20px", width: "50%" }}>
+        <div className={styles.TeamTaskContainer} style={{ padding: "0 20px 0 20px", width: "50%" }}>
           <p className={styles.taskProgress}>진행중인 Task</p>
 
           {ongoingTeamTask &&
@@ -672,12 +667,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   <p
                     className={styles.step}
                     style={{
-                      color:
-                        task.priority === "HIGH"
-                          ? "red"
-                          : task.priority === "LOW"
-                          ? "orange"
-                          : "green",
+                      color: task.priority === "HIGH" ? "#FF5B5B" : task.priority === "LOW" ? "#FFF05B" : "#5BFF83",
                     }}
                   >
                     {task.priority}
@@ -741,14 +731,14 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             }}
                             style={{
                               fontSize: "17px",
-                              margin: "-5px 5px 10px 0",
+                              margin: "-5px 5px 10px 4px",
                             }}
                           />
                           {editingTaskId === item.id ? (
                             <BiSolidCheckCircle
                               style={{
                                 fontSize: "17px",
-                                margin: "-5px 3px 10px 0",
+                                margin: "-5px 3px 10px 4px",
                               }}
                               onClick={() =>
                                 handleEditComplete(item.id, updatedDescription)
@@ -758,7 +748,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             <BsPencilFill
                               style={{
                                 fontSize: "17px",
-                                margin: "-5px 3px 10px 0",
+                                margin: "-5px 3px 10px 4px",
                               }}
                               onClick={() => enterEditMode(item.id)}
                             />
@@ -766,7 +756,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           <MdDelete
                             style={{
                               fontSize: "20px",
-                              margin: "-7px 10px 8px 0",
+                              margin: "-7px 10px 8px 4px",
                             }}
                             onClick={() => deleteInTask(item.id)}
                           />
