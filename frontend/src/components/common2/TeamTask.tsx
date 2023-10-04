@@ -9,12 +9,11 @@ import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 import dayjs from "dayjs";
-import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { getProject } from "../../utils/projectApi";
 import TeamTaskCreateModal from "./TeamTaskCreateModal";
-import { BsPencilFill, BsCheckAll, BsFillChatDotsFill } from "react-icons/bs";
+import { BsPencilFill, BsFillChatDotsFill } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import Paper from "@mui/material/Paper";
 import { BiSolidCheckCircle } from "react-icons/bi";
@@ -33,6 +32,13 @@ import {
   getTaskGroup,
 } from "../../utils/taskGroupApi";
 import IndivChatModal from "./IndivChatModal";
+import { useRecoilState } from "recoil";
+import {
+  comTeamTask_recoil,
+  allTeamTask_recoil,
+  ongoingTeamTask_recoil,
+  tasks_recoil,
+} from "../../stores/atom";
 
 const pieParams = { height: 200, margin: { right: 5 } };
 const palette = ["red", "blue", "green"];
@@ -149,9 +155,12 @@ interface Task {
 export default function TeamTask({ projectId }: TeamTaskProps) {
   const currentDate = new Date();
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
-  const [allTeamTask, setAllTeamTask] = useState([]);
-  const [ongoingTeamTask, setOngoingTeamTask] = useState([]);
-  const [comTeamTask, setComTeamTask] = useState([]);
+  const [allTeamTask, setAllTeamTask] = useRecoilState(allTeamTask_recoil);
+  const [ongoingTeamTask, setOngoingTeamTask] = useRecoilState(
+    ongoingTeamTask_recoil
+  );
+  const [comTeamTask, setComTeamTask] = useRecoilState(comTeamTask_recoil);
+  const [allTasks, setAllTasks] = useRecoilState(tasks_recoil);
   const [pjt, setPjt] = useState<any>({});
   const [isModalOpen, setIsModalOpen] = useState("");
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
@@ -204,7 +213,19 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     setIsModalOpen("");
     setSelectedTaskId(null);
   };
+  // 태스크 불러오는 함수
+  const getInTask = async () => {
+    try {
+      if (projectId) {
+        const response = await getTask(projectId);
+        console.log(response.data.result[0]);
 
+        setAllTasks(response.data.result[0]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   // 수정완료 눌렀을 때
   const handleEditComplete = async (
     TaskId: string,
@@ -361,7 +382,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       console.log(allTasks);
       console.log(ongoingTasks);
       console.log(completedTasks);
-
+      getInTask();
       setAllTeamTask(allTasks);
       setOngoingTeamTask(ongoingTasks);
       setComTeamTask(completedTasks);
@@ -514,7 +535,18 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     {task.priority}
                   </p>
                 </div>
-                <BorderLinearProgress variant="determinate" value={50} />
+                <BorderLinearProgress
+                  variant="determinate"
+                  value={
+                    task.taskInfoResponses.length > 0
+                      ? (task.taskInfoResponses.filter(
+                          (item: any) => item.progress === "DONE"
+                        ).length /
+                          task.taskInfoResponses.length) *
+                        100
+                      : 0
+                  }
+                />
 
                 {task.taskInfoResponses.map((item: any) => (
                   <div style={{ margin: 0, padding: 0 }} key={item.id}>
