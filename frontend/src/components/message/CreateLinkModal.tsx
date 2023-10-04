@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, Input } from "antd";
 import { useSetRecoilState } from "recoil";
 import { linkState } from "../../stores/linkState";
-import { postLink } from "../../utils/linkApi";
+import { postLink, updateLink } from "../../utils/linkApi";
 
 const { TextArea } = Input;
 
@@ -10,7 +10,8 @@ const ModalComponent: React.FC<{
   pjtId: string;
   open: boolean;
   setOpen: (open: boolean) => void;
-}> = ({ pjtId, open, setOpen }) => {
+  isModalUpdate?: any;
+}> = ({ pjtId, open, setOpen, isModalUpdate }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [link, setLink] = useState("https://");
   const setLinks = useSetRecoilState(linkState);
@@ -19,6 +20,15 @@ const ModalComponent: React.FC<{
   const postInLink = async (link: string) => {
     try {
       const response = await postLink(pjtId, link);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  // 링크 등록
+  const updateInLink = async (link: string) => {
+    try {
+      const response = await updateLink(isModalUpdate.linkId, link);
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -45,8 +55,13 @@ const ModalComponent: React.FC<{
     setTimeout(() => {
       setOpen(false);
       setConfirmLoading(false);
-      postInLink(link);
-      setLinks((oldLinks) => [...oldLinks, link]);
+      if (isModalUpdate !== "") {
+        updateInLink(link);
+        setLinks((oldLinks) => [...oldLinks, link]);
+      } else {
+        postInLink(link);
+        setLinks((oldLinks) => [...oldLinks, link]);
+      }
       setLink("https://");
     }, 2000);
   };
@@ -55,6 +70,11 @@ const ModalComponent: React.FC<{
     setOpen(false);
     setLink("https://");
   };
+  useEffect(() => {
+    if (isModalUpdate !== "") {
+      setLink(isModalUpdate.content);
+    }
+  }, []);
 
   return (
     <Modal
