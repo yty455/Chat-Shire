@@ -107,7 +107,7 @@ function Message({ projectId }: MessageProps) {
   const getpjt = async () => {
     try {
       const response = await getProject(projectId);
-      // console.log(response.data.result[0]);
+      console.log('플젝정보', response.data);
       // setPjt(response.data.result[0]);
       console.log("불러온 공지", response.data.result[0].notification);
       setNotice(response.data.result[0].notification);
@@ -171,7 +171,7 @@ function Message({ projectId }: MessageProps) {
     getFile();
     getImage();
     getVideo();
-  }, [message, notice, projectId]);
+  }, [message, projectId]);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -426,7 +426,7 @@ function Message({ projectId }: MessageProps) {
         {users &&
           users.map((user, index) => (
             <div key={index}>
-              <div style={{ display: 'flex', alignItems:'center', justifyContent:'start' }}>
+              <div style={{ marginBottom: '5px', display: 'flex', alignItems:'center', justifyContent:'start' }}>
                 <img
                   style={{ 
                     width: "30px",
@@ -441,7 +441,7 @@ function Message({ projectId }: MessageProps) {
                 />
                 <p style={{ margin: '0 0 0 3px', fontFamily: "preRg" }}>{user.nickname}</p>
               </div>
-              <hr style={{ margin: '2px 0', border: '1px solid grey' }} />
+              {/* <hr style={{ margin: '2px 0', border: '1px solid grey' }} /> */}
             </div>
           ))}
       </p>
@@ -496,7 +496,10 @@ function Message({ projectId }: MessageProps) {
             placeholder={notice}
             type="text"
             value={noticeInputValue}
-            onChange={(e) => setNoticeInputValue(e.target.value)}
+            onChange={(e) => {
+              setNoticeInputValue(e.target.value);
+              console.log(e.target.value);
+            }}
             onKeyPress={(e) => makeNotice(e)}
           />
         </div>
