@@ -24,6 +24,7 @@ public class ChatInfo {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime chatTime;
+    private Boolean isAttached;
 
     public Chat toEntity(User user, ChatRoom chatRoom) {
         return Chat.builder()
@@ -34,10 +35,11 @@ public class ChatInfo {
                 .chatNumber(this.chatNumber).build();
     }
 
-    public ChatInfo(Long userId, String content, Long chatNumber, LocalDateTime chatTime) {
+    public ChatInfo(Long userId, String content, Long chatNumber, LocalDateTime chatTime, Boolean isAttached) {
         this.userId = userId;
         this.content = content;
         this.chatNumber = chatNumber;
         this.chatTime = chatTime;
+        this.isAttached = isAttached;
     }
 }

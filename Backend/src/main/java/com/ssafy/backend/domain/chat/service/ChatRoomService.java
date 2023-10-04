@@ -1,5 +1,7 @@
 package com.ssafy.backend.domain.chat.service;
 
+import com.ssafy.backend.domain.analyze.Statistic;
+import com.ssafy.backend.domain.analyze.repository.StatisticRepository;
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfo;
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfoDetailResponse;
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfoResponse;
@@ -39,6 +41,7 @@ public class ChatRoomService {
     private final NotificationService notificationService;
     private final ChallengeService challengeService;
     private final NotificationRepository notificationRepository;
+    private final StatisticRepository statisticRepository;
 
 
     private final RedisTemplate<String, String> redisTemplate;
@@ -79,6 +82,7 @@ public class ChatRoomService {
         ChatRoom savedChatRoom = chatRoomRepository.save(chatRoomInfo.toEntity());
 
         noticeRepository.save(Notice.create(savedChatRoom));
+        statisticRepository.save(Statistic.create(savedChatRoom));
         Participation participation = participationRepository.save(Participation.create(user, savedChatRoom));
 
         inviteChatRoom(chatRoomInfo.getUsers(), participation);

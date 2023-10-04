@@ -22,9 +22,9 @@ public class KeywordService {
     private final ChatRoomRepository chatRoomRepository;
 
 
-    public List<MyKeywords> getKeywords(Long chatRoomId) {
+    public List<String> getKeywords(Long chatRoomId) {
         return keywordRepository.findByChatRoomId(chatRoomId).stream()
-                .map(keyword -> MyKeywords.toDto(keyword.getWord()))
+                .map(Keyword::getWord)
                 .collect(Collectors.toList());
     }
 

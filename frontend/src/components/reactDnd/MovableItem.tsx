@@ -3,14 +3,11 @@ import { useDrag, useDrop } from "react-dnd";
 
 import { ItemState } from "./Types";
 import { COLUMN_NAMES, ITEM_TYPE } from "./Contants";
-import { initialMember_recoil, memberSearchResult_recoil } from "../../stores/atom";
 import { useRecoilState } from "recoil";
 
 import styles from "./MovableItem.module.css";
 
 const MovableItem = ({ id, githubId, nickname, position, profileColor, profileImage, moveCardHandler, setItems }: any) => {
-  const initialMember = useRecoilState(initialMember_recoil)
-  const memberSearchResult = useRecoilState(memberSearchResult_recoil)
 
   const changeItemColumn = (currentItem: any, columnName: string) => {
     setItems((prevState: ItemState[]) =>
