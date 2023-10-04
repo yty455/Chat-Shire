@@ -213,7 +213,7 @@ function LeftSide(props: Props) {
           marginTop: "36px",
         }}
       >
-        {userData.state === "ONLINE" ? (
+        {userData?.state === "ONLINE" ? (
           <StyledBadge
             onClick={() => openColorPicker()}
             className={styles.profileimg}
@@ -225,14 +225,14 @@ function LeftSide(props: Props) {
               onClick={() => navigateProfile()}
               alt="Remy Sharp"
               src={
-                userData.profileImage != null
-                  ? process.env.PUBLIC_URL + userData.profileImage
+                userData?.profileImage != null
+                  ? process.env.PUBLIC_URL + userData?.profileImage
                   : process.env.PUBLIC_URL + "/assets/profile/m57.png"
               }
               sx={{ width: 120, height: 120, bgcolor: userData?.profileColor }}
             />
           </StyledBadge>
-        ) : userData.state === "AWAY" ? (
+        ) : userData?.state === "AWAY" ? (
           <StyledBadge1
             onClick={() => openColorPicker()}
             className={styles.profileimg}
@@ -244,14 +244,14 @@ function LeftSide(props: Props) {
               onClick={() => navigateProfile()}
               alt="Remy Sharp"
               src={
-                userData.profileImage != null
-                  ? process.env.PUBLIC_URL + userData.profileImage
+                userData?.profileImage != null
+                  ? process.env.PUBLIC_URL + userData?.profileImage
                   : process.env.PUBLIC_URL + "/assets/profile/m57.png"
               }
               sx={{ width: 120, height: 120, bgcolor: userData?.profileColor }}
             />
           </StyledBadge1>
-        ) : userData.state === "OFFLINE" ? (
+        ) : userData?.state === "OFFLINE" ? (
           <StyledBadge2
             onClick={() => openColorPicker()}
             className={styles.profileimg}
@@ -263,14 +263,14 @@ function LeftSide(props: Props) {
               onClick={() => navigateProfile()}
               alt="Remy Sharp"
               src={
-                userData.profileImage != null
-                  ? process.env.PUBLIC_URL + userData.profileImage
+                userData?.profileImage != null
+                  ? process.env.PUBLIC_URL + userData?.profileImage
                   : process.env.PUBLIC_URL + "/assets/profile/m57.png"
               }
               sx={{ width: 120, height: 120, bgcolor: userData?.profileColor }}
             />
           </StyledBadge2>
-        ) : userData.state === "DND" ? (
+        ) : userData?.state === "DND" ? (
           <StyledBadge3
             onClick={() => openColorPicker()}
             className={styles.profileimg}
@@ -282,8 +282,8 @@ function LeftSide(props: Props) {
               onClick={() => navigateProfile()}
               alt="Remy Sharp"
               src={
-                userData.profileImage != null
-                  ? process.env.PUBLIC_URL + userData.profileImage
+                userData?.profileImage != null
+                  ? process.env.PUBLIC_URL + userData?.profileImage
                   : process.env.PUBLIC_URL + "/assets/profile/m57.png"
               }
               sx={{ width: 120, height: 120, bgcolor: userData?.profileColor }}
@@ -301,8 +301,8 @@ function LeftSide(props: Props) {
               onClick={() => navigateProfile()}
               alt="Remy Sharp"
               src={
-                userData.profileImage != null
-                  ? process.env.PUBLIC_URL + userData.profileImage
+                userData?.profileImage != null
+                  ? process.env.PUBLIC_URL + userData?.profileImage
                   : process.env.PUBLIC_URL + "/assets/profile/m57.png"
               }
               sx={{ width: 120, height: 120, bgcolor: userData?.profileColor }}

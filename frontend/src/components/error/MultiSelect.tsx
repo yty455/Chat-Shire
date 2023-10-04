@@ -1,11 +1,6 @@
 import * as React from "react";
 import { Theme, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+
 import Chip from "@mui/material/Chip";
 import Autocomplete, {
   createFilterOptions,
@@ -14,7 +9,6 @@ import Autocomplete, {
 } from "@mui/material/Autocomplete"; // import here
 import TextField from "@mui/material/TextField";
 import { styled } from "@mui/system";
-import Paper from "@mui/material/Paper";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -181,28 +175,6 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
 function MultiSelect({ onSearch }: searchProps) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
-
-  // const handleSearchClick = () => {
-  //   if (personName.length > 0) {
-  //     const selectedLanguage = personName[0];
-  //     onSearch(selectedLanguage);
-  //   }
-  // };
-
-  // const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-  //   const {
-  //     target: { value },
-  //   } = event;
-  //   setPersonName(
-  //     // On autofill we get a stringified value.
-  //     typeof value === "string" ? value.split(",") : value
-  //   );
-  //   console.log(personName);
-  //   if (personName.length > 0) {
-  //     const selectedLanguage = personName[0];
-  //     onSearch(selectedLanguage);
-  //   }
-  // };
 
   const handleChange = (
     event: React.SyntheticEvent,
