@@ -94,6 +94,7 @@ function TaskModal({
       <div className={styles.modalBox}>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
+            <h3>태스크 이름</h3>
             <p onClick={() => handleEditClick("name")}>
               {editingField === "name" ? (
                 <input
@@ -110,6 +111,7 @@ function TaskModal({
                 teamTaskDetail.name
               )}
             </p>
+            <p>태스크 설명</p>
             <p onClick={() => handleEditClick("description")}>
               {editingField === "description" ? (
                 <input
@@ -126,7 +128,7 @@ function TaskModal({
                 teamTaskDetail.description
               )}
             </p>
-
+            <p>우선도</p>
             <p onClick={() => handleEditClick("priority")}>
               {editingField === "priority" ? (
                 <FormControl
@@ -139,7 +141,7 @@ function TaskModal({
                   style={{ margin: "10px", marginLeft: "0px" }}
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <InputLabel id="priority-label">Priority</InputLabel>
+                  <InputLabel id="priority-label">중요도</InputLabel>
                   <Select
                     labelId="priority-label"
                     id="priority-select"
@@ -155,26 +157,92 @@ function TaskModal({
                       marginLeft: "0px",
                     }}
                   >
-                    <MenuItem value="HIGH" sx={{ color: "red" }}>
-                      🔴
+                    <MenuItem value="HIGH" style={{ paddingLeft: "2px" }}>
+                      <div style={{ display: "flex" }}>
+                        <div
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            borderRadius: "30px",
+                            backgroundColor: "#FF5B5B",
+                            marginRight: "6px",
+                          }}
+                        />
+                        <span>매우 중요</span>
+                      </div>
                     </MenuItem>
-                    <MenuItem value="MEDIUM" sx={{ color: "green" }}>
-                      🟢
+                    <MenuItem value="MEDIUM" style={{ paddingLeft: "2px" }}>
+                      <div style={{ display: "flex" }}>
+                        <div
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            borderRadius: "30px",
+                            backgroundColor: "#FFF05B",
+                            marginRight: "6px",
+                          }}
+                        />
+                        <span>중요</span>
+                      </div>
                     </MenuItem>
-                    <MenuItem value="LOW" sx={{ color: "orange" }}>
-                      🟡
+                    <MenuItem value="LOW" style={{ paddingLeft: "2px" }}>
+                      <div style={{ display: "flex" }}>
+                        <div
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            borderRadius: "30px",
+                            backgroundColor: "#5BFF83",
+                            marginRight: "6px",
+                          }}
+                        />
+                        <span>보통</span>
+                      </div>
                     </MenuItem>
                   </Select>
                 </FormControl>
               ) : teamTaskDetail.priority === "HIGH" ? (
-                "🔴"
+                <div style={{ display: "flex" }}>
+                  <div
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      borderRadius: "30px",
+                      backgroundColor: "#FF5B5B",
+                      marginRight: "6px",
+                    }}
+                  />
+                  <span>매우 중요</span>
+                </div>
               ) : teamTaskDetail.priority === "MEDIUM" ? (
-                "🟢"
+                <div style={{ display: "flex" }}>
+                  <div
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      borderRadius: "30px",
+                      backgroundColor: "#FFF05B",
+                      marginRight: "6px",
+                    }}
+                  />
+                  <span>중요</span>
+                </div>
               ) : teamTaskDetail.priority === "LOW" ? (
-                "🟡"
+                <div style={{ display: "flex" }}>
+                  <div
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      borderRadius: "30px",
+                      backgroundColor: "#5BFF83",
+                      marginRight: "6px",
+                    }}
+                  />
+                  <span>보통</span>
+                </div>
               ) : null}
             </p>
-
+            <p>마감일자</p>
             <p onClick={() => handleEditClick("deadline")}>
               {editingField === "deadline" ? (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -199,7 +267,11 @@ function TaskModal({
               )}
             </p>
             {editingField && (
-              <button
+              <Button
+                className={styles.savebtn}
+                style={{ fontFamily: "preRg" }}
+                key="submit"
+                type="primary"
                 onClick={() => {
                   if (
                     editingField === "name" ||
@@ -213,7 +285,7 @@ function TaskModal({
                 }}
               >
                 저장
-              </button>
+              </Button>
             )}
             <button
               style={{ cursor: "pointer" }}

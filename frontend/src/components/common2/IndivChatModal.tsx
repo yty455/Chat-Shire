@@ -58,20 +58,18 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
                 {" "}
                 : {formatChatTime(chat.chatTime)}
               </div>
-              <Button
+              <button
                 className={styles.deletebtn}
                 style={{
                   backgroundColor: "red",
                   fontFamily: "preRg",
-                  width: "40px",
+                  width: "30px",
                   height: "25px",
                 }}
-                key="submit"
-                type="primary"
                 onClick={() => deleteRe(chat.id)}
               >
                 삭제
-              </Button>
+              </button>
             </div>
           ))}
         <div></div>
