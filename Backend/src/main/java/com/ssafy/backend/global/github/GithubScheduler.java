@@ -47,7 +47,8 @@ public class GithubScheduler {
 			System.out.println("chatRoom.getGitRepository() = " + chatRoom.getGitRepository());
 			System.out.println("chatRoom.getBranch() = " + chatRoom.getBranch());
 			System.out.println("chatRoom.getGitAccessToken() = " + chatRoom.getGitAccessToken());
-			Map<String, List<Date>> commitDatesSince = githubApi.getCommitDatesSince(chatRoom.getGitRepository(), chatRoom.getBranch(), chatRoom.getGitAccessToken());
+			Map<String, List<Date>> commitDatesSince = githubApi.getCommitDatesSince(chatRoom.getGitRepository(),
+					chatRoom.getBranch(), chatRoom.getGitAccessToken());
 
 			// ksi2564 : [커밋한 시간1, 커밋한 시간2]...
 			for (String githubId : commitDatesSince.keySet()) {
@@ -66,7 +67,9 @@ public class GithubScheduler {
 						})
 						.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-				long myCommitCount = counts.get("morning") + counts.get("afternoon") + counts.get("night");
+				long myCommitCount =
+						counts.getOrDefault("morning", 0L) + counts.getOrDefault("afternoon", 0L) + counts.getOrDefault(
+								"night", 0L);
 				// 유저의 도전과제 commit 수 추가 함
 				challengeService.updateMyCommit(Long.valueOf(githubId), myCommitCount);
 
