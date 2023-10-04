@@ -83,7 +83,7 @@ function Flow({ pjtId }: IdeaProps) {
           x: node.position.x || 0,
           y: node.position.y || 0,
         },
-        parentNode: parentNode ? parentNode.source : "null",
+        parentNode: parentNode ? parentNode.source : null,
       });
     });
 
