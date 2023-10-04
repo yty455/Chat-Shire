@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BsArrowLeftCircle } from "react-icons/bs";
 import { Input } from "antd";
 import MultiSelect from "./MultiSelect";
@@ -19,11 +19,17 @@ import type { RcFile, UploadProps } from "antd/es/upload";
 import type { UploadFile } from "antd/es/upload/interface";
 import axios from "axios";
 import { postError } from "../../utils/errorApi";
+import AWS from "aws-sdk";
 
 interface ErrorProps {
   pjtId: string;
   setIsCreating: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+type FileInfo = {
+  url: string;
+  thumbnail: string;
+};
 
 const { TextArea } = Input;
 
@@ -49,14 +55,36 @@ const MenuProps = {
 const names = [
   "python",
   "java",
-  "c#",
-  "docker",
-  "curl",
-  "three.js",
-  "react",
+  "javascript",
+  "html5",
+  "css3",
+  "c",
   "c++",
-  "clang",
+  "r",
+  "flutter",
+  "dart",
+  "kotlin",
+  "pwa",
+  "php",
+  "django",
+  "spring",
+  "vue", 
+  "react",
+  "next",
+  "node",
+  "angular",
   "jenkins",
+  "docker",
+  "aws",
+  "kubernetes",
+  "three",
+  "aframe",
+  "unity",
+  "unreal",
+  "tomcat",
+  "spark",
+  "hadoop",
+  "git"
 ];
 
 const CustomChip = styled(Chip)(({ theme }) => ({
@@ -67,29 +95,95 @@ const CustomChip = styled(Chip)(({ theme }) => ({
   "&.java": {
     backgroundColor: "#F9A686",
   },
-  "&.c#": {
+  "&.javascript": {
+    backgroundColor: "#8ED2CD",
+  },
+  "&.html5": {
+    backgroundColor: "#E1F5A9",
+  },
+  "&.css3": {
     backgroundColor: "#FBF6A4",
   },
-  "&.docker": {
-    backgroundColor: "F9BF64",
-  },
-  "&.curl": {
-    backgroundColor: "#A0D6B6",
-  },
-  "&.three.js": {
-    backgroundColor: "#30BA96",
-  },
-  "&.react": {
-    backgroundColor: "#789CCE",
+  "&.c": {
+    backgroundColor: "#F7819F",
   },
   "&.c++": {
+    backgroundColor: "#D358F7",
+  },
+  "&.r": {
+    backgroundColor: "#819FF7",
+  },
+  "&.flutter": {
+    backgroundColor: "#F5A9A9",
+  },
+  "&.dart": {
+    backgroundColor: "#F5F6CE",
+  },
+  "&.kotlin": {
+    backgroundColor: "#FAAC58",
+  },
+  "&.pwa": {
+    backgroundColor: "#FE2E64",
+  },
+  "&.php": {
+    backgroundColor: "#A9F5F2",
+  },
+  "&.django": {
+    backgroundColor: "#04B486",
+  },
+  "&.spring": {
+    backgroundColor: "F5A9F2",
+  },
+  "&.vue": {
+    backgroundColor: "#04B486",
+  },
+  "&.react": {
+    backgroundColor: "#30BA96",
+  },
+  "&.next": {
+    backgroundColor: "#789CCE",
+  },
+  "&.node": {
     backgroundColor: "#9E7EB9",
   },
-  "&.clang": {
+  "&.angular": {
     backgroundColor: "#EF404A",
   },
   "&.jenkins": {
     backgroundColor: "#8ED2CD",
+  },
+  "&.docker": {
+    backgroundColor: "#0431B4",
+  },
+  "&.aws": {
+    backgroundColor: "#DF01D7",
+  },
+  "&.kubernetes": {
+    backgroundColor: "#FA5858",
+  },
+  "&.three": {
+    backgroundColor: "#58FA58",
+  },
+  "&.aframe": {
+    backgroundColor: "#AC58FA",
+  },
+  "&.unity": {
+    backgroundColor: "#F8E0F7",
+  },
+  "&.unreal": {
+    backgroundColor: "#F3F781",
+  },
+  "&.tomcat": {
+    backgroundColor: "#7401DF",
+  },
+  "&.spark": {
+    backgroundColor: "#CECEF6",
+  },
+  "&.hadoop": {
+    backgroundColor: "#8ED2CD",
+  },
+  "&.git": {
+    backgroundColor: "#81F7BE",
   },
   height: "25px",
   "& .MuiChip-label": {
@@ -98,10 +192,10 @@ const CustomChip = styled(Chip)(({ theme }) => ({
   },
 }));
 
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
+function getStyles(name: string, skillName: readonly string[], theme: Theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      skillName.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
@@ -114,6 +208,10 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
+  const [imageSrc, setImageSrc]: any = useState(null);
+  const [imageFile, setImageFile]: any = useState(null);
+  const inputRef = useRef<any[]>([]);
+  const [attachedFileInfos, setAttachedFileInfos] = useState<FileInfo[]>([]);
 
   const handleCancel = () => setPreviewOpen(false);
   const handlePreview = async (file: UploadFile) => {
@@ -128,9 +226,9 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
     );
   };
 
-  const handleChangePic: UploadProps["onChange"] = ({
-    fileList: newFileList,
-  }) => setFileList(newFileList);
+  // const handleChangePic: UploadProps["onChange"] = ({
+  //   fileList: newFileList,
+  // }) => setFileList(newFileList);
 
   const uploadButton = (
     <div>
@@ -155,18 +253,7 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
   }, []);
 
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState<string[]>([]);
-
-  // const handleChange = (
-  //   event: React.SyntheticEvent<Element, Event>,
-  //   value: string[],
-  //   reason: AutocompleteChangeReason,
-  //   details?: AutocompleteChangeDetails<string> | undefined
-  // ) => {
-  //   setPersonName([...value]); // 불변 배열을 가변 배열로 변환
-  //   console.log(personName);
-  // };
-
+  const [skillName, setSkillName] = React.useState<string[]>([]);
   const filter = createFilterOptions<string>();
 
   // 이미지 url 보내기
@@ -181,14 +268,135 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
 
   // 에러 등록
   const postInError = async () => {
-    console.log(pjtId, title, content, personName);
+    console.log(pjtId, title, content, skillName, attachedFileInfos);
     try {
-      const response = await postError(pjtId, title, content, personName);
+      const response = await postError(pjtId, title, content, skillName, attachedFileInfos);
       console.log(response);
       setIsCreating(false);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  // 이미지 업로드
+  const onUploadImage = (e: any): Promise<void> => {
+    // Promise<void> 타입 지정
+    return new Promise((resolve, reject) => {
+      const file = e.target.files[0];
+      if (!file) {
+        resolve();
+        return;
+      }
+      const fileExt = file.name.split(".").pop();
+      if (
+        !["jpeg", "png", "jpg", "JPG", "PNG", "JPEG"].includes(
+          fileExt
+        )
+      ) {
+        window.alert("jpeg, png, jpg 파일만 업로드가 가능합니다.");
+        resolve();
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        setImageSrc(reader.result || "");
+        setImageFile(file);
+        console.log("지금 업로드하는 이미지 src", imageSrc);
+        if (!reader.result) {
+          window.alert("이미지를 등록해 주세요.");
+          resolve();
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("name", file.name);
+
+        uploadS3(formData)
+          .then(() => resolve())
+          .catch((error) => reject(error));
+      };
+    });
+  };
+
+  // s3에 이미지 업로드
+  const uploadS3 = (formData: any) => {
+    const REGION = process.env.REACT_APP_REGION;
+    const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
+    const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+
+    AWS.config.update({
+      region: REGION,
+      accessKeyId: ACCESS_KEY_ID,
+      secretAccessKey: SECRET_ACCESS_KEY,
+    });
+
+    const upload = new AWS.S3.ManagedUpload({
+      params: {
+        ACL: "public-read",
+        Bucket: "chat-shire",
+        Key: `error/${imageFile.name}`,
+        Body: imageFile,
+      },
+    });
+
+    return upload.promise().then(() => {
+      console.log("사진 업로드");
+      return `https://chat-shire.s3.amazonaws.com/${imageFile.name}`;
+    });
+  };
+
+  // attachedInfos
+  const handleChangePic: UploadProps["onChange"] = async ({
+    fileList: newFileList }) => {
+    
+    const attachedFileInfos: FileInfo[] = []; // Define the type here
+    
+    for (let file of newFileList) {
+    if (!file.url && !file.preview) {
+      const url = await uploadS3(file.originFileObj);
+      file.url = url;
+      file.preview = url;
+    }
+
+    if (file.url) {
+      attachedFileInfos.push({ url: file.url, thumbnail: "" }); // Add empty thumbnail here
+    } else {
+      console.error('undefined');
+    }
+  }
+  
+  setAttachedFileInfos(attachedFileInfos);
+  setFileList(newFileList);
+  };
+
+  // 파일 선택 시 바로 업로드
+  const handleFileSelect: React.ChangeEventHandler<HTMLInputElement> = async (e) => {
+    const fileList = Array.from(e.target.files || []).map((file) =>
+      ({ originFileObj: file } as UploadFile)
+    );
+  
+    const attachedFileInfos: FileInfo[] = [];
+  
+    for (let file of fileList) {
+      if (!file.url && !file.preview) {
+        const url = await uploadS3(file.originFileObj);
+        file.url = url;
+        file.preview = url;
+      }
+  
+      if (file.url) {
+        attachedFileInfos.push({ url: file.url, thumbnail: "" });
+      } else {
+        console.error('undefined');
+      }
+    }
+  
+    setAttachedFileInfos(attachedFileInfos);
+    setFileList(fileList);
   };
 
   return (
@@ -287,8 +495,8 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
           )}
           onChange={(event, value) => {
             // 여기에서 value를 string[] 타입으로 사용
-            setPersonName([...value]);
-            console.log(personName);
+            setSkillName([...value]);
+            console.log(skillName);
           }}
         />
       </div>
@@ -307,6 +515,26 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
 
       {/* <div style={{marginTop: '20px', display:'flex',alignItems:'center'}}> */}
       <p style={{ margin: "20px 0 10px 0", fontFamily: "preRg" }}>첨부파일</p>
+      <input
+        // hidden
+        accept="image/*, video/*"
+        multiple
+        type="file"
+        ref={(el) => (inputRef.current[0] = el)}
+        // onChange={(e) => {
+        //   onUploadImage(e).then(() => {
+        //     if (!imageSrc) {
+        //       window.alert("이미지를 등록해 주세요.");
+        //       return;
+        //     }
+        //   });
+        // }
+        onChange={handleFileSelect}
+        
+      />
+      {attachedFileInfos.map((info, index) => (
+        <img key={index} src={info.url} alt="Preview" />
+      ))}
       <Upload
         // action="localhost:3000"
         listType="picture-card"

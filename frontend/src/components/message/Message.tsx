@@ -107,7 +107,7 @@ function Message({ projectId }: MessageProps) {
   const getpjt = async () => {
     try {
       const response = await getProject(projectId);
-      console.log('플젝정보', response.data);
+      console.log("플젝정보", response.data);
       // setPjt(response.data.result[0]);
       console.log("불러온 공지", response.data.result[0].notice);
       setNotice(response.data.result[0].notice);
@@ -160,7 +160,7 @@ function Message({ projectId }: MessageProps) {
 
   useEffect(() => {
     getpjt();
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (message) {
@@ -222,11 +222,11 @@ function Message({ projectId }: MessageProps) {
 
   const makeNotice = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && noticeInputValue !== "") {
-      console.log('공지 put')
+      console.log("공지 put");
       putNotification(projectId, noticeInputValue)
         .then(() => {
           setNotice(noticeInputValue);
-          console.log('새로운 공지 등록')
+          console.log("새로운 공지 등록");
         })
         .catch((error) => {
           console.error("공지 업데이트 오류:", error);
@@ -426,9 +426,16 @@ function Message({ projectId }: MessageProps) {
         {users &&
           users.map((user, index) => (
             <div key={index}>
-              <div style={{ marginBottom: '5px', display: 'flex', alignItems:'center', justifyContent:'start' }}>
+              <div
+                style={{
+                  marginBottom: "5px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "start",
+                }}
+              >
                 <img
-                  style={{ 
+                  style={{
                     width: "30px",
                     height: "30px",
                     objectFit: "cover",
@@ -439,7 +446,9 @@ function Message({ projectId }: MessageProps) {
                   alt="profile"
                   src={user.profileImage}
                 />
-                <p style={{ margin: '0 0 0 3px', fontFamily: "preRg" }}>{user.nickname}</p>
+                <p style={{ margin: "0 0 0 3px", fontFamily: "preRg" }}>
+                  {user.nickname}
+                </p>
               </div>
               {/* <hr style={{ margin: '2px 0', border: '1px solid grey' }} /> */}
             </div>
@@ -447,7 +456,6 @@ function Message({ projectId }: MessageProps) {
       </p>
     </div>
   );
-  
 
   return (
     <div className={styles.messageContainer}>
@@ -469,7 +477,7 @@ function Message({ projectId }: MessageProps) {
                     color: "grey",
                     marginTop: "6px",
                     marginLeft: "12px",
-                    cursor: "pointer"
+                    cursor: "pointer",
                   }}
                   size={20}
                 />
@@ -488,39 +496,39 @@ function Message({ projectId }: MessageProps) {
           <BsFillMegaphoneFill size={20} />
           {notice ? (
             <input
-            maxLength={50}
-            style={{
-              width: "450px",
-              border: "none",
-              marginLeft: "5px",
-              fontFamily: "preRg",
-            }}
-            placeholder={notice}
-            type="text"
-            defaultValue={notice}
-            // value={noticeInputValue}
-            onChange={(e) => {
-              setNoticeInputValue(e.target.value);
-              console.log(e.target.value);
-            }}
-            onKeyPress={(e) => makeNotice(e)}
-          />
+              maxLength={50}
+              style={{
+                width: "450px",
+                border: "none",
+                marginLeft: "5px",
+                fontFamily: "preRg",
+              }}
+              placeholder={notice}
+              type="text"
+              defaultValue={notice}
+              // value={noticeInputValue}
+              onChange={(e) => {
+                setNoticeInputValue(e.target.value);
+                console.log(e.target.value);
+              }}
+              onKeyPress={(e) => makeNotice(e)}
+            />
           ) : (
             <input
-            maxLength={50}
-            style={{
-              width: "450px",
-              border: "none",
-              marginLeft: "5px",
-              fontFamily: "preRg",
-            }}
-            type="text"
-            onChange={(e) => {
-              setNoticeInputValue(e.target.value);
-              console.log(e.target.value);
-            }}
-            onKeyPress={(e) => makeNotice(e)}
-          />
+              maxLength={50}
+              style={{
+                width: "450px",
+                border: "none",
+                marginLeft: "5px",
+                fontFamily: "preRg",
+              }}
+              type="text"
+              onChange={(e) => {
+                setNoticeInputValue(e.target.value);
+                console.log(e.target.value);
+              }}
+              onKeyPress={(e) => makeNotice(e)}
+            />
           )}
           {/* <input
             maxLength={50}
@@ -642,13 +650,13 @@ function Message({ projectId }: MessageProps) {
       <div className={styles.messageRight}>
         <div className={styles.messageRightTabContainer}>
           <button
-            style={{ border: "none", background: "none", cursor: "pointer"}}
+            style={{ border: "none", background: "none", cursor: "pointer" }}
             value="media"
             onClick={handleChange}
           >
             {selectedButton === "media" ? (
               <>
-                <HiPhoto className={styles.icon25}/>
+                <HiPhoto className={styles.icon25} />
                 <p className={styles.tabTitle}>사진</p>
               </>
             ) : (

@@ -24,16 +24,17 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class GithubScheduler {
 
-    private final ChatRoomRepository chatRoomRepository;
-    private final StatisticService statisticService;
-    private final ChallengeService challengeService;
-    private final GithubApi githubApi;
+	private final ChatRoomRepository chatRoomRepository;
+	private final UserRepository userRepository;
+	private final StatisticService statisticService;
+	private final ChallengeService challengeService;
+	private final GithubApi githubApi;
 
-    @Scheduled(cron = "0 * * * * ?")
-    public void countCommitHistory() throws IOException {
-        System.out.println("커밋 히스토리 가져오기 실행");
-        LocalDate today = LocalDate.now();
-        List<ChatRoom> chatRooms = chatRoomRepository.findByDate(today);
+	@Scheduled(cron = "0 0 * * * ?")
+	public void countCommitHistory() throws IOException {
+		System.out.println("커밋 히스토리 가져오기 실행");
+		LocalDate today = LocalDate.now();
+		List<ChatRoom> chatRooms = chatRoomRepository.findByDate(today);
 
         for (ChatRoom chatRoom : chatRooms) {
             if (chatRoom.getGitRepository() == null || chatRoom.getBranch() == null
@@ -44,34 +45,70 @@ public class GithubScheduler {
             Long afternoonCommitCount = 0L;
             Long nightCommitCount = 0L;
 
-            System.out.println("chatRoom.getGitRepository() = " + chatRoom.getGitRepository());
-            System.out.println("chatRoom.getBranch() = " + chatRoom.getBranch());
-            Map<String, List<Date>> commitDatesSince = githubApi.getCommitDatesSince(chatRoom.getGitRepository(), chatRoom.getBranch(), chatRoom.getGitAccessToken());
+			System.out.println("chatRoom.getGitRepository() = " + chatRoom.getGitRepository());
+			System.out.println("chatRoom.getBranch() = " + chatRoom.getBranch());
+			System.out.println("chatRoom.getGitAccessToken() = " + chatRoom.getGitAccessToken());
+			Map<String, List<Date>> commitDatesSince = githubApi.getCommitDatesSince(chatRoom.getGitRepository(),
+					chatRoom.getBranch(), chatRoom.getGitAccessToken());
 
-            // ksi2564 : [커밋한 시간1, 커밋한 시간2]...
-            for (String githubId : commitDatesSince.keySet()) {
-                Map<String, Long> counts = commitDatesSince.get(githubId).stream()
-                        .map(date -> date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime())
-                        .map(time -> {
-                            if (!time.isBefore(LocalTime.of(4, 0))
-                                    && time.isBefore(LocalTime.of(12, 0))) {
-                                return "morning";
-                            } else if (!time.isBefore(LocalTime.of(12, 0))
-                                    && time.isBefore(LocalTime.of(20, 0))) {
-                                return "afternoon";
-                            } else {
-                                return "night";
-                            }
-                        })
-                        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+			// ksi2564 : [커밋한 시간1, 커밋한 시간2]...
+			for (String githubId : commitDatesSince.keySet()) {
+				System.out.println(commitDatesSince.get(githubId).size());
+				System.out.println(commitDatesSince.get(githubId));
+				// Map<String, Long> counts = commitDatesSince.get(githubId).stream()
+				// 		.map(date -> date.toInstant().atZone(ZoneId.of("Asia/Seoul")).toLocalTime())
+				// 		.map(time -> {
+				// 			if (!time.isBefore(LocalTime.of(4, 0))
+				// 					&& time.isBefore(LocalTime.of(12, 0))) {
+				// 				return "morning";
+				// 			} else if (!time.isBefore(LocalTime.of(12, 0))
+				// 					&& time.isBefore(LocalTime.of(20, 0))) {
+				// 				return "afternoon";
+				// 			} else {
+				// 				return "night";
+				// 			}
+				// 		})
+				// 		.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+				Map<String, Long> counts = commitDatesSince.get(githubId).stream()
+						.map(date -> {
+							LocalTime time = date.toInstant().atZone(ZoneId.of("Asia/Seoul")).toLocalTime();
+							System.out.println("Converted time: " + time);
+							return time;
+						})
+						.map(time -> {
+							String period;
+							if (!time.isBefore(LocalTime.of(4, 0)) && time.isBefore(LocalTime.of(12, 0))) {
+								period = "morning";
+							} else if (!time.isBefore(LocalTime.of(12, 0)) && time.isBefore(LocalTime.of(20, 0))) {
+								period = "afternoon";
+							} else {
+								period = "night";
+							}
 
+							System.out.println("Mapped to: " + period);
+
+							return period;
+						})
+						.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+
+				long myCommitCount =
+						counts.getOrDefault("morning", 0L) + counts.getOrDefault("afternoon", 0L) + counts.getOrDefault(
+								"night", 0L);
+				// 유저의 도전과제 commit 수 추가 함
+				User user = userRepository.findByGithubId(githubId)
+						.orElseThrow(() -> new ResourceNotFoundException("githubId", githubId));
+				challengeService.updateMyCommit(user.getId(), myCommitCount);
                 // 유저의 도전과제 commit 수 추가 함
                 challengeService.updateMyCommit(githubId, counts.get("morning"), counts.get("afternoon"), counts.get("night"));
 
-                morningCommitCount += counts.get("morning");
-                afternoonCommitCount += counts.get("afternoon");
-                nightCommitCount += counts.get("night");
-            }
+				morningCommitCount += counts.getOrDefault("morning", 0L);
+				afternoonCommitCount += counts.getOrDefault("afternoon", 0L);
+				nightCommitCount += counts.getOrDefault("night", 0L);
+			}
+			System.out.println("morningCommitCount = " + morningCommitCount);
+			System.out.println("afternoonCommitCount = " + afternoonCommitCount);
+			System.out.println("nightCommitCount = " + nightCommitCount);
 
             // 프로젝트 관련 통계에 업데이트하기
             statisticService.updateCommitCount(chatRoom.getId(), morningCommitCount, afternoonCommitCount,

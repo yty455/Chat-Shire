@@ -57,7 +57,6 @@ const minimapStyle = {
 };
 
 function Flow({ pjtId }: IdeaProps) {
-
   const [mindmap, setMindmap] = useState([]);
   // whenever you use multiple values, you should use shallow for making sure that the component only re-renders when one of the values change
   const { nodes, edges, onNodesChange, onEdgesChange, addChildNode } = useStore(
@@ -70,10 +69,6 @@ function Flow({ pjtId }: IdeaProps) {
   useEffect(() => {
     loadInitialData(pjtId);
     // setIsLoading(false);
-
-    return () => {    
-      saveMindmapData()
-    }
   }, [pjtId]);
 
   const saveMindmapData = async () => {
@@ -206,15 +201,19 @@ function Flow({ pjtId }: IdeaProps) {
             style={{ width: 22, height: 20, bottom: 540, left: 310 }}
           />
         </Popover>
-        <Button
-          className={styles.savebtn}
-          style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
-          key="submit"
-          type="primary"
-          onClick={saveMindmapData}
-        >
-          저장
-        </Button>
+        <Controls showInteractive={false}>
+          <div>
+            <Button
+              className={styles.savebtn}
+              style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
+              key="submit"
+              type="primary"
+              onClick={saveMindmapData}
+            >
+              저장
+            </Button>
+          </div>
+        </Controls>
       </ReactFlow>
     </div>
   );

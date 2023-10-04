@@ -42,6 +42,8 @@ public class GithubApi {
 
 			PagedIterable<GHCommit> commits = commit.getOwner().listCommits();
 
+			System.out.println("commits = " + commits);
+			Date latest = new Date(0);
 			if (since == null) {
 				since = new Date(0);
 			}
@@ -55,12 +57,12 @@ public class GithubApi {
 					}
 					commitDates.get(committerName).add(c.getCommitDate());
 				}
-				if (c.getCommitDate().after(since)) {
-					since = c.getCommitDate();
+				if (c.getCommitDate().after(latest)) {
+					latest = c.getCommitDate();
 				}
 			}
 			// Redis 에 저장소를 Key 로 사용해서 최근 커밋 시간을 저장해둔다.
-			redisTemplate.opsForValue().set("latest_commit:" + repoName, since);
+			redisTemplate.opsForValue().set("latest_commit:" + repoName, latest);
 
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Failed to connect to GitHub or retrieve data");
