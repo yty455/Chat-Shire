@@ -1,11 +1,6 @@
 import * as React from "react";
 import { Theme, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+
 import Chip from "@mui/material/Chip";
 import Autocomplete, {
   createFilterOptions,
@@ -14,7 +9,6 @@ import Autocomplete, {
 } from "@mui/material/Autocomplete"; // import here
 import TextField from "@mui/material/TextField";
 import { styled } from "@mui/system";
-import Paper from "@mui/material/Paper";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -32,14 +26,36 @@ interface searchProps {
 const names = [
   "python",
   "java",
-  "c#",
-  "docker",
-  "curl",
-  "three.js",
-  "react",
+  "javascript",
+  "html5",
+  "css3",
+  "c",
   "c++",
-  "clang",
+  "r",
+  "flutter",
+  "dart",
+  "kotlin",
+  "pwa",
+  "php",
+  "django",
+  "spring",
+  "vue", 
+  "react",
+  "next",
+  "node",
+  "angular",
   "jenkins",
+  "docker",
+  "aws",
+  "kubernetes",
+  "three",
+  "aframe",
+  "unity",
+  "unreal",
+  "tomcat",
+  "spark",
+  "hadoop",
+  "git"
 ];
 
 const CustomChip = styled(Chip)(({ theme }) => ({
@@ -50,29 +66,95 @@ const CustomChip = styled(Chip)(({ theme }) => ({
   "&.java": {
     backgroundColor: "#F9A686",
   },
-  "&.c#": {
+  "&.javascript": {
+    backgroundColor: "#8ED2CD",
+  },
+  "&.html5": {
+    backgroundColor: "#E1F5A9",
+  },
+  "&.css3": {
     backgroundColor: "#FBF6A4",
   },
-  "&.docker": {
-    backgroundColor: "F9BF64",
-  },
-  "&.curl": {
-    backgroundColor: "#A0D6B6",
-  },
-  "&.three.js": {
-    backgroundColor: "#30BA96",
-  },
-  "&.react": {
-    backgroundColor: "#789CCE",
+  "&.c": {
+    backgroundColor: "#F7819F",
   },
   "&.c++": {
+    backgroundColor: "#D358F7",
+  },
+  "&.r": {
+    backgroundColor: "#819FF7",
+  },
+  "&.flutter": {
+    backgroundColor: "#F5A9A9",
+  },
+  "&.dart": {
+    backgroundColor: "#F5F6CE",
+  },
+  "&.kotlin": {
+    backgroundColor: "#FAAC58",
+  },
+  "&.pwa": {
+    backgroundColor: "#FE2E64",
+  },
+  "&.php": {
+    backgroundColor: "#A9F5F2",
+  },
+  "&.django": {
+    backgroundColor: "#04B486",
+  },
+  "&.spring": {
+    backgroundColor: "F5A9F2",
+  },
+  "&.vue": {
+    backgroundColor: "#04B486",
+  },
+  "&.react": {
+    backgroundColor: "#30BA96",
+  },
+  "&.next": {
+    backgroundColor: "#789CCE",
+  },
+  "&.node": {
     backgroundColor: "#9E7EB9",
   },
-  "&.clang": {
+  "&.angular": {
     backgroundColor: "#EF404A",
   },
   "&.jenkins": {
     backgroundColor: "#8ED2CD",
+  },
+  "&.docker": {
+    backgroundColor: "#0431B4",
+  },
+  "&.aws": {
+    backgroundColor: "#DF01D7",
+  },
+  "&.kubernetes": {
+    backgroundColor: "#FA5858",
+  },
+  "&.three": {
+    backgroundColor: "#58FA58",
+  },
+  "&.aframe": {
+    backgroundColor: "#AC58FA",
+  },
+  "&.unity": {
+    backgroundColor: "#F8E0F7",
+  },
+  "&.unreal": {
+    backgroundColor: "#F3F781",
+  },
+  "&.tomcat": {
+    backgroundColor: "#7401DF",
+  },
+  "&.spark": {
+    backgroundColor: "#CECEF6",
+  },
+  "&.hadoop": {
+    backgroundColor: "#8ED2CD",
+  },
+  "&.git": {
+    backgroundColor: "#81F7BE",
   },
   height: "25px",
   "& .MuiChip-label": {
@@ -93,28 +175,6 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
 function MultiSelect({ onSearch }: searchProps) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
-
-  // const handleSearchClick = () => {
-  //   if (personName.length > 0) {
-  //     const selectedLanguage = personName[0];
-  //     onSearch(selectedLanguage);
-  //   }
-  // };
-
-  // const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-  //   const {
-  //     target: { value },
-  //   } = event;
-  //   setPersonName(
-  //     // On autofill we get a stringified value.
-  //     typeof value === "string" ? value.split(",") : value
-  //   );
-  //   console.log(personName);
-  //   if (personName.length > 0) {
-  //     const selectedLanguage = personName[0];
-  //     onSearch(selectedLanguage);
-  //   }
-  // };
 
   const handleChange = (
     event: React.SyntheticEvent,
