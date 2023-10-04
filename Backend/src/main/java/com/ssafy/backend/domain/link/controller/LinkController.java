@@ -42,7 +42,7 @@ public class LinkController {
         Long linkId = linkService.registerLink(chatRoomId, linkInfo);
 
         BasicResponse basicResponse = BasicResponse.builder()
-                .message("자료공유 조회 성공")
+                .message("자료공유 등록 성공")
                 .count(1)
                 .result(Collections.singletonList(linkId))
                 .build();

@@ -1,11 +1,15 @@
 package com.ssafy.backend.domain.link.dto;
 
 import com.ssafy.backend.domain.link.Link;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class LinkInfoResponse {
     private Long linkId;
     private Long userId;
