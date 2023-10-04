@@ -114,8 +114,8 @@ const useStore = create<RFState>((set, get) => ({
         }));
 
       set({
-        nodes: [...get().nodes, initialMindmapNodes],
-        edges: [...get().edges, initialMindmapEdges],
+        nodes: initialMindmapNodes,
+        edges: initialMindmapEdges,
       });
     } catch (error) {
       console.error(error);
