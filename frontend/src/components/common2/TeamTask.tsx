@@ -540,7 +540,18 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     {task.priority}
                   </p>
                 </div>
-                <BorderLinearProgress variant="determinate" value={50} />
+                <BorderLinearProgress
+                  variant="determinate"
+                  value={
+                    task.taskInfoResponses.length > 0
+                      ? (task.taskInfoResponses.filter(
+                          (item: any) => item.progress === "DONE"
+                        ).length /
+                          task.taskInfoResponses.length) *
+                        100
+                      : 0
+                  }
+                />
 
                 {task.taskInfoResponses.map((item: any) => (
                   <div style={{ margin: 0, padding: 0 }} key={item.id}>
