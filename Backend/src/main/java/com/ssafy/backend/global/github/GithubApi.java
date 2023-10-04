@@ -14,10 +14,12 @@ import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 import org.kohsuke.github.PagedIterable;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Service
 public class GithubApi {
 
 	private final RedisTemplate<String, Object> redisTemplate;
@@ -40,7 +42,7 @@ public class GithubApi {
 
 			Date latest = new Date(0);
 			for (GHCommit c : commits) {
-				if (c.getAuthoredDate().after(since)) {
+				if (since == null || c.getAuthoredDate().after(since)) {
 					if (c.getCommitter() == null)
 						continue;
 					String committerName = c.getCommitter().getLogin();

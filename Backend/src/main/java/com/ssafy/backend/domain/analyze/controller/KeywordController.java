@@ -23,11 +23,11 @@ public class KeywordController {
     @GetMapping("/projects/{projectId}/keywords")
     public ResponseEntity<BasicResponse> getKeywords(@PathVariable("projectId") Long chatRoomId) {
 
-        List<MyKeywords> keywords = keywordService.getKeywords(chatRoomId);
+        List<String> keywords = keywordService.getKeywords(chatRoomId);
 
         BasicResponse basicResponse = BasicResponse.builder()
                 .message("프로젝트 키워드 조회 성공")
-                .count(1)
+                .count(keywords.size())
                 .result(Collections.singletonList(keywords))
                 .build();
 

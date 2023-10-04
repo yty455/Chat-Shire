@@ -210,7 +210,7 @@ function LeftSide(props: Props) {
           alignItems: "center",
           justifyContent: "center",
           height: "120px",
-          marginTop: "24px",
+          marginTop: "36px",
         }}
       >
         {userData.state === "ONLINE" ? (
