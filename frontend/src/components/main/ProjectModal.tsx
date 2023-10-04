@@ -84,7 +84,7 @@ function ProjectModal({
         <div>
           <div>
             {editState === "name" ? (
-              <div style={{marginBottom: "6px"}}>
+              <div style={{ marginBottom: "6px" }}>
                 <input
                   type="text"
                   value={projectData.name}
@@ -101,8 +101,13 @@ function ProjectModal({
                 />
               </div>
             ) : (
-              <div style={{marginBottom: "6px"}}>
-                <span style={{fontFamily: "preBd", fontSize: "24px"}} onClick={() => handleInputClick("name")}>{projectData.name}</span>
+              <div style={{ marginBottom: "6px" }}>
+                <span
+                  style={{ fontFamily: "preBd", fontSize: "24px" }}
+                  onClick={() => handleInputClick("name")}
+                >
+                  {projectData.name}
+                </span>
               </div>
             )}
           </div>
@@ -113,7 +118,10 @@ function ProjectModal({
                   type="text"
                   value={projectData.teamName}
                   onChange={(e) => {
-                    setProjectData({ ...projectData, teamName: e.target.value });
+                    setProjectData({
+                      ...projectData,
+                      teamName: e.target.value,
+                    });
                   }}
                   onBlur={() => setEditState(null)}
                   onKeyPress={(e) => {
@@ -126,16 +134,21 @@ function ProjectModal({
               </div>
             ) : (
               <div className={styles.projectModalContent}>
-              <span style={{fontFamily: "preBd", fontSize: "24px"}} onClick={() => handleInputClick("teamName")}>
-                 {projectData.teamName}
-              </span>
+                <span
+                  style={{ fontFamily: "preBd", fontSize: "24px" }}
+                  onClick={() => handleInputClick("teamName")}
+                >
+                  {projectData.teamName}
+                </span>
               </div>
             )}
           </div>
           <div>
             {editState === "topic" ? (
               <div className={styles.projectModalContent}>
-                <span className={styles.projectModalContentTitle}>프로젝트 주제</span>
+                <span className={styles.projectModalContentTitle}>
+                  프로젝트 주제
+                </span>
                 <input
                   type="text"
                   value={projectData.topic}
@@ -153,8 +166,12 @@ function ProjectModal({
               </div>
             ) : (
               <div className={styles.projectModalContent}>
-                <span className={styles.projectModalContentTitle}>프로젝트 주제</span>
-                <span onClick={() => handleInputClick("topic")}>{projectData.topic}</span>
+                <span className={styles.projectModalContentTitle}>
+                  프로젝트 주제
+                </span>
+                <span onClick={() => handleInputClick("topic")}>
+                  {projectData.topic}
+                </span>
               </div>
             )}
           </div>
@@ -182,10 +199,10 @@ function ProjectModal({
               </div>
             ) : (
               <div className={styles.projectModalContent}>
-              <span className={styles.projectModalContentTitle}>설명</span>
-              <span onClick={() => handleInputClick("description")}>
-                 {projectData.description}
-              </span>
+                <span className={styles.projectModalContentTitle}>설명</span>
+                <span onClick={() => handleInputClick("description")}>
+                  {projectData.description}
+                </span>
               </div>
             )}
           </div>
@@ -213,16 +230,20 @@ function ProjectModal({
               </div>
             ) : (
               <div className={styles.projectModalContent}>
-              <span className={styles.projectModalContentTitle}>Github</span>
-              <span onClick={() => handleInputClick("gitRepository")}>
-                {projectData.gitRepository}
-              </span>
+                <span className={styles.projectModalContentTitle}>Github</span>
+                <span onClick={() => handleInputClick("gitRepository")}>
+                  {projectData.gitRepository}
+                </span>
               </div>
             )}
           </div>
           <div className={styles.projectModalContent}>
-            <span className={styles.projectModalContentTitle}>프로젝트 기간</span>
-            <span>{pjt.startDate}~{pjt.endDate}</span>
+            <span className={styles.projectModalContentTitle}>
+              프로젝트 기간
+            </span>
+            <span>
+              {pjt.startDate}~{pjt.endDate}
+            </span>
           </div>
           <div className={styles.ProjectMemberContainer}>
             {pjtMem.map((user: any) => (
@@ -244,7 +265,11 @@ function ProjectModal({
           </div>
         </div>
       </div>
-      <button style={{cursor: "pointer"}} onClick={closeModal} className={styles.closebtn}>
+      <button
+        style={{ cursor: "pointer" }}
+        onClick={closeModal}
+        className={styles.closebtn}
+      >
         X
       </button>
       <Button
