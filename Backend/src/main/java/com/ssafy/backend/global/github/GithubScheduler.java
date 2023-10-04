@@ -36,6 +36,10 @@ public class GithubScheduler {
 		List<ChatRoom> chatRooms = chatRoomRepository.findByDate(today);
 
 		for (ChatRoom chatRoom : chatRooms) {
+			if (chatRoom.getGitRepository() == null || chatRoom.getBranch() == null
+					|| chatRoom.getGitAccessToken() == null) {
+				continue;
+			}
 			Long morningCommitCount = 0L;
 			Long afternoonCommitCount = 0L;
 			Long nightCommitCount = 0L;

@@ -40,41 +40,6 @@ export const expandedState_recoil = atom<string | false>({
   default: false, // 초기값 설정
 });
 
-export const initialMember_recoil = atom({
-  key: "initialMember_recoil",
-  default: [
-    {
-      id: 1,
-      githubId: "user",
-      nickname: "user",
-      position: "FE",
-      profileColor: "#abb8c3",
-      profileImage: "/assets/profile/male/m9.png",
-      column: "전체 멤버",
-    },
-  ],
-});
-
-export const memberSearchResult_recoil = atom({
-  key: "memberSearchResult_recoil",
-  default: [
-    {
-      id: 1,
-      githubId: "user",
-      nickname: "user",
-      position: "FE",
-      profileColor: "#abb8c3",
-      profileImage: "/assets/profile/male/m9.png",
-      column: "전체 멤버",
-    },
-  ],
-});
-
-export const keywords_recoil = atom({
-  key: "keywords_recoil",
-  default: [],
-});
-
 // // 앱 종료 시 로컬 스토리지에서 Recoil 데이터 삭제
 // window.addEventListener("beforeunload", () => {
 //   localStorage.removeItem("recoil-persist-root");
@@ -101,3 +66,51 @@ export const tasks_recoil = atom<Task[]>({
     },
   ],
 });
+
+export const workStyle_recoil = atom({
+  key: "workStyle_recoil",
+  default: "baby",
+})
+
+export const workStyleColor_recoil = atom({
+  key: "workStyleColor_recoil",
+  default: { main: "#8BBCC1", sub: "#D6CB67"}
+})
+
+export const keywords_recoil = atom<string[]>({
+  key: "keywords_recoil",
+  default: [],
+});
+
+export const morningCount_recoil = atom({
+  key: "morningCount_recoil",
+  default: 4
+})
+
+export const afternoonCount_recoil = atom({
+  key: "afternoonCount_recoil",
+  default: 8
+})
+
+export const nightCount_recoil = atom({
+  key: "nightCount_recoil",
+  default: 6
+})
+
+export const issueCount_recoil = atom({
+  key: "issueCount_recoil",
+  default: 20
+})
+
+export const allCategoryCount_recoil = atom({
+  key: "allCategoryCount_recoil",
+  default: {}
+})
+
+export const taskCount_recoil = atom({
+  key: "taskCount_recoil",
+  default: 20
+})
+
+
+

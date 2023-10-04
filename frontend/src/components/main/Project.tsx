@@ -21,49 +21,6 @@ import { FaExpand } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import ProjectSlide from "./ProjectSlide";
 
-const pjt = {
-  now: [
-    {
-      id: 1,
-      name: "공통",
-      description: "공통",
-      member: ["mem1", "mem2", "mem3"],
-    },
-    {
-      id: 2,
-      name: "특화",
-      description: "특화",
-      member: ["mem1", "mem2", "mem3"],
-    },
-    {
-      id: 3,
-      name: "관통",
-      description: "관통",
-      member: ["mem1", "mem2", "mem3"],
-    },
-  ],
-  com: [
-    {
-      id: 1,
-      name: "자율",
-      description: "자율",
-      member: ["mem1", "mem2", "mem3"],
-    },
-    {
-      id: 2,
-      name: "공통",
-      description: "공통",
-      member: ["mem1", "mem2", "mem3"],
-    },
-    {
-      id: 3,
-      name: "관통",
-      description: "관통",
-      member: ["mem1", "mem2", "mem3"],
-    },
-  ],
-};
-
 function Project() {
   const [userData, setUserData] = useRecoilState(loginuser);
   const [myProjects, setMyProjects] = useState([]);

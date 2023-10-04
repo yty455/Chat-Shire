@@ -171,7 +171,7 @@ function Message({ projectId }: MessageProps) {
     getFile();
     getImage();
     getVideo();
-  }, [message, projectId]);
+  }, [message, notice, projectId]);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -469,6 +469,7 @@ function Message({ projectId }: MessageProps) {
                     color: "grey",
                     marginTop: "6px",
                     marginLeft: "12px",
+                    cursor: "pointer"
                   }}
                   size={20}
                 />
@@ -485,6 +486,28 @@ function Message({ projectId }: MessageProps) {
         </div>
         <div className={styles.messageLeftNotification}>
           <BsFillMegaphoneFill size={20} />
+          {notice && (
+            <>
+            <p>{notice}</p>
+            <input
+            maxLength={50}
+            style={{
+              width: "450px",
+              border: "none",
+              marginLeft: "5px",
+              fontFamily: "preRg",
+            }}
+            placeholder={notice}
+            type="text"
+            defaultValue={notice}
+            // value={noticeInputValue}
+            onChange={(e) => {
+              setNoticeInputValue(e.target.value);
+              console.log(e.target.value);
+            }}
+            onKeyPress={(e) => makeNotice(e)}
+          /></>
+          )}
           <input
             maxLength={50}
             style={{
@@ -495,7 +518,8 @@ function Message({ projectId }: MessageProps) {
             }}
             placeholder={notice}
             type="text"
-            value={noticeInputValue}
+            defaultValue={notice}
+            // value={noticeInputValue}
             onChange={(e) => {
               setNoticeInputValue(e.target.value);
               console.log(e.target.value);
