@@ -64,10 +64,10 @@ function Flow({ pjtId }: IdeaProps) {
   const loadInitialData = useStore((state) => state.loadInitialData);
   const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
 
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     loadInitialData(pjtId);
-    setIsLoading(false);
+    // setIsLoading(false);
   }, [pjtId]);
   // useEffect(() => {
   // const getMindmapData = async () => {
@@ -223,9 +223,9 @@ function Flow({ pjtId }: IdeaProps) {
       </p>
     </div>
   );
-  if (isLoading) {
-    return <div>Loading...</div>; // 데이터가 로딩되는 동안 표시할 내용
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>; // 데이터가 로딩되는 동안 표시할 내용
+  // }
   return (
     <div
       style={{ backgroundColor: "#ffffff", width: "52vw", height: "74.7vh" }}
