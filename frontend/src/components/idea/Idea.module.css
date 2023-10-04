@@ -2,3 +2,9 @@
   display: flex;
   justify-content: space-between;
 }
+
+.savebtn {
+  position: fixed;
+  left: 10%;
+  bottom: 2%;
+}

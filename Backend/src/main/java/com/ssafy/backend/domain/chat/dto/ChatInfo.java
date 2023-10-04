@@ -32,7 +32,8 @@ public class ChatInfo {
                 .chatRoom(chatRoom)
                 .content(this.content)
                 .chatTime(this.chatTime)
-                .chatNumber(this.chatNumber).build();
+                .chatNumber(this.chatNumber)
+                .isAttached(this.isAttached).build();
     }
 
     public ChatInfo(Long userId, String content, Long chatNumber, LocalDateTime chatTime, Boolean isAttached) {
