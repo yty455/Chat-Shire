@@ -69,10 +69,6 @@ function Flow({ pjtId }: IdeaProps) {
   useEffect(() => {
     loadInitialData(pjtId);
     // setIsLoading(false);
-
-    return () => {
-      saveMindmapData();
-    };
   }, [pjtId]);
 
   const saveMindmapData = async () => {
@@ -206,7 +202,7 @@ function Flow({ pjtId }: IdeaProps) {
           />
         </Popover>
         <Controls showInteractive={false}>
-          <div style={{ position: "absolute", right: "10px", top: "10px" }}>
+          <div>
             <Button
               className={styles.savebtn}
               style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
