@@ -100,33 +100,33 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <div className={styles.deContainer}>
-          <h1>Q {errDetail && errDetail?.title}</h1>
-          <p>{errDetail?.content}</p>
+          <h1>Q {errDetail && errDetail.title}</h1>
+          <p>{errDetail.content}</p>
           <p>
             생성날짜:
             {errDetail.createdDate
-              ? errDetail?.createdDate.toLocaleString()
+              ? errDetail.createdDate.toLocaleString()
               : "날짜 없음"}
           </p>
           <p>
             수정날짜:
             {errDetail.lastModifiedDate
-              ? errDetail?.lastModifiedDate.toLocaleString()
+              ? errDetail.lastModifiedDate.toLocaleString()
               : "날짜 없음"}
           </p>
 
           <h5 className={styles.status}>
-            {errDetail && errDetail?.state === true ? "완료" : "진행"}
+            {errDetail && errDetail.state === true ? "완료" : "진행"}
           </h5>
           <div>
-            작성자 {errDetail?.nickname}
+            작성자 {errDetail.nickname}
             <Avatar
-              alt={errDetail?.nickname}
-              src={process.env.PUBLIC_URL + errDetail?.profileImage}
+              alt={errDetail.nickname}
+              src={process.env.PUBLIC_URL + errDetail.profileImage}
               sx={{
                 width: 60,
                 height: 60,
-                backgroundColor: errDetail?.profileColor,
+                backgroundColor: errDetail.profileColor,
               }}
             />
           </div>
@@ -141,22 +141,22 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
         <div className={styles.reContainer}>
           <p>A </p>
           {errDetail &&
-            errDetail.replies &&
-            errDetail?.replies.map((item: any) => {
+            errDetail?.replies &&
+            errDetail.replies.map((item: any) => {
               return (
-                <div className={styles.rep} key={item?.replyId}>
+                <div className={styles.rep} key={item.replyId}>
                   <Avatar
-                    alt={item?.nickname}
-                    src={process.env.PUBLIC_URL + item?.profileImage}
+                    alt={item.nickname}
+                    src={process.env.PUBLIC_URL + item.profileImage}
                     sx={{
                       width: 20,
                       height: 20,
-                      backgroundColor: item?.profileColor,
+                      backgroundColor: item.profileColor,
                     }}
                   />
-                  {item?.nickname} :{" "}
-                  {userData?.nickname === item?.nickname ? (
-                    editingCommentId === item?.replyId ? (
+                  {item.nickname} :{" "}
+                  {userData.nickname === item.nickname ? (
+                    editingCommentId === item.replyId ? (
                       <>
                         <input
                           type="text"
@@ -198,7 +198,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
         <button onClick={closeModal} className={styles.closebtn}>
           X
         </button>
-        {userData?.nickname === errDetail?.nickname ? (
+        {userData.nickname === errDetail.nickname ? (
           <Button
             onClick={deleteInError}
             style={{ backgroundColor: "red", fontFamily: "preRg" }}
