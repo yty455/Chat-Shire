@@ -56,8 +56,10 @@ public class GithubScheduler {
 
 			// ksi2564 : [커밋한 시간1, 커밋한 시간2]...
 			for (String githubId : commitDatesSince.keySet()) {
+				System.out.println(commitDatesSince.get(githubId).size());
+				System.out.println(commitDatesSince.get(githubId));
 				Map<String, Long> counts = commitDatesSince.get(githubId).stream()
-						.map(date -> date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime())
+						.map(date -> date.toInstant().atZone(ZoneId.of("Asia/Seoul")).toLocalTime())
 						.map(time -> {
 							if (!time.isBefore(LocalTime.of(4, 0))
 									&& time.isBefore(LocalTime.of(12, 0))) {
@@ -79,9 +81,9 @@ public class GithubScheduler {
 						.orElseThrow(() -> new ResourceNotFoundException("githubId", githubId));
 				challengeService.updateMyCommit(user.getId(), myCommitCount);
 
-				morningCommitCount += counts.get("morning");
-				afternoonCommitCount += counts.get("afternoon");
-				nightCommitCount += counts.get("night");
+				morningCommitCount += counts.getOrDefault("morning", 0L);
+				afternoonCommitCount += counts.getOrDefault("afternoon", 0L);
+				nightCommitCount += counts.getOrDefault("night", 0L);
 			}
 			System.out.println("morningCommitCount = " + morningCommitCount);
 			System.out.println("afternoonCommitCount = " + afternoonCommitCount);
