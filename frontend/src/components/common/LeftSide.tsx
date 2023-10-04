@@ -221,11 +221,12 @@ function LeftSide(props: Props) {
               onSelectColor={handleColorSelect}
             />
           }
+          // onClick={() => openColorPicker()}
           trigger="click"
         >
           {userData?.state === "ONLINE" ? (
             <StyledBadge
-              // onClick={() => openColorPicker()}
+              onClick={() => openColorPicker()}
               className={styles.profileimg}
               overlap="circular"
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
@@ -248,7 +249,7 @@ function LeftSide(props: Props) {
             </StyledBadge>
           ) : userData?.state === "AWAY" ? (
             <StyledBadge1
-              // onClick={() => openColorPicker()}
+              onClick={() => openColorPicker()}
               className={styles.profileimg}
               overlap="circular"
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
@@ -271,7 +272,7 @@ function LeftSide(props: Props) {
             </StyledBadge1>
           ) : userData?.state === "OFFLINE" ? (
             <StyledBadge2
-              // onClick={() => openColorPicker()}
+              onClick={() => openColorPicker()}
               className={styles.profileimg}
               overlap="circular"
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
@@ -294,7 +295,7 @@ function LeftSide(props: Props) {
             </StyledBadge2>
           ) : userData?.state === "DND" ? (
             <StyledBadge3
-              // onClick={() => openColorPicker()}
+              onClick={() => openColorPicker()}
               className={styles.profileimg}
               overlap="circular"
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
@@ -317,7 +318,7 @@ function LeftSide(props: Props) {
             </StyledBadge3>
           ) : (
             <StyledBadge
-              // onClick={() => openColorPicker()}
+              onClick={() => openColorPicker()}
               className={styles.profileimg}
               overlap="circular"
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
