@@ -267,11 +267,9 @@ function TaskModal({
               )}
             </p>
             {editingField && (
-              <Button
+              <button
                 className={styles.savebtn}
                 style={{ fontFamily: "preRg" }}
-                key="submit"
-                type="primary"
                 onClick={() => {
                   if (
                     editingField === "name" ||
@@ -285,7 +283,7 @@ function TaskModal({
                 }}
               >
                 저장
-              </Button>
+              </button>
             )}
             <button
               style={{ cursor: "pointer" }}
