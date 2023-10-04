@@ -1,8 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import Container from "./Container";
 import Avatar from "@mui/material/Avatar";
-import Badge from "@mui/material/Badge";
-import { styled } from "@mui/material/styles";
 import styles from "./LeftSide.module.css";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -36,6 +34,7 @@ import {
   StyledBadge2,
   StyledBadge3,
 } from "./StyledBadge";
+import { Popover } from "antd";
 
 interface Props {
   window?: () => Window;
@@ -213,103 +212,134 @@ function LeftSide(props: Props) {
           marginTop: "36px",
         }}
       >
-        {userData?.state === "ONLINE" ? (
-          <StyledBadge
-            onClick={() => openColorPicker()}
-            className={styles.profileimg}
-            overlap="circular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            variant="dot"
-          >
-            <Avatar
-              onClick={() => navigateProfile()}
-              alt="Remy Sharp"
-              src={
-                userData?.profileImage != null
-                  ? process.env.PUBLIC_URL + userData?.profileImage
-                  : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-              }
-              sx={{ width: 120, height: 120, bgcolor: userData?.profileColor }}
+        <Popover
+          placement="rightBottom"
+          content={
+            <ColorPickerDialog
+              open={colorPickerOpen}
+              onClose={() => setColorPickerOpen(false)}
+              onSelectColor={handleColorSelect}
             />
-          </StyledBadge>
-        ) : userData?.state === "AWAY" ? (
-          <StyledBadge1
-            onClick={() => openColorPicker()}
-            className={styles.profileimg}
-            overlap="circular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            variant="dot"
-          >
-            <Avatar
-              onClick={() => navigateProfile()}
-              alt="Remy Sharp"
-              src={
-                userData?.profileImage != null
-                  ? process.env.PUBLIC_URL + userData?.profileImage
-                  : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-              }
-              sx={{ width: 120, height: 120, bgcolor: userData?.profileColor }}
-            />
-          </StyledBadge1>
-        ) : userData?.state === "OFFLINE" ? (
-          <StyledBadge2
-            onClick={() => openColorPicker()}
-            className={styles.profileimg}
-            overlap="circular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            variant="dot"
-          >
-            <Avatar
-              onClick={() => navigateProfile()}
-              alt="Remy Sharp"
-              src={
-                userData?.profileImage != null
-                  ? process.env.PUBLIC_URL + userData?.profileImage
-                  : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-              }
-              sx={{ width: 120, height: 120, bgcolor: userData?.profileColor }}
-            />
-          </StyledBadge2>
-        ) : userData?.state === "DND" ? (
-          <StyledBadge3
-            onClick={() => openColorPicker()}
-            className={styles.profileimg}
-            overlap="circular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            variant="dot"
-          >
-            <Avatar
-              onClick={() => navigateProfile()}
-              alt="Remy Sharp"
-              src={
-                userData?.profileImage != null
-                  ? process.env.PUBLIC_URL + userData?.profileImage
-                  : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-              }
-              sx={{ width: 120, height: 120, bgcolor: userData?.profileColor }}
-            />
-          </StyledBadge3>
-        ) : (
-          <StyledBadge
-            onClick={() => openColorPicker()}
-            className={styles.profileimg}
-            overlap="circular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            variant="dot"
-          >
-            <Avatar
-              onClick={() => navigateProfile()}
-              alt="Remy Sharp"
-              src={
-                userData?.profileImage != null
-                  ? process.env.PUBLIC_URL + userData?.profileImage
-                  : process.env.PUBLIC_URL + "/assets/profile/m57.png"
-              }
-              sx={{ width: 120, height: 120, bgcolor: userData?.profileColor }}
-            />
-          </StyledBadge>
-        )}
-
+          }
+          trigger="click"
+        >
+          {userData?.state === "ONLINE" ? (
+            <StyledBadge
+              // onClick={() => openColorPicker()}
+              className={styles.profileimg}
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              variant="dot"
+            >
+              <Avatar
+                onClick={() => navigateProfile()}
+                alt="Remy Sharp"
+                src={
+                  userData?.profileImage != null
+                    ? process.env.PUBLIC_URL + userData?.profileImage
+                    : process.env.PUBLIC_URL + "/assets/profile/m57.png"
+                }
+                sx={{
+                  width: 120,
+                  height: 120,
+                  bgcolor: userData?.profileColor,
+                }}
+              />
+            </StyledBadge>
+          ) : userData?.state === "AWAY" ? (
+            <StyledBadge1
+              // onClick={() => openColorPicker()}
+              className={styles.profileimg}
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              variant="dot"
+            >
+              <Avatar
+                onClick={() => navigateProfile()}
+                alt="Remy Sharp"
+                src={
+                  userData?.profileImage != null
+                    ? process.env.PUBLIC_URL + userData?.profileImage
+                    : process.env.PUBLIC_URL + "/assets/profile/m57.png"
+                }
+                sx={{
+                  width: 120,
+                  height: 120,
+                  bgcolor: userData?.profileColor,
+                }}
+              />
+            </StyledBadge1>
+          ) : userData?.state === "OFFLINE" ? (
+            <StyledBadge2
+              // onClick={() => openColorPicker()}
+              className={styles.profileimg}
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              variant="dot"
+            >
+              <Avatar
+                onClick={() => navigateProfile()}
+                alt="Remy Sharp"
+                src={
+                  userData?.profileImage != null
+                    ? process.env.PUBLIC_URL + userData?.profileImage
+                    : process.env.PUBLIC_URL + "/assets/profile/m57.png"
+                }
+                sx={{
+                  width: 120,
+                  height: 120,
+                  bgcolor: userData?.profileColor,
+                }}
+              />
+            </StyledBadge2>
+          ) : userData?.state === "DND" ? (
+            <StyledBadge3
+              // onClick={() => openColorPicker()}
+              className={styles.profileimg}
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              variant="dot"
+            >
+              <Avatar
+                onClick={() => navigateProfile()}
+                alt="Remy Sharp"
+                src={
+                  userData?.profileImage != null
+                    ? process.env.PUBLIC_URL + userData?.profileImage
+                    : process.env.PUBLIC_URL + "/assets/profile/m57.png"
+                }
+                sx={{
+                  width: 120,
+                  height: 120,
+                  bgcolor: userData?.profileColor,
+                }}
+              />
+            </StyledBadge3>
+          ) : (
+            <StyledBadge
+              // onClick={() => openColorPicker()}
+              className={styles.profileimg}
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              variant="dot"
+            >
+              <Avatar
+                onClick={() => navigateProfile()}
+                alt="Remy Sharp"
+                src={
+                  userData?.profileImage != null
+                    ? process.env.PUBLIC_URL + userData?.profileImage
+                    : process.env.PUBLIC_URL + "/assets/profile/m57.png"
+                }
+                sx={{
+                  width: 120,
+                  height: 120,
+                  bgcolor: userData?.profileColor,
+                }}
+              />
+            </StyledBadge>
+          )}
+        </Popover>
         <h5 className={styles.profilename}>
           {userData ? userData?.nickname : "CSI"}
         </h5>
@@ -427,11 +457,11 @@ function LeftSide(props: Props) {
           </ListItem>
         ))}
       </List>
-      <ColorPickerDialog
+      {/* <ColorPickerDialog
         open={colorPickerOpen}
         onClose={() => setColorPickerOpen(false)}
         onSelectColor={handleColorSelect}
-      />
+      /> */}
     </Container>
   );
 }
