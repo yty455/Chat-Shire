@@ -364,11 +364,11 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
   //   });
   };
 
-  // attachedInfos
+  // attachedInfos - antd꺼
   const handleChangePic: UploadProps["onChange"] = async ({
     fileList: newFileList }) => {
     
-    const attachedFileInfos: FileInfo[] = []; // Define the type here
+    const attachedFileInfos: FileInfo[] = [];
     
     for (let file of newFileList) {
     if (!file.url && !file.preview && file.originFileObj) {
@@ -378,17 +378,20 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
     }
 
     if (file.url) {
-      attachedFileInfos.push({ url: file.url, thumbnail: "" }); // Add empty thumbnail here
+      attachedFileInfos.push({ url: file.url, thumbnail: "" });
+      console.log('첨부한 이미지 url', attachedFileInfos);
+
     } else {
       console.error('undefined');
     }
   }
+  console.log('첨부한 이미지 url', attachedFileInfos);
   
   setAttachedFileInfos(attachedFileInfos);
   setFileList(newFileList);
   };
 
-  // 파일 선택 시 바로 업로드
+  // 파일 선택 시 바로 업로드 - 내꺼
   const handleFileSelect: React.ChangeEventHandler<HTMLInputElement> = async (e) => {
     const fileList = Array.from(e.target.files || []).map((file) =>
       ({ originFileObj: file } as UploadFile)
@@ -405,10 +408,12 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
   
       if (file.url) {
         attachedFileInfos.push({ url: file.url, thumbnail: "" });
+        console.log('첨부한 이미지 url', attachedFileInfos);
       } else {
         console.error('undefined');
       }
     }
+    console.log('첨부한 이미지 url', attachedFileInfos);
   
     setAttachedFileInfos(attachedFileInfos);
     setFileList(fileList);
@@ -528,9 +533,10 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
         />
       </div>
 
-      {/* <div style={{marginTop: '20px', display:'flex',alignItems:'center'}}> */}
-      <p style={{ margin: "20px 0 10px 0", fontFamily: "preRg" }}>첨부파일</p>
+      <div style={{marginTop: '20px', display:'flex',alignItems:'center'}}>
+      <p style={{ margin: "0 10px 10px 0", fontFamily: "preRg" }}>첨부파일</p>
       <input
+        style={{marginTop:'-10px', fontFamily:'preRg'}}
         // hidden
         accept="image/*, video/*"
         multiple
@@ -546,11 +552,13 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
         // }
         onChange={handleFileSelect}
         
-      />
-      {attachedFileInfos.map((info, index) => (
-        <img key={index} src={info.url} alt="Preview" />
-      ))}
-      <Upload
+      /></div>
+      <div style={{display:'flex', alignItems:'center', justifyContent:'start'}}>
+        {attachedFileInfos.map((info, index) => (
+          <img style={{padding: '10px', marginRight: '5px', border: '1px dashed grey', borderRadius: '10px', height: '100px'}} key={index} src={info.url} alt="Preview" />
+        ))}
+      </div>
+      {/* <Upload
         // action="localhost:3000"
         listType="picture-card"
         fileList={fileList}
@@ -565,7 +573,8 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
         }}
       >
         {fileList.length >= 5 ? null : uploadButton}
-      </Upload>
+      </Upload> */}
+
       <Modal
         open={previewOpen}
         title={previewTitle}
