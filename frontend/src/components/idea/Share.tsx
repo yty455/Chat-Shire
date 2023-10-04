@@ -75,8 +75,8 @@ export default function Share({ pjtId }: props) {
       <Box sx={{ p: 0 }}>
         {links.length !== 0 ? (
           links.map((link: any) => (
-            <div key={link.linkId}>
-              <LinkOGItem requestUrl={link.content} />
+            <div key={link?.linkId}>
+              <LinkOGItem requestUrl={link?.content} />
             </div>
           ))
         ) : (
