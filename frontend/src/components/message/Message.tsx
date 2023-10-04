@@ -717,7 +717,7 @@ function Message({ projectId }: MessageProps) {
             )}
           </button>
         </div>
-        <MessageRightBody value={value} />
+        <MessageRightBody value={value} projectId={projectId} />
       </div>
     </div>
   );
