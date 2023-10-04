@@ -1,5 +1,9 @@
 import api from "./api";
 
+type FileInfo = {
+  url: string;
+  thumbnail: string;
+};
 //####### 에러 게시판
 
 // 에러 전체 불러오기
@@ -14,14 +18,14 @@ export const postError = (
   projectId: string,
   title: string,
   content: string,
-  skillName: string[]
-  // attachedFileInfos: []
+  skillName: string[],
+  attachedFileInfos: FileInfo[]
 ) =>
   api.post(`/projects/${projectId}/posts`, {
     title,
     content,
     skillName,
-    // attachedFileInfos,
+    attachedFileInfos,
   });
 
 // 에러 수정
