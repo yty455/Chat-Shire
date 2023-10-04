@@ -72,7 +72,7 @@ const ModalComponent: React.FC<{
   };
   useEffect(() => {
     if (isModalUpdate !== "") {
-      setLink(isModalUpdate.content);
+      setLink(isModalUpdate?.content);
     }
   }, []);
 
