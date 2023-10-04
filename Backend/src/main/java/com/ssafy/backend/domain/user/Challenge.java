@@ -27,6 +27,12 @@ public class Challenge extends BaseEntity {
     @Builder.Default()
     private long commit = 0;     // 커밋 수
     @Builder.Default()
+    private long morningCommit = 0;
+    @Builder.Default()
+    private long afternoonCommit = 0;
+    @Builder.Default()
+    private long nightCommit = 0;
+    @Builder.Default()
     private int chat = 0;       // 채팅 수
     @Builder.Default()
     private int task = 0;       // 태스크 수
@@ -47,14 +53,21 @@ public class Challenge extends BaseEntity {
     @Builder.Default()
     private int done = 0;       // 도전과제 달성
 
+    public void addDayCommit(long morningCommit, long afternoonCommit, long nightCommit) {
+        this.morningCommit += morningCommit;
+        this.afternoonCommit += afternoonCommit;
+        this.nightCommit += nightCommit;
+        long count = morningCommit + afternoonCommit + nightCommit;
+        commit += count;
+
+        if (commit - count < 100 && commit >= 100) done++;
+        if (commit - count < 500 && commit >= 500) done++;
+        if (commit - count < 1000 && commit >= 1000) done++;
+    }
+
     public void addProject() {
         project++;
         if (project == 5 || project == 10 || project == 25) done++;
-    }
-
-    public void updateCommit(Long commitCount) {
-        commit = commitCount; // TODO - 수정 필요
-        if (commit == 100 || commit == 500 || commit == 1000) done++;
     }
 
     public void addChat(int count) {

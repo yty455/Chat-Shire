@@ -22,4 +22,6 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
     Long countByChatRoomId(Long chatRoomId);
 
     void deleteAllByUserId(Long userId);
+
+    int countByUserId(Long userId);
 }
