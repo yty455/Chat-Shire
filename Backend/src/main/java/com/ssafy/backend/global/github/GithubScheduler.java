@@ -11,6 +11,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import com.ssafy.backend.domain.analyze.service.StatisticService;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
@@ -20,6 +21,7 @@ import com.ssafy.backend.domain.user.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Service
 public class GithubScheduler {
 
 	private final ChatRoomRepository chatRoomRepository;
