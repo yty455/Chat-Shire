@@ -111,7 +111,7 @@ function Message({ projectId }: MessageProps) {
       // setPjt(response.data.result[0]);
       console.log("불러온 공지", response.data.result[0].notification);
       setNotice(response.data.result[0].notification);
-      // console.log("플젝 이름", response.data.result[0].name);
+      console.log("플젝 이름", response.data.result[0].name);
       setPjtName(response.data.result[0].name);
     } catch (error) {
       console.error(error);
@@ -453,7 +453,9 @@ function Message({ projectId }: MessageProps) {
         <div className={styles.messageLeftHeader}>
           <div className={styles.messageLeftHeader}>
             <div className={styles.messageLeftHeaderLeft}>
-              <span className={styles.messageLeftTitle}>{pjtName}</span>
+              {pjtName.length !== 0 && (
+                <span className={styles.messageLeftTitle}>{pjtName}</span>
+              )}
               {/* <span className={styles.messageLeftTitle}>2차 플젝</span> */}
               <Popover
                 placement="rightBottom"
