@@ -1,3 +1,7 @@
+.NowProjectContainer {
+
+}
+
 .nowCardBox {
   display: flex;
   justify-content: space-around;
@@ -15,30 +19,13 @@
 } */
 
 .pjttxt {
-  font-family: "preLt";
-  font-size: large;
-  margin-left: 5%;
-  margin-top: 2%;
-  margin-bottom: 1%;
-  font-weight: bold;
+  font-family: "preBd";
+  font-size: 24px;
+  color: #575757;
 }
 
-/* .addbtn {
-  background-color: #39a789;
-  color: white;
-  &:hover {
-    background-color: white;
-    color: #39a789;
-    border: 1px double #39a789;
-    box-shadow: -2px -2px 5px white, 2px 2px 5px #babecc;
-  }
-} */
-
-.hoverEffect {
-  &:hover {
-    background-color: white;
-    color: #39a789;
-    border: 1px double #39a789;
-    box-shadow: -2px -2px 5px white, 2px 2px 5px #babecc;
-  }
+.NowProjectSwiper {
+  border: 1px solid black;
+  height: 30vh;
+  margin-top: 10px;
 }

@@ -1,7 +1,9 @@
 package com.ssafy.backend.oauth2.service;
 
 
+import com.ssafy.backend.domain.user.Challenge;
 import com.ssafy.backend.domain.user.User;
+import com.ssafy.backend.domain.user.repository.ChallengeRepository;
 import com.ssafy.backend.domain.user.repository.UserRepository;
 import com.ssafy.backend.oauth2.CustomOAuth2User;
 import com.ssafy.backend.oauth2.OAuth2Attribute;
@@ -24,6 +26,7 @@ import java.util.Map;
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final UserRepository userRepository;
+    private final ChallengeRepository challengeRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -34,8 +37,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         //	2번
         OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest);
         String userToken = userRequest.getAccessToken().getTokenType().getValue();
-        System.out.println("AccessToken = "+ userRequest.getAccessToken());
-        System.out.println("userToken = "+userToken);
         // 유저 email 가져오기위해 access token 사용하기
 
 
@@ -81,8 +82,12 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
      * OAuthAttributes의 toEntity() 메소드를 통해 빌더로 User 객체 생성 후 반환
      * 생성된 User 객체를 DB에 저장 : socialType, socialId, email, role 값만 있는 상태
      */
+
     private User saveUser(OAuth2Attribute attributes) {
         User createdUser = attributes.toEntity(attributes);
-        return userRepository.save(createdUser);
+        User savedUser = userRepository.save(createdUser);
+        challengeRepository.save(Challenge.builder()
+                .user(savedUser).build());
+        return savedUser;
     }
 }

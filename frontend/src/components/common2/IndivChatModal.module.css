@@ -1,0 +1,58 @@
+.modalOverlay {
+  border: 1px solid #39a789;
+  position: fixed;
+  display: flex;
+  right: 0;
+  bottom: 0;
+  top: 50%;
+  left: 50%;
+  background-color: rgb(250, 250, 250);
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  width: 50vw;
+  height: 50vh;
+  z-index: 9999;
+}
+
+.modalBox {
+  padding: 5%;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  width: 100%;
+}
+
+.closebtn {
+  position: fixed;
+  top: 2%;
+  right: 2%;
+  border: 0;
+  background-color: transparent;
+}
+
+.chat {
+  display: flex;
+}
+
+.nickname {
+  width: 10%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.content {
+  width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.chatTime {
+  width: 30%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.deletebtn {
+  width: 10%;
+  text-align: start;
+}

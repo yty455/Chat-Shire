@@ -1,31 +1,72 @@
 import React from 'react'
 import { ResponsiveRadar } from '@nivo/radar'
 
+import { useRecoilState } from "recoil";
+import { keywords_recoil, morningCount_recoil, afternoonCount_recoil, nightCount_recoil, issueCount_recoil, allCategoryCount_recoil, taskCount_recoil, workStyleColor_recoil } from "../../stores/atom";
+
 const RadarChart = () => {
+    const [workStyleColor, setWorkStyleColor] = useRecoilState(workStyleColor_recoil)
+    const [keywords, setKeywords] = useRecoilState(keywords_recoil)
+    const [morningCommit, setMorningCommit] = useRecoilState(morningCount_recoil)
+    const [afternoonCommit, setAfternoonCommit] = useRecoilState(afternoonCount_recoil)
+    const [nightCommit, setNightCommit] = useRecoilState(nightCount_recoil)
+    const [issueCount, setIssueCount] = useRecoilState(issueCount_recoil)
+    const [allCategoryCount, setAllCategoryCount] = useRecoilState(allCategoryCount_recoil)
+    const [taskCount, setTaskCount] = useRecoilState(taskCount_recoil)
+    interface MyObject {
+        [key: string]: number;
+      }
+      
+    function totalChatCount(obj: MyObject): number {
+        let sum = 0;
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+            sum += obj[key];
+            }
+        }
+        return sum;
+    }
+
+    function relevantChatCount(obj: MyObject): number {
+        let sum = 0;
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key) && keywords.includes(key)) {
+              sum += obj[key];
+            }
+        }
+        return sum;
+    }
+
+
     const data = [
         {
-            "skill": "에러 해결사",
-            "chardonay": 112,
-        },
-        {
             "skill": "개발",
-            "chardonay": 86,
-            "syrah": 61
+            "chardonay": morningCommit + afternoonCommit + nightCommit,
+            // "chardonay": 8,
         },
         {
-            "skill": "규칙",
-            "chardonay": 88,
+            "skill": "디버깅",
+            "chardonay": issueCount,
+            // "chardonay": 7,
         },
         {
-            "skill": "긍정",
-            "chardonay": 63,
+            "skill": "분위기 메이커",
+            "chardonay": totalChatCount(allCategoryCount),
+            // "chardonay": 10,
         },
         {
-            "skill": "해피",
-            "chardonay": 117,
+            "skill": "협업 의지",
+            "chardonay": relevantChatCount(allCategoryCount),
+            // "chardonay": 7,
+        },
+        {
+            "skill": "일정 관리",
+            "chardonay": taskCount,
+            // "chardonay": 8,
         }
     ]
-  return (
+
+    return (
     <ResponsiveRadar
         theme={{ fontFamily: 'preLt', fontSize: 18, textColor: '#ffffff'}}
         data={data}
@@ -41,12 +82,12 @@ const RadarChart = () => {
         dotSize={2}
         dotColor={{ theme: 'background' }}
         dotLabelYOffset={-14}
-        colors={['#EB9042' ]}
-        fillOpacity={0.8}
+        colors={[ workStyleColor.sub ]}
+        fillOpacity={0.6}
         blendMode="normal"
         motionConfig="default"
     />
-  )
+    )
 }
 
 export default RadarChart;

@@ -1,13 +1,14 @@
 .indivDiv {
   width: 23vw;
-  height: 77vh;
-  padding: 0 10px 0px 10px;
+  height: 74.5vh;
+  padding: 0 0 0 10px;
   margin: 0;
   overflow: scroll;
 }
 
 .indivDiv::-webkit-scrollbar {
-  width: 7px;  /* 스크롤바의 너비 */
+  /* width: 7px;  스크롤바의 너비 */
+  display: none;
 }
 
 .indivDiv::-webkit-scrollbar-thumb {
@@ -15,6 +16,7 @@
   background: #ababab; /* 스크롤바의 색상 */
   border-radius: 10px;
   opacity: 0.2
+
 }
 .indivDiv::-webkit-scrollbar-track {
   background: none;  /*스크롤바 뒷 배경 색상*/
@@ -56,12 +58,13 @@
   width: 320px;
   max-width: 320px;
   text-align: start;
-  margin-bottom: 0;
+  /* margin-bottom: 0; */
   font-family: 'preBd';
-  margin-right: 8px;
-  margin-bottom:20px;
+  /* margin-right: 8px; */
+  /* margin-bottom:20px; */
   overflow-wrap: normal;
   text-overflow:clip;
+  margin: 4px 8px;
 }
 
 .test {
@@ -78,4 +81,14 @@
   /* text-decoration-style: wavy; */
   text-decoration-color: #39A789;
   text-decoration-thickness: 2px;
+}
+
+.noPhoto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 0.9rem;
+  color: grey;
+  width: 20vw;
 }

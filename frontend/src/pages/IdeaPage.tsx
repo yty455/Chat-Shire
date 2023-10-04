@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import Idea from "../components/idea/Idea";
 import Share from "../components/idea/Share";
 import ErrorBoard from "../components/error/ErrorBoard";
 import LeftSide from "../components/common/LeftSide";
+import ErrorCreate from "../components/error/ErrorCreate";
 // import IndivTask from "../components/common2/IndivTask";
 import styles from "./IdeaPage.module.css";
 import Tabs from "@mui/material/Tabs";
@@ -26,7 +27,6 @@ interface TabPanelProps {
 }
 
 function CustomTabPanel(props: TabPanelProps) {
-  const { projectId } = useParams();
   const { children, value, index, ...other } = props;
 
   return (
@@ -54,10 +54,14 @@ function a11yProps(index: number) {
 }
 
 export default function BasicTabs() {
+  const { projectId } = useParams();
+  const projectToPass = projectId || "defaultProjectId";
   const [value, setValue] = React.useState(0);
+  const [isCreating, setIsCreating] = useState(false);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+    setIsCreating(false);
   };
 
   return (
@@ -73,21 +77,33 @@ export default function BasicTabs() {
             aria-label="basic tabs example"
           >
             <Tab
-              sx={{ fontFamily: "preBd" }}
-              label="아이디어 및 자료"
+              sx={{ fontSize: "18px", fontFamily: "preBd" }}
+              label="아이디어 및 자료공유"
               {...a11yProps(0)}
             />
-            <Tab sx={{ fontFamily: "preBd" }} label="에러" {...a11yProps(1)} />
+            <Tab
+              sx={{ fontSize: "18px", fontFamily: "preBd" }}
+              label="에러"
+              {...a11yProps(1)}
+            />
           </CustomTabs>
         </div>
         <CustomTabPanel value={value} index={0}>
           <div className={styles.ideaNshare}>
-            <Idea />
-            <Share />
+            <Idea pjtId={projectToPass} />
+            <Share pjtId={projectToPass} />
           </div>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <ErrorBoard />
+          {isCreating ? (
+            <ErrorCreate pjtId={projectToPass} setIsCreating={setIsCreating} />
+          ) : (
+            <ErrorBoard
+              pjtId={projectToPass}
+              isCreating={isCreating}
+              setIsCreating={setIsCreating}
+            />
+          )}
         </CustomTabPanel>
       </div>
     </div>

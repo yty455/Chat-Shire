@@ -8,7 +8,7 @@ export const getChat = (projectId: number, page: number, size: number) =>
 
 // 채팅 작성
 export const postChat = (chatRoomId: number, content: string) =>
-  api.post("/chat", {
+  api.post("/chats", {
     chatRoomId,
     content,
   });
@@ -17,6 +17,10 @@ export const postChat = (chatRoomId: number, content: string) =>
 
 // 채팅방 공지 등록
 export const putNotification = (projectId: string, content: string) =>
-  api.put(`/projects/${projectId}/notification`, {
+  api.put(`/projects/${projectId}/notice`, {
     content,
   });
+
+// 첨부파일 서랍
+export const getFiles = (projectId: string, category: string) =>
+  api.get(`/projects/${projectId}/files/${category}`);

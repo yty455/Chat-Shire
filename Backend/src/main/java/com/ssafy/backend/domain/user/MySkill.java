@@ -1,5 +1,6 @@
 package com.ssafy.backend.domain.user;
 
+import com.ssafy.backend.domain.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,9 +12,9 @@ import static javax.persistence.FetchType.LAZY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MySkill {
+public class MySkill extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MYSKILL_ID")
     private Long id;
 

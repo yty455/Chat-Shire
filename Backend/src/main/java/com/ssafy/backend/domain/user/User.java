@@ -1,12 +1,6 @@
 package com.ssafy.backend.domain.user;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -30,7 +24,7 @@ import java.util.function.Consumer;
 public class User extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_ID")
     private Long id;
 
@@ -41,6 +35,7 @@ public class User extends BaseEntity {
     private String profileColor;
     private String introduction;
     private String detailIntroduction;
+    private String position;
 
     private String email;
     private String password;
@@ -59,6 +54,7 @@ public class User extends BaseEntity {
         updateProfileColor(userInfo.getProfileColor());
         updateIntroduction(userInfo.getIntroduction());
         updateDetailIntroduction(userInfo.getDetailIntroduction());
+        updatePosition(userInfo.getPosition());
     }
 
     private <T> void updateIfNotNull(Consumer<T> updater, T newValue) {
@@ -85,6 +81,9 @@ public class User extends BaseEntity {
 
     public void updateDetailIntroduction(String detailIntroduction) {
         updateIfNotNull(newValue -> this.detailIntroduction = newValue, detailIntroduction);
+    }
+    public void updatePosition(String position) {
+        updateIfNotNull(newValue -> this.position = newValue, position);
     }
 
     // 유저 권한 설정 메소드

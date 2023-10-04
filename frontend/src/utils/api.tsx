@@ -14,7 +14,7 @@ api.interceptors.request.use(
 
     // 헤더에 토큰 추가
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `${token}`;
     }
 
     return config;
@@ -33,34 +33,43 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 403) {
       // 403 에러
       // 리프레쉬 토큰 가져오기
-      const refreshToken = localStorage.getItem("refresh_token");
+      const refreshToken = sessionStorage.getItem("refresh_token");
 
       if (refreshToken) {
         try {
           // 새로운 토큰과 리프레쉬
-          const response = await axios.post("/api1/~~", {
-            refresh_token: refreshToken,
+          const response = await axios.request({
+            method: error.config.method, // 원래 요청의 HTTP 메서드를 사용합니다.
+            url: error.config.url, // 원래 요청의 URL을 사용합니다.
+            headers: {
+              "Authorization-Refresh": `${refreshToken}`, // 리프레시 토큰을 사용하여 인증합니다.
+            },
           });
 
           if (response.status === 200) {
-            const { access_token, refresh_token } = response.data;
-
-            // 새로운 토큰을 저장
-            localStorage.setItem("token", access_token);
-            localStorage.setItem("refresh_token", refresh_token);
+            // const { access_token, refresh_token } = response.data;
+            const token = response.headers["authorization"];
+            localStorage.setItem("token", response.headers["authorization"]);
+            sessionStorage.setItem(
+              "refresh_token",
+              response.headers["authorization-refresh"]
+            );
+            // // 새로운 토큰을 저장
+            // localStorage.setItem("token", access_token);
+            // localStorage.setItem("refresh_token", refresh_token);
 
             // 요청 재시도
-            error.config.headers.Authorization = `Bearer ${access_token}`;
+            error.config.headers.Authorization = `${token}`;
             return axios.request(error.config);
           }
         } catch (refreshError) {
           // 리프레쉬 토큰을 사용해도 또 에러
           // 로그인 페이지로 이동
-          window.location.href = "/login";
+          window.location.href = "/main";
         }
       } else {
         // 리프레쉬 토큰 없어도 로그인 페이지로 이동
-        window.location.href = "/login";
+        window.location.href = "/main";
       }
     }
 

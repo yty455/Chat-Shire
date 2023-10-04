@@ -19,13 +19,9 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class TaskInfo {
-    private Long taskGroupId; // -1이면 개인 태스크인 상태
-    private String name;
+    private Long taskGroupId; // 0이면 개인 태스크인 상태
     private String description;
     @Enumerated(EnumType.STRING)
-    private Priority priority;
-    @Enumerated(EnumType.STRING)
     private Progress progress;
-    private LocalDate deadline;
 
 }

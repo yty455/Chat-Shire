@@ -21,10 +21,15 @@ public class UserInfoResponse {
     private String profileColor;
     private String introduction;
     private String detailIntroduction;
+    private String position;
 
     private List<String> mySkill;
 
-    public static UserInfoResponse fromEntity(User user, List<String> mySkill){
+    private ChallengeInfoResponse challengeInfoResponse;
+
+    private String state;
+
+    public static UserInfoResponse fromEntity(User user, List<String> mySkill, ChallengeInfoResponse challengeInfoResponse, String state){
         return UserInfoResponse.builder()
                 .socialId(user.getSocialId())
                 .githubId(user.getGithubId())
@@ -33,7 +38,10 @@ public class UserInfoResponse {
                 .profileColor(user.getProfileColor())
                 .introduction(user.getIntroduction())
                 .detailIntroduction(user.getDetailIntroduction())
-                .mySkill(mySkill).build();
+                .position(user.getPosition())
+                .mySkill(mySkill)
+                .challengeInfoResponse(challengeInfoResponse)
+                .state(state).build();
     }
 
 }

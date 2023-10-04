@@ -11,6 +11,7 @@ import com.ssafy.backend.domain.task.repository.TaskRepository;
 import com.ssafy.backend.domain.user.User;
 import com.ssafy.backend.domain.user.exception.UserNotFoundException;
 import com.ssafy.backend.domain.user.repository.UserRepository;
+import com.ssafy.backend.domain.user.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,8 @@ public class TaskService {
     private final UserRepository userRepository;
     private final ReferenceRepository referenceRepository;
 
+    private final ChallengeService challengeService;
+
     // 태스크 등록
     public Long registerTask(TaskRegister taskRegister){
         ChatRoom chatRoom = chatRoomRepository.findById(taskRegister.getChatroomId())
@@ -42,6 +45,7 @@ public class TaskService {
 
         Task savedTask = taskRepository.save(task);
 
+        challengeService.addTask(getUserId());
         return savedTask.getId();
     }
     
@@ -60,8 +64,8 @@ public class TaskService {
 
     // 태스크 삭제
     public void deleteTask(Long taskId){
+        referenceRepository.deleteAllByTaskId(taskId);
         taskRepository.deleteById(taskId);
-
     }
 
     // 태스크 그룹에 등록

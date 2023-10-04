@@ -1,16 +1,14 @@
 import * as React from "react";
 import { Theme, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+
 import Chip from "@mui/material/Chip";
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete'; // import here
-import TextField from '@mui/material/TextField';
-import { styled } from '@mui/system';
-import Paper from "@mui/material/Paper";
+import Autocomplete, {
+  createFilterOptions,
+  AutocompleteChangeReason,
+  AutocompleteChangeDetails,
+} from "@mui/material/Autocomplete"; // import here
+import TextField from "@mui/material/TextField";
+import { styled } from "@mui/system";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -22,58 +20,146 @@ const MenuProps = {
     },
   },
 };
-
-
-
+interface searchProps {
+  onSearch: (searchText: string) => void;
+}
 const names = [
   "python",
   "java",
-  "c#",
-  "docker",
-  "curl",
-  "three.js",
-  "react",
+  "javascript",
+  "html5",
+  "css3",
+  "c",
   "c++",
-  "clang",
+  "r",
+  "flutter",
+  "dart",
+  "kotlin",
+  "pwa",
+  "php",
+  "django",
+  "spring",
+  "vue", 
+  "react",
+  "next",
+  "node",
+  "angular",
   "jenkins",
+  "docker",
+  "aws",
+  "kubernetes",
+  "three",
+  "aframe",
+  "unity",
+  "unreal",
+  "tomcat",
+  "spark",
+  "hadoop",
+  "git"
 ];
 
 const CustomChip = styled(Chip)(({ theme }) => ({
-  fontFamily: 'preRg',
-  '&.python': {
-    backgroundColor: '#F08484',
+  fontFamily: "preRg",
+  "&.python": {
+    backgroundColor: "#F08484",
   },
-  '&.java': {
-    backgroundColor: '#F9A686'
+  "&.java": {
+    backgroundColor: "#F9A686",
   },
-  '&.c#': {
-    backgroundColor: '#FBF6A4',
+  "&.javascript": {
+    backgroundColor: "#8ED2CD",
   },
-  '&.docker': {
-    backgroundColor: 'F9BF64',
+  "&.html5": {
+    backgroundColor: "#E1F5A9",
   },
-  '&.curl': {
-    backgroundColor: '#A0D6B6',
+  "&.css3": {
+    backgroundColor: "#FBF6A4",
   },
-  '&.three.js': {
-    backgroundColor: '#30BA96',
+  "&.c": {
+    backgroundColor: "#F7819F",
   },
-  '&.react': {
-    backgroundColor: '#789CCE',
+  "&.c++": {
+    backgroundColor: "#D358F7",
   },
-  '&.c++': {
-    backgroundColor: '#9E7EB9',
+  "&.r": {
+    backgroundColor: "#819FF7",
   },
-  '&.clang': {
-    backgroundColor: '#EF404A',
+  "&.flutter": {
+    backgroundColor: "#F5A9A9",
   },
-  '&.jenkins': {
-    backgroundColor: '#8ED2CD',
+  "&.dart": {
+    backgroundColor: "#F5F6CE",
   },
-  height: '25px',
-  '& .MuiChip-label': {
-    paddingTop: '0px',
-    paddingBottom: '0px',
+  "&.kotlin": {
+    backgroundColor: "#FAAC58",
+  },
+  "&.pwa": {
+    backgroundColor: "#FE2E64",
+  },
+  "&.php": {
+    backgroundColor: "#A9F5F2",
+  },
+  "&.django": {
+    backgroundColor: "#04B486",
+  },
+  "&.spring": {
+    backgroundColor: "F5A9F2",
+  },
+  "&.vue": {
+    backgroundColor: "#04B486",
+  },
+  "&.react": {
+    backgroundColor: "#30BA96",
+  },
+  "&.next": {
+    backgroundColor: "#789CCE",
+  },
+  "&.node": {
+    backgroundColor: "#9E7EB9",
+  },
+  "&.angular": {
+    backgroundColor: "#EF404A",
+  },
+  "&.jenkins": {
+    backgroundColor: "#8ED2CD",
+  },
+  "&.docker": {
+    backgroundColor: "#0431B4",
+  },
+  "&.aws": {
+    backgroundColor: "#DF01D7",
+  },
+  "&.kubernetes": {
+    backgroundColor: "#FA5858",
+  },
+  "&.three": {
+    backgroundColor: "#58FA58",
+  },
+  "&.aframe": {
+    backgroundColor: "#AC58FA",
+  },
+  "&.unity": {
+    backgroundColor: "#F8E0F7",
+  },
+  "&.unreal": {
+    backgroundColor: "#F3F781",
+  },
+  "&.tomcat": {
+    backgroundColor: "#7401DF",
+  },
+  "&.spark": {
+    backgroundColor: "#CECEF6",
+  },
+  "&.hadoop": {
+    backgroundColor: "#8ED2CD",
+  },
+  "&.git": {
+    backgroundColor: "#81F7BE",
+  },
+  height: "25px",
+  "& .MuiChip-label": {
+    paddingTop: "0px",
+    paddingBottom: "0px",
   },
 }));
 
@@ -86,77 +172,119 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
   };
 }
 
-function MultiSelect() {
+function MultiSelect({ onSearch }: searchProps) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
 
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+  const handleChange = (
+    event: React.SyntheticEvent,
+    value: readonly string[],
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<string> | undefined
+  ) => {
+    setPersonName(value as string[]);
+    // console.log("선택된 기술 스택:", value);
+    onSearch(value[0]);
   };
+
   const filter = createFilterOptions<string>();
 
   return (
-    <div>
-        <Autocomplete
-            multiple
-            id="multiple-limit-tags"
-            options={names}
-            filterOptions={(options, params) => {
-              const filtered = filter(options, params);
+    <Autocomplete
+      forcePopupIcon={false}
+      multiple
+      id="custom-input-demo"
+      options={names}
+      filterOptions={(options, params) => {
+        const filtered = filter(options, params);
+        // At the opening of dropdown (when search is empty), no options will be shown.
+        if (params.inputValue === "") {
+          return [];
+        }
 
-              // At the opening of dropdown (when search is empty), no options will be shown.
-              if (params.inputValue === '') {
-                  return [];
-              }
-
-              return filtered as string[];
-          }}            
-          getOptionLabel={(option) => option}
-            renderInput={(params) => (
-                <TextField {...params} sx={{'& .MuiInputLabel-root': {
-                  fontFamily: 'preBd',margin: '-7px 0 0 1px'
-              },}} label="언어를 검색하세요" />
-            )}
-            sx={{ 
-                width: '300px', 
-                '& .MuiAutocomplete-tag': {
-                    maxWidth: '100%',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap'
-                },
-                '& .MuiAutocomplete-tagArea': {
-                    flexWrap: 'nowrap',
-                    overflowX: 'auto'
-                },
-                '& .MuiInputBase-root': {
-                  marginTop: '1px',
-                  padding: '0 5px',
-                  fontFamily: 'preBd'
-                },
-                marginLeft: '10px',
-             }}
-             PaperComponent={({ children }) => (
-              <Paper style={{ maxHeight: `Desired height for autocomplete dropdown`, fontFamily:'Your desired font for options'}}>{children}</Paper>
-            )}
-            renderTags={(selectedValues, getTagProps) =>
-                selectedValues.map((option, index) => (
-                    <CustomChip {...getTagProps({ index })} key={index} label={option} className={option} sx={{ margin: '0 2px' }}/>
-                ))
-            }
-            renderOption={(props, option, { selected }) => (
-                <li {...props}>
-                    <CustomChip label={option} className={option} color={selected ? 'primary' : undefined} />
-                </li>
-            )}
+        return filtered as string[];
+      }}
+      getOptionLabel={(option) => option}
+      value={personName}
+      onChange={handleChange}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          sx={{
+            "& .MuiInputLabel-root": {
+              fontFamily: "preRg",
+              color: "#adb5bd",
+              margin: "-16px 0 0 1px",
+              zIndex: "200",
+            },
+            "& .MuiInputBase-root": {
+              marginTop: "-10px",
+              boxShadow: "0px 2px 1px -1px rgb(0 0 0 / 20%)",
+            },
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "#e9ecef",
+                border: "1px solid #e9ecef",
+                borderTop: "1px solid #f8f9fa",
+              },
+              "&:hover fieldset": {
+                borderColor: "#e9ecef",
+                border: "1px solid #e9ecef",
+                borderTop: "1px solid #f8f9fa",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "#e9ecef",
+                border: "1px solid #e9ecef",
+                borderTop: "1px solid #f8f9fa",
+              },
+            },
+          }}
+          label="언어를 검색하세요"
         />
-    </div>
+      )}
+      sx={{
+        width: "300px",
+        "& .MuiAutocomplete-tag": {
+          maxWidth: "100%",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+        },
+        "& .MuiAutocomplete-tagArea": {
+          flexWrap: "nowrap",
+          overflowX: "auto",
+        },
+        "& .MuiInputBase-root": {
+          position: "fixed",
+          width: "300px",
+          padding: "2px 5px",
+          fontFamily: "preBd",
+          backgroundColor: "#ffffff",
+          zIndex: "100",
+        },
+        marginLeft: "10px",
+      }}
+      renderTags={(selectedValues, getTagProps) =>
+        selectedValues.map((option, index) => (
+          <CustomChip
+            {...getTagProps({ index })}
+            key={index}
+            label={option}
+            className={option}
+            sx={{ margin: "4px 4px" }}
+          />
+        ))
+      }
+      renderOption={(props, option, { selected }) => (
+        <li {...props}>
+          <CustomChip
+            label={option}
+            className={option}
+            color={selected ? "primary" : undefined}
+          />
+        </li>
+      )}
+    />
   );
 }
 

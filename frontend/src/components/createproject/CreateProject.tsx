@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Box from "@mui/material/Box";
 import { Step, StepLabel, Stepper } from "@mui/material";
 import { Check } from "@mui/icons-material";
@@ -9,14 +9,16 @@ import Typography from "@mui/material/Typography";
 import Container from "../common/Container";
 import TextField from "@mui/material/TextField";
 import styles from "./CreateProject.module.css";
-import First from "./First";
-import Second from "./Second";
-import Third from "./Third";
-import Fourth from "./Fourth";
+import SetProjectName from "./SetProjectName";
+import SetProjectInfo from "./SetProjectInfo";
+import SetGitRepo from "./SetGitRepo";
+import SetMember from "./SetMember";
+import SetDate from "./SetDate";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { postProject } from "../../utils/projectApi";
 import dayjs, { Dayjs } from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 const steps = [
   {
@@ -27,7 +29,7 @@ const steps = [
   {
     id: 1,
     label: "어떤 프로젝트를 시작하나요?",
-    description: "멤버를 초대하세요",
+    description: "주제 입력",
   },
   {
     id: 2,
@@ -41,18 +43,27 @@ const steps = [
   },
   {
     id: 4,
-    label: "마지막 단계입니다",
-    description: `플젝 생성 완료입니당`,
+    label: "깃을 설정해주세요",
+    description: `깃 설정`,
   },
 ];
 
 function CreateProject() {
   const [activeStep, setActiveStep] = useState(0);
+  const navigate = useNavigate();
+  // 프로젝트 이름
   const [name, setName] = useState("");
   const [teamName, setTeamName] = useState("");
+  // 프로젝트 정보
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");
+  // 깃 정보
   const [gitRepository, setGitRepository] = useState("");
+  const [branch, setBranch] = useState("");
+  const [gitAccessToken, setGitAccessToken] = useState("");
+  // 
+  let Members = useRef<string[]>([]);
+
   const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs());
   const [endDate, setEndDate] = React.useState<Dayjs | null>(
     dayjs().add(1, "week")
@@ -70,25 +81,35 @@ function CreateProject() {
     setActiveStep(0);
   };
 
-  const handleFirstStepData = (name: string, teamName: string) => {
+  const handleProjectNameData = (name: string, teamName: string) => {
     setName(name);
     setTeamName(teamName);
   };
 
-  const handleFourthStepData = (startDate: string, endDate: string) => {
+  const handleProjecInfoData = (topic: string, description: string) => {
+    setTopic(topic);
+    setDescription(description);
+  };
+
+  const handleMemberData = (membersData: any) => {
+    Members.current = membersData
+  }
+
+  const handleDateData = (startDate: string, endDate: string) => {
     setStartDate(dayjs(startDate));
     setEndDate(dayjs(endDate));
   };
 
-  const handleSecondStepData = (
-    topic: string,
+  const handleGitData = (
     gitRepository: string,
-    description: string
+    branch: string,
+    gitAccessToken: string
   ) => {
-    setTopic(topic);
     setGitRepository(gitRepository);
-    setDescription(description);
+    setBranch(branch);
+    setGitAccessToken(gitAccessToken);
   };
+
 
   const createProject = async () => {
     const formattedStartDate = startDate ? startDate.format("YYYY-MM-DD") : "";
@@ -99,8 +120,11 @@ function CreateProject() {
       topic,
       description,
       gitRepository,
+      branch,
+      Members.current,
       formattedStartDate,
-      formattedEndDate
+      formattedEndDate,
+      gitAccessToken
     );
 
     try {
@@ -110,10 +134,14 @@ function CreateProject() {
         topic,
         description,
         gitRepository,
+        branch,
+        Members.current,
         formattedStartDate,
-        formattedEndDate
+        formattedEndDate,
+        gitAccessToken
       );
       console.log(response);
+      navigate("/main");
     } catch (error) {
       console.error(error);
     }
@@ -195,13 +223,14 @@ function CreateProject() {
               </StepLabel>
               <StepContent
                 color="greenary"
-                style={{ display: "flex", marginLeft: "14px", border: "none" }}
+                style={{ display: "flex", marginLeft: "14px", border: "none", width: "900px" }}
               >
-                {index === 0 && <First onData={handleFirstStepData} />}
-                {index === 1 && <Second onData={handleSecondStepData} />}
-                {index === 2 && <Third />}
-                {index === 3 && <Fourth onData={handleFourthStepData} />}
-                <div style={{}}>
+                {index === 0 && <SetProjectName onData={handleProjectNameData} />}
+                {index === 1 && <SetProjectInfo onData={handleProjecInfoData} />}
+                {index === 2 && <SetMember onData={handleMemberData}/>}
+                {index === 3 && <SetDate onData={handleDateData} />}
+                {index === 4 && <SetGitRepo onData={handleGitData} />}
+                <div style={{display: "flex",  justifyContent: "flex-end", alignItems: "center"}}>
                   <Button
                     variant="contained"
                     onClick={() => {
@@ -214,7 +243,7 @@ function CreateProject() {
                     sx={{ mt: 1, mr: 1 }}
                     color="greenary"
                   >
-                    {index === steps.length - 1 ? "Finish" : "Continue"}
+                    {index === steps.length - 1 ? "완료" : "다음"}
                   </Button>
                   <Button
                     disabled={index === 0}
@@ -222,7 +251,7 @@ function CreateProject() {
                     sx={{ mt: 1, mr: 1 }}
                     color="greenary"
                   >
-                    Back
+                    이전
                   </Button>
                 </div>
               </StepContent>

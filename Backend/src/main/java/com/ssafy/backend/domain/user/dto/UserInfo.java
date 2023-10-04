@@ -13,5 +13,6 @@ public class UserInfo {
     private String profileColor;
     private String introduction;
     private String detailIntroduction;
+    private String position;
     private List<String> mySkill;
 }

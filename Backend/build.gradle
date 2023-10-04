@@ -63,6 +63,16 @@ dependencies {
 
     // SSE
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // 구글 자연어처리
+    implementation 'com.google.cloud:google-cloud-language:2.24.0'
+
+    // github
+    implementation 'org.kohsuke:github-api:1.316'
+
+    // jsch, ssh 연결
+    implementation 'com.jcraft:jsch:0.1.55'
+
 }
 
 tasks.named('test') {

@@ -1,19 +1,55 @@
-import React, { useRef, useEffect, useLayoutEffect, useCallback } from 'react';
-import { Handle, NodeProps, Position, useReactFlow, getIncomers, getOutgoers, getConnectedEdges } from 'reactflow';
-import { shallow } from 'zustand/shallow';
-import { ImCross } from 'react-icons/im'
-
-import useStore, { RFState } from '../../store';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+} from "react";
+import {
+  Handle,
+  NodeProps,
+  Position,
+  useReactFlow,
+  getIncomers,
+  getOutgoers,
+  getConnectedEdges,
+} from "reactflow";
+import { shallow } from "zustand/shallow";
+import { ImCross } from "react-icons/im";
+import useStore, { RFState } from "../../store";
 
 export type NodeData = {
   label: string;
 };
 
 function MindMapNode({ id, data }: NodeProps<NodeData>) {
+  const [inputValue, setInputValue] = useState(data.label); // state variable for input value
+  const { setNodes, setEdges } = useReactFlow();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value); // 입력 값 변경 시 inputValue 업데이트
+  };
+
+  const handleBlur = () => {
+    if (inputValue.trim() !== "") {
+      // If the input is not empty
+      updateNodeLabel(id, inputValue); // Update the node label with the input value
+
+      const updatedNode = nodes.find((node) => node.id === id);
+      if (updatedNode) {
+        setInputValue(updatedNode.data.label); // Reset the input value to the updated node label
+      }
+    }
+  };
+
+  const handleNodeClick = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
   const inputRef = useRef<HTMLInputElement | null>(null);
   const updateNodeLabel = useStore((state) => state.updateNodeLabel);
-
-  const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
 
   const selector = (state: RFState) => ({
     nodes: state.nodes,
@@ -23,33 +59,27 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
     addChildNode: state.addChildNode,
   });
 
-  const { nodes, edges, onNodesChange, onEdgesChange, addChildNode, } = useStore(selector, shallow);
+  const { nodes, edges, onNodesChange, onEdgesChange, addChildNode } = useStore(
+    selector,
+    shallow
+  );
 
   const deleteNode = useCallback(() => {
     setNodes((nodes) => nodes.filter((node) => node.id !== id));
     setEdges((edges) => edges.filter((edge) => edge.source !== id));
   }, [id, setNodes, setEdges]);
 
-
+  // DOM 업데이트 직후에 동기적으로 호출
   useLayoutEffect(() => {
     if (inputRef.current) {
       inputRef.current.style.width = `${data.label.length * 8}px`;
     }
   }, [data.label.length]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (inputRef.current) {
-        inputRef.current.focus({ preventScroll: true });
-      }
-    }, 1);
-  }, []);
-
   return (
     <>
-      <div className="inputWrapper">
+      <div onClick={handleNodeClick} className="inputWrapper">
         <div className="dragHandle">
-          {/* icon taken from grommet https://icons.grommet.io */}
           <svg viewBox="0 0 24 24">
             <path
               fill="#ffffff"
@@ -60,18 +90,21 @@ function MindMapNode({ id, data }: NodeProps<NodeData>) {
           </svg>
         </div>
         <input
-          value={data.label}
-          onChange={(evt) => updateNodeLabel(id, evt.target.value)}
+          onClick={handleNodeClick}
+          value={inputValue}
+          onChange={handleChange}
+          onBlur={handleBlur}
           className="input"
           ref={inputRef}
+          defaultValue={data.label}
         />
-        { id !== "root" ?
+        {id !== "root" ? (
           <div className="deleteBtn" onClick={deleteNode}>
-            <ImCross size={10} color='#ffffff'/>
+            <ImCross size={10} color="#ffffff" />
           </div>
-          :
+        ) : (
           <></>
-        }
+        )}
       </div>
 
       <Handle type="target" position={Position.Top} />

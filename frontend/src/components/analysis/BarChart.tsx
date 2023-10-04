@@ -2,60 +2,35 @@ import React from 'react'
 import { ResponsiveBar } from '@nivo/bar'
 import { deflate } from 'zlib'
 
+import { useRecoilState } from 'recoil'
+import { workStyleColor_recoil, morningCount_recoil, afternoonCount_recoil, nightCount_recoil } from '../../stores/atom'
+
 const BarChart = () => {
-  const data = [
-    {
-      "country": "AD",
-      "hot dog": 85,
-      "hot dogColor": "hsl(217, 70%, 50%)",
-      "burger": 3,
-      "burgerColor": "hsl(80, 70%, 50%)",
-      "sandwich": 91,
-      "sandwichColor": "hsl(211, 70%, 50%)",
-      "kebab": 194,
-      "kebabColor": "hsl(57, 70%, 50%)",
-      "fries": 131,
-      "friesColor": "hsl(123, 70%, 50%)",
-      "donut": 128,
-      "donutColor": "hsl(9, 70%, 50%)"
-    },
-    {
-      "country": "AF",
-      "hot dog": 175,
-      "hot dogColor": "hsl(74, 70%, 50%)",
-      "burger": 77,
-      "burgerColor": "hsl(244, 70%, 50%)",
-      "sandwich": 31,
-      "sandwichColor": "hsl(262, 70%, 50%)",
-      "kebab": 181,
-      "kebabColor": "hsl(26, 70%, 50%)",
-      "fries": 98,
-      "friesColor": "hsl(47, 70%, 50%)",
-      "donut": 53,
-      "donutColor": "hsl(4, 70%, 50%)"
-    },
-    {
-      "country": "AE",
-      "hot dog": 81,
-      "hot dogColor": "hsl(359, 70%, 50%)",
-      "burger": 77,
-      "burgerColor": "hsl(292, 70%, 50%)",
-      "sandwich": 34,
-      "sandwichColor": "hsl(172, 70%, 50%)",
-      "kebab": 141,
-      "kebabColor": "hsl(126, 70%, 50%)",
-      "fries": 143,
-      "friesColor": "hsl(161, 70%, 50%)",
-      "donut": 197,
-      "donutColor": "hsl(284, 70%, 50%)"
-    },
-  ]
+    const [workStyleColor, setWorkStyleColor] = useRecoilState(workStyleColor_recoil)
+    const [morningCommit, setMorningCommit] = useRecoilState(morningCount_recoil)
+    const [afternoonCommit, setAfternoonCommit] = useRecoilState(afternoonCount_recoil)
+    const [nightCommit, setNightCommit] = useRecoilState(nightCount_recoil)
+
+    const data = [
+        {
+            "country": "새벽",
+            "커밋 수": nightCommit,
+        },
+        {
+            "country": "오후",
+            "커밋 수": afternoonCommit,
+        },
+        {
+            "country": "오전",
+            "커밋 수": morningCommit,
+        },
+    ]
 
   return (
       <ResponsiveBar
           data={data}
           keys={[
-              'hot dog',
+              '커밋 수',
           ]}
           indexBy="country"
           margin={{ top: 14, right: 20, bottom: 40, left: 4 }}
@@ -64,7 +39,7 @@ const BarChart = () => {
           layout="horizontal"
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
-          colors={[ '#EDA568', '#EFC5A0', '#EB9042' ]}
+          colors={[ workStyleColor.main ]}
           colorBy="indexValue"
           defs={[
               {
@@ -100,7 +75,7 @@ const BarChart = () => {
                   id: 'lines'
               }
           ]}
-          borderRadius={6}
+          borderRadius={4}
           borderWidth={1}
           borderColor={{
               from: 'color',

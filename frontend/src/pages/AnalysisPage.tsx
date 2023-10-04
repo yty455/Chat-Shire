@@ -3,10 +3,19 @@ import Analysis from "../components/analysis/Analysis";
 import LeftSide from "../components/common/LeftSide";
 import { useParams } from "react-router-dom";
 
+import { useRecoilState } from "recoil";
+import { workStyle_recoil } from "../stores/atom";
+
 export default function AnalysisPage() {
-  const passion =
-    process.env.PUBLIC_URL + "/assets/analysisBg/passion/passion1.png";
+  const [workStyle, setWorkStyle] = useRecoilState(workStyle_recoil)
+
+  console.log(workStyle)
+
+  const background =
+    process.env.PUBLIC_URL + `/assets/analysisBg/${workStyle}/${workStyle}1.png`;
   const { projectId } = useParams();
+  const projectToPass = projectId || "defaultProjectId";
+
   return (
     <div
       style={{
@@ -16,7 +25,7 @@ export default function AnalysisPage() {
         width: "100vw",
         height: "100vh",
         backgroundPosition: "center center",
-        backgroundImage: `url(${passion})`,
+        backgroundImage: `url(${background})`,
         backgroundSize: "cover",
       }}
     >
@@ -32,7 +41,7 @@ export default function AnalysisPage() {
         }}
       ></div> */}
       <LeftSide />
-      <Analysis />
+      <Analysis projectId={projectToPass} />
     </div>
   );
 }

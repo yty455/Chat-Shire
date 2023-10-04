@@ -3,10 +3,7 @@ package com.ssafy.backend.domain.chat.entity;
 import java.time.LocalDate;
 import java.util.function.Consumer;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import com.ssafy.backend.domain.chat.dto.ChatRoomInfo;
 import com.ssafy.backend.domain.common.BaseEntity;
@@ -25,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class ChatRoom extends BaseEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CHATROOM_ID")
 	private Long id;
 
@@ -34,6 +31,8 @@ public class ChatRoom extends BaseEntity {
 	private String teamName;
 	private String description;
 	private String gitRepository;
+	private String branch;
+	private String gitAccessToken;
 	private LocalDate startDate;
 	private LocalDate endDate;
 
@@ -43,6 +42,8 @@ public class ChatRoom extends BaseEntity {
 		updateTeamName(chatRoomInfo.getTeamName());
 		updateDescription(chatRoomInfo.getDescription());
 		updateGitRepository(chatRoomInfo.getGitRepository());
+		updateBranch(chatRoomInfo.getBranch());
+		updateGitAccessToken(chatRoomInfo.getGitAccessToken());
 		updateStartDate(chatRoomInfo.getStartDate());
 		updateEndDate(chatRoomInfo.getEndDate());
 	}
@@ -71,6 +72,14 @@ public class ChatRoom extends BaseEntity {
 
 	public void updateGitRepository(String gitRepository) {
 		updateIfNotNull(newValue -> this.gitRepository = newValue, gitRepository);
+	}
+
+	public void updateBranch(String branch) {
+		updateIfNotNull(newValue -> this.branch = newValue, branch);
+	}
+
+	public void updateGitAccessToken(String gitAccessToken) {
+		updateIfNotNull(newValue -> this.gitAccessToken = newValue, gitAccessToken);
 	}
 
 	public void updateStartDate(LocalDate startDate) {

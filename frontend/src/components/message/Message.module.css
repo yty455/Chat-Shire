@@ -1,8 +1,8 @@
 .messageContainer {
   display: flex;
-  padding: 2vh 2vw 0 2vw;
-  width: 54vw;
-  height: 81vh;
+  padding: 2vh 0vw 1vh 2vw;
+  width: 56vw;
+  height: 82vh;
   border: 1px solid #E5E8EB;
   border-radius: 20px;
   font-family: 'preRg';
@@ -12,7 +12,7 @@
 .messageLeft {
   display: flex;
   flex-direction: column;
-  width: 28vw;
+  width: 34vw;
   border-right: 1px solid #E5E8EB;
   /* border: 1px solid red; */
 }
@@ -23,8 +23,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 26vw;
-  height: 60px;
+  width: 32vw;
+  height: 40px;
   color: #575757;
   /* border: 1px solid purple; */
 }
@@ -36,7 +36,7 @@
 
 
 .messageLeftTitle {
-  font-size: 34px;
+  font-size: 30px;
   font-family: "preBl";
 }
 
@@ -53,7 +53,11 @@
 
 .messagePeopleNum {
   font-size: 16px;
-  margin-left: 6px;
+  margin-left: 3px;
+  margin-top: 8px;
+  font-family: 'preRg';
+  color: 'grey';
+  cursor: pointer;
 }
 
 .messageLeftNotification {
@@ -66,7 +70,7 @@
 
 .notificationText {
   font-size: 100%;
-  font-family: "preLt";
+  font-family: "preRg";
   margin-left: 10px;
 }
 
@@ -80,16 +84,9 @@
   /* border: 1px solid purple; */
 }
 
-.messageLeftFooter button {
-  min-width: 50px;
-  margin-left: 10px;
-  padding: 8px 20px;
-  border-radius: 30px;
-}
-
 .messageInput {
   margin: 0px 10px;
-  width: 26vw;
+  width: 33vw;
   font-size: 18px;
 }
 
@@ -97,17 +94,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 26vw;
+  width: 33vw;
   height: 40px;
 }
 
 .messageFooterButtonLeft {
   display: flex;
-  align-items: center;
+  align-items: start;
 }
 
 .messageSendButton {
   width: 20px;
+  border-radius: 20px;
 }
 
 .messageSendButton span{
@@ -118,15 +116,37 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 30vw;
+  width: 20vw;
+  height: 81vh;
   /* border: 1px solid red; */
 }
 
 .messageRightTabContainer {
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
   width: 20vw;
-  height: 19vh;
+  height: 10vh;
   padding-left: 4%;
+  margin-bottom: 7px;
+}
+
+.EmojiPickerContainer {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 100;
+}
+
+.icon25 {
+  font-size: 25px;
+  color: #39a789;
+  margin: 0;
+}
+
+.tabTitle {
+  margin: 0;
+  font-family: 'preBd';
+  font-size: 14px;
+  color: #39a789;
 }

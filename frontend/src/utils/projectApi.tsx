@@ -9,6 +9,10 @@ export const getProjects = () => api.get(`/projects`);
 export const getProject = (projectId: string) =>
   api.get(`/projects/${projectId}`);
 
+// 내 프로젝트 모든 멤버 조회
+export const getProjectMem = (projectId: string) =>
+  api.get(`/projects/${projectId}/users`);
+
 // 내프로젝트 생성
 export const postProject = (
   name: string,
@@ -16,8 +20,11 @@ export const postProject = (
   topic: string,
   description: string,
   gitRepository: string,
+  branch: string,
+  users: any,
   startDate: any,
-  endDate: any
+  endDate: any,
+  gitAccessToken: string
 ) =>
   api.post("/projects", {
     name,
@@ -25,8 +32,11 @@ export const postProject = (
     topic,
     description,
     gitRepository,
+    branch,
+    users,
     startDate,
     endDate,
+    gitAccessToken,
   });
 
 // 프로젝트 수정
