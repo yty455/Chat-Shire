@@ -29,7 +29,7 @@ public class GithubScheduler {
 	private final ChallengeService challengeService;
 	private final GithubApi githubApi;
 
-	// @Scheduled(cron = "0 * * * * ?")
+	@Scheduled(cron = "0 * * * * ?")
 	public void countCommitHistory() throws IOException {
 		System.out.println("커밋 히스토리 가져오기 실행");
 		LocalDate today = LocalDate.now();
@@ -44,6 +44,8 @@ public class GithubScheduler {
 			Long afternoonCommitCount = 0L;
 			Long nightCommitCount = 0L;
 
+			System.out.println("chatRoom.getGitRepository() = " + chatRoom.getGitRepository());
+			System.out.println("chatRoom.getBranch() = " + chatRoom.getBranch());
 			Map<String, List<Date>> commitDatesSince = githubApi.getCommitDatesSince(chatRoom.getGitRepository(), chatRoom.getBranch(), chatRoom.getGitAccessToken());
 
 			// ksi2564 : [커밋한 시간1, 커밋한 시간2]...
