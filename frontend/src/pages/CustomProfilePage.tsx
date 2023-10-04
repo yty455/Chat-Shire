@@ -117,7 +117,7 @@ export default function CustomProfilePage() {
       );
       setUserData(response.data.result);
       setIsLogin(true);
-      navigate("/profile");
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -132,7 +132,7 @@ export default function CustomProfilePage() {
         width: "100vw",
         height: "100vh",
         backgroundColor: "#F7F7F7",
-        overflow: "none"
+        overflow: "none",
       }}
     >
       <CustomProfile
