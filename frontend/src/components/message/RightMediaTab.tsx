@@ -4,7 +4,11 @@ import GoogleSearch from './GoogleSearch'
 import AWS from "aws-sdk";
 import {AiOutlineDownload} from "react-icons/ai";
 
-export default function RightMediaTab() {
+interface MessageProps {
+  projectId: string;
+}
+
+export default function RightMediaTab({ projectId }: MessageProps) {
   const [images, setImages] = useState<string[]>([]);
   const [videos, setVideos] = useState<string[]>([]);
 
@@ -30,7 +34,7 @@ export default function RightMediaTab() {
   
       var params = {
         Bucket: "chat-shire",
-        Prefix: "chat/media/"
+        Prefix: `chat/media/${projectId}/`
       };
   
       var s3 = new AWS.S3();
@@ -77,7 +81,7 @@ export default function RightMediaTab() {
   
       var params = {
         Bucket: "chat-shire",
-        Prefix: "chat/media/"
+        Prefix: `chat/media/${projectId}/`
       };
   
       var s3 = new AWS.S3();
