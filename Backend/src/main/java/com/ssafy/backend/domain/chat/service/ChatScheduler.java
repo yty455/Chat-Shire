@@ -87,6 +87,7 @@ public class ChatScheduler {
                         dto.getCategoryList().add(st.nextToken());
 //	 				 		writer.write(outputLine);
                     }
+                    chatMap.put(chatInfo.getUserId(), "");
                 }
                 result.add(dto);
             }
