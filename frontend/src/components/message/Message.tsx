@@ -109,7 +109,7 @@ function Message({ projectId }: MessageProps) {
       const response = await getProject(projectId);
       // console.log(response.data.result[0]);
       // setPjt(response.data.result[0]);
-      // console.log("불러온 공지", response.data.result[0].notification);
+      console.log("불러온 공지", response.data.result[0].notification);
       setNotice(response.data.result[0].notification);
       // console.log("플젝 이름", response.data.result[0].name);
       setPjtName(response.data.result[0].name);
@@ -157,6 +157,10 @@ function Message({ projectId }: MessageProps) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    getpjt();
+  }, [])
 
   useEffect(() => {
     if (message) {
@@ -216,22 +220,13 @@ function Message({ projectId }: MessageProps) {
     }
   };
 
-  // 공지 등록
-  // const makeNotice = (e: any) => {
-  //   if (e.target.value != "") {
-  //     putNotification(projectId, e.target.value);
-  //     // setNotice(e.target.value);
-  //     console.log('입력된 공지', e.target.value)
-  //     setNoticeInputVisible(false);
-  //     setShowNotice(true);
-  //   }
-  // }
-
   const makeNotice = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && noticeInputValue !== "") {
+      console.log('공지 put')
       putNotification(projectId, noticeInputValue)
         .then(() => {
           setNotice(noticeInputValue);
+          console.log('새로운 공지 등록')
         })
         .catch((error) => {
           console.error("공지 업데이트 오류:", error);
@@ -430,19 +425,27 @@ function Message({ projectId }: MessageProps) {
       <p style={{ margin: 0, fontFamily: "preRg" }}>
         {users &&
           users.map((user, index) => (
-            <div key={index}>
+            <div style={{ display: 'flex', justifyContent:'start' }} key={index}>
               <img
-                style={{ width: "20px" }}
+                style={{ 
+                  width: "30px",
+                  height: "30px",
+                  objectFit: "cover",
+                  borderRadius: "50%",
+                  backgroundColor: user.profileColor,
+                  zIndex: "5",
+                }}
                 alt="profile"
                 src={user.profileImage}
               />
-              <p>{user.nickname}</p>
-              <hr></hr>
+              <p style={{ margin: 0, fontFamily: "preRg" }}>{user.nickname}</p>
+              <hr style={{ border: '1px solid grey' }}></hr>
             </div>
           ))}
       </p>
     </div>
   );
+  
 
   return (
     <div className={styles.messageContainer}>
