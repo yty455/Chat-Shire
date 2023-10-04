@@ -23,6 +23,7 @@ public class Post extends BaseEntity {
     private Long id;
 
     private String title;
+    @Column(length = 500)
     private String content;
     private Boolean state;
 

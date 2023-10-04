@@ -27,6 +27,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editedComment, setEditedComment] = useState<string>("");
   const [userData] = useRecoilState(loginuser);
+  // const [attachedFileInfos, setAttachedFileInfos] = useState<any>({});
   const navigate = useNavigate();
 
   // 단일 에러 불러오기
@@ -35,6 +36,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
       const response = await getErrorDetail(err.id);
       console.log(response.data.result[0]);
       setErrDetail(response.data.result[0]);
+      // setAttachedFileInfos(response.data.result[0].attachedFileInfos);
     } catch (error) {
       console.error(error);
     }
@@ -127,6 +129,13 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                 backgroundColor: errDetail.profileColor,
               }}
             />
+          </div>
+          <div style={{display:'flex', alignItems:'center', justifyContent:'start'}}>
+            {errDetail.attachedFileInfos && (
+              errDetail.attachedFileInfos.map((info: { url: string }, index: number) => (
+                <img style={{marginRight: '5px', height: '200px'}} key={index} src={info.url} alt="Preview" />
+              ))
+            )}
           </div>
         </div>
         <div className={styles.reContainer}>
