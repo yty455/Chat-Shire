@@ -9,12 +9,11 @@ import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 import dayjs from "dayjs";
-import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { getProject } from "../../utils/projectApi";
 import TeamTaskCreateModal from "./TeamTaskCreateModal";
-import { BsPencilFill, BsCheckAll, BsFillChatDotsFill } from "react-icons/bs";
+import { BsPencilFill, BsFillChatDotsFill } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import Paper from "@mui/material/Paper";
 import { BiSolidCheckCircle } from "react-icons/bi";
@@ -33,6 +32,13 @@ import {
   getTaskGroup,
 } from "../../utils/taskGroupApi";
 import IndivChatModal from "./IndivChatModal";
+import { useRecoilState } from "recoil";
+import {
+  comTeamTask_recoil,
+  allTeamTask_recoil,
+  ongoingTeamTask_recoil,
+  tasks_recoil,
+} from "../../stores/atom";
 
 const pieParams = { height: 200, margin: { right: 5 } };
 const palette = ["red", "blue", "green"];
@@ -149,9 +155,12 @@ interface Task {
 export default function TeamTask({ projectId }: TeamTaskProps) {
   const currentDate = new Date();
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
-  const [allTeamTask, setAllTeamTask] = useState([]);
-  const [ongoingTeamTask, setOngoingTeamTask] = useState([]);
-  const [comTeamTask, setComTeamTask] = useState([]);
+  const [allTeamTask, setAllTeamTask] = useRecoilState(allTeamTask_recoil);
+  const [ongoingTeamTask, setOngoingTeamTask] = useRecoilState(
+    ongoingTeamTask_recoil
+  );
+  const [comTeamTask, setComTeamTask] = useRecoilState(comTeamTask_recoil);
+  const [allTasks, setAllTasks] = useRecoilState(tasks_recoil);
   const [pjt, setPjt] = useState<any>({});
   const [isModalOpen, setIsModalOpen] = useState("");
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
@@ -204,7 +213,19 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     setIsModalOpen("");
     setSelectedTaskId(null);
   };
+  // 태스크 불러오는 함수
+  const getInTask = async () => {
+    try {
+      if (projectId) {
+        const response = await getTask(projectId);
+        console.log(response.data.result[0]);
 
+        setAllTasks(response.data.result[0]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   // 수정완료 눌렀을 때
   const handleEditComplete = async (
     TaskId: string,
@@ -237,11 +258,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     setOpen(true);
     setSelectTask(id);
   };
+
   // 태스크 삭제
   const deleteInTask = async (TaskId: string) => {
     try {
       const response = await deleteTask(TaskId);
       console.log("삭제완료", response);
+      getInTask();
       getTeamTask();
     } catch (error) {
       console.error(error);
@@ -281,6 +304,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       setUpdatedDescription("");
       setEditingTaskId(null);
       getTeamTask();
+      getInTask();
     } catch (error) {
       console.error(error);
     }
@@ -358,10 +382,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         (task: any) => task.progress === "DONE"
       );
 
-      console.log(allTasks);
-      console.log(ongoingTasks);
-      console.log(completedTasks);
-
       setAllTeamTask(allTasks);
       setOngoingTeamTask(ongoingTasks);
       setComTeamTask(completedTasks);
@@ -373,7 +393,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const getpjt = async () => {
     try {
       const response = await getProject(projectId);
-      console.log(response.data.result[0]);
+
       setPjt(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -452,7 +472,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         />
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <div style={{ padding: "0 0 20px 20px", width: "50%" }}>
+        <div
+          className={styles.TeamTaskContainer}
+          style={{ padding: "0 0 20px 20px", width: "50%", height: "510px" }}
+        >
           <p className={styles.taskProgress}>완료된 Task</p>
           {comTeamTask &&
             comTeamTask.map((task: any) => (
@@ -465,7 +488,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 onDrop={(e) => {
                   e.preventDefault();
                   const taskId = e.dataTransfer.getData("taskId");
-                  console.log("개인" + taskId, "팀" + task.id);
                   indivToTeam(task.id, taskId);
                 }}
               >
@@ -510,16 +532,27 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     style={{
                       color:
                         task.priority === "HIGH"
-                          ? "red"
+                          ? "#FF5B5B"
                           : task.priority === "LOW"
-                          ? "orange"
-                          : "green",
+                          ? "#FFF05B"
+                          : "#5BFF83",
                     }}
                   >
                     {task.priority}
                   </p>
                 </div>
-                <BorderLinearProgress variant="determinate" value={50} />
+                <BorderLinearProgress
+                  variant="determinate"
+                  value={
+                    task.taskInfoResponses.length > 0
+                      ? (task.taskInfoResponses.filter(
+                          (item: any) => item.progress === "DONE"
+                        ).length /
+                          task.taskInfoResponses.length) *
+                        100
+                      : 0
+                  }
+                />
 
                 {task.taskInfoResponses.map((item: any) => (
                   <div style={{ margin: 0, padding: 0 }} key={item.id}>
@@ -577,14 +610,14 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             }}
                             style={{
                               fontSize: "17px",
-                              margin: "-5px 5px 10px 0",
+                              margin: "-5px 5px 10px 4px",
                             }}
                           />
                           {editingTaskId === item.id ? (
                             <BiSolidCheckCircle
                               style={{
                                 fontSize: "17px",
-                                margin: "-5px 3px 10px 0",
+                                margin: "-5px 3px 10px 4px",
                               }}
                               onClick={() =>
                                 handleEditComplete(item.id, updatedDescription)
@@ -594,7 +627,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             <BsPencilFill
                               style={{
                                 fontSize: "17px",
-                                margin: "-5px 3px 10px 0",
+                                margin: "-5px 3px 10px 4px",
                               }}
                               onClick={() => enterEditMode(item.id)}
                             />
@@ -602,7 +635,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           <MdDelete
                             style={{
                               fontSize: "20px",
-                              margin: "-7px 10px 8px 0",
+                              margin: "-7px 10px 8px 4px",
                             }}
                             onClick={() => deleteInTask(item.id)}
                           />
@@ -615,7 +648,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
             ))}
         </div>
 
-        <div style={{ padding: "0 20px 0 20px", width: "50%" }}>
+        <div
+          className={styles.TeamTaskContainer}
+          style={{ padding: "0 20px 0 20px", width: "50%", height: "530px" }}
+        >
           <p className={styles.taskProgress}>진행중인 Task</p>
 
           {ongoingTeamTask &&
@@ -674,16 +710,27 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     style={{
                       color:
                         task.priority === "HIGH"
-                          ? "red"
+                          ? "#FF5B5B"
                           : task.priority === "LOW"
-                          ? "orange"
-                          : "green",
+                          ? "#FFF05B"
+                          : "#5BFF83",
                     }}
                   >
                     {task.priority}
                   </p>
                 </div>
-                <BorderLinearProgress variant="determinate" value={50} />
+                <BorderLinearProgress
+                  variant="determinate"
+                  value={
+                    task.taskInfoResponses.length > 0
+                      ? (task.taskInfoResponses.filter(
+                          (item: any) => item.progress === "DONE"
+                        ).length /
+                          task.taskInfoResponses.length) *
+                        100
+                      : 0
+                  }
+                />
 
                 {task.taskInfoResponses.map((item: any) => (
                   <div key={item.id}>
@@ -741,14 +788,14 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             }}
                             style={{
                               fontSize: "17px",
-                              margin: "-5px 5px 10px 0",
+                              margin: "-5px 5px 10px 4px",
                             }}
                           />
                           {editingTaskId === item.id ? (
                             <BiSolidCheckCircle
                               style={{
                                 fontSize: "17px",
-                                margin: "-5px 3px 10px 0",
+                                margin: "-5px 3px 10px 4px",
                               }}
                               onClick={() =>
                                 handleEditComplete(item.id, updatedDescription)
@@ -758,7 +805,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             <BsPencilFill
                               style={{
                                 fontSize: "17px",
-                                margin: "-5px 3px 10px 0",
+                                margin: "-5px 3px 10px 4px",
                               }}
                               onClick={() => enterEditMode(item.id)}
                             />
@@ -766,7 +813,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           <MdDelete
                             style={{
                               fontSize: "20px",
-                              margin: "-7px 10px 8px 0",
+                              margin: "-7px 10px 8px 4px",
                             }}
                             onClick={() => deleteInTask(item.id)}
                           />

@@ -168,7 +168,7 @@ export default function ProfilePage() {
                 Achievement{" "}
               </span>
               <span style={{ color: "#575757", fontSize: "20px" }}>
-                {userData?.challengeInfoResponse.done}/48
+                {userData?.challengeInfoResponse.done}/36
               </span>
             </div>
             <div className={styles.progressBar}>

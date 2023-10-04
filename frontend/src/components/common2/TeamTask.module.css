@@ -11,7 +11,15 @@
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
   border: 1px solid rgba(197, 197, 197, 0.4);
+  color: #575757;
+}
+
+.TeamTaskContainer {
   overflow: scroll;
+}
+
+.TeamTaskContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .messageLeftTitle {

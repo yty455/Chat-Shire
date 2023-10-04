@@ -7,16 +7,21 @@ import { styled } from "@mui/material/styles";
 import Checkbox from "@mui/material/Checkbox";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-import { BsPencilFill, BsCheckAll, BsFillChatDotsFill } from "react-icons/bs";
+import { BsPencilFill, BsFillChatDotsFill } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { BiSolidCheckCircle } from "react-icons/bi";
 import { getTask, deleteTask, postTask, updateTask } from "../../utils/taskApi";
 import "./IndivTask.css";
 import IndivChatModal from "./IndivChatModal";
-import { useDrag } from "react-dnd";
+import { getTaskGroup } from "../../utils/taskGroupApi";
 import { postReferences } from "../../utils/taskReferenceApi";
 import { useRecoilState } from "recoil";
-import { tasks_recoil } from "../../stores/atom";
+import {
+  comTeamTask_recoil,
+  allTeamTask_recoil,
+  ongoingTeamTask_recoil,
+  tasks_recoil,
+} from "../../stores/atom";
 
 interface ItemState {
   id: number;
@@ -59,6 +64,11 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [updatedDescription, setUpdatedDescription] = useState<string>("");
   const [allTasks, setAllTasks] = useRecoilState(tasks_recoil);
+  const [allTeamTask, setAllTeamTask] = useRecoilState(allTeamTask_recoil);
+  const [ongoingTeamTask, setOngoingTeamTask] = useRecoilState(
+    ongoingTeamTask_recoil
+  );
+  const [comTeamTask, setComTeamTask] = useRecoilState(comTeamTask_recoil);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [open, setOpen] = useState(false);
   const [selectTask, setSelectTask] = useState(false);
@@ -118,12 +128,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         const response = await getTask(projectId);
         console.log(response.data.result[0]);
 
-        // // taskGroupId가 0인 항목만 필터링하여 저장
-        // const filteredTasks = response.data.result[0].filter(
-        //   (task: any) => task.taskGroupId === 0
-        // );
-
-        // 필터링된 항목을 저장
         setAllTasks(response.data.result[0]);
       }
     } catch (error) {
@@ -213,6 +217,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       setUpdatedDescription("");
       setEditingTaskId(null);
       getInTask();
+      getTeamTask();
     } catch (error) {
       console.error(error);
     }
@@ -224,6 +229,33 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       const response = await deleteTask(TaskId);
       console.log("삭제완료", response);
       getInTask();
+      getTeamTask();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getTeamTask = async () => {
+    try {
+      const response = await getTaskGroup(projectId);
+      const allTasks = response.data.result[0];
+
+      // ONGOING progress를 가진 항목 필터링
+      const ongoingTasks = allTasks.filter(
+        (task: any) => task.progress === "ONGOING"
+      );
+
+      // DONE progress를 가진 항목 필터링
+      const completedTasks = allTasks.filter(
+        (task: any) => task.progress === "DONE"
+      );
+
+      console.log(allTasks);
+      console.log(ongoingTasks);
+      console.log(completedTasks);
+      getInTask();
+      setAllTeamTask(allTasks);
+      setOngoingTeamTask(ongoingTasks);
+      setComTeamTask(completedTasks);
     } catch (error) {
       console.error(error);
     }
