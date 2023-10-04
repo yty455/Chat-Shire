@@ -154,8 +154,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
   const returnTeamMembers = teamMembers?.map((member: any) => {
     return (<span>{member.nickname}</span>)
   })
-
-  const returnKeywords = Object.entries(keywords).sort((a: any, b: any) => a[1] - b[1]).map((entry) => {
+  const returnKeywords = Object.entries(allCategoryCount_recoil).sort((a: any, b: any) => a[1] - b[1]).map((entry) => {
     return (<Keywords topic={entry[0]}/>)
   })
 
