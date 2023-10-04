@@ -205,6 +205,25 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     setSelectedTaskId(null);
   };
 
+  // 수정완료 눌렀을 때
+  const handleEditComplete = async (
+    TaskId: string,
+    updatedDescription: string
+  ) => {
+    try {
+      if (projectId) {
+        const progress = "ONGOING";
+        await updateInTask(TaskId, "0", updatedDescription, progress);
+        // 편집 모드를 종료
+        setEditingTaskId(null);
+      } else {
+        console.error("projectId is undefined.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleCheckboxChange = (item: Task) => () => {
     const progress = item.progress === "DONE" ? "ONGOING" : "DONE";
     const taskGroupId = item.taskGroupId || "";
@@ -237,6 +256,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     try {
       const response = await postTask(chatroomId, description, progress);
       console.log(response);
+      setUpdatedDescription("");
       getTeamTask();
     } catch (error) {
       console.error(error);
@@ -258,6 +278,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         progress
       );
       console.log(response);
+      setUpdatedDescription("");
       setEditingTaskId(null);
       getTeamTask();
     } catch (error) {
@@ -523,6 +544,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                         {editingTaskId === item.id ? (
                           <input
                             onKeyPress={handleKeyPress(item.id)}
+                            onChange={(e) =>
+                              setUpdatedDescription(e.target.value)
+                            }
                             style={{
                               fontFamily: "preRg",
                               height: "30px",
@@ -562,9 +586,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                                 fontSize: "17px",
                                 margin: "-5px 3px 10px 0",
                               }}
-                              // onClick={() =>
-                              //   handleEditComplete(item.id, updatedDescription)
-                              // }
+                              onClick={() =>
+                                handleEditComplete(item.id, updatedDescription)
+                              }
                             />
                           ) : (
                             <BsPencilFill
@@ -684,6 +708,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                         {editingTaskId === item.id ? (
                           <input
                             onKeyPress={handleKeyPress(item.id)}
+                            onChange={(e) =>
+                              setUpdatedDescription(e.target.value)
+                            }
                             style={{
                               fontFamily: "preRg",
                               height: "30px",
@@ -723,6 +750,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                                 fontSize: "17px",
                                 margin: "-5px 3px 10px 0",
                               }}
+                              onClick={() =>
+                                handleEditComplete(item.id, updatedDescription)
+                              }
                             />
                           ) : (
                             <BsPencilFill
