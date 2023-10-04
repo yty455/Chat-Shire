@@ -95,7 +95,7 @@ const useStore = create<RFState>((set, get) => ({
     try {
       const response = await getMindMap(pjtId);
       const mindmapData = response.data.result[0];
-
+      get().reset();
       const initialMindmapNodes = mindmapData.map((node: any) => ({
         id: node.id,
         type: "mindmap",
@@ -114,8 +114,8 @@ const useStore = create<RFState>((set, get) => ({
         }));
 
       set({
-        nodes: [...get().nodes, initialMindmapNodes],
-        edges: [...get().edges, initialMindmapEdges],
+        nodes: initialMindmapNodes,
+        edges: initialMindmapEdges,
       });
     } catch (error) {
       console.error(error);
