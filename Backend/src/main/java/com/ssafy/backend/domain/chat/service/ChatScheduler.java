@@ -85,7 +85,6 @@ public class ChatScheduler {
 
                     for (ClassificationCategory classificationCategory : classificationCategories) {
                         StringTokenizer st = new StringTokenizer(classificationCategory.getName(), "/");
-                        st.nextToken();
                         dto.getCategoryList().add(st.nextToken());
 //	 				 		writer.write(outputLine);
                     }
