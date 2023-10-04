@@ -97,7 +97,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
       setWorkStyle("idea")
     }
   }
-  const returnKeywords = <div>asd</div>
+
   const returnBodyDesc = () => {
     if (workStyle === "baby") {
       return (
@@ -153,6 +153,10 @@ export default function Analysis({ projectId }: AnalysisProps) {
   }
   const returnTeamMembers = teamMembers?.map((member: any) => {
     return (<span>{member.nickname}</span>)
+  })
+
+  const returnKeywords = Object.entries(keywords).sort((a: any, b: any) => a[1] - b[1]).map((entry) => {
+    return (<Keywords topic={entry[0]}/>)
   })
 
   useEffect(() => {
@@ -228,7 +232,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
             우리 프로젝트는
           </span>
           <span className={styles.analysisItemDesc}>
-          {projectInfo?.topic}
+            {projectInfo?.topic}
           </span>
         </div>
       </div>
