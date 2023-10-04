@@ -22,6 +22,7 @@ export type RFState = {
   addChildNode: (parentNode: Node, position: XYPosition) => void;
   deleteNode: (nodeId: string) => void;
   updateNodeLabel: (nodeId: string, label: string) => void;
+  loadInitialData: (pjtId: string) => Promise<void>;
 };
 
 const useStore = create<RFState>((set, get) => ({
