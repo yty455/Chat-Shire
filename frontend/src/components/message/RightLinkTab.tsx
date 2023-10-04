@@ -6,7 +6,9 @@ import ModalComponent from "./CreateLinkModal";
 import { Button } from "antd";
 import { useRecoilState } from "recoil";
 import { linkState } from "../../stores/linkState";
-import { getLinks } from "../../utils/linkApi";
+import { getLinks, deleteLink, updateLink } from "../../utils/linkApi";
+import { Popover } from "antd";
+import { String } from "aws-sdk/clients/apigateway";
 
 interface Props {
   projectId: string;
@@ -15,39 +17,9 @@ interface Props {
 export default function RightLinkTab({ projectId }: Props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [links, setLinks] = useRecoilState(linkState);
-  const [isDragging, setIsDragging] = useState(false);
+
   const showModal = () => {
     setIsModalVisible(true);
-  };
-
-  let mouseDownX = 0;
-  let mouseUpX = 0;
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    mouseDownX = e.clientX;
-    setIsDragging(true);
-  };
-
-  const handleMouseUp = (linkId: string) => {
-    if (
-      mouseUpX < mouseDownX &&
-      Math.abs(mouseDownX - mouseUpX) > window.innerWidth / 4
-    ) {
-      // 오른쪽으로 드래그
-      console.log("우");
-      // deleteLink(linkId);
-    } else if (
-      mouseUpX > mouseDownX &&
-      Math.abs(mouseDownX - mouseUpX) > window.innerWidth / 4
-    ) {
-      // 왼쪽으로 드래그
-      console.log("좌");
-      // 여기에 원하는 동작을 추가하세요.
-    }
-    // 초기화
-    setIsDragging(false);
-    mouseDownX = 0;
-    mouseUpX = 0;
   };
 
   // 링크 등록
@@ -61,21 +33,30 @@ export default function RightLinkTab({ projectId }: Props) {
     }
   };
 
+  // 링크 등록
+  const deleteInLinks = async (linkId: string) => {
+    try {
+      const response = await deleteLink(linkId);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getInLinks();
   }, []);
 
-  // const addNewLink = (newLink: string) => {
-  //   setLinks([...links, newLink]);
-  //   setIsModalVisible(false);
-  // }
+  const Action = ({ linkId }: { linkId: any }) => (
+    <div>
+      <button onClick={() => deleteInLinks(linkId)}>삭제</button>
+      <button>수정</button>
+    </div>
+  );
 
   return (
     <div className={styles.MessageRightBody}>
       <div style={{ display: "flex", alignItems: "center" }}>
-        {/* <span className={styles.MessageRightBodyTitle}>
-          링크
-        </span> */}
         <p className={styles.addLink}>링크 추가하기</p>
         <BsFillPlusCircleFill
           onClick={showModal}
@@ -85,16 +66,15 @@ export default function RightLinkTab({ projectId }: Props) {
       <div className={styles.BookMarkContainer}>
         {links.length !== 0 ? (
           links.map((link: any) => (
-            <div
-              key={link.linkId}
-              onMouseDown={handleMouseDown}
-              onMouseMove={(e: React.MouseEvent) => {
-                mouseUpX = e.clientX;
-              }}
-              onMouseUp={() => handleMouseUp(link.linkId)}
+            <Popover
+              placement="rightBottom"
+              content={<Action linkId={link.linkId} />}
+              trigger="click"
             >
-              <LinkOGItem requestUrl={link.content} isDragging={isDragging} />
-            </div>
+              <div key={link.linkId}>
+                <LinkOGItem requestUrl={link.content} />
+              </div>
+            </Popover>
           ))
         ) : (
           <p className={styles.noPhoto}>등록된 링크가 없습니다.</p>
