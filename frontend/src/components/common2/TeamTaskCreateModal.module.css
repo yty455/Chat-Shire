@@ -23,6 +23,9 @@
   width: 100%;
   /* padding: 10px; */
 }
+.formBox {
+  padding: 10%;
+}
 
 .closebtn {
   position: fixed;
@@ -30,4 +33,13 @@
   right: 2%;
   border: 0;
   background-color: transparent;
+}
+
+.savebtn {
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  border: 0;
+  background-color: #39a789;
+  font-family: preRg;
 }
