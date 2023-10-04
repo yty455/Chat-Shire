@@ -20,29 +20,32 @@ export default function RightLinkTab({ projectId }: Props) {
     setIsModalVisible(true);
   };
 
-  let touchStartX = 0;
-  let touchEndX = 0;
+  let mouseDownX = 0;
+  let mouseUpX = 0;
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX = e.targetTouches[0].clientX;
+  const handleMouseDown = (e: React.MouseEvent) => {
+    mouseDownX = e.clientX;
   };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndX = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchEnd = (linkId: string) => {
+  const handleMouseUp = (linkId: string) => {
     if (
-      touchEndX < touchStartX &&
-      Math.abs(touchStartX - touchEndX) > window.innerWidth / 4
+      mouseUpX < mouseDownX &&
+      Math.abs(mouseDownX - mouseUpX) > window.innerWidth / 4
     ) {
-      // 오른쪽으로 스와이프
+      // 오른쪽으로 드래그
       console.log("우");
       // deleteLink(linkId);
+    } else if (
+      mouseUpX > mouseDownX &&
+      Math.abs(mouseDownX - mouseUpX) > window.innerWidth / 4
+    ) {
+      // 왼쪽으로 드래그
+      console.log("좌");
+      // 여기에 원하는 동작을 추가하세요.
     }
     // 초기화
-    touchStartX = 0;
-    touchEndX = 0;
+    mouseDownX = 0;
+    mouseUpX = 0;
   };
 
   // 링크 등록
@@ -82,9 +85,11 @@ export default function RightLinkTab({ projectId }: Props) {
           links.map((link: any) => (
             <div
               key={link.linkId}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={() => handleTouchEnd(link.linkId)}
+              onMouseDown={handleMouseDown}
+              onMouseMove={(e: React.MouseEvent) => {
+                mouseUpX = e.clientX;
+              }}
+              onMouseUp={() => handleMouseUp(link.linkId)}
             >
               <LinkOGItem requestUrl={link.content} />
             </div>
