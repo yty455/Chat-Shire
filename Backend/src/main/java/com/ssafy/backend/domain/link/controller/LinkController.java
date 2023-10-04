@@ -51,7 +51,7 @@ public class LinkController {
     }
 
     @Operation(summary = "자료공유 수정", description = "등록된 자료공유를 수정합니다.")
-    @PostMapping("/links/{linkId}")
+    @PatchMapping("/links/{linkId}")
     public ResponseEntity<BasicResponse> modifyLink(@PathVariable(name = "linkId") Long linkId, @RequestBody LinkInfo linkInfo) {
 
         linkService.modifyLink(linkId, linkInfo);
@@ -64,7 +64,7 @@ public class LinkController {
     }
 
     @Operation(summary = "자료공유 삭제", description = "자료공유를 삭제합니다.")
-    @PostMapping("/links/{linkId}")
+    @DeleteMapping("/links/{linkId}")
     public ResponseEntity<BasicResponse> deleteLink(@PathVariable(name = "linkId") Long linkId) {
 
         linkService.deleteLink(linkId);
