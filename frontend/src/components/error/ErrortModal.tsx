@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ErrorModal.module.css";
+import { useNavigate } from "react-router-dom";
 import {
   getErrorDetail,
   deleteError,
@@ -15,16 +16,18 @@ import { loginuser } from "../../stores/atom";
 import { Button } from "antd";
 
 interface ErrorModalProps {
+  pjtId: string;
   closeModal: () => void;
   err: any;
 }
 
-function ErrorModal({ closeModal, err }: ErrorModalProps) {
+function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
   const [errDetail, setErrDetail] = useState<any>({});
   const [content, setContent] = useState("");
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editedComment, setEditedComment] = useState<string>("");
   const [userData] = useRecoilState(loginuser);
+  const navigate = useNavigate();
 
   // 단일 에러 불러오기
   const getInError = async () => {
@@ -41,7 +44,7 @@ function ErrorModal({ closeModal, err }: ErrorModalProps) {
     try {
       const response = await deleteError(err.id);
       console.log(response.data.result);
-      getInError();
+      closeModal();
     } catch (error) {
       console.error(error);
     }
