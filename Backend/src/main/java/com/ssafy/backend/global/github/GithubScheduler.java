@@ -59,7 +59,7 @@ public class GithubScheduler {
 				System.out.println(commitDatesSince.get(githubId).size());
 				System.out.println(commitDatesSince.get(githubId));
 				Map<String, Long> counts = commitDatesSince.get(githubId).stream()
-						.map(date -> date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime())
+						.map(date -> date.toInstant().atZone(ZoneId.of("Asia/Seoul")).toLocalTime())
 						.map(time -> {
 							if (!time.isBefore(LocalTime.of(4, 0))
 									&& time.isBefore(LocalTime.of(12, 0))) {
