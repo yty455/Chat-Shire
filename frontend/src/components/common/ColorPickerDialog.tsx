@@ -29,19 +29,27 @@ function ColorPickerDialog({
           <button
             style={{ backgroundColor: "green" }}
             onClick={() => setSelectedColor("ONLINE")}
-          ></button>
+          >
+            ONLINE
+          </button>
           <button
             style={{ backgroundColor: "orange" }}
             onClick={() => setSelectedColor("AWAY")}
-          ></button>
+          >
+            AWAY
+          </button>
           <button
             style={{ backgroundColor: "gray" }}
             onClick={() => setSelectedColor("OFFLINE")}
-          ></button>
+          >
+            OFFLINE
+          </button>
           <button
             style={{ backgroundColor: "red" }}
             onClick={() => setSelectedColor("DND")}
-          ></button>
+          >
+            DND
+          </button>
         </div>
         <Button onClick={handleColorSelect}>선택</Button>
       </DialogContent>
