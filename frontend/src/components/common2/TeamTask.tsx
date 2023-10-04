@@ -662,7 +662,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 }}
               >
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
-                <div className={styles.taskHeader}>
+                <div className={styles.taskHeader} onClick={() => openModal(task.id)}>
                   <div className={styles.clockNday}>
                     <WatchLaterIcon />
                     <p className={styles.dday}>
@@ -674,11 +674,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       day
                     </p>
                   </div>
-                  <div onClick={addCheckbox}>
-                    <CreateIcon onClick={() => openModal(task.id)} />
-                  </div>
                 </div>
-                <div className={styles.stepStatus}>
+                <div className={styles.stepStatus} onClick={() => openModal(task.id)}>
                   {task.progress === "ONGOING" ? (
                     <StyledBadge
                       sx={{ margin: "14px 0 15px 20px" }}
@@ -770,45 +767,45 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             {item.description}
                           </p>
                         )}
-                      </div>
-                      <div className={styles.icons}>
-                        <div style={{ margin: "-4px 0 0 0" }}></div>
-                        <div>
-                          <BsFillChatDotsFill
-                            onClick={() => {
-                              handleOpen(item.id);
-                            }}
-                            style={{
-                              fontSize: "17px",
-                              margin: "-5px 5px 10px 4px",
-                            }}
-                          />
-                          {editingTaskId === item.id ? (
-                            <BiSolidCheckCircle
+                        <div className={styles.icons}>
+                          <div style={{ margin: "-4px 0 0 0" }}></div>
+                          <div>
+                            <BsFillChatDotsFill
+                              onClick={() => {
+                                handleOpen(item.id);
+                              }}
                               style={{
                                 fontSize: "17px",
-                                margin: "-5px 3px 10px 4px",
+                                margin: "-5px 5px 10px 4px",
                               }}
-                              onClick={() =>
-                                handleEditComplete(item.id, updatedDescription)
-                              }
                             />
-                          ) : (
-                            <BsPencilFill
+                            {editingTaskId === item.id ? (
+                              <BiSolidCheckCircle
+                                style={{
+                                  fontSize: "17px",
+                                  margin: "-5px 3px 10px 4px",
+                                }}
+                                onClick={() =>
+                                  handleEditComplete(item.id, updatedDescription)
+                                }
+                              />
+                            ) : (
+                              <BsPencilFill
+                                style={{
+                                  fontSize: "17px",
+                                  margin: "-5px 3px 10px 4px",
+                                }}
+                                onClick={() => enterEditMode(item.id)}
+                              />
+                            )}
+                            <MdDelete
                               style={{
-                                fontSize: "17px",
-                                margin: "-5px 3px 10px 4px",
+                                fontSize: "20px",
+                                margin: "-7px 10px 8px 4px",
                               }}
-                              onClick={() => enterEditMode(item.id)}
+                              onClick={() => deleteInTask(item.id)}
                             />
-                          )}
-                          <MdDelete
-                            style={{
-                              fontSize: "20px",
-                              margin: "-7px 10px 8px 4px",
-                            }}
-                            onClick={() => deleteInTask(item.id)}
-                          />
+                          </div>
                         </div>
                       </div>
                     </div>

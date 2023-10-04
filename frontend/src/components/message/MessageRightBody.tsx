@@ -12,9 +12,9 @@ interface Props {
 
 const MessageRightBody: React.FC<Props> = ({ value, projectId }) => {
   if (value === "media") {
-    return <RightMediaTab />;
+    return <RightMediaTab projectId={projectId} />;
   } else if (value === "files") {
-    return <RightFileTab />;
+    return <RightFileTab projectId={projectId} />;
   } else if (value === "links") {
     return <RightLinkTab projectId={projectId} />;
   } else if (value === "search") {
