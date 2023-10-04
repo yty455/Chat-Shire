@@ -1,9 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import styles from "./TeamTaskCreateModal.module.css";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField} from '@mui/material'
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -68,13 +65,16 @@ function TeamTaskCreateModal({
 
   return (
     <div className={styles.modalOverlay} ref={modalRef}>
-      <div className={styles.formContainer}>
+      <div className={styles.formContainer} style={{color: "#575757"}}>
         <div className={styles.formBox}>
-          <h2>팀 태스크 생성</h2>
+          <span style={{fontFamily: "preBd", fontSize: "24px"}}>팀 태스크 생성</span>
           <div>
-            <input
+            <TextField
+              sx={{width: "360px", marginTop: '4px'}}
+              color="greenary"
+              variant="standard"
               type="text"
-              placeholder="태스크 이름"
+              placeholder="제목을 입력하세요"
               value={taskData.name}
               onChange={(e) =>
                 setTaskData({ ...taskData, name: e.target.value })
@@ -82,9 +82,14 @@ function TeamTaskCreateModal({
             />
           </div>
           <div>
-            <input
+            <TextField
+              sx={{width: "360px", marginTop: '4px'}}
+              color="greenary"
+              variant="standard"
+              multiline
+              rows={3}
               type="text"
-              placeholder="태스크 상세설명"
+              placeholder="업무에 대한 설명을 입력하세요"
               value={taskData.description}
               onChange={(e) =>
                 setTaskData({ ...taskData, description: e.target.value })
@@ -94,33 +99,33 @@ function TeamTaskCreateModal({
           <div>
             <FormControl
               sx={{
-                m: 1,
+                height: "46px",
                 minWidth: 120,
                 marginLeft: "0px",
               }}
-              size="small"
+              size="medium"
               style={{ margin: "10px", marginLeft: "0px" }}
               onClick={(e) => e.stopPropagation()}
             >
-              <InputLabel id="priority-label">Priority</InputLabel>
-              <Select
-                labelId="priority-label"
-                id="priority-select"
-                value={taskData.priority}
-                onChange={handleChange}
-                sx={{
-                  color: getPriorityColor(taskData.priority),
-                  marginLeft: "0px",
-                }}
-              >
-                <MenuItem value="HIGH" sx={{ color: "red" }}>
-                  🔴
+              <InputLabel id="priority-label" style={{marginLeft: "-14px"}}>중요도</InputLabel>
+              <Select variant="standard" labelId="priority-label" id="priority-select" value={taskData.priority} onChange={handleChange} sx={{height: "30px", color: "#575757"}}>
+                <MenuItem value="HIGH" style={{paddingLeft: "2px"}}>
+                  <div style={{display: "flex"}}>
+                    <div style={{width: "20px", height: "20px", borderRadius: "30px", backgroundColor: "#FF5B5B", marginRight: "6px"}}/>
+                    <span>매우 중요</span>
+                  </div>
                 </MenuItem>
-                <MenuItem value="MEDIUM" sx={{ color: "green" }}>
-                  🟢
+                <MenuItem value="MEDIUM" style={{paddingLeft: "2px"}}>
+                  <div style={{display: "flex"}}>
+                    <div style={{width: "20px", height: "20px", borderRadius: "30px", backgroundColor: "#FFF05B", marginRight: "6px"}}/>
+                    <span>중요</span>
+                  </div>
                 </MenuItem>
-                <MenuItem value="LOW" sx={{ color: "orange" }}>
-                  🟡
+                <MenuItem value="LOW" style={{paddingLeft: "2px"}}>
+                  <div style={{display: "flex"}}>
+                    <div style={{width: "20px", height: "20px", borderRadius: "30px", backgroundColor: "#5BFF83", marginRight: "6px"}}/>
+                    <span>보통</span>
+                  </div>
                 </MenuItem>
               </Select>
             </FormControl>
@@ -133,8 +138,6 @@ function TeamTaskCreateModal({
                 onChange={handleDateChange}
                 sx={{
                   width: "150px",
-                  height: "16px",
-                  margin: "10px",
                   marginLeft: "0px",
                 }}
               />
