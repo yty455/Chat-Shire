@@ -362,7 +362,7 @@ function Message({ projectId }: MessageProps) {
           params: {
             ACL: "public-read",
             Bucket: "chat-shire",
-            Key: `chat/file/${fileName}`,
+            Key: `chat/file/${projectId}/${fileName}`,
             Body: formData.get("file"),
           },
         });
@@ -400,7 +400,7 @@ function Message({ projectId }: MessageProps) {
       params: {
         ACL: "public-read",
         Bucket: "chat-shire",
-        Key: `chat/media/${imageFile.name}`,
+        Key: `chat/media/${projectId}/${imageFile.name}`,
         Body: imageFile,
       },
     });

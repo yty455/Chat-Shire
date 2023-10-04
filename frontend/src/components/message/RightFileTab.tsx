@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import styles from './RightFileTab.module.css'
 import AWS from "aws-sdk";
-
-
 import { BsMusicNoteBeamed, BsCameraVideoFill, BsFillFileTextFill } from 'react-icons/bs'
 import { CardActionArea } from '@mui/material';
 
-export default function RightFileTab() {
+interface MessageProps {
+  projectId: string;
+}
+
+export default function RightFileTab({ projectId }: MessageProps) {
   const [files, setFiles] = useState<{url: string, name: string, size: number}[]>([]);
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export default function RightFileTab() {
   
       var params = {
         Bucket: "chat-shire",
-        Prefix: "chat/file/"
+        Prefix: `chat/file/${projectId}/`
       };
   
       var s3 = new AWS.S3();
