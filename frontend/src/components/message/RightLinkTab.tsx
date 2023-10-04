@@ -17,8 +17,14 @@ interface Props {
 export default function RightLinkTab({ projectId }: Props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [links, setLinks] = useRecoilState(linkState);
+  const [isModalUpdate, setIsModalUpdate] = useState("");
 
   const showModal = () => {
+    setIsModalUpdate("");
+    setIsModalVisible(true);
+  };
+  const showModalUpdate = (link: any) => {
+    setIsModalUpdate(link);
     setIsModalVisible(true);
   };
 
@@ -38,6 +44,7 @@ export default function RightLinkTab({ projectId }: Props) {
     try {
       const response = await deleteLink(linkId);
       console.log(response.data);
+      getInLinks();
     } catch (error) {
       console.error(error);
     }
@@ -47,10 +54,10 @@ export default function RightLinkTab({ projectId }: Props) {
     getInLinks();
   }, []);
 
-  const Action = ({ linkId }: { linkId: any }) => (
+  const Action = ({ link }: { link: any }) => (
     <div>
-      <button onClick={() => deleteInLinks(linkId)}>삭제</button>
-      <button>수정</button>
+      <button onClick={() => deleteInLinks(link.linkId)}>삭제</button>
+      <button onClick={() => showModalUpdate(link)}>수정</button>
     </div>
   );
 
@@ -68,7 +75,7 @@ export default function RightLinkTab({ projectId }: Props) {
           links.map((link: any) => (
             <Popover
               placement="rightBottom"
-              content={<Action linkId={link.linkId} />}
+              content={<Action link={link} />}
               trigger="contextMenu"
             >
               <div key={link.linkId}>
@@ -85,6 +92,7 @@ export default function RightLinkTab({ projectId }: Props) {
         pjtId={projectId}
         open={isModalVisible}
         setOpen={setIsModalVisible}
+        isModalUpdate={isModalUpdate}
       />
     </div>
   );
