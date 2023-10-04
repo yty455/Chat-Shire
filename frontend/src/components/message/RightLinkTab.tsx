@@ -54,8 +54,8 @@ export default function RightLinkTab({ projectId }: Props) {
       </div>
       <div className={styles.BookMarkContainer}>
         {links.length !== 0 ? (
-          links.map((link, index) => (
-            <LinkOGItem key={index} requestUrl={link} />
+          links.map((link: any) => (
+            <LinkOGItem key={link.linkId} requestUrl={link.content} />
           ))
         ) : (
           <p className={styles.noPhoto}>등록된 링크가 없습니다.</p>
