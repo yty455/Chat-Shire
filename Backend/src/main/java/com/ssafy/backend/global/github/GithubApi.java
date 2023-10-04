@@ -30,7 +30,10 @@ public class GithubApi {
 
 		try {
 			// since 는 redis 에서 최근 커밋 시간을 가져와서 전달한다.
-			Date since = (Date)redisTemplate.opsForValue().get("latest_commit:" + repoName);
+			// Date since = (Date)redisTemplate.opsForValue().get("latest_commit:" + repoName);
+			Long sinceMillis = (Long)redisTemplate.opsForValue().get("latest_commit:" + repoName);
+			Date since = sinceMillis != null ? new Date(sinceMillis) : null;
+
 
 			connectToGithub(token);
 
