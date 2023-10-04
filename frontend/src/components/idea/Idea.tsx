@@ -55,6 +55,7 @@ const minimapStyle = {
 };
 
 function Flow({ pjtId }: IdeaProps) {
+
   const [mindmap, setMindmap] = useState([]);
   // whenever you use multiple values, you should use shallow for making sure that the component only re-renders when one of the values change
   const { nodes, edges, onNodesChange, onEdgesChange, addChildNode } = useStore(
@@ -68,61 +69,11 @@ function Flow({ pjtId }: IdeaProps) {
   useEffect(() => {
     loadInitialData(pjtId);
     // setIsLoading(false);
-  }, [pjtId]);
-  // useEffect(() => {
-  // const getMindmapData = async () => {
-  //   try {
-  //     setIsLoading(true);
-  //     const response = await getMindMap(pjtId);
-  //     console.log(response.data.result[0]);
-  //     const mindmapData = response.data.result[0];
-  //     // 초기 마인드맵 데이터를 React Flow 형식으로 변환
-  //     const initialMindmapNodes = mindmapData.map((node: any) => ({
-  //       id: node.id,
-  //       type: "mindmap",
-  //       data: { label: node.data.label },
-  //       position: { x: node.position.x, y: node.position.y },
-  //       deletable: !(node.id === "root"), // parentNode가 없는 노드만 삭제 불가능하도록 설정
-  //       style: {}, // 스타일 설정
-  //     }));
-  //     const initialMindmapEdges = mindmapData
-  //       .filter((node: any) => node.parentNode !== null)
-  //       .map((node: any) => ({
-  //         id: `${node.parentNode}_${node.id}`,
-  //         source: node.parentNode, // 엣지의 출발 노드 ID
-  //         target: node.id, // 엣지의 도착 노드 ID
-  //       }));
-  //     onNodesChange(initialMindmapNodes);
-  //     onEdgesChange(initialMindmapEdges);
-  //     setIsLoading(false);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // getMindmapData(); // 데이터 불러오기 함수 호출
-  // }, [pjtId, onNodesChange, onEdgesChange]);
 
-  // useEffect(() => {
-  //   console.log(nodes);
-  //   console.log(edges);
-  //   // 노드 데이터를 원하는 형태로 가공
-  //   const transformedData: any[] = [];
-  //   nodes.forEach((node) => {
-  //     const parentNode = edges.find((edge) => edge.target === node.id);
-  //     transformedData.push({
-  //       id: node.id,
-  //       data: {
-  //         label: node.data.label || "defaultLabel",
-  //       },
-  //       position: {
-  //         x: node.position.x || 0,
-  //         y: node.position.y || 0,
-  //       },
-  //       parentNode: parentNode ? parentNode.source : "null",
-  //     });
-  //   });
-  //   saveMindmapData(transformedData);
-  // }, [nodes]);
+    return () => {    
+      saveMindmapData()
+    }
+  }, [pjtId]);
 
   const saveMindmapData = async () => {
     const transformedData: any[] = [];
@@ -226,6 +177,7 @@ function Flow({ pjtId }: IdeaProps) {
   // if (isLoading) {
   //   return <div>Loading...</div>; // 데이터가 로딩되는 동안 표시할 내용
   // }
+
   return (
     <div
       style={{ backgroundColor: "#ffffff", width: "52vw", height: "74.7vh" }}
