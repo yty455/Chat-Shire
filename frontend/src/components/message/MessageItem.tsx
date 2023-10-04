@@ -117,7 +117,7 @@ export default function MessageItem({
       >
         <div className={styles.messageItemName}>
           <span className={styles.messageProfileName}>
-            {message && message?.userId}
+            {user && user?.nickname}
           </span>
           <span className={styles.messageTime}>
             {message && message?.chatTime}
