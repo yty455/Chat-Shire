@@ -109,7 +109,7 @@ function Message({ projectId }: MessageProps) {
       const response = await getProject(projectId);
       console.log('플젝정보', response.data);
       // setPjt(response.data.result[0]);
-      console.log("불러온 공지", response.data.result[0].notification);
+      console.log("불러온 공지", response.data.result[0].notice);
       setNotice(response.data.result[0].notification);
       console.log("플젝 이름", response.data.result[0].name);
       setPjtName(response.data.result[0].name);
