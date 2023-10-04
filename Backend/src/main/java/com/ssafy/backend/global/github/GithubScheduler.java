@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import com.ssafy.backend.domain.analyze.service.StatisticService;
 import com.ssafy.backend.domain.chat.entity.ChatRoom;
 import com.ssafy.backend.domain.chat.repository.ChatRoomRepository;
+import com.ssafy.backend.domain.common.exception.ResourceNotFoundException;
+import com.ssafy.backend.domain.user.User;
+import com.ssafy.backend.domain.user.repository.UserRepository;
 import com.ssafy.backend.domain.user.service.ChallengeService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class GithubScheduler {
 
 	private final ChatRoomRepository chatRoomRepository;
+	private final UserRepository userRepository;
 	private final StatisticService statisticService;
 	private final ChallengeService challengeService;
 	private final GithubApi githubApi;
@@ -47,7 +51,8 @@ public class GithubScheduler {
 			System.out.println("chatRoom.getGitRepository() = " + chatRoom.getGitRepository());
 			System.out.println("chatRoom.getBranch() = " + chatRoom.getBranch());
 			System.out.println("chatRoom.getGitAccessToken() = " + chatRoom.getGitAccessToken());
-			Map<String, List<Date>> commitDatesSince = githubApi.getCommitDatesSince(chatRoom.getGitRepository(), chatRoom.getBranch(), chatRoom.getGitAccessToken());
+			Map<String, List<Date>> commitDatesSince = githubApi.getCommitDatesSince(chatRoom.getGitRepository(),
+					chatRoom.getBranch(), chatRoom.getGitAccessToken());
 
 			// ksi2564 : [커밋한 시간1, 커밋한 시간2]...
 			for (String githubId : commitDatesSince.keySet()) {
@@ -66,14 +71,21 @@ public class GithubScheduler {
 						})
 						.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-				long myCommitCount = counts.get("morning") + counts.get("afternoon") + counts.get("night");
+				long myCommitCount =
+						counts.getOrDefault("morning", 0L) + counts.getOrDefault("afternoon", 0L) + counts.getOrDefault(
+								"night", 0L);
 				// 유저의 도전과제 commit 수 추가 함
-				challengeService.updateMyCommit(Long.valueOf(githubId), myCommitCount);
+				User user = userRepository.findByGithubId(githubId)
+						.orElseThrow(() -> new ResourceNotFoundException("githubId", githubId));
+				challengeService.updateMyCommit(user.getId(), myCommitCount);
 
 				morningCommitCount += counts.get("morning");
 				afternoonCommitCount += counts.get("afternoon");
 				nightCommitCount += counts.get("night");
 			}
+			System.out.println("morningCommitCount = " + morningCommitCount);
+			System.out.println("afternoonCommitCount = " + afternoonCommitCount);
+			System.out.println("nightCommitCount = " + nightCommitCount);
 
 			// 프로젝트 관련 통계에 업데이트하기
 			statisticService.updateCommitCount(chatRoom.getId(), morningCommitCount, afternoonCommitCount,

@@ -154,5 +154,5 @@
 
 .black {
   /* filter: blur(5px); */
-  background-color: #575757;
+  filter: grayscale(70%);
 }
