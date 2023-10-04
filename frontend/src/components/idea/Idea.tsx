@@ -61,44 +61,46 @@ function Flow({ pjtId }: IdeaProps) {
     selector,
     shallow
   );
+  const loadInitialData = useStore((state) => state.loadInitialData);
   const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
 
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const getMindmapData = async () => {
-      try {
-        setIsLoading(true);
-        const response = await getMindMap(pjtId);
-        console.log(response.data.result[0]);
-        const mindmapData = response.data.result[0];
-
-        // 초기 마인드맵 데이터를 React Flow 형식으로 변환
-        const initialMindmapNodes = mindmapData.map((node: any) => ({
-          id: node.id,
-          type: "mindmap",
-          data: { label: node.data.label },
-          position: { x: node.position.x, y: node.position.y },
-          deletable: !(node.id === "root"), // parentNode가 없는 노드만 삭제 불가능하도록 설정
-          style: {}, // 스타일 설정
-        }));
-        const initialMindmapEdges = mindmapData
-          .filter((node: any) => node.parentNode !== null)
-          .map((node: any) => ({
-            id: `${node.parentNode}_${node.id}`,
-            source: node.parentNode, // 엣지의 출발 노드 ID
-            target: node.id, // 엣지의 도착 노드 ID
-          }));
-
-        onNodesChange(initialMindmapNodes);
-        onEdgesChange(initialMindmapEdges);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getMindmapData(); // 데이터 불러오기 함수 호출
-  }, [pjtId, onNodesChange, onEdgesChange]);
+    loadInitialData(pjtId);
+    setIsLoading(false);
+  }, [pjtId]);
+  // useEffect(() => {
+  // const getMindmapData = async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     const response = await getMindMap(pjtId);
+  //     console.log(response.data.result[0]);
+  //     const mindmapData = response.data.result[0];
+  //     // 초기 마인드맵 데이터를 React Flow 형식으로 변환
+  //     const initialMindmapNodes = mindmapData.map((node: any) => ({
+  //       id: node.id,
+  //       type: "mindmap",
+  //       data: { label: node.data.label },
+  //       position: { x: node.position.x, y: node.position.y },
+  //       deletable: !(node.id === "root"), // parentNode가 없는 노드만 삭제 불가능하도록 설정
+  //       style: {}, // 스타일 설정
+  //     }));
+  //     const initialMindmapEdges = mindmapData
+  //       .filter((node: any) => node.parentNode !== null)
+  //       .map((node: any) => ({
+  //         id: `${node.parentNode}_${node.id}`,
+  //         source: node.parentNode, // 엣지의 출발 노드 ID
+  //         target: node.id, // 엣지의 도착 노드 ID
+  //       }));
+  //     onNodesChange(initialMindmapNodes);
+  //     onEdgesChange(initialMindmapEdges);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // getMindmapData(); // 데이터 불러오기 함수 호출
+  // }, [pjtId, onNodesChange, onEdgesChange]);
 
   useEffect(() => {
     console.log(nodes);
