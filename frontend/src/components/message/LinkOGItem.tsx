@@ -7,13 +7,9 @@ import Skeleton from "@mui/material/Skeleton";
 
 interface LinkOGItemProps {
   requestUrl: string;
-  isDragging?: boolean;
 }
 
-export default function LinkOGItem({
-  requestUrl,
-  isDragging,
-}: LinkOGItemProps) {
+export default function LinkOGItem({ requestUrl }: LinkOGItemProps) {
   const [title, setTitle] = useState(null);
   const [desc, setDesc] = useState(null);
   const [domain, setDomain] = useState(null);
@@ -44,9 +40,7 @@ export default function LinkOGItem({
   // })
 
   function handleClick() {
-    if (!isDragging) {
-      window.open(requestUrl, "_blank");
-    }
+    window.open(requestUrl, "_blank");
   }
 
   return (
