@@ -63,8 +63,8 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
                 style={{
                   backgroundColor: "red",
                   fontFamily: "preRg",
-                  width: "30px",
-                  height: "40px",
+                  width: "50px",
+                  height: "30px",
                 }}
                 key="submit"
                 type="primary"
