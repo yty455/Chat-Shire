@@ -77,6 +77,9 @@ public class GithubScheduler {
 				afternoonCommitCount += counts.get("afternoon");
 				nightCommitCount += counts.get("night");
 			}
+			System.out.println("morningCommitCount = " + morningCommitCount);
+			System.out.println("afternoonCommitCount = " + afternoonCommitCount);
+			System.out.println("nightCommitCount = " + nightCommitCount);
 
 			// 프로젝트 관련 통계에 업데이트하기
 			statisticService.updateCommitCount(chatRoom.getId(), morningCommitCount, afternoonCommitCount,
