@@ -15,7 +15,7 @@ interface Props {
 export default function RightLinkTab({ projectId }: Props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [links, setLinks] = useRecoilState(linkState);
-
+  const [isDragging, setIsDragging] = useState(false);
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -25,6 +25,7 @@ export default function RightLinkTab({ projectId }: Props) {
 
   const handleMouseDown = (e: React.MouseEvent) => {
     mouseDownX = e.clientX;
+    setIsDragging(true);
   };
 
   const handleMouseUp = (linkId: string) => {
@@ -44,6 +45,7 @@ export default function RightLinkTab({ projectId }: Props) {
       // 여기에 원하는 동작을 추가하세요.
     }
     // 초기화
+    setIsDragging(false);
     mouseDownX = 0;
     mouseUpX = 0;
   };
@@ -91,7 +93,7 @@ export default function RightLinkTab({ projectId }: Props) {
               }}
               onMouseUp={() => handleMouseUp(link.linkId)}
             >
-              <LinkOGItem requestUrl={link.content} />
+              <LinkOGItem requestUrl={link.content} isDragging={isDragging} />
             </div>
           ))
         ) : (
