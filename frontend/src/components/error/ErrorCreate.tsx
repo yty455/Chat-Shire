@@ -279,51 +279,53 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
   };
 
   // 이미지 업로드
-  const onUploadImage = (e: any): Promise<void> => {
-    // Promise<void> 타입 지정
-    return new Promise((resolve, reject) => {
-      const file = e.target.files[0];
-      if (!file) {
-        resolve();
-        return;
-      }
-      const fileExt = file.name.split(".").pop();
-      if (
-        !["jpeg", "png", "jpg", "JPG", "PNG", "JPEG"].includes(
-          fileExt
-        )
-      ) {
-        window.alert("jpeg, png, jpg 파일만 업로드가 가능합니다.");
-        resolve();
-        return;
-      }
+  // const onUploadImage = (e: any): Promise<void> => {
+  //   // Promise<void> 타입 지정
+  //   return new Promise((resolve, reject) => {
+  //     const file = e.target.files[0];
+  //     if (!file) {
+  //       resolve();
+  //       return;
+  //     }
+  //     const fileExt = file.name.split(".").pop();
+  //     if (
+  //       !["jpeg", "png", "jpg", "JPG", "PNG", "JPEG"].includes(
+  //         fileExt
+  //       )
+  //     ) {
+  //       window.alert("jpeg, png, jpg 파일만 업로드가 가능합니다.");
+  //       resolve();
+  //       return;
+  //     }
 
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file);
 
-      reader.onload = () => {
-        setImageSrc(reader.result || "");
-        setImageFile(file);
-        console.log("지금 업로드하는 이미지 src", imageSrc);
-        if (!reader.result) {
-          window.alert("이미지를 등록해 주세요.");
-          resolve();
-          return;
-        }
+  //     reader.onload = () => {
+  //       setImageSrc(reader.result || "");
+  //       setImageFile(file);
+  //       console.log("지금 업로드하는 이미지 src", imageSrc);
+  //       if (!reader.result) {
+  //         window.alert("이미지를 등록해 주세요.");
+  //         resolve();
+  //         return;
+  //       }
 
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("name", file.name);
+  //       const formData = new FormData();
+  //       formData.append("file", file);
+  //       formData.append("name", file.name);
 
-        uploadS3(formData)
-          .then(() => resolve())
-          .catch((error) => reject(error));
-      };
-    });
-  };
+  //       uploadS3(formData)
+  //         .then(() => resolve())
+  //         .catch((error) => reject(error));
+  //     };
+  //   });
+  // };
 
   // s3에 이미지 업로드
-  const uploadS3 = (formData: any) => {
+  // const uploadS3 = (formData: any) => {
+  const uploadS3 = (file: File): Promise<string> => { // Update the function signature
+
     const REGION = process.env.REACT_APP_REGION;
     const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
     const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
@@ -334,19 +336,32 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
       secretAccessKey: SECRET_ACCESS_KEY,
     });
 
-    const upload = new AWS.S3.ManagedUpload({
+    // const upload = new AWS.S3.ManagedUpload({
+    //   params: {
+    //     ACL: "public-read",
+    //     Bucket: "chat-shire",
+    //     Key: `error/${imageFile.name}`,
+    //     Body: imageFile,
+    //   },
+    // });
+
+    const uploadPromise = new AWS.S3.ManagedUpload({
       params: {
         ACL: "public-read",
         Bucket: "chat-shire",
-        Key: `error/${imageFile.name}`,
-        Body: imageFile,
+        Key:`error/${file.name}`,
+        Body : file,
       },
-    });
+    }).promise();
 
-    return upload.promise().then(() => {
-      console.log("사진 업로드");
-      return `https://chat-shire.s3.amazonaws.com/${imageFile.name}`;
-    });
+    return uploadPromise.then(() => 
+    `https://chat-shire.s3.amazonaws.com/error/${file.name}`
+  );
+
+  //   return upload.promise().then(() => {
+  //     console.log("사진 업로드");
+  //     return `https://chat-shire.s3.amazonaws.com/${imageFile.name}`;
+  //   });
   };
 
   // attachedInfos
@@ -356,7 +371,7 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
     const attachedFileInfos: FileInfo[] = []; // Define the type here
     
     for (let file of newFileList) {
-    if (!file.url && !file.preview) {
+    if (!file.url && !file.preview && file.originFileObj) {
       const url = await uploadS3(file.originFileObj);
       file.url = url;
       file.preview = url;
@@ -382,7 +397,7 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
     const attachedFileInfos: FileInfo[] = [];
   
     for (let file of fileList) {
-      if (!file.url && !file.preview) {
+      if (!file.url && !file.preview && file.originFileObj) {
         const url = await uploadS3(file.originFileObj);
         file.url = url;
         file.preview = url;

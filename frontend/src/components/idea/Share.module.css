@@ -82,3 +82,13 @@
   text-decoration-color: #39A789;
   text-decoration-thickness: 2px;
 }
+
+.noPhoto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 0.9rem;
+  color: grey;
+  width: 20vw;
+}
