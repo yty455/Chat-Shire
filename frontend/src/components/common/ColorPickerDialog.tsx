@@ -4,26 +4,26 @@ import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
 
 interface ColorPickerDialogProps {
-  open: boolean;
-  onClose: () => void;
+  // open: boolean;
+  // onClose: () => void;
   onSelectColor: (color: string) => void;
 }
 
 function ColorPickerDialog({
-  open,
-  onClose,
+  // open,
+  // onClose,
   onSelectColor,
 }: ColorPickerDialogProps) {
   const [selectedColor, setSelectedColor] = useState("");
 
   const handleColorSelect = () => {
     onSelectColor(selectedColor);
-    onClose();
+    // onClose();
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogContent>
+    <div>
+      <div>
         <h2>색상 선택</h2>
         <div>
           <button
@@ -52,8 +52,8 @@ function ColorPickerDialog({
           </button>
         </div>
         <Button onClick={handleColorSelect}>선택</Button>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </div>
   );
 }
 
