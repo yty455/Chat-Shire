@@ -529,7 +529,12 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   <p
                     className={styles.step}
                     style={{
-                      color: task.priority === "HIGH" ? "#FF5B5B" : task.priority === "LOW" ? "#5BFF83" : "#FFF05B",
+                      color:
+                        task.priority === "HIGH"
+                          ? "#FF5B5B"
+                          : task.priority === "LOW"
+                          ? "#5BFF83"
+                          : "#FFF05B",
                     }}
                   >
                     {task.priority}
@@ -699,7 +704,12 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   <p
                     className={styles.step}
                     style={{
-                      color: task.priority === "HIGH" ? "#FF5B5B" : task.priority === "LOW" ? "#FFF05B" : "#5BFF83",
+                      color:
+                        task.priority === "HIGH"
+                          ? "#FF5B5B"
+                          : task.priority === "LOW"
+                          ? "#FFF05B"
+                          : "#5BFF83",
                     }}
                   >
                     {task.priority}
