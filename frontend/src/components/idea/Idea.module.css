@@ -4,7 +4,7 @@
 }
 
 .savebtn {
-  position: fixed;
+  position: absolute;
   left: 10%;
   bottom: 2%;
 }
