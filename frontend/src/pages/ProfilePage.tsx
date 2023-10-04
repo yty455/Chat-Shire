@@ -167,11 +167,15 @@ export default function ProfilePage() {
               <span style={{ color: "#575757", fontSize: "34px" }}>
                 Achievement{" "}
               </span>
-              <span style={{ color: "#575757", fontSize: "20px" }}>5/48</span>
+              <span style={{ color: "#575757", fontSize: "20px" }}>
+                {userData?.challengeInfoResponse.done}/48
+              </span>
             </div>
             <div className={styles.progressBar}>
               <Box sx={{ width: "400px" }}>
-                <LinearProgressWithLabel value={10} />
+                <LinearProgressWithLabel
+                  value={(userData?.challengeInfoResponse.done / 36) * 100}
+                />
               </Box>
             </div>
             <div className={styles.AchievementContainer}>
@@ -489,15 +493,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.project}/10{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.project < 10
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={silver}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.project < 10
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(13)}
@@ -505,15 +519,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.chat}/5000{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.chat < 5000
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={silver}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.chat < 5000
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(14)}
@@ -521,15 +545,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.commit}/500{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.commit < 500
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={silver}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.commit < 500
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(15)}
@@ -537,15 +571,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.link}/300{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.link < 300
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={silver}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.link < 300
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(16)}
@@ -553,15 +597,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.data}/100{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.data < 100
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={silver}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.data < 100
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(17)}
@@ -569,15 +623,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.task}/300{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.task < 300
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={silver}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.task < 300
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(18)}
@@ -585,15 +649,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.error}/100{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.error < 100
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={silver}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.error < 100
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(19)}
@@ -601,15 +675,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.solution}/100{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.solution < 100
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={silver}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.solution < 100
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(20)}
@@ -617,15 +701,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.snackbar}/100{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.snackbar < 100
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={silver}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.snackbar < 100
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(21)}
@@ -633,15 +727,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.ongoing}/5{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.ongoing < 5
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={silver}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.ongoing < 5
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(22)}
@@ -649,15 +753,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.login}/30{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.login < 30
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={silver}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.login < 30
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(23)}
@@ -665,15 +779,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.done}/23{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.done < 23
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={silver}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.done < 23
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(24)}
@@ -681,15 +805,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.project}/25{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.project < 25
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={gold}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.project < 25
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(25)}
@@ -697,15 +831,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.chat}/10000{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.chat < 10000
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={gold}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.chat < 10000
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(26)}
@@ -713,15 +857,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.commit}/1000{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.commit < 1000
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={gold}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.commit < 1000
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(27)}
@@ -729,15 +883,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.link}/500{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.link < 500
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={gold}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.link < 500
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(28)}
@@ -745,15 +909,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.data}/500{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.data < 500
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={gold}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.data < 500
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(29)}
@@ -761,15 +935,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.task}/500{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.task < 500
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={gold}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.task < 500
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(30)}
@@ -777,15 +961,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.error}/300{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.error < 300
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={gold}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.error < 300
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(31)}
@@ -793,15 +987,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.solution}/150{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.solution < 150
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={gold}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.solution < 150
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(32)}
@@ -809,15 +1013,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.snackbar}/300{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.snackbar < 300
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={gold}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.snackbar < 300
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(33)}
@@ -825,15 +1039,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.ongoing}/7{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.ongoing < 7
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={gold}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.ongoing < 7
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(34)}
@@ -841,15 +1065,26 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {" "}
+                  {userData?.challengeInfoResponse.login}/365{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.login < 365
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={gold}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.login < 365
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(35)}
@@ -857,15 +1092,25 @@ export default function ProfilePage() {
                 />
               </div>
               <div className={styles.AchievementItemContainer}>
-                <span className={styles.AchievementItemCount}>0/6</span>
+                <span className={styles.AchievementItemCount}>
+                  {userData?.challengeInfoResponse.done}/35{" "}
+                </span>
                 <img
-                  className={styles.AchievementItemDesc}
+                  className={`${styles.AchievementItemDesc} ${
+                    userData?.challengeInfoResponse.done < 35
+                      ? styles.black
+                      : ""
+                  }`}
                   width="0px"
                   height="78px"
                   src={gold}
                 />
                 <img
-                  className={styles.AchievementItem}
+                  className={`${styles.AchievementItem} ${
+                    userData?.challengeInfoResponse.done < 35
+                      ? styles.black
+                      : ""
+                  }`}
                   width="78px"
                   height="78px"
                   src={achievementPath(36)}
