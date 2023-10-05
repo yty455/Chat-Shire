@@ -61,6 +61,11 @@ interface User {
   profileColor: string;
 }
 
+type FileInfo = {
+  url: string;
+  thumbnail: string;
+};
+
 function Message({ projectId }: MessageProps) {
   const [value, setValue] = useState("media");
   const [preMessage, setPreMessage] = useState<any[]>([]);
@@ -80,6 +85,7 @@ function Message({ projectId }: MessageProps) {
   const [video, setVideo] = useState([]);
   const [file, setFile] = useState([]);
   const [users, setUsers] = useState<User[]>([]);
+  const [attachedFileInfos, setAttachedFileInfos] = useState<FileInfo[]>([]);
 
   const handleChange = (e: any) => {
     e.preventDefault();
@@ -271,22 +277,18 @@ function Message({ projectId }: MessageProps) {
       reader.onload = () => {
         setImageSrc(reader.result || "");
         setImageFile(file);
-        if (!reader.result) {
-          window.alert("이미지를 등록해 주세요.");
-          resolve();
-          return;
-        }
 
         const formData = new FormData();
         formData.append("file", file);
         formData.append("name", file.name);
         e.target.value = null;
-
-        if (!reader.result) {
-          window.alert("이미지를 등록해 주세요.");
-          resolve();
-          return;
-        }
+        
+        //혹시 머 에러나면 이거 주석풀기
+        // if (!reader.result) {
+        //   window.alert("이미지를 등록해 주세요.");
+        //   resolve();
+        //   return;
+        // }
    
         resolve(); // 업로드는 useEffect에서 처리하므로 여기서는 resolve()만 호출
       };
@@ -435,6 +437,12 @@ function Message({ projectId }: MessageProps) {
 
     return upload.promise().then(() => {
       console.log("미디어 업로드");
+      const url = `https://chat-shire.s3.amazonaws.com/error/${imageFile.name}`
+      attachedFileInfos.push({ url: url, thumbnail: url })
+
+      setAttachedFileInfos(attachedFileInfos);
+
+      postChat(Number(projectId), "", attachedFileInfos);
     });
   };
 
@@ -616,14 +624,14 @@ function Message({ projectId }: MessageProps) {
                 multiple
                 type="file"
                 ref={(el) => (inputRef.current[0] = el)}
-                onChange={(e) => {
-                  onUploadImage(e).then(() => {
-                    if (!imageSrc) {
-                      window.alert("이미지를 등록해 주세요.");
-                      return;
-                    }
-                  });
-                }}
+                // onChange={(e) => {
+                //   onUploadImage(e).then(() => {
+                //     if (!imageSrc) {
+                //       // window.alert("이미지를 등록해 주세요.");
+                //       return;
+                //     }
+                //   });
+                // }}
               />
               <div style={{ position: "relative" }}>
                 <Grow
