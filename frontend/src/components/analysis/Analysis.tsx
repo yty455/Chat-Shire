@@ -116,7 +116,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
     }
   };
 
-  function decideBodyDesc() {
+  const returnBodyDesc = () => {
     if (workStyle === "baby") {
       return (
         <div className={styles.analysisBodyDesc}>
@@ -164,13 +164,6 @@ export default function Analysis({ projectId }: AnalysisProps) {
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>나는야</span>
           <span className={styles.analysisBodyDescDown}>다고쳐 펠릭스</span>
-        </div>
-      )
-    } else {
-      return (
-        <div className={styles.analysisBodyDesc}>
-          <span className={styles.analysisBodyDescUp}>다 비켜!</span>
-          <span className={styles.analysisBodyDescDown}>코린이가 간다</span>
         </div>
       )
     }
@@ -245,7 +238,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
             <span className={styles.analysisBodyTitleRight}>워크스타일은?</span>
           </div>
           <div>
-            <div>asdasf</div>
+            {returnBodyDesc()}
           </div>
         </div>
       </div>
