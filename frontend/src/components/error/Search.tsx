@@ -25,6 +25,7 @@ function Search({ onSearch }: searchProps) {
         width: "45%",
       }}
       style={{ margin: "1%" }}
+      onSubmit={(e) => e.preventDefault()}
     >
       <InputBase
         sx={{ ml: 1, flex: 1, fontFamily: "preBd" }}

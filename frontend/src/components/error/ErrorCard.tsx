@@ -5,7 +5,7 @@ import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 // import img from "../../assets/profile/m57.png";
 // import error from "../../assets/error.png";
-import {getErrorDetail} from "../../utils/errorApi";
+import { getErrorDetail } from "../../utils/errorApi";
 
 interface ErrorCardProps {
   error?: any;
@@ -82,28 +82,26 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
             <h5 className={styles.language}>Python</h5>
           )}
         </div>
-        <div style={{display:'flex', alignItems:'center', justifyContent:'start'}}>
-          {error.attachedFileInfos && (
-            error.attachedFileInfos.map((info: { url: string }, index: number) => (
-              <img style={{marginRight: '5px', height: '60px', width: '60px'}} key={index} src={info.url} alt="Preview" />
-            ))
-          )}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "start",
+            overflow: "scroll",
+          }}
+        >
+          {error.attachedFileInfos &&
+            error.attachedFileInfos.map(
+              (info: { url: string }, index: number) => (
+                <img
+                  style={{ marginRight: "5px", height: "60px", width: "60px" }}
+                  key={index}
+                  src={info.url}
+                  alt="Preview"
+                />
+              )
+            )}
         </div>
-        {/* <img
-          className={styles.error}
-          alt="error"
-          src={process.env.PUBLIC_URL + "/assets/error.png"}
-        />
-        <img
-          className={styles.error}
-          alt="error"
-          src={process.env.PUBLIC_URL + "/assets/error.png"}
-        />
-        <img
-          className={styles.error}
-          alt="error"
-          src={process.env.PUBLIC_URL + "/assets/error.png"}
-        /> */}
         <p className={styles.answer}>
           {" "}
           A. {error && error.reply ? error.reply : "이렇게 함 해볼래?"}
