@@ -592,41 +592,42 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             defaultValue={item.description}
                           />
                         ) : (
-                          <p
+                          <span
                             className={`${styles.taskContent} ${
                               item.progress === "DONE" ? styles.checked : ""
                             }`}
                           >
                             {item.description}
-                          </p>
+                          </span>
                         )}
-                      </div>
-                      <div className={styles.icons}>
-                        <div>
+                        <div className={styles.icons}>
                           <BsFillChatDotsFill
                             onClick={() => {
                               handleOpen(item.id);
                             }}
                             style={{
                               fontSize: "17px",
-                              margin: "0px 5px 10px 4px",
+                              marginLeft: "4px"
                             }}
                           />
                           {editingTaskId === item.id ? (
                             <BiSolidCheckCircle
                               style={{
                                 fontSize: "17px",
-                                margin: "0px 3px 10px 4px",
+                                marginLeft: "4px"
                               }}
                               onClick={() =>
-                                handleEditComplete(item.id, updatedDescription)
+                                handleEditComplete(
+                                  item.id,
+                                  updatedDescription
+                                )
                               }
                             />
                           ) : (
                             <BsPencilFill
                               style={{
                                 fontSize: "17px",
-                                margin: "0px 3px 10px 4px",
+                                marginLeft: "4px"
                               }}
                               onClick={() => enterEditMode(item.id)}
                             />
@@ -634,7 +635,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           <MdDelete
                             style={{
                               fontSize: "20px",
-                              margin: "0px 10px 8px 4px",
+                              marginLeft: "4px"
                             }}
                             onClick={() => deleteInTask(item.id)}
                           />
