@@ -58,8 +58,11 @@
   height: 560px;
 }
 
-.rep {
+.replyContainer {
   display: flex;
+  justify-content: space-between;
+  border: 1px solid #575757;
+  border-radius: 20px;
 }
 
 .closebtn {
@@ -80,9 +83,10 @@
 }
 
 .status {
-  margin: 3px 0;
+  margin: 6px 10px;
   font-family: "preRg";
   width: 45px;
+  height: 24px;
   color: #39a789;
   text-align: center;
   border: 1px solid #39a789;

@@ -103,15 +103,9 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
           <div className={styles.deContainerHeader}>
             <div style={{display: "flex", flexDirection: "column"}}>
               <span style={{fontFamily: "preBd", fontSize: "24px"}}>Q. {errDetail && errDetail.title}</span>
-              <span>작성자 {errDetail.nickname}</span>
-              <span style={{fontFamily: "preLt", fontSize: "14px"}}>
-                생성날짜:
-                {errDetail.createdDate
-                  ? errDetail.createdDate.toLocaleString()
-                  : "날짜 없음"}
-              </span>
-              <span style={{ fontFamily: "preLt", fontSize: "14px" }}>
-                수정날짜:
+              <span style={{marginLeft: "10px"}}>작성자 {errDetail.nickname}</span>
+              <span style={{marginLeft: "10px", fontFamily: "preLt", fontSize: "14px" }}>
+                마지막 수정일:
                 {errDetail.lastModifiedDate
                   ? errDetail.lastModifiedDate.toLocaleString()
                   : "날짜 없음"}
@@ -128,31 +122,36 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
             <div className={styles.errImageContainer}>
               {errDetail.attachedFileInfos && (
                 errDetail.attachedFileInfos.map((info: { url: string }, index: number) => (
-                  <img style={{marginRight: "10px", maxHeight: "240px", height: "180px"}} key={index} src={info.url} alt="Preview" />
+                  <img style={{marginRight: "16px", maxHeight: "240px", height: "240px"}} key={index} src={info.url} alt="Preview" />
                 ))
               )}
             </div>
           </div>
         </div>
         <div className={styles.reContainer}>
-          <span style={{ fontFamily: "preBd", fontSize: "24px" }}>A. </span>
+          <span style={{ fontFamily: "preBd", fontSize: "24px" }}>Answers. </span>
+          <input type="text" value={content} onChange={(e) => setContent(e.target.value)} onKeyPress={handleEnterKeyPress}/>
           {errDetail &&
             errDetail?.replies &&
             errDetail.replies.map((item: any) => {
               return (
-                <div className={styles.rep} key={item.replyId}>
-                  <Avatar
-                    alt={item.nickname}
-                    src={process.env.PUBLIC_URL + item.profileImage}
-                    sx={{
-                      width: 20,
-                      height: 20,
-                      backgroundColor: item.profileColor,
-                    }}
-                  />
-                  {item.nickname} :{" "}
+                <div className={styles.replyContainer} key={item.replyId}>
+                  <div className={styles.replyLeft}>
+                    <Avatar
+                      alt={item.nickname}
+                      src={process.env.PUBLIC_URL + item.profileImage}
+                      sx={{
+                        width: 40,
+                        height: 40,
+                        backgroundColor: item.profileColor,
+                      }}
+                    />
+                    <span>
+                      {item.nickname} : {" "}
+                    </span>
+                  </div>
                   {editingCommentId === item.replyId ? (
-                    <>
+                    <div>
                       <input
                         type="text"
                         value={item.content}
@@ -163,12 +162,12 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                       >
                         저장
                       </button>
-                    </>
+                    </div>
                   ) : (
-                    <>
+                    <div>
                       {item.content}
                       {userData.nickname === item.nickname ? (
-                        <>
+                        <div>
                           <button
                             onClick={() => setEditingCommentId(item.replyId)}
                           >
@@ -177,19 +176,13 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                           <button onClick={() => deleteReply(item.replyId)}>
                             삭제
                           </button>
-                        </>
+                        </div>
                       ) : null}
-                    </>
+                    </div>
                   )}
                 </div>
               );
             })}
-          <input
-            type="text"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            onKeyPress={handleEnterKeyPress}
-          />
         </div>
         <button onClick={closeModal} className={styles.closebtn}>
           X
