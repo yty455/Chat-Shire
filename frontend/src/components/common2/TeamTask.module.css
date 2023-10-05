@@ -140,3 +140,9 @@
   display: flex;
   justify-content: start;
 }
+
+.icons {
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
