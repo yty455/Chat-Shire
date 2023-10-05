@@ -274,6 +274,7 @@ function Message({ projectId }: MessageProps) {
         formData.append("file", file);
         formData.append("name", file.name);
       
+<<<<<<< HEAD
         setTimeout(() => {  
           uploadS3(formData)
             .then(() => resolve())
@@ -281,6 +282,15 @@ function Message({ projectId }: MessageProps) {
         }, 0); 
       };
     });
+=======
+       setImmediate(() => {  
+         uploadS3(formData)
+           .then(() => resolve())
+           .catch((error) => reject(error));
+       });  
+     };
+   });
+>>>>>>> 452b91b1bf5327ed1f57a328240d2ea4750bfeba
   };
       
   //     reader.onload = () => {
