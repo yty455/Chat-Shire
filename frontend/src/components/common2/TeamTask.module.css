@@ -143,6 +143,6 @@
 
 .icons {
   display: flex;
-  height: 48px;
-  align-items: flex-end;
+  height: 40px;
+  align-items: center;
 }
