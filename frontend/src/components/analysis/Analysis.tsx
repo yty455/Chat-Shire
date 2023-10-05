@@ -102,22 +102,22 @@ export default function Analysis({ projectId }: AnalysisProps) {
       .catch((err) => console.log(err));
   };
   const caculateWorkStyle = () => {
-    if (morningCommit + afternoonCommit + nightCommit > 500) {
+    if (morningCommit + afternoonCommit + nightCommit > 30) {
       setWorkStyle("passion");
       setWorkStyleColor({main: "#EB9042", sub: "#AE2949"})
-    } else if (taskCount > 500) {
+    } else if (taskCount > 5) {
       setWorkStyle("jjjj");
       setWorkStyleColor({main: "#54CCC7", sub: "#4ED480"})
-    } else if (totalChatCount(allCategoryCount) > 3000) {
+    } else if (totalChatCount(allCategoryCount) > 100) {
       setWorkStyle("chat");
       setWorkStyleColor({main: "#F3AAF7", sub: "#779DFF"})
-    } else if (nightCommit > 200) {
+    } else if (nightCommit > 9) {
       setWorkStyle("night");
       setWorkStyleColor({main: "#E8CA46", sub: "#3E008C"})
-    } else if (issueCount > 100) {
+    } else if (issueCount > 3) {
       setWorkStyle("fix");
       setWorkStyleColor({main: "#C03AEC", sub: "#3E008C"})
-    } else if (relevantChatCount(allCategoryCount) > 1000) {
+    } else if (relevantChatCount(allCategoryCount) > 50) {
       setWorkStyle("idea");
       setWorkStyleColor({main: "#FFDD88", sub: "#F0ADC7"})
     }
