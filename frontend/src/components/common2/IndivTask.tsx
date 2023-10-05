@@ -474,7 +474,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                         }}
                         type="text"
                         // onBlur={handleContentChange(item.TaskId)}
-                        placeholder="내용을 입력하세요"
+                        placeholder="내용을 입력한 후 Enter"
                         // value={updatedDescription}
                       />
                     ) : (
@@ -486,35 +486,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                         {item.description}
                       </p>
                     )}
-                  </div>
-                  <div className={styles.icons}>
-                    <div style={{ margin: "-4px 0 0 0" }}></div>
-                    <div>
-                      <BsFillChatDotsFill
-                        style={{ fontSize: "17px", margin: "-5px 5px 10px 0" }}
-                      />
-                      {editingTaskId === item.id ? (
-                        <BiSolidCheckCircle
-                          style={{
-                            fontSize: "17px",
-                            margin: "-5px 3px 10px 0",
-                          }}
-                          // onClick={() => handleEditComplete(item.id)}
-                        />
-                      ) : (
-                        <BsPencilFill
-                          style={{
-                            fontSize: "17px",
-                            margin: "-5px 3px 10px 0",
-                          }}
-                          onClick={() => enterEditMode(item.id, item.progress)}
-                        />
-                      )}
-                      <MdDelete
-                        style={{ fontSize: "20px", margin: "-7px 10px 8px 0" }}
-                        onClick={() => deleteInTask(item.id)}
-                      />
-                    </div>
                   </div>
                 </Item>
               </Grid>

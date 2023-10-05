@@ -3,7 +3,17 @@ import TextField from "@mui/material/TextField";
 
 import styles from "./SetGitRepo.module.css";
 
-export default function SetGitRepo({onData}: {onData: (gitRepository: string, branch: string, gitAccessToken: string) => void;}) {
+export default function SetGitRepo({
+  onData,
+  data,
+}: {
+  onData: (
+    gitRepository: string,
+    branch: string,
+    gitAccessToken: string
+  ) => void;
+  data: any;
+}) {
   const [gitRepository, setGitRepository] = useState("");
   const [branch, setBranch] = useState("");
   const [gitAccessToken, setGitAccessToken] = useState("");
@@ -36,10 +46,15 @@ export default function SetGitRepo({onData}: {onData: (gitRepository: string, br
         required
         id="standard-required"
         label="깃 주소"
-        defaultValue=""
+        defaultValue={data.gitRepository}
         onChange={handlegitRepositoryChange}
         variant="standard"
-        style={{ display: "flex", flexDirection: "column", border: "none", width: "600px" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          border: "none",
+          width: "600px",
+        }}
         // helperText="Please enter your name"
       />
 
@@ -52,7 +67,7 @@ export default function SetGitRepo({onData}: {onData: (gitRepository: string, br
         id="outlined-multiline-static"
         label="브랜치 설정"
         onChange={handlebranchChange}
-        defaultValue=""
+        defaultValue={data.branch}
         variant="standard"
         // helperText="Please enter your name"
       />
@@ -65,7 +80,7 @@ export default function SetGitRepo({onData}: {onData: (gitRepository: string, br
         id="outlined-multiline-static"
         label="깃 토큰"
         onChange={handlegitAccessTokenChange}
-        defaultValue=""
+        defaultValue={data.gitAccessToken}
         variant="standard"
         // helperText="Please enter your name"
       />
