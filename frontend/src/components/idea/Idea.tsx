@@ -192,14 +192,17 @@ function Flow({ pjtId }: IdeaProps) {
       >
         <Controls showInteractive={false} />
         <MiniMap style={minimapStyle} zoomable pannable />
-        <Popover placement="right" content={content} trigger="hover">
-          <FloatButton
-            icon={<QuestionCircleOutlined />}
-            type="default"
-            style={{ width: 22, height: 20, bottom: 540, left: 310 }}
-          />
-        </Popover>
-        <div className={styles.savebtn}>
+        <div style={{ position: "relative" }}>
+          <Popover placement="right" content={content} trigger="hover">
+            <FloatButton
+              icon={<QuestionCircleOutlined />}
+              type="default"
+              style={{ width: 22, height: 20, bottom: 540, left: 310 }}
+            />
+          </Popover>
+        </div>
+
+        <div style={{ position: "relative" }}>
           <Controls showInteractive={false}>
             <Button
               className={styles.savebtn}
