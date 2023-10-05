@@ -745,41 +745,43 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       }}
                     >
                       <div className={styles.indivTask}>
-                        <Checkbox
-                          sx={{
-                            color: "#39A789",
-                            "&.Mui-checked": { color: "#39A789" },
-                          }}
-                          style={{ height: "20px", margin: "14px 0" }}
-                          checked={item.progress === "DONE"}
-                          onChange={handleCheckboxChange(item)}
-                        />
-                        {editingTaskId === item.id ? (
-                          <input
-                            onKeyPress={handleKeyPress(item.id)}
-                            onChange={(e) =>
-                              setUpdatedDescription(e.target.value)
-                            }
-                            style={{
-                              fontFamily: "preRg",
-                              height: "30px",
-                              marginTop: "9px",
-                              border: "none",
+                        <div>
+                          <Checkbox
+                            sx={{
+                              color: "#39A789",
+                              "&.Mui-checked": { color: "#39A789" },
                             }}
-                            type="text"
-                            // onBlur={handleContentChange(item.TaskId)}
-                            placeholder="내용을 입력하세요"
-                            defaultValue={item.description}
+                            style={{ height: "20px", margin: "14px 0" }}
+                            checked={item.progress === "DONE"}
+                            onChange={handleCheckboxChange(item)}
                           />
-                        ) : (
-                          <span
-                            className={`${styles.taskContent} ${
-                              item.progress === "DONE" ? styles.checked : ""
-                            }`}
-                          >
-                            {item.description}
-                          </span>
-                        )}
+                          {editingTaskId === item.id ? (
+                            <input
+                              onKeyPress={handleKeyPress(item.id)}
+                              onChange={(e) =>
+                                setUpdatedDescription(e.target.value)
+                              }
+                              style={{
+                                fontFamily: "preRg",
+                                height: "30px",
+                                marginTop: "9px",
+                                border: "none",
+                              }}
+                              type="text"
+                              // onBlur={handleContentChange(item.TaskId)}
+                              placeholder="내용을 입력하세요"
+                              defaultValue={item.description}
+                            />
+                          ) : (
+                            <span
+                              className={`${styles.taskContent} ${
+                                item.progress === "DONE" ? styles.checked : ""
+                              }`}
+                            >
+                              {item.description}
+                            </span>
+                          )}
+                        </div>
                         <div className={styles.icons}>
                           <BsFillChatDotsFill
                             onClick={() => {
