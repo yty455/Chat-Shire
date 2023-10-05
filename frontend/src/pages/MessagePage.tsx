@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./MessagePage.module.css";
 import LeftSide from "../components/common/LeftSide";
 import Message from "../components/message/Message";

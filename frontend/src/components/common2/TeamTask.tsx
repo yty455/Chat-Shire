@@ -9,6 +9,7 @@ import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 import dayjs from "dayjs";
+import Tooltip from "@mui/material/Tooltip";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { getProject } from "../../utils/projectApi";
@@ -606,43 +607,54 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           )}
                         </div>
                         <div className={styles.icons}>
-                          <BsFillChatDotsFill
-                            onClick={() => {
-                              handleOpen(item.id);
-                            }}
-                            style={{
-                              fontSize: "17px",
-                              marginLeft: "4px",
-                            }}
-                          />
+                          <Tooltip title="참조 대화함 열기">
+                            <BsFillChatDotsFill
+                              onClick={() => {
+                                handleOpen(item.id);
+                              }}
+                              style={{
+                                fontSize: "17px",
+                                marginLeft: "4px",
+                              }}
+                            />
+                          </Tooltip>
                           {editingTaskId === item.id ? (
-                            <BiSolidCheckCircle
-                              style={{
-                                fontSize: "17px",
-                                marginLeft: "4px",
-                              }}
-                              onClick={() =>
-                                handleEditComplete(item.id, updatedDescription)
-                              }
-                            />
+                            <Tooltip title="저장">
+                              <BiSolidCheckCircle
+                                style={{
+                                  fontSize: "17px",
+                                  marginLeft: "4px",
+                                }}
+                                onClick={() =>
+                                  handleEditComplete(
+                                    item.id,
+                                    updatedDescription
+                                  )
+                                }
+                              />
+                            </Tooltip>
                           ) : (
-                            <BsPencilFill
+                            <Tooltip title="수정">
+                              <BsPencilFill
+                                style={{
+                                  fontSize: "17px",
+                                  marginLeft: "4px",
+                                }}
+                                onClick={() =>
+                                  enterEditMode(item.id, item.progress)
+                                }
+                              />
+                            </Tooltip>
+                          )}
+                          <Tooltip title="삭제">
+                            <MdDelete
                               style={{
-                                fontSize: "17px",
+                                fontSize: "20px",
                                 marginLeft: "4px",
                               }}
-                              onClick={() =>
-                                enterEditMode(item.id, item.progress)
-                              }
+                              onClick={() => deleteInTask(item.id)}
                             />
-                          )}
-                          <MdDelete
-                            style={{
-                              fontSize: "20px",
-                              marginLeft: "4px",
-                            }}
-                            onClick={() => deleteInTask(item.id)}
-                          />
+                          </Tooltip>
                         </div>
                       </div>
                     </div>
@@ -785,43 +797,54 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           )}
                         </div>
                         <div className={styles.icons}>
-                          <BsFillChatDotsFill
-                            onClick={() => {
-                              handleOpen(item.id);
-                            }}
-                            style={{
-                              fontSize: "17px",
-                              marginLeft: "4px",
-                            }}
-                          />
+                          <Tooltip title="참조 대화함 열기">
+                            <BsFillChatDotsFill
+                              onClick={() => {
+                                handleOpen(item.id);
+                              }}
+                              style={{
+                                fontSize: "17px",
+                                marginLeft: "4px",
+                              }}
+                            />
+                          </Tooltip>
                           {editingTaskId === item.id ? (
-                            <BiSolidCheckCircle
-                              style={{
-                                fontSize: "17px",
-                                marginLeft: "4px",
-                              }}
-                              onClick={() =>
-                                handleEditComplete(item.id, updatedDescription)
-                              }
-                            />
+                            <Tooltip title="저장">
+                              <BiSolidCheckCircle
+                                style={{
+                                  fontSize: "17px",
+                                  marginLeft: "4px",
+                                }}
+                                onClick={() =>
+                                  handleEditComplete(
+                                    item.id,
+                                    updatedDescription
+                                  )
+                                }
+                              />
+                            </Tooltip>
                           ) : (
-                            <BsPencilFill
+                            <Tooltip title="수정">
+                              <BsPencilFill
+                                style={{
+                                  fontSize: "17px",
+                                  marginLeft: "4px",
+                                }}
+                                onClick={() =>
+                                  enterEditMode(item.id, item.progress)
+                                }
+                              />
+                            </Tooltip>
+                          )}
+                          <Tooltip title="삭제">
+                            <MdDelete
                               style={{
-                                fontSize: "17px",
+                                fontSize: "20px",
                                 marginLeft: "4px",
                               }}
-                              onClick={() =>
-                                enterEditMode(item.id, item.progress)
-                              }
+                              onClick={() => deleteInTask(item.id)}
                             />
-                          )}
-                          <MdDelete
-                            style={{
-                              fontSize: "20px",
-                              marginLeft: "4px",
-                            }}
-                            onClick={() => deleteInTask(item.id)}
-                          />
+                          </Tooltip>
                         </div>
                       </div>
                     </div>
