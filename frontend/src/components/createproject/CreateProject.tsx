@@ -61,7 +61,7 @@ function CreateProject() {
   const [gitRepository, setGitRepository] = useState("");
   const [branch, setBranch] = useState("");
   const [gitAccessToken, setGitAccessToken] = useState("");
-  // 
+  //
   let Members = useRef<string[]>([]);
 
   const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs());
@@ -92,8 +92,8 @@ function CreateProject() {
   };
 
   const handleMemberData = (membersData: any) => {
-    Members.current = membersData
-  }
+    Members.current = membersData;
+  };
 
   const handleDateData = (startDate: string, endDate: string) => {
     setStartDate(dayjs(startDate));
@@ -109,7 +109,6 @@ function CreateProject() {
     setBranch(branch);
     setGitAccessToken(gitAccessToken);
   };
-
 
   const createProject = async () => {
     const formattedStartDate = startDate ? startDate.format("YYYY-MM-DD") : "";
@@ -223,14 +222,45 @@ function CreateProject() {
               </StepLabel>
               <StepContent
                 color="greenary"
-                style={{ display: "flex", marginLeft: "14px", border: "none", width: "900px" }}
+                style={{
+                  display: "flex",
+                  marginLeft: "14px",
+                  border: "none",
+                  width: "900px",
+                }}
               >
-                {index === 0 && <SetProjectName onData={handleProjectNameData} />}
-                {index === 1 && <SetProjectInfo onData={handleProjecInfoData} />}
-                {index === 2 && <SetMember onData={handleMemberData}/>}
-                {index === 3 && <SetDate onData={handleDateData} />}
-                {index === 4 && <SetGitRepo onData={handleGitData} />}
-                <div style={{display: "flex",  justifyContent: "flex-end", alignItems: "center"}}>
+                {index === 0 && (
+                  <SetProjectName
+                    onData={handleProjectNameData}
+                    data={{ name, teamName }}
+                  />
+                )}
+                {index === 1 && (
+                  <SetProjectInfo
+                    onData={handleProjecInfoData}
+                    data={{ topic, description }}
+                  />
+                )}
+                {index === 2 && <SetMember onData={handleMemberData} />}
+                {index === 3 && (
+                  <SetDate
+                    onData={handleDateData}
+                    data={{ startDate, endDate }}
+                  />
+                )}
+                {index === 4 && (
+                  <SetGitRepo
+                    onData={handleGitData}
+                    data={{ gitRepository, branch, gitAccessToken }}
+                  />
+                )}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                  }}
+                >
                   <Button
                     variant="contained"
                     onClick={() => {
