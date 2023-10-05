@@ -436,7 +436,7 @@ function Message({ projectId }: MessageProps) {
 
     return upload.promise().then(() => {
       console.log("미디어 업로드");
-      const url = `https://chat-shire.s3.amazonaws.com/error/${imageFile.name}`
+      const url = `https://chat-shire.s3.amazonaws.com/chat/media/${projectId}/${imageFile.name}`
       attachedFileInfos.push({ url: url, thumbnail: url })
 
       setAttachedFileInfos(attachedFileInfos);
