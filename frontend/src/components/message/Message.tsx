@@ -268,12 +268,24 @@ function Message({ projectId }: MessageProps) {
         const formData = new FormData();
         formData.append("file", file);
         formData.append("name", file.name);
-
-        uploadS3(formData)
-          .then(() => resolve())
-          .catch((error) => reject(error));
+      
+<<<<<<< HEAD
+        setTimeout(() => {  
+          uploadS3(formData)
+            .then(() => resolve())
+            .catch((error) => reject(error));
+        }, 0); 
       };
     });
+=======
+       setImmediate(() => {  
+         uploadS3(formData)
+           .then(() => resolve())
+           .catch((error) => reject(error));
+       });  
+     };
+   });
+>>>>>>> 452b91b1bf5327ed1f57a328240d2ea4750bfeba
   };
 
   // 파일 업로드
