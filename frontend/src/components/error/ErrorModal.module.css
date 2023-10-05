@@ -16,16 +16,29 @@
 
 .modalContent {
   display: flex;
-  flex-direction: column;
   padding: 20px;
   color: #575757;
 }
 
 .deContainer {
+  display: flex;
+  flex-direction: column;
+  width: 490px;
   height: 60%;
 }
 
+.errImageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: scroll;
+}
+
 .reContainer {
+  display: flex;
+  flex-direction: column;
+  width: 490px;
   height: 30%;
 }
 

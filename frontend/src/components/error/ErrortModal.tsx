@@ -132,13 +132,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               }}
             />
           </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "start",
-            }}
-          >
+          <div className={styles.errImageContainer}>
             {errDetail.attachedFileInfos &&
               errDetail.attachedFileInfos.map(
                 (info: { url: string }, index: number) => (
