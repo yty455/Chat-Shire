@@ -121,7 +121,6 @@ export default function CustomProfilePage() {
   const userUpdate = async () => {
     try {
       const response = await api.patch("/users", formData);
-      localStorage.setItem("token", response.headers["authorization"]);
       getProfilePage();
       navigate("/main");
     } catch (error) {
