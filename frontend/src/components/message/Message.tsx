@@ -235,7 +235,6 @@ function Message({ projectId }: MessageProps) {
 
   // 이미지 업로드
   const onUploadImage = (e: any): Promise<void> => {
-    // Promise<void> 타입 지정
     return new Promise((resolve, reject) => {
       const file = e.target.files[0];
       if (!file) {
@@ -252,10 +251,10 @@ function Message({ projectId }: MessageProps) {
         resolve();
         return;
       }
-
+  
       const reader = new FileReader();
       reader.readAsDataURL(file);
-
+  
       reader.onload = () => {
         setImageSrc(reader.result || "");
         setImageFile(file);
@@ -269,13 +268,15 @@ function Message({ projectId }: MessageProps) {
         formData.append("file", file);
         formData.append("name", file.name);
       
-        setImmediate(() => {
-          uploadS3(formData)
-            .then(() => resolve())
-            .catch((error) => reject(error));
-         });
-       };
-       
+       setImmediate(() => {  
+         uploadS3(formData)
+           .then(() => resolve())
+           .catch((error) => reject(error));
+       });  
+     };
+   });
+  };
+      
   //     reader.onload = () => {
   //       setImageSrc(reader.result || "");
   //       setImageFile(file);
