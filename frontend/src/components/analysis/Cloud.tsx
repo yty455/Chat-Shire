@@ -1,53 +1,28 @@
 import React from 'react';
 import WordCloud from 'react-d3-cloud';
+import { useRecoilState } from "recoil";
+import { workStyleColor_recoil, keywords_recoil } from '../../stores/atom'
 
 export default function Cloud() {
+  const [workStyleColor, setWorkStyleColor] = useRecoilState(workStyleColor_recoil)
+  const [keywords, setKeywords] = useRecoilState(keywords_recoil);
+  const transformedData = Object.entries(keywords).map(([text, value]) => ({ text, value: Number(value) }));
 
-  const data = [
-    { text: 'Hey', value: 100 },
-    { text: 'Hey', value: 120 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'Hey', value: 140 },
-    { text: 'lol', value: 2201 },
-    { text: 'lol', value: 2201 },
-    { text: 'lol', value: 200 },
-    { text: 'lol', value: 200 },
-    { text: 'lol', value: 240 },
-    { text: 'lol', value: 24000 },
-    { text: 'lol', value: 24000 },
-    { text: 'lol', value: 24000 },
-    { text: 'lol', value: 24000 },
-    { text: 'lol', value: 24000 },
-    { text: 'lol', value: 240 },
-    { text: 'lol', value: 240 },
-    { text: 'lol', value: 240 },
-    { text: 'duck', value: 20 },
-    { text: 'duck', value: 21130 },
-    { text: 'duck', value: 21130 },
-    { text: 'duck', value: 21130 },
-    { text: 'duck', value: 21130 },
-    { text: 'duck', value: 21130 },
-    { text: 'duck', value: 20 },
-    { text: 'duck', value: 20 },
-    { text: 'duck', value: 20 },
-  ];
+  function decideWordColor (word: any) {
+    if (word.value % 4 === 0) {
+      return workStyleColor.sub
+    } else if (word.value % 4 === 1) {
+      return workStyleColor.sub
+    } else if (word.value % 4 === 2) {
+      return "#ffffff"
+    } else {
+      return "#ffffff"
+    }
+  }
 
   return (
     <WordCloud
-      data={data}
+      data={transformedData}
       width={1200}
       height={500}
       font={'preRg'}
@@ -58,7 +33,7 @@ export default function Cloud() {
       onWordMouseOver={(event, d) => {
         console.log(`onWordMouseOver: ${d.text}`);
       }}
-      // fill={["#ffffff"]}
+      fill={(word) => decideWordColor(word)}
     />
   )
 }

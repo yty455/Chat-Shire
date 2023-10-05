@@ -28,6 +28,16 @@ const PiChart = () => {
     }
   ]
 
+  const PiChartColor = () => {
+    if (morningCommit >= afternoonCommit && morningCommit >= nightCommit) {
+        return [workStyleColor.main, "#7e7e7e", "#7e7e7e"]
+    } else if (afternoonCommit > morningCommit && afternoonCommit >= nightCommit) {
+        return ["#7e7e7e", workStyleColor.main, "#7e7e7e"]
+    } else if (nightCommit > afternoonCommit) {
+        return ["#7e7e7e", "#7e7e7e", workStyleColor.main]
+    }
+  }
+
   return (
     <ResponsivePie
         data={data}
@@ -38,7 +48,7 @@ const PiChart = () => {
         cornerRadius={3}
         fit={false}
         activeOuterRadiusOffset={0}
-        colors={[ workStyleColor.main ]}
+        colors={PiChartColor()}
         enableArcLinkLabels={false}
         enableArcLabels={false}
         legends={[]}

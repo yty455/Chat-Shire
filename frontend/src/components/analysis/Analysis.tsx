@@ -11,8 +11,8 @@ import api from "../../utils/api";
 import { getAnalysis } from "../../utils/analysisApi";
 import { useRecoilState } from "recoil";
 import {
-  nowProject_recoil,
   workStyle_recoil,
+  workStyleColor_recoil,
   keywords_recoil,
   morningCount_recoil,
   afternoonCount_recoil,
@@ -29,6 +29,7 @@ interface AnalysisProps {
 
 export default function Analysis({ projectId }: AnalysisProps) {
   const [workStyle, setWorkStyle] = useRecoilState(workStyle_recoil);
+  const [workStyleColor, setWorkStyleColor] = useRecoilState(workStyleColor_recoil);
   const [keywords, setKeywords] = useRecoilState(keywords_recoil);
   const [morningCommit, setMorningCommit] = useRecoilState(morningCount_recoil);
   const [afternoonCommit, setAfternoonCommit] = useRecoilState(
@@ -103,16 +104,22 @@ export default function Analysis({ projectId }: AnalysisProps) {
   const caculateWorkStyle = () => {
     if (morningCommit + afternoonCommit + nightCommit > 500) {
       setWorkStyle("passion");
+      setWorkStyleColor({main: "#EB9042", sub: "#AE2949"})
     } else if (taskCount > 500) {
       setWorkStyle("jjjj");
+      setWorkStyleColor({main: "#54CCC7", sub: "#4ED480"})
     } else if (totalChatCount(allCategoryCount) > 3000) {
       setWorkStyle("chat");
+      setWorkStyleColor({main: "#F3AAF7", sub: "#779DFF"})
     } else if (nightCommit > 200) {
       setWorkStyle("night");
+      setWorkStyleColor({main: "#E8CA46", sub: "#3E008C"})
     } else if (issueCount > 100) {
       setWorkStyle("fix");
+      setWorkStyleColor({main: "#C03AEC", sub: "#3E008C"})
     } else if (relevantChatCount(allCategoryCount) > 1000) {
       setWorkStyle("idea");
+      setWorkStyleColor({main: "#FFDD88", sub: "#F0ADC7"})
     }
   };
 
