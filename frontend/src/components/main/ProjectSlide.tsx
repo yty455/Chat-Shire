@@ -27,7 +27,6 @@ function ProjectSlide({ pjt, onCardClick, isActive }: ProjectSlideProps) {
   const getProjectUsers = async () => {
     try {
       const response = await getProjectMem(pjt.id);
-      console.log(response.data.result[0]);
       setpjtMem(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -79,17 +78,17 @@ function ProjectSlide({ pjt, onCardClick, isActive }: ProjectSlideProps) {
               : styles.ProjectDescContainerInactive
           }
         >
-          <span style={{fontSize: "18px"}}>{pjt.description}</span>
+          <span style={{ fontSize: "18px" }}>{pjt.description}</span>
         </div>
         <div
-          style={{ marginLeft: "4px"}}
+          style={{ marginLeft: "4px" }}
           className={
             isActive
               ? styles.ProjectTopicConatiner
               : styles.ProjectTopicContainerInactive
           }
         >
-          <span style={{fontSize: "14px"}}>{pjt.topic}</span>
+          <span style={{ fontSize: "14px" }}>{pjt.topic}</span>
         </div>
       </div>
       <div

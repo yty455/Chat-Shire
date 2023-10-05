@@ -34,7 +34,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const getProjectUsers = async () => {
     try {
       const response = await getProjectMem(pjt.id);
-      console.log(response.data.result[0]);
       setpjtMem(response.data.result[0]);
     } catch (error) {
       console.error(error);
