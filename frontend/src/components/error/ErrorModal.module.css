@@ -23,35 +23,67 @@
 .deContainer {
   display: flex;
   flex-direction: column;
-  width: 490px;
-  height: 60%;
+  width: 660px;
+  height: 560px;
+  margin-right: 50px;
 }
 
 .deContentContainer {
-  height: 260px;
+  height: 180px;
+}
+
+.deContainerHeader {
+  display: flex;
+  height: 90px;
 }
 
 .errImageScrollContainer {
   display: flex;
-  width: 490px;
-  height: 100px;
+  width: 660px;
+  min-height: 190px;
+  height: 290px;
   overflow: scroll;
 }
 
 .errImageContainer {
   display: flex;
+  height: 290px;
   flex-wrap: nowrap;
 }
 
-.reContainer {
+.replyContainer {
   display: flex;
   flex-direction: column;
-  width: 490px;
-  height: 30%;
+  width: 400px;
+  height: 560px;
 }
 
-.rep {
+.replyScrollContainer {
+  height: 500px;
+  overflow: scroll;
+}
+
+.replyItemContainer {
   display: flex;
+  justify-content: space-between;
+  border: 1px solid #575757;
+  border-radius: 20px;
+  padding: 10px;
+  height: 44px;
+  margin-top: 10px;
+}
+
+.replyRight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 320px;
+}
+
+.repliesRightContent {
+  display: flex;
+  flex-wrap: wrap;
+  width: 200px;
 }
 
 .closebtn {
@@ -72,9 +104,10 @@
 }
 
 .status {
-  margin: 3px 0;
+  margin: 6px 10px;
   font-family: "preRg";
   width: 45px;
+  height: 24px;
   color: #39a789;
   text-align: center;
   border: 1px solid #39a789;

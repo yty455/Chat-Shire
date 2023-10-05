@@ -15,6 +15,9 @@ import { useRecoilState } from "recoil";
 import { loginuser } from "../../stores/atom";
 import { Button } from "antd";
 
+import {BsPencilFill} from 'react-icons/bs'
+import {MdDelete} from 'react-icons/md'
+
 interface ErrorModalProps {
   pjtId: string;
   closeModal: () => void;
@@ -100,104 +103,86 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <div className={styles.deContainer}>
-          <span style={{fontFamily: "preBd", fontSize: "24px"}}>Q. {errDetail && errDetail.title}</span>
+          <div className={styles.deContainerHeader}>
+            <div style={{display: "flex", flexDirection: "column"}}>
+              <span style={{fontFamily: "preBd", fontSize: "24px"}}>Q. {errDetail && errDetail.title}</span>
+              <span style={{marginLeft: "10px", fontFamily: "preLt", fontSize: "14px" }}>
+                마지막 수정일:
+                {errDetail.lastModifiedDate
+                  ? errDetail.lastModifiedDate.toLocaleString()
+                  : "날짜 없음"}
+              </span>
+              <span style={{marginLeft: "10px"}}>작성자 {errDetail.nickname}</span>
+            </div>
+            <span className={styles.status}>
+              {errDetail && errDetail.state === true ? "완료" : "진행"}
+            </span>
+          </div>
           <div className={styles.deContentContainer}>
           <span>{errDetail.content}</span>
-          </div>
-          <span style={{fontFamily: "preLt", fontSize: "14px"}}>
-            생성날짜:
-            {errDetail.createdDate
-              ? errDetail.createdDate.toLocaleString()
-              : "날짜 없음"}
-          </span>
-          <span style={{ fontFamily: "preLt", fontSize: "14px" }}>
-            수정날짜:
-            {errDetail.lastModifiedDate
-              ? errDetail.lastModifiedDate.toLocaleString()
-              : "날짜 없음"}
-          </span>
-
-          <h5 className={styles.status}>
-            {errDetail && errDetail.state === true ? "완료" : "진행"}
-          </h5>
-          <div>
-            작성자 {errDetail.nickname}
-            <Avatar
-              alt={errDetail.nickname}
-              src={process.env.PUBLIC_URL + errDetail.profileImage}
-              sx={{
-                width: 60,
-                height: 60,
-                backgroundColor: errDetail.profileColor,
-              }}
-            />
           </div>
           <div className={styles.errImageScrollContainer}>
             <div className={styles.errImageContainer}>
               {errDetail.attachedFileInfos && (
                 errDetail.attachedFileInfos.map((info: { url: string }, index: number) => (
-                  <img style={{marginRight: '5px', height: '200px'}} key={index} src={info.url} alt="Preview" />
+                  <img style={{marginRight: "16px", maxHeight: "280px", height: "280px"}} key={index} src={info.url} alt="Preview" />
                 ))
               )}
             </div>
           </div>
         </div>
-        <div className={styles.reContainer}>
-          <span style={{ fontFamily: "preBd", fontSize: "24px" }}>A. </span>
-          {errDetail &&
-            errDetail?.replies &&
-            errDetail.replies.map((item: any) => {
-              return (
-                <div className={styles.rep} key={item.replyId}>
-                  <Avatar
-                    alt={item.nickname}
-                    src={process.env.PUBLIC_URL + item.profileImage}
-                    sx={{
-                      width: 20,
-                      height: 20,
-                      backgroundColor: item.profileColor,
-                    }}
-                  />
-                  {item.nickname} :{" "}
-                  {editingCommentId === item.replyId ? (
-                    <>
-                      <input
-                        type="text"
-                        value={item.content}
-                        onChange={(e) => setEditedComment(e.target.value)}
+        <div className={styles.replyContainer}>
+          <span style={{ fontFamily: "preBd", fontSize: "24px" }}>Answers. </span>
+          <input type="text" value={content} onChange={(e) => setContent(e.target.value)} onKeyPress={handleEnterKeyPress}/>
+          <div className={styles.replyScrollContainer}>
+            {errDetail &&
+              errDetail?.replies &&
+              errDetail.replies.map((item: any) => {
+                return (
+                  <div className={styles.replyItemContainer} key={item.replyId}>
+                    <div className={styles.replyLeft}>
+                      <Avatar
+                        alt={item.nickname}
+                        src={process.env.PUBLIC_URL + item.profileImage}
+                        sx={{
+                          width: 40,
+                          height: 40,
+                          backgroundColor: item.profileColor,
+                        }}
                       />
-                      <button
-                        onClick={() => updateReply(item.replyId, editedComment)}
-                      >
-                        저장
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      {item.content}
-                      {userData.nickname === item.nickname ? (
-                        <>
-                          <button
-                            onClick={() => setEditingCommentId(item.replyId)}
-                          >
-                            수정
-                          </button>
-                          <button onClick={() => deleteReply(item.replyId)}>
-                            삭제
-                          </button>
-                        </>
-                      ) : null}
-                    </>
-                  )}
-                </div>
-              );
-            })}
-          <input
-            type="text"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            onKeyPress={handleEnterKeyPress}
-          />
+                    </div>
+                    {editingCommentId === item.replyId ? (
+                      <div className={styles.replyRight}>
+                        <div className={styles.repliesRightContent}>
+                          <input
+                            type="text"
+                            value={item.content}
+                            onChange={(e) => setEditedComment(e.target.value)}
+                          />
+                        </div>
+                        <button
+                          onClick={() => updateReply(item.replyId, editedComment)}
+                        >
+                          저장
+                        </button>
+                      </div>
+                    ) : (
+                      <div className={styles.replyRight}>
+                        <div className={styles.repliesRightContent}>
+                          {item.content}
+                        </div>
+                        {userData.nickname === item.nickname ? (
+                          <div>
+                            <BsPencilFill style={{fontSize: "17px", marginRight: "10px"}} onClick={() => setEditingCommentId(item.replyId)}/>
+                            <MdDelete style={{fontSize: "20px"}} onClick={() => deleteReply(item.replyId)}/>
+                          </div>
+                        ) : null}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+          </div>
         </div>
         <button onClick={closeModal} className={styles.closebtn}>
           X

@@ -4,8 +4,5 @@
 }
 
 .savebtn {
-  position: absolute;
-  left: 20%;
-  bottom: 30%;
   cursor: pointer;
 }

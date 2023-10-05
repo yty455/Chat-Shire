@@ -40,12 +40,6 @@ export const expandedState_recoil = atom<string | false>({
   default: false, // 초기값 설정
 });
 
-// // 앱 종료 시 로컬 스토리지에서 Recoil 데이터 삭제
-// window.addEventListener("beforeunload", () => {
-//   localStorage.removeItem("recoil-persist-root");
-//   localStorage.removeItem("token");
-// });
-
 interface Task {
   id: string;
   taskGroupId?: string;
