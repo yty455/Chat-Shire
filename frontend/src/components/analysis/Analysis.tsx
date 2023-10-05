@@ -205,6 +205,23 @@ export default function Analysis({ projectId }: AnalysisProps) {
     getProject();
   }, [projectId]);
 
+  useEffect(() => {
+    caculateWorkStyle();
+  }, [
+    morningCommit,
+    afternoonCommit,
+    nightCommit,
+    taskCount,
+    totalChatCount(allCategoryCount),
+    nightCommit,
+    issueCount,
+    relevantChatCount(allCategoryCount),
+  ]);
+
+  useEffect(() => {
+    returnBodyDesc();
+  }, [workStyle]);
+
   return (
     <div
       className={styles.analysisContainer}
