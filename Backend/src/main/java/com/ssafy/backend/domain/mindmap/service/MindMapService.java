@@ -58,7 +58,7 @@ public class MindMapService {
                     .nodeId(node.getId().equals("root") ? 0 : mindMapNodes.indexOf(node))
                     .x(node.getPosition().getX())
                     .y(node.getPosition().getY())
-                    .parentId(node.getId().equals("root") ? null : Integer.parseInt(Objects.requireNonNull(node.getParentNode())))
+                    .parentId(node.getId().equals("root") ? null : node.getParentNode() != null ? Integer.parseInt(node.getParentNode()) : null)
                     .content(node.getData().getLabel())
                     .chatRoom(ChatRoom.builder().id(chatRoomId).build())
                     .build()
