@@ -13,18 +13,17 @@
   - 디자인 : Figma
   
   - UCC : 모바비
-
 - ##### 개발환경
   
   - React : ^18.2.0
   
   - Vite : ^4.4.5
   
-  - react-router-dom : ^6.14.2
+  - react-router-dom : ^6.15.0
   
   - recoil : ^0.7.7
   
-  - axios : ^1.4.0
+  - axios : ^1.5.0
   
   - VS Code : 1.18.1
   
@@ -53,6 +52,10 @@
   - Node.js : 18.16.1
   
   - SERVER : AWS EC2 Ubuntu 20.04.6 LTS
+
+  - Hadoop : 3.3.5
+
+  - Spark : 3.4.1
   
   - DB : MySQL 8.0.33, Redis
 
@@ -60,7 +63,7 @@
   
   - GitHub OAuth2 : application-oauth.yml에 설정
   
-  - AWS S3 : application-local과 application-prod에 로컬과 배포 서버를 따로 설정
+  - AWS S3 : .env에 설정
 
 - ##### git ignore
   
@@ -75,11 +78,9 @@
   - .env
     
     ```
-    - VITE_BASE_URL="요청하는 API 기본주소"
-    
-    - VITE_S3_URL="파일 업로드하는 AWS 주소"
-    
-    - VITE_AUTOLOGIN_URL="자동로그인시 활용되는 URL"
+    - REACT_APP_REGION=<S3 REGION>
+    - REACT_APP_ACCESS_KEY_ID=<S3 ACCESS_KEY_ID>
+    - REACT_APP_SECRET_ACCESS_KEY=<S3 SECRET_ACCESS_KEY>
     ```
   
   - application-local.yml
@@ -161,6 +162,145 @@
         expiration: 1209600000 # 2주
         header: Authorization_refresh
     ```
+- ##### Hadoop 설정
+  ```
+    sudo apt update
+    sudo apt install openjdk-11-jdk
+
+    wget https://downloads.apache.org/hadoop/common/hadoop-3.3.5/hadoop-3.3.5.tar.gz
+    tar xvf hadoop-3.3.5.tar.gz
+    sudo mv hadoop-3.3.5 /usr/local/hadoop
+
+    nano ~/.bashrc
+    export HADOOP_HOME=/usr/local/hadoop
+    export PATH=$PATH:$HADOOP_HOME/bin
+    export PATH=$PATH:$HADOOP_HOME/sbin
+    export HADOOP_HDFS_HOME=$HADOOP_HOME
+    export YARN_HOME=$HADOOP_HOME
+    source ~/.bashrc
+
+    hdfs namenode -format
+    start-dfs.sh
+  ```
+- ##### Spark 설정
+  ```
+    sudo apt install scala
+    wget https://downloads.apache.org/spark/spark-3.4.1/spark-3.4.1-bin-hadoop3.tgz
+    tar xvf spark-3.4.1-bin-hadoop3.tgz
+    sudo mv spark-3.4.1-bin-hadoop3 /usr/local/spark
+
+    nano ~/.bashrc
+    export SPARK_HOME=/usr/local/spark
+    export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+    export PYSPARK_PYTHON=/usr/bin/python3
+    source ~/.bashrc
+  ```
+
+- ##### Spark 스크립트
+  ```
+  from pyspark.context import SparkContext
+  from pyspark.sql.session import SparkSession
+  from pyspark.sql.functions import explode
+  from pyspark.sql.functions import col
+  from pyspark.sql import Row
+  from pyspark.sql.types import StructType, StructField, IntegerType, ArrayType, StringType
+  from pyspark.sql import DataFrameWriter
+  import mysql.connector
+  import glob
+  import datetime
+  from datetime import datetime, timedelta
+  import os
+  import shutil
+  import time
+
+  sc = SparkContext('local')
+  spark = SparkSession(sc)
+
+  now = datetime.now()
+  one_hour_ago = now + timedelta(hours=8)
+  date_str = one_hour_ago.strftime("%Y-%m-%d %H")
+
+  two_hour_ago = now + timedelta(hours=7)
+  date_str_two = two_hour_ago.strftime("%Y-%m-%d %H")
+
+  folder = '/home/ubuntu/input/'+ date_str_two
+
+  if os.path.exists(folder) and os.path.isdir(folder):
+      shutil.rmtree(folder)
+      
+  schema = StructType([
+    StructField("chatroomId", IntegerType(), True),
+    StructField("userId", IntegerType(), True),
+    StructField("categoryList", ArrayType(StringType()), True)
+  ])
+
+  start = time.time()
+
+  df = spark.read.schema(schema).json("/home/ubuntu/input/" + date_str+ "/*.json")
+  df = df.withColumnRenamed("chatroomId", "chatroom_id").withColumnRenamed("userId", "user_id")
+  df.show()
+
+  df = df.withColumn("category", explode(col("categoryList")))
+
+  df = df.groupBy("chatroom_id", "user_id", "category").count()
+
+  df = df.groupBy("chatroom_id", "user_id").pivot("category").sum("count")
+
+  df.show()
+
+  columns = [c for c in df.columns if c not in ['chatroom_id', 'user_id']]
+
+  rdd = df.rdd.flatMap(lambda x: [Row(chatroom_id=x['chatroom_id'], user_id=x['user_id'], word=c, count=x[c]) for c in columns])
+
+  # rdd = rdd.repartition(5)
+
+  new_df = spark.createDataFrame(rdd)
+
+  new_df = new_df.na.drop(subset=["count"])
+
+  new_df.show()
+
+  end = time.time()
+
+  print(end - start)
+
+  # MySQL > DataFrame 
+  url = "주소"
+  properties = {
+      "driver": "com.mysql.cj.jdbc.Driver",
+      "user": "유저명",
+      "password": "비밀번호"
+  }
+
+  df.write.jdbc(url=url, table="mytable_temp", mode="overwrite", properties=properties)
+
+  # MySQL connection
+  cnx = mysql.connector.connect(user='유저명', password='비밀번호', host='URL', database='ssafychat')
+
+  cursor = cnx.cursor()
+
+  # category UPDATE query
+  for row in new_df.collect():
+      # update
+      query_update = f"""
+      UPDATE distributed 
+      SET count = count + {row['count']}
+      WHERE chatroom_id = {row['chatroom_id']} AND user_id = {row['user_id']} AND word = '{row['word']}'
+      """
+      cursor.execute(query_update)
+      
+      # insert -> default 0 
+      query_insert = f"""
+      INSERT INTO distributed (chatroom_id, user_id, word, count)
+      SELECT {row['chatroom_id']}, {row['user_id']}, '{row['word']}', {row['count']}
+      WHERE NOT EXISTS (SELECT 1 FROM distributed WHERE chatroom_id = {row['chatroom_id']} AND user_id = {row['user_id']} AND word = '{row['word']}')
+      """
+      cursor.execute(query_insert)
+
+  cnx.commit()
+  cursor.close()
+  cnx.close()
+  ```
 
 - ##### 빌드하기
   
@@ -173,7 +313,7 @@
   2. Back: Spring
      
      1. Gradle 실행
-
+  
 - 배포하기
   
   1. Nginx 설정
@@ -698,6 +838,40 @@
         /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
         -- Dump completed on 2023-10-05 16:31:25
+
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('1', 'java');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('2', 'python');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('3', 'javascript');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('4', 'html5');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('5', 'css3');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('6', 'c');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('7', 'c++');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('8', 'r');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('9', 'flutter');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('10', 'dart');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('11', 'kotlin');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('12', 'pwa');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('13', 'php');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('14', 'django');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('15', 'spring');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('16', 'vue');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('17', 'react');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('18', 'next');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('19', 'node');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('20', 'angular');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('21', 'jenkins');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('22', 'docker');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('23', 'aws');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('24', 'kubernetes');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('25', 'three');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('26', 'aframe');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('27', 'unity');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('28', 'unreal');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('29', 'tomcat');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('30', 'spark');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('31', 'hadoop');
+        INSERT INTO `ssafychat`.`skill` (`skill_id`, `skill_name`) VALUES ('32', 'git');
+
 
         ```
   
