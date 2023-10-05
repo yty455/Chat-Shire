@@ -8,9 +8,6 @@ import { workStyle_recoil } from "../stores/atom";
 
 export default function AnalysisPage() {
   const [workStyle, setWorkStyle] = useRecoilState(workStyle_recoil)
-
-  console.log(workStyle)
-
   const background =
     process.env.PUBLIC_URL + `/assets/analysisBg/${workStyle}/${workStyle}1.png`;
   const { projectId } = useParams();

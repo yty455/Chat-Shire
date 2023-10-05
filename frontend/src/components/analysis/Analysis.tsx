@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import styles from "./Analysis.module.css";
 import Keywords from "./Keywords";
 import RadarChart from "./RadarChart";
@@ -21,6 +21,7 @@ import {
   allCategoryCount_recoil,
   taskCount_recoil,
 } from "../../stores/atom";
+import { JsxElement } from "typescript";
 
 interface AnalysisProps {
   projectId: string;
@@ -115,7 +116,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
     }
   };
 
-  const returnBodyDesc = () => {
+  function decideBodyDesc() {
     if (workStyle === "baby") {
       return (
         <div className={styles.analysisBodyDesc}>
@@ -165,20 +166,32 @@ export default function Analysis({ projectId }: AnalysisProps) {
           <span className={styles.analysisBodyDescDown}>다고쳐 펠릭스</span>
         </div>
       );
-    }
-  };
-  const returnTeamMembers = teamMembers?.map((member: any) => {
-    return (<span>{member.nickname}</span>)
-  })
-  const returnKeywords = Object.entries(allCategoryCount).sort((a: any, b: any) => a[1] - b[1]).map((entry) => {
-    let isSelected = false
-    if (keywords.includes(entry[0])) {
-      isSelected = true
     } else {
-      isSelected = false
+      return (
+        <div className={styles.analysisBodyDesc}>
+          <span className={styles.analysisBodyDescUp}>다 비켜!</span>
+          <span className={styles.analysisBodyDescDown}>코린이가 간다</span>
+        </div>
+      );
     }
-    return (<Keywords topic={entry[0]} projectId={Number(projectId)} isSelected/>)
-  })
+  }
+
+  const returnTeamMembers = teamMembers?.map((member: any) => {
+    return <span>{member.nickname}, </span>;
+  });
+  const returnKeywords = Object.entries(allCategoryCount)
+    .sort((a: any, b: any) => a[1] - b[1])
+    .map((entry) => {
+      let isSelected = false;
+      if (keywords.includes(entry[0])) {
+        isSelected = true;
+      } else {
+        isSelected = false;
+      }
+      return (
+        <Keywords topic={entry[0]} projectId={Number(projectId)} isSelected />
+      );
+    });
 
   useEffect(() => {
     getAnalysisPage();
@@ -235,7 +248,9 @@ export default function Analysis({ projectId }: AnalysisProps) {
             </span>
             <span className={styles.analysisBodyTitleRight}>워크스타일은?</span>
           </div>
-          <>{returnBodyDesc}</>
+          <div>
+            <div>asdasf</div>
+          </div>
         </div>
       </div>
       <div className={styles.analysisFooter}>
