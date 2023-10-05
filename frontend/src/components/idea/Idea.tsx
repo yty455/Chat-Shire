@@ -170,9 +170,7 @@ function Flow({ pjtId }: IdeaProps) {
       </p>
     </div>
   );
-  // if (isLoading) {
-  //   return <div>Loading...</div>; // 데이터가 로딩되는 동안 표시할 내용
-  // }
+
   return (
     <div
       style={{ backgroundColor: "#ffffff", width: "52vw", height: "74.7vh" }}
