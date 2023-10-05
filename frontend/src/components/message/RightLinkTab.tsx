@@ -24,6 +24,7 @@ export default function RightLinkTab({ projectId }: Props) {
     setIsModalVisible(true);
   };
   const showModalUpdate = (link: any) => {
+    console.log(link);
     setIsModalUpdate(link);
     setIsModalVisible(true);
   };
