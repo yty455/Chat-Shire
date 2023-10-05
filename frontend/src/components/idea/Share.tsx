@@ -11,6 +11,8 @@ import LinkOGItem from "../message/LinkOGItem";
 import ModalComponent from "../message/CreateLinkModal";
 import { linkState } from "../../stores/linkState";
 import { getLinks, deleteLink, updateLink } from "../../utils/linkApi";
+import { Popover } from "antd";
+import { Button } from "antd";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -65,19 +67,40 @@ export default function Share({ pjtId }: props) {
 
   const Action = ({ link }: { link: any }) => (
     <div>
-      <button onClick={() => deleteInLinks(link.linkId)}>삭제</button>
-      <button onClick={() => showModalUpdate(link)}>수정</button>
+      <Button
+        style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
+        key="submit"
+        type="primary"
+        onClick={() => showModalUpdate(link)}
+      >
+        수정
+      </Button>
+      <Button
+        style={{ backgroundColor: "red", fontFamily: "preRg" }}
+        key="submit"
+        type="primary"
+        onClick={() => deleteInLinks(link.linkId)}
+      >
+        삭제
+      </Button>
     </div>
   );
+
   return (
     <div className={styles.indivDiv}>
       {/* <h2 style={{marginLeft:'10px',fontFamily:'preBd',margin: '0', textAlign:'center',alignItems:'center',display:'flex', justifyContent:'center'}}>자료공유</h2> */}
       <Box sx={{ p: 0 }}>
         {links.length !== 0 ? (
           links.map((link: any) => (
-            <div key={link?.linkId}>
-              <LinkOGItem requestUrl={link.content || link} />
-            </div>
+            <Popover
+              placement="rightBottom"
+              content={<Action link={link} />}
+              trigger="contextMenu"
+            >
+              <div key={link?.linkId}>
+                <LinkOGItem requestUrl={link.content || link} />
+              </div>
+            </Popover>
           ))
         ) : (
           <p className={styles.noPhoto}>등록된 링크가 없습니다.</p>
