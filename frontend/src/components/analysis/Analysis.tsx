@@ -21,6 +21,7 @@ import {
   allCategoryCount_recoil,
   taskCount_recoil,
 } from "../../stores/atom";
+import { JsxElement } from "typescript";
 
 interface AnalysisProps {
   projectId: string;
@@ -115,59 +116,66 @@ export default function Analysis({ projectId }: AnalysisProps) {
     }
   };
 
-  const returnBodyDesc = () => {
+  function decideBodyDesc() {
     if (workStyle === "baby") {
-      console.log(workStyle)
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>다 비켜!</span>
           <span className={styles.analysisBodyDescDown}>코린이가 간다</span>
         </div>
-      );
+      )
     } else if (workStyle === "passion") {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>앗뜨거!</span>
           <span className={styles.analysisBodyDescDown}>열정 130'C</span>
         </div>
-      );
+      )
     } else if (workStyle === "idea") {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>도전!</span>
           <span className={styles.analysisBodyDescDown}>아이디어 뱅크</span>
         </div>
-      );
+      )
     } else if (workStyle === "jjjj") {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>MBTI가..</span>
           <span className={styles.analysisBodyDescDown}>JJJJ 입니다</span>
         </div>
-      );
+      ) 
     } else if (workStyle === "chat") {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>우리 사이?</span>
           <span className={styles.analysisBodyDescDown}>나는너 너는나</span>
         </div>
-      );
+      )
     } else if (workStyle === "night") {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>새벽의</span>
           <span className={styles.analysisBodyDescDown}>고독한 개발자</span>
         </div>
-      );
+      )
     } else if (workStyle === "fix") {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>나는야</span>
           <span className={styles.analysisBodyDescDown}>다고쳐 펠릭스</span>
         </div>
-      );
+      )
+    } else {
+      return (
+        <div className={styles.analysisBodyDesc}>
+          <span className={styles.analysisBodyDescUp}>다 비켜!</span>
+          <span className={styles.analysisBodyDescDown}>코린이가 간다</span>
+        </div>
+      )
     }
-  };
+  }
+
   const returnTeamMembers = teamMembers?.map((member: any) => {
     return (<span>{member.nickname}, </span>)
   })
@@ -237,7 +245,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
             <span className={styles.analysisBodyTitleRight}>워크스타일은?</span>
           </div>
           <div>
-            {returnBodyDesc}
+            <div>asdasf</div>
           </div>
         </div>
       </div>
