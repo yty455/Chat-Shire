@@ -72,6 +72,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [open, setOpen] = useState(false);
   const [selectTask, setSelectTask] = useState(false);
+  const [updatedProgress, setUpdatedProgress] = useState("");
 
   const handleOpen = (id: any) => {
     setOpen(true);
@@ -79,7 +80,8 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   };
   const handleClose = () => setOpen(false);
 
-  const enterEditMode = async (TaskId: string) => {
+  const enterEditMode = async (TaskId: string, progress: string) => {
+    setUpdatedProgress(progress);
     setEditingTaskId(TaskId);
     try {
       const taskToEdit = allTasks.find((task) => task.id === TaskId);
@@ -103,8 +105,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   ) => {
     try {
       if (projectId) {
-        const progress = "ONGOING";
-        await updateInTask(TaskId, "0", updatedDescription, progress);
+        await updateInTask(TaskId, "0", updatedDescription, updatedProgress);
         // 편집 모드를 종료
         setEditingTaskId(null);
       } else {
@@ -214,6 +215,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         progress
       );
       console.log(response);
+      setUpdatedProgress("");
       setUpdatedDescription("");
       setEditingTaskId(null);
       getInTask();
@@ -303,7 +305,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
           setCheckboxItems([]);
         } else {
           console.log("수정", TaskId, "0", description, progress);
-          await updateInTask(TaskId, "0", description, progress);
+          await updateInTask(TaskId, "0", description, updatedProgress);
         }
       }
     }
@@ -413,7 +415,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                             fontSize: "17px",
                             margin: "-5px 3px 10px 0",
                           }}
-                          onClick={() => enterEditMode(item.id)}
+                          onClick={() => enterEditMode(item.id, item.progress)}
                         />
                       )}
                       <MdDelete
@@ -505,7 +507,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                             fontSize: "17px",
                             margin: "-5px 3px 10px 0",
                           }}
-                          onClick={() => enterEditMode(item.id)}
+                          onClick={() => enterEditMode(item.id, item.progress)}
                         />
                       )}
                       <MdDelete
