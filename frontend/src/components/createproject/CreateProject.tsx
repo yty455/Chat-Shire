@@ -113,18 +113,6 @@ function CreateProject() {
   const createProject = async () => {
     const formattedStartDate = startDate ? startDate.format("YYYY-MM-DD") : "";
     const formattedEndDate = endDate ? endDate.format("YYYY-MM-DD") : "";
-    console.log(
-      name,
-      teamName,
-      topic,
-      description,
-      gitRepository,
-      branch,
-      Members.current,
-      formattedStartDate,
-      formattedEndDate,
-      gitAccessToken
-    );
 
     try {
       const response = await postProject(
@@ -139,7 +127,6 @@ function CreateProject() {
         formattedEndDate,
         gitAccessToken
       );
-      console.log(response);
       navigate("/main");
     } catch (error) {
       console.error(error);
