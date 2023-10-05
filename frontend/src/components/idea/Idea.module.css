@@ -5,6 +5,6 @@
 
 .savebtn {
   position: relative;
-  right: 50px;
+  /* right: 50px; */
   cursor: pointer;
 }

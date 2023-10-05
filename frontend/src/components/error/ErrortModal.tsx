@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ErrorModal.module.css";
-import { useNavigate } from "react-router-dom";
 import {
+  getErrors,
   getErrorDetail,
   deleteError,
-  updateError,
   postErrorComent,
   deleteErrorComent,
   updateErrorComent,
 } from "../../utils/errorApi";
-import ProfileImgBox from "../common/ProfileImgBox";
 import { Avatar, TextField } from "@mui/material";
 import { useRecoilState } from "recoil";
-import { loginuser } from "../../stores/atom";
+import { loginuser, err_recoil } from "../../stores/atom";
 import { Button } from "antd";
 
-import {BsPencilFill} from 'react-icons/bs'
-import {MdDelete, MdOutlineCancel} from 'react-icons/md'
+import { BsPencilFill } from "react-icons/bs";
+import { MdDelete, MdOutlineCancel } from "react-icons/md";
 
 interface ErrorModalProps {
   pjtId: string;
@@ -26,20 +24,29 @@ interface ErrorModalProps {
 
 function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
   const [errDetail, setErrDetail] = useState<any>({});
+  const [allErr, setAllErr] = useRecoilState(err_recoil);
   const [content, setContent] = useState("");
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editedComment, setEditedComment] = useState<string>("");
   const [userData] = useRecoilState(loginuser);
-  // const [attachedFileInfos, setAttachedFileInfos] = useState<any>({});
-  const navigate = useNavigate();
 
   // 단일 에러 불러오기
   const getInError = async () => {
     try {
       const response = await getErrorDetail(err.id);
-      console.log(response.data.result[0]);
       setErrDetail(response.data.result[0]);
-      // setAttachedFileInfos(response.data.result[0].attachedFileInfos);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 에러 불러오기
+  const getInErrors = async () => {
+    try {
+      if (pjtId) {
+        const response = await getErrors(pjtId);
+        setAllErr(response.data.result[0]);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -48,7 +55,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
   const deleteInError = async () => {
     try {
       const response = await deleteError(err.id);
-      console.log(response.data.result);
+      getInErrors();
       closeModal();
     } catch (error) {
       console.error(error);
@@ -63,7 +70,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
     }
     try {
       const response = await postErrorComent(err.id, content);
-      console.log(response.data.result[0]);
+      getInErrors();
       setContent(""); // 댓글을 작성하고 나서 내용 초기화
       getInError();
     } catch (error) {
@@ -80,7 +87,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
     }
     try {
       const response = await updateErrorComent(id, updatedContent); // updatedContent를 함수로 전달
-      console.log(response.data);
+      getInErrors();
       getInError();
       setEditingCommentId(null); // 수정 후 수정 모드 종료
     } catch (error) {
@@ -91,7 +98,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
   const deleteReply = async (id: string) => {
     try {
       const response = await deleteErrorComent(id);
-      console.log(response.data);
+      getInErrors();
       getInError();
     } catch (error) {
       console.error(error);
@@ -107,7 +114,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
 
   const ErrorImageClickHandler = (e: any) => {
     window.open(e.target.src, "_blank");
-  }
+  };
 
   useEffect(() => {
     getInError();
@@ -235,7 +242,11 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               })}
           </div>
         </div>
-        <MdOutlineCancel size={20} onClick={closeModal} className={styles.closebtn}/>
+        <MdOutlineCancel
+          size={20}
+          onClick={closeModal}
+          className={styles.closebtn}
+        />
         {userData.nickname === errDetail.nickname ? (
           <Button
             onClick={deleteInError}
