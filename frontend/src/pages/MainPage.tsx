@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import styles from "./MainPage.module.css";
 import Container from "../components/common/Container";
 import Project from "../components/main/Project";
 import LeftSide from "../components/common/LeftSide";
 import Invite from "../components/main/Invite";
+import { useNavigate } from "react-router-dom";
 
 function MainPage() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const refresh_token = sessionStorage.getItem("refresh_token");
+    if (!refresh_token) {
+      navigate("/profile/custom");
+    }
+  }, []);
   return (
     // <div className={styles.bodyContainer}>
     <div
