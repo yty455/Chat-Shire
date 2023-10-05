@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
 import { useRecoilState } from "recoil";
 import { loginuser, isLogin_recoil } from "../stores/atom";
+import { getProfile } from "../utils/userApi";
 
 interface CustomProfilePageProps {
   onUpdateProfileColor: (color: string) => void;
@@ -107,6 +108,16 @@ export default function CustomProfilePage() {
     }
   };
 
+  const getProfilePage = async () => {
+    try {
+      const response = await getProfile();
+      console.log(response.data.result[0]);
+      setUserData(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const userUpdate = async () => {
     try {
       const response = await api.patch("/users", formData);
@@ -115,9 +126,8 @@ export default function CustomProfilePage() {
         "refresh_token",
         response.headers["authorization-refresh"]
       );
-      setUserData(response.data.result);
-      setIsLogin(true);
-      navigate("/");
+      getProfilePage();
+      navigate("/main");
     } catch (error) {
       console.error(error);
     }

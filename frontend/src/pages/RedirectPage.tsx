@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router";
-import { loginuser, accessToken, isLogin_recoil } from "../stores/atom";
+import { accessToken, isLogin_recoil } from "../stores/atom";
 import qs from "qs";
-import { postUser } from "../utils/userApi";
-import axios from "axios";
 
 function Redirect() {
   const [token, setToken] = useRecoilState(accessToken);
