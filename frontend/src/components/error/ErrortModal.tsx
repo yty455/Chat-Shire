@@ -15,8 +15,8 @@ import { useRecoilState } from "recoil";
 import { loginuser } from "../../stores/atom";
 import { Button } from "antd";
 
-import {BsPencilFill} from 'react-icons/bs'
-import {MdDelete} from 'react-icons/md'
+import { BsPencilFill } from "react-icons/bs";
+import { MdDelete } from "react-icons/md";
 
 interface ErrorModalProps {
   pjtId: string;
@@ -56,6 +56,11 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
   };
 
   const postReply = async () => {
+    if (!content.trim()) {
+      // trim() 메서드를 사용하여 공백만 있는 경우도 체크
+      alert("값을 입력하세요.");
+      return;
+    }
     try {
       const response = await postErrorComent(err.id, content);
       console.log(response.data.result[0]);
@@ -68,6 +73,11 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
 
   const updateReply = async (id: string, updatedContent: string) => {
     // updatedContent 매개변수 추가
+    if (!updatedContent.trim()) {
+      // trim() 메서드를 사용하여 공백만 있는 경우도 체크
+      alert("값을 입력하세요.");
+      return;
+    }
     try {
       const response = await updateErrorComent(id, updatedContent); // updatedContent를 함수로 전달
       console.log(response.data);
@@ -104,36 +114,63 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
       <div className={styles.modalContent}>
         <div className={styles.deContainer}>
           <div className={styles.deContainerHeader}>
-            <div style={{display: "flex", flexDirection: "column"}}>
-              <span style={{fontFamily: "preBd", fontSize: "24px"}}>Q. {errDetail && errDetail.title}</span>
-              <span style={{marginLeft: "10px", fontFamily: "preLt", fontSize: "14px" }}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <span style={{ fontFamily: "preBd", fontSize: "24px" }}>
+                Q. {errDetail && errDetail.title}
+              </span>
+              <span
+                style={{
+                  marginLeft: "10px",
+                  fontFamily: "preLt",
+                  fontSize: "14px",
+                }}
+              >
                 마지막 수정일:
                 {errDetail.lastModifiedDate
                   ? errDetail.lastModifiedDate.toLocaleString()
                   : "날짜 없음"}
               </span>
-              <span style={{marginLeft: "10px"}}>작성자 {errDetail.nickname}</span>
+              <span style={{ marginLeft: "10px" }}>
+                작성자 {errDetail.nickname}
+              </span>
             </div>
             <span className={styles.status}>
               {errDetail && errDetail.state === true ? "완료" : "진행"}
             </span>
           </div>
           <div className={styles.deContentContainer}>
-          <span>{errDetail.content}</span>
+            <span>{errDetail.content}</span>
           </div>
           <div className={styles.errImageScrollContainer}>
             <div className={styles.errImageContainer}>
-              {errDetail.attachedFileInfos && (
-                errDetail.attachedFileInfos.map((info: { url: string }, index: number) => (
-                  <img style={{marginRight: "16px", maxHeight: "280px", height: "280px"}} key={index} src={info.url} alt="Preview" />
-                ))
-              )}
+              {errDetail.attachedFileInfos &&
+                errDetail.attachedFileInfos.map(
+                  (info: { url: string }, index: number) => (
+                    <img
+                      style={{
+                        marginRight: "16px",
+                        maxHeight: "280px",
+                        height: "280px",
+                      }}
+                      key={index}
+                      src={info.url}
+                      alt="Preview"
+                    />
+                  )
+                )}
             </div>
           </div>
         </div>
         <div className={styles.replyContainer}>
-          <span style={{ fontFamily: "preBd", fontSize: "24px" }}>Answers. </span>
-          <input type="text" value={content} onChange={(e) => setContent(e.target.value)} onKeyPress={handleEnterKeyPress}/>
+          <span style={{ fontFamily: "preBd", fontSize: "24px" }}>
+            Answers.{" "}
+          </span>
+          <input
+            type="text"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            onKeyPress={handleEnterKeyPress}
+          />
           <div className={styles.replyScrollContainer}>
             {errDetail &&
               errDetail?.replies &&
@@ -161,7 +198,9 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                           />
                         </div>
                         <button
-                          onClick={() => updateReply(item.replyId, editedComment)}
+                          onClick={() =>
+                            updateReply(item.replyId, editedComment)
+                          }
                         >
                           저장
                         </button>
@@ -173,8 +212,14 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                         </div>
                         {userData.nickname === item.nickname ? (
                           <div>
-                            <BsPencilFill style={{fontSize: "17px", marginRight: "10px"}} onClick={() => setEditingCommentId(item.replyId)}/>
-                            <MdDelete style={{fontSize: "20px"}} onClick={() => deleteReply(item.replyId)}/>
+                            <BsPencilFill
+                              style={{ fontSize: "17px", marginRight: "10px" }}
+                              onClick={() => setEditingCommentId(item.replyId)}
+                            />
+                            <MdDelete
+                              style={{ fontSize: "20px" }}
+                              onClick={() => deleteReply(item.replyId)}
+                            />
                           </div>
                         ) : null}
                       </div>
