@@ -155,7 +155,7 @@ export default function MessageItem({
           </span>
           <div className={styles.messageItemText}>
             {message && message?.attachedFileInfos?.map((info: any, index: number) => (
-              <img style={{height: '70px'}} key={index} src={info} alt="attached" />
+              <img style={{height: '70px'}} key={index} src={info.url} alt="attached" />
             ))}
           </div>
         </div>
