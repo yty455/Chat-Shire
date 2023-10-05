@@ -40,12 +40,6 @@ export const expandedState_recoil = atom<string | false>({
   default: false, // 초기값 설정
 });
 
-// // 앱 종료 시 로컬 스토리지에서 Recoil 데이터 삭제
-// window.addEventListener("beforeunload", () => {
-//   localStorage.removeItem("recoil-persist-root");
-//   localStorage.removeItem("token");
-// });
-
 interface Task {
   id: string;
   taskGroupId?: string;
@@ -87,7 +81,7 @@ export const workStyle_recoil = atom({
 
 export const workStyleColor_recoil = atom({
   key: "workStyleColor_recoil",
-  default: { main: "#8BBCC1", sub: "#D6CB67" },
+  default: { main: "#89e3ec", sub: "#ffd82c" },
 });
 
 export const keywords_recoil = atom<string[]>({
@@ -97,17 +91,17 @@ export const keywords_recoil = atom<string[]>({
 
 export const morningCount_recoil = atom({
   key: "morningCount_recoil",
-  default: 4,
+  default: 9,
 });
 
 export const afternoonCount_recoil = atom({
   key: "afternoonCount_recoil",
-  default: 8,
+  default: 14,
 });
 
 export const nightCount_recoil = atom({
   key: "nightCount_recoil",
-  default: 6,
+  default: 7,
 });
 
 export const issueCount_recoil = atom({

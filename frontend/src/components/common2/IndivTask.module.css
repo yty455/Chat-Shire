@@ -3,24 +3,15 @@
   width: 24vw;
   height: 85vh;
   padding: 0;
-  /* 구분을 위한 색, 나중에 지우기
-    /* display: flex; */
-  /* justify-content: flex-end; */
   margin-left: 1vw;
   overflow: scroll;
 }
 
 .indivTask {
-  /* width: 380px;
-  max-width: 380px;
-  min-height: 100px;
-  border-radius: 20px;
-  background-color: white; */
   min-height: 50px;
   overflow: hidden;
   word-wrap: break-word;
   padding: 0 10px;
-
   display: flex;
   justify-content: start;
 }
@@ -28,13 +19,9 @@
 .oneMemo {
   transition: all 0.2s ease-in-out;
   cursor: pointer;
-
   &:hover {
-    box-shadow: -2px -2px 5px white, 2px 2px 5px #babecc;
+    box-shadow: -2px -2px 5px white, 2px 2px 5px #ced0d7;
   }
-  /* &:active {
-    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px white;
-  } */
 }
 
 .taskContent {
@@ -57,17 +44,9 @@
 
 .checked {
   text-decoration: line-through;
-  /* text-decoration-style: wavy; */
   text-decoration-color: #39a789;
   text-decoration-thickness: 2px;
 }
-/* .scroll::-webkit-scrollbar {
-  display: none;
-}
-
-.indivDiv::-webkit-scrollbar {
-  display: none;
-} */
 
 .indivDiv::-webkit-scrollbar {
   width: 7px; /* 스크롤바의 너비 */

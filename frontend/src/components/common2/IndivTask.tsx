@@ -12,6 +12,7 @@ import { MdDelete } from "react-icons/md";
 import { BiSolidCheckCircle } from "react-icons/bi";
 import { getTask, deleteTask, postTask, updateTask } from "../../utils/taskApi";
 import "./IndivTask.css";
+import Tooltip from "@mui/material/Tooltip";
 import IndivChatModal from "./IndivChatModal";
 import { getTaskGroup } from "../../utils/taskGroupApi";
 import { postReferences } from "../../utils/taskReferenceApi";
@@ -72,6 +73,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [open, setOpen] = useState(false);
   const [selectTask, setSelectTask] = useState(false);
+  const [updatedProgress, setUpdatedProgress] = useState("");
 
   const handleOpen = (id: any) => {
     setOpen(true);
@@ -79,7 +81,8 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   };
   const handleClose = () => setOpen(false);
 
-  const enterEditMode = async (TaskId: string) => {
+  const enterEditMode = async (TaskId: string, progress: string) => {
+    setUpdatedProgress(progress);
     setEditingTaskId(TaskId);
     try {
       const taskToEdit = allTasks.find((task) => task.id === TaskId);
@@ -103,8 +106,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   ) => {
     try {
       if (projectId) {
-        const progress = "ONGOING";
-        await updateInTask(TaskId, "0", updatedDescription, progress);
+        await updateInTask(TaskId, "0", updatedDescription, updatedProgress);
         // 편집 모드를 종료
         setEditingTaskId(null);
       } else {
@@ -214,6 +216,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         progress
       );
       console.log(response);
+      setUpdatedProgress("");
       setUpdatedDescription("");
       setEditingTaskId(null);
       getInTask();
@@ -303,7 +306,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
           setCheckboxItems([]);
         } else {
           console.log("수정", TaskId, "0", description, progress);
-          await updateInTask(TaskId, "0", description, progress);
+          await updateInTask(TaskId, "0", description, updatedProgress);
         }
       }
     }
@@ -391,35 +394,51 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                   <div className={styles.icons}>
                     <div style={{ margin: "-4px 0 0 0" }}></div>
                     <div>
-                      <BsFillChatDotsFill
-                        onClick={() => {
-                          handleOpen(item.id);
-                        }}
-                        style={{ fontSize: "17px", margin: "-5px 5px 10px 0" }}
-                      />
+                      <Tooltip title="참조 대화함 열기">
+                        <BsFillChatDotsFill
+                          onClick={() => {
+                            handleOpen(item.id);
+                          }}
+                          style={{
+                            fontSize: "17px",
+                            margin: "-5px 5px 10px 0",
+                          }}
+                        />
+                      </Tooltip>
                       {editingTaskId === item.id ? (
-                        <BiSolidCheckCircle
-                          style={{
-                            fontSize: "17px",
-                            margin: "-5px 3px 10px 0",
-                          }}
-                          onClick={() =>
-                            handleEditComplete(item.id, updatedDescription)
-                          }
-                        />
+                        <Tooltip title="저장">
+                          <BiSolidCheckCircle
+                            style={{
+                              fontSize: "17px",
+                              margin: "-5px 3px 10px 0",
+                            }}
+                            onClick={() =>
+                              handleEditComplete(item.id, updatedDescription)
+                            }
+                          />
+                        </Tooltip>
                       ) : (
-                        <BsPencilFill
-                          style={{
-                            fontSize: "17px",
-                            margin: "-5px 3px 10px 0",
-                          }}
-                          onClick={() => enterEditMode(item.id)}
-                        />
+                        <Tooltip title="수정">
+                          <BsPencilFill
+                            style={{
+                              fontSize: "17px",
+                              margin: "-5px 3px 10px 0",
+                            }}
+                            onClick={() =>
+                              enterEditMode(item.id, item.progress)
+                            }
+                          />
+                        </Tooltip>
                       )}
-                      <MdDelete
-                        style={{ fontSize: "20px", margin: "-7px 10px 8px 0" }}
-                        onClick={() => deleteInTask(item.id)}
-                      />
+                      <Tooltip title="삭제">
+                        <MdDelete
+                          style={{
+                            fontSize: "20px",
+                            margin: "-7px 10px 8px 0",
+                          }}
+                          onClick={() => deleteInTask(item.id)}
+                        />
+                      </Tooltip>
                     </div>
                   </div>
                 </Item>
@@ -467,12 +486,13 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                         style={{
                           fontFamily: "preRg",
                           height: "30px",
+                          width: "50%",
                           marginTop: "9px",
                           border: "none",
                         }}
                         type="text"
                         // onBlur={handleContentChange(item.TaskId)}
-                        placeholder="내용을 입력하세요"
+                        placeholder="내용을 입력한 후 Enter"
                         // value={updatedDescription}
                       />
                     ) : (
@@ -484,35 +504,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                         {item.description}
                       </p>
                     )}
-                  </div>
-                  <div className={styles.icons}>
-                    <div style={{ margin: "-4px 0 0 0" }}></div>
-                    <div>
-                      <BsFillChatDotsFill
-                        style={{ fontSize: "17px", margin: "-5px 5px 10px 0" }}
-                      />
-                      {editingTaskId === item.id ? (
-                        <BiSolidCheckCircle
-                          style={{
-                            fontSize: "17px",
-                            margin: "-5px 3px 10px 0",
-                          }}
-                          // onClick={() => handleEditComplete(item.id)}
-                        />
-                      ) : (
-                        <BsPencilFill
-                          style={{
-                            fontSize: "17px",
-                            margin: "-5px 3px 10px 0",
-                          }}
-                          onClick={() => enterEditMode(item.id)}
-                        />
-                      )}
-                      <MdDelete
-                        style={{ fontSize: "20px", margin: "-7px 10px 8px 0" }}
-                        onClick={() => deleteInTask(item.id)}
-                      />
-                    </div>
                   </div>
                 </Item>
               </Grid>
@@ -557,7 +548,13 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       >
         <AddIcon />
       </Fab>
-      {open && <IndivChatModal taskId={selectTask} onClose={handleClose} />}
+      {open && (
+        <IndivChatModal
+          taskId={selectTask}
+          onClose={handleClose}
+          projectId={projectId}
+        />
+      )}
     </div>
   );
 }

@@ -1,18 +1,15 @@
-"use strict";
-
 import React, { useState, useEffect } from "react";
 import styles from "./CustomProfile.module.css";
 
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Grow from "@mui/material/Zoom";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
-import { FaCheck } from 'react-icons/fa'
+import { FaCheck } from "react-icons/fa";
 
 import { ChromePicker } from "react-color";
 
 import { useRecoilState } from "recoil";
-import { isLogin_recoil, loginuser } from '../../stores/atom'
+import { isLogin_recoil, loginuser } from "../../stores/atom";
 interface CustomProfilePageProps {
   onUpdateProfileColor: any;
   onUpdateProfileImage: any;
@@ -31,10 +28,9 @@ export default function CustomProfile({
   const [profileImg, setProfileImg] = useState(
     process.env.PUBLIC_URL + "/assets/profile/male/m25.png"
   );
-  const [isLogin, setIsLogin] = useRecoilState(isLogin_recoil)
-  const [userData, setUserData] = useRecoilState(loginuser);
+  const [isLogin] = useRecoilState(isLogin_recoil);
+  const [userData] = useRecoilState(loginuser);
   const [selectedImg, setSelectedImg] = useState("");
-  const containerRef = React.useRef<HTMLElement>(null);
 
   function activateCustom() {
     setActivateProfileCustom(!activateProfileCustom);
@@ -61,10 +57,10 @@ export default function CustomProfile({
 
   useEffect(() => {
     if (isLogin) {
-      setProfileImg(userData.profileImage)
-      setProfileColor(userData.profileColor)
+      setProfileImg(userData.profileImage);
+      setProfileColor(userData.profileColor);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     onUpdateProfileImage(profileImg);
@@ -139,7 +135,12 @@ export default function CustomProfile({
               style={{ transformOrigin: "0 100% 0" }}
             >
               <div
-                style={{ position: "absolute", top: "25px", left: "25px", zIndex: 200 }}
+                style={{
+                  position: "absolute",
+                  top: "25px",
+                  left: "25px",
+                  zIndex: 200,
+                }}
               >
                 <ChromePicker
                   disableAlpha={true}
@@ -188,7 +189,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "1"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -199,8 +200,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "1"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "1" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="2"
@@ -208,7 +210,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "2"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -219,8 +221,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "2"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "2" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="3"
@@ -228,7 +231,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "3"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -239,8 +242,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "3"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "3" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="4"
@@ -248,7 +252,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "4"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -259,8 +263,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "4"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "4" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="5"
@@ -268,7 +273,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "5"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -279,8 +284,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "5"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "5" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                   </div>
                   <div className={styles.profileImgSelectorRow}>
@@ -290,7 +296,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "6"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -301,8 +307,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "6"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "6" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="7"
@@ -310,7 +317,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "7"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -321,8 +328,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "7"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "7" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="8"
@@ -330,7 +338,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "8"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -341,8 +349,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "8"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "8" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="9"
@@ -350,7 +359,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "9"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -361,8 +370,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "9"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "9" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="10"
@@ -370,7 +380,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "10"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -381,8 +391,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "10"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "10" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                   </div>
                   <div className={styles.profileImgSelectorRow}>
@@ -392,7 +403,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "11"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -403,8 +414,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "11"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "11" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="12"
@@ -412,7 +424,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "12"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -423,8 +435,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "12"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "12" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="13"
@@ -432,7 +445,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "13"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -443,8 +456,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "13"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "13" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="14"
@@ -452,7 +466,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "14"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -463,8 +477,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "14"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "14" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="15"
@@ -472,7 +487,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "15"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -483,8 +498,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "15"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "15" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                   </div>
                   <div className={styles.profileImgSelectorRow}>
@@ -494,7 +510,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "16"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -505,8 +521,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "16"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "16" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="17"
@@ -514,7 +531,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "17"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -525,8 +542,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "17"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "17" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="18"
@@ -534,7 +552,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "18"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -545,8 +563,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "18"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "18" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="19"
@@ -554,7 +573,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "19"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -565,8 +584,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "19"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "19" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="20"
@@ -574,7 +594,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "20"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -585,8 +605,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "20"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "20" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                   </div>
                   <div className={styles.profileImgSelectorRow}>
@@ -596,7 +617,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "21"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -607,8 +628,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "21"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "21" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="22"
@@ -616,7 +638,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "22"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -627,8 +649,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "22"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "22" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="23"
@@ -636,7 +659,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "23"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -647,8 +670,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "23"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "23" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="24"
@@ -656,7 +680,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "24"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -667,8 +691,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "24"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "24" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                     <div
                       id="25"
@@ -676,7 +701,7 @@ export default function CustomProfile({
                       onClick={changeAvatar}
                       style={
                         selectedImg === "25"
-                          ? { 
+                          ? {
                               transition: "0.3s",
                               border: "3px solid #39a789",
                               backgroundColor: "#ffffffcc",
@@ -687,8 +712,9 @@ export default function CustomProfile({
                             }
                       }
                     >
-                      {selectedImg === "25"
-                          ? <FaCheck color="#39a789" size={30}/> : null}
+                      {selectedImg === "25" ? (
+                        <FaCheck color="#39a789" size={30} />
+                      ) : null}
                     </div>
                   </div>
                 </div>

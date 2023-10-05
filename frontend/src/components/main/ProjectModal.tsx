@@ -38,7 +38,6 @@ function ProjectModal({
   const getProjectDetail = async () => {
     try {
       const response = await getProject(pjt.id);
-      console.log(response.data.result);
     } catch (error) {
       console.error(error);
     }
@@ -46,7 +45,6 @@ function ProjectModal({
   const getProjectUsers = async () => {
     try {
       const response = await getProjectMem(pjt.id);
-      console.log(response.data.result[0]);
       setpjtMem(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -66,6 +64,13 @@ function ProjectModal({
 
   const handleInputClick = (fieldName: string) => {
     setEditState(fieldName);
+  };
+
+  const handleDeleteClick = () => {
+    const userResponse = window.confirm("프로젝트에서 정말 나가시겠어요?");
+    if (userResponse) {
+      deleteProject(pjt.id);
+    }
   };
 
   useEffect(() => {
@@ -277,7 +282,7 @@ function ProjectModal({
         style={{ backgroundColor: "red", fontFamily: "preRg" }}
         key="submit"
         type="primary"
-        onClick={() => deleteProject(pjt.id)}
+        onClick={handleDeleteClick}
       >
         프로젝트 나가기
       </Button>

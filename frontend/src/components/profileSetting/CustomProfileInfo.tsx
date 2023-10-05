@@ -111,6 +111,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/java-437291?style=for-the-badge&logo=openjdk&logoColor=white`
                 : `https://img.shields.io/badge/java-757575?style=for-the-badge&logo=openjdk&logoColor=white`
             }
+            alt=""
           />
           <img
             id="python"
@@ -121,6 +122,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/python-3777AB?style=for-the-badge&logo=python&logoColor=white`
                 : `https://img.shields.io/badge/python-757575?style=for-the-badge&logo=python&logoColor=white`
             }
+            alt=""
           />
           <img
             id="javascript"
@@ -131,6 +133,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white`
                 : `https://img.shields.io/badge/javascript-757575?style=for-the-badge&logo=javascript&logoColor=white`
             }
+            alt=""
           />
           <img
             id="html5"
@@ -141,6 +144,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white`
                 : `https://img.shields.io/badge/html5-757575?style=for-the-badge&logo=html5&logoColor=white`
             }
+            alt=""
           />
           <img
             id="css3"
@@ -151,6 +155,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white`
                 : `https://img.shields.io/badge/css3-757575?style=for-the-badge&logo=css3&logoColor=white`
             }
+            alt=""
           />
           <img
             id="c"
@@ -161,6 +166,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/c-A8B9CC?style=for-the-badge&logo=c&logoColor=white`
                 : `https://img.shields.io/badge/c-757575?style=for-the-badge&logo=c&logoColor=white`
             }
+            alt=""
           />
           <img
             id="c++"
@@ -171,6 +177,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/c++-A8B9CC?style=for-the-badge&logo=c%2B%2B&&logoColor=white`
                 : `https://img.shields.io/badge/c++-757575?style=for-the-badge&logo=c%2B%2B&&logoColor=white`
             }
+            alt=""
           />
           <img
             id="r"
@@ -181,6 +188,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/r-276DC3?style=for-the-badge&logo=r&logoColor=white`
                 : `https://img.shields.io/badge/r-757575?style=for-the-badge&logo=r&logoColor=white`
             }
+            alt=""
           />
           <img
             id="flutter"
@@ -191,6 +199,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white`
                 : `https://img.shields.io/badge/flutter-757575?style=for-the-badge&logo=flutter&logoColor=white`
             }
+            alt=""
           />
           <img
             id="dart"
@@ -201,6 +210,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/dart-0175C2?style=for-the-badge&logo=dart&logoColor=white`
                 : `https://img.shields.io/badge/dart-757575?style=for-the-badge&logo=dart&logoColor=white`
             }
+            alt=""
           />
           <img
             id="kotlin"
@@ -211,6 +221,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white`
                 : `https://img.shields.io/badge/kotlin-757575?style=for-the-badge&logo=kotlin&logoColor=white`
             }
+            alt=""
           />
           <img
             id="pwa"
@@ -221,6 +232,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/pwa-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white`
                 : `https://img.shields.io/badge/pwa-757575?style=for-the-badge&logo=pwa&logoColor=white`
             }
+            alt=""
           />
           <img
             id="php"
@@ -231,6 +243,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/php-777BB4?style=for-the-badge&logo=php&logoColor=white`
                 : `https://img.shields.io/badge/php-757575?style=for-the-badge&logo=php&logoColor=white`
             }
+            alt=""
           />
           <img
             id="django"
@@ -241,6 +254,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white`
                 : `https://img.shields.io/badge/django-757575?style=for-the-badge&logo=django&logoColor=white`
             }
+            alt=""
           />
           <img
             id="spring"
@@ -251,6 +265,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white`
                 : `https://img.shields.io/badge/spring-757575?style=for-the-badge&logo=spring&logoColor=white`
             }
+            alt=""
           />
           <img
             id="vue"
@@ -261,6 +276,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/vue-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white`
                 : `https://img.shields.io/badge/vue-757575?style=for-the-badge&logo=vue.js&logoColor=white`
             }
+            alt=""
           />
           <img
             id="react"
@@ -271,6 +287,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white`
                 : `https://img.shields.io/badge/react-757575?style=for-the-badge&logo=react&logoColor=white`
             }
+            alt=""
           />
           <img
             id="next"
@@ -281,6 +298,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/next-000000?style=for-the-badge&logo=next.js&logoColor=white`
                 : `https://img.shields.io/badge/next-757575?style=for-the-badge&logo=next.js&logoColor=white`
             }
+            alt=""
           />
           <img
             id="node"
@@ -291,6 +309,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/node-339933?style=for-the-badge&logo=node.js&logoColor=white`
                 : `https://img.shields.io/badge/node-757575?style=for-the-badge&logo=node.js&logoColor=white`
             }
+            alt=""
           />
           <img
             id="angular"
@@ -301,6 +320,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/angular-DD0031?style=for-the-badge&logo=angular&logoColor=white`
                 : `https://img.shields.io/badge/angular-757575?style=for-the-badge&logo=angular&logoColor=white`
             }
+            alt=""
           />
           <img
             id="jenkins"
@@ -311,6 +331,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white`
                 : `https://img.shields.io/badge/jenkins-757575?style=for-the-badge&logo=jenkins&logoColor=white`
             }
+            alt=""
           />
           <img
             id="docker"
@@ -321,6 +342,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white`
                 : `https://img.shields.io/badge/docker-757575?style=for-the-badge&logo=docker&logoColor=white`
             }
+            alt=""
           />
           <img
             id="aws"
@@ -331,6 +353,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/aws-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white`
                 : `https://img.shields.io/badge/aws-757575?style=for-the-badge&logo=amazonaws&logoColor=white`
             }
+            alt=""
           />
           <img
             id="kubernetes"
@@ -341,6 +364,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white`
                 : `https://img.shields.io/badge/kubernetes-757575?style=for-the-badge&logo=kubernetes&logoColor=white`
             }
+            alt=""
           />
           <img
             id="three"
@@ -351,6 +375,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/three-000000?style=for-the-badge&logo=three.js&logoColor=white`
                 : `https://img.shields.io/badge/three-757575?style=for-the-badge&logo=three.js&logoColor=white`
             }
+            alt=""
           />
           <img
             id="aframe"
@@ -361,6 +386,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/aframe-EF2D5E?style=for-the-badge&logo=a-frame&logoColor=white`
                 : `https://img.shields.io/badge/aframe-757575?style=for-the-badge&logo=a-frame&logoColor=white`
             }
+            alt=""
           />
           <img
             id="unity"
@@ -371,6 +397,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/unity-000000?style=for-the-badge&logo=unity&logoColor=white`
                 : `https://img.shields.io/badge/unity-757575?style=for-the-badge&logo=unity&logoColor=white`
             }
+            alt=""
           />
           <img
             id="unreal"
@@ -381,6 +408,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/unreal-0E1128?style=for-the-badge&logo=unrealengine&logoColor=white`
                 : `https://img.shields.io/badge/unreal-757575?style=for-the-badge&logo=unrealengine&logoColor=white`
             }
+            alt=""
           />
           <img
             id="tomcat"
@@ -391,6 +419,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white`
                 : `https://img.shields.io/badge/tomcat-757575?style=for-the-badge&logo=apachetomcat&logoColor=white`
             }
+            alt=""
           />
           <img
             id="spark"
@@ -401,6 +430,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/spark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white`
                 : `https://img.shields.io/badge/spark-757575?style=for-the-badge&logo=apachespark&logoColor=white`
             }
+            alt=""
           />
           <img
             id="hadoop"
@@ -411,6 +441,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/hadoop-66CCFF?style=for-the-badge&logo=apachehadoop&logoColor=white`
                 : `https://img.shields.io/badge/hadoop-757575?style=for-the-badge&logo=apachehadoop&logoColor=white`
             }
+            alt=""
           />
           <img
             id="git"
@@ -421,6 +452,7 @@ export default function CustomProfileInfo({
                 ? `https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white`
                 : `https://img.shields.io/badge/git-757575?style=for-the-badge&logo=git&logoColor=white`
             }
+            alt=""
           />
         </div>
         <TextField

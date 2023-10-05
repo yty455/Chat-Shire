@@ -9,6 +9,7 @@ import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 import dayjs from "dayjs";
+import Tooltip from "@mui/material/Tooltip";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { getProject } from "../../utils/projectApi";
@@ -163,6 +164,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const [allTasks, setAllTasks] = useRecoilState(tasks_recoil);
   const [pjt, setPjt] = useState<any>({});
   const [isModalOpen, setIsModalOpen] = useState("");
+  const [updatedProgress, setUpdatedProgress] = useState("");
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
     {
       id: 1,
@@ -233,8 +235,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   ) => {
     try {
       if (projectId) {
-        const progress = "ONGOING";
-        await updateInTask(TaskId, "0", updatedDescription, progress);
+        // const progress = "ONGOING";
+        await updateInTask(TaskId, "0", updatedDescription, updatedProgress);
         // 편집 모드를 종료
         setEditingTaskId(null);
       } else {
@@ -301,6 +303,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         progress
       );
       console.log(response);
+      setUpdatedProgress("");
       setUpdatedDescription("");
       setEditingTaskId(null);
       getTeamTask();
@@ -324,12 +327,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           setCheckboxItems([]);
         } else {
           console.log("수정", TaskId, "0", description, progress);
-          await updateInTask(TaskId, "0", description, progress);
+          await updateInTask(TaskId, "0", description, updatedProgress);
         }
       }
     }
   };
-  const enterEditMode = async (TaskId: string) => {
+  const enterEditMode = async (TaskId: string, progress: string) => {
+    setUpdatedProgress(progress);
     setEditingTaskId(TaskId);
     try {
       const taskToEdit = allTasks.find((task) => task.id === TaskId);
@@ -565,79 +569,92 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       }}
                     >
                       <div className={styles.indivTask}>
-                        <Checkbox
-                          sx={{
-                            color: "#39A789",
-                            "&.Mui-checked": { color: "#39A789" },
-                          }}
-                          style={{ height: "20px", margin: "14px 0" }}
-                          checked={item.progress === "DONE"}
-                          onChange={handleCheckboxChange(item)}
-                        />
-                        {editingTaskId === item.id ? (
-                          <input
-                            onKeyPress={handleKeyPress(item.id)}
-                            onChange={(e) =>
-                              setUpdatedDescription(e.target.value)
-                            }
-                            style={{
-                              fontFamily: "preRg",
-                              height: "30px",
-                              marginTop: "9px",
-                              border: "none",
+                        <div style={{ display: "flex" }}>
+                          <Checkbox
+                            sx={{
+                              color: "#39A789",
+                              "&.Mui-checked": { color: "#39A789" },
                             }}
-                            type="text"
-                            // onBlur={handleContentChange(item.TaskId)}
-                            placeholder="내용을 입력하세요"
-                            defaultValue={item.description}
-                          />
-                        ) : (
-                          <p
-                            className={`${styles.taskContent} ${
-                              item.progress === "DONE" ? styles.checked : ""
-                            }`}
-                          >
-                            {item.description}
-                          </p>
-                        )}
-                      </div>
-                      <div className={styles.icons}>
-                        <div>
-                          <BsFillChatDotsFill
-                            onClick={() => {
-                              handleOpen(item.id);
-                            }}
-                            style={{
-                              fontSize: "17px",
-                              margin: "0px 5px 10px 4px",
-                            }}
+                            style={{ height: "20px", margin: "14px 0" }}
+                            checked={item.progress === "DONE"}
+                            onChange={handleCheckboxChange(item)}
                           />
                           {editingTaskId === item.id ? (
-                            <BiSolidCheckCircle
-                              style={{
-                                fontSize: "17px",
-                                margin: "0px 3px 10px 4px",
-                              }}
-                              onClick={() =>
-                                handleEditComplete(item.id, updatedDescription)
+                            <input
+                              onKeyPress={handleKeyPress(item.id)}
+                              onChange={(e) =>
+                                setUpdatedDescription(e.target.value)
                               }
+                              style={{
+                                fontFamily: "preRg",
+                                height: "30px",
+                                marginTop: "9px",
+                                border: "none",
+                              }}
+                              type="text"
+                              // onBlur={handleContentChange(item.TaskId)}
+                              placeholder="내용을 입력하세요"
+                              defaultValue={item.description}
                             />
                           ) : (
-                            <BsPencilFill
+                            <span
+                              className={`${styles.taskContent} ${
+                                item.progress === "DONE" ? styles.checked : ""
+                              }`}
+                            >
+                              {item.description}
+                            </span>
+                          )}
+                        </div>
+                        <div className={styles.icons}>
+                          <Tooltip title="참조 대화함 열기">
+                            <BsFillChatDotsFill
+                              onClick={() => {
+                                handleOpen(item.id);
+                              }}
                               style={{
                                 fontSize: "17px",
-                                margin: "0px 3px 10px 4px",
+                                marginLeft: "4px",
                               }}
-                              onClick={() => enterEditMode(item.id)}
                             />
+                          </Tooltip>
+                          {editingTaskId === item.id ? (
+                            <Tooltip title="저장">
+                              <BiSolidCheckCircle
+                                style={{
+                                  fontSize: "17px",
+                                  marginLeft: "4px",
+                                }}
+                                onClick={() =>
+                                  handleEditComplete(
+                                    item.id,
+                                    updatedDescription
+                                  )
+                                }
+                              />
+                            </Tooltip>
+                          ) : (
+                            <Tooltip title="수정">
+                              <BsPencilFill
+                                style={{
+                                  fontSize: "17px",
+                                  marginLeft: "4px",
+                                }}
+                                onClick={() =>
+                                  enterEditMode(item.id, item.progress)
+                                }
+                              />
+                            </Tooltip>
                           )}
-                          <MdDelete
-                            style={{
-                              fontSize: "20px",
-                              margin: "0px 10px 8px 4px",
-                            }}
-                            onClick={() => deleteInTask(item.id)}
-                          />
+                          <Tooltip title="삭제">
+                            <MdDelete
+                              style={{
+                                fontSize: "20px",
+                                marginLeft: "4px",
+                              }}
+                              onClick={() => deleteInTask(item.id)}
+                            />
+                          </Tooltip>
                         </div>
                       </div>
                     </div>
@@ -742,57 +759,61 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       }}
                     >
                       <div className={styles.indivTask}>
-                        <Checkbox
-                          sx={{
-                            color: "#39A789",
-                            "&.Mui-checked": { color: "#39A789" },
-                          }}
-                          style={{ height: "20px", margin: "14px 0" }}
-                          checked={item.progress === "DONE"}
-                          onChange={handleCheckboxChange(item)}
-                        />
-                        {editingTaskId === item.id ? (
-                          <input
-                            onKeyPress={handleKeyPress(item.id)}
-                            onChange={(e) =>
-                              setUpdatedDescription(e.target.value)
-                            }
-                            style={{
-                              fontFamily: "preRg",
-                              height: "30px",
-                              marginTop: "9px",
-                              border: "none",
+                        <div style={{ display: "flex" }}>
+                          <Checkbox
+                            sx={{
+                              color: "#39A789",
+                              "&.Mui-checked": { color: "#39A789" },
                             }}
-                            type="text"
-                            // onBlur={handleContentChange(item.TaskId)}
-                            placeholder="내용을 입력하세요"
-                            defaultValue={item.description}
+                            style={{ height: "20px", margin: "14px 0" }}
+                            checked={item.progress === "DONE"}
+                            onChange={handleCheckboxChange(item)}
                           />
-                        ) : (
-                          <p
-                            className={`${styles.taskContent} ${
-                              item.progress === "DONE" ? styles.checked : ""
-                            }`}
-                          >
-                            {item.description}
-                          </p>
-                        )}
+                          {editingTaskId === item.id ? (
+                            <input
+                              onKeyPress={handleKeyPress(item.id)}
+                              onChange={(e) =>
+                                setUpdatedDescription(e.target.value)
+                              }
+                              style={{
+                                fontFamily: "preRg",
+                                height: "30px",
+                                marginTop: "9px",
+                                border: "none",
+                              }}
+                              type="text"
+                              // onBlur={handleContentChange(item.TaskId)}
+                              placeholder="내용을 입력하세요"
+                              defaultValue={item.description}
+                            />
+                          ) : (
+                            <span
+                              className={`${styles.taskContent} ${
+                                item.progress === "DONE" ? styles.checked : ""
+                              }`}
+                            >
+                              {item.description}
+                            </span>
+                          )}
+                        </div>
                         <div className={styles.icons}>
-                          <div>
+                          <Tooltip title="참조 대화함 열기">
                             <BsFillChatDotsFill
                               onClick={() => {
                                 handleOpen(item.id);
                               }}
                               style={{
                                 fontSize: "17px",
-                                margin: "0px 5px 10px 4px",
+                                marginLeft: "4px",
                               }}
                             />
-                            {editingTaskId === item.id ? (
+                          </Tooltip>
+                          {editingTaskId === item.id ? (
+                            <Tooltip title="저장">
                               <BiSolidCheckCircle
                                 style={{
                                   fontSize: "17px",
-                                  margin: "0px 3px 10px 4px",
+                                  marginLeft: "4px",
                                 }}
                                 onClick={() =>
                                   handleEditComplete(
@@ -801,23 +822,29 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                                   )
                                 }
                               />
-                            ) : (
+                            </Tooltip>
+                          ) : (
+                            <Tooltip title="수정">
                               <BsPencilFill
                                 style={{
                                   fontSize: "17px",
-                                  margin: "0px 3px 10px 4px",
+                                  marginLeft: "4px",
                                 }}
-                                onClick={() => enterEditMode(item.id)}
+                                onClick={() =>
+                                  enterEditMode(item.id, item.progress)
+                                }
                               />
-                            )}
+                            </Tooltip>
+                          )}
+                          <Tooltip title="삭제">
                             <MdDelete
                               style={{
                                 fontSize: "20px",
-                                margin: "0px 10px 8px 4px",
+                                marginLeft: "4px",
                               }}
                               onClick={() => deleteInTask(item.id)}
                             />
-                          </div>
+                          </Tooltip>
                         </div>
                       </div>
                     </div>
@@ -861,7 +888,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           )}
         </div>
       </div>
-      {open && <IndivChatModal taskId={selectTask} onClose={handleClose} />}
+      {open && (
+        <IndivChatModal
+          taskId={selectTask}
+          onClose={handleClose}
+          projectId={projectId}
+        />
+      )}
     </div>
   );
 }

@@ -8,6 +8,8 @@ import com.ssafy.backend.domain.chat.dto.ChatInfo;
 import com.ssafy.backend.domain.chat.dto.ChatInfoResponse;
 import com.ssafy.backend.domain.chat.dto.ChatPost;
 import com.ssafy.backend.domain.chat.repository.ChatRepository;
+import com.ssafy.backend.domain.task.dto.ReferenceChatInfo;
+import com.ssafy.backend.domain.task.repository.ReferenceRepository;
 import com.ssafy.backend.domain.user.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.ssafy.backend.domain.common.GlobalMethod.getUserId;
@@ -33,6 +36,7 @@ public class ChatService {
     private final AttachedFileRepository attachedFileRepository;
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final ChallengeService challengeService;
+    private final ReferenceRepository referenceRepository;
     private final String chatKey = "chat";
 
     public void postChat(ChatPost chatPost) {
@@ -108,6 +112,31 @@ public class ChatService {
         // 첨부파일 있는애들 첨부파일 붙여주기
         return chatSQL.stream().map(chatInfo -> chatAttached(chatInfo, chatRoomId)).collect(Collectors.toList());
     }
+
+    public List<ChatInfoResponse> getReferenceChats(Long referenceId) {
+        // 시간 없으니깐 채팅 전부 조회 -> 번호 찾아서 그 이후로 짤라주기
+        ReferenceChatInfo referenceChatInfo = referenceRepository.findReferenceChatById(referenceId);
+        // sql 먼저 조회
+        List<ChatInfo> chatSQL = chatRepository.findInfoByChatRoomId(referenceChatInfo.getChatRoomID());
+        chatSQL = chatSQL == null ? new ArrayList<>() : chatSQL;
+        // redis 조회
+        List<ChatInfo> chatRedis = chatRedisTemplate.opsForList().range(chatKey + referenceChatInfo.getChatRoomID(), 0, -1);
+        chatRedis = chatRedis == null ? new ArrayList<>() : chatRedis;
+        // 둘이 합쳐서 주기 sql + redis
+        chatSQL.addAll(chatRedis);
+        List<ChatInfo> findChats = new ArrayList<>();
+        // 여기서 chatNumber 맞는거 찾아서 10개 담기
+        for (int idx = 0; idx < chatSQL.size(); idx++) {
+            if (Objects.equals(chatSQL.get(idx).getChatNumber(), referenceChatInfo.getChatNumber())) {
+                findChats = chatSQL.subList(idx, Math.min(idx + 10, chatSQL.size()));
+                break;
+            }
+        }
+
+        // 첨부파일 있는애들 첨부파일 붙여주기
+        return findChats.stream().map(chatInfo -> chatAttached(chatInfo, referenceChatInfo.getChatRoomID())).collect(Collectors.toList());
+    }
+
 
     public ChatInfoResponse chatAttached(ChatInfo chatInfo, Long chatRoomId) {
         if (chatInfo.getIsAttached()) {

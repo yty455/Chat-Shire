@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import styles from "./Analysis.module.css";
 import Keywords from "./Keywords";
 import RadarChart from "./RadarChart";
@@ -11,8 +11,8 @@ import api from "../../utils/api";
 import { getAnalysis } from "../../utils/analysisApi";
 import { useRecoilState } from "recoil";
 import {
-  nowProject_recoil,
   workStyle_recoil,
+  workStyleColor_recoil,
   keywords_recoil,
   morningCount_recoil,
   afternoonCount_recoil,
@@ -21,6 +21,7 @@ import {
   allCategoryCount_recoil,
   taskCount_recoil,
 } from "../../stores/atom";
+import { JsxElement } from "typescript";
 
 interface AnalysisProps {
   projectId: string;
@@ -28,6 +29,7 @@ interface AnalysisProps {
 
 export default function Analysis({ projectId }: AnalysisProps) {
   const [workStyle, setWorkStyle] = useRecoilState(workStyle_recoil);
+  const [workStyleColor, setWorkStyleColor] = useRecoilState(workStyleColor_recoil);
   const [keywords, setKeywords] = useRecoilState(keywords_recoil);
   const [morningCommit, setMorningCommit] = useRecoilState(morningCount_recoil);
   const [afternoonCommit, setAfternoonCommit] = useRecoilState(
@@ -100,18 +102,24 @@ export default function Analysis({ projectId }: AnalysisProps) {
       .catch((err) => console.log(err));
   };
   const caculateWorkStyle = () => {
-    if (morningCommit + afternoonCommit + nightCommit > 500) {
+    if (morningCommit + afternoonCommit + nightCommit > 30) {
       setWorkStyle("passion");
-    } else if (taskCount > 500) {
+      setWorkStyleColor({main: "#AE2949", sub: "#EB9042"})
+    } else if (taskCount > 5) {
       setWorkStyle("jjjj");
-    } else if (totalChatCount(allCategoryCount) > 3000) {
+      setWorkStyleColor({main: "#4ED480", sub: "#54CCC7"})
+    } else if (totalChatCount(allCategoryCount) > 100) {
       setWorkStyle("chat");
-    } else if (nightCommit > 200) {
+      setWorkStyleColor({main: "#F3AAF7", sub: "#779DFF"})
+    } else if (nightCommit > 9) {
       setWorkStyle("night");
-    } else if (issueCount > 100) {
+      setWorkStyleColor({main: "#3E008C", sub: "#E8CA46"})
+    } else if (issueCount > 3) {
       setWorkStyle("fix");
-    } else if (relevantChatCount(allCategoryCount) > 1000) {
+      setWorkStyleColor({main: "#3E008C", sub: "#C03AEC"})
+    } else if (relevantChatCount(allCategoryCount) > 50) {
       setWorkStyle("idea");
+      setWorkStyleColor({main: "#F0ADC7", sub: "#FFDD88"})
     }
   };
 
@@ -164,21 +172,27 @@ export default function Analysis({ projectId }: AnalysisProps) {
           <span className={styles.analysisBodyDescUp}>나는야</span>
           <span className={styles.analysisBodyDescDown}>다고쳐 펠릭스</span>
         </div>
-      );
+      )
     }
   };
+
   const returnTeamMembers = teamMembers?.map((member: any) => {
-    return (<span>{member.nickname}</span>)
-  })
-  const returnKeywords = Object.entries(allCategoryCount).sort((a: any, b: any) => a[1] - b[1]).map((entry) => {
-    let isSelected = false
-    if (keywords.includes(entry[0])) {
-      isSelected = true
-    } else {
-      isSelected = false
-    }
-    return (<Keywords topic={entry[0]} projectId={Number(projectId)} isSelected/>)
-  })
+    return <span>{member.nickname}, </span>;
+  });
+
+  const returnKeywords = Object.entries(allCategoryCount)
+    .sort((a: any, b: any) => a[1] - b[1]).splice(0, 6)
+    .map((entry) => {
+      let isSelected = false;
+      if (keywords.includes(entry[0])) {
+        isSelected = true;
+      } else {
+        isSelected = false;
+      }
+      return (
+        <Keywords topic={entry[0]} projectId={Number(projectId)} isSelected />
+      );
+    });
 
   useEffect(() => {
     getAnalysisPage();
@@ -235,7 +249,9 @@ export default function Analysis({ projectId }: AnalysisProps) {
             </span>
             <span className={styles.analysisBodyTitleRight}>워크스타일은?</span>
           </div>
-          <>{returnBodyDesc}</>
+          <div>
+            {returnBodyDesc()}
+          </div>
         </div>
       </div>
       <div className={styles.analysisFooter}>

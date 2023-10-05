@@ -6,23 +6,32 @@ import {
   getReferencesChat,
 } from "../../utils/taskReferenceApi";
 import { Button } from "antd";
+import { getProjectMem } from "../../utils/projectApi";
 
 interface IndivChatModalProps {
   onClose: () => void;
   taskId: any;
+  projectId: string;
 }
 interface ChatItem {
+  userId?: string;
   nickname: string;
   content: string;
   chatTime: string;
   chatNumber: number;
   id: string;
 }
+interface Member {
+  userId: string;
+  nickname: string;
+}
 
-function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
+function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
   const [taskChat, setTaskChat] = useState<ChatItem[]>([]);
+  const [reChat, setReChat] = useState<ChatItem[]>([]);
   const [chat, setChat] = useState([]);
   const [selectedChat, setSelectedChat] = useState("");
+  const [pjtMem, setpjtMem] = useState<Member[]>([]);
 
   const getTaskChat = async () => {
     try {
@@ -34,11 +43,21 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
     }
   };
 
+  const getProjectUsers = async () => {
+    try {
+      const response = await getProjectMem(projectId);
+      console.log(response.data.result[0]);
+      setpjtMem(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const getInReChat = async (reId: string) => {
     try {
       const response = await getReferencesChat(reId);
       console.log(response.data);
-      setTaskChat(response.data.result[0]);
+      setReChat(response.data.result[0]);
     } catch (error) {
       console.error(error);
     }
@@ -49,10 +68,15 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
     getInReChat(reId);
   };
 
+  const handleDelete = async () => {
+    setSelectedChat("");
+  };
+
   const deleteRe = async (chatId: string) => {
     try {
       const response = await deleteReferences(taskId, chatId);
       console.log(response.data.result);
+      getTaskChat();
     } catch (error) {
       console.error(error);
     }
@@ -65,46 +89,83 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
 
   useEffect(() => {
     getTaskChat();
-  }, []);
+    getProjectUsers();
+  }, [taskId]);
 
   return (
     <div className={styles.modalOverlay}>
-      <div className={styles.modalBox}>
-        {taskChat &&
-          taskChat.map((chat) => (
-            <div key={chat.chatNumber} className={styles.chat}>
-              {" "}
-              <div onClick={() => handleClick(chat.id)}>
-                <div className={styles.nickname}>{chat.nickname} : </div>
-                <div className={styles.content}>{chat.content}</div>
+      {selectedChat !== "" ? (
+        <div className={styles.modalBox}>
+          {reChat &&
+            reChat.map((chat) => (
+              <div key={chat.chatNumber} className={styles.chat}>
+                {" "}
+                <div className={styles.nickname}>
+                  {" "}
+                  {
+                    pjtMem.find((member) => member.userId === chat.userId)
+                      ?.nickname
+                  }{" "}
+                  :
+                </div>
+                <div
+                  className={styles.content}
+                  onClick={() => handleClick(chat.id)}
+                >
+                  {chat.content}
+                </div>
                 <div className={styles.chatTime}>
                   {" "}
                   : {formatChatTime(chat.chatTime)}
                 </div>
               </div>
-              <button
-                className={styles.deletebtn}
-                style={{
-                  backgroundColor: "red",
-                  fontFamily: "preRg",
-                  width: "30px",
-                  height: "25px",
-                }}
-                onClick={() => deleteRe(chat.id)}
-              >
-                삭제
-              </button>
-            </div>
-          ))}
-        <div></div>
-        <button
-          style={{ cursor: "pointer" }}
-          onClick={onClose}
-          className={styles.closebtn}
-        >
-          X
-        </button>
-      </div>
+            ))}
+          <button
+            style={{ cursor: "pointer" }}
+            onClick={handleDelete}
+            className={styles.closebtn}
+          >
+            {"<<"}
+          </button>
+        </div>
+      ) : (
+        <div className={styles.modalBox}>
+          {taskChat &&
+            taskChat.map((chat) => (
+              <div key={chat.chatNumber} className={styles.chat}>
+                {" "}
+                <div className={styles.nickname}>{chat.nickname} : </div>
+                <div
+                  className={styles.content}
+                  onClick={() => handleClick(chat.id)}
+                >
+                  {chat.content}
+                </div>
+                <div className={styles.chatTime}>
+                  {" "}
+                  : {formatChatTime(chat.chatTime)}
+                </div>
+                <button
+                  className={styles.deletebtn}
+                  style={{
+                    backgroundColor: "red",
+                    fontFamily: "preRg",
+                  }}
+                  onClick={() => deleteRe(chat.id)}
+                >
+                  삭제
+                </button>
+              </div>
+            ))}
+          <button
+            style={{ cursor: "pointer" }}
+            onClick={onClose}
+            className={styles.closebtn}
+          >
+            X
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -40,49 +40,6 @@ interface Props {
   window?: () => Window;
 }
 
-const dummyData = [
-  {
-    id: 1,
-    name: "특화PJT",
-    teamName: "123",
-    topic: "123",
-    startDate: "2023-09-20",
-    endDate: "2023-09-27",
-    gitRepository: "123",
-    description: "123",
-  },
-  {
-    id: 2,
-    name: "공통PJT",
-    teamName: "123",
-    topic: "123",
-    startDate: "2023-09-20",
-    endDate: "2023-09-27",
-    gitRepository: "123",
-    description: "123",
-  },
-  {
-    id: 3,
-    name: "관통PJT",
-    teamName: "123",
-    topic: "123",
-    startDate: "2023-09-20",
-    endDate: "2023-09-27",
-    gitRepository: "123",
-    description: "123",
-  },
-  {
-    id: 4,
-    name: "관통PJT",
-    teamName: "123",
-    topic: "123",
-    startDate: "2023-09-20",
-    endDate: "2023-09-27",
-    gitRepository: "123",
-    description: "123",
-  },
-];
-
 function LeftSide(props: Props) {
   const location = useLocation();
   const { window } = props;
@@ -117,7 +74,6 @@ function LeftSide(props: Props) {
   const getProfilePage = async () => {
     try {
       const response = await getProfile();
-      console.log(response.data.result[0]);
       setUserData(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -126,7 +82,6 @@ function LeftSide(props: Props) {
 
   // 색상 선택 다이얼로그 열기
   const openColorPicker = () => {
-    // setSelectedButtonIndex();
     setColorPickerOpen(true);
   };
 
@@ -139,7 +94,6 @@ function LeftSide(props: Props) {
   const userStateChange = async (state: string) => {
     try {
       const response = await userState(state);
-      console.log(response);
       getProfilePage();
     } catch (error) {
       console.error(error);
@@ -214,14 +168,7 @@ function LeftSide(props: Props) {
       >
         <Popover
           placement="rightBottom"
-          content={
-            <ColorPickerDialog
-              // open={colorPickerOpen}
-              // onClose={() => setColorPickerOpen(false)}
-              onSelectColor={handleColorSelect}
-            />
-          }
-          // onClick={() => openColorPicker()}
+          content={<ColorPickerDialog onSelectColor={handleColorSelect} />}
           trigger="click"
         >
           {userData?.state === "ONLINE" ? (
@@ -377,7 +324,7 @@ function LeftSide(props: Props) {
             </span>
           </div>
         </ListItem>
-        {(pjtData.length > 0 ? pjtData : dummyData).map((pjt, index) => (
+        {(pjtData.length > 0 ? pjtData : []).map((pjt: any) => (
           <ListItem style={{ padding: "0px" }} key={pjt?.id}>
             <div className={styles.TabBarProject} style={{ padding: "0px" }}>
               <Accordion
@@ -438,7 +385,7 @@ function LeftSide(props: Props) {
                   {["Chat", "Task", "Board", "Analysis"].map((text, index) => (
                     <ListItemButton
                       sx={{
-                        padding: "0px 0px 0px 4px",
+                        padding: "0px 0px 0px 20px",
                         marginBottom: "4px",
                         width: "140px",
                         height: "32px",
@@ -458,11 +405,6 @@ function LeftSide(props: Props) {
           </ListItem>
         ))}
       </List>
-      {/* <ColorPickerDialog
-        open={colorPickerOpen}
-        onClose={() => setColorPickerOpen(false)}
-        onSelectColor={handleColorSelect}
-      /> */}
     </Container>
   );
 }

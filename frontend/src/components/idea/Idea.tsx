@@ -201,8 +201,8 @@ function Flow({ pjtId }: IdeaProps) {
             style={{ width: 22, height: 20, bottom: 540, left: 310 }}
           />
         </Popover>
-        <Controls showInteractive={false}>
-          <div>
+        <Controls showInteractive={false} className={styles.savebtn}>
+          <div className={styles.savebtn}>
             <Button
               className={styles.savebtn}
               style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}

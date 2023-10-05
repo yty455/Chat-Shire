@@ -24,6 +24,7 @@ export default function RightLinkTab({ projectId }: Props) {
     setIsModalVisible(true);
   };
   const showModalUpdate = (link: any) => {
+    console.log(link);
     setIsModalUpdate(link);
     setIsModalVisible(true);
   };
@@ -79,7 +80,7 @@ export default function RightLinkTab({ projectId }: Props) {
               trigger="contextMenu"
             >
               <div key={link.linkId}>
-                <LinkOGItem requestUrl={link.content} />
+                <LinkOGItem requestUrl={link.content || link} />
               </div>
             </Popover>
           ))

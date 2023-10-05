@@ -2,7 +2,7 @@
   border: 1px solid rgba(111, 111, 111, 0.3);
   border-radius: 10px;
   width: 46%;
-  height: 40%;
+  max-height: 160px;
   margin: 0 10px 0 10px;
   background: rgba(255, 255, 255, 0.2);
   cursor: pointer;
@@ -64,4 +64,17 @@
 
 .skillbox {
   display: flex;
+  height: 30px;
+}
+
+.img {
+  overflow: auto;
+  white-space: nowrap;
+}
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.img::-webkit-scrollbar {
+  display: none;
 }

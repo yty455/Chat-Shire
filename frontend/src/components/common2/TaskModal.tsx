@@ -94,8 +94,7 @@ function TaskModal({
       <div className={styles.modalBox}>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
-            <h3>태스크 이름</h3>
-            <p onClick={() => handleEditClick("name")}>
+            <h2 onClick={() => handleEditClick("name")}>
               {editingField === "name" ? (
                 <input
                   type="text"
@@ -110,7 +109,7 @@ function TaskModal({
               ) : (
                 teamTaskDetail.name
               )}
-            </p>
+            </h2>
             <p>태스크 설명</p>
             <p onClick={() => handleEditClick("description")}>
               {editingField === "description" ? (
@@ -266,25 +265,6 @@ function TaskModal({
                 teamTaskDetail.deadline
               )}
             </p>
-            {editingField && (
-              <button
-                className={styles.savebtn}
-                style={{ fontFamily: "preRg" }}
-                onClick={() => {
-                  if (
-                    editingField === "name" ||
-                    editingField === "description" ||
-                    editingField === "priority" ||
-                    editingField === "progress" ||
-                    editingField === "deadline"
-                  ) {
-                    handleSaveClick(editingField);
-                  }
-                }}
-              >
-                저장
-              </button>
-            )}
             <button
               style={{ cursor: "pointer" }}
               onClick={closeModal}
@@ -294,15 +274,38 @@ function TaskModal({
             </button>
           </div>
         )}
-        <Button
-          className={styles.deletebtn}
-          style={{ backgroundColor: "red", fontFamily: "preRg" }}
-          key="submit"
-          type="primary"
-          onClick={() => teamTaskDetail && deleteTeamTask(teamTaskDetail.id)}
-        >
-          팀 태스크 삭제
-        </Button>
+
+        {editingField ? (
+          <Button
+            className={styles.savebtn}
+            style={{ fontFamily: "preRg" }}
+            key="submit"
+            type="primary"
+            onClick={() => {
+              if (
+                editingField === "name" ||
+                editingField === "description" ||
+                editingField === "priority" ||
+                editingField === "progress" ||
+                editingField === "deadline"
+              ) {
+                handleSaveClick(editingField);
+              }
+            }}
+          >
+            저장
+          </Button>
+        ) : (
+          <Button
+            className={styles.deletebtn}
+            style={{ backgroundColor: "red", fontFamily: "preRg" }}
+            key="submit"
+            type="primary"
+            onClick={() => teamTaskDetail && deleteTeamTask(teamTaskDetail.id)}
+          >
+            팀 태스크 삭제
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -11,6 +11,16 @@ const BarChart = () => {
     const [afternoonCommit, setAfternoonCommit] = useRecoilState(afternoonCount_recoil)
     const [nightCommit, setNightCommit] = useRecoilState(nightCount_recoil)
 
+    const BarChartColor = () => {
+        if (morningCommit >= afternoonCommit && morningCommit >= nightCommit) {
+            return ["#7e7e7e", "#7e7e7e", workStyleColor.main]
+        } else if (afternoonCommit > morningCommit && afternoonCommit >= nightCommit) {
+            return ["#7e7e7e", workStyleColor.main, "#7e7e7e"]
+        } else if (nightCommit > afternoonCommit) {
+            return [workStyleColor.main, "#7e7e7e", "#7e7e7e"]
+        }
+    }
+
     const data = [
         {
             "country": "새벽",
@@ -39,7 +49,7 @@ const BarChart = () => {
           layout="horizontal"
           valueScale={{ type: 'linear' }}
           indexScale={{ type: 'band', round: true }}
-          colors={[ workStyleColor.main ]}
+          colors={BarChartColor()}
           colorBy="indexValue"
           defs={[
               {

@@ -71,8 +71,13 @@ const ModalComponent: React.FC<{
     setLink("https://");
   };
   useEffect(() => {
-    if (isModalUpdate !== "") {
+    setLink("https://");
+    console.log(isModalUpdate);
+    if (isModalUpdate) {
+      console.log(isModalUpdate, 123);
       setLink(isModalUpdate?.content);
+    } else {
+      setLink("");
     }
   }, []);
 
@@ -115,7 +120,7 @@ const ModalComponent: React.FC<{
         <p style={{ fontSize: "15px" }}>북마크로 등록할 링크를 입력해주세요.</p>
         <TextArea
           // defaultValue="https://"
-          value={link}
+          value={link != "https://" ? link : "https://"}
           onChange={(e) => setLink(e.target.value)}
           onPressEnter={handleOk}
           style={{ height: 100, resize: "none" }}
