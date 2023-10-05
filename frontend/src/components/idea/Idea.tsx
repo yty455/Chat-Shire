@@ -201,8 +201,8 @@ function Flow({ pjtId }: IdeaProps) {
             style={{ width: 22, height: 20, bottom: 540, left: 310 }}
           />
         </Popover>
-        <Controls showInteractive={false} className={styles.savebtn}>
-          <div className={styles.savebtn}>
+        <div className={styles.savebtn}>
+          <Controls showInteractive={false}>
             <Button
               className={styles.savebtn}
               style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
@@ -212,8 +212,8 @@ function Flow({ pjtId }: IdeaProps) {
             >
               저장
             </Button>
-          </div>
-        </Controls>
+          </Controls>
+        </div>
       </ReactFlow>
     </div>
   );
