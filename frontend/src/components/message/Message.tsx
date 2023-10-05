@@ -269,13 +269,13 @@ function Message({ projectId }: MessageProps) {
         formData.append("file", file);
         formData.append("name", file.name);
       
-       setImmediate(() => {  
-         uploadS3(formData)
-           .then(() => resolve())
-           .catch((error) => reject(error));
-       });  
-     };
-   });
+        setTimeout(() => {  
+          uploadS3(formData)
+            .then(() => resolve())
+            .catch((error) => reject(error));
+        }, 0); 
+      };
+    });
   };
 
   // 파일 업로드
