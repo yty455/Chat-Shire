@@ -8,7 +8,6 @@ import { useRecoilState } from "recoil";
 import { linkState } from "../../stores/linkState";
 import { getLinks, deleteLink, updateLink } from "../../utils/linkApi";
 import { Popover } from "antd";
-import { String } from "aws-sdk/clients/apigateway";
 
 interface Props {
   projectId: string;
@@ -57,8 +56,22 @@ export default function RightLinkTab({ projectId }: Props) {
 
   const Action = ({ link }: { link: any }) => (
     <div>
-      <button onClick={() => deleteInLinks(link.linkId)}>삭제</button>
-      <button onClick={() => showModalUpdate(link)}>수정</button>
+      <Button
+        style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
+        key="submit"
+        type="primary"
+        onClick={() => showModalUpdate(link)}
+      >
+        수정
+      </Button>
+      <Button
+        style={{ backgroundColor: "red", fontFamily: "preRg" }}
+        key="submit"
+        type="primary"
+        onClick={() => deleteInLinks(link.linkId)}
+      >
+        삭제
+      </Button>
     </div>
   );
 

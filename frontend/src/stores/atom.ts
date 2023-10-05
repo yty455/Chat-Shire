@@ -118,3 +118,8 @@ export const taskCount_recoil = atom({
   key: "taskCount_recoil",
   default: 20,
 });
+
+export const err_recoil = atom({
+  key: "err_recoil",
+  default: [],
+});
