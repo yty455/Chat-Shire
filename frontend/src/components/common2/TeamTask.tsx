@@ -163,6 +163,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const [allTasks, setAllTasks] = useRecoilState(tasks_recoil);
   const [pjt, setPjt] = useState<any>({});
   const [isModalOpen, setIsModalOpen] = useState("");
+  const [updatedProgress, setUpdatedProgress] = useState("");
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
     {
       id: 1,
@@ -233,8 +234,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   ) => {
     try {
       if (projectId) {
-        const progress = "ONGOING";
-        await updateInTask(TaskId, "0", updatedDescription, progress);
+        // const progress = "ONGOING";
+        await updateInTask(TaskId, "0", updatedDescription, updatedProgress);
         // 편집 모드를 종료
         setEditingTaskId(null);
       } else {
@@ -301,6 +302,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         progress
       );
       console.log(response);
+      setUpdatedProgress("");
       setUpdatedDescription("");
       setEditingTaskId(null);
       getTeamTask();
@@ -324,12 +326,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           setCheckboxItems([]);
         } else {
           console.log("수정", TaskId, "0", description, progress);
-          await updateInTask(TaskId, "0", description, progress);
+          await updateInTask(TaskId, "0", description, updatedProgress);
         }
       }
     }
   };
-  const enterEditMode = async (TaskId: string) => {
+  const enterEditMode = async (TaskId: string, progress: string) => {
+    setUpdatedProgress(progress);
     setEditingTaskId(TaskId);
     try {
       const taskToEdit = allTasks.find((task) => task.id === TaskId);
@@ -626,7 +629,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                                 fontSize: "17px",
                                 marginLeft: "4px",
                               }}
-                              onClick={() => enterEditMode(item.id)}
+                              onClick={() =>
+                                enterEditMode(item.id, item.progress)
+                              }
                             />
                           )}
                           <MdDelete
@@ -745,7 +750,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             color: "#39A789",
                             "&.Mui-checked": { color: "#39A789" },
                           }}
-                          style={{ height: "20px", margin: "8px 0" }}
+                          style={{ height: "20px", margin: "14px 0" }}
                           checked={item.progress === "DONE"}
                           onChange={handleCheckboxChange(item)}
                         />
@@ -801,7 +806,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                                 fontSize: "17px",
                                 marginLeft: "4px",
                               }}
-                              onClick={() => enterEditMode(item.id)}
+                              onClick={() =>
+                                enterEditMode(item.id, item.progress)
+                              }
                             />
                           )}
                           <MdDelete
