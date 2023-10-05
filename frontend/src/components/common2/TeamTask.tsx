@@ -602,7 +602,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                         )}
                       </div>
                       <div className={styles.icons}>
-                        <div style={{ margin: "-4px 0 0 0" }}></div>
                         <div>
                           <BsFillChatDotsFill
                             onClick={() => {
@@ -610,14 +609,14 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             }}
                             style={{
                               fontSize: "17px",
-                              margin: "-5px 5px 10px 4px",
+                              margin: "0px 5px 10px 4px",
                             }}
                           />
                           {editingTaskId === item.id ? (
                             <BiSolidCheckCircle
                               style={{
                                 fontSize: "17px",
-                                margin: "-5px 3px 10px 4px",
+                                margin: "0px 3px 10px 4px",
                               }}
                               onClick={() =>
                                 handleEditComplete(item.id, updatedDescription)
@@ -627,7 +626,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             <BsPencilFill
                               style={{
                                 fontSize: "17px",
-                                margin: "-5px 3px 10px 4px",
+                                margin: "0px 3px 10px 4px",
                               }}
                               onClick={() => enterEditMode(item.id)}
                             />
@@ -635,7 +634,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           <MdDelete
                             style={{
                               fontSize: "20px",
-                              margin: "-7px 10px 8px 4px",
+                              margin: "0px 10px 8px 4px",
                             }}
                             onClick={() => deleteInTask(item.id)}
                           />
@@ -782,7 +781,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           </p>
                         )}
                         <div className={styles.icons}>
-                          <div style={{ margin: "-4px 0 0 0" }}></div>
                           <div>
                             <BsFillChatDotsFill
                               onClick={() => {
@@ -790,14 +788,14 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                               }}
                               style={{
                                 fontSize: "17px",
-                                margin: "-5px 5px 10px 4px",
+                                margin: "0px 5px 10px 4px",
                               }}
                             />
                             {editingTaskId === item.id ? (
                               <BiSolidCheckCircle
                                 style={{
                                   fontSize: "17px",
-                                  margin: "-5px 3px 10px 4px",
+                                  margin: "0px 3px 10px 4px",
                                 }}
                                 onClick={() =>
                                   handleEditComplete(
@@ -810,7 +808,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                               <BsPencilFill
                                 style={{
                                   fontSize: "17px",
-                                  margin: "-5px 3px 10px 4px",
+                                  margin: "0px 3px 10px 4px",
                                 }}
                                 onClick={() => enterEditMode(item.id)}
                               />
@@ -818,7 +816,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             <MdDelete
                               style={{
                                 fontSize: "20px",
-                                margin: "-7px 10px 8px 4px",
+                                margin: "0px 10px 8px 4px",
                               }}
                               onClick={() => deleteInTask(item.id)}
                             />
