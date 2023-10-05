@@ -128,7 +128,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
     try {
       if (projectId) {
         const response = await getTask(projectId);
-        console.log(response.data.result[0]);
 
         setAllTasks(response.data.result[0]);
       }
@@ -145,7 +144,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   ) => {
     try {
       const response = await postTask(chatroomId, description, progress);
-      console.log(response);
       setUpdatedDescription("");
       getInTask();
     } catch (error) {
@@ -165,7 +163,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   ) => {
     try {
       const response = await postTask(chatroomId, description, progress);
-      console.log(response.data.result[0]);
       postInReferences(
         response.data.result[0],
         nickname,
@@ -194,7 +191,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         chatNumber,
         chatTime
       );
-      console.log(response);
       getInTask();
     } catch (error) {
       console.error(error);
@@ -215,7 +211,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         description,
         progress
       );
-      console.log(response);
       setUpdatedProgress("");
       setUpdatedDescription("");
       setEditingTaskId(null);
@@ -230,7 +225,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const deleteInTask = async (TaskId: string) => {
     try {
       const response = await deleteTask(TaskId);
-      console.log("삭제완료", response);
       getInTask();
       getTeamTask();
     } catch (error) {
@@ -252,9 +246,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
         (task: any) => task.progress === "DONE"
       );
 
-      console.log(allTasks);
-      console.log(ongoingTasks);
-      console.log(completedTasks);
       getInTask();
       setAllTeamTask(allTasks);
       setOngoingTeamTask(ongoingTasks);
@@ -305,7 +296,6 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
           await postInTask(chatroomId, description, progress);
           setCheckboxItems([]);
         } else {
-          console.log("수정", TaskId, "0", description, progress);
           await updateInTask(TaskId, "0", description, updatedProgress);
         }
       }

@@ -36,7 +36,6 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
   const getTaskChat = async () => {
     try {
       const response = await getReferences(taskId);
-      console.log(response.data.result[0]);
       setTaskChat(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -46,7 +45,6 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
   const getProjectUsers = async () => {
     try {
       const response = await getProjectMem(projectId);
-      console.log(response.data.result[0]);
       setpjtMem(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -56,7 +54,6 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
   const getInReChat = async (reId: string) => {
     try {
       const response = await getReferencesChat(reId);
-      console.log(response.data);
       setReChat(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -76,7 +73,6 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
   const deleteRe = async (chatId: string) => {
     try {
       const response = await deleteReferences(taskId, chatId);
-      console.log(response.data.result);
       getTaskChat();
     } catch (error) {
       console.error(error);
