@@ -235,13 +235,13 @@ function Message({ projectId }: MessageProps) {
 
   // 이미지 업로드
   const onUploadImage = (e: any): Promise<void> => {
-    // Promise<void> 타입 지정
     return new Promise((resolve, reject) => {
       const file = e.target.files[0];
       if (!file) {
         resolve();
         return;
       }
+
       const fileExt = file.name.split(".").pop();
       if (
         !["jpeg", "png", "jpg", "JPG", "PNG", "JPEG", "mp4", "MP4"].includes(
@@ -252,29 +252,55 @@ function Message({ projectId }: MessageProps) {
         resolve();
         return;
       }
-
+  
       const reader = new FileReader();
       reader.readAsDataURL(file);
-
+  
       reader.onload = () => {
         setImageSrc(reader.result || "");
         setImageFile(file);
+
+        // Here we reset the value of the input field
+        e.target.value = null;
+
         if (!reader.result) {
           window.alert("이미지를 등록해 주세요.");
           resolve();
           return;
         }
-
+      
         const formData = new FormData();
         formData.append("file", file);
         formData.append("name", file.name);
-
-        uploadS3(formData)
-          .then(() => resolve())
-          .catch((error) => reject(error));
-      };
-    });
+      
+       setImmediate(() => {  
+         uploadS3(formData)
+           .then(() => resolve())
+           .catch((error) => reject(error));
+       });  
+     };
+   });
   };
+      
+  //     reader.onload = () => {
+  //       setImageSrc(reader.result || "");
+  //       setImageFile(file);
+  //       if (!reader.result) {
+  //         window.alert("이미지를 등록해 주세요.");
+  //         resolve();
+  //         return;
+  //       }
+
+  //       const formData = new FormData();
+  //       formData.append("file", file);
+  //       formData.append("name", file.name);
+
+  //       uploadS3(formData)
+  //         .then(() => resolve())
+  //         .catch((error) => reject(error));
+  //     };
+  //   });
+  // };
 
   // 파일 업로드
   const onUploadFile = (e: any): Promise<void> => {
@@ -353,6 +379,7 @@ function Message({ projectId }: MessageProps) {
           .promise()
           .then(() => {
             console.log("파일 업로드 완료");
+            window.location.reload();
           })
           .catch((error) => {
             console.error("업로드 실패", error);
@@ -388,6 +415,7 @@ function Message({ projectId }: MessageProps) {
 
     return upload.promise().then(() => {
       console.log("미디어 업로드");
+      window.location.reload();
     });
   };
 
