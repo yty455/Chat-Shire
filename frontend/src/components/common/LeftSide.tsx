@@ -385,7 +385,7 @@ function LeftSide(props: Props) {
                   {["Chat", "Task", "Board", "Analysis"].map((text, index) => (
                     <ListItemButton
                       sx={{
-                        padding: "0px 0px 0px 10px",
+                        padding: "0px 0px 0px 20px",
                         marginBottom: "4px",
                         width: "140px",
                         height: "32px",
