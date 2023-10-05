@@ -29,8 +29,6 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useRecoilState } from "recoil";
 
-const achievements = [];
-
 function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number }
 ) {
