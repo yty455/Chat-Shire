@@ -54,7 +54,6 @@ function TaskModal({
   const getTeamTask = async () => {
     try {
       const response = await getTaskGroupDetail(taskId);
-      console.log(response.data.result[0]);
       setTeamTaskDetail(response.data.result[0]);
     } catch (error) {
       console.error(error);

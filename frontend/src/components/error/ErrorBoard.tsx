@@ -48,7 +48,6 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
     try {
       if (pjtId) {
         const response = await getErrors(pjtId);
-        console.log(response.data.result[0]);
         setAllErrors(response.data.result[0]);
       }
     } catch (error) {
@@ -61,7 +60,6 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
     try {
       if (pjtId) {
         const response = await searchErrSkillName(pjtId, skill);
-        console.log(response.data.result[0]);
         setSkillErrors(response.data.result[0] || []); // 결과가 없는 경우 빈 배열로 설정
         setContentErrors([]); // 내용 에러 목록 비우기
       }
@@ -75,7 +73,6 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
     try {
       if (pjtId) {
         const response = await searchErrConent(pjtId, content);
-        console.log(response.data.result[0]);
         setContentErrors(response.data.result[0] || []); // 결과가 없는 경우 빈 배열로 설정
         setSkillErrors([]); // 기술 에러 목록 비우기
       }
