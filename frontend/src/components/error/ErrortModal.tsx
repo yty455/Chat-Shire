@@ -100,15 +100,17 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <div className={styles.deContainer}>
-          <span style={{fontFamily: "preBd", fontSize: "24px"}}>Q. {errDetail && errDetail.title}</span>
+          <span style={{ fontFamily: "preBd", fontSize: "24px" }}>
+            Q. {errDetail && errDetail.title}
+          </span>
           <p>{errDetail.content}</p>
-          <span style={{fontFamily: "preLt", fontSize: "14px"}}>
+          <span style={{ fontFamily: "preLt", fontSize: "14px" }}>
             생성날짜:
             {errDetail.createdDate
               ? errDetail.createdDate.toLocaleString()
               : "날짜 없음"}
           </span>
-          <span style={{fontFamily: "preLt", fontSize: "14px"}}>
+          <span style={{ fontFamily: "preLt", fontSize: "14px" }}>
             수정날짜:
             {errDetail.lastModifiedDate
               ? errDetail.lastModifiedDate.toLocaleString()
@@ -130,16 +132,22 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               }}
             />
           </div>
-          <div style={{display:'flex', alignItems:'center', justifyContent:'start'}}>
-            {errDetail.attachedFileInfos && (
-              errDetail.attachedFileInfos.map((info: { url: string }, index: number) => (
-                <img style={{marginRight: '5px', height: '200px'}} key={index} src={info.url} alt="Preview" />
-              ))
-            )}
+          <div className={styles.errImageContainer}>
+            {errDetail.attachedFileInfos &&
+              errDetail.attachedFileInfos.map(
+                (info: { url: string }, index: number) => (
+                  <img
+                    style={{ marginRight: "5px", height: "200px" }}
+                    key={index}
+                    src={info.url}
+                    alt="Preview"
+                  />
+                )
+              )}
           </div>
         </div>
         <div className={styles.reContainer}>
-          <span style={{fontFamily: "preBd", fontSize: "24px"}}>A. </span>
+          <span style={{ fontFamily: "preBd", fontSize: "24px" }}>A. </span>
           {errDetail &&
             errDetail?.replies &&
             errDetail.replies.map((item: any) => {
@@ -155,36 +163,36 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                     }}
                   />
                   {item.nickname} :{" "}
-                  {userData.nickname === item.nickname ? (
-                    editingCommentId === item.replyId ? (
-                      <>
-                        <input
-                          type="text"
-                          value={item.content}
-                          onChange={(e) => setEditedComment(e.target.value)}
-                        />
-                        <button
-                          onClick={() =>
-                            updateReply(item.replyId, editedComment)
-                          }
-                        >
-                          저장
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        {item.content}
-                        <button
-                          onClick={() => setEditingCommentId(item.replyId)}
-                        >
-                          수정
-                        </button>
-                        <button onClick={() => deleteReply(item.replyId)}>
-                          삭제
-                        </button>
-                      </>
-                    )
-                  ) : null}
+                  {editingCommentId === item.replyId ? (
+                    <>
+                      <input
+                        type="text"
+                        value={item.content}
+                        onChange={(e) => setEditedComment(e.target.value)}
+                      />
+                      <button
+                        onClick={() => updateReply(item.replyId, editedComment)}
+                      >
+                        저장
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      {item.content}
+                      {userData.nickname === item.nickname ? (
+                        <>
+                          <button
+                            onClick={() => setEditingCommentId(item.replyId)}
+                          >
+                            수정
+                          </button>
+                          <button onClick={() => deleteReply(item.replyId)}>
+                            삭제
+                          </button>
+                        </>
+                      ) : null}
+                    </>
+                  )}
                 </div>
               );
             })}
