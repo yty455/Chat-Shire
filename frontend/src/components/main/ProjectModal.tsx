@@ -66,6 +66,13 @@ function ProjectModal({
     setEditState(fieldName);
   };
 
+  const handleDeleteClick = () => {
+    const userResponse = window.confirm("프로젝트에서 정말 나가시겠어요?");
+    if (userResponse) {
+      deleteProject(pjt.id);
+    }
+  };
+
   useEffect(() => {
     getProjectDetail();
     // 클릭 이벤트 핸들러 등록
@@ -275,7 +282,7 @@ function ProjectModal({
         style={{ backgroundColor: "red", fontFamily: "preRg" }}
         key="submit"
         type="primary"
-        onClick={() => deleteProject(pjt.id)}
+        onClick={handleDeleteClick}
       >
         프로젝트 나가기
       </Button>
