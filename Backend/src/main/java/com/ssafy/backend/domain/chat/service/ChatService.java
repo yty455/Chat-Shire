@@ -128,7 +128,7 @@ public class ChatService {
         // 여기서 chatNumber 맞는거 찾아서 10개 담기
         for (int idx = 0; idx < chatSQL.size(); idx++) {
             if (Objects.equals(chatSQL.get(idx).getChatNumber(), referenceChatInfo.getChatNumber())) {
-                findChats = chatSQL.subList(idx, idx + 10 < chatSQL.size() ? idx + 10 : chatSQL.size() - 1);
+                findChats = chatSQL.subList(idx, Math.min(idx + 10, chatSQL.size()));
                 break;
             }
         }
