@@ -130,33 +130,12 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               }}
             />
           </div>
-<<<<<<< HEAD
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "start",
-            }}
-          >
-            {errDetail.attachedFileInfos &&
-              errDetail.attachedFileInfos.map(
-                (info: { url: string }, index: number) => (
-                  <img
-                    style={{ marginRight: "5px", height: "200px" }}
-                    key={index}
-                    src={info.url}
-                    alt="Preview"
-                  />
-                )
-              )}
-=======
           <div style={{display:'flex', alignItems:'center', justifyContent:'start'}}>
             {errDetail.attachedFileInfos && (
               errDetail.attachedFileInfos.map((info: { url: string }, index: number) => (
                 <img style={{marginRight: '5px', height: '200px'}} key={index} src={info.url} alt="Preview" />
               ))
             )}
->>>>>>> 41d07f948ae40e8fb23045822ef5f0f4f889e44a
           </div>
         </div>
         <div className={styles.reContainer}>
