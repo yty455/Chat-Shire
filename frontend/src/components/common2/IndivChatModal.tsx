@@ -136,16 +136,21 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
               <div key={chat.chatNumber} className={styles.chat}>
                 {" "}
                 <div className={styles.nickname}>{chat.nickname} : </div>
-                <div
-                  className={styles.content}
-                  onClick={() => handleClick(chat.id)}
-                >
-                  {chat.content}
-                </div>
+                <div className={styles.content}>{chat.content}</div>
                 <div className={styles.chatTime}>
                   {" "}
                   : {formatChatTime(chat.chatTime)}
                 </div>
+                <button
+                  className={styles.deletebtn}
+                  style={{
+                    backgroundColor: "#39a789",
+                    fontFamily: "preRg",
+                  }}
+                  onClick={() => handleClick(chat.id)}
+                >
+                  확장
+                </button>
                 <button
                   className={styles.deletebtn}
                   style={{
