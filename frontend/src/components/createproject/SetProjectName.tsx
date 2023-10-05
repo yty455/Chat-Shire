@@ -45,6 +45,7 @@ function SetProjectName({
         defaultValue={data.name}
         variant="standard"
         onChange={handleNameChange}
+        inputProps={{ maxLength: 10 }}
         // helperText="Please enter your name"
       />
       <TextField
