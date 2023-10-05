@@ -110,7 +110,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
       setWorkStyleColor({ main: "#4ED480", sub: "#54CCC7" });
     } else if (totalChatCount(allCategoryCount) > 100) {
       setWorkStyle("chat");
-      setWorkStyleColor({ main: "#F3AAF7", sub: "#779DFF" });
+      setWorkStyleColor({ main: "#779DFF", sub: "#F3AAF7" });
     } else if (nightCommit > 9) {
       setWorkStyle("night");
       setWorkStyleColor({ main: "#3E008C", sub: "#E8CA46" });
