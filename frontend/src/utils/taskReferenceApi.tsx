@@ -24,3 +24,7 @@ export const postReferences = (
     chatNumber,
     chatTime,
   });
+
+// 태스크 참조 대화 10개 조회
+export const getReferencesChat = (referenceId: string) =>
+  api.get(`/reference/${referenceId}/chats`);

@@ -50,4 +50,19 @@ public class ChatController {
         return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
     }
 
+    @Operation(summary = "참조 채팅 내역 불러오기", description = "태스크에 참조된 채팅 이후 10개의 채팅 내역을 불러 옵니다.")
+    @GetMapping("/reference/{referenceId}/chats")
+    public ResponseEntity<BasicResponse> getReferenceChats(@PathVariable(name = "referenceId") Long referenceId) {
+
+        List<ChatInfoResponse> chatInfoResponses = chatService.getReferenceChats(referenceId);
+
+        BasicResponse basicResponse = BasicResponse.builder()
+                .count(chatInfoResponses.size())
+                .result(Collections.singletonList(chatInfoResponses))
+                .message("참조 채팅 조회 성공")
+                .build();
+
+        return new ResponseEntity<>(basicResponse, basicResponse.getHttpStatus());
+    }
+
 }

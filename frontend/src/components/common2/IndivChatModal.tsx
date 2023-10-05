@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./IndivChatModal.module.css";
-import { getReferences, deleteReferences } from "../../utils/taskReferenceApi";
+import {
+  getReferences,
+  deleteReferences,
+  getReferencesChat,
+} from "../../utils/taskReferenceApi";
 import { Button } from "antd";
 
 interface IndivChatModalProps {
@@ -17,6 +21,9 @@ interface ChatItem {
 
 function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
   const [taskChat, setTaskChat] = useState<ChatItem[]>([]);
+  const [reChat, setReChat] = useState<ChatItem[]>([]);
+  const [chat, setChat] = useState([]);
+  const [selectedChat, setSelectedChat] = useState("");
 
   const getTaskChat = async () => {
     try {
@@ -27,6 +34,22 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
       console.error(error);
     }
   };
+
+  const getInReChat = async (reId: string) => {
+    try {
+      const response = await getReferencesChat(reId);
+      console.log(response.data);
+      setReChat(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleClick = async (reId: string) => {
+    setSelectedChat(reId);
+    getInReChat(reId);
+  };
+
   const deleteRe = async (chatId: string) => {
     try {
       const response = await deleteReferences(taskId, chatId);
@@ -52,11 +75,13 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
           taskChat.map((chat) => (
             <div key={chat.chatNumber} className={styles.chat}>
               {" "}
-              <div className={styles.nickname}>{chat.nickname} : </div>
-              <div className={styles.content}>{chat.content}</div>
-              <div className={styles.chatTime}>
-                {" "}
-                : {formatChatTime(chat.chatTime)}
+              <div onClick={() => handleClick(chat.id)}>
+                <div className={styles.nickname}>{chat.nickname} : </div>
+                <div className={styles.content}>{chat.content}</div>
+                <div className={styles.chatTime}>
+                  {" "}
+                  : {formatChatTime(chat.chatTime)}
+                </div>
               </div>
               <button
                 className={styles.deletebtn}
