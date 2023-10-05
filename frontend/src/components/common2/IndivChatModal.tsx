@@ -68,6 +68,10 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
     getInReChat(reId);
   };
 
+  const handleDelete = async () => {
+    setSelectedChat("");
+  };
+
   const deleteRe = async (chatId: string) => {
     try {
       const response = await deleteReferences(taskId, chatId);
@@ -118,10 +122,10 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
             ))}
           <button
             style={{ cursor: "pointer" }}
-            onClick={onClose}
+            onClick={handleDelete}
             className={styles.closebtn}
           >
-            X
+            {"<<"}
           </button>
         </div>
       ) : (
