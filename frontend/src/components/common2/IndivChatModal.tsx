@@ -6,30 +6,48 @@ import {
   getReferencesChat,
 } from "../../utils/taskReferenceApi";
 import { Button } from "antd";
+import { getProjectMem } from "../../utils/projectApi";
 
 interface IndivChatModalProps {
   onClose: () => void;
   taskId: any;
+  projectId: string;
 }
 interface ChatItem {
+  userId?: string;
   nickname: string;
   content: string;
   chatTime: string;
   chatNumber: number;
   id: string;
 }
+interface Member {
+  userId: string;
+  nickname: string;
+}
 
-function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
+function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
   const [taskChat, setTaskChat] = useState<ChatItem[]>([]);
   const [reChat, setReChat] = useState<ChatItem[]>([]);
   const [chat, setChat] = useState([]);
   const [selectedChat, setSelectedChat] = useState("");
+  const [pjtMem, setpjtMem] = useState<Member[]>([]);
 
   const getTaskChat = async () => {
     try {
       const response = await getReferences(taskId);
       console.log(response.data.result[0]);
       setTaskChat(response.data.result[0]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getProjectUsers = async () => {
+    try {
+      const response = await getProjectMem(projectId);
+      console.log(response.data.result[0]);
+      setpjtMem(response.data.result[0]);
     } catch (error) {
       console.error(error);
     }
@@ -50,6 +68,10 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
     getInReChat(reId);
   };
 
+  const handleDelete = async () => {
+    setSelectedChat("");
+  };
+
   const deleteRe = async (chatId: string) => {
     try {
       const response = await deleteReferences(taskId, chatId);
@@ -67,6 +89,7 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
 
   useEffect(() => {
     getTaskChat();
+    getProjectUsers();
   }, []);
 
   return (
@@ -77,7 +100,14 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
             reChat.map((chat) => (
               <div key={chat.chatNumber} className={styles.chat}>
                 {" "}
-                <div className={styles.nickname}>{chat.nickname} : </div>
+                <div className={styles.nickname}>
+                  {" "}
+                  {
+                    pjtMem.find((member) => member.userId === chat.userId)
+                      ?.nickname
+                  }{" "}
+                  :
+                </div>
                 <div
                   className={styles.content}
                   onClick={() => handleClick(chat.id)}
@@ -92,10 +122,10 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
             ))}
           <button
             style={{ cursor: "pointer" }}
-            onClick={onClose}
+            onClick={handleDelete}
             className={styles.closebtn}
           >
-            X
+            {"<<"}
           </button>
         </div>
       ) : (
@@ -120,8 +150,6 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
                   style={{
                     backgroundColor: "red",
                     fontFamily: "preRg",
-                    width: "30px",
-                    height: "25px",
                   }}
                   onClick={() => deleteRe(chat.id)}
                 >
