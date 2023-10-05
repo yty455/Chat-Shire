@@ -22,7 +22,6 @@ export default function MessageItem({
   message: any;
   users: any;
 }) {
-  console.log(users);
   const [user, setUser] = useState<User>({
     nickname: "",
     profileColor: "",
@@ -97,8 +96,6 @@ export default function MessageItem({
         setUser(filteredUsers[0]); // filter 함수의 결과는 배열이므로 첫 번째 요소만 가져옵니다.
       }
     }
-
-    console.log(user);
   }, [users]);
   function formatChatTime(chatTime: any) {
     const date = new Date(chatTime);
