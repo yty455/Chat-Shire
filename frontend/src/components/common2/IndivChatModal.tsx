@@ -21,6 +21,7 @@ interface ChatItem {
 
 function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
   const [taskChat, setTaskChat] = useState<ChatItem[]>([]);
+  const [reChat, setReChat] = useState<ChatItem[]>([]);
   const [chat, setChat] = useState([]);
   const [selectedChat, setSelectedChat] = useState("");
 
@@ -38,7 +39,7 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
     try {
       const response = await getReferencesChat(reId);
       console.log(response.data);
-      setTaskChat(response.data.result[0]);
+      setReChat(response.data.result[0]);
     } catch (error) {
       console.error(error);
     }
