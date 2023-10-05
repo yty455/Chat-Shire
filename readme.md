@@ -49,7 +49,7 @@
 
 
 ## 데이터 베이스 모델링 (ERD)
-<img src="README/ERD.png" title="" alt="ERD.png" width="200">
+<img src="README/ERD.png" title="" alt="ERD.png" width="400">
 
 
 ## 프로젝트 구조도
