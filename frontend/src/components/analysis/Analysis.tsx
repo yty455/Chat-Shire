@@ -32,9 +32,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
   const [workStyleColor, setWorkStyleColor] = useRecoilState(workStyleColor_recoil);
   const [keywords, setKeywords] = useRecoilState(keywords_recoil);
   const [morningCommit, setMorningCommit] = useRecoilState(morningCount_recoil);
-  const [afternoonCommit, setAfternoonCommit] = useRecoilState(
-    afternoonCount_recoil
-  );
+  const [afternoonCommit, setAfternoonCommit] = useRecoilState(afternoonCount_recoil);
   const [nightCommit, setNightCommit] = useRecoilState(nightCount_recoil);
   const [issueCount, setIssueCount] = useRecoilState(issueCount_recoil);
   const [allCategoryCount, setAllCategoryCount] = useRecoilState(
@@ -120,6 +118,9 @@ export default function Analysis({ projectId }: AnalysisProps) {
     } else if (relevantChatCount(allCategoryCount) > 50) {
       setWorkStyle("idea");
       setWorkStyleColor({main: "#F0ADC7", sub: "#FFDD88"})
+    } else {
+      setWorkStyle("baby")
+      setWorkStyleColor({main: "#89e3ec", sub: "#ffd82c"})
     }
   };
 
@@ -233,14 +234,14 @@ export default function Analysis({ projectId }: AnalysisProps) {
               <PiChart />
             </div>
             <div className={styles.analysisBarChart}>
-              <BarChart />
+              <BarChart/>
             </div>
           </div>
         </div>
       </div>
       <div className={styles.analysisBody}>
         <div className={styles.analysisRadarContainer}>
-          <RadarChart />
+          <RadarChart/>
         </div>
         <div className={styles.analysisResult}>
           <div className={styles.analysisBodyTitle}>

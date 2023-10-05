@@ -140,10 +140,10 @@ export default function ProfilePage() {
             </div>
             <div className={styles.profileHeaderRight}>
               <div className={styles.profileRadarContainer}>
-                <RadarChart />
+                <RadarChart/>
               </div>
               <div className={styles.profileBarContainer}>
-                <BarChart />
+                <BarChart/>
               </div>
             </div>
             <IoMdSettings
