@@ -19,13 +19,11 @@ import { BiSearch, BiSolidSearch } from "react-icons/bi";
 // import {HiOutlinePhoto} from "react-icons/hi"
 import { HiOutlinePhoto, HiPhoto } from "react-icons/hi2";
 import { AiOutlineFolder, AiFillFolder } from "react-icons/ai";
-import { LiaSearchSolid } from "react-icons/lia";
+
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import Grow from "@mui/material/Grow";
 import SendIcon from "@mui/icons-material/Send";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 
 import SockJS from "sockjs-client";
 import {
@@ -41,13 +39,11 @@ import { useSetRecoilState } from "recoil";
 
 import EmojiPicker from "emoji-picker-react";
 
-import { useDrag } from "react-dnd";
-import { ItemTypes } from "./ItemTypes";
 import AWS from "aws-sdk";
 import { getProjectMem } from "../../utils/projectApi";
 
 import { QuestionCircleOutlined } from "@ant-design/icons";
-import { FloatButton, Popover } from "antd";
+import { Popover } from "antd";
 
 interface MessageProps {
   projectId: string;
@@ -66,8 +62,6 @@ interface User {
 }
 
 function Message({ projectId }: MessageProps) {
-  // const projectId = useParams().projectId;
-  // console.log("Message", projectId);
   const [value, setValue] = useState("media");
   const [preMessage, setPreMessage] = useState<any[]>([]);
   const [message, setMessage] = useState("");
@@ -88,7 +82,6 @@ function Message({ projectId }: MessageProps) {
   const [users, setUsers] = useState<User[]>([]);
 
   const handleChange = (e: any) => {
-    // console.log(e.currentTarget);
     e.preventDefault();
     setValue(e.currentTarget.value);
     setSelectedButton(e.currentTarget.value);
@@ -107,11 +100,7 @@ function Message({ projectId }: MessageProps) {
   const getpjt = async () => {
     try {
       const response = await getProject(projectId);
-      console.log("플젝정보", response.data);
-      // setPjt(response.data.result[0]);
-      console.log("불러온 공지", response.data.result[0].notice);
       setNotice(response.data.result[0].notice);
-      console.log("플젝 이름", response.data.result[0].name);
       setPjtName(response.data.result[0].name);
     } catch (error) {
       console.error(error);
@@ -121,7 +110,6 @@ function Message({ projectId }: MessageProps) {
   const getImage = async () => {
     try {
       const response = await getFiles(projectId, "IMAGE");
-      // console.log(response.data.result[0]);
       setImage(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -130,7 +118,6 @@ function Message({ projectId }: MessageProps) {
   const getVideo = async () => {
     try {
       const response = await getFiles(projectId, "VIDEO");
-      // console.log(response.data.result[0]);
       setVideo(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -139,7 +126,6 @@ function Message({ projectId }: MessageProps) {
   const getFile = async () => {
     try {
       const response = await getFiles(projectId, "FILE");
-      // console.log(response.data.result[0]);
       setFile(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -149,9 +135,7 @@ function Message({ projectId }: MessageProps) {
   const getProjectUsers = async () => {
     try {
       const response = await getProjectMem(projectId);
-      console.log(response.data.count);
       setPjtMemCount(response.data.count);
-      console.log(response.data.result[0]);
       setUsers(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -222,11 +206,9 @@ function Message({ projectId }: MessageProps) {
 
   const makeNotice = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && noticeInputValue !== "") {
-      console.log("공지 put");
       putNotification(projectId, noticeInputValue)
         .then(() => {
           setNotice(noticeInputValue);
-          console.log("새로운 공지 등록");
         })
         .catch((error) => {
           console.error("공지 업데이트 오류:", error);
@@ -277,7 +259,6 @@ function Message({ projectId }: MessageProps) {
       reader.onload = () => {
         setImageSrc(reader.result || "");
         setImageFile(file);
-        console.log("지금 업로드하는 이미지 src", imageSrc);
         if (!reader.result) {
           window.alert("이미지를 등록해 주세요.");
           resolve();
@@ -530,24 +511,6 @@ function Message({ projectId }: MessageProps) {
               onKeyPress={(e) => makeNotice(e)}
             />
           )}
-          {/* <input
-            maxLength={50}
-            style={{
-              width: "450px",
-              border: "none",
-              marginLeft: "5px",
-              fontFamily: "preRg",
-            }}
-            placeholder={notice}
-            type="text"
-            defaultValue={notice}
-            // value={noticeInputValue}
-            onChange={(e) => {
-              setNoticeInputValue(e.target.value);
-              console.log(e.target.value);
-            }}
-            onKeyPress={(e) => makeNotice(e)}
-          /> */}
         </div>
         <div className={styles.messageLeftBody}>
           {preMessage &&
