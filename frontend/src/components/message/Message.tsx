@@ -268,12 +268,12 @@ function Message({ projectId }: MessageProps) {
         const formData = new FormData();
         formData.append("file", file);
         formData.append("name", file.name);
-      
-        setTimeout(() => {  
+
+        setTimeout(() => {
           uploadS3(formData)
             .then(() => resolve())
             .catch((error) => reject(error));
-        }, 0); 
+        }, 0);
       };
     });
   };

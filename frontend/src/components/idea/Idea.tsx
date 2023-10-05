@@ -192,25 +192,29 @@ function Flow({ pjtId }: IdeaProps) {
       >
         <Controls showInteractive={false} />
         <MiniMap style={minimapStyle} zoomable pannable />
-        <Popover placement="right" content={content} trigger="hover">
-          <FloatButton
-            icon={<QuestionCircleOutlined />}
-            type="default"
-            style={{ width: 22, height: 20, bottom: 540, left: 310 }}
-          />
-        </Popover>
+        <div style={{ position: "relative" }}>
+          <Popover placement="right" content={content} trigger="hover">
+            <FloatButton
+              icon={<QuestionCircleOutlined />}
+              type="default"
+              style={{ width: 22, height: 20, bottom: 540, left: 310 }}
+            />
+          </Popover>
+        </div>
 
-        <Controls showInteractive={false}>
-          <Button
-            className={styles.savebtn}
-            style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
-            key="submit"
-            type="primary"
-            onClick={saveMindmapData}
-          >
-            저장
-          </Button>
-        </Controls>
+        <div style={{ position: "relative" }}>
+          <Controls showInteractive={false}>
+            <Button
+              className={styles.savebtn}
+              style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
+              key="submit"
+              type="primary"
+              onClick={saveMindmapData}
+            >
+              저장
+            </Button>
+          </Controls>
+        </div>
       </ReactFlow>
     </div>
   );
