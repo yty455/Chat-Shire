@@ -5,7 +5,6 @@ import Share from "../components/idea/Share";
 import ErrorBoard from "../components/error/ErrorBoard";
 import LeftSide from "../components/common/LeftSide";
 import ErrorCreate from "../components/error/ErrorCreate";
-// import IndivTask from "../components/common2/IndivTask";
 import styles from "./IdeaPage.module.css";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
