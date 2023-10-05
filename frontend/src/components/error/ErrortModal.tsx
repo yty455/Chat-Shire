@@ -128,61 +128,60 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
             </div>
           </div>
         </div>
-        <div className={styles.reContainer}>
+        <div className={styles.replyContainer}>
           <span style={{ fontFamily: "preBd", fontSize: "24px" }}>Answers. </span>
           <input type="text" value={content} onChange={(e) => setContent(e.target.value)} onKeyPress={handleEnterKeyPress}/>
-          {errDetail &&
-            errDetail?.replies &&
-            errDetail.replies.map((item: any) => {
-              return (
-                <div className={styles.replyContainer} key={item.replyId}>
-                  <div className={styles.replyLeft}>
-                    <Avatar
-                      alt={item.nickname}
-                      src={process.env.PUBLIC_URL + item.profileImage}
-                      sx={{
-                        width: 40,
-                        height: 40,
-                        backgroundColor: item.profileColor,
-                      }}
-                    />
-                    <span>
-                      {item.nickname} : {" "}
-                    </span>
-                  </div>
-                  {editingCommentId === item.replyId ? (
-                    <div>
-                      <input
-                        type="text"
-                        value={item.content}
-                        onChange={(e) => setEditedComment(e.target.value)}
+          <div className={styles.replyScrollContainer}>
+            {errDetail &&
+              errDetail?.replies &&
+              errDetail.replies.map((item: any) => {
+                return (
+                  <div className={styles.replyItemContainer} key={item.replyId}>
+                    <div className={styles.replyLeft}>
+                      <Avatar
+                        alt={item.nickname}
+                        src={process.env.PUBLIC_URL + item.profileImage}
+                        sx={{
+                          width: 40,
+                          height: 40,
+                          backgroundColor: item.profileColor,
+                        }}
                       />
-                      <button
-                        onClick={() => updateReply(item.replyId, editedComment)}
-                      >
-                        저장
-                      </button>
                     </div>
-                  ) : (
-                    <div>
-                      {item.content}
-                      {userData.nickname === item.nickname ? (
-                        <div>
-                          <button
-                            onClick={() => setEditingCommentId(item.replyId)}
-                          >
-                            수정
-                          </button>
-                          <button onClick={() => deleteReply(item.replyId)}>
-                            삭제
-                          </button>
-                        </div>
-                      ) : null}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+                    {editingCommentId === item.replyId ? (
+                      <div className={styles.replyRight}>
+                        <input
+                          type="text"
+                          value={item.content}
+                          onChange={(e) => setEditedComment(e.target.value)}
+                        />
+                        <button
+                          onClick={() => updateReply(item.replyId, editedComment)}
+                        >
+                          저장
+                        </button>
+                      </div>
+                    ) : (
+                      <div className={styles.replyRight}>
+                        {item.content}
+                        {userData.nickname === item.nickname ? (
+                          <div>
+                            <button
+                              onClick={() => setEditingCommentId(item.replyId)}
+                            >
+                              수정
+                            </button>
+                            <button onClick={() => deleteReply(item.replyId)}>
+                              삭제
+                            </button>
+                          </div>
+                        ) : null}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+          </div>
         </div>
         <button onClick={closeModal} className={styles.closebtn}>
           X
