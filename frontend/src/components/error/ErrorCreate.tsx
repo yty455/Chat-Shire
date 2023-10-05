@@ -323,9 +323,7 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
   // };
 
   // s3에 이미지 업로드
-  // const uploadS3 = (formData: any) => {
-  const uploadS3 = (file: File): Promise<string> => { // Update the function signature
-
+  const uploadS3 = (file: File): Promise<string> => { 
     const REGION = process.env.REACT_APP_REGION;
     const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
     const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
@@ -336,59 +334,16 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
       secretAccessKey: SECRET_ACCESS_KEY,
     });
 
-    // const upload = new AWS.S3.ManagedUpload({
-    //   params: {
-    //     ACL: "public-read",
-    //     Bucket: "chat-shire",
-    //     Key: `error/${imageFile.name}`,
-    //     Body: imageFile,
-    //   },
-    // });
-
     const uploadPromise = new AWS.S3.ManagedUpload({
       params: {
         ACL: "public-read",
         Bucket: "chat-shire",
         Key:`error/${file.name}`,
         Body : file,
-      },
-    }).promise();
-
-    return uploadPromise.then(() => 
-    `https://chat-shire.s3.amazonaws.com/error/${file.name}`
-  );
-
-  //   return upload.promise().then(() => {
-  //     console.log("사진 업로드");
-  //     return `https://chat-shire.s3.amazonaws.com/${imageFile.name}`;
-  //   });
-  };
-
-  // attachedInfos - antd꺼
-  const handleChangePic: UploadProps["onChange"] = async ({
-    fileList: newFileList }) => {
-    
-    const attachedFileInfos: FileInfo[] = [];
-    
-    for (let file of newFileList) {
-    if (!file.url && !file.preview && file.originFileObj) {
-      const url = await uploadS3(file.originFileObj);
-      file.url = url;
-      file.preview = url;
-    }
-
-    if (file.url) {
-      attachedFileInfos.push({ url: file.url, thumbnail: "" });
-      console.log('첨부한 이미지 url', attachedFileInfos);
-
-    } else {
-      console.error('undefined');
-    }
-  }
-  console.log('첨부한 이미지 url', attachedFileInfos);
-  
-  setAttachedFileInfos(attachedFileInfos);
-  setFileList(newFileList);
+      }}).promise()
+      return uploadPromise.then(() => 
+        `https://chat-shire.s3.amazonaws.com/error/${file.name}`
+      );
   };
 
   // 파일 선택 시 바로 업로드 - 내꺼
