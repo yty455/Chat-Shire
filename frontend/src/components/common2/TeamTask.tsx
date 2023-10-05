@@ -686,10 +686,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     </p>
                   </div>
                 </div>
-                <div
-                  className={styles.stepStatus}
-                  onClick={() => openModal(task.id)}
-                >
+                <div className={styles.stepStatus}>
                   {task.progress === "ONGOING" ? (
                     <StyledBadge
                       sx={{ margin: "14px 0 15px 20px" }}
