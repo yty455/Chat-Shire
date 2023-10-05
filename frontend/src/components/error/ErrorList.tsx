@@ -16,10 +16,10 @@ function ErrorList({ errors, onErrorCardClick }: ErrorListProps) {
         justifyContent: "space-between",
         alignItems: "center",
         flexWrap: "wrap",
-        overflow: "scroll"
+        overflow: "scroll",
       }}
     >
-      {errors.map((error: any, index: number) => (
+      {errors?.map((error: any, index: number) => (
         <ErrorCard key={index} error={error} onCardClick={onErrorCardClick} />
       ))}
     </div>
