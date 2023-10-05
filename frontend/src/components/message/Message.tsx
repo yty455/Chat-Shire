@@ -401,6 +401,7 @@ function Message({ projectId }: MessageProps) {
           .promise()
           .then(() => {
             console.log("파일 업로드 완료");
+            window.location.reload();
           })
           .catch((error) => {
             console.error("업로드 실패", error);
@@ -437,12 +438,16 @@ function Message({ projectId }: MessageProps) {
     return upload.promise().then(() => {
       console.log("미디어 업로드");
       const mediaUrl = `https://chat-shire.s3.amazonaws.com/chat/media/${projectId}/${imageFile.name}`
-      const newAttachedFileInfos = [...attachedFileInfos, { url: mediaUrl, thumbnail: mediaUrl }]
-      // attachedFileInfos.push({ url: mediaUrl, thumbnail: mediaUrl })
+      // const newAttachedFileInfos = [...attachedFileInfos, { url: mediaUrl, thumbnail: mediaUrl }]
+      attachedFileInfos.push({ url: mediaUrl, thumbnail: mediaUrl })
 
-      setAttachedFileInfos(newAttachedFileInfos);
+      // setAttachedFileInfos(newAttachedFileInfos);
+      setAttachedFileInfos(attachedFileInfos);
+      console.log('담아보낼 파일', attachedFileInfos)
+      // postChat(Number(projectId), "", newAttachedFileInfos);
+      postChat(Number(projectId), "", attachedFileInfos);
+      // window.location.reload();
 
-      postChat(Number(projectId), "", newAttachedFileInfos);
     });
   };
 
