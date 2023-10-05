@@ -275,13 +275,14 @@ function Message({ projectId }: MessageProps) {
         formData.append("name", file.name);
       
         setTimeout(() => {  
-          uploadS3(formData)
-            .then(() => resolve())
-            .catch((error) => reject(error));
+          if(imageFile) {
+            uploadS3(formData)
+              .then(() => resolve())
+              .catch((error) => reject(error));
+          }
         }, 0); 
-      };
-    });
-  };
+      }});}
+     
       
   //     reader.onload = () => {
   //       setImageSrc(reader.result || "");
