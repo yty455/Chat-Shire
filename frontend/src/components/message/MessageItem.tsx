@@ -147,7 +147,7 @@ export default function MessageItem({
             onClickDeleteChattingRoom(e);
           }}
         >
-          <span>{message && message?.content}</span>
+          <span style={{wordBreak: "break-all"}}>{message && message?.content}</span>
         </div>
       </div>
     </div>

@@ -202,21 +202,16 @@ function Flow({ pjtId }: IdeaProps) {
             />
           </Popover>
         </div>
-
-        <div>
-          <Controls showInteractive={false}>
-            <Button
-              className={styles.savebtn}
-              style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
-              key="submit"
-              type="primary"
-              onClick={saveMindmapData}
-            >
-              저장
-            </Button>
-          </Controls>
-        </div>
       </ReactFlow>
+      <Button
+        className={styles.savebtn}
+        style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
+        key="submit"
+        type="primary"
+        onClick={saveMindmapData}
+      >
+        저장
+      </Button>
     </div>
   );
 }
