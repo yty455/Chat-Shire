@@ -81,7 +81,7 @@ const AllBorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
-    backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
+    backgroundColor: theme.palette.mode === "light" ? "#39a789" : "#308fe8",
   },
 }));
 
@@ -469,11 +469,14 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     <div className={styles.container}>
       <div className={styles.title}>
         {pjt && <p className={styles.messageLeftTitle}>{pjt.name}</p>}
-        <AllBorderLinearProgress
-          style={{ marginTop: "29px", width: "500px" }}
-          variant="determinate"
-          value={(comTeamTask.length / allTeamTask.length) * 100}
-        />
+        <div style={{display: "flex", alignItems: "center", margin: "0px 0px 10px 20px"}}>
+          <AllBorderLinearProgress
+            style={{ margin: "0px 10px 0px 0px", width: "500px" }}
+            variant="determinate"
+            value={(comTeamTask.length / allTeamTask.length) * 100}
+            />
+          <span>{(comTeamTask.length / allTeamTask.length) * 100}%</span>
+        </div>
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <div
@@ -498,7 +501,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
                 <div className={styles.taskHeader}>
                   <div className={styles.clockNday}>
-                    <WatchLaterIcon />
+                    <WatchLaterIcon fontSize="medium"/>
                     <p className={styles.dday}>
                       {Math.floor(
                         (new Date(task.deadline).getTime() -
