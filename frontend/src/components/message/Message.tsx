@@ -177,7 +177,7 @@ function Message({ projectId }: MessageProps) {
         client.current?.subscribe(
           `/topic/greetings/${projectId}`,
           (message) => {
-            console.log(message)
+            console.log(message);
             setMessage(JSON.parse(message.body));
           }
         );
@@ -373,9 +373,9 @@ function Message({ projectId }: MessageProps) {
 
   // s3에 이미지 업로드
   const uploadS3 = (formData: any) => {
-  const REGION = process.env.REACT_APP_REGION;
-  const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
-  const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+    const REGION = process.env.REACT_APP_REGION;
+    const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
+    const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
 
     AWS.config.update({
       region: REGION,
