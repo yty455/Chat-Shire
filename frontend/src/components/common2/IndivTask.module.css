@@ -30,7 +30,7 @@
   cursor: pointer;
 
   &:hover {
-    box-shadow: -2px -2px 5px white, 2px 2px 5px #babecc;
+    box-shadow: -2px -2px 5px white, 2px 2px 5px #ced0d7;
   }
   /* &:active {
     box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px white;

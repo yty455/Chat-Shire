@@ -100,20 +100,20 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <div className={styles.deContainer}>
-          <h1>Q {errDetail && errDetail.title}</h1>
+          <span style={{fontFamily: "preBd", fontSize: "24px"}}>Q. {errDetail && errDetail.title}</span>
           <p>{errDetail.content}</p>
-          <p>
+          <span style={{fontFamily: "preLt", fontSize: "14px"}}>
             생성날짜:
             {errDetail.createdDate
               ? errDetail.createdDate.toLocaleString()
               : "날짜 없음"}
-          </p>
-          <p>
+          </span>
+          <span style={{fontFamily: "preLt", fontSize: "14px"}}>
             수정날짜:
             {errDetail.lastModifiedDate
               ? errDetail.lastModifiedDate.toLocaleString()
               : "날짜 없음"}
-          </p>
+          </span>
 
           <h5 className={styles.status}>
             {errDetail && errDetail.state === true ? "완료" : "진행"}
@@ -139,7 +139,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
           </div>
         </div>
         <div className={styles.reContainer}>
-          <p>A </p>
+          <span style={{fontFamily: "preBd", fontSize: "24px"}}>A. </span>
           {errDetail &&
             errDetail?.replies &&
             errDetail.replies.map((item: any) => {

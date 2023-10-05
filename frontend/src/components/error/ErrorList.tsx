@@ -16,6 +16,7 @@ function ErrorList({ errors, onErrorCardClick }: ErrorListProps) {
         justifyContent: "space-between",
         alignItems: "center",
         flexWrap: "wrap",
+        overflow: "scroll"
       }}
     >
       {errors.map((error: any, index: number) => (
