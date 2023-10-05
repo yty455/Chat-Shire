@@ -5,7 +5,13 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import styles from "./SetDate.module.css";
 
-export default function SetDate({ onData }: { onData: (startDate: string, endDate: string) => void;}) {
+export default function SetDate({
+  onData,
+  data,
+}: {
+  onData: (startDate: string, endDate: string) => void;
+  data: any;
+}) {
   const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs());
   const [endDate, setEndDate] = React.useState<Dayjs | null>(
     dayjs().add(1, "week")
@@ -24,11 +30,18 @@ export default function SetDate({ onData }: { onData: (startDate: string, endDat
   };
 
   return (
-    <div style={{display: "flex", justifyContent: "space-between", border: "none", width: "600px" }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        border: "none",
+        width: "600px",
+      }}
+    >
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker value={startDate} onChange={handleStartDateChange} />
+        <DatePicker value={data.startDate} onChange={handleStartDateChange} />
         <DatePicker
-          value={endDate}
+          value={data.endDate}
           onChange={handleEndDateChange}
           className={styles.datepicker}
         />

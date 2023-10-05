@@ -5,8 +5,10 @@ import styles from "./SetProjectInfo.module.css";
 
 export default function SetProjectInfo({
   onData,
+  data,
 }: {
   onData: (topic: string, description: string) => void;
+  data: any;
 }) {
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");
@@ -25,7 +27,14 @@ export default function SetProjectInfo({
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", border: "none", width: "600px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        border: "none",
+        width: "600px",
+      }}
+    >
       <TextField
         color="greenary"
         margin="dense"
@@ -34,7 +43,7 @@ export default function SetProjectInfo({
         required
         id="standard-required"
         label="프로젝트 주제"
-        defaultValue=""
+        defaultValue={data.topic}
         onChange={handleTopicChange}
         variant="standard"
         // helperText="Please enter your name"
@@ -51,7 +60,7 @@ export default function SetProjectInfo({
         multiline
         rows={2}
         onChange={handleDescriptionChange}
-        defaultValue=""
+        defaultValue={data.description}
         // helperText="Please enter your name"
       />
     </div>
