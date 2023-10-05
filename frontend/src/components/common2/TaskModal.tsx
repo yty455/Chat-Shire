@@ -94,8 +94,7 @@ function TaskModal({
       <div className={styles.modalBox}>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
-            <h3>태스크 이름</h3>
-            <p onClick={() => handleEditClick("name")}>
+            <h2 onClick={() => handleEditClick("name")}>
               {editingField === "name" ? (
                 <input
                   type="text"
@@ -110,7 +109,7 @@ function TaskModal({
               ) : (
                 teamTaskDetail.name
               )}
-            </p>
+            </h2>
             <p>태스크 설명</p>
             <p onClick={() => handleEditClick("description")}>
               {editingField === "description" ? (
