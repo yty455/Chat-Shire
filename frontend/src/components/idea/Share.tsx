@@ -76,7 +76,7 @@ export default function Share({ pjtId }: props) {
         {links.length !== 0 ? (
           links.map((link: any) => (
             <div key={link?.linkId}>
-              <LinkOGItem requestUrl={link?.content} />
+              <LinkOGItem requestUrl={link.content || link} />
             </div>
           ))
         ) : (
@@ -104,6 +104,7 @@ export default function Share({ pjtId }: props) {
         pjtId={pjtId}
         open={isModalVisible}
         setOpen={setIsModalVisible}
+        isModalUpdate={isModalUpdate}
       />
     </div>
   );
