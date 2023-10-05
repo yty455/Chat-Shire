@@ -83,11 +83,11 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
           )}
         </div>
         <div
+          className={styles.img}
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "start",
-            overflow: "scroll",
           }}
         >
           {error.attachedFileInfos &&
