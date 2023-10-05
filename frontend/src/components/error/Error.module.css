@@ -65,3 +65,15 @@
 .skillbox {
   display: flex;
 }
+
+.img {
+  overflow: auto;
+  white-space: nowrap;
+}
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.img::-webkit-scrollbar {
+  display: none;
+}

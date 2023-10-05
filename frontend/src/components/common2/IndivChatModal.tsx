@@ -54,6 +54,7 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
     try {
       const response = await deleteReferences(taskId, chatId);
       console.log(response.data.result);
+      getTaskChat();
     } catch (error) {
       console.error(error);
     }
@@ -70,42 +71,73 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
 
   return (
     <div className={styles.modalOverlay}>
-      <div className={styles.modalBox}>
-        {taskChat &&
-          taskChat.map((chat) => (
-            <div key={chat.chatNumber} className={styles.chat}>
-              {" "}
-              <div onClick={() => handleClick(chat.id)}>
+      {selectedChat !== "" ? (
+        <div className={styles.modalBox}>
+          {reChat &&
+            reChat.map((chat) => (
+              <div key={chat.chatNumber} className={styles.chat}>
+                {" "}
                 <div className={styles.nickname}>{chat.nickname} : </div>
-                <div className={styles.content}>{chat.content}</div>
+                <div
+                  className={styles.content}
+                  onClick={() => handleClick(chat.id)}
+                >
+                  {chat.content}
+                </div>
                 <div className={styles.chatTime}>
                   {" "}
                   : {formatChatTime(chat.chatTime)}
                 </div>
               </div>
-              <button
-                className={styles.deletebtn}
-                style={{
-                  backgroundColor: "red",
-                  fontFamily: "preRg",
-                  width: "30px",
-                  height: "25px",
-                }}
-                onClick={() => deleteRe(chat.id)}
-              >
-                삭제
-              </button>
-            </div>
-          ))}
-        <div></div>
-        <button
-          style={{ cursor: "pointer" }}
-          onClick={onClose}
-          className={styles.closebtn}
-        >
-          X
-        </button>
-      </div>
+            ))}
+          <button
+            style={{ cursor: "pointer" }}
+            onClick={onClose}
+            className={styles.closebtn}
+          >
+            X
+          </button>
+        </div>
+      ) : (
+        <div className={styles.modalBox}>
+          {taskChat &&
+            taskChat.map((chat) => (
+              <div key={chat.chatNumber} className={styles.chat}>
+                {" "}
+                <div className={styles.nickname}>{chat.nickname} : </div>
+                <div
+                  className={styles.content}
+                  onClick={() => handleClick(chat.id)}
+                >
+                  {chat.content}
+                </div>
+                <div className={styles.chatTime}>
+                  {" "}
+                  : {formatChatTime(chat.chatTime)}
+                </div>
+                <button
+                  className={styles.deletebtn}
+                  style={{
+                    backgroundColor: "red",
+                    fontFamily: "preRg",
+                    width: "30px",
+                    height: "25px",
+                  }}
+                  onClick={() => deleteRe(chat.id)}
+                >
+                  삭제
+                </button>
+              </div>
+            ))}
+          <button
+            style={{ cursor: "pointer" }}
+            onClick={onClose}
+            className={styles.closebtn}
+          >
+            X
+          </button>
+        </div>
+      )}
     </div>
   );
 }
