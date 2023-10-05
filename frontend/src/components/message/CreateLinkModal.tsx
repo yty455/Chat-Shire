@@ -71,6 +71,7 @@ const ModalComponent: React.FC<{
     setLink("https://");
   };
   useEffect(() => {
+    console.log(isModalUpdate);
     if (isModalUpdate !== "") {
       setLink(isModalUpdate?.content);
     }

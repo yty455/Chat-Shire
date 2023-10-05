@@ -11,8 +11,8 @@ import api from "../../utils/api";
 import { getAnalysis } from "../../utils/analysisApi";
 import { useRecoilState } from "recoil";
 import {
-  nowProject_recoil,
   workStyle_recoil,
+  workStyleColor_recoil,
   keywords_recoil,
   morningCount_recoil,
   afternoonCount_recoil,
@@ -29,6 +29,7 @@ interface AnalysisProps {
 
 export default function Analysis({ projectId }: AnalysisProps) {
   const [workStyle, setWorkStyle] = useRecoilState(workStyle_recoil);
+  const [workStyleColor, setWorkStyleColor] = useRecoilState(workStyleColor_recoil);
   const [keywords, setKeywords] = useRecoilState(keywords_recoil);
   const [morningCommit, setMorningCommit] = useRecoilState(morningCount_recoil);
   const [afternoonCommit, setAfternoonCommit] = useRecoilState(
@@ -103,20 +104,26 @@ export default function Analysis({ projectId }: AnalysisProps) {
   const caculateWorkStyle = () => {
     if (morningCommit + afternoonCommit + nightCommit > 500) {
       setWorkStyle("passion");
+      setWorkStyleColor({main: "#EB9042", sub: "#AE2949"})
     } else if (taskCount > 500) {
       setWorkStyle("jjjj");
+      setWorkStyleColor({main: "#54CCC7", sub: "#4ED480"})
     } else if (totalChatCount(allCategoryCount) > 3000) {
       setWorkStyle("chat");
+      setWorkStyleColor({main: "#F3AAF7", sub: "#779DFF"})
     } else if (nightCommit > 200) {
       setWorkStyle("night");
+      setWorkStyleColor({main: "#E8CA46", sub: "#3E008C"})
     } else if (issueCount > 100) {
       setWorkStyle("fix");
+      setWorkStyleColor({main: "#C03AEC", sub: "#3E008C"})
     } else if (relevantChatCount(allCategoryCount) > 1000) {
       setWorkStyle("idea");
+      setWorkStyleColor({main: "#FFDD88", sub: "#F0ADC7"})
     }
   };
 
-  function decideBodyDesc() {
+  const returnBodyDesc = () => {
     if (workStyle === "baby") {
       return (
         <div className={styles.analysisBodyDesc}>
@@ -165,22 +172,16 @@ export default function Analysis({ projectId }: AnalysisProps) {
           <span className={styles.analysisBodyDescUp}>나는야</span>
           <span className={styles.analysisBodyDescDown}>다고쳐 펠릭스</span>
         </div>
-      );
-    } else {
-      return (
-        <div className={styles.analysisBodyDesc}>
-          <span className={styles.analysisBodyDescUp}>다 비켜!</span>
-          <span className={styles.analysisBodyDescDown}>코린이가 간다</span>
-        </div>
-      );
+      )
     }
-  }
+  };
 
   const returnTeamMembers = teamMembers?.map((member: any) => {
     return <span>{member.nickname}, </span>;
   });
+
   const returnKeywords = Object.entries(allCategoryCount)
-    .sort((a: any, b: any) => a[1] - b[1])
+    .sort((a: any, b: any) => a[1] - b[1]).splice(0, 6)
     .map((entry) => {
       let isSelected = false;
       if (keywords.includes(entry[0])) {
@@ -249,7 +250,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
             <span className={styles.analysisBodyTitleRight}>워크스타일은?</span>
           </div>
           <div>
-            <div>asdasf</div>
+            {returnBodyDesc()}
           </div>
         </div>
       </div>
