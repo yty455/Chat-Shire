@@ -101,7 +101,9 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
       <div className={styles.modalContent}>
         <div className={styles.deContainer}>
           <span style={{fontFamily: "preBd", fontSize: "24px"}}>Q. {errDetail && errDetail.title}</span>
-          <p>{errDetail.content}</p>
+          <div className={styles.deContentContainer}>
+          <span>{errDetail.content}</span>
+          </div>
           <span style={{fontFamily: "preLt", fontSize: "14px"}}>
             생성날짜:
             {errDetail.createdDate
@@ -130,12 +132,14 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               }}
             />
           </div>
-          <div className={styles.errImageContainer}>
-            {errDetail.attachedFileInfos && (
-              errDetail.attachedFileInfos.map((info: { url: string }, index: number) => (
-                <img style={{marginRight: '5px', height: '200px'}} key={index} src={info.url} alt="Preview" />
-              ))
-            )}
+          <div className={styles.errImageScrollContainer}>
+            <div className={styles.errImageContainer}>
+              {errDetail.attachedFileInfos && (
+                errDetail.attachedFileInfos.map((info: { url: string }, index: number) => (
+                  <img style={{marginRight: '5px', height: '200px'}} key={index} src={info.url} alt="Preview" />
+                ))
+              )}
+            </div>
           </div>
         </div>
         <div className={styles.reContainer}>

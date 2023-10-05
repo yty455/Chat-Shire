@@ -27,12 +27,20 @@
   height: 60%;
 }
 
+.deContentContainer {
+  height: 260px;
+}
+
+.errImageScrollContainer {
+  display: flex;
+  width: 490px;
+  height: 100px;
+  overflow: scroll;
+}
+
 .errImageContainer {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  overflow: scroll;
+  flex-wrap: nowrap;
 }
 
 .reContainer {
