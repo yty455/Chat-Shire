@@ -23,7 +23,15 @@ function SetProjectName({
     onData(name, e.target.value);
   };
   return (
-    <div className={styles.inputBox} style={{ display: "flex", flexDirection: "column", border: "none", width: "600px" }}>
+    <div
+      className={styles.inputBox}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        border: "none",
+        width: "600px",
+      }}
+    >
       <TextField
         fullWidth
         color="greenary"
@@ -48,6 +56,7 @@ function SetProjectName({
         defaultValue=""
         onChange={handleTeamNameChange}
         variant="standard"
+        inputProps={{ maxLength: 5 }}
         // helperText="Please enter your name"
       />
     </div>
