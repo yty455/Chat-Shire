@@ -23,18 +23,23 @@
 .deContainer {
   display: flex;
   flex-direction: column;
-  width: 490px;
-  height: 60%;
+  width: 660px;
+  height: 560px;
+  margin-right: 50px;
 }
 
 .deContentContainer {
   height: 260px;
 }
 
+.deContainerHeader {
+  display: flex;
+}
+
 .errImageScrollContainer {
   display: flex;
-  width: 490px;
-  height: 100px;
+  width: 660px;
+  height: 180px;
   overflow: scroll;
 }
 
@@ -46,8 +51,8 @@
 .reContainer {
   display: flex;
   flex-direction: column;
-  width: 490px;
-  height: 30%;
+  width: 400px;
+  height: 560px;
 }
 
 .rep {
