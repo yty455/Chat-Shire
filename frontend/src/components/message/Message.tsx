@@ -161,6 +161,18 @@ function Message({ projectId }: MessageProps) {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [preMessage, projectId]);
 
+  useEffect(() => {
+    if (imageFile) { // imageFile이 null이 아닌 경우에만 uploadS3 호출
+      const formData = new FormData();
+      formData.append("file", imageFile);
+      formData.append("name", imageFile.name);
+  
+      uploadS3(formData)
+        .then(() => console.log('업로드 완료'))
+        .catch((error) => console.error('업로드 실패:', error));
+    }
+  }, [imageFile]);
+
   const connectHandler = () => {
     client.current = Stomp.over(() => {
       const sock = new SockJS(
@@ -268,18 +280,29 @@ function Message({ projectId }: MessageProps) {
         const formData = new FormData();
         formData.append("file", file);
         formData.append("name", file.name);
-      
-        setTimeout(() => {  
-          if(imageFile) {
-            uploadS3(formData)
-              .then(() => resolve())
-              .catch((error) => reject(error));
-          }
-        }, 0); 
-<<<<<<< HEAD
-      }});}
+        e.target.value = null;
+
+        if (!reader.result) {
+          window.alert("이미지를 등록해 주세요.");
+          resolve();
+          return;
+        }
+   
+        resolve(); // 업로드는 useEffect에서 처리하므로 여기서는 resolve()만 호출
+      };
+    });
+   };
+        // 두번째 시도
+      //   setTimeout(() => {  
+      //     if(imageFile) {
+      //       uploadS3(formData)
+      //         .then(() => resolve())
+      //         .catch((error) => reject(error));
+      //     }
+      //   }, 0); 
+      // }});}
      
-      
+  //   rkw가장 첫 버전   
   //     reader.onload = () => {
   //       setImageSrc(reader.result || "");
   //       setImageFile(file);
@@ -299,11 +322,6 @@ function Message({ projectId }: MessageProps) {
   //     };
   //   });
   // };
-=======
-      };
-    });
-  };
->>>>>>> ee91d43e3bcb5ae03d78bc308e62140e3f31378e
 
   // 파일 업로드
   const onUploadFile = (e: any): Promise<void> => {
