@@ -71,11 +71,7 @@ export default function CustomProfileInfo({
       setIntroduction(userData.introduction);
       setDetailIntroduction(userData.detailIntroduction);
       setSelectedId(userData.mySkill);
-      console.log(selectedId);
-      console.log(position);
     }
-    console.log(introduction);
-    console.log(position);
   }, []);
 
   return (
