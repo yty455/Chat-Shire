@@ -48,7 +48,7 @@ const InviteCard: React.FC<InviteCardProps> = ({
       <div className={styles.InviteItem}>
         <div className={styles.InviteItemTitle}>
           <span style={{ fontSize: "18px", marginBottom: "2px" }}>
-            CHAT-SHIRE{invite.chatRoomName}
+            {invite.chatRoomName}
           </span>
           <span>초대한 사람 : {invite.host}</span>
         </div>

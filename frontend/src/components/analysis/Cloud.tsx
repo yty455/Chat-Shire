@@ -18,8 +18,6 @@ export default function Cloud() {
   const transformedData = Object.entries(allCategoryCount).map(
     ([text, value]) => ({ text, value: Number(value) })
   );
-  const [popoverContent, setPopoverContent] = useState("");
-  const [popoverVisible, setPopoverVisible] = useState(false);
 
   function decideWordColor(word: any) {
     if (word.value % 4 === 0) {
@@ -46,21 +44,12 @@ export default function Cloud() {
         rotate={(word) => word.value * 90}
         onWordMouseOver={(event, d) => {
           console.log(`onWordMouseOver: ${d.text}`);
-
-          setPopoverContent(d.text);
-          setPopoverVisible(true);
         }}
         onWordMouseOut={() => {
           // Hide the popover when mouse is moved away
-          setPopoverVisible(false);
         }}
         fill={(word) => decideWordColor(word)}
       />
-      <Popover
-        content={popoverContent}
-        title="Title"
-        visible={popoverVisible}
-      ></Popover>
     </div>
   );
 }

@@ -4,8 +4,6 @@ import styles from "./MessageItem.module.css";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
-import { useDrag } from "react-dnd";
-import { ItemTypes } from "./ItemTypes";
 
 interface User {
   nickname: string;
@@ -83,14 +81,11 @@ export default function MessageItem({
   );
 
   const onClickDeleteChattingRoom = (e: React.MouseEvent<HTMLDivElement>) => {
-    console.log(e);
     e.preventDefault();
     // postInTask()
     // alert("채팅방을 정말 삭제하시겠어요?");
   };
   useEffect(() => {
-    console.log(users, 12314);
-    console.log(message?.userId, 2223);
     if (Array.isArray(users) && users?.length > 0 && message?.userId) {
       // users 배열을 필터링하여 userId가 message.message.userId와 같은 항목만 선택
       const filteredUsers = users.filter(
