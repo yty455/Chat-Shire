@@ -469,6 +469,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                         style={{
                           fontFamily: "preRg",
                           height: "30px",
+                          width: "50%",
                           marginTop: "9px",
                           border: "none",
                         }}

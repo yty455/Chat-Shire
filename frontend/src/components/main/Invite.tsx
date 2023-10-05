@@ -13,13 +13,6 @@ import { useRecoilState } from "recoil";
 import { nowProject_recoil } from "../../stores/atom";
 import { getProjects } from "../../utils/projectApi";
 
-const invite = [
-  { pjt: 1, people: "csi" },
-  { pjt: 2, people: "sic" },
-  { pjt: 3, people: "ics" },
-  { pjt: 3, people: "ics" },
-];
-
 function Invite() {
   const [invitation, setInvitation] = useState([]);
   const [nowProject, setNowProject] = useRecoilState(nowProject_recoil);
@@ -28,7 +21,6 @@ function Invite() {
   const getMyProjects = async () => {
     try {
       const response = await getProjects();
-      console.log(response.data.result[0], 123);
       setNowProject(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -39,7 +31,6 @@ function Invite() {
   const getInInvitation = async () => {
     try {
       const response = await getInvitation();
-      console.log(response.data.result[0]);
       setInvitation(response.data.result[0]);
     } catch (error) {
       console.error(error);
@@ -50,7 +41,6 @@ function Invite() {
   const acceptInInvitation = async (invitationId: string) => {
     try {
       const response = await acceptInvitation(invitationId);
-      console.log(response);
       getInInvitation();
       getMyProjects();
     } catch (error) {
@@ -62,7 +52,6 @@ function Invite() {
   const rejectInInvitation = async (invitationId: string) => {
     try {
       const response = await rejectInvitation(invitationId);
-      console.log(response);
       getInInvitation();
     } catch (error) {
       console.error(error);
