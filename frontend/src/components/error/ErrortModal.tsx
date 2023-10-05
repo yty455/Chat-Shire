@@ -130,7 +130,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               }}
             />
           </div>
-          <div style={{display:'flex', alignItems:'center', justifyContent:'start'}}>
+          <div className={styles.errImageContainer}>
             {errDetail.attachedFileInfos && (
               errDetail.attachedFileInfos.map((info: { url: string }, index: number) => (
                 <img style={{marginRight: '5px', height: '200px'}} key={index} src={info.url} alt="Preview" />
