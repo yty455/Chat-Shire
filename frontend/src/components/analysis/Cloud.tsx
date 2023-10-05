@@ -51,16 +51,10 @@ export default function Cloud() {
           setPopoverVisible(true);
         }}
         onWordMouseOut={() => {
-          // Hide the popover when mouse is moved away
           setPopoverVisible(false);
         }}
         fill={(word) => decideWordColor(word)}
       />
-      <Popover
-        content={popoverContent}
-        title="Title"
-        visible={popoverVisible}
-      ></Popover>
     </div>
   );
 }
