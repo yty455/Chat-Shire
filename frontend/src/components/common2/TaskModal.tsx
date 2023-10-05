@@ -110,9 +110,8 @@ function TaskModal({
                 teamTaskDetail.name
               )}
             </h2>
-
+            <p>- 태스크 설명</p>
             <p onClick={() => handleEditClick("description")}>
-              <span>태스크 설명</span>
               {editingField === "description" ? (
                 <input
                   type="text"
@@ -128,7 +127,7 @@ function TaskModal({
                 teamTaskDetail.description
               )}
             </p>
-            <p>우선도</p>
+            <p>- 우선도</p>
             <p onClick={() => handleEditClick("priority")}>
               {editingField === "priority" ? (
                 <FormControl
@@ -242,7 +241,7 @@ function TaskModal({
                 </div>
               ) : null}
             </p>
-            <p>마감일자</p>
+            <p>- 마감일자</p>
             <p onClick={() => handleEditClick("deadline")}>
               {editingField === "deadline" ? (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>

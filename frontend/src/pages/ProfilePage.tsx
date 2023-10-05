@@ -126,7 +126,7 @@ export default function ProfilePage() {
                 </div>
                 <div className={styles.profileCareerItem}>
                   {userData?.mySkill?.map((item: any) => (
-                    <span key={item}>{item} </span>
+                    <span key={item}>{item} &nbsp;</span>
                   ))}
                 </div>
                 <div className={styles.profileCareerItem}>

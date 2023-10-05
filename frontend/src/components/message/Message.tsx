@@ -61,6 +61,11 @@ interface User {
   profileColor: string;
 }
 
+type FileInfo = {
+  url: string;
+  thumbnail: string;
+};
+
 function Message({ projectId }: MessageProps) {
   const [value, setValue] = useState("media");
   const [preMessage, setPreMessage] = useState<any[]>([]);
@@ -80,6 +85,7 @@ function Message({ projectId }: MessageProps) {
   const [video, setVideo] = useState([]);
   const [file, setFile] = useState([]);
   const [users, setUsers] = useState<User[]>([]);
+  const [attachedFileInfos, setAttachedFileInfos] = useState<FileInfo[]>([]);
 
   const handleChange = (e: any) => {
     e.preventDefault();
@@ -210,7 +216,7 @@ function Message({ projectId }: MessageProps) {
 
   const sendMessage = (e: any) => {
     const message = document.getElementById("chatInput") as HTMLInputElement;
-    if (message.value != "") {
+    if (message.value !== "") {
       postChat(Number(projectId), message.value);
       message.value = "";
     }
@@ -271,24 +277,19 @@ function Message({ projectId }: MessageProps) {
       reader.onload = () => {
         setImageSrc(reader.result || "");
         setImageFile(file);
-        if (!reader.result) {
-          window.alert("이미지를 등록해 주세요.");
-          resolve();
-          return;
-        }
 
         const formData = new FormData();
         formData.append("file", file);
         formData.append("name", file.name);
         e.target.value = null;
-
+        
         if (!reader.result) {
           window.alert("이미지를 등록해 주세요.");
           resolve();
           return;
         }
    
-        resolve(); // 업로드는 useEffect에서 처리하므로 여기서는 resolve()만 호출
+        resolve();
       };
     });
    };
@@ -435,8 +436,17 @@ function Message({ projectId }: MessageProps) {
 
     return upload.promise().then(() => {
       console.log("미디어 업로드");
+      // const mediaUrl = `https://chat-shire.s3.amazonaws.com/chat/media/${projectId}/${imageFile.name}`
+      // const newAttachedFileInfos = [...attachedFileInfos, { url: mediaUrl, thumbnail: mediaUrl }]
+      // // attachedFileInfos.push({ url: mediaUrl, thumbnail: mediaUrl })
+
+      // setAttachedFileInfos(newAttachedFileInfos);
+
+      // postChat(Number(projectId), "", newAttachedFileInfos);
     });
   };
+// sss
+  //ddfd
 
   // 가이드
   const content = (
@@ -616,14 +626,14 @@ function Message({ projectId }: MessageProps) {
                 multiple
                 type="file"
                 ref={(el) => (inputRef.current[0] = el)}
-                onChange={(e) => {
-                  onUploadImage(e).then(() => {
-                    if (!imageSrc) {
-                      window.alert("이미지를 등록해 주세요.");
-                      return;
-                    }
-                  });
-                }}
+                // onChange={(e) => {
+                //   onUploadImage(e).then(() => {
+                //     if (!imageSrc) {
+                //       // window.alert("이미지를 등록해 주세요.");
+                //       return;
+                //     }
+                //   });
+                // }}
               />
               <div style={{ position: "relative" }}>
                 <Grow

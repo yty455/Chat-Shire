@@ -214,21 +214,6 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
   const [attachedFileInfos, setAttachedFileInfos] = useState<FileInfo[]>([]);
 
   const handleCancel = () => setPreviewOpen(false);
-  const handlePreview = async (file: UploadFile) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj as RcFile);
-    }
-
-    setPreviewImage(file.url || (file.preview as string));
-    setPreviewOpen(true);
-    setPreviewTitle(
-      file.name || file.url!.substring(file.url!.lastIndexOf("/") + 1)
-    );
-  };
-
-  // const handleChangePic: UploadProps["onChange"] = ({
-  //   fileList: newFileList,
-  // }) => setFileList(newFileList);
 
   const uploadButton = (
     <div>
@@ -256,16 +241,6 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
   const [skillName, setSkillName] = React.useState<string[]>([]);
   const filter = createFilterOptions<string>();
 
-  // 이미지 url 보내기
-  const handleSendRequest = async () => {
-    try {
-      const response = await axios.post("url", { image: previewImage });
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   // 에러 등록
   const postInError = async () => {
     console.log(pjtId, title, content, skillName, attachedFileInfos);
@@ -277,50 +252,6 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
       console.error(error);
     }
   };
-
-  // 이미지 업로드
-  // const onUploadImage = (e: any): Promise<void> => {
-  //   // Promise<void> 타입 지정
-  //   return new Promise((resolve, reject) => {
-  //     const file = e.target.files[0];
-  //     if (!file) {
-  //       resolve();
-  //       return;
-  //     }
-  //     const fileExt = file.name.split(".").pop();
-  //     if (
-  //       !["jpeg", "png", "jpg", "JPG", "PNG", "JPEG"].includes(
-  //         fileExt
-  //       )
-  //     ) {
-  //       window.alert("jpeg, png, jpg 파일만 업로드가 가능합니다.");
-  //       resolve();
-  //       return;
-  //     }
-
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-
-  //     reader.onload = () => {
-  //       setImageSrc(reader.result || "");
-  //       setImageFile(file);
-  //       console.log("지금 업로드하는 이미지 src", imageSrc);
-  //       if (!reader.result) {
-  //         window.alert("이미지를 등록해 주세요.");
-  //         resolve();
-  //         return;
-  //       }
-
-  //       const formData = new FormData();
-  //       formData.append("file", file);
-  //       formData.append("name", file.name);
-
-  //       uploadS3(formData)
-  //         .then(() => resolve())
-  //         .catch((error) => reject(error));
-  //     };
-  //   });
-  // };
 
   // s3에 이미지 업로드
   const uploadS3 = (file: File): Promise<string> => { 
@@ -346,7 +277,7 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
       );
   };
 
-  // 파일 선택 시 바로 업로드 - 내꺼
+  // 파일 선택 시 바로 업로드
   const handleFileSelect: React.ChangeEventHandler<HTMLInputElement> = async (e) => {
     const fileList = Array.from(e.target.files || []).map((file) =>
       ({ originFileObj: file } as UploadFile)
@@ -376,10 +307,6 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
 
   return (
     <div>
-      {/* <div style={{display:'flex', alignItems:'center'}}>
-        <BsArrowLeftCircle onClick={reload} style={{marginRight: '5px', color: 'grey', fontSize: '25px'}}/>
-        <p style={{color: 'grey', margin: 0, fontFamily:'preBd',fontSize:'20px'}}>뒤로가기</p>
-      </div> */}
       <div style={{ marginTop: "20px", display: "flex", alignItems: "center" }}>
         <p style={{ margin: 0, marginRight: "20px", fontFamily: "preRg" }}>
           제목
@@ -419,10 +346,6 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
                   color: "#adb5bd",
                   margin: "-6px 0 0 1px",
                   zIndex: "200",
-                },
-                "& .MuiInputBase-root": {
-                  // marginTop: '-10px',
-                  // margin: '10px 0 0 10px'
                 },
               }}
               label="언어를 검색하세요"
@@ -469,7 +392,6 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
             </li>
           )}
           onChange={(event, value) => {
-            // 여기에서 value를 string[] 타입으로 사용
             setSkillName([...value]);
             console.log(skillName);
           }}
@@ -513,22 +435,6 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
           <img style={{padding: '10px', marginRight: '5px', border: '1px dashed grey', borderRadius: '10px', height: '100px'}} key={index} src={info.url} alt="Preview" />
         ))}
       </div>
-      {/* <Upload
-        // action="localhost:3000"
-        listType="picture-card"
-        fileList={fileList}
-        onPreview={handlePreview}
-        onChange={handleChangePic}
-        customRequest={({ onSuccess }) => {
-          setTimeout(() => {
-            if (onSuccess) {
-              onSuccess("ok");
-            }
-          }, 0);
-        }}
-      >
-        {fileList.length >= 5 ? null : uploadButton}
-      </Upload> */}
 
       <Modal
         open={previewOpen}
@@ -538,7 +444,6 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
       >
         <img alt="example" style={{ width: "100%" }} src={previewImage} />
       </Modal>
-      {/* </div> */}
 
       <Button
         style={{

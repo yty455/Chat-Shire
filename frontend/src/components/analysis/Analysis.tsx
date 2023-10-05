@@ -29,7 +29,9 @@ interface AnalysisProps {
 
 export default function Analysis({ projectId }: AnalysisProps) {
   const [workStyle, setWorkStyle] = useRecoilState(workStyle_recoil);
-  const [workStyleColor, setWorkStyleColor] = useRecoilState(workStyleColor_recoil);
+  const [workStyleColor, setWorkStyleColor] = useRecoilState(
+    workStyleColor_recoil
+  );
   const [keywords, setKeywords] = useRecoilState(keywords_recoil);
   const [morningCommit, setMorningCommit] = useRecoilState(morningCount_recoil);
   const [afternoonCommit, setAfternoonCommit] = useRecoilState(afternoonCount_recoil);
@@ -102,19 +104,19 @@ export default function Analysis({ projectId }: AnalysisProps) {
   const caculateWorkStyle = () => {
     if (morningCommit + afternoonCommit + nightCommit > 30) {
       setWorkStyle("passion");
-      setWorkStyleColor({main: "#AE2949", sub: "#EB9042"})
+      setWorkStyleColor({ main: "#AE2949", sub: "#EB9042" });
     } else if (taskCount > 5) {
       setWorkStyle("jjjj");
-      setWorkStyleColor({main: "#4ED480", sub: "#54CCC7"})
+      setWorkStyleColor({ main: "#4ED480", sub: "#54CCC7" });
     } else if (totalChatCount(allCategoryCount) > 100) {
       setWorkStyle("chat");
-      setWorkStyleColor({main: "#F3AAF7", sub: "#779DFF"})
+      setWorkStyleColor({ main: "#F3AAF7", sub: "#779DFF" });
     } else if (nightCommit > 9) {
       setWorkStyle("night");
-      setWorkStyleColor({main: "#3E008C", sub: "#E8CA46"})
+      setWorkStyleColor({ main: "#3E008C", sub: "#E8CA46" });
     } else if (issueCount > 3) {
       setWorkStyle("fix");
-      setWorkStyleColor({main: "#3E008C", sub: "#C03AEC"})
+      setWorkStyleColor({ main: "#3E008C", sub: "#C03AEC" });
     } else if (relevantChatCount(allCategoryCount) > 50) {
       setWorkStyle("idea");
       setWorkStyleColor({main: "#F0ADC7", sub: "#FFDD88"})
@@ -173,7 +175,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
           <span className={styles.analysisBodyDescUp}>나는야</span>
           <span className={styles.analysisBodyDescDown}>다고쳐 펠릭스</span>
         </div>
-      )
+      );
     }
   };
 
@@ -182,7 +184,8 @@ export default function Analysis({ projectId }: AnalysisProps) {
   });
 
   const returnKeywords = Object.entries(allCategoryCount)
-    .sort((a: any, b: any) => a[1] - b[1]).splice(0, 6)
+    .sort((a: any, b: any) => a[1] - b[1])
+    .splice(0, 6)
     .map((entry) => {
       let isSelected = false;
       if (keywords.includes(entry[0])) {
@@ -250,9 +253,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
             </span>
             <span className={styles.analysisBodyTitleRight}>워크스타일은?</span>
           </div>
-          <div>
-            {returnBodyDesc()}
-          </div>
+          <div>{returnBodyDesc()}</div>
         </div>
       </div>
       <div className={styles.analysisFooter}>
