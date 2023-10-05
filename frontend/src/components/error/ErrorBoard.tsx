@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { err_recoil } from "../../stores/atom";
 import Search from "./Search";
 import Container from "../common/Container";
 import MultiSelect from "./MultiSelect";
@@ -26,7 +25,7 @@ interface ErrorProps {
 
 function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
   const [openModal, setOpenModal] = useState(false);
-  const [allErrors, setAllErrors] = useState(err_recoil);
+  const [allErrors, setAllErrors] = useState([]);
   const [skillErrors, setSkillErrors] = useState([]);
   const [contentErrors, setContentErrors] = useState([]);
   const [selectedError, setSelectedError] = useState<any>(null);
