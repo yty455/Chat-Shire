@@ -74,6 +74,8 @@ const ModalComponent: React.FC<{
     console.log(isModalUpdate);
     if (isModalUpdate !== "") {
       setLink(isModalUpdate?.content);
+    } else {
+      setLink("");
     }
   }, []);
 
