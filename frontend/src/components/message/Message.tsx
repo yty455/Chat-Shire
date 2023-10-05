@@ -270,13 +270,40 @@ function Message({ projectId }: MessageProps) {
         formData.append("name", file.name);
       
         setTimeout(() => {  
-          uploadS3(formData)
-            .then(() => resolve())
-            .catch((error) => reject(error));
+          if(imageFile) {
+            uploadS3(formData)
+              .then(() => resolve())
+              .catch((error) => reject(error));
+          }
         }, 0); 
+<<<<<<< HEAD
+      }});}
+     
+      
+  //     reader.onload = () => {
+  //       setImageSrc(reader.result || "");
+  //       setImageFile(file);
+  //       if (!reader.result) {
+  //         window.alert("이미지를 등록해 주세요.");
+  //         resolve();
+  //         return;
+  //       }
+
+  //       const formData = new FormData();
+  //       formData.append("file", file);
+  //       formData.append("name", file.name);
+
+  //       uploadS3(formData)
+  //         .then(() => resolve())
+  //         .catch((error) => reject(error));
+  //     };
+  //   });
+  // };
+=======
       };
     });
   };
+>>>>>>> ee91d43e3bcb5ae03d78bc308e62140e3f31378e
 
   // 파일 업로드
   const onUploadFile = (e: any): Promise<void> => {
