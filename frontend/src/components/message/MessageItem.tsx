@@ -62,7 +62,7 @@ export default function MessageItem({
           height: "100%",
           borderRadius: "50%",
           // animation: "ripple 1.2s infinite ease-in-out",
-          border: "1px solid currentColor",
+          // border: "1px solid currentColor",
           content: '""',
         },
       },
@@ -147,7 +147,9 @@ export default function MessageItem({
             onClickDeleteChattingRoom(e);
           }}
         >
-          <span style={{wordBreak: "break-all"}}>{message && message?.content}</span>
+          <span style={{ wordBreak: "break-all" }}>
+            {message && message?.content}
+          </span>
         </div>
       </div>
     </div>
