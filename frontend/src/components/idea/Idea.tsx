@@ -203,7 +203,7 @@ function Flow({ pjtId }: IdeaProps) {
           </Popover>
         </div>
 
-        <div>
+        <div style={{ transform: "matrix(1, 0, 0, 1, 20, 0)" }}>
           <Controls showInteractive={false}>
             <Button
               className={styles.savebtn}

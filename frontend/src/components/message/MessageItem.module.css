@@ -2,7 +2,7 @@
   display: flex;
   align-items: flex-end;
   width: 30vw;
-  height: 7vh;
+  min-height: 7vh;
   margin-top: 8px;
   /* border: 1px solid purple; */
 }

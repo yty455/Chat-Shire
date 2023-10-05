@@ -39,7 +39,6 @@
 }
 
 .messageLeftBody {
-  margin-left: -14px;
   height: 672px;
   overflow: scroll;
   /* border: 1px solid purple; */
