@@ -10,12 +10,13 @@ function ErrorList({ errors, onErrorCardClick }: ErrorListProps) {
   return (
     <div
       style={{
-        height: "calc(100% - 80px)",
+        height: "450px",
         width: "100%",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
         flexWrap: "wrap",
+        overflow: "scroll"
       }}
     >
       {errors.map((error: any, index: number) => (
