@@ -4,8 +4,10 @@ import styles from "./SetProjectName.module.css";
 
 function SetProjectName({
   onData,
+  data,
 }: {
   onData: (name: string, teamName: string) => void;
+  data: any;
 }) {
   const [name, setName] = useState("");
   const [teamName, setTeamName] = useState("");
@@ -40,7 +42,7 @@ function SetProjectName({
         required
         id="standard-required"
         label="프로젝트 이름"
-        defaultValue=""
+        defaultValue={data.name}
         variant="standard"
         onChange={handleNameChange}
         // helperText="Please enter your name"
@@ -53,7 +55,7 @@ function SetProjectName({
         required
         id="standard-required"
         label="팀 이름"
-        defaultValue=""
+        defaultValue={data.teamName}
         onChange={handleTeamNameChange}
         variant="standard"
         inputProps={{ maxLength: 5 }}
