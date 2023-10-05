@@ -122,10 +122,6 @@ export default function CustomProfilePage() {
     try {
       const response = await api.patch("/users", formData);
       localStorage.setItem("token", response.headers["authorization"]);
-      sessionStorage.setItem(
-        "refresh_token",
-        response.headers["authorization-refresh"]
-      );
       getProfilePage();
       navigate("/main");
     } catch (error) {
