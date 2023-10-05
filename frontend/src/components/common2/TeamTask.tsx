@@ -469,11 +469,14 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     <div className={styles.container}>
       <div className={styles.title}>
         {pjt && <p className={styles.messageLeftTitle}>{pjt.name}</p>}
-        <AllBorderLinearProgress
-          style={{ marginTop: "29px", width: "500px" }}
-          variant="determinate"
-          value={(comTeamTask.length / allTeamTask.length) * 100}
-        />
+        <div>
+          <span>{(comTeamTask.length / allTeamTask.length) * 100}</span>
+          <AllBorderLinearProgress
+            style={{ margin: "0px 0px 10px 20px", width: "500px" }}
+            variant="determinate"
+            value={(comTeamTask.length / allTeamTask.length) * 100}
+          />
+        </div>
       </div>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <div
