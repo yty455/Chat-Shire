@@ -110,8 +110,9 @@ function TaskModal({
                 teamTaskDetail.name
               )}
             </h2>
-            <p>태스크 설명</p>
+
             <p onClick={() => handleEditClick("description")}>
+              <span>태스크 설명</span>
               {editingField === "description" ? (
                 <input
                   type="text"

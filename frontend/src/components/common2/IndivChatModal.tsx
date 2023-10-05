@@ -69,6 +69,7 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
   };
 
   const handleDelete = async () => {
+    setReChat([]);
     setSelectedChat("");
   };
 
