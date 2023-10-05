@@ -24,16 +24,6 @@ function AppRouter() {
               <Box sx={{ width: "100%" }}>
                 <LinearProgress />
               </Box>
-              <img
-                style={{
-                  width: "30vw",
-                  margin: "0 auto",
-                  alignItems: "center",
-                  display: "flex",
-                }}
-                src={process.env.PUBLIC_URL + "/assets/sh.png"}
-                alt="sh"
-              />
             </>
           }
         >
