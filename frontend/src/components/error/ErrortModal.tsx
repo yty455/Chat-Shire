@@ -10,7 +10,7 @@ import {
   updateErrorComent,
 } from "../../utils/errorApi";
 import ProfileImgBox from "../common/ProfileImgBox";
-import Avatar from "@mui/material/Avatar";
+import { Avatar, TextField } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { loginuser } from "../../stores/atom";
 import { Button } from "antd";
@@ -154,7 +154,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                     {editingCommentId === item.replyId ? (
                       <div className={styles.replyRight}>
                         <div className={styles.repliesRightContent}>
-                          <input
+                          <TextField
                             type="text"
                             value={item.content}
                             onChange={(e) => setEditedComment(e.target.value)}
