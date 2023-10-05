@@ -1,0 +1,11 @@
+.landingDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.savebtn {
+  position: absolute;
+  left: 20%;
+  bottom: 2%;
+  cursor: pointer;
+}

@@ -1,0 +1,14 @@
+.ant-select-selector {
+  padding: 0;
+  font-family: 'preRg'
+
+}
+
+input::placeholder {
+  font-family: 'preRg'
+}
+
+:where(.css-dev-only-do-not-override-1vr7spz).ant-picker .ant-picker-input .input {
+  font-family: 'preRg'
+  
+}

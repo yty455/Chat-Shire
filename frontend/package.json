@@ -1,0 +1,87 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "^5.2.6",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.8",
+    "@mui/material": "^5.14.8",
+    "@mui/system": "^5.14.11",
+    "@mui/x-date-pickers": "^6.13.0",
+    "@nivo/bar": "^0.83.0",
+    "@nivo/pie": "^0.83.0",
+    "@nivo/radar": "^0.83.0",
+    "@stomp/stompjs": "^7.0.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/antd": "^1.0.0",
+    "@types/node": "^16.18.48",
+    "@types/react": "^18.2.21",
+    "@types/react-color": "^3.0.6",
+    "@types/react-dom": "^18.2.7",
+    "@types/sockjs-client": "^1.5.1",
+    "antd": "^5.9.2",
+    "aws-sdk": "^2.1464.0",
+    "axios": "^1.5.0",
+    "dayjs": "^1.11.9",
+    "emoji-picker-react": "^4.5.2",
+    "http-proxy-middleware": "^2.0.6",
+    "lodash": "^4.17.21",
+    "nanoid": "^4.0.2",
+    "qs": "^6.11.2",
+    "react": "^18.2.0",
+    "react-color": "^2.19.3",
+    "react-d3-cloud": "^1.0.6",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.11.0",
+    "react-router-dom": "^6.15.0",
+    "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "react-syntax-highlighter": "^15.5.0",
+    "reactcss": "^1.2.3",
+    "reactflow": "^11.8.3",
+    "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0",
+    "slick-carousel": "^1.8.1",
+    "sockjs-client": "^1.6.1",
+    "styled-components": "^5.3.11",
+    "swiper": "^10.3.0",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4",
+    "zustand": "^4.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.198",
+    "@types/react-slick": "^0.23.10",
+    "@types/styled-components": "^5.1.27"
+  }
+}

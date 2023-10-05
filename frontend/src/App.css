@@ -1,0 +1,9 @@
+.App {
+  width: 100vw;
+  font-family: 'preRg' !important;
+}
+
+::selection {
+  background-color: none;
+  color: #31deb0;
+}
