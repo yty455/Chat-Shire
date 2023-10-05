@@ -77,18 +77,16 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
             reChat.map((chat) => (
               <div key={chat.chatNumber} className={styles.chat}>
                 {" "}
-                <div>
-                  <div className={styles.nickname}>{chat.nickname} : </div>
-                  <div
-                    className={styles.content}
-                    onClick={() => handleClick(chat.id)}
-                  >
-                    {chat.content}
-                  </div>
-                  <div className={styles.chatTime}>
-                    {" "}
-                    : {formatChatTime(chat.chatTime)}
-                  </div>
+                <div className={styles.nickname}>{chat.nickname} : </div>
+                <div
+                  className={styles.content}
+                  onClick={() => handleClick(chat.id)}
+                >
+                  {chat.content}
+                </div>
+                <div className={styles.chatTime}>
+                  {" "}
+                  : {formatChatTime(chat.chatTime)}
                 </div>
               </div>
             ))}
@@ -106,18 +104,16 @@ function IndivChatModal({ taskId, onClose }: IndivChatModalProps) {
             taskChat.map((chat) => (
               <div key={chat.chatNumber} className={styles.chat}>
                 {" "}
-                <div>
-                  <div className={styles.nickname}>{chat.nickname} : </div>
-                  <div
-                    className={styles.content}
-                    onClick={() => handleClick(chat.id)}
-                  >
-                    {chat.content}
-                  </div>
-                  <div className={styles.chatTime}>
-                    {" "}
-                    : {formatChatTime(chat.chatTime)}
-                  </div>
+                <div className={styles.nickname}>{chat.nickname} : </div>
+                <div
+                  className={styles.content}
+                  onClick={() => handleClick(chat.id)}
+                >
+                  {chat.content}
+                </div>
+                <div className={styles.chatTime}>
+                  {" "}
+                  : {formatChatTime(chat.chatTime)}
                 </div>
                 <button
                   className={styles.deletebtn}
