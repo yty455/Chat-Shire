@@ -192,6 +192,7 @@ function Flow({ pjtId }: IdeaProps) {
       >
         <Controls showInteractive={false} />
         <MiniMap style={minimapStyle} zoomable pannable />
+
         <div style={{ position: "relative" }}>
           <Popover placement="right" content={content} trigger="hover">
             <FloatButton
