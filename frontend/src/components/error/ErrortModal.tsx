@@ -103,13 +103,13 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
           <div className={styles.deContainerHeader}>
             <div style={{display: "flex", flexDirection: "column"}}>
               <span style={{fontFamily: "preBd", fontSize: "24px"}}>Q. {errDetail && errDetail.title}</span>
-              <span style={{marginLeft: "10px"}}>작성자 {errDetail.nickname}</span>
               <span style={{marginLeft: "10px", fontFamily: "preLt", fontSize: "14px" }}>
                 마지막 수정일:
                 {errDetail.lastModifiedDate
                   ? errDetail.lastModifiedDate.toLocaleString()
                   : "날짜 없음"}
               </span>
+              <span style={{marginLeft: "10px"}}>작성자 {errDetail.nickname}</span>
             </div>
             <span className={styles.status}>
               {errDetail && errDetail.state === true ? "완료" : "진행"}
@@ -122,7 +122,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
             <div className={styles.errImageContainer}>
               {errDetail.attachedFileInfos && (
                 errDetail.attachedFileInfos.map((info: { url: string }, index: number) => (
-                  <img style={{marginRight: "16px", maxHeight: "240px", height: "240px"}} key={index} src={info.url} alt="Preview" />
+                  <img style={{marginRight: "16px", maxHeight: "280px", height: "280px"}} key={index} src={info.url} alt="Preview" />
                 ))
               )}
             </div>
@@ -150,11 +150,13 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                     </div>
                     {editingCommentId === item.replyId ? (
                       <div className={styles.replyRight}>
-                        <input
-                          type="text"
-                          value={item.content}
-                          onChange={(e) => setEditedComment(e.target.value)}
-                        />
+                        <div className={styles.repliesRightContent}>
+                          <input
+                            type="text"
+                            value={item.content}
+                            onChange={(e) => setEditedComment(e.target.value)}
+                          />
+                        </div>
                         <button
                           onClick={() => updateReply(item.replyId, editedComment)}
                         >
@@ -163,7 +165,9 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                       </div>
                     ) : (
                       <div className={styles.replyRight}>
-                        {item.content}
+                        <div className={styles.repliesRightContent}>
+                          {item.content}
+                        </div>
                         {userData.nickname === item.nickname ? (
                           <div>
                             <button
