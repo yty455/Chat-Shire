@@ -203,7 +203,7 @@ function Flow({ pjtId }: IdeaProps) {
           </Popover>
         </div>
 
-        <div style={{ position: "relative" }}>
+        <div>
           <Controls showInteractive={false}>
             <Button
               className={styles.savebtn}
