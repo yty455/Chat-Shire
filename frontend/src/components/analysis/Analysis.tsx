@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import styles from "./Analysis.module.css";
 import Keywords from "./Keywords";
 import RadarChart from "./RadarChart";
@@ -117,6 +117,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
 
   const returnBodyDesc = () => {
     if (workStyle === "baby") {
+      console.log(workStyle)
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>다 비켜!</span>
@@ -168,7 +169,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
     }
   };
   const returnTeamMembers = teamMembers?.map((member: any) => {
-    return (<span>{member.nickname}</span>)
+    return (<span>{member.nickname}, </span>)
   })
   const returnKeywords = Object.entries(allCategoryCount).sort((a: any, b: any) => a[1] - b[1]).map((entry) => {
     let isSelected = false
@@ -235,7 +236,9 @@ export default function Analysis({ projectId }: AnalysisProps) {
             </span>
             <span className={styles.analysisBodyTitleRight}>워크스타일은?</span>
           </div>
-          <>{returnBodyDesc}</>
+          <div>
+            {returnBodyDesc}
+          </div>
         </div>
       </div>
       <div className={styles.analysisFooter}>
