@@ -38,7 +38,6 @@ function ProjectModal({
   const getProjectDetail = async () => {
     try {
       const response = await getProject(pjt.id);
-      console.log(response.data.result);
     } catch (error) {
       console.error(error);
     }
@@ -46,7 +45,6 @@ function ProjectModal({
   const getProjectUsers = async () => {
     try {
       const response = await getProjectMem(pjt.id);
-      console.log(response.data.result[0]);
       setpjtMem(response.data.result[0]);
     } catch (error) {
       console.error(error);
