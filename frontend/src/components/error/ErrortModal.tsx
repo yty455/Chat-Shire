@@ -15,6 +15,9 @@ import { useRecoilState } from "recoil";
 import { loginuser } from "../../stores/atom";
 import { Button } from "antd";
 
+import {BsPencilFill} from 'react-icons/bs'
+import {MdDelete} from 'react-icons/md'
+
 interface ErrorModalProps {
   pjtId: string;
   closeModal: () => void;
@@ -170,14 +173,8 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                         </div>
                         {userData.nickname === item.nickname ? (
                           <div>
-                            <button
-                              onClick={() => setEditingCommentId(item.replyId)}
-                            >
-                              수정
-                            </button>
-                            <button onClick={() => deleteReply(item.replyId)}>
-                              삭제
-                            </button>
+                            <BsPencilFill style={{fontSize: "17px", marginRight: "10px"}} onClick={() => setEditingCommentId(item.replyId)}/>
+                            <MdDelete style={{fontSize: "20px"}} onClick={() => deleteReply(item.replyId)}/>
                           </div>
                         ) : null}
                       </div>
