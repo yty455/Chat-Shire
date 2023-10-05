@@ -177,7 +177,7 @@ function Message({ projectId }: MessageProps) {
         client.current?.subscribe(
           `/topic/greetings/${projectId}`,
           (message) => {
-            console.log(message)
+            console.log(message);
             setMessage(JSON.parse(message.body));
           }
         );
@@ -236,13 +236,13 @@ function Message({ projectId }: MessageProps) {
 
   // 이미지 업로드
   const onUploadImage = (e: any): Promise<void> => {
-    // Promise<void> 타입 지정
     return new Promise((resolve, reject) => {
       const file = e.target.files[0];
       if (!file) {
         resolve();
         return;
       }
+
       const fileExt = file.name.split(".").pop();
       if (
         !["jpeg", "png", "jpg", "JPG", "PNG", "JPEG", "mp4", "MP4"].includes(
@@ -255,11 +255,14 @@ function Message({ projectId }: MessageProps) {
       }
 
       const reader = new FileReader();
-      reader.readAsDataURL(file);
 
-      reader.onload = () => {
+      reader.onloadend = () => {
         setImageSrc(reader.result || "");
         setImageFile(file);
+
+        // Here we reset the value of the input field
+        e.target.value = null;
+
         if (!reader.result) {
           window.alert("이미지를 등록해 주세요.");
           resolve();
@@ -274,6 +277,8 @@ function Message({ projectId }: MessageProps) {
           .then(() => resolve())
           .catch((error) => reject(error));
       };
+
+      reader.readAsDataURL(file);
     });
   };
 
@@ -368,9 +373,9 @@ function Message({ projectId }: MessageProps) {
 
   // s3에 이미지 업로드
   const uploadS3 = (formData: any) => {
-  const REGION = process.env.REACT_APP_REGION;
-  const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
-  const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+    const REGION = process.env.REACT_APP_REGION;
+    const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
+    const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
 
     AWS.config.update({
       region: REGION,
