@@ -4,8 +4,6 @@
 }
 
 .savebtn {
-  position: absolute;
-  bottom: 5%;
-  left: 40%;
+  transform: matrix(1, 0, 0, 1, 10, 0);
   cursor: pointer;
 }
