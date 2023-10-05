@@ -479,7 +479,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           <AllBorderLinearProgress
             style={{ margin: "0px 10px 0px 0px", width: "500px" }}
             variant="determinate"
-            value={comTeamTask.length / allTeamTask.length}
+            value={(comTeamTask.length / allTeamTask.length) * 100}
           />
           <span>
             {" "}
