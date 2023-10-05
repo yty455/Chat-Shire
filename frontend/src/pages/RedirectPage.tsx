@@ -10,9 +10,6 @@ function Redirect() {
   const [token, setToken] = useRecoilState(accessToken);
   const [islogin, setIslogin] = useRecoilState(isLogin_recoil);
   const navigate = useNavigate();
-  // const { code } = qs.parse(window.location.search, {
-  //   ignoreQueryPrefix: true,
-  // });
 
   const { access_token } = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
@@ -29,15 +26,16 @@ function Redirect() {
   useEffect(() => {
     if (typeof access_token === "string") {
       localStorage.setItem("token", access_token);
-    }
-    if (refresh_token) {
-      sessionStorage.setItem("refresh_token", refresh_token.toString());
-      // 리프레쉬 토큰이 있다면 메인 페이지로 이동
-      setIslogin(true);
-      navigate("/main");
-    } else {
-      // 리프레쉬 토큰이 없다면 회원가입 페이지로 이동
-      navigate("/profile/custom");
+      if (refresh_token) {
+        sessionStorage.setItem("refresh_token", refresh_token.toString());
+        // 리프레쉬 토큰이 있다면 메인 페이지로 이동
+        setIslogin(true);
+        navigate("/main");
+      } else {
+        // 리프레쉬 토큰이 없다면 회원가입 페이지로 이동
+        // navigate("/profile/custom");
+        navigate("/main");
+      }
     }
   }, [access_token, refresh_token]);
 
