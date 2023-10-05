@@ -149,6 +149,9 @@ export default function MessageItem({
         >
           <span style={{ wordBreak: "break-all" }}>
             {message && message?.content}
+            {/* {message && message?.attachedFileInfos?.map((info: any, index: number) => (
+              <img style={{height: '100px'}} key={index} src={info.url} alt="attached" />
+            ))} */}
           </span>
           <div className={styles.messageItemText}>
             {message && message?.attachedFileInfos?.map((info: any, index: number) => (
