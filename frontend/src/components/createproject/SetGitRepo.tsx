@@ -65,7 +65,7 @@ export default function SetGitRepo({
         className={styles.inputtag}
         required
         id="outlined-multiline-static"
-        label="브랜치 설정"
+        label="브랜치 : 깃 로그를 추적할 브랜치를 설정하세요"
         onChange={handlebranchChange}
         defaultValue={data.branch}
         variant="standard"
@@ -78,7 +78,7 @@ export default function SetGitRepo({
         className={styles.inputtag}
         required
         id="outlined-multiline-static"
-        label="깃 토큰"
+        label="깃 토큰 : 깃 로그를 추적하기 위해 깃 토큰이 필요합니다"
         onChange={handlegitAccessTokenChange}
         defaultValue={data.gitAccessToken}
         variant="standard"
