@@ -216,7 +216,7 @@ function Message({ projectId }: MessageProps) {
 
   const sendMessage = (e: any) => {
     const message = document.getElementById("chatInput") as HTMLInputElement;
-    if (message.value != "") {
+    if (message.value !== "") {
       postChat(Number(projectId), message.value);
       message.value = "";
     }
@@ -283,14 +283,13 @@ function Message({ projectId }: MessageProps) {
         formData.append("name", file.name);
         e.target.value = null;
         
-        //혹시 머 에러나면 이거 주석풀기
-        // if (!reader.result) {
-        //   window.alert("이미지를 등록해 주세요.");
-        //   resolve();
-        //   return;
-        // }
+        if (!reader.result) {
+          window.alert("이미지를 등록해 주세요.");
+          resolve();
+          return;
+        }
    
-        resolve(); // 업로드는 useEffect에서 처리하므로 여기서는 resolve()만 호출
+        resolve();
       };
     });
    };
