@@ -138,6 +138,7 @@
 
 .title {
   display: flex;
+  flex-direction: column;
   justify-content: start;
 }
 
