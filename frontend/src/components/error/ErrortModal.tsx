@@ -105,6 +105,10 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
     }
   };
 
+  const ErrorImageClickHandler = (e: any) => {
+    window.open(e.target.src, "_blank");
+  }
+
   useEffect(() => {
     getInError();
   }, []);
@@ -148,10 +152,12 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                   (info: { url: string }, index: number) => (
                     <img
                       style={{
+                        cursor: "pointer",
                         marginRight: "16px",
                         maxHeight: "280px",
                         height: "280px",
                       }}
+                      onClick={ErrorImageClickHandler}
                       key={index}
                       src={info.url}
                       alt="Preview"
