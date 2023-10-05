@@ -446,8 +446,8 @@ function Message({ projectId }: MessageProps) {
       console.log('담아보낼 파일', attachedFileInfos)
       // postChat(Number(projectId), "", newAttachedFileInfos);
       postChat(Number(projectId), "", attachedFileInfos);
-      // window.location.reload();
-
+      window.location.reload();
+      setAttachedFileInfos([])
     });
   };
 
