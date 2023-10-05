@@ -445,8 +445,6 @@ function Message({ projectId }: MessageProps) {
       // postChat(Number(projectId), "", newAttachedFileInfos);
     });
   };
-// sss
-  //ddfd
 
   // 가이드
   const content = (
@@ -626,14 +624,14 @@ function Message({ projectId }: MessageProps) {
                 multiple
                 type="file"
                 ref={(el) => (inputRef.current[0] = el)}
-                // onChange={(e) => {
-                //   onUploadImage(e).then(() => {
-                //     if (!imageSrc) {
-                //       // window.alert("이미지를 등록해 주세요.");
-                //       return;
-                //     }
-                //   });
-                // }}
+                onChange={(e) => {
+                  onUploadImage(e).then(() => {
+                    if (!imageSrc) {
+                      // window.alert("이미지를 등록해 주세요.");
+                      return;
+                    }
+                  });
+                }}
               />
               <div style={{ position: "relative" }}>
                 <Grow
