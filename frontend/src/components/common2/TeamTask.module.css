@@ -142,7 +142,7 @@
 }
 
 .icons {
-  height: 48px;
   display: flex;
-  align-items: center;
+  height: 48px;
+  align-items: flex-end;
 }
