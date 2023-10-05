@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { err_recoil } from "../../stores/atom";
 import Search from "./Search";
 import Container from "../common/Container";
 import MultiSelect from "./MultiSelect";
@@ -17,6 +16,7 @@ import {
   searchErrConent,
   searchErrSkillName,
 } from "../../utils/errorApi";
+import { err_recoil } from "../../stores/atom";
 
 interface ErrorProps {
   pjtId: string;
