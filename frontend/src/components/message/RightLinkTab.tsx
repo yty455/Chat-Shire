@@ -79,7 +79,7 @@ export default function RightLinkTab({ projectId }: Props) {
               trigger="contextMenu"
             >
               <div key={link.linkId}>
-                <LinkOGItem requestUrl={link.content} />
+                <LinkOGItem requestUrl={link.content || link} />
               </div>
             </Popover>
           ))
