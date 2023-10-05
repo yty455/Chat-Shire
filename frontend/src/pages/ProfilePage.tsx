@@ -1,26 +1,25 @@
 import React, { useEffect } from "react";
 import styles from "./ProfilePage.module.css";
-import ProfileLarge from "../components/profile/ProfileLarge";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import RadarChart from "../components/analysis/RadarChart";
 import BarChart from "../components/analysis/BarChart";
 import LeftSide from "../components/common/LeftSide";
 import { getProfile } from "../utils/userApi";
 import { loginuser } from "../stores/atom";
-import { BsGithub, BsCodeSlash, BsPersonFill } from "react-icons/bs";
-import {
-  BiLogoTypescript,
-  BiLogoJavascript,
-  BiLogoHtml5,
-  BiLogoPython,
-  BiLogoReact,
-  BiLogoVuejs,
-  BiLogoDjango,
-  BiLogoCss3,
-  BiLogoFlutter,
-  BiLogoGit,
-} from "react-icons/bi";
+import { BsGithub, BsPersonFill } from "react-icons/bs";
+// import {
+//   BiLogoTypescript,
+//   BiLogoJavascript,
+//   BiLogoHtml5,
+//   BiLogoPython,
+//   BiLogoReact,
+//   BiLogoVuejs,
+//   BiLogoDjango,
+//   BiLogoCss3,
+//   BiLogoFlutter,
+//   BiLogoGit,
+// } from "react-icons/bi";
 import { IoMdSettings } from "react-icons/io";
 
 import LinearProgress, {
@@ -140,9 +139,6 @@ export default function ProfilePage() {
               <div className={styles.profileIntroduce}>
                 <span>{userData?.detailIntroduction}</span>
               </div>
-              {/* <div className={styles.profileTag}>
-                <span>{userData.hashTag}</span>
-              </div> */}
             </div>
             <div className={styles.profileHeaderRight}>
               <div className={styles.profileRadarContainer}>
@@ -192,6 +188,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={bronze}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -218,6 +215,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={bronze}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -244,6 +242,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={bronze}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -270,6 +269,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={bronze}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -296,6 +296,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={bronze}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -322,6 +323,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={bronze}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -348,6 +350,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={bronze}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -374,6 +377,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={bronze}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -401,6 +405,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={bronze}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -427,6 +432,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={bronze}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -453,6 +459,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={bronze}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -479,6 +486,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={bronze}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -505,6 +513,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={silver}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -531,6 +540,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={silver}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -557,6 +567,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={silver}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -583,6 +594,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={silver}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -609,6 +621,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={silver}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -635,6 +648,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={silver}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -661,6 +675,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={silver}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -687,6 +702,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={silver}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -713,6 +729,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={silver}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -739,6 +756,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={silver}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -765,6 +783,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={silver}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -791,6 +810,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={silver}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -817,6 +837,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={gold}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -843,6 +864,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={gold}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -869,6 +891,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={gold}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -895,6 +918,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={gold}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -921,6 +945,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={gold}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -947,6 +972,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={gold}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -973,6 +999,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={gold}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -999,6 +1026,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={gold}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -1025,6 +1053,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={gold}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -1051,6 +1080,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={gold}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -1078,6 +1108,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={gold}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${
@@ -1104,6 +1135,7 @@ export default function ProfilePage() {
                   width="0px"
                   height="78px"
                   src={gold}
+                  alt=""
                 />
                 <img
                   className={`${styles.AchievementItem} ${

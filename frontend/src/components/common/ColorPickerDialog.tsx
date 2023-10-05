@@ -24,7 +24,7 @@ function ColorPickerDialog({
   return (
     <div>
       <div>
-        <h2>색상 선택</h2>
+        <h2>상태 변경</h2>
         <div>
           <button
             style={{ backgroundColor: "green" }}

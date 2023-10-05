@@ -23,23 +23,36 @@
 .deContainer {
   display: flex;
   flex-direction: column;
-  width: 490px;
-  height: 60%;
+  width: 660px;
+  height: 560px;
+  margin-right: 50px;
+}
+
+.deContentContainer {
+  height: 260px;
+}
+
+.deContainerHeader {
+  display: flex;
+}
+
+.errImageScrollContainer {
+  display: flex;
+  width: 660px;
+  height: 180px;
+  overflow: scroll;
 }
 
 .errImageContainer {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  overflow: scroll;
+  flex-wrap: nowrap;
 }
 
 .reContainer {
   display: flex;
   flex-direction: column;
-  width: 490px;
-  height: 30%;
+  width: 400px;
+  height: 560px;
 }
 
 .rep {
