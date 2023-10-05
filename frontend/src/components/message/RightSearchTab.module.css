@@ -11,7 +11,7 @@
 .MessageRightBodyTitle {
   color: #575757;
   font-size: 24px;
-  font-family: 'preBd';
+  font-family: "preBd";
 }
 
 .MessageRightMediaStorage {
@@ -22,9 +22,8 @@
   width: 100%;
   height: 28%;
   margin-top: 10px;
-  border-bottom: 1px solid #E5E8EB;
+  border-bottom: 1px solid #e5e8eb;
 }
-
 
 .MediaStorageTitle {
   font-size: 24px;
@@ -34,7 +33,7 @@
   margin-top: -10px;
   margin-left: -10px;
   width: 21vw;
-  height: 61vh;
+  height: 80%;
   overflow: scroll;
 }
 
