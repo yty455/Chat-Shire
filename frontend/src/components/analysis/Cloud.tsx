@@ -1,12 +1,12 @@
 import React from 'react';
 import WordCloud from 'react-d3-cloud';
 import { useRecoilState } from "recoil";
-import { workStyleColor_recoil, keywords_recoil } from '../../stores/atom'
+import { workStyleColor_recoil, keywords_recoil, allCategoryCount_recoil } from '../../stores/atom'
 
 export default function Cloud() {
   const [workStyleColor, setWorkStyleColor] = useRecoilState(workStyleColor_recoil)
-  const [keywords, setKeywords] = useRecoilState(keywords_recoil);
-  const transformedData = Object.entries(keywords).map(([text, value]) => ({ text, value: Number(value) }));
+  const [allCategoryCount, setAllCategoryCount] = useRecoilState(allCategoryCount_recoil);
+  const transformedData = Object.entries(allCategoryCount).map(([text, value]) => ({ text, value: Number(value) }));
 
   function decideWordColor (word: any) {
     if (word.value % 4 === 0) {

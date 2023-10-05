@@ -174,13 +174,14 @@ export default function Analysis({ projectId }: AnalysisProps) {
         </div>
       )
     }
-  }
+  };
 
   const returnTeamMembers = teamMembers?.map((member: any) => {
     return <span>{member.nickname}, </span>;
   });
+
   const returnKeywords = Object.entries(allCategoryCount)
-    .sort((a: any, b: any) => a[1] - b[1])
+    .sort((a: any, b: any) => a[1] - b[1]).splice(0, 6)
     .map((entry) => {
       let isSelected = false;
       if (keywords.includes(entry[0])) {
