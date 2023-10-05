@@ -29,22 +29,25 @@
 }
 
 .deContentContainer {
-  height: 260px;
+  height: 200px;
 }
 
 .deContainerHeader {
   display: flex;
+  height: 110px;
 }
 
 .errImageScrollContainer {
   display: flex;
   width: 660px;
-  height: 180px;
+  min-height: 190px;
+  height: 250px;
   overflow: scroll;
 }
 
 .errImageContainer {
   display: flex;
+  height: 250px;
   flex-wrap: nowrap;
 }
 

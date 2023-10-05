@@ -101,44 +101,34 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
       <div className={styles.modalContent}>
         <div className={styles.deContainer}>
           <div className={styles.deContainerHeader}>
-            <span style={{fontFamily: "preBd", fontSize: "24px"}}>Q. {errDetail && errDetail.title}</span>
-            <div>
-              작성자 {errDetail.nickname}
-              <Avatar
-                alt={errDetail.nickname}
-                src={process.env.PUBLIC_URL + errDetail.profileImage}
-                sx={{
-                  width: 60,
-                  height: 60,
-                  backgroundColor: errDetail.profileColor,
-                }}
-              />
+            <div style={{display: "flex", flexDirection: "column"}}>
+              <span style={{fontFamily: "preBd", fontSize: "24px"}}>Q. {errDetail && errDetail.title}</span>
+              <span>작성자 {errDetail.nickname}</span>
+              <span style={{fontFamily: "preLt", fontSize: "14px"}}>
+                생성날짜:
+                {errDetail.createdDate
+                  ? errDetail.createdDate.toLocaleString()
+                  : "날짜 없음"}
+              </span>
+              <span style={{ fontFamily: "preLt", fontSize: "14px" }}>
+                수정날짜:
+                {errDetail.lastModifiedDate
+                  ? errDetail.lastModifiedDate.toLocaleString()
+                  : "날짜 없음"}
+              </span>
             </div>
+            <span className={styles.status}>
+              {errDetail && errDetail.state === true ? "완료" : "진행"}
+            </span>
           </div>
           <div className={styles.deContentContainer}>
           <span>{errDetail.content}</span>
           </div>
-          <span style={{fontFamily: "preLt", fontSize: "14px"}}>
-            생성날짜:
-            {errDetail.createdDate
-              ? errDetail.createdDate.toLocaleString()
-              : "날짜 없음"}
-          </span>
-          <span style={{ fontFamily: "preLt", fontSize: "14px" }}>
-            수정날짜:
-            {errDetail.lastModifiedDate
-              ? errDetail.lastModifiedDate.toLocaleString()
-              : "날짜 없음"}
-          </span>
-
-          <h5 className={styles.status}>
-            {errDetail && errDetail.state === true ? "완료" : "진행"}
-          </h5>
           <div className={styles.errImageScrollContainer}>
             <div className={styles.errImageContainer}>
               {errDetail.attachedFileInfos && (
                 errDetail.attachedFileInfos.map((info: { url: string }, index: number) => (
-                  <img style={{marginRight: "10px", maxHeight: "180px", height: "180px"}} key={index} src={info.url} alt="Preview" />
+                  <img style={{marginRight: "10px", maxHeight: "240px", height: "180px"}} key={index} src={info.url} alt="Preview" />
                 ))
               )}
             </div>
