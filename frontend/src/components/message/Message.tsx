@@ -436,13 +436,13 @@ function Message({ projectId }: MessageProps) {
 
     return upload.promise().then(() => {
       console.log("미디어 업로드");
-      const mediaUrl = `https://chat-shire.s3.amazonaws.com/chat/media/${projectId}/${imageFile.name}`
-      const newAttachedFileInfos = [...attachedFileInfos, { url: mediaUrl, thumbnail: mediaUrl }]
-      // attachedFileInfos.push({ url: mediaUrl, thumbnail: mediaUrl })
+      // const mediaUrl = `https://chat-shire.s3.amazonaws.com/chat/media/${projectId}/${imageFile.name}`
+      // const newAttachedFileInfos = [...attachedFileInfos, { url: mediaUrl, thumbnail: mediaUrl }]
+      // // attachedFileInfos.push({ url: mediaUrl, thumbnail: mediaUrl })
 
-      setAttachedFileInfos(newAttachedFileInfos);
+      // setAttachedFileInfos(newAttachedFileInfos);
 
-      postChat(Number(projectId), "", newAttachedFileInfos);
+      // postChat(Number(projectId), "", newAttachedFileInfos);
     });
   };
 // sss
