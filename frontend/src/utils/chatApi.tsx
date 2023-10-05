@@ -7,10 +7,11 @@ export const getChat = (projectId: number, page: number, size: number) =>
   api.get(`/projects/${projectId}/chats?page=${page}&size=${size}`);
 
 // 채팅 작성
-export const postChat = (chatRoomId: number, content: string) =>
+export const postChat = (chatRoomId: number, content: string, upload?: any[]) =>
   api.post("/chats", {
     chatRoomId,
     content,
+    upload,
   });
 
 // ##### 채팅방 공지
