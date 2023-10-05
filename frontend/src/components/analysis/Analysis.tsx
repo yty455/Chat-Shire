@@ -123,71 +123,75 @@ export default function Analysis({ projectId }: AnalysisProps) {
           <span className={styles.analysisBodyDescUp}>다 비켜!</span>
           <span className={styles.analysisBodyDescDown}>코린이가 간다</span>
         </div>
-      )
+      );
     } else if (workStyle === "passion") {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>앗뜨거!</span>
           <span className={styles.analysisBodyDescDown}>열정 130'C</span>
         </div>
-      )
+      );
     } else if (workStyle === "idea") {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>도전!</span>
           <span className={styles.analysisBodyDescDown}>아이디어 뱅크</span>
         </div>
-      )
+      );
     } else if (workStyle === "jjjj") {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>MBTI가..</span>
           <span className={styles.analysisBodyDescDown}>JJJJ 입니다</span>
         </div>
-      ) 
+      );
     } else if (workStyle === "chat") {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>우리 사이?</span>
           <span className={styles.analysisBodyDescDown}>나는너 너는나</span>
         </div>
-      )
+      );
     } else if (workStyle === "night") {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>새벽의</span>
           <span className={styles.analysisBodyDescDown}>고독한 개발자</span>
         </div>
-      )
+      );
     } else if (workStyle === "fix") {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>나는야</span>
           <span className={styles.analysisBodyDescDown}>다고쳐 펠릭스</span>
         </div>
-      )
+      );
     } else {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>다 비켜!</span>
           <span className={styles.analysisBodyDescDown}>코린이가 간다</span>
         </div>
-      )
+      );
     }
   }
 
   const returnTeamMembers = teamMembers?.map((member: any) => {
-    return (<span>{member.nickname}, </span>)
-  })
-  const returnKeywords = Object.entries(allCategoryCount).sort((a: any, b: any) => a[1] - b[1]).map((entry) => {
-    let isSelected = false
-    if (keywords.includes(entry[0])) {
-      isSelected = true
-    } else {
-      isSelected = false
-    }
-    return (<Keywords topic={entry[0]} projectId={Number(projectId)} isSelected/>)
-  })
+    return <span>{member.nickname}, </span>;
+  });
+  const returnKeywords = Object.entries(allCategoryCount)
+    .sort((a: any, b: any) => a[1] - b[1])
+    .map((entry) => {
+      let isSelected = false;
+      if (keywords.includes(entry[0])) {
+        isSelected = true;
+      } else {
+        isSelected = false;
+      }
+      return (
+        <Keywords topic={entry[0]} projectId={Number(projectId)} isSelected />
+      );
+    });
 
   useEffect(() => {
     getAnalysisPage();
