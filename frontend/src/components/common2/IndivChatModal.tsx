@@ -90,7 +90,7 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
   useEffect(() => {
     getTaskChat();
     getProjectUsers();
-  }, []);
+  }, [taskId]);
 
   return (
     <div className={styles.modalOverlay}>
