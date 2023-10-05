@@ -607,27 +607,24 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             }}
                             style={{
                               fontSize: "17px",
-                              marginLeft: "4px"
+                              marginLeft: "4px",
                             }}
                           />
                           {editingTaskId === item.id ? (
                             <BiSolidCheckCircle
                               style={{
                                 fontSize: "17px",
-                                marginLeft: "4px"
+                                marginLeft: "4px",
                               }}
                               onClick={() =>
-                                handleEditComplete(
-                                  item.id,
-                                  updatedDescription
-                                )
+                                handleEditComplete(item.id, updatedDescription)
                               }
                             />
                           ) : (
                             <BsPencilFill
                               style={{
                                 fontSize: "17px",
-                                marginLeft: "4px"
+                                marginLeft: "4px",
                               }}
                               onClick={() => enterEditMode(item.id)}
                             />
@@ -635,7 +632,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           <MdDelete
                             style={{
                               fontSize: "20px",
-                              marginLeft: "4px"
+                              marginLeft: "4px",
                             }}
                             onClick={() => deleteInTask(item.id)}
                           />
@@ -779,44 +776,41 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           </span>
                         )}
                         <div className={styles.icons}>
-                            <BsFillChatDotsFill
-                              onClick={() => {
-                                handleOpen(item.id);
-                              }}
+                          <BsFillChatDotsFill
+                            onClick={() => {
+                              handleOpen(item.id);
+                            }}
+                            style={{
+                              fontSize: "17px",
+                              marginLeft: "4px",
+                            }}
+                          />
+                          {editingTaskId === item.id ? (
+                            <BiSolidCheckCircle
                               style={{
                                 fontSize: "17px",
-                                marginLeft: "4px"
+                                marginLeft: "4px",
                               }}
+                              onClick={() =>
+                                handleEditComplete(item.id, updatedDescription)
+                              }
                             />
-                            {editingTaskId === item.id ? (
-                              <BiSolidCheckCircle
-                                style={{
-                                  fontSize: "17px",
-                                  marginLeft: "4px"
-                                }}
-                                onClick={() =>
-                                  handleEditComplete(
-                                    item.id,
-                                    updatedDescription
-                                  )
-                                }
-                              />
-                            ) : (
-                              <BsPencilFill
-                                style={{
-                                  fontSize: "17px",
-                                  marginLeft: "4px"
-                                }}
-                                onClick={() => enterEditMode(item.id)}
-                              />
-                            )}
-                            <MdDelete
+                          ) : (
+                            <BsPencilFill
                               style={{
-                                fontSize: "20px",
-                                marginLeft: "4px"
+                                fontSize: "17px",
+                                marginLeft: "4px",
                               }}
-                              onClick={() => deleteInTask(item.id)}
+                              onClick={() => enterEditMode(item.id)}
                             />
+                          )}
+                          <MdDelete
+                            style={{
+                              fontSize: "20px",
+                              marginLeft: "4px",
+                            }}
+                            onClick={() => deleteInTask(item.id)}
+                          />
                         </div>
                       </div>
                     </div>
@@ -860,7 +854,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           )}
         </div>
       </div>
-      {open && <IndivChatModal taskId={selectTask} onClose={handleClose} />}
+      {open && (
+        <IndivChatModal
+          taskId={selectTask}
+          onClose={handleClose}
+          projectId={projectId}
+        />
+      )}
     </div>
   );
 }
