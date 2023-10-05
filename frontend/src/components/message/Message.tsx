@@ -253,10 +253,11 @@ function Message({ projectId }: MessageProps) {
         resolve();
         return;
       }
-
+  
       const reader = new FileReader();
-
-      reader.onloadend = () => {
+      reader.readAsDataURL(file);
+  
+      reader.onload = () => {
         setImageSrc(reader.result || "");
         setImageFile(file);
 
@@ -268,19 +269,39 @@ function Message({ projectId }: MessageProps) {
           resolve();
           return;
         }
-
+      
         const formData = new FormData();
         formData.append("file", file);
         formData.append("name", file.name);
-
-        uploadS3(formData)
-          .then(() => resolve())
-          .catch((error) => reject(error));
-      };
-
-      reader.readAsDataURL(file);
-    });
+      
+       setImmediate(() => {  
+         uploadS3(formData)
+           .then(() => resolve())
+           .catch((error) => reject(error));
+       });  
+     };
+   });
   };
+      
+  //     reader.onload = () => {
+  //       setImageSrc(reader.result || "");
+  //       setImageFile(file);
+  //       if (!reader.result) {
+  //         window.alert("이미지를 등록해 주세요.");
+  //         resolve();
+  //         return;
+  //       }
+
+  //       const formData = new FormData();
+  //       formData.append("file", file);
+  //       formData.append("name", file.name);
+
+  //       uploadS3(formData)
+  //         .then(() => resolve())
+  //         .catch((error) => reject(error));
+  //     };
+  //   });
+  // };
 
   // 파일 업로드
   const onUploadFile = (e: any): Promise<void> => {
@@ -359,6 +380,7 @@ function Message({ projectId }: MessageProps) {
           .promise()
           .then(() => {
             console.log("파일 업로드 완료");
+            window.location.reload();
           })
           .catch((error) => {
             console.error("업로드 실패", error);
@@ -394,6 +416,7 @@ function Message({ projectId }: MessageProps) {
 
     return upload.promise().then(() => {
       console.log("미디어 업로드");
+      window.location.reload();
     });
   };
 
