@@ -57,7 +57,12 @@ const ModalComponent: React.FC<{
       setConfirmLoading(false);
       if (isModalUpdate) {
         updateInLink(link);
-        setLinks((oldLinks) => [...oldLinks, link]);
+        setLinks((oldLinks) => {
+          // 배열의 마지막 요소를 link로 대체
+          const updatedLinks = [...oldLinks];
+          updatedLinks[updatedLinks.length - 1] = link;
+          return updatedLinks;
+        });
       } else {
         postInLink(link);
         setLinks((oldLinks) => [...oldLinks, link]);
