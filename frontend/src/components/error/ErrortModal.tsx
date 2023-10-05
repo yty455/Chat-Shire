@@ -16,7 +16,7 @@ import { loginuser } from "../../stores/atom";
 import { Button } from "antd";
 
 import {BsPencilFill} from 'react-icons/bs'
-import {MdDelete} from 'react-icons/md'
+import {MdDelete, MdOutlineCancel} from 'react-icons/md'
 
 interface ErrorModalProps {
   pjtId: string;
@@ -145,8 +145,8 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                         alt={item.nickname}
                         src={process.env.PUBLIC_URL + item.profileImage}
                         sx={{
-                          width: 40,
-                          height: 40,
+                          width: 50,
+                          height: 50,
                           backgroundColor: item.profileColor,
                         }}
                       />
@@ -155,8 +155,8 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                       <div className={styles.replyRight}>
                         <div className={styles.repliesRightContent}>
                           <TextField
-                            type="text"
-                            value={item.content}
+                            type="input"
+                            defaultValue={item.content}
                             onChange={(e) => setEditedComment(e.target.value)}
                           />
                         </div>
@@ -184,9 +184,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               })}
           </div>
         </div>
-        <button onClick={closeModal} className={styles.closebtn}>
-          X
-        </button>
+        <MdOutlineCancel size={20} onClick={closeModal} className={styles.closebtn}/>
         {userData.nickname === errDetail.nickname ? (
           <Button
             onClick={deleteInError}
