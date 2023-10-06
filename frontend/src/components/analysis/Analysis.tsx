@@ -84,7 +84,6 @@ export default function Analysis({ projectId }: AnalysisProps) {
   };
   const getKeywords = () => {
     api.get(`/projects/${projectId}/keywords`).then((res) => {
-      console.log(res);
       setKeywords(res.data.result[0]);
     });
   };
@@ -122,6 +121,9 @@ export default function Analysis({ projectId }: AnalysisProps) {
     } else if (relevantChatCount(allCategoryCount) > 50) {
       setWorkStyle("idea");
       setWorkStyleColor({ main: "#F0ADC7", sub: "#FFDD88" });
+    } else {
+      setWorkStyle("baby");
+      setWorkStyleColor({ main: "#89e3ec", sub: "#ffd82c" });
     }
   };
 

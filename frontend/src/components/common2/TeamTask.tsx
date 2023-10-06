@@ -178,14 +178,13 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       content: "밥 맛깔나게 먹기! 밥 맛깔나게 먹기!",
       isEditing: false,
     },
-    // ...
   ]);
 
   // 개인 태스크 > 팀 태스크
   const indivToTeam = async (teamId: string, indivId: string) => {
     try {
       const response = await changeTaskGroup(teamId, indivId);
-      console.log(response.data);
+
       getTeamTask();
     } catch (error) {
       console.error(error);
@@ -195,7 +194,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const deleteTeamTask = async (taskGroupId: any) => {
     try {
       const response = await deleteTaskGroup(taskGroupId);
-      console.log(response);
+
       getTeamTask();
       closeModal();
     } catch (error) {
@@ -204,7 +203,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   };
   const handleClose = () => setOpen(false);
   const openModal = (data: string | number) => {
-    console.log(data);
     setIsModalOpen(data.toString());
     if (data != "create") {
       const taskId = typeof data === "string" ? parseInt(data) : data;
@@ -220,7 +218,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
     try {
       if (projectId) {
         const response = await getTask(projectId);
-        console.log(response.data.result[0]);
 
         setAllTasks(response.data.result[0]);
       }
@@ -265,7 +262,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const deleteInTask = async (TaskId: string) => {
     try {
       const response = await deleteTask(TaskId);
-      console.log("삭제완료", response);
+
       getInTask();
       getTeamTask();
     } catch (error) {
@@ -280,7 +277,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   ) => {
     try {
       const response = await postTask(chatroomId, description, progress);
-      console.log(response);
+
       setUpdatedDescription("");
       getTeamTask();
     } catch (error) {
@@ -302,7 +299,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         description,
         progress
       );
-      console.log(response);
+
       setUpdatedProgress("");
       setUpdatedDescription("");
       setEditingTaskId(null);
@@ -326,7 +323,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           await postInTask(chatroomId, description, progress);
           setCheckboxItems([]);
         } else {
-          console.log("수정", TaskId, "0", description, progress);
           await updateInTask(TaskId, "0", description, updatedProgress);
         }
       }
@@ -414,7 +410,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
         taskData.progress,
         taskData.deadline
       );
-      console.log(response.data.result);
+
       setTaskData({
         name: "",
         description: "",
@@ -462,7 +458,6 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   useEffect(() => {
     getTeamTask();
     getpjt();
-    console.log(projectId);
   }, [projectId]);
 
   return (

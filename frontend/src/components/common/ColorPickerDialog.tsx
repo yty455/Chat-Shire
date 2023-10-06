@@ -16,8 +16,8 @@ function ColorPickerDialog({
 }: ColorPickerDialogProps) {
   const [selectedColor, setSelectedColor] = useState("");
 
-  const handleColorSelect = () => {
-    onSelectColor(selectedColor);
+  const handleColorSelect = (color: string) => {
+    onSelectColor(color);
     // onClose();
   };
 
@@ -27,31 +27,47 @@ function ColorPickerDialog({
         <h2>상태 변경</h2>
         <div>
           <button
-            style={{ backgroundColor: "green" }}
-            onClick={() => setSelectedColor("ONLINE")}
+            style={{
+              backgroundColor: "green",
+              borderRadius: "0px",
+              color: "white",
+            }}
+            onClick={() => handleColorSelect("ONLINE")}
           >
             ONLINE
           </button>
           <button
-            style={{ backgroundColor: "orange" }}
-            onClick={() => setSelectedColor("AWAY")}
+            style={{
+              backgroundColor: "orange",
+              borderRadius: "0px",
+              color: "white",
+            }}
+            onClick={() => handleColorSelect("AWAY")}
           >
             AWAY
           </button>
           <button
-            style={{ backgroundColor: "gray" }}
-            onClick={() => setSelectedColor("OFFLINE")}
+            style={{
+              backgroundColor: "gray",
+              borderRadius: "0px",
+              color: "white",
+            }}
+            onClick={() => handleColorSelect("OFFLINE")}
           >
             OFFLINE
           </button>
           <button
-            style={{ backgroundColor: "red" }}
-            onClick={() => setSelectedColor("DND")}
+            style={{
+              backgroundColor: "red",
+              borderRadius: "0px",
+              color: "white",
+            }}
+            onClick={() => handleColorSelect("DND")}
           >
             DND
           </button>
         </div>
-        <Button onClick={handleColorSelect}>선택</Button>
+        {/* <Button onClick={handleColorSelect}>선택</Button> */}
       </div>
     </div>
   );
