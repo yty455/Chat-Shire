@@ -67,8 +67,6 @@
  ┃ ┃ ┣ 📜Cloud.tsx
  ┃ ┃ ┣ 📜Keywords.module.css
  ┃ ┃ ┣ 📜Keywords.tsx<details>
-<summary>back-end</summary>
-    
  ┃ ┃ ┣ 📜PiChart.tsx
  ┃ ┃ ┗ 📜RadarChart.tsx
  ┃ ┣ 📂common
@@ -230,6 +228,7 @@
  ┣ 📜setupTests.ts
  ┗ 📜store.ts
 ```
+
 
 <details>
 <summary>back-end</summary>
