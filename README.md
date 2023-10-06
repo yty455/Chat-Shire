@@ -228,7 +228,7 @@
  ┣ 📜setupTests.ts
  ┗ 📜store.ts
 ```
-
+</details>
 
 <details>
 <summary>back-end</summary>
@@ -466,7 +466,7 @@
  ┃ ┃ ┃ ┃ ┗ 📂backend
  ┃ ┃ ┃ ┃ ┃ ┗ 📜BackendApplicationTests.java
 ```
-
+</details>
 
 ## 서비스 구현 화면
 
