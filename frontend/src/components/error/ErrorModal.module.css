@@ -1,0 +1,115 @@
+.modalOverlay {
+  border: 0.7px solid #E5E8EB;
+  position: fixed;
+  display: flex;
+  right: 0;
+  bottom: 0;
+  top: 50%;
+  left: 56.5%;
+  background-color: rgb(250, 250, 250);
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  width: 79vw;
+  height: 85vh;
+  z-index: 9999;
+}
+
+.modalContent {
+  display: flex;
+  padding: 20px;
+  color: #575757;
+}
+
+.deContainer {
+  display: flex;
+  flex-direction: column;
+  width: 660px;
+  height: 560px;
+  margin-right: 50px;
+}
+
+.deContentContainer {
+  height: 180px;
+}
+
+.deContainerHeader {
+  display: flex;
+  height: 90px;
+}
+
+.errImageScrollContainer {
+  display: flex;
+  width: 660px;
+  min-height: 190px;
+  height: 290px;
+  overflow: scroll;
+}
+
+.errImageContainer {
+  display: flex;
+  height: 290px;
+  flex-wrap: nowrap;
+}
+
+.replyContainer {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 560px;
+}
+
+.replyScrollContainer {
+  height: 500px;
+  overflow: scroll;
+}
+
+.replyItemContainer {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #E5E8EB;
+  border-radius: 20px;
+  padding: 10px;
+  height: 44px;
+  margin-top: 10px;
+}
+
+.replyRight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 320px;
+}
+
+.repliesRightContent {
+  display: flex;
+  flex-wrap: wrap;
+  width: 200px;
+}
+
+.closebtn {
+  position: fixed;
+  top: 2%;
+  right: 2%;
+  border: 0;
+  background-color: transparent;
+}
+
+.deletebtn {
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  border: 0;
+  background-color: red;
+  font-family: preRg;
+}
+
+.status {
+  margin: 6px 10px;
+  font-family: "preRg";
+  width: 45px;
+  height: 24px;
+  color: #39a789;
+  text-align: center;
+  border: 1px solid #39a789;
+  border-radius: 10px;
+}
