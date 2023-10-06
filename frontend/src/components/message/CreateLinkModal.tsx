@@ -20,7 +20,6 @@ const ModalComponent: React.FC<{
   const postInLink = async (link: string) => {
     try {
       const response = await postLink(pjtId, link);
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
