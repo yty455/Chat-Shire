@@ -53,7 +53,6 @@
 
 
 ## 프로젝트 구조도
-프로젝트 구조도
 
 <details>
 <summary>FrontEnd</summary>
