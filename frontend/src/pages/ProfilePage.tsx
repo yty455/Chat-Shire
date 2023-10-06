@@ -29,6 +29,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useRecoilState } from "recoil";
 
+import {  keywords_recoil, morningCount_recoil, afternoonCount_recoil, nightCount_recoil, issueCount_recoil, allCategoryCount_recoil, taskCount_recoil } from '../stores/atom'
+
 function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number }
 ) {
@@ -52,7 +54,13 @@ export default function ProfilePage() {
   const bronze = process.env.PUBLIC_URL + "/assets/achievements/bronze.png";
   const silver = process.env.PUBLIC_URL + "/assets/achievements/silver.png";
   const gold = process.env.PUBLIC_URL + "/assets/achievements/gold.png";
-
+  const [keywords, setKeywords] = useRecoilState(keywords_recoil);
+  const [morningCommit, setMorningCommit] = useRecoilState(morningCount_recoil);
+  const [afternoonCommit, setAfternoonCommit] = useRecoilState(afternoonCount_recoil);
+  const [nightCommit, setNightCommit] = useRecoilState(nightCount_recoil);
+  const [issueCount, setIssueCount] = useRecoilState(issueCount_recoil);
+  const [allCategoryCount, setAllCategoryCount] = useRecoilState(allCategoryCount_recoil);
+  const [taskCount, setTaskCount] = useRecoilState(taskCount_recoil);
   // console.log(userData.challengeInfoResponse);
 
   function achievementPath(id: any) {
@@ -68,14 +76,31 @@ export default function ProfilePage() {
       const response = await getProfile();
       console.log(response.data.result[0]);
       setUserData(response.data.result[0]);
+      setMorningCommit(response.data.result[0].morningCommit);
+      setAfternoonCommit(response.data.result[0].afternoonCommit);
+      setNightCommit(response.data.result[0].nightCommit);
+      setIssueCount(response.data.result[0].issueCount);
+      setAllCategoryCount(response.data.result[0].allCategoryCount);
+      setTaskCount(response.data.result[0].taskCount);
     } catch (error) {
       console.error(error);
     }
   };
-
   useEffect(() => {
     getProfilePage();
   }, []);
+
+  useEffect(() => {
+    getProfilePage();
+  }, [
+    morningCommit,
+    afternoonCommit,
+    nightCommit,
+    taskCount,
+    nightCommit,
+    issueCount,
+    allCategoryCount,
+  ]);
 
   return (
     <div
