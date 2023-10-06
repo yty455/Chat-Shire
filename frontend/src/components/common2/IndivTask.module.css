@@ -1,0 +1,74 @@
+.indivDiv {
+  max-width: 20vw;
+  width: 24vw;
+  height: 85vh;
+  padding: 0;
+  margin-left: 1vw;
+  overflow: scroll;
+}
+
+.indivTask {
+  min-height: 50px;
+  overflow: hidden;
+  word-wrap: break-word;
+  padding: 0 10px;
+  display: flex;
+  justify-content: start;
+}
+
+.oneMemo {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    box-shadow: -2px -2px 5px white, 2px 2px 5px #ced0d7;
+  }
+}
+
+.taskContent {
+  width: 320px;
+  max-width: 320px;
+  text-align: start;
+  margin-bottom: 7px;
+  padding: 0 4px 0 0;
+  font-family: "preBd";
+}
+
+.test {
+  max-width: 400px;
+  width: 400px;
+  min-height: 100px;
+  border-radius: 20px;
+  background-color: rgb(254, 186, 186);
+  margin-bottom: 10px;
+}
+
+.checked {
+  text-decoration: line-through;
+  text-decoration-color: #39a789;
+  text-decoration-thickness: 2px;
+}
+
+.indivDiv::-webkit-scrollbar {
+  width: 7px; /* 스크롤바의 너비 */
+}
+
+.indivDiv::-webkit-scrollbar-thumb {
+  height: 5%; /* 스크롤바의 길이 */
+  background: #ababab; /* 스크롤바의 색상 */
+  border-radius: 10px;
+  opacity: 0.2;
+}
+.indivDiv::-webkit-scrollbar-track {
+  background: none; /*스크롤바 뒷 배경 색상*/
+}
+
+.icons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dateNpriority {
+  display: flex;
+  justify-content: start;
+  margin: 0;
+}

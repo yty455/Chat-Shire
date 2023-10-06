@@ -1,0 +1,149 @@
+.messageContainer {
+  display: flex;
+  padding: 2vh 0vw 1vh 2vw;
+  width: 56vw;
+  height: 82vh;
+  border: 1px solid #E5E8EB;
+  border-radius: 20px;
+  font-family: 'preRg';
+  background-color: #ffffff;
+}
+
+.messageLeft {
+  display: flex;
+  flex-direction: column;
+  width: 34vw;
+  border-right: 1px solid #E5E8EB;
+  /* border: 1px solid red; */
+}
+
+.messageLeftHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 32vw;
+  height: 40px;
+  color: #575757;
+  /* border: 1px solid purple; */
+}
+
+.messageLeftHeaderLeft {
+  display: flex;
+  align-items: center;
+}
+
+
+.messageLeftTitle {
+  font-size: 30px;
+  font-family: "preBl";
+}
+
+.messageLeftBody {
+  height: 672px;
+  overflow: scroll;
+  /* border: 1px solid purple; */
+}
+
+.messageLeftBody::-webkit-scrollbar {
+  display: none;
+}
+
+.messagePeopleNum {
+  font-size: 16px;
+  margin-left: 3px;
+  margin-top: 8px;
+  font-family: 'preRg';
+  color: 'grey';
+  cursor: pointer;
+}
+
+.messageLeftNotification {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  color: #575757;
+  /* border: 1px solid purple; */
+}
+
+.notificationText {
+  font-size: 100%;
+  font-family: "preRg";
+  margin-left: 10px;
+}
+
+.messageLeftFooter {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  height: 100px;
+  padding-bottom: 2vh;
+  /* border: 1px solid purple; */
+}
+
+.messageInput {
+  margin: 0px 10px;
+  width: 33vw;
+  font-size: 18px;
+}
+
+.messageFooterButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 33vw;
+  height: 40px;
+}
+
+.messageFooterButtonLeft {
+  display: flex;
+  align-items: start;
+}
+
+.messageSendButton {
+  width: 20px;
+  border-radius: 20px;
+}
+
+.messageSendButton span{
+  margin: 0px;
+}
+
+.messageRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 20vw;
+  height: 81vh;
+  /* border: 1px solid red; */
+}
+
+.messageRightTabContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 20vw;
+  height: 10vh;
+  padding-left: 4%;
+  margin-bottom: 7px;
+}
+
+.EmojiPickerContainer {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 100;
+}
+
+.icon25 {
+  font-size: 25px;
+  color: #39a789;
+  margin: 0;
+}
+
+.tabTitle {
+  margin: 0;
+  font-family: 'preBd';
+  font-size: 14px;
+  color: #39a789;
+}
