@@ -45,10 +45,6 @@
   
   - Swagger 3.0.0
   
-  - SSL
-  
-  - CertBot(CA Certificates)
-  
   - Node.js : 18.16.1
   
   - SERVER : AWS EC2 Ubuntu 20.04.6 LTS

@@ -17,7 +17,7 @@ function ColorPickerDialog({
   const [selectedColor, setSelectedColor] = useState("");
 
   const handleColorSelect = (color: string) => {
-    onSelectColor(selectedColor);
+    onSelectColor(color);
     // onClose();
   };
 
