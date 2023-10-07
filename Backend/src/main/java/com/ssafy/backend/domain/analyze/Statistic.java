@@ -49,6 +49,7 @@ public class Statistic extends BaseEntity {
 
 	public void updateCommitCount(Long morningCommitCount, Long afternoonCommitCount, Long nightCommitCount) {
 		morningCommit += morningCommitCount;
+		
 		afternoonCommit += afternoonCommitCount;
 		nightCommit += nightCommitCount;
 	}
