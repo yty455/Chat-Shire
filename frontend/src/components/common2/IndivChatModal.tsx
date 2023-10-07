@@ -142,6 +142,11 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
                   style={{
                     backgroundColor: "#39a789",
                     fontFamily: "preRg",
+                    border: "0px",
+                    borderRadius:"10px",
+                    color:"white",
+                    padding:"2px",
+
                   }}
                   onClick={() => handleClick(chat.id)}
                 >
@@ -152,6 +157,9 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
                   style={{
                     backgroundColor: "red",
                     fontFamily: "preRg",
+                    border: "0px",
+                    borderRadius:"10px",
+                    color:"white",
                   }}
                   onClick={() => deleteRe(chat.id)}
                 >

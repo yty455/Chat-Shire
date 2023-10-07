@@ -102,7 +102,12 @@ export default function MessageItem({
     return date.toLocaleString(); // 브라우저 설정에 따라 로케일에 맞게 날짜 및 시간을 표시
   }
   return (
-    <div className={styles.messageItemContainer}>
+    <div className={styles.messageItemContainer} 
+    draggable="true"
+    onDragStart={(e) => {
+      e.dataTransfer.setData("message", JSON.stringify(message));
+      e.dataTransfer.setData("nickname", user?.nickname);
+    }}>
       <StyledBadge
         className={styles.messageItemProfile}
         overlap="circular"
@@ -127,11 +132,7 @@ export default function MessageItem({
       </StyledBadge>
       <div
         className={styles.messageItemBody}
-        draggable="true"
-        onDragStart={(e) => {
-          e.dataTransfer.setData("message", JSON.stringify(message));
-          e.dataTransfer.setData("nickname", user?.nickname);
-        }}
+
       >
         <div className={styles.messageItemName}>
           <span className={styles.messageProfileName}>

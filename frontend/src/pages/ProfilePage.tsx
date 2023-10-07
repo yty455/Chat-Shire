@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import styles from "./ProfilePage.module.css";
 import { useNavigate } from "react-router-dom";
 
-import RadarChart from "../components/analysis/RadarChart";
-import BarChart from "../components/analysis/BarChart";
 import LeftSide from "../components/common/LeftSide";
+import RadarChart from "../components/analysis/RadarChart";
+import ProfileBarChart from "../components/profile/ProfileBarChart";
+import ProfileRadarChart from "../components/profile/ProfileRadarChart";
 import { getProfile } from "../utils/userApi";
 import { loginuser } from "../stores/atom";
 import { BsGithub, BsPersonFill } from "react-icons/bs";
@@ -140,10 +141,10 @@ export default function ProfilePage() {
             </div>
             <div className={styles.profileHeaderRight}>
               <div className={styles.profileRadarContainer}>
-                <RadarChart/>
+                <ProfileRadarChart userData={userData}/>
               </div>
               <div className={styles.profileBarContainer}>
-                <BarChart/>
+                <ProfileBarChart userData={userData}/>
               </div>
             </div>
             <IoMdSettings

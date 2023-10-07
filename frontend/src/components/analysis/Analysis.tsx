@@ -6,7 +6,7 @@ import BarChart from "./BarChart";
 import PiChart from "./PiChart";
 import Cloud from "./Cloud";
 // import Rocket from "../../assets/analysisBg/passion/passion3.png";
-
+import { BsPencilFill } from "react-icons/bs";
 import api from "../../utils/api";
 import { getAnalysis } from "../../utils/analysisApi";
 import { useRecoilState } from "recoil";
@@ -22,12 +22,35 @@ import {
   taskCount_recoil,
 } from "../../stores/atom";
 import { JsxElement } from "typescript";
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
+import Checkbox from '@mui/material/Checkbox';
+import ListItemText from '@mui/material/ListItemText';
+import { keyword } from "../../stores/keyword";
+import { postKeyword, deleteKeyword } from "../../utils/keywordApi";
+import { Popover } from "antd";
 
 interface AnalysisProps {
   projectId: string;
 }
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+
 export default function Analysis({ projectId }: AnalysisProps) {
+  const [selectedKeyword, setSelectedKeyword]  = useState<string[]>([])
   const [workStyle, setWorkStyle] = useRecoilState(workStyle_recoil);
   const [workStyleColor, setWorkStyleColor] = useRecoilState(
     workStyleColor_recoil
@@ -80,12 +103,36 @@ export default function Analysis({ projectId }: AnalysisProps) {
       console.error(error);
     }
   };
+
   const getKeywords = () => {
     api.get(`/projects/${projectId}/keywords`).then((res) => {
       console.log(res);
       setKeywords(res.data.result[0]);
     });
   };
+
+    // 태스크 등록
+    const PostInKeyword = async () => {
+      try {
+        const response = await postKeyword(projectId, keywords);
+        getKeywords()
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+      // 태스크 등록
+  const deleteInKeyword = async () => {
+    try {
+      const response = await deleteKeyword(projectId, keywords);
+      getKeywords()
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
   const getProject = () => {
     api
       .get("/projects/" + projectId)
@@ -222,6 +269,46 @@ export default function Analysis({ projectId }: AnalysisProps) {
     returnBodyDesc();
   }, [workStyle]);
 
+  const handleChange = (event: SelectChangeEvent<typeof keywords>) => {
+    const {
+      target: { value },
+    } = event;
+    setKeywords(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+  const key = (
+    <div>
+      <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+        <Select
+          labelId="demo-multiple-checkbox-label"
+          id="demo-multiple-checkbox"
+          multiple
+          value={keywords}
+          onChange={handleChange}
+          input={<OutlinedInput label="Tag" />}
+          renderValue={(selected) => selected.join(', ')}
+          MenuProps={MenuProps}
+        >
+          {keyword.map((name) => (
+            <MenuItem key={name} value={name}>
+              <Checkbox checked={keywords.indexOf(name) > -1} />
+              <ListItemText primary={name} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </div>
+  );
+  useEffect(()=>{
+
+  },[keywords])
+
+
+
   return (
     <div
       className={styles.analysisContainer}
@@ -242,7 +329,18 @@ export default function Analysis({ projectId }: AnalysisProps) {
           alt=""
         />
         <div className={styles.analysisTopicsContainer}>
-          <span className={styles.analysisItemTitle}>우리의 키워드</span>
+          <span className={styles.analysisItemTitle}>우리의 키워드 
+          <Popover
+          placement="rightBottom"
+          content={key}
+          trigger="click"
+        >
+          <BsPencilFill
+                            style={{
+                              fontSize: "17px",
+                              // margin: "-5px 3px 10px 0",
+                            }}
+                          /></Popover></span>
           <div className={styles.analysisKeywordsContainer}>
             {returnKeywords}
           </div>
