@@ -154,10 +154,22 @@ export default function MessageItem({
             ))} */}
           </span>
           <div className={styles.messageItemText}>
-            {message && message?.attachedFileInfos?.map((info: any, index: number) => (
-              <img style={{height: '120px'}} key={index} src={info.url} alt="attached" />
-            ))}
-          </div>
+  {message && message?.attachedFileInfos?.map((info: any, index: number) => {
+    const url = info.url.toLowerCase(); // URL을 소문자로 변환하여 비교
+    
+    if (url.endsWith('mp4')) {
+      return (
+        <video style={{height: '240px'}} key={index} controls>
+          <source src={info.url} type="video/mp4" />
+        </video>
+      );
+    } else {
+      return (
+        <img style={{height: '120px'}} key={index} src={info.url} alt="attached" />
+      );
+    }
+  })}
+</div>
         </div>
       </div>
     </div>
