@@ -342,7 +342,6 @@ function Message({ projectId }: MessageProps) {
       console.log('담아보낼 파일', attachedFileInfos)
       // postChat(Number(projectId), "", newAttachedFileInfos);
       postChat(Number(projectId), "", attachedFileInfos);
-      window.location.reload();
       setAttachedFileInfos([])
     });
   };
@@ -520,7 +519,6 @@ function Message({ projectId }: MessageProps) {
           .promise()
           .then(() => {
             console.log("파일 업로드 완료");
-            window.location.reload();
           })
           .catch((error) => {
             console.error("업로드 실패", error);
