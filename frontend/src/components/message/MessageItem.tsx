@@ -163,6 +163,10 @@ export default function MessageItem({
           <source src={info.url} type="video/mp4" />
         </video>
       );
+    } else if (url.endsWith('.pdf') || url.endsWith('.docx') || url.endsWith('.doc') || url.endsWith('.xlsx') || url.endsWith('.xls') || url.endsWith('.txt')) {
+      return (
+        <a href={info.url} target="_blank" rel="noopener noreferrer">{info.url.split('/').pop()}</a>
+      );
     } else {
       return (
         <img style={{height: '120px'}} key={index} src={info.url} alt="attached" />
