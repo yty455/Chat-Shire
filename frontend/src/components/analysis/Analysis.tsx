@@ -121,7 +121,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
       }
     };
 
-      // 태스크 등록
+      // 태스크 취소
   const deleteInKeyword = async () => {
     try {
       const response = await deleteKeyword(projectId, keywords);
@@ -304,7 +304,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
     </div>
   );
   useEffect(()=>{
-
+    PostInKeyword()
   },[keywords])
 
 
