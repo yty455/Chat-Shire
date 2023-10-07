@@ -10,65 +10,66 @@ import { CardActionArea } from "@mui/material";
 
 interface MessageProps {
   projectId: string;
+  files:{ url: string; name: string; size: number }[];
 }
 
-export default function RightFileTab({ projectId }: MessageProps) {
-  const [files, setFiles] = useState<
-    { url: string; name: string; size: number }[]
-  >([]);
+export default function RightFileTab({ projectId, files }: MessageProps) {
+  // const [files, setFiles] = useState<
+  //   { url: string; name: string; size: number }[]
+  // >([]);
 
-  useEffect(() => {
-    listFiles().then((fileInfos) => setFiles(fileInfos));
-  }, []);
+  // useEffect(() => {
+  //   listFiles().then((fileInfos) => setFiles(fileInfos));
+  // }, []);
 
-  const listFiles = (): Promise<
-    { url: string; name: string; size: number }[]
-  > => {
-    return new Promise((resolve, reject) => {
-      const REGION = process.env.REACT_APP_REGION;
-      const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
-      const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+  // const listFiles = (): Promise<
+  //   { url: string; name: string; size: number }[]
+  // > => {
+  //   return new Promise((resolve, reject) => {
+  //     const REGION = process.env.REACT_APP_REGION;
+  //     const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
+  //     const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
 
-      AWS.config.update({
-        region: REGION,
-        accessKeyId: ACCESS_KEY_ID,
-        secretAccessKey: SECRET_ACCESS_KEY,
-      });
+  //     AWS.config.update({
+  //       region: REGION,
+  //       accessKeyId: ACCESS_KEY_ID,
+  //       secretAccessKey: SECRET_ACCESS_KEY,
+  //     });
 
-      var params = {
-        Bucket: "chat-shire",
-        Prefix: `chat/file/${projectId}/`,
-      };
+  //     var params = {
+  //       Bucket: "chat-shire",
+  //       Prefix: `chat/file/${projectId}/`,
+  //     };
 
-      var s3 = new AWS.S3();
+  //     var s3 = new AWS.S3();
 
-      s3.listObjects(params, function (err, data) {
-        if (err) {
-          console.log(err, err.stack);
-          reject(err);
-        } else {
-          // console.log(data);
+  //     s3.listObjects(params, function (err, data) {
+  //       if (err) {
+  //         console.log(err, err.stack);
+  //         reject(err);
+  //       } else {
+  //         // console.log(data);
 
-          if (data.Contents) {
-            let files = data.Contents.map((file: any) => {
-              let url = s3.getSignedUrl("getObject", {
-                Bucket: "chat-shire",
-                Key: file.Key,
-              });
-              let name = file.Key.split("/").pop();
-              let size = file.Size;
+  //         if (data.Contents) {
+  //           let files = data.Contents.map((file: any) => {
+  //             let url = s3.getSignedUrl("getObject", {
+  //               Bucket: "chat-shire",
+  //               Key: file.Key,
+  //             });
+  //             let name = file.Key.split("/").pop();
+  //             let size = file.Size;
 
-              return { url: url, name: name, size: size };
-            });
+  //             return { url: url, name: name, size: size };
+  //           });
 
-            resolve(files);
-          } else {
-            resolve([]);
-          }
-        }
-      });
-    });
-  };
+  //           resolve(files);
+  //         } else {
+  //           resolve([]);
+  //         }
+  //       }
+  //     });
+  //   });
+  // };
 
   return (
     <div className={styles.MessageRightBody}>

@@ -159,7 +159,7 @@ export default function MessageItem({
     
     if (url.endsWith('mp4')) {
       return (
-        <video style={{height: '240px'}} key={index} controls>
+        <video width="250" key={index} controls>
           <source src={info.url} type="video/mp4" />
         </video>
       );
