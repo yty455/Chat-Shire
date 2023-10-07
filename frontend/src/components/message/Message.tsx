@@ -495,7 +495,7 @@ function Message({ projectId }: MessageProps) {
       });
 
       // 파일 이름 가져오기
-      let fileName;
+      let fileName="";
       for (let value of formData.values()) {
         if (value instanceof File) {
           fileName = value.name;
@@ -515,10 +515,14 @@ function Message({ projectId }: MessageProps) {
         });
 
         // 업로드 시작하고 프로미스 반환
-        upload
-          .promise()
-          .then(() => {
+        return upload.promise().then(() => {
             console.log("파일 업로드 완료");
+            const fileUrl = `https://chat-shire.s3.amazonaws.com/chat/file/${projectId}/${fileName}`
+            attachedFileInfos.push({ url: fileUrl, thumbnail: fileUrl });
+            setAttachedFileInfos(attachedFileInfos);
+            console.log('담아보낼 파일', attachedFileInfos)
+            postChat(Number(projectId), "", attachedFileInfos);
+            setAttachedFileInfos([])
           })
           .catch((error) => {
             console.error("업로드 실패", error);
