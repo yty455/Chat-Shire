@@ -115,6 +115,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
     api.get(`/projects/${projectId}/keywords`).then((res) => {
       console.log(res);
       setKeywords(res.data.result[0]);
+      setSelectedKeyword(res.data.result[0])
     });
   };
 
@@ -352,18 +353,14 @@ export default function Analysis({ projectId }: AnalysisProps) {
         />
         <div className={styles.analysisTopicsContainer}>
           <span className={styles.analysisItemTitle}>우리의 키워드 
-          <Popover
-          placement="rightBottom"
-          content={key}
-          trigger="click"
-        >
+
           <BsPencilFill
                             style={{
                               fontSize: "17px",
                               // margin: "-5px 3px 10px 0",
                             }}
                             onClick={handleClickOpen}
-                          /></Popover></span>
+                          /></span>
           <div className={styles.analysisKeywordsContainer}>
             {returnKeywords}
           </div>
@@ -430,18 +427,21 @@ export default function Analysis({ projectId }: AnalysisProps) {
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
           multiple
-          value={keywords}
+          value={selectedKeyword}
           onChange={handleChange}
           input={<OutlinedInput label="Tag" />}
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
         >
-          {keyword.map((name) => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={keywords.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
+          {allCategoryCount.key
+  .filter((name) => keyword?.includes(name))
+  .sort((a, b) => allCategoryCount.value[b] - allCategoryCount.value[a])
+  .map((name) => (
+    <MenuItem key={name} value={name}>
+      <Checkbox checked={selectedKeyword?.indexOf(name) > -1} />
+      <ListItemText primary={name} />
+    </MenuItem>
+  ))}
         </Select>
       </FormControl>
     </div>
@@ -449,9 +449,9 @@ export default function Analysis({ projectId }: AnalysisProps) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose}>취소</Button>
           <Button onClick={handleSave} autoFocus>
-            Agree
+            저장
           </Button>
         </DialogActions>
       </Dialog>
