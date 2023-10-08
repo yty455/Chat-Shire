@@ -425,13 +425,13 @@ export default function Analysis({ projectId }: AnalysisProps) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+          {"우리의 키워드 설정"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
           <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+        <InputLabel id="demo-multiple-checkbox-label">Keyword</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
