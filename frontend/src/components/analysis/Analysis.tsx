@@ -32,6 +32,13 @@ import ListItemText from '@mui/material/ListItemText';
 import { keyword } from "../../stores/keyword";
 import { postKeyword, deleteKeyword } from "../../utils/keywordApi";
 import { Popover } from "antd";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+
 
 interface AnalysisProps {
   projectId: string;
@@ -279,6 +286,21 @@ export default function Analysis({ projectId }: AnalysisProps) {
     );
   };
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSave = () => {
+    PostInKeyword()
+    setOpen(false);
+  };
+
   const key = (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
@@ -293,7 +315,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
         >
-          {keyword.map((name) => (
+          {Object.keys(allCategoryCount).map((name) => (
             <MenuItem key={name} value={name}>
               <Checkbox checked={keywords.indexOf(name) > -1} />
               <ListItemText primary={name} />
@@ -340,6 +362,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
                               fontSize: "17px",
                               // margin: "-5px 3px 10px 0",
                             }}
+                            onClick={handleClickOpen}
                           /></Popover></span>
           <div className={styles.analysisKeywordsContainer}>
             {returnKeywords}
@@ -389,6 +412,50 @@ export default function Analysis({ projectId }: AnalysisProps) {
           <span className={styles.analysisItemDesc}>{projectInfo?.topic}</span>
         </div>
       </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Use Google's location service?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+          <div>
+      <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+        <Select
+          labelId="demo-multiple-checkbox-label"
+          id="demo-multiple-checkbox"
+          multiple
+          value={keywords}
+          onChange={handleChange}
+          input={<OutlinedInput label="Tag" />}
+          renderValue={(selected) => selected.join(', ')}
+          MenuProps={MenuProps}
+        >
+          {keyword.map((name) => (
+            <MenuItem key={name} value={name}>
+              <Checkbox checked={keywords.indexOf(name) > -1} />
+              <ListItemText primary={name} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </div>
+
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleSave} autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+
     </div>
   );
 }

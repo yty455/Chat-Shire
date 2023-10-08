@@ -134,7 +134,7 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
               <div key={chat.chatNumber} className={styles.chat}>
                 {" "}
                 <div className={styles.nickname}>{chat.nickname} : </div>
-                <div className={styles.content}>{chat.content}</div>
+                <div className={styles.content}>{chat.content ? chat.content : "첨부파일"}</div>
                 <div className={styles.chatTime}>
                   {" "}
                   : {formatChatTime(chat.chatTime)}
