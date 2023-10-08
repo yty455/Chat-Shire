@@ -305,7 +305,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
     setOpen(false);
   };
 
-  const handleSave = () => {
+  const handleSaveCon = () => {
     PostInKeyword()
     deleteInKeyword()
     setOpen(false);
@@ -459,7 +459,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>취소</Button>
-          <Button onClick={handleSave} autoFocus>
+          <Button onClick={handleSaveCon}>
             저장
           </Button>
         </DialogActions>
