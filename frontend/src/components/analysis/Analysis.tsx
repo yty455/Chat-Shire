@@ -433,15 +433,15 @@ export default function Analysis({ projectId }: AnalysisProps) {
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
         >
-          {allCategoryCount.key
+         {Object.keys(allCategoryCount)
   .filter((name) => keyword?.includes(name))
-  .sort((a, b) => allCategoryCount.value[b] - allCategoryCount.value[a])
+  .sort((a, b) => allCategoryCount[b] - allCategoryCount[a])
   .map((name) => (
     <MenuItem key={name} value={name}>
       <Checkbox checked={selectedKeyword?.indexOf(name) > -1} />
       <ListItemText primary={name} />
     </MenuItem>
-  ))}
+))}
         </Select>
       </FormControl>
     </div>
