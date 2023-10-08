@@ -42,7 +42,9 @@
 
 .SwiperItemHeader {
   width: 340px;
-  margin: 10px 10px 0px 10px;
+  height: 100px;
+  border-radius: 20px 20px 0px 0px;
+  padding: 10px 10px 0px;
 }
 
 .SwiperItemBody {
@@ -52,7 +54,7 @@
   margin-top: 6px;
   padding: 0px 10px 10px 10px;;
   width: 340px;
-  height: 123px;
+  height: 100px;
   border-top: 2px solid gray;
   border-radius: 0px 0px 20px 20px;
   transition-duration: 0.3s;
@@ -70,6 +72,7 @@
   display: flex;
   width: 340px;
   margin-left: 10px;
+  padding: 6px 0px;
   overflow: scroll;
 }
 
