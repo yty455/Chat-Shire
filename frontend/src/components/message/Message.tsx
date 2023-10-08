@@ -198,7 +198,7 @@ function Message({ projectId }: MessageProps) {
   const connectHandler = () => {
     client.current = Stomp.over(() => {
       const sock = new SockJS(
-        "https://j9e205.p.ssafy.io/api/gs-guide-websocket"
+        "http://j9e205.p.ssafy.io:8080/gs-guide-websocket"
       );
       return sock;
     });
