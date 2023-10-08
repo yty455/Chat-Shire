@@ -119,20 +119,22 @@ export default function Analysis({ projectId }: AnalysisProps) {
     });
   };
 
-    // 태스크 등록
+    // 키워드 등록
     const PostInKeyword = async () => {
       try {
-        const response = await postKeyword(projectId, keywords);
+        const addedKeywords = selectedKeyword.filter(keyword => !keywords.includes(keyword));
+        const response = await postKeyword(projectId, addedKeywords);
         getKeywords()
       } catch (error) {
         console.error(error);
       }
     };
 
-      // 태스크 취소
+      // 키워드 취소
   const deleteInKeyword = async () => {
     try {
-      const response = await deleteKeyword(projectId, keywords);
+      const deletedKeywords = keywords.filter(keyword => !selectedKeyword.includes(keyword));
+      const response = await deleteKeyword(projectId, deletedKeywords);
       getKeywords()
     } catch (error) {
       console.error(error);
@@ -238,20 +240,26 @@ export default function Analysis({ projectId }: AnalysisProps) {
     return <span>{member.nickname}, </span>;
   });
 
-  const returnKeywords = Object.entries(allCategoryCount)
-    .sort((a: any, b: any) => a[1] - b[1])
-    .splice(0, 6)
-    .map((entry) => {
-      let isSelected = false;
-      if (keywords.includes(entry[0])) {
-        isSelected = true;
-      } else {
-        isSelected = false;
-      }
-      return (
-        <Keywords topic={entry[0]} projectId={Number(projectId)} isSelected />
-      );
-    });
+  // const returnKeywords = 
+  // Object.entries(allCategoryCount)
+  //   .sort((a: any, b: any) => a[1] - b[1])
+  //   .splice(0, 6)
+  //   .map((entry) => {
+  //     let isSelected = false;
+  //     if (keywords.includes(entry[0])) {
+  //       isSelected = true;
+  //     } else {
+  //       isSelected = false;
+  //     }
+  //     return (
+  //       <Keywords topic={entry[0]} projectId={Number(projectId)} isSelected />
+  //     );
+  //   });
+  
+  const returnKeywords = selectedKeyword.map((key) => (
+    <Keywords topic={key} projectId={Number(projectId)} isSelected={true} />
+  ));
+
 
   useEffect(() => {
     getAnalysisPage();
@@ -281,7 +289,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
     const {
       target: { value },
     } = event;
-    setKeywords(
+    setSelectedKeyword(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
@@ -299,6 +307,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
 
   const handleSave = () => {
     PostInKeyword()
+    deleteInKeyword()
     setOpen(false);
   };
 
