@@ -437,7 +437,13 @@ export default function Analysis({ projectId }: AnalysisProps) {
           id="demo-multiple-checkbox"
           multiple
           value={selectedKeyword}
-          onChange={handleChange}
+          onChange={(event) => {
+            if (event.target.value.length > 6) {
+                alert("6개 까지만 설정할 수 있습니다.")
+                return;
+            }
+            handleChange(event);
+        }}
           input={<OutlinedInput label="Tag" />}
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
