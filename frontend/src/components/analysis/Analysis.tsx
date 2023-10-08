@@ -303,9 +303,9 @@ export default function Analysis({ projectId }: AnalysisProps) {
       </FormControl>
     </div>
   );
-  useEffect(()=>{
-    PostInKeyword()
-  },[keywords])
+  // useEffect(()=>{
+  //   PostInKeyword()
+  // },[keywords])
 
 
 

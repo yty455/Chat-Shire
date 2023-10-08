@@ -7,6 +7,7 @@ import {
 } from "../../utils/taskReferenceApi";
 import { Button } from "antd";
 import { getProjectMem } from "../../utils/projectApi";
+import MessageItem from "../message/MessageItem";
 
 interface IndivChatModalProps {
   onClose: () => void;
@@ -95,27 +96,28 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
         <div className={styles.modalBox}>
           {reChat &&
             reChat.map((chat) => (
-              <div key={chat.chatNumber} className={styles.chat}>
-                {" "}
-                <div className={styles.nickname}>
-                  {" "}
-                  {
-                    pjtMem.find((member) => member.userId === chat.userId)
-                      ?.nickname
-                  }{" "}
-                  :
-                </div>
-                <div
-                  className={styles.content}
-                  onClick={() => handleClick(chat.id)}
-                >
-                  {chat.content}
-                </div>
-                <div className={styles.chatTime}>
-                  {" "}
-                  : {formatChatTime(chat.chatTime)}
-                </div>
-              </div>
+              <MessageItem  message={chat} users={pjtMem} />
+              // <div key={chat.chatNumber} className={styles.chat}>
+              //   {" "}
+              //   <div className={styles.nickname}>
+              //     {" "}
+              //     {
+              //       pjtMem.find((member) => member.userId === chat.userId)
+              //         ?.nickname
+              //     }{" "}
+              //     :
+              //   </div>
+              //   <div
+              //     className={styles.content}
+                 
+              //   >
+              //     {chat.content}
+              //   </div>
+              //   <div className={styles.chatTime}>
+              //     {" "}
+              //     : {formatChatTime(chat.chatTime)}
+              //   </div>
+              // </div>
             ))}
           <button
             style={{ cursor: "pointer" }}
