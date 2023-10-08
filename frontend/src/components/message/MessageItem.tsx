@@ -102,7 +102,12 @@ export default function MessageItem({
     return date.toLocaleString(); // 브라우저 설정에 따라 로케일에 맞게 날짜 및 시간을 표시
   }
   return (
-    <div className={styles.messageItemContainer}>
+    <div className={styles.messageItemContainer} 
+    draggable="true"
+    onDragStart={(e) => {
+      e.dataTransfer.setData("message", JSON.stringify(message));
+      e.dataTransfer.setData("nickname", user?.nickname);
+    }}>
       <StyledBadge
         className={styles.messageItemProfile}
         overlap="circular"
@@ -127,11 +132,7 @@ export default function MessageItem({
       </StyledBadge>
       <div
         className={styles.messageItemBody}
-        draggable="true"
-        onDragStart={(e) => {
-          e.dataTransfer.setData("message", JSON.stringify(message));
-          e.dataTransfer.setData("nickname", user?.nickname);
-        }}
+
       >
         <div className={styles.messageItemName}>
           <span className={styles.messageProfileName}>
@@ -154,10 +155,26 @@ export default function MessageItem({
             ))} */}
           </span>
           <div className={styles.messageItemText}>
-            {message && message?.attachedFileInfos?.map((info: any, index: number) => (
-              <img style={{height: '120px'}} key={index} src={info.url} alt="attached" />
-            ))}
-          </div>
+  {message && message?.attachedFileInfos?.map((info: any, index: number) => {
+    const url = info.url.toLowerCase(); // URL을 소문자로 변환하여 비교
+    
+    if (url.endsWith('mp4')) {
+      return (
+        <video width="250" key={index} controls>
+          <source src={info.url} type="video/mp4" />
+        </video>
+      );
+    } else if (url.endsWith('.pdf') || url.endsWith('.docx') || url.endsWith('.doc') || url.endsWith('.xlsx') || url.endsWith('.xls') || url.endsWith('.txt')) {
+      return (
+        <a href={info.url} target="_blank" rel="noopener noreferrer">{info.url.split('/').pop()}</a>
+      );
+    } else {
+      return (
+        <img style={{height: '120px'}} key={index} src={info.url} alt="attached" />
+      );
+    }
+  })}
+</div>
         </div>
       </div>
     </div>

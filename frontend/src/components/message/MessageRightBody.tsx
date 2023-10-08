@@ -8,13 +8,16 @@ import RightLinkTab from "./RightLinkTab";
 interface Props {
   value: string;
   projectId: string;
+  files:{ url: string; name: string; size: number }[]
+  images : string[];
+  videos : string[];
 }
 
-const MessageRightBody: React.FC<Props> = ({ value, projectId }) => {
+const MessageRightBody: React.FC<Props> = ({ value, projectId, files, images, videos }) => {
   if (value === "media") {
-    return <RightMediaTab projectId={projectId} />;
+    return <RightMediaTab projectId={projectId} images={images} videos={videos}/>;
   } else if (value === "files") {
-    return <RightFileTab projectId={projectId} />;
+    return <RightFileTab projectId={projectId} files={files} />;
   } else if (value === "links") {
     return <RightLinkTab projectId={projectId} />;
   } else if (value === "search") {
