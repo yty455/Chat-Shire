@@ -573,7 +573,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   }
                 />
 
-                {task.taskInfoResponses.map((item: any) => (
+                {task.taskInfoResponses ? task.taskInfoResponses.map((item: any) => (
                   <div style={{ margin: 0, padding: 0 }} key={item.id}>
                     <div
                       style={{
@@ -674,7 +674,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       </div>
                     </div>
                   </div>
-                ))}
+                )): (
+                  <span style={{fontFamily: "preRg", fontSize: "20px"}}>하위 태스크를 등록해보세요</span>
+                )}
               </div>
             ))}
         </div>
@@ -762,7 +764,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   }
                 />
 
-                {task.taskInfoResponses.map((item: any) => (
+                {task.taskInfoResponses ? task.taskInfoResponses.map((item: any) => (
                   <div key={item.id}>
                     <div
                       style={{
@@ -863,7 +865,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       </div>
                     </div>
                   </div>
-                ))}
+                )) : (
+                  <span style={{fontFamily: "preRg", fontSize: "20px"}}>하위 태스크를 등록해보세요</span>
+                )}
               </div>
             ))}
 
