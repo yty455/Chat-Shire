@@ -573,7 +573,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   }
                 />
 
-                {task.taskInfoResponses ? task.taskInfoResponses.map((item: any) => (
+                {task.taskInfoResponses.length > 0 ? task.taskInfoResponses.map((item: any) => (
                   <div style={{ margin: 0, padding: 0 }} key={item.id}>
                     <div
                       style={{
@@ -764,7 +764,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   }
                 />
 
-                {task.taskInfoResponses ? task.taskInfoResponses.map((item: any) => (
+                {task.taskInfoResponses.length > 0 ? task.taskInfoResponses.map((item: any) => (
                   <div key={item.id}>
                     <div
                       style={{
