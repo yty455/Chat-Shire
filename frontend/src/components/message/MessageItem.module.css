@@ -53,8 +53,9 @@
   margin: 0vw 0 10px 0px; */
   border-radius: 10px;
   color: #575757;
-  border: 1px solid #E5E8EB;;
+  border: 1px solid #c2c5c98a;
   background-color: #ffffff;
+  margin-top: 5px;
 }
 
 .messageItemProfile {
