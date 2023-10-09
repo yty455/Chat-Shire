@@ -16,7 +16,6 @@ import {
   searchErrConent,
   searchErrSkillName,
 } from "../../utils/errorApi";
-import { useRecoilState } from "recoil";
 import { err_recoil } from "../../stores/atom";
 
 
