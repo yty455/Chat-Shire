@@ -91,7 +91,7 @@ function ProjectModal({
             {editState === "name" ? (
               <div>
                 <input
-                  style={{ fontFamily: "preBd", fontSize: "24px", border: '1px solid transparent' }}
+                  style={{ fontFamily: "preBd", fontSize: "24px"}}
                   type="text"
                   value={projectData.name}
                   onChange={(e) => {
@@ -157,7 +157,7 @@ function ProjectModal({
                   프로젝트 주제
                 </span>
                 <input
-                  style={{fontFamily: "preRg", fontSize: '12px', border: '1px solid transparent'}}
+                  style={{fontFamily: "preRg", fontSize: '12px'}}
                   type="text"
                   value={projectData.topic}
                   onChange={(e) => {
