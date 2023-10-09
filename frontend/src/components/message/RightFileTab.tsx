@@ -70,6 +70,9 @@ export default function RightFileTab({ projectId, files }: MessageProps) {
   //     });
   //   });
   // };
+  useEffect(()=>{
+
+  },[files])
 
   return (
     <div className={styles.MessageRightBody}>
