@@ -556,7 +556,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             : "#5BFF83",
                       }}
                     >
-                      {task.priority}
+                      {task.priority === "HIGH" ? "매우 중요" : task.priority === "MEDIUM" ? "중요" : "보통"}
                     </p>
                   </div>
                 </div>
@@ -675,7 +675,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     </div>
                   </div>
                 )): (
-                  <span style={{fontFamily: "preRg", fontSize: "20px"}}>하위 태스크를 등록해보세요</span>
+                  <span style={{fontFamily: "preRg", fontSize: "16px", marginLeft: "10px"}}>하위 태스크를 등록해보세요</span>
                 )}
               </div>
             ))}
@@ -747,7 +747,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             : "#FFF05B",
                       }}
                     >
-                      {task.priority}
+                      {task.priority === "HIGH" ? "매우 중요" : task.priority === "MEDIUM" ? "중요" : "보통"}
                     </p>
                   </div>
                 </div>
@@ -866,7 +866,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     </div>
                   </div>
                 )) : (
-                  <span style={{fontFamily: "preRg", fontSize: "20px"}}>하위 태스크를 등록해보세요</span>
+                  <span style={{fontFamily: "preRg", fontSize: "16px", marginLeft: "10px"}}>하위 태스크를 등록해보세요</span>
                 )}
               </div>
             ))}
