@@ -474,8 +474,7 @@ function Message({ projectId }: MessageProps) {
 
         uploadS3File(formData)
           .then(() => {
-            listFiles().then(fileInfos => console.log(fileInfos));
-            // resolve()
+            resolve()
           })
           .catch((error) => reject(error));
       };
@@ -521,6 +520,7 @@ function Message({ projectId }: MessageProps) {
             const fileUrl = `https://chat-shire.s3.amazonaws.com/chat/file/${projectId}/${fileName}`
             attachedFileInfos.push({ url: fileUrl, thumbnail: fileUrl });
             setAttachedFileInfos(attachedFileInfos);
+            listFiles().then(fileInfos => console.log(fileInfos));
             console.log('담아보낼 파일', attachedFileInfos)
             postChat(Number(projectId), "", attachedFileInfos);
             setAttachedFileInfos([])
