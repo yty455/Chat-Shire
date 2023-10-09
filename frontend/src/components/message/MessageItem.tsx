@@ -201,10 +201,13 @@ export default function MessageItem({
         centered
         open={open}
         width={1000}
+        onOk={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
+        footer={null}
       >
-        {message && message?.attachedFileInfos?.map((info: any, index: number) => {
-        <img style={{marginTop: '3px', height: '360px'}} key={index} src={info.url} alt="attached" />
-        })}
+      {message && message?.attachedFileInfos?.map((info: any, index: number) => {
+        return <img style={{marginTop: '3px', height: '360px'}} key={index} src={info.url} alt="attached" />
+      })}
       </Modal>
     </div>
 
