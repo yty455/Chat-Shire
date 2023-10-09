@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import MultiSelect from "../error/MultiSelect";
 import { useRecoilState } from "recoil";
 import { loginuser, isLogin_recoil } from "../../stores/atom";
+import { styled } from '@mui/system';
 
 interface CustomProfileProps {
   onUpdatenickname: any;
@@ -64,6 +65,12 @@ export default function CustomProfileInfo({
     }
   };
 
+  const StyledTextField = styled(TextField)({
+    '& .MuiInputBase-input': {
+      fontFamily: 'preRg',
+    },
+  });
+  
   useEffect(() => {
     if (isLogin) {
       setNickname(userData.nickname);
@@ -80,8 +87,7 @@ export default function CustomProfileInfo({
         <span className={styles.AvatarCustomTitle}>내 정보</span>
       </div>
       <div className={styles.ProfileInfoBody}>
-        <TextField
-          style={{fontFamily: 'preRg'}}
+        <StyledTextField
           fullWidth
           name="nickname"
           color="greenary"
@@ -452,8 +458,7 @@ export default function CustomProfileInfo({
             alt=""
           />
         </div>
-        <TextField
-          style={{fontFamily: 'preRg'}}
+        <StyledTextField
           fullWidth
           name="position"
           color="greenary"
@@ -467,8 +472,7 @@ export default function CustomProfileInfo({
           onChange={handleInputChange}
           // helperText="Please enter your name"
         />
-        <TextField
-          style={{fontFamily: 'preRg'}}
+        <StyledTextField
           value={introduction}
           fullWidth
           name="introduction"
@@ -482,8 +486,7 @@ export default function CustomProfileInfo({
           onChange={handleInputChange}
           // helperText="Please enter your name"
         />
-        <TextField
-          style={{fontFamily: 'preRg'}}
+        <StyledTextField
           fullWidth
           name="detailIntroduction"
           color="greenary"
