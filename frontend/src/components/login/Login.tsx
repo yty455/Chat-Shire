@@ -73,10 +73,15 @@ function LoginPage() {
           and easily. */}
         </p>
         <p className={styles.serviceMentLong}>
+          회의 도중 나오는 태스크와 아이디어를 손쉽게 기록하세요.
+          <br />
+          회의를 기반으로 한 프로젝트별 통계를 확인해보세요!
+        </p>
+        {/* <p className={styles.serviceMentLong}>
           간편함과 효율성 사이에서 고민하지 마세요,
           <br />
           두 가지 모두를 경험하세요.
-        </p>
+        </p> */}
         {/* <p className={styles.serviceMentLong}>
           태스크와 아이디어를 채팅과 연결해
           <br />
