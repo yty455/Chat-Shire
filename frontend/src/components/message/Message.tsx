@@ -746,6 +746,7 @@ function Message({ projectId }: MessageProps) {
               />
               <input
                 hidden
+                className={styles.inputTag}
                 autoFocus={true}
                 accept=".pdf, .docx, .doc, .xlsx, .xls, .txt"
                 type="file"
@@ -764,6 +765,7 @@ function Message({ projectId }: MessageProps) {
               />
               <input
                 hidden
+                className={styles.inputTag}
                 autoFocus={true}
                 accept="image/*, video/*"
                 multiple

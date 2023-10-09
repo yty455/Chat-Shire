@@ -147,3 +147,7 @@
   font-size: 14px;
   color: #39a789;
 }
+
+.inputTag:focus {
+  outline: none;
+}

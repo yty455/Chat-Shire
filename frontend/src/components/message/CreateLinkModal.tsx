@@ -121,6 +121,7 @@ const ModalComponent: React.FC<{
       >
         <p style={{ fontSize: "15px" }}>북마크로 등록할 링크를 입력해주세요.</p>
         <TextArea
+          autoFocus={true}
           defaultValue="https://"
           value={link}
           // value={link != "https://" ? link : "https://"}
