@@ -694,7 +694,6 @@ function Message({ projectId }: MessageProps) {
             <input
               autoFocus={true}
               maxLength={50}
-              defaultValue="등록된 공지가 없습니다."
               style={{
                 width: "450px",
                 border: "none",
