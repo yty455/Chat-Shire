@@ -356,6 +356,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                     />
                     {editingTaskId === item.id ? (
                       <input
+                        className={styles.inputTag}
                         autoFocus={true}
                         ref={inputRef}
                         // value={updatedDescription}
@@ -472,6 +473,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                     />
                     {item.isEditing ? (
                       <input
+                        className={styles.inputTag}
                         autoFocus={true}
                         ref={inputRef}
                         onKeyPress={handleKeyPress("create")}
