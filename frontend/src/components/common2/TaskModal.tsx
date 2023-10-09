@@ -93,7 +93,7 @@ function TaskModal({
       <div className={styles.modalBox}>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
-            <span style={{fontFamily: "preBd", fontSize: "24px", marginBottom: "4px"}} onClick={() => handleEditClick("name")}>
+            <span style={{fontFamily: "preBd", fontSize: "24px", marginBottom: "20px"}} onClick={() => handleEditClick("name")}>
               {editingField === "name" ? (
                 <input
                   className={styles.inputTag}
@@ -139,7 +139,10 @@ function TaskModal({
                 }}
                 size="small"
                 style={{ margin: "10px", marginLeft: "0px" }}
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleEditClick("priority")
+                }}
               >
                 <Select
                   labelId="priority-label"
@@ -254,7 +257,7 @@ function TaskModal({
         ) : (
           <Button
             className={styles.deletebtn}
-            style={{ backgroundColor: "red", fontFamily: "preRg" }}
+            style={{ backgroundColor: "rgb(255, 91, 91)", fontFamily: "preRg", margin: "0px 14px 14px 0px", width: "200px", height: "50px" }}
             key="submit"
             type="primary"
             onClick={() => teamTaskDetail && deleteTeamTask(teamTaskDetail.id)}
