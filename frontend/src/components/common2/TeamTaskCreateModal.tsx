@@ -77,7 +77,7 @@ function TeamTaskCreateModal({
       <div className={styles.formContainer} style={{ color: "#575757", backgroundColor: "#ffffff", borderRadius: "20px"}}>
         <div className={styles.formBox}>
           <span style={{ fontFamily: "preBd", fontSize: "24px" }}>
-            팀 태스크 생성
+            새로운 태스크 생성
           </span>
           <div style={{display: "flex", alignItems: "center"}}>
             <TextField

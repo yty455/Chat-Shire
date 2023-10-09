@@ -9,6 +9,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Button } from "antd";
 import { FormControl, InputLabel, MenuItem } from "@mui/material";
 
+import {MdOutlineCancel} from 'react-icons/md'
 interface TaskModalProps {
   closeModal: () => void;
   taskId: string | number;
@@ -93,10 +94,11 @@ function TaskModal({
       <div className={styles.modalBox}>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
-            <span style={{fontFamily: "preBd", fontSize: "24px", marginBottom: "20px"}} onClick={() => handleEditClick("name")}>
+            <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "20px"}} onClick={() => handleEditClick("name")}>
               {editingField === "name" ? (
                 <input
                   className={styles.inputTag}
+                  style={{fontFamily: "preBd", fontSize: "20px"}}
                   autoFocus={true}
                   type="text"
                   value={teamTaskDetail.name}
@@ -115,6 +117,8 @@ function TaskModal({
             <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "20px"}} onClick={() => handleEditClick("description")}>
               {editingField === "description" ? (
                 <input
+                  className={styles.inputTag}
+                  style={{fontFamily: "preBd", fontSize: "20px"}}
                   autoFocus={true}
                   type="text"
                   value={teamTaskDetail.description}
@@ -224,13 +228,12 @@ function TaskModal({
                 />
               </LocalizationProvider>
             </span>
-            <button
-              style={{ cursor: "pointer" }}
+            <MdOutlineCancel
+              style={{marginTop: "8px", cursor: "pointer"}}
+              size={30}
               onClick={closeModal}
               className={styles.closebtn}
-            >
-              X
-            </button>
+            />
           </div>
         )}
 
