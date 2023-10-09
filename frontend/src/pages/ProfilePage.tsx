@@ -135,8 +135,8 @@ export default function ProfilePage() {
                   <span>{userData?.introduction}</span>
                 </div>
               </div>
-              <div className={styles.profileCareerItem}>
-                <BsEmojiSmileFill size={25} style={{ marginRight: "8px" }} />
+              <div className={styles.profileIntroItem}>
+                <BsEmojiSmileFill size={25} style={{ marginRight: "10px" }} />
                 <span>{userData?.detailIntroduction}</span>
               </div>
             </div>
@@ -168,7 +168,7 @@ export default function ProfilePage() {
               </span>
             </div>
             <div className={styles.progressBar}>
-              <Box sx={{ width: "170px" }}>
+              <Box sx={{ width: "190px" }}>
                 <LinearProgressWithLabel
                   value={(userData?.challengeInfoResponse.done / 36) * 100}
                 />
