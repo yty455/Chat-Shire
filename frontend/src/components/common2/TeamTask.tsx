@@ -443,7 +443,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   };
 
   // 뱃지 클릭 시 progress를 변경하는 함수
-  const handleBadgeClick = (task: any) => {
+  const handleBadgeClick = (task: any, event:any) => {
+    event.stopPropagation();
     const updatedProgress = task.progress === "ONGOING" ? "DONE" : "ONGOING";
     const data = {
       name: task.name,
@@ -532,7 +533,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                         overlap="circular"
                         anchorOrigin={{ vertical: "top", horizontal: "left" }}
                         variant="dot"
-                        onClick={() => handleBadgeClick(task)}
+                        onClick={(event) => handleBadgeClick(task, event)}
                       ></StyledBadge>
                     ) : (
                       <StyledBadgeRed
@@ -540,7 +541,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                         overlap="circular"
                         anchorOrigin={{ vertical: "top", horizontal: "left" }}
                         variant="dot"
-                        onClick={() => handleBadgeClick(task)}
+                        onClick={(event) => handleBadgeClick(task, event)}
                       ></StyledBadgeRed>
                     )}
                     <p className={styles.step}>{task.name}</p>
@@ -721,7 +722,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                         overlap="circular"
                         anchorOrigin={{ vertical: "top", horizontal: "left" }}
                         variant="dot"
-                        onClick={() => handleBadgeClick(task)}
+                        onClick={(event) => handleBadgeClick(task, event)}
                       ></StyledBadge>
                     ) : (
                       <StyledBadgeRed
@@ -729,7 +730,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                         overlap="circular"
                         anchorOrigin={{ vertical: "top", horizontal: "left" }}
                         variant="dot"
-                        onClick={() => handleBadgeClick(task)}
+                        onClick={(event) => handleBadgeClick(task, event)}
                       ></StyledBadgeRed>
                     )}
                     <p className={styles.step}>{task.name}</p>

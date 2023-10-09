@@ -81,7 +81,7 @@ function TeamTaskCreateModal({
           </span>
           <div style={{display: "flex", alignItems: "center"}}>
             <TextField
-              sx={{ width: "390px", marginTop: "14px" }}
+              sx={{ width: "90%", marginTop: "14px" }}
               color="greenary"
               variant="standard"
               type="text"
@@ -156,7 +156,7 @@ function TeamTaskCreateModal({
           </div>
           <div>
             <TextField
-              sx={{ width: "470px", margin: "14px 0px 0px -2px" }}
+              sx={{ width: "100%", margin: "14px 0px 0px -2px" }}
               color="greenary"
               // variant="standard"
               multiline
