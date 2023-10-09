@@ -67,6 +67,11 @@ function LeftSide(props: Props) {
     }
   }
 
+  const closeColorPicker = () => {
+    setColorPickerOpen(false);
+  };
+  
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -168,8 +173,10 @@ function LeftSide(props: Props) {
       >
         <Popover
           placement="rightBottom"
-          content={<ColorPickerDialog onSelectColor={handleColorSelect} />}
+          content={<ColorPickerDialog onSelectColor={handleColorSelect} onClose={closeColorPicker} />}
           trigger="click"
+          visible={colorPickerOpen}
+          onVisibleChange={setColorPickerOpen}
         >
           {userData?.state === "ONLINE" ? (
             <StyledBadge
