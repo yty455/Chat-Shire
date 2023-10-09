@@ -243,6 +243,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
           </div>
         </div>
         <MdOutlineCancel
+          style={{cursor: "pointer"}}
           size={20}
           onClick={closeModal}
           className={styles.closebtn}

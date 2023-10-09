@@ -201,7 +201,7 @@ function TeamTaskCreateModal({
           </Button>
         </div>
         <MdOutlineCancel
-          style={{marginTop: "8px"}}
+          style={{marginTop: "8px", cursor: "pointer"}}
           size={30}
           onClick={closeModal}
           className={styles.closebtn}
