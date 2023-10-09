@@ -7,7 +7,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Button } from "antd";
-import { FormControl, InputLabel, MenuItem } from "@mui/material";
+import { TextField, FormControl, MenuItem } from "@mui/material";
 
 import {MdOutlineCancel} from 'react-icons/md'
 interface TaskModalProps {
@@ -94,25 +94,25 @@ function TaskModal({
       <div className={styles.modalBox}>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
-            <div>
+            <div style={{display: "flex", alignItems: "center"}}>
               <span style={{fontFamily: "preBd", fontSize: "24px", marginBottom: "20px"}} onClick={() => handleEditClick("name")}>
-                {editingField === "name" ? (
-                  <input
-                    className={styles.inputTag}
-                    style={{width: "360px", height: "36px", fontFamily: "preBd", fontSize: "24px", color: "#575757"}}
-                    autoFocus={true}
-                    type="text"
-                    value={teamTaskDetail.name}
-                    onChange={(e) =>
-                      setTeamTaskDetail({
-                        ...teamTaskDetail,
-                        name: e.target.value,
-                      })
-                    }
-                  />
-                ) : (
-                  teamTaskDetail.name
-                )}
+                <TextField
+                  onClick={() => handleEditClick("name")}
+                  sx={{ width: "100%", margin: "14px 0px 0px -2px" }}
+                  color="greenary"
+                  // variant="standard"
+                  multiline
+                  rows={1}
+                  type="text"
+                  placeholder="업무에 대한 설명을 입력하세요"
+                  value={teamTaskDetail.name}
+                  onChange={(e) =>
+                    setTeamTaskDetail({
+                      ...teamTaskDetail,
+                      name: e.target.value,
+                    })
+                  }
+                />
               </span>
               <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "20px"}} onClick={() => handleEditClick("priority")}>
                 <FormControl
@@ -191,23 +191,23 @@ function TaskModal({
             </div>
             <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "4px"}}>태스크 설명</span>
             <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "20px"}} onClick={() => handleEditClick("description")}>
-              {editingField === "description" ? (
-                <input
-                  className={styles.inputTag}
-                  style={{width: "360px", height: "200px", fontFamily: "preBd", fontSize: "20px", color: "#575757"}}
-                  autoFocus={true}
-                  type="text"
-                  value={teamTaskDetail.description}
-                  onChange={(e) =>
-                    setTeamTaskDetail({
-                      ...teamTaskDetail,
-                      description: e.target.value,
-                    })
-                  }
-                />
-              ) : (
-                teamTaskDetail.description
-              )}
+              <TextField
+                onClick={() => handleEditClick("description")}
+                sx={{ width: "100%", margin: "14px 0px 0px -2px" }}
+                color="greenary"
+                // variant="standard"
+                multiline
+                rows={4}
+                type="text"
+                placeholder="업무에 대한 설명을 입력하세요"
+                value={teamTaskDetail.description}
+                onChange={(e) =>
+                  setTeamTaskDetail({
+                    ...teamTaskDetail,
+                    description: e.target.value,
+                  })
+                }
+              />
             </span>
             
             <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "4px"}}>마감일자</span>
