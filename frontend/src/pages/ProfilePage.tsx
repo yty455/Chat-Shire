@@ -127,7 +127,7 @@ export default function ProfilePage() {
                 </div>
                 <div className={styles.profileCareerItem}>
                   {userData?.mySkill?.map((item: any) => (
-                    <span className={styles.career} key={item}>{item} &nbsp;</span>
+                    <span className={styles.career} key={item}>{item}</span>
                   ))}
                 </div>
                 <div className={styles.profileCareerItem}>
@@ -135,8 +135,8 @@ export default function ProfilePage() {
                   <span>{userData?.introduction}</span>
                 </div>
               </div>
-              <div className={styles.profileIntroduce}>
-                <BsEmojiSmileFill size={30} style={{ marginRight: "8px" }} />
+              <div className={styles.profileCareerItem}>
+                <BsEmojiSmileFill size={25} style={{ marginRight: "8px" }} />
                 <span>{userData?.detailIntroduction}</span>
               </div>
             </div>
@@ -168,7 +168,7 @@ export default function ProfilePage() {
               </span>
             </div>
             <div className={styles.progressBar}>
-              <Box sx={{ width: "200px" }}>
+              <Box sx={{ width: "170px" }}>
                 <LinearProgressWithLabel
                   value={(userData?.challengeInfoResponse.done / 36) * 100}
                 />
