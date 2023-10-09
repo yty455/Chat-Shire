@@ -99,7 +99,7 @@ function TaskModal({
               <span style={{fontFamily: "preBd", fontSize: "24px", marginBottom: "20px"}} onClick={() => handleEditClick("name")}>
                 <TextField
                   onClick={() => handleEditClick("name")}
-                  sx={{ width: "90%", margin: "14px 0px 0px -2px" }}
+                  sx={{ width: "340px", margin: "14px 0px 0px -2px" }}
                   color="greenary"
                   variant="standard"
                   multiline
@@ -194,7 +194,7 @@ function TaskModal({
             <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "20px"}} onClick={() => handleEditClick("description")}>
               <TextField
                 onClick={() => handleEditClick("description")}
-                sx={{ width: "100%", margin: "14px 0px 0px -2px" }}
+                sx={{ width: "340px", margin: "14px 0px 0px -2px" }}
                 color="greenary"
                 // variant="standard"
                 multiline
