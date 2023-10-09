@@ -49,16 +49,16 @@ const ProfileRadarChart = ({userData}:props) => {
         userData.taskCount);
 
     function minMaxScaling(num: number): number {
-        let minVal = Math.min(userData.morningCommit + userData.afternoonCommit + userData.nightCommit,
-                                userData.errorCount,
-                               userData.chatCount,
-                               userData.topicCount,
-                               userData.taskCount);
-        let maxVal = Math.max(userData.morningCommit + userData.afternoonCommit + userData.nightCommit,
-            userData.errorCount,
-           userData.chatCount,
-           userData.topicCount,
-           userData.taskCount);
+        let minVal = Math.min(userData.morningCommit + userData.afternoonCommit + userData.nightCommit + maxValue* 0.2,
+            userData.errorCount + maxValue* 0.2,
+            userData.chatCount + maxValue* 0.2,
+            userData.topicCount + maxValue* 0.2,
+            userData.taskCount+ maxValue* 0.2);
+let maxVal = Math.max(userData.morningCommit +userData.afternoonCommit+userData.nightCommit+maxValue* 0.2, 
+          userData.errorCount+maxValue* 0.2, 
+          userData.chatCount+maxValue* 0.2, 
+          userData.topiccount+maxValue* 0.2, 
+          userData.taskcount+maxValue* 0.2);
         return (num - minVal) / (maxVal - minVal);
       }
 
