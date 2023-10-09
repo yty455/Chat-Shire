@@ -672,6 +672,7 @@ function Message({ projectId }: MessageProps) {
           <BsFillMegaphoneFill size={20} />
           {notice ? (
             <input
+              autoFocus={true}
               maxLength={50}
               style={{
                 width: "450px",
@@ -691,6 +692,7 @@ function Message({ projectId }: MessageProps) {
             />
           ) : (
             <input
+              autoFocus={true}
               maxLength={50}
               style={{
                 width: "450px",
@@ -731,6 +733,7 @@ function Message({ projectId }: MessageProps) {
               placeholder=" 메세지를 입력해주세요"
               inputProps={ariaLabel}
               onKeyPress={inputMessage}
+              autoFocus={true}
             />
           </div>
           <div className={styles.messageFooterButtonContainer}>
@@ -743,6 +746,8 @@ function Message({ projectId }: MessageProps) {
               />
               <input
                 hidden
+                className={styles.inputTag}
+                autoFocus={true}
                 accept=".pdf, .docx, .doc, .xlsx, .xls, .txt"
                 type="file"
                 ref={(el) => (inputRef.current[1] = el)}
@@ -760,6 +765,8 @@ function Message({ projectId }: MessageProps) {
               />
               <input
                 hidden
+                className={styles.inputTag}
+                autoFocus={true}
                 accept="image/*, video/*"
                 multiple
                 type="file"

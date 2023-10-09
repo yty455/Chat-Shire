@@ -109,3 +109,8 @@
   height: 86px;
   width: 430px;
 }
+
+.AvatarCustomHeader {
+  height: 50px;
+  padding-top: 8px;
+}

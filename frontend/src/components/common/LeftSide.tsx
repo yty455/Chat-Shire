@@ -295,7 +295,7 @@ function LeftSide(props: Props) {
             </StyledBadge>
           )}
         </Popover>
-        <h5 className={styles.profilename}>
+        <h5 style={{fontSize: '15px'}} className={styles.profilename}>
           {userData ? userData?.nickname : "CSI"}
         </h5>
       </div>

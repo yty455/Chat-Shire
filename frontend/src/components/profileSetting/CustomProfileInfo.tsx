@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import MultiSelect from "../error/MultiSelect";
 import { useRecoilState } from "recoil";
 import { loginuser, isLogin_recoil } from "../../stores/atom";
+import { styled } from '@mui/system';
 
 interface CustomProfileProps {
   onUpdatenickname: any;
@@ -64,6 +65,12 @@ export default function CustomProfileInfo({
     }
   };
 
+  const StyledTextField = styled(TextField)({
+    '& .MuiInputBase-input': {
+      fontFamily: 'preRg',
+    },
+  });
+  
   useEffect(() => {
     if (isLogin) {
       setNickname(userData.nickname);
@@ -80,7 +87,7 @@ export default function CustomProfileInfo({
         <span className={styles.AvatarCustomTitle}>내 정보</span>
       </div>
       <div className={styles.ProfileInfoBody}>
-        <TextField
+        <StyledTextField
           fullWidth
           name="nickname"
           color="greenary"
@@ -94,8 +101,8 @@ export default function CustomProfileInfo({
           onChange={handleInputChange}
           // helperText="Please enter your name"
         />
-        <span style={{ margin: "8px 0px -4px 0px", fontFamily: "preLt" }}>
-          뭐할줄 알아여
+        <span style={{ fontSize: '13px', margin: "13px 0px -4px 0px", fontFamily: "preLt" }}>
+          보유한 기술스택을 골라주세요 *
         </span>
         <div className={styles.ProfileInfoSkillSelector}>
           <img
@@ -451,7 +458,7 @@ export default function CustomProfileInfo({
             alt=""
           />
         </div>
-        <TextField
+        <StyledTextField
           fullWidth
           name="position"
           color="greenary"
@@ -465,7 +472,7 @@ export default function CustomProfileInfo({
           onChange={handleInputChange}
           // helperText="Please enter your name"
         />
-        <TextField
+        <StyledTextField
           value={introduction}
           fullWidth
           name="introduction"
@@ -473,20 +480,20 @@ export default function CustomProfileInfo({
           margin="dense"
           required
           id="standard-required"
-          label="나를 자랑 해주세요"
+          label="나를 자랑해주세요"
           // defaultValue={introduction}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"
         />
-        <TextField
+        <StyledTextField
           fullWidth
           name="detailIntroduction"
           color="greenary"
           margin="dense"
           required
           id="standard-required"
-          label="간단한 소개 부탁드려요"
+          label="간단한 소개를 해주세요"
           // defaultValue={detailIntroduction}
           value={detailIntroduction}
           variant="standard"
@@ -497,10 +504,11 @@ export default function CustomProfileInfo({
       {isLogin ? (
         <Button
           sx={{
-            width: "467px",
+            width: "100%",
             height: "53px",
             fontFamily: "preBd",
             fontSize: "18px",
+            marginBottom: '10px'
           }}
           color="greenary"
           variant="contained"
@@ -511,10 +519,11 @@ export default function CustomProfileInfo({
       ) : (
         <Button
           sx={{
-            width: "467px",
+            width: "100%",
             height: "53px",
             fontFamily: "preBd",
             fontSize: "18px",
+            marginBottom: '5px'
           }}
           color="greenary"
           variant="contained"
