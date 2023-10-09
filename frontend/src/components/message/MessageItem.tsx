@@ -131,10 +131,7 @@ export default function MessageItem({
           }}
         />
       </StyledBadge>
-      <div
-        className={styles.messageItemBody}
-
-      >
+      <div className={styles.messageItemBody}>
         <div className={styles.messageItemName}>
           <span className={styles.messageProfileName}>
             {user && user?.nickname}
@@ -172,19 +169,19 @@ export default function MessageItem({
           <CardActionArea
             onClick={() => window.open(info.url, "_blank")}
             style={{
-              height: "50px",
-              width: "210px",
+              height: "60px",
+              width: "230px",
               display: "flex",
-              flexDirection: "column",
+              // flexDirection: "column",
               justifyContent: "space-between",
               alignItems: "flex-start",
-              padding: "10px",
+              padding: "8px",
             }}
           >
             <span style={{ fontFamily: "preBd" }}>{info.url.split('/').pop()}</span>
-            <span style={{ fontFamily: "preLt" }}>
+            {/* <span style={{ fontFamily: "preLt" }}>
               {(info.size / 1024).toFixed(2)} KB
-            </span>
+            </span> */}
           </CardActionArea>
         </div>
         );
