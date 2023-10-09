@@ -206,7 +206,7 @@ export default function MessageItem({
         footer={null}
       >
       {message && message?.attachedFileInfos?.map((info: any, index: number) => {
-        return <img style={{marginTop: '3px', height: '360px'}} key={index} src={info.url} alt="attached" />
+        return <img style={{padding: '20px', display: 'flex', justifyContent:'center', alignItems:"center", margin: 'auto', marginTop: '3px', height: '60vh'}} key={index} src={info.url} alt="attached" />
       })}
       </Modal>
     </div>
