@@ -43,7 +43,7 @@ function Project() {
     try {
       const response = await getProjects();
       const projects = response.data.result[0];
-      setNowProject(response.data.result[0]);
+      setNowProject(response.data.result[0].slice().reverse());
       const nowProjects: any[] = [];
     } catch (error) {
       console.error(error);
