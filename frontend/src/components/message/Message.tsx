@@ -74,23 +74,29 @@ function Message({ projectId }: MessageProps) {
   const [imageFile, setImageFile]: any = useState(null);
   const [imageSrc, setImageSrc]: any = useState(null);
   const inputRef = useRef<any[]>([]);
+
   const [noticeInputVisible, setNoticeInputVisible] = useState(false);
-  const [noticeInputValue, setNoticeInputValue] = useState("");
-  const [notice, setNotice] = useState("");
   const [showNotice, setShowNotice] = useState(false);
   const [showNoticeInput, setShowNoticeInput] = useState(false);
+
+  const [noticeInputValue, setNoticeInputValue] = useState("");
+  const [notice, setNotice] = useState("");
   const [pjtName, setPjtName] = useState<any>("");
   const [pjtMemCount, setPjtMemCount] = useState(0);
+
   const [image, setImage] = useState([]);
   const [video, setVideo] = useState([]);
   const [file, setFile] = useState([]);
+
   const [users, setUsers] = useState<User[]>([]);
   const [attachedFileInfos, setAttachedFileInfos] = useState<FileInfo[]>([]);
+
   const [files, setFiles] = useState<
     { url: string; name: string; size: number }[]
   >([]);
   const [images, setImages] = useState<string[]>([]);
   const [videos, setVideos] = useState<string[]>([]);
+
 
   const handleChange = (e: any) => {
     e.preventDefault();
@@ -525,7 +531,7 @@ function Message({ projectId }: MessageProps) {
             postChat(Number(projectId), "", attachedFileInfos);
             setAttachedFileInfos([])
             setTimeout(() => {
-              listFiles().then(fileInfos => console.log(fileInfos));
+              listFiles().then(fileInfos => setFiles(fileInfos));
             }, 2000);
           })
           .catch((error) => {
