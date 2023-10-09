@@ -860,6 +860,7 @@ function Message({ projectId }: MessageProps) {
               </>
             ) : (
               <BsLink45Deg
+                className={styles.linkIcon}
                 style={{
                   fontSize: "28",
                   color: "#39a789",

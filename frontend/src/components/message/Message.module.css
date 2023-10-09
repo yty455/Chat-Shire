@@ -141,6 +141,12 @@
   margin: 0;
 }
 
+.icon25:hover, .linkIcon:hover {
+  background-color: #c7c7c7;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
 .tabTitle {
   margin: 0;
   font-family: 'preBd';
