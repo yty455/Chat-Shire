@@ -81,7 +81,7 @@ function TeamTaskCreateModal({
           </span>
           <div style={{display: "flex", alignItems: "center"}}>
             <TextField
-              sx={{ width: "390px", marginTop: "14px" }}
+              sx={{ width: "90%", marginTop: "14px" }}
               color="greenary"
               variant="standard"
               type="text"
@@ -156,7 +156,7 @@ function TeamTaskCreateModal({
           </div>
           <div>
             <TextField
-              sx={{ width: "470px", margin: "14px 0px 0px -2px" }}
+              sx={{ width: "100%", margin: "14px 0px 0px -2px" }}
               color="greenary"
               // variant="standard"
               multiline
@@ -178,7 +178,7 @@ function TeamTaskCreateModal({
                 value={limitDate}
                 onChange={handleDateChange}
                 sx={{
-                  width: "220px",
+                  width: "40%",
                   marginLeft: "0px",
                 }}
               />
@@ -192,7 +192,7 @@ function TeamTaskCreateModal({
 
           <Button
             className={styles.savebtn}
-            style={{ backgroundColor: "#39A789", fontFamily: "preRg", margin: "0px 14px 16px 0px", width: "200px", height: "54px", borderRadius: "10px", fontSize: "18px"}}
+            style={{ backgroundColor: "#39A789", fontFamily: "preRg", margin: "0px 14px 16px 0px", width: "40%", height: "15%", borderRadius: "10px", fontSize: "18px", transform:"translateY(2px)"}}
             key="submit"
             type="primary"
             onClick={createTeampjt}

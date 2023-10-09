@@ -8,9 +8,15 @@
 }
 
 .projectTitle {
-  font-size: 36px;
-  font-family: "preBl";
-  color: #575757;;
+  font-size: 30px;
+  font-family: "preBd";
+  color: #575757;
+}
+
+.sProject {
+  font-size: 30px;
+  font-family: "preRg";
+  color: #575757;
 }
 
 .SwiperContainer {
@@ -35,16 +41,15 @@
 }
 
 .SwiperItemTitle {
-  font-size: 28px;
+  font-size: 24px;
   font-family: "preBd";
-  color: #575757;;
+  color: #575757;
+  padding-top: 15px;
 }
 
 .SwiperItemHeader {
   width: 340px;
-  height: 100px;
-  border-radius: 20px 20px 0px 0px;
-  padding: 10px 10px 0px;
+  margin: 10px 17px 0px 17px;
 }
 
 .SwiperItemBody {
@@ -52,18 +57,18 @@
   flex-direction: column;
   justify-content: space-between;
   margin-top: 6px;
-  padding: 0px 10px 10px 10px;;
+  padding: 5px 10px 10px 10px;;
   width: 340px;
-  height: 100px;
-  border-top: 2px solid gray;
+  height: 123px;
+  border-top: 2px solid #efefef;
   border-radius: 0px 0px 20px 20px;
   transition-duration: 0.3s;
 }
 
 .SwiperItemBodyInactive {
-  border-top: 2px solid gray;
+  border-top: 2px solid #efefef;
   transition-duration: 0.3s;
-  width: 340px;
+  width: 113%;
   height: 3px;
   margin-left: -10px;
 }
@@ -71,9 +76,12 @@
 .ProjectMemberContainer {
   display: flex;
   width: 340px;
-  margin-left: 10px;
-  padding: 6px 0px;
-  overflow: scroll;
+  margin-left: 5px;
+  overflow: hidden;
+  margin-bottom: 27px;
+  padding: 0 5px;
+  justify-content: start;
+
 }
 
 .ProjectMemberContainer::-webkit-scrollbar {
@@ -84,7 +92,10 @@
   display: flex;
   width: 340px;
   margin-top: 10px;
-  overflow: scroll;
+  overflow: hidden;
+  justify-content: start;
+  padding: 0;
+  height: 100%;
 }
 
 .ProjectMemberContainerInactive::-webkit-scrollbar {
@@ -98,7 +109,7 @@
   align-content: flex-start;
   padding: 6px 0px;
   width: 340px;
-  height: 88px;
+  height: 85px;
   overflow: scroll;
   opacity: 1;
   transition-delay: 0.2s;
@@ -153,7 +164,7 @@
   flex-direction: column;
   justify-content: center;
   width: 320px;
-  height: 140px;
+  height: 160px;
   margin: 10px;
   /* border: #39A789 1px solid; */
 }
