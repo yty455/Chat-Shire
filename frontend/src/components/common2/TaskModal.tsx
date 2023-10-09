@@ -94,31 +94,107 @@ function TaskModal({
       <div className={styles.modalBox}>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
-            <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "20px"}} onClick={() => handleEditClick("name")}>
-              {editingField === "name" ? (
-                <input
-                  className={styles.inputTag}
-                  style={{fontFamily: "preBd", fontSize: "20px"}}
-                  autoFocus={true}
-                  type="text"
-                  value={teamTaskDetail.name}
-                  onChange={(e) =>
-                    setTeamTaskDetail({
-                      ...teamTaskDetail,
-                      name: e.target.value,
-                    })
-                  }
-                />
-              ) : (
-                teamTaskDetail.name
-              )}
-            </span>
+            <div>
+              <span style={{fontFamily: "preBd", fontSize: "24px", marginBottom: "20px"}} onClick={() => handleEditClick("name")}>
+                {editingField === "name" ? (
+                  <input
+                    className={styles.inputTag}
+                    style={{width: "360px", height: "36px", fontFamily: "preBd", fontSize: "24px", color: "#575757"}}
+                    autoFocus={true}
+                    type="text"
+                    value={teamTaskDetail.name}
+                    onChange={(e) =>
+                      setTeamTaskDetail({
+                        ...teamTaskDetail,
+                        name: e.target.value,
+                      })
+                    }
+                  />
+                ) : (
+                  teamTaskDetail.name
+                )}
+              </span>
+              <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "20px"}} onClick={() => handleEditClick("priority")}>
+                <FormControl
+                  sx={{
+                    m: 1,
+                    minWidth: 120,
+                    marginLeft: "0px",
+                  }}
+                  size="small"
+                  style={{ margin: "10px", marginLeft: "0px" }}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleEditClick("priority")
+                  }}
+                >
+                  <Select
+                    labelId="priority-label"
+                    id="priority-select"
+                    value={teamTaskDetail.priority}
+                    onChange={(e) =>
+                      setTeamTaskDetail({
+                        ...teamTaskDetail,
+                        priority: e.target.value,
+                      })
+                    }
+                    sx={{
+                      color: getPriorityColor(teamTaskDetail.priority),
+                      marginLeft: "0px",
+                    }}
+                  >
+                    <MenuItem value="HIGH" style={{ paddingLeft: "2px" }}>
+                      <div style={{ display: "flex" }}>
+                        <div
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            borderRadius: "30px",
+                            backgroundColor: "#FF5B5B",
+                            marginRight: "6px",
+                          }}
+                        />
+                        <span>매우 중요</span>
+                      </div>
+                    </MenuItem>
+                    <MenuItem value="MEDIUM" style={{ paddingLeft: "2px" }}>
+                      <div style={{ display: "flex" }}>
+                        <div
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            borderRadius: "30px",
+                            backgroundColor: "#FFF05B",
+                            marginRight: "6px",
+                          }}
+                        />
+                        <span>중요</span>
+                      </div>
+                    </MenuItem>
+                    <MenuItem value="LOW" style={{ paddingLeft: "2px" }}>
+                      <div style={{ display: "flex" }}>
+                        <div
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            borderRadius: "30px",
+                            backgroundColor: "#5BFF83",
+                            marginRight: "6px",
+                          }}
+                        />
+                        <span>보통</span>
+                      </div>
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+              </span>
+            </div>
             <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "4px"}}>태스크 설명</span>
             <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "20px"}} onClick={() => handleEditClick("description")}>
               {editingField === "description" ? (
                 <input
                   className={styles.inputTag}
-                  style={{fontFamily: "preBd", fontSize: "20px"}}
+                  style={{width: "360px", height: "200px", fontFamily: "preBd", fontSize: "20px", color: "#575757"}}
                   autoFocus={true}
                   type="text"
                   value={teamTaskDetail.description}
@@ -133,81 +209,7 @@ function TaskModal({
                 teamTaskDetail.description
               )}
             </span>
-            <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "4px"}}>우선도</span>
-            <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "20px"}} onClick={() => handleEditClick("priority")}>
-              <FormControl
-                sx={{
-                  m: 1,
-                  minWidth: 120,
-                  marginLeft: "0px",
-                }}
-                size="small"
-                style={{ margin: "10px", marginLeft: "0px" }}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleEditClick("priority")
-                }}
-              >
-                <Select
-                  labelId="priority-label"
-                  id="priority-select"
-                  value={teamTaskDetail.priority}
-                  onChange={(e) =>
-                    setTeamTaskDetail({
-                      ...teamTaskDetail,
-                      priority: e.target.value,
-                    })
-                  }
-                  sx={{
-                    color: getPriorityColor(teamTaskDetail.priority),
-                    marginLeft: "0px",
-                  }}
-                >
-                  <MenuItem value="HIGH" style={{ paddingLeft: "2px" }}>
-                    <div style={{ display: "flex" }}>
-                      <div
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                          borderRadius: "30px",
-                          backgroundColor: "#FF5B5B",
-                          marginRight: "6px",
-                        }}
-                      />
-                      <span>매우 중요</span>
-                    </div>
-                  </MenuItem>
-                  <MenuItem value="MEDIUM" style={{ paddingLeft: "2px" }}>
-                    <div style={{ display: "flex" }}>
-                      <div
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                          borderRadius: "30px",
-                          backgroundColor: "#FFF05B",
-                          marginRight: "6px",
-                        }}
-                      />
-                      <span>중요</span>
-                    </div>
-                  </MenuItem>
-                  <MenuItem value="LOW" style={{ paddingLeft: "2px" }}>
-                    <div style={{ display: "flex" }}>
-                      <div
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                          borderRadius: "30px",
-                          backgroundColor: "#5BFF83",
-                          marginRight: "6px",
-                        }}
-                      />
-                      <span>보통</span>
-                    </div>
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </span>
+            
             <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "4px"}}>마감일자</span>
             <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "20px"}} onClick={() => handleEditClick("deadline")}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>

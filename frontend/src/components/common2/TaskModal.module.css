@@ -48,11 +48,6 @@
   font-family: preRg;
 }
 
-.inputTag {
-  width: 300px;
-  height: 36px;
-}
-
 .inputTag:focus {
   outline: none;
 }
