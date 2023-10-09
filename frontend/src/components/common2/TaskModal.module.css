@@ -47,3 +47,12 @@
   background-color: rgb(57, 167, 137);
   font-family: preRg;
 }
+
+.inputTag {
+  width: 150px;
+  height: 40px;
+}
+
+.inputTag:focus {
+  outline: none;
+}

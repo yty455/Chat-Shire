@@ -93,9 +93,10 @@ function TaskModal({
       <div className={styles.modalBox}>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
-            <span style={{fontFamily: "preBd", fontSize: "24px", marginBottom: "20px"}} onClick={() => handleEditClick("name")}>
+            <span style={{fontFamily: "preBd", fontSize: "24px", marginBottom: "4px"}} onClick={() => handleEditClick("name")}>
               {editingField === "name" ? (
                 <input
+                  className={styles.inputTag}
                   autoFocus={true}
                   type="text"
                   value={teamTaskDetail.name}
@@ -110,8 +111,8 @@ function TaskModal({
                 teamTaskDetail.name
               )}
             </span>
-            <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "20px"}}>태스크 설명</span>
-            <span onClick={() => handleEditClick("description")}>
+            <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "4px"}}>태스크 설명</span>
+            <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "20px"}} onClick={() => handleEditClick("description")}>
               {editingField === "description" ? (
                 <input
                   autoFocus={true}
@@ -128,8 +129,8 @@ function TaskModal({
                 teamTaskDetail.description
               )}
             </span>
-            <span style={{fontFamily: "preBd", fontSize: "20px"}}>우선도</span>
-            <span onClick={() => handleEditClick("priority")}>
+            <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "4px"}}>우선도</span>
+            <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "20px"}} onClick={() => handleEditClick("priority")}>
               <FormControl
                 sx={{
                   m: 1,
@@ -140,7 +141,6 @@ function TaskModal({
                 style={{ margin: "10px", marginLeft: "0px" }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <InputLabel id="priority-label">중요도</InputLabel>
                 <Select
                   labelId="priority-label"
                   id="priority-select"
@@ -201,8 +201,8 @@ function TaskModal({
                 </Select>
               </FormControl>
             </span>
-            <span style={{fontFamily: "preBd", fontSize: "20px"}}>마감일자</span>
-            <span onClick={() => handleEditClick("deadline")}>
+            <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "4px"}}>마감일자</span>
+            <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "20px"}} onClick={() => handleEditClick("deadline")}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   value={dayjs(teamTaskDetail.deadline)}
@@ -234,7 +234,7 @@ function TaskModal({
         {editingField ? (
           <Button
             className={styles.savebtn}
-            style={{ fontFamily: "preRg" }}
+            style={{ fontFamily: "preRg", margin: "0px 14px 14px 0px", width: "200px", height: "50px" }}
             key="submit"
             type="primary"
             onClick={() => {
