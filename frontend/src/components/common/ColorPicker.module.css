@@ -1,11 +1,10 @@
 .onlineBtn {
-  background-color: lightgreen;
+  background-color: rgb(0, 196, 0);
   border-radius: 5px;
   border: 1px solid transparent;
   color: white;
   font-family: preRg;
   margin-right: 3px;
-  height: 15px
 }
 
 .onlineBtn:hover, .onlineBtn:focus {
