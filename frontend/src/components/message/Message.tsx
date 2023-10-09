@@ -474,8 +474,10 @@ function Message({ projectId }: MessageProps) {
 
         uploadS3File(formData)
           .then(() => {
-            listFiles().then((fileInfos) => setFiles(fileInfos));
-            resolve()})
+            setTimeout(() => { 
+              listFiles().then((fileInfos) => setFiles(fileInfos));
+              // resolve()
+            }, 2000);})
           .catch((error) => reject(error));
       };
     });
