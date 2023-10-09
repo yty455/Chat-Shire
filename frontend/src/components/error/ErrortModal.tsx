@@ -30,6 +30,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
   const [editedComment, setEditedComment] = useState<string>("");
   const [userData] = useRecoilState(loginuser);
 
+
   // 단일 에러 불러오기
   const getInError = async () => {
     try {

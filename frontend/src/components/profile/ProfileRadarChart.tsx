@@ -42,6 +42,12 @@ const ProfileRadarChart = ({userData}:props) => {
     //     return sum;
     // }
 
+    let maxValue = Math.max(userData.morningCommit + userData.afternoonCommit + userData.nightCommit,
+        userData.errorCount,
+        userData.chatCount,
+        userData.topicCount,
+        userData.taskCount);
+
     function minMaxScaling(num: number): number {
         let minVal = Math.min(userData.morningCommit + userData.afternoonCommit + userData.nightCommit,
                                 userData.errorCount,
@@ -59,27 +65,27 @@ const ProfileRadarChart = ({userData}:props) => {
     const data = [
         {
             "skill": "개발",
-            "chardonay": minMaxScaling(userData.morningCommit + userData.afternoonCommit + userData.nightCommit),
+            "chardonay": minMaxScaling(userData.morningCommit + userData.afternoonCommit + userData.nightCommit+ maxValue* 0.2),
             // "chardonay": 8,
         },
         {
             "skill": "디버깅",
-            "chardonay": minMaxScaling(userData.errorCount),
+            "chardonay": minMaxScaling(userData.errorCount+ maxValue* 0.2),
             // "chardonay": 7,
         },
         {
             "skill": "분위기 메이커",
-            "chardonay": minMaxScaling(userData.chatCount),
+            "chardonay": minMaxScaling(userData.chatCount+ maxValue* 0.2),
             // "chardonay": 10,
         },
         {
             "skill": "협업 의지",
-            "chardonay": minMaxScaling(userData.topicCount),
+            "chardonay": minMaxScaling(userData.topicCount+ maxValue* 0.2),
             // "chardonay": 7,
         },
         {
             "skill": "일정 관리",
-            "chardonay": minMaxScaling(userData.taskCount),
+            "chardonay": minMaxScaling(userData.taskCount+ maxValue* 0.2),
             // "chardonay": 8,
         }
     ]
