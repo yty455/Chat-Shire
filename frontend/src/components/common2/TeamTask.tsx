@@ -512,7 +512,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 }}
               >
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
-                <div onClick={() => openModal(task.id)}>
+                <div onClick={() => openModal(task.id)} style={{cursor:"pointer"}}>
                   <div className={styles.taskHeader}>
                     <div className={styles.clockNday}>
                       <WatchLaterIcon fontSize="medium" />
@@ -701,7 +701,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 }}
               >
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
-                <div onClick={() => openModal(task.id)}>
+                <div onClick={() => openModal(task.id)} style={{cursor:"pointer"}}>
                   <div className={styles.taskHeader}>
                     <div className={styles.clockNday}>
                       <WatchLaterIcon />
