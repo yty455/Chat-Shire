@@ -5,6 +5,7 @@ import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import { CardActionArea } from "@mui/material";
+import { Button, Modal } from 'antd';
 
 interface User {
   nickname: string;
@@ -31,6 +32,7 @@ export default function MessageItem({
     userId: 0,
   });
 
+  const [open, setOpen] = useState(false);
   const StyledBadge = styled(Badge)<StyledBadgeProps>(
     ({ theme, userState }) => ({
       "& .MuiBadge-badge": {
@@ -187,13 +189,24 @@ export default function MessageItem({
         );
     } else {
       return (
-        <img style={{marginTop: '3px', height: '120px'}} key={index} src={info.url} alt="attached" />
+        <img onClick={() => setOpen(true)} style={{marginTop: '3px', height: '120px'}} key={index} src={info.url} alt="attached" />
       );
     }
   })}
 </div>
         </div>
       </div>
+
+      <Modal
+        centered
+        open={open}
+        width={1000}
+      >
+        {message && message?.attachedFileInfos?.map((info: any, index: number) => {
+        <img style={{marginTop: '3px', height: '360px'}} key={index} src={info.url} alt="attached" />
+        })}
+      </Modal>
     </div>
+
   );
 }
