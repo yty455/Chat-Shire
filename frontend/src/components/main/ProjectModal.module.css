@@ -1,7 +1,7 @@
 .modalOverlay {
   display: flex;
   position: fixed;
-  border: 2px solid #39a789;
+  border: 3px dotted #39a789;
   padding: 20px;
   right: 0;
   bottom: 0;
@@ -29,16 +29,17 @@
 
 .closebtn {
   position: fixed;
-  top: 2%;
+  top: 20px;
   right: 2%;
   border: 0;
   background-color: transparent;
+  font-size: 18px;
 }
 
 .deletebtn {
   position: fixed;
-  bottom: 2%;
-  right: 2%;
+  bottom: 3%;
+  right: 3%;
   border: 0;
   background-color: red;
   font-family: preRg;
@@ -46,7 +47,7 @@
 
 .ProjectMemberContainer {
   display: flex;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   /* overflow: scroll; */
 }
 

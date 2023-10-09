@@ -89,8 +89,9 @@ function ProjectModal({
         <div>
           <div>
             {editState === "name" ? (
-              <div style={{ marginBottom: "6px" }}>
+              <div>
                 <input
+                  style={{ fontFamily: "preBd", fontSize: "24px", border: '1px solid transparent' }}
                   type="text"
                   value={projectData.name}
                   onChange={(e) => {
@@ -120,6 +121,7 @@ function ProjectModal({
             {editState === "teamName" ? (
               <div className={styles.projectModalContent}>
                 <input
+                  style={{ color: 'grey', fontFamily: "preRg", fontSize: "20px" }}
                   type="text"
                   value={projectData.teamName}
                   onChange={(e) => {
@@ -140,7 +142,7 @@ function ProjectModal({
             ) : (
               <div className={styles.projectModalContent}>
                 <span
-                  style={{ fontFamily: "preBd", fontSize: "24px" }}
+                  style={{ color: 'grey', fontFamily: "preRg", fontSize: "20px" }}
                   onClick={() => handleInputClick("teamName")}
                 >
                   {projectData.teamName}
@@ -155,6 +157,7 @@ function ProjectModal({
                   프로젝트 주제
                 </span>
                 <input
+                  style={{fontFamily: "preRg", fontSize: '12px', border: '1px solid transparent'}}
                   type="text"
                   value={projectData.topic}
                   onChange={(e) => {
@@ -185,6 +188,7 @@ function ProjectModal({
               <div className={styles.projectModalContent}>
                 <span className={styles.projectModalContentTitle}>설명</span>
                 <input
+                  style={{fontFamily: "preRg"}}
                   type="text"
                   value={projectData.description}
                   onChange={(e) => {
@@ -216,6 +220,7 @@ function ProjectModal({
               <div className={styles.projectModalContent}>
                 <span className={styles.projectModalContentTitle}>Github</span>
                 <input
+                  style={{fontFamily: "preRg"}}
                   type="text"
                   value={projectData.gitRepository}
                   onChange={(e) => {
@@ -247,7 +252,7 @@ function ProjectModal({
               프로젝트 기간
             </span>
             <span>
-              {pjt.startDate}~{pjt.endDate}
+              {pjt.startDate} ~ {pjt.endDate}
             </span>
           </div>
           <div className={styles.ProjectMemberContainer}>
