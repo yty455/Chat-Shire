@@ -187,7 +187,7 @@ export default function MessageItem({
         );
     } else {
       return (
-        <img style={{height: '120px'}} key={index} src={info.url} alt="attached" />
+        <img style={{marginTop: '3px', height: '120px'}} key={index} src={info.url} alt="attached" />
       );
     }
   })}
