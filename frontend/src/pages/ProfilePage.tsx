@@ -126,7 +126,7 @@ export default function ProfilePage() {
                   <span>{userData?.githubId}</span>
                 </div>
                 <div className={styles.profileCareerItem}>
-                  {userData?.mySkill?.map((item: any) => (
+                  {userData?.mySkill?.slice(1).map((item: any) => (
                     <span className={styles.career} key={item}>{item}</span>
                   ))}
                 </div>
