@@ -36,17 +36,25 @@ const RadarChart = () => {
         }
         return sum;
     }
+
+    let maxValue = Math.max(morningCommit + afternoonCommit + nightCommit,
+        issueCount,
+        totalChatCount(allCategoryCount),
+        relevantChatCount(allCategoryCount),
+         taskCount);
+
     function minMaxScaling(num: number): number {
-        let minVal = Math.min(morningCommit + afternoonCommit + nightCommit + totalChatCount(allCategoryCount)/10,
-                               issueCount+ totalChatCount(allCategoryCount)/10,
-                               totalChatCount(allCategoryCount),
-                               relevantChatCount(allCategoryCount)+ totalChatCount(allCategoryCount)/10,
-                               taskCount)+ totalChatCount(allCategoryCount)/10;
-        let maxVal = Math.max(morningCommit + afternoonCommit + nightCommit+ totalChatCount(allCategoryCount)/10,
-                                 issueCount+ totalChatCount(allCategoryCount)/10,
-                                 totalChatCount(allCategoryCount),
-                                 relevantChatCount(allCategoryCount)+ totalChatCount(allCategoryCount)/10,
-                               taskCount+ totalChatCount(allCategoryCount)/10);
+
+        let minVal = Math.min(morningCommit + afternoonCommit + nightCommit + maxValue* 0.2,
+                               issueCount+ maxValue* 0.2,
+                               totalChatCount(allCategoryCount)+ maxValue* 0.2,
+                               relevantChatCount(allCategoryCount)+ maxValue* 0.2,
+                               taskCount)+ maxValue* 0.2;
+        let maxVal = Math.max(morningCommit + afternoonCommit + nightCommit+ maxValue* 0.2,
+                                 issueCount+ maxValue* 0.2,
+                                 totalChatCount(allCategoryCount)+ maxValue* 0.2,
+                                 relevantChatCount(allCategoryCount)+ maxValue* 0.2,
+                               taskCount+ maxValue* 0.2);
         return (num - minVal) / (maxVal - minVal);
       }
 
@@ -54,27 +62,27 @@ const RadarChart = () => {
     const data = [
         {
             "skill": "개발",
-            "chardonay": minMaxScaling(morningCommit+afternoonCommit+nightCommit+ totalChatCount(allCategoryCount)/10),
+            "chardonay": minMaxScaling(morningCommit+afternoonCommit+nightCommit+ maxValue* 0.2),
             // "chardonay": 8,
         },
         {
             "skill": "디버깅",
-            "chardonay": minMaxScaling(issueCount+ totalChatCount(allCategoryCount)/10),
+            "chardonay": minMaxScaling(issueCount+ maxValue* 0.2),
             // "chardonay": 7,
         },
         {
             "skill": "분위기 메이커",
-            "chardonay": minMaxScaling(totalChatCount(allCategoryCount)),
+            "chardonay": minMaxScaling(totalChatCount(allCategoryCount)+ maxValue* 0.2),
             // "chardonay": 10,
         },
         {
             "skill": "협업 의지",
-            "chardonay": minMaxScaling(relevantChatCount(allCategoryCount)+ totalChatCount(allCategoryCount)/10),
+            "chardonay": minMaxScaling(relevantChatCount(allCategoryCount)+ maxValue* 0.2),
             // "chardonay": 7,
         },
         {
             "skill": "일정 관리",
-            "chardonay": minMaxScaling(taskCount+ totalChatCount(allCategoryCount)/10),
+            "chardonay": minMaxScaling(taskCount+ maxValue* 0.2),
             // "chardonay": 8,
         }
     ]
