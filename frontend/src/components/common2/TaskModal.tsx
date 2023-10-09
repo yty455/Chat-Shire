@@ -100,7 +100,7 @@ function TaskModal({
                   onClick={() => handleEditClick("name")}
                   sx={{ width: "100%", margin: "14px 0px 0px -2px" }}
                   color="greenary"
-                  // variant="standard"
+                  variant="standard"
                   multiline
                   rows={1}
                   type="text"
@@ -131,6 +131,7 @@ function TaskModal({
                   <Select
                     labelId="priority-label"
                     id="priority-select"
+                    variant="standard"
                     value={teamTaskDetail.priority}
                     onChange={(e) =>
                       setTeamTaskDetail({
@@ -189,7 +190,6 @@ function TaskModal({
                 </FormControl>
               </span>
             </div>
-            <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "4px"}}>태스크 설명</span>
             <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "20px"}} onClick={() => handleEditClick("description")}>
               <TextField
                 onClick={() => handleEditClick("description")}
@@ -209,8 +209,6 @@ function TaskModal({
                 }
               />
             </span>
-            
-            <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "4px"}}>마감일자</span>
             <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "20px"}} onClick={() => handleEditClick("deadline")}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
