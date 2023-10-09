@@ -4,6 +4,7 @@ import styles from "./MessageItem.module.css";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
+import { CardActionArea } from "@mui/material";
 
 interface User {
   nickname: string;
@@ -160,14 +161,33 @@ export default function MessageItem({
     
     if (url.endsWith('mp4')) {
       return (
-        <video width="250" key={index} controls>
+        <video className={styles.videoThumbnail} width="250" key={index} controls>
           <source src={info.url} type="video/mp4" />
         </video>
       );
     } else if (url.endsWith('.pdf') || url.endsWith('.docx') || url.endsWith('.doc') || url.endsWith('.xlsx') || url.endsWith('.xls') || url.endsWith('.txt')) {
       return (
-        <a href={info.url} target="_blank" rel="noopener noreferrer">{info.url.split('/').pop()}</a>
-      );
+        // <a href={info.url} target="_blank" rel="noopener noreferrer">{info.url.split('/').pop()}</a>
+        <div className={styles.fileThumbnail} key={index}>
+          <CardActionArea
+            onClick={() => window.open(info.url, "_blank")}
+            style={{
+              height: "50px",
+              width: "210px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              padding: "10px",
+            }}
+          >
+            <span style={{ fontFamily: "preBd" }}>{info.url.split('/').pop()}</span>
+            <span style={{ fontFamily: "preLt" }}>
+              {(info.size / 1024).toFixed(2)} KB
+            </span>
+          </CardActionArea>
+        </div>
+        );
     } else {
       return (
         <img style={{height: '120px'}} key={index} src={info.url} alt="attached" />
