@@ -520,10 +520,13 @@ function Message({ projectId }: MessageProps) {
             const fileUrl = `https://chat-shire.s3.amazonaws.com/chat/file/${projectId}/${fileName}`
             attachedFileInfos.push({ url: fileUrl, thumbnail: fileUrl });
             setAttachedFileInfos(attachedFileInfos);
-
+            
             console.log('담아보낼 파일', attachedFileInfos)
             postChat(Number(projectId), "", attachedFileInfos);
             setAttachedFileInfos([])
+            setTimeout(() => {
+              listFiles().then(fileInfos => console.log(fileInfos));
+            }, 2000);
           })
           .catch((error) => {
             console.error("업로드 실패", error);
@@ -540,6 +543,7 @@ function Message({ projectId }: MessageProps) {
     { url: string; name: string; size: number }[]
   > => {
     return new Promise((resolve, reject) => {
+      console.log(11)
       const REGION = process.env.REACT_APP_REGION;
       const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
       const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
