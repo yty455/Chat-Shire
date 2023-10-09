@@ -178,7 +178,7 @@ function TeamTaskCreateModal({
                 value={limitDate}
                 onChange={handleDateChange}
                 sx={{
-                  width: "200px",
+                  width: "220px",
                   marginLeft: "0px",
                 }}
               />
@@ -192,7 +192,7 @@ function TeamTaskCreateModal({
 
           <Button
             className={styles.savebtn}
-            style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
+            style={{ backgroundColor: "#39A789", fontFamily: "preRg", margin: "0px 14px 16px 0px", width: "200px", height: "54px", borderRadius: "10px", fontSize: "18px"}}
             key="submit"
             type="primary"
             onClick={createTeampjt}
@@ -201,7 +201,7 @@ function TeamTaskCreateModal({
           </Button>
         </div>
         <MdOutlineCancel
-          style={{marginTop: "8px"}}
+          style={{marginTop: "8px", cursor: "pointer"}}
           size={30}
           onClick={closeModal}
           className={styles.closebtn}

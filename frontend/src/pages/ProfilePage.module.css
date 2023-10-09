@@ -24,12 +24,29 @@
 }
 
 .profileName {
-  font-size: 34px;
+  font-size: 30px;
+}
+
+.profilePos {
+  font-size: 13px;
+  color: #acacac;
 }
 
 .profileCareer {
   display: flex;
   flex-direction: column;
+}
+
+.career {
+  border: 1px solid #39a789;
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  margin: 0 3px 3px 0;
+  justify-content: center;
+  align-items: center;
+  padding: 0 3px;
+  font-family: 'preRg';
 }
 
 .profileCareerItem {
@@ -39,6 +56,8 @@
   margin-bottom: 6px;
   /* border: 1px solid blue; */
 }
+
+.profileCareerIt
 
 .profileHeaderRight {
   display: flex;

@@ -25,7 +25,7 @@ function ColorPickerDialog({
   return (
     <div>
       <div>
-        <h2 style={{fontFamily:'preBd', fontSize:'20px', margin: 0}}>상태 변경</h2>
+        <h2 style={{fontFamily:'preBd', fontSize:'20px', margin: 0, marginTop: '-3px'}}>상태 변경</h2>
         <div>
           <button
             className={styles.onlineBtn}
