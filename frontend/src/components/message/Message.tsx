@@ -694,6 +694,7 @@ function Message({ projectId }: MessageProps) {
             <input
               autoFocus={true}
               maxLength={50}
+              defaultValue="등록된 공지가 없습니다."
               style={{
                 width: "450px",
                 border: "none",
@@ -860,6 +861,7 @@ function Message({ projectId }: MessageProps) {
               </>
             ) : (
               <BsLink45Deg
+                className={styles.linkIcon}
                 style={{
                   fontSize: "28",
                   color: "#39a789",
