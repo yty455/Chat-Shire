@@ -93,7 +93,7 @@ function TaskModal({
       <div className={styles.modalBox}>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
-            <span style={{fontFamily: "preBd", fontSize: "24px"}} onClick={() => handleEditClick("name")}>
+            <span style={{fontFamily: "preBd", fontSize: "24px", marginBottom: "20px"}} onClick={() => handleEditClick("name")}>
               {editingField === "name" ? (
                 <input
                   autoFocus={true}
@@ -110,7 +110,7 @@ function TaskModal({
                 teamTaskDetail.name
               )}
             </span>
-            <span style={{fontFamily: "preBd", fontSize: "20px"}}>태스크 설명</span>
+            <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "20px"}}>태스크 설명</span>
             <span onClick={() => handleEditClick("description")}>
               {editingField === "description" ? (
                 <input
