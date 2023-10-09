@@ -172,7 +172,7 @@ function Message({ projectId }: MessageProps) {
     listFiles().then((fileInfos) => setFiles(fileInfos));
     listImages().then(urls => setImages(urls));
     listVideos().then(urls => setVideos(urls));
-  }, []);
+  }, [projectId]);
 
 
 
