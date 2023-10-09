@@ -92,13 +92,14 @@ function TaskModal({
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalBox}>
+        <span style={{fontFamily: "preBd", fontSize: "24px"}}>태스크 편집</span>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
             <div style={{display: "flex", alignItems: "center"}}>
               <span style={{fontFamily: "preBd", fontSize: "24px", marginBottom: "20px"}} onClick={() => handleEditClick("name")}>
                 <TextField
                   onClick={() => handleEditClick("name")}
-                  sx={{ width: "100%", margin: "14px 0px 0px -2px" }}
+                  sx={{ width: "300px", margin: "14px 0px 0px -2px" }}
                   color="greenary"
                   variant="standard"
                   multiline
@@ -114,7 +115,7 @@ function TaskModal({
                   }
                 />
               </span>
-              <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "20px"}} onClick={() => handleEditClick("priority")}>
+              <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "3px"}} onClick={() => handleEditClick("priority")}>
                 <FormControl
                   sx={{
                     m: 1,
@@ -193,7 +194,7 @@ function TaskModal({
             <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "20px"}} onClick={() => handleEditClick("description")}>
               <TextField
                 onClick={() => handleEditClick("description")}
-                sx={{ width: "100%", margin: "14px 0px 0px -2px" }}
+                sx={{ width: "300px", margin: "14px 0px 0px -2px" }}
                 color="greenary"
                 // variant="standard"
                 multiline

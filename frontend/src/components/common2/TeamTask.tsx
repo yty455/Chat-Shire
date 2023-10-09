@@ -515,7 +515,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 <div onClick={() => openModal(task.id)} style={{cursor:"pointer"}}>
                   <div className={styles.taskHeader}>
                     <div className={styles.clockNday}>
-                      <WatchLaterIcon fontSize="medium" />
+                      <WatchLaterIcon fontSize="medium" style={{marginLeft: "4px"}}/>
                       <p className={styles.dday}>
                         {Math.floor(
                           (new Date(task.deadline).getTime() -
@@ -704,7 +704,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 <div onClick={() => openModal(task.id)} style={{cursor:"pointer"}}>
                   <div className={styles.taskHeader}>
                     <div className={styles.clockNday}>
-                      <WatchLaterIcon />
+                      <WatchLaterIcon style={{marginLeft: "4px"}}/>
                       <p className={styles.dday}>
                         {Math.floor(
                           (new Date(task.deadline).getTime() -

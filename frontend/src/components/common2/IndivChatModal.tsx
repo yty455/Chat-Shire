@@ -9,6 +9,8 @@ import { Button } from "antd";
 import { getProjectMem } from "../../utils/projectApi";
 import MessageItem from "../message/MessageItem";
 
+import {MdOutlineCancel} from 'react-icons/md'
+
 interface IndivChatModalProps {
   onClose: () => void;
   taskId: any;
@@ -148,16 +150,16 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
                     borderRadius:"10px",
                     color:"white",
                     padding:"2px",
-
+                    marginRight: "4px"
                   }}
                   onClick={() => handleClick(chat.id)}
                 >
-                  확장
+                  더보기
                 </button>
                 <button
                   className={styles.deletebtn}
                   style={{
-                    backgroundColor: "red",
+                    backgroundColor: "#FF5B5B",
                     fontFamily: "preRg",
                     border: "0px",
                     borderRadius:"10px",
@@ -169,13 +171,12 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
                 </button>
               </div>
             ))}
-          <button
-            style={{ cursor: "pointer" }}
-            onClick={onClose}
-            className={styles.closebtn}
-          >
-            X
-          </button>
+            <MdOutlineCancel
+              style={{marginTop: "8px", cursor: "pointer"}}
+              size={30}
+              onClick={onClose}
+              className={styles.closebtn}
+            />
         </div>
       )}
     </div>
