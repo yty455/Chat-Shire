@@ -91,7 +91,7 @@ function ProjectModal({
             {editState === "name" ? (
               <div>
                 <input
-                  style={{ fontFamily: "preBd", fontSize: "24px"}}
+                  style={{ color: '#575757', fontFamily: "preBd", fontSize: "24px"}}
                   type="text"
                   value={projectData.name}
                   onChange={(e) => {

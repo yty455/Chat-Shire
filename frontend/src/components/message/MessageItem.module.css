@@ -1,6 +1,6 @@
 .messageItemContainer {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   width: 30vw;
   min-height: 7vh;
   margin-top: 8px;
@@ -10,7 +10,7 @@
 .messageItemBody {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   width: 30vw;
   min-height: 7vh;
   margin-left: 10px;
@@ -37,4 +37,26 @@
   display: flex;
   font-size: 16px;
   color: #575757;
+}
+
+.videoThumbnail {
+  border-radius: 15px;
+}
+
+.fileThumbnail {
+  display: flex;
+  /* flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 19.8vw;
+  height: 100px;
+  margin: 0vw 0 10px 0px; */
+  border-radius: 10px;
+  color: #575757;
+  border: 1px solid #E5E8EB;;
+  background-color: #ffffff;
+}
+
+.messageItemProfile {
+  margin-top: -3px;
 }
