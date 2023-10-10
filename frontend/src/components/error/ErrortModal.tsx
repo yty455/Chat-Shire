@@ -132,7 +132,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               </span>
               <span
                 style={{
-                  marginLeft: "10px",
+                  marginLeft: "28px",
                   fontFamily: "preLt",
                   fontSize: "14px",
                 }}
@@ -142,7 +142,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                   ? errDetail.lastModifiedDate.toLocaleString()
                   : "날짜 없음"}
               </span>
-              <span style={{ marginLeft: "10px" }}>
+              <span style={{ marginLeft: "28px" }}>
                 작성자 {errDetail.nickname}
               </span>
             </div>
@@ -177,7 +177,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
         </div>
         <div className={styles.replyContainer}>
           <span style={{ fontFamily: "preBd", fontSize: "24px" }}>
-            Answers.{" "}
+            A.{" "}
           </span>
           <input
             type="text"
@@ -245,7 +245,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
         </div>
         <MdOutlineCancel
           style={{cursor: "pointer"}}
-          size={20}
+          size={24}
           onClick={closeModal}
           className={styles.closebtn}
         />
