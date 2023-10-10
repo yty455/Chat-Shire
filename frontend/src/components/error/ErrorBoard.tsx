@@ -90,6 +90,7 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
       setSkillErrors([]);
       setContentErrors([]);
       setIsSearch(false)
+       return
     }
     console.log("검색어:", searchText);
     searchcontentErrors(searchText);
@@ -101,6 +102,7 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
       setSkillErrors([]);
       setContentErrors([]);
       setIsSearch(false)
+      return
     }
     console.log("검색어:", searchText);
     searcgskillErrors(searchText);
@@ -125,6 +127,7 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
         <MultiSelect onSearch={handleSearch1} />
         <Search onSearch={handleSearch} />
       </div>
+      {isSearch && 
       <ErrorList
         onErrorCardClick={handleErrorCardClick}
         errors={
@@ -135,6 +138,7 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
             : allErrors
         }
       />
+    }
 
       {openModal && (
         <ErrorModal
