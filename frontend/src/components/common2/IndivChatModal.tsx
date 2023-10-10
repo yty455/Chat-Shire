@@ -5,11 +5,11 @@ import {
   deleteReferences,
   getReferencesChat,
 } from "../../utils/taskReferenceApi";
-import { Button } from "antd";
+import { Button, Modal } from "antd";
 import { getProjectMem } from "../../utils/projectApi";
 import MessageItem from "../message/MessageItem";
 
-import {MdOutlineCancel} from 'react-icons/md'
+import { MdOutlineCancel } from "react-icons/md";
 
 interface IndivChatModalProps {
   onClose: () => void;
@@ -98,7 +98,7 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
         <div className={styles.modalBox}>
           {reChat &&
             reChat.map((chat) => (
-              <MessageItem  message={chat} users={pjtMem} />
+              <MessageItem message={chat} users={pjtMem} />
               // <div key={chat.chatNumber} className={styles.chat}>
               //   {" "}
               //   <div className={styles.nickname}>
@@ -111,7 +111,7 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
               //   </div>
               //   <div
               //     className={styles.content}
-                 
+
               //   >
               //     {chat.content}
               //   </div>
@@ -136,10 +136,12 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
               <div key={chat.chatNumber} className={styles.chat}>
                 {" "}
                 <div className={styles.nickname}>{chat.nickname} : </div>
-                <div className={styles.content}>{chat.content ? chat.content : "첨부파일"}</div>
+                <div className={styles.content}>
+                  {chat.content ? chat.content : "첨부파일"}
+                </div>
                 <div className={styles.chatTime}>
                   {" "}
-                  : {formatChatTime(chat.chatTime)}
+                  {formatChatTime(chat.chatTime)}
                 </div>
                 <button
                   className={styles.deletebtn}
@@ -147,10 +149,10 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
                     backgroundColor: "#39a789",
                     fontFamily: "preRg",
                     border: "0px",
-                    borderRadius:"10px",
-                    color:"white",
-                    padding:"2px",
-                    marginRight: "4px"
+                    borderRadius: "10px",
+                    color: "white",
+                    padding: "2px",
+                    marginRight: "4px",
                   }}
                   onClick={() => handleClick(chat.id)}
                 >
@@ -162,8 +164,8 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
                     backgroundColor: "#FF5B5B",
                     fontFamily: "preRg",
                     border: "0px",
-                    borderRadius:"10px",
-                    color:"white",
+                    borderRadius: "10px",
+                    color: "white",
                   }}
                   onClick={() => deleteRe(chat.id)}
                 >
@@ -171,12 +173,22 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
                 </button>
               </div>
             ))}
-            <MdOutlineCancel
+          {/* <MdOutlineCancel
               style={{marginTop: "8px", cursor: "pointer"}}
               size={30}
               onClick={onClose}
               className={styles.closebtn}
-            />
+            /> */}
+            {/* <div style={{display: 'flex', justifyContent:'space-between'}} > */}
+              <p className={styles.modalTitle}>참조된 채팅</p>
+              <button
+                style={{ cursor: "pointer" }}
+                onClick={onClose}
+                className={styles.closebtn}
+              >
+                X
+              </button>
+            {/* </div> */}
         </div>
       )}
     </div>

@@ -14,12 +14,13 @@ import java.util.List;
 public class PostInfo {
     private String title;
     private String content;
+    private int state;
     private List<String> skillName;
     private List<AttachedFileInfo> attachedFileInfos;
 
     public static Post toEntity(User user, ChatRoom chatRoom, PostInfo postInfo) {
         return Post.builder()
-                .state(Boolean.FALSE)
+                .state(0)
                 .title(postInfo.getTitle())
                 .content(postInfo.getContent())
                 .chatRoom(chatRoom)

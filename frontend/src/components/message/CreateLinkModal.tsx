@@ -85,6 +85,7 @@ const ModalComponent: React.FC<{
 
   return (
     <Modal
+      centered
       title="링크 등록하기"
       visible={open}
       onOk={handleOk}

@@ -19,7 +19,7 @@ public class PostInfoResponse {
     private List<String> skillName;
     private String profileImage;
     private String profileColor;
-    private Boolean state;
+    private int state;
     private String reply;
     private Long replyCount;
     private LocalDateTime createdDate;
@@ -42,7 +42,7 @@ public class PostInfoResponse {
         this.attachedFileInfos = attachedFileInfos;
     }
 
-    public PostInfoResponse(Long id, String title, Boolean state, String profileImage, String profileColor, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
+    public PostInfoResponse(Long id, String title, int state, String profileImage, String profileColor, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
         this.id = id;
         this.title = title;
         this.state = state;

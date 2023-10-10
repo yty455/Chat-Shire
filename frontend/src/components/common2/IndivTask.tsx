@@ -395,6 +395,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                             fontSize: "17px",
                             margin: "-5px 5px 10px 0",
                           }}
+                          title="참조된 채팅"
                         />
                       </Tooltip>
                       {editingTaskId === item.id ? (
@@ -419,6 +420,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                             onClick={() =>
                               enterEditMode(item.id, item.progress)
                             }
+                            title="수정하기"
                           />
                         </Tooltip>
                       )}
@@ -429,6 +431,7 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
                             margin: "-7px 10px 8px 0",
                           }}
                           onClick={() => deleteInTask(item.id)}
+                          title="삭제하기"
                         />
                       </Tooltip>
                     </div>
