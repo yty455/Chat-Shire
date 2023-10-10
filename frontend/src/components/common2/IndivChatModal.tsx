@@ -5,7 +5,7 @@ import {
   deleteReferences,
   getReferencesChat,
 } from "../../utils/taskReferenceApi";
-import { Button } from "antd";
+import { Button, Modal } from "antd";
 import { getProjectMem } from "../../utils/projectApi";
 import MessageItem from "../message/MessageItem";
 
@@ -173,12 +173,22 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
                 </button>
               </div>
             ))}
-          <MdOutlineCancel
-            style={{ marginTop: "8px", cursor: "pointer" }}
-            size={30}
-            onClick={onClose}
-            className={styles.closebtn}
-          />
+          {/* <MdOutlineCancel
+              style={{marginTop: "8px", cursor: "pointer"}}
+              size={30}
+              onClick={onClose}
+              className={styles.closebtn}
+            /> */}
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <h5>참조된 채팅</h5>
+            <button
+              style={{ cursor: "pointer" }}
+              onClick={onClose}
+              className={styles.closebtn}
+            >
+              X
+            </button>
+          </div>
         </div>
       )}
     </div>
