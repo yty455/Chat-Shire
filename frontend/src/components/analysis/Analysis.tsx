@@ -352,7 +352,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
             position: "absolute",
             left: "23vw",
             top: "1vh",
-            height: "260px",
+            height: "210px",
           }}
           src={
             process.env.PUBLIC_URL +
