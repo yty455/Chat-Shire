@@ -470,7 +470,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           style={{
             display: "flex",
             alignItems: "center",
-            margin: "0px 0px 10px 20px",
+            margin: "22px 18px 10px 20px",
           }}
         >
           <AllBorderLinearProgress
@@ -495,7 +495,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <div
           className={styles.TeamTaskContainer}
-          style={{ padding: "0 0 0 20px", width: "50%", height: "510px" }}
+          style={{ padding: "10px 0 0 20px", width: "50%", height: "550px" }}
         >
           <p className={styles.taskProgress}>완료 태스크</p>
           {comTeamTask &&
@@ -562,7 +562,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     )}
                     <p className={styles.step}>{task.name}</p>
                     <p
-                      className={styles.step}
+                      className={styles.star}
                       style={{
                         color:
                           task.priority === "HIGH"
@@ -714,7 +714,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
 
         <div
           className={styles.TeamTaskContainer}
-          style={{ padding: "0 20px 0 20px", width: "50%", height: "510px" }}
+          style={{ padding: "10px 20px 0 20px", width: "50%", height: "550px" }}
         >
           <p className={styles.taskProgress}>진행 태스크</p>
 
@@ -780,21 +780,21 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     )}
                     <p className={styles.step}>{task.name}</p>
                     <p
-                      className={styles.step}
+                      className={styles.star}
                       style={{
                         color:
                           task.priority === "HIGH"
                             ? "#FF5B5B"
                             : task.priority === "LOW"
-                            ? "##5BFF83"
-                            : "#FFF05B",
+                            ? "#57A505"
+                            : "#E2CF0C",
                       }}
                     >
                       {task.priority === "HIGH"
-                        ? "매우 중요"
+                        ? "⭐⭐⭐"
                         : task.priority === "MEDIUM"
-                        ? "중요"
-                        : "보통"}
+                        ? "⭐⭐"
+                        : "⭐"}
                     </p>
                   </div>
                 </div>
