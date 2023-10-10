@@ -31,6 +31,8 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
   const [skillErrors, setSkillErrors] = useState([]);
   const [contentErrors, setContentErrors] = useState([]);
   const [selectedError, setSelectedError] = useState<any>(null);
+  const [isSearch, setIsSearch] = useState(false);
+  
 
   const handleErrorCardClick = (err: any) => {
     setSelectedError(err);
@@ -84,13 +86,25 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
   };
 
   const handleSearch = async (searchText: string) => {
+    if (searchText===undefined) {
+      setSkillErrors([]);
+      setContentErrors([]);
+      setIsSearch(false)
+    }
     console.log("검색어:", searchText);
     searchcontentErrors(searchText);
+    setIsSearch(true)
   };
 
   const handleSearch1 = async (searchText: string) => {
+    if (!searchText) {
+      setSkillErrors([]);
+      setContentErrors([]);
+      setIsSearch(false)
+    }
     console.log("검색어:", searchText);
     searcgskillErrors(searchText);
+    setIsSearch(true)
   };
 
   useEffect(() => {
