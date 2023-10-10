@@ -98,7 +98,7 @@ function Project() {
       width="57vw"
       height="81vh"
       margin=""
-      padding="2vh 0 2vh 1vw"
+      padding="2vh 0 2vh 1.3vw"
       border="1px solid #E5E8EB"
       borderRadius="20px"
       boxShadow=""
