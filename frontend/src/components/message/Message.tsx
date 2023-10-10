@@ -279,11 +279,8 @@ function Message({ projectId }: MessageProps) {
     return new Promise((resolve, reject) => {
       // const file = e.target.files[0];
       // const uploadimg = Array.from(e.target.files);
-      let uploadimg = Array.from(e.target.files);
-      console.log(uploadimg.length);
-      setImagelen(uploadimg.length);
 
-      uploadimg.forEach((file: any) => {
+      Array.from(e.target.files).forEach((file: any) => {
         if (!file) {
           resolve();
           return;
