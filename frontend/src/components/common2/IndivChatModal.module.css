@@ -26,6 +26,7 @@
 }
 
 .modalTitle {
+
   position: fixed;
   top: 20px;
   left: 4%;
@@ -65,6 +66,7 @@
   overflow-x: auto;
   white-space: nowrap;
   font-size: 15px;
+  font-family:'preRg'
 }
 
 .content {
@@ -72,6 +74,8 @@
   overflow-x: auto;
   white-space: nowrap;
   font-size: 15px;
+  font-family:'preRg'
+
 }
 .chatTime {
   width: 30%;
@@ -79,6 +83,8 @@
   white-space: nowrap;
   font-size: 13px;
   color: gray;
+  font-family:'preRg'
+
 }
 .deletebtn {
   width: 12%;
