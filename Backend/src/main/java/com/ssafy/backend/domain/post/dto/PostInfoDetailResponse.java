@@ -29,7 +29,7 @@ public class PostInfoDetailResponse {
     private String profileColor;
     private String nickname;
 
-    private Boolean state;
+    private int state;
     private List<ReplyInfoResponse> replies;
 
     public void setSkillName(List<String> skillName) {
@@ -44,7 +44,7 @@ public class PostInfoDetailResponse {
         this.attachedFileInfos = attachedFileInfos;
     }
 
-    public PostInfoDetailResponse(Long id, String title, String content, Long userId, String githubId, String profileImage, String profileColor, String nickname, Boolean state, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
+    public PostInfoDetailResponse(Long id, String title, String content, Long userId, String githubId, String profileImage, String profileColor, String nickname, int state, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
         this.id = id;
         this.title = title;
         this.content = content;
