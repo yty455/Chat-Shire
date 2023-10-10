@@ -17,7 +17,7 @@
 }
 
 .modalBox {
-  padding: 8% 5% 5% 5%;
+  padding: 6% 4% 4% 4%;
   /* display: flex; */
   /* justify-content: center; */
   /* align-items: center; */
@@ -34,6 +34,7 @@
   font-size: 23px;
   font-family: 'preBd';
   margin: 0;
+  color: #575757;
 }
 
 .closebtn {
@@ -49,26 +50,36 @@
 .chat {
   display: flex;
   margin-top: 8px;
-  border: 1px solid gray;
-  border-radius: 15px;
+  /* border: 1px solid gray; */
+  /* border-radius: 15px; */
   padding: 10px;
   align-items: center;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  justify-content: center;
+  padding: 10px 0 20px 0;
 }
 
 .nickname {
   width: 8%;
   overflow-x: auto;
   white-space: nowrap;
+  font-size: 15px;
 }
+
 .content {
   width: 50%;
   overflow-x: auto;
   white-space: nowrap;
+  font-size: 15px;
+
 }
 .chatTime {
   width: 30%;
   overflow-x: auto;
   white-space: nowrap;
+  font-size: 13px;
+  color: gray;
 }
 .deletebtn {
   width: 12%;
