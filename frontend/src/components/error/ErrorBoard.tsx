@@ -135,7 +135,9 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
             ? skillErrors
             : contentErrors.length > 0
             ? contentErrors
-            : allErrors
+            : !isSearch
+            ? allErrors
+            : null
         }
       />
     }
