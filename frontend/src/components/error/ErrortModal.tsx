@@ -15,6 +15,7 @@ import { Button } from "antd";
 
 import { BsPencilFill } from "react-icons/bs";
 import { MdDelete, MdOutlineCancel } from "react-icons/md";
+import { AiOutlineDownload } from 'react-icons/ai'
 import api from "../../utils/api";
 
 interface ErrorModalProps {
@@ -108,10 +109,14 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
     }
   };
 
-  const selectAnswer = async(id: Number) => {
+  const selectAnswer = async(id: number) => {
     const patchedErrPost = errDetail
     patchedErrPost.state = id
     api.patch(`/posts/${errDetail.id}`, patchedErrPost)
+    .then((res) => {
+      console.log(res)
+      setAnswer(id)
+    })
   }
 
   // 엔터 키 입력 시 댓글 작성
@@ -160,7 +165,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               </span>
             </div>
             <span className={styles.status}>
-              {errDetail && errDetail.state === true ? "완료" : "진행"}
+              {errDetail && errDetail.state !== 0 ? "완료" : "진행"}
             </span>
           </div>
           <div className={styles.deContentContainer}>
@@ -171,18 +176,23 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               {errDetail.attachedFileInfos &&
                 errDetail.attachedFileInfos.map(
                   (info: { url: string }, index: number) => (
-                    <img
-                      style={{
-                        cursor: "pointer",
-                        marginRight: "16px",
-                        maxHeight: "280px",
-                        height: "280px",
-                      }}
-                      onClick={ErrorImageClickHandler}
-                      key={index}
-                      src={info.url}
-                      alt="Preview"
-                    />
+                    <div className={styles.errImageItem}>
+                      <img
+                        style={{
+                          cursor: "pointer",
+                          marginRight: "16px",
+                          maxHeight: "280px",
+                          height: "280px",
+                        }}
+                        onClick={ErrorImageClickHandler}
+                        key={index}
+                        src={info.url}
+                        alt="Preview"
+                      />
+                      <div className={styles.hoverOverlay}>
+                        <AiOutlineDownload onClick={() => window.open(info.url, "_blank")} className={styles.downButton}/>
+                      </div>
+                    </div>
                   )
                 )}
             </div>

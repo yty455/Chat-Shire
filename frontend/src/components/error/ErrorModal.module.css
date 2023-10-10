@@ -115,3 +115,34 @@
   border: 1px solid #39a789;
   border-radius: 10px;
 }
+
+.downButton {
+  z-index: 100;
+  color: white;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  align-self: center;
+  justify-content: center;
+  margin: auto;
+  padding-top: 7.5vh;
+  cursor: pointer;
+}
+
+.hoverOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+   width:calc(100% - 1vw);
+   margin: 0 1vw 10px 0px;
+   height:20.1vh;
+   background-color: rgba(0, 0, 0, 0.689);
+   opacity:0;
+   transition:.3s ease-in-out;
+   border-radius: 10px;
+}
+
+.errImageItem:hover .hoverOverlay{
+    opacity:1;
+}

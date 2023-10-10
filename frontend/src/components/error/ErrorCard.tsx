@@ -91,15 +91,38 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
             justifyContent: "start",
           }}
         >
-          {error.attachedFileInfos &&
-            error.attachedFileInfos.map(
-              (info: { url: string }, index: number) => (
-                <img
-                  style={{ marginRight: "5px", height: "60px", width: "60px" }}
-                  key={index}
-                  src={info.url}
-                  alt="Preview"
-                />
+          {error.attachedFileInfos && error.attachedFileInfos.length > 3 ? (
+              <div>
+                {error.attachedFileInfos.slice(3).map(
+                  (info: { url: string }, index: number) => (
+                    <img
+                      style={{ marginRight: "5px", height: "60px", width: "60px" }}
+                      key={index}
+                      src={info.url}
+                      alt="Preview"
+                    />
+                  )
+                )}
+                <div>
+                  <img
+                    style={{ marginRight: "5px", height: "60px", width: "60px" }}
+                    key={4}
+                    src={error.attachedFileInfos[3].url}
+                    alt="Preview"
+                  />
+                  <div style={{position: "absolute", height: "60px", width: "60px", backgroundColor: "rgba(0, 0, 0, 0.241)"}}>+{error.attachedFileInfos.length - 3}</div>
+                </div>
+              </div>
+            ) : (
+              error.attachedFileInfos.map(
+                (info: { url: string }, index: number) => (
+                  <img
+                    style={{ marginRight: "5px", height: "60px", width: "60px" }}
+                    key={index}
+                    src={info.url}
+                    alt="Preview"
+                  />
+                )
               )
             )}
         </div>
