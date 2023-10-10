@@ -66,6 +66,7 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
         const response = await searchErrSkillName(pjtId, skill);
         setSkillErrors(response.data.result[0] || []); // 결과가 없는 경우 빈 배열로 설정
         setContentErrors([]); // 내용 에러 목록 비우기
+        setIsSearch(true)
       }
     } catch (error) {
       console.error(error);
@@ -79,6 +80,7 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
         const response = await searchErrConent(pjtId, content);
         setContentErrors(response.data.result[0] || []); // 결과가 없는 경우 빈 배열로 설정
         setSkillErrors([]); // 기술 에러 목록 비우기
+        setIsSearch(true)
       }
     } catch (error) {
       console.error(error);
@@ -87,26 +89,29 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
 
   const handleSearch = async (searchText: string) => {
     if (searchText===undefined) {
+      console.log("검색어11:", searchText);
       setSkillErrors([]);
       setContentErrors([]);
       setIsSearch(false)
        return
+    } else {
+      console.log("검색어:", searchText);
+      searchcontentErrors(searchText);
     }
-    console.log("검색어:", searchText);
-    searchcontentErrors(searchText);
-    setIsSearch(true)
+
   };
 
   const handleSearch1 = async (searchText: string) => {
     if (searchText==="") {
+      console.log("검색어11:", searchText);
       setSkillErrors([]);
       setContentErrors([]);
       setIsSearch(false)
       return
+    } else {
+      console.log("검색어:", searchText);
+      searcgskillErrors(searchText);
     }
-    console.log("검색어:", searchText);
-    searcgskillErrors(searchText);
-    setIsSearch(true)
   };
 
   useEffect(() => {
