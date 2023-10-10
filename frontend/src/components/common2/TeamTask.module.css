@@ -102,6 +102,13 @@
   font-size: 18px;
 }
 
+.star {
+  margin: -5px 0 0 10px;
+  display: flex;
+  font-family: "preRg";
+  font-size: 18px;
+}
+
 .stepStatus {
   display: flex;
   justify-content: start;
