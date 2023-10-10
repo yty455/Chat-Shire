@@ -131,13 +131,13 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
       <ErrorList
         onErrorCardClick={handleErrorCardClick}
         errors={
-          skillErrors.length > 0
-            ? skillErrors
-            : contentErrors.length > 0
-            ? contentErrors
-            : !isSearch
-            ? allErrors
-            : null
+          isSearch
+            ? skillErrors.length > 0
+              ? skillErrors
+              : contentErrors.length > 0
+              ? contentErrors
+              : null
+            : allErrors // 검색을 하지 않은 경우에는 전체 에러 목록을 렌더링
         }
       />
     }
