@@ -139,28 +139,31 @@ public class PostService {
         }
 
         // 파일 첨부 갱신
-        List<AttachedFile> attachedFiles = attachedFileRepository.findByPostId(postId);
-        Map<String, AttachedFileInfo> modifyAttachedFiles = new HashMap<>();
-        for (AttachedFileInfo attachedFileInfo : postInfo.getAttachedFileInfos()) {
-            modifyAttachedFiles.put(attachedFileInfo.getUrl(), attachedFileInfo);
+        if (postInfo.getAttachedFileInfos() != null) {
+            List<AttachedFile> attachedFiles = attachedFileRepository.findByPostId(postId);
+            Map<String, AttachedFileInfo> modifyAttachedFiles = new HashMap<>();
+            for (AttachedFileInfo attachedFileInfo : postInfo.getAttachedFileInfos()) {
+                modifyAttachedFiles.put(attachedFileInfo.getUrl(), attachedFileInfo);
+            }
+
+            for (AttachedFile attachedFile : attachedFiles) {
+                if (modifyAttachedFiles.containsKey(attachedFile.getUrl())) {
+                    modifyAttachedFiles.remove(attachedFile.getUrl());
+                } else {
+                    attachedFileRepository.deleteById(attachedFile.getId());
+                }
+            }
+            modifyAttachedFiles.keySet().forEach(key -> {
+                AttachedFileInfo attachedFileInfo = modifyAttachedFiles.get(key);
+                Category category = findCategory(attachedFileInfo.getUrl());
+                attachedFileRepository.save(AttachedFile.builder()
+                        .postId(postId)
+                        .category(category)
+                        .url(attachedFileInfo.getUrl())
+                        .thumbnail(attachedFileInfo.getThumbnail()).build());
+            });
         }
 
-        for (AttachedFile attachedFile : attachedFiles) {
-            if (modifyAttachedFiles.containsKey(attachedFile.getUrl())) {
-                modifyAttachedFiles.remove(attachedFile.getUrl());
-            } else {
-                attachedFileRepository.deleteById(attachedFile.getId());
-            }
-        }
-        modifyAttachedFiles.keySet().forEach(key -> {
-            AttachedFileInfo attachedFileInfo = modifyAttachedFiles.get(key);
-            Category category = findCategory(attachedFileInfo.getUrl());
-            attachedFileRepository.save(AttachedFile.builder()
-                    .postId(postId)
-                    .category(category)
-                    .url(attachedFileInfo.getUrl())
-                    .thumbnail(attachedFileInfo.getThumbnail()).build());
-        });
     }
 
 
