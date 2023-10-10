@@ -141,7 +141,7 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
                 </div>
                 <div className={styles.chatTime}>
                   {" "}
-                  : {formatChatTime(chat.chatTime)}
+                  {formatChatTime(chat.chatTime)}
                 </div>
                 <button
                   className={styles.deletebtn}
@@ -179,16 +179,16 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
               onClick={onClose}
               className={styles.closebtn}
             /> */}
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <h5>참조된 채팅</h5>
-            <button
-              style={{ cursor: "pointer" }}
-              onClick={onClose}
-              className={styles.closebtn}
-            >
-              X
-            </button>
-          </div>
+            {/* <div style={{display: 'flex', justifyContent:'space-between'}} > */}
+              <p className={styles.modalTitle}>참조된 채팅</p>
+              <button
+                style={{ cursor: "pointer" }}
+                onClick={onClose}
+                className={styles.closebtn}
+              >
+                X
+              </button>
+            {/* </div> */}
         </div>
       )}
     </div>

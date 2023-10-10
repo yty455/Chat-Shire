@@ -1,7 +1,7 @@
 .modalOverlay {
   border: 1px solid #ffffff;
   position: fixed;
-  padding: 20px;
+  /* padding: 20px; */
   display: flex;
   right: 0;
   bottom: 0;
@@ -25,6 +25,17 @@
   overflow: auto;
 }
 
+.modalTitle {
+  position: fixed;
+  top: 20px;
+  left: 2%;
+  border: 0;
+  background-color: transparent;
+  font-size: 23px;
+  font-family: 'preBd';
+  margin: 0;
+}
+
 .closebtn {
   position: fixed;
   top: 20px;
@@ -38,6 +49,9 @@
 .chat {
   display: flex;
   margin-top: 3px;
+  border: 1px solid gray;
+  border-radius: 15px;
+  padding: 10px;
 }
 
 .nickname {
