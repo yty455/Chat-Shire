@@ -176,13 +176,14 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               {errDetail.attachedFileInfos &&
                 errDetail.attachedFileInfos.map(
                   (info: { url: string }, index: number) => (
-                    <div className={styles.errImageContainer}>
+                    <div className={styles.errImageItem}>
                       <img
                         style={{
                           cursor: "pointer",
                           marginRight: "16px",
                           maxHeight: "280px",
                           height: "280px",
+                          borderRadius: "10px"
                         }}
                         onClick={ErrorImageClickHandler}
                         key={index}
