@@ -164,6 +164,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   const [allTasks, setAllTasks] = useRecoilState(tasks_recoil);
   const [pjt, setPjt] = useState<any>({});
   const [isModalOpen, setIsModalOpen] = useState("");
+
   const [updatedProgress, setUpdatedProgress] = useState("");
   const [checkboxItems, setCheckboxItems] = useState<CheckboxItem[]>([
     {
@@ -962,13 +963,12 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           )}
         </div>
       </div>
-      {open && (
-        <IndivChatModal
-          taskId={selectTask}
-          onClose={handleClose}
-          projectId={projectId}
-        />
-      )}
+      <IndivChatModal
+        taskId={selectTask}
+        onClose={handleClose}
+        projectId={projectId}
+        open={open}
+      />
     </div>
   );
 }

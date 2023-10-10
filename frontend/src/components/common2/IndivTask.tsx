@@ -550,14 +550,12 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       >
         <AddIcon />
       </Fab>
-      {open && (
-        <IndivChatModal
-          taskId={selectTask}
-          onClose={handleClose}
-          projectId={projectId}
-          open={modalOpen}
-        />
-      )}
+      <IndivChatModal
+        taskId={selectTask}
+        onClose={handleClose}
+        projectId={projectId}
+        open={modalOpen}
+      />
     </div>
   );
 }
