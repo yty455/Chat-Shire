@@ -514,19 +514,19 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
                 <div onClick={() => openModal(task.id)} style={{cursor:"pointer"}}>
                   <div className={styles.taskHeader}>
-                    <div className={styles.clockNday}>
+                    <div className={styles.clockNday} style={{marginBottom: "6px"}}>
                       <WatchLaterIcon fontSize="medium" style={{marginLeft: "4px"}}/>
-                      <p className={styles.dday}>
+                      <span className={styles.dday} style={{marginTop: "2px"}}>
                         {Math.floor(
                           (new Date(task.deadline).getTime() -
                             currentDate.getTime()) /
                             (1000 * 60 * 60 * 24)
                         ) + 1}{" "}
                         day
-                      </p>
+                      </span>
                     </div>
                   </div>
-                  <div className={styles.stepStatus}>
+                  <div className={styles.stepStatus} style={{marginLeft: "2px"}}>
                     {task.progress === "ONGOING" ? (
                       <StyledBadge
                         sx={{ margin: "14px 0 15px 20px" }}
@@ -675,7 +675,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                     </div>
                   </div>
                 )): (
-                  <span style={{fontFamily: "preRg", fontSize: "16px", marginLeft: "10px"}}>하위 태스크를 등록해보세요</span>
+                  <span style={{fontFamily: "preRg", fontSize: "16px", marginLeft: "16px"}}>하위 태스크를 등록해보세요</span>
                 )}
               </div>
             ))}
@@ -705,9 +705,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
                 <div onClick={() => openModal(task.id)} style={{cursor:"pointer"}}>
                   <div className={styles.taskHeader}>
-                    <div className={styles.clockNday}>
+                    <div className={styles.clockNday} style={{marginBottom: "6px"}}>
                       <WatchLaterIcon style={{marginLeft: "4px"}}/>
-                      <p className={styles.dday}>
+                      <span className={styles.dday} style={{marginTop: "2px"}}>
                         {Math.floor(
                           (new Date(task.deadline).getTime() -
                             currentDate.getTime()) /
@@ -717,7 +717,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       </p>
                     </div>
                   </div>
-                  <div className={styles.stepStatus}>
+                  <div className={styles.stepStatus} style={{marginLeft: "2px"}}>
                     {task.progress === "ONGOING" ? (
                       <StyledBadge
                         sx={{ margin: "14px 0 15px 20px" }}
@@ -743,8 +743,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           task.priority === "HIGH"
                             ? "#FF5B5B"
                             : task.priority === "LOW"
-                            ? "#5BFF83"
-                            : "#FFF05B",
+                            ? "#FFF05B"
+                            : "#5BFF83",
                       }}
                     >
                       {task.priority === "HIGH" ? "매우 중요" : task.priority === "MEDIUM" ? "중요" : "보통"}
