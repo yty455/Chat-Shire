@@ -17,7 +17,7 @@
 }
 
 .modalBox {
-  padding: 5%;
+  padding: 8% 5% 5% 5%;
   /* display: flex; */
   /* justify-content: center; */
   /* align-items: center; */
@@ -28,7 +28,7 @@
 .modalTitle {
   position: fixed;
   top: 20px;
-  left: 2%;
+  left: 4%;
   border: 0;
   background-color: transparent;
   font-size: 23px;
@@ -39,7 +39,7 @@
 .closebtn {
   position: fixed;
   top: 20px;
-  right: 2%;
+  right: 4%;
   border: 0;
   background-color: transparent;
   font-size: 18px;
@@ -48,10 +48,11 @@
 
 .chat {
   display: flex;
-  margin-top: 3px;
+  margin-top: 8px;
   border: 1px solid gray;
   border-radius: 15px;
   padding: 10px;
+  align-items: center;
 }
 
 .nickname {
