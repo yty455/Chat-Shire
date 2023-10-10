@@ -714,7 +714,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                             (1000 * 60 * 60 * 24)
                         ) + 1}{" "}
                         day
-                      </p>
+                      </span>
                     </div>
                   </div>
                   <div className={styles.stepStatus} style={{marginLeft: "2px"}}>
