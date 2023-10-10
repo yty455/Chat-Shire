@@ -494,7 +494,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <div
           className={styles.TeamTaskContainer}
-          style={{ padding: "0 0 20px 20px", width: "50%", height: "510px" }}
+          style={{ padding: "0 0 0 20px", width: "50%", height: "510px" }}
         >
           <p className={styles.taskProgress}>완료된 Task</p>
           {comTeamTask &&
@@ -712,7 +712,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
 
         <div
           className={styles.TeamTaskContainer}
-          style={{ padding: "0 20px 0 20px", width: "50%", height: "530px" }}
+          style={{ padding: "0 20px 0 20px", width: "50%", height: "510px" }}
         >
           <p className={styles.taskProgress}>진행중인 Task</p>
 
