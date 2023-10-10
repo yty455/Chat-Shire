@@ -95,7 +95,7 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
         >
           {error.attachedFileInfos && error.attachedFileInfos.length > 3 ? (
               <div>
-                {error.attachedFileInfos.slice(0, 3).map(
+                {error.attachedFileInfos.slice(undefined, 2).map(
                   (info: { url: string }, index: number) => (
                     <img
                       style={{ marginRight: "5px", height: "60px", width: "60px" }}
@@ -108,7 +108,7 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
                 <div style={{position: "relative", width: "60px", height: "60px"}}>
                   <img
                     style={{ marginRight: "5px", height: "60px", width: "60px" }}
-                    key={4}
+                    key={3}
                     src={error.attachedFileInfos[3].url}
                     alt="Preview"
                   />

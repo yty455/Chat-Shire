@@ -4,9 +4,6 @@ import GoogleSearch from './GoogleSearch'
 import AWS from "aws-sdk";
 import {AiOutlineDownload} from "react-icons/ai";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-
 interface MessageProps {
   projectId: string;
   images:string[];
@@ -128,24 +125,20 @@ export default function RightMediaTab({ projectId, images, videos }: MessageProp
           사진 보관함
       </span>
       <div style={{marginBottom: "20px"}} className={styles.MessageRightMediaStorage}>
-        {/* <div className={styles.MediaContainer}> */}
-        <Swiper
-          slidesPerView={'auto'}
-          spaceBetween={6}
-          className={styles.MediaContainer}
-        >
-          {images.length !== 0 ? images.map((url, index) => (
-            <SwiperSlide className={styles.imgContainer} key={index}>
-              <img className={styles.photoThumbnail} src={url} alt="from S3" />
-              <div className={styles.hoverOverlay}>
-                <AiOutlineDownload onClick={() => window.open(url, "_blank")} className={styles.downButton}/>
+        <div className={styles.MediaContainer}>
+          {/* <div className={styles.photoThumbnail}> */}
+            {images.length !== 0 ? images.map((url, index) => (
+              <div className={styles.imgContainer} key={index}>
+                <img className={styles.photoThumbnail} src={url} alt="from S3" />
+                <div className={styles.hoverOverlay}>
+                  <AiOutlineDownload onClick={() => window.open(url, "_blank")} className={styles.downButton}/>
+                </div>
               </div>
-            </SwiperSlide>
-          )) : (
-            <p className={styles.noPhoto}>업로드 된 사진이 없습니다.</p>
-          )}
-        </Swiper>
-        {/* </div> */}
+            )) : (
+              <p className={styles.noPhoto}>업로드 된 사진이 없습니다.</p>
+            )}
+          {/* </div> */}
+        </div>
       </div>
       <span className={styles.MediaStorageTitle}>
         동영상 보관함
