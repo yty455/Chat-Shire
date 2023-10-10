@@ -96,6 +96,7 @@ function Message({ projectId }: MessageProps) {
   >([]);
   const [images, setImages] = useState<string[]>([]);
   const [videos, setVideos] = useState<string[]>([]);
+  const [imagelen, setImagelen] = useState(0);
 
   const handleChange = (e: any) => {
     e.preventDefault();
@@ -277,7 +278,9 @@ function Message({ projectId }: MessageProps) {
     // Promise<void> 타입 지정
     return new Promise((resolve, reject) => {
       // const file = e.target.files[0];
-      Array.from(e.target.files).forEach((file: any) => {
+      const uploadimg = Array.from(e.target.files);
+
+      uploadimg.forEach((file: any) => {
         if (!file) {
           resolve();
           return;
