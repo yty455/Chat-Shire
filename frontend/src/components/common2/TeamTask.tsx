@@ -928,9 +928,10 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
 
           <Fab
             sx={{
-              mt: "20px",
+              mt: "15px",
               mr: "auto",
               ml: "auto",
+              mb: "5px",
               display: "flex",
               justifyContent: "center",
             }}
