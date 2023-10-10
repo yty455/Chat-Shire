@@ -119,20 +119,23 @@ public class PostService {
         // 내가 등록한 언어 스킬
         List<MySkillInfo> mySkills = postSkillRepository.getPostSkill(postId);
         // 수정한 언어 목록
-        Set<String> modifySkillSet = new HashSet<>(postInfo.getSkillName());
+        if (postInfo.getSkillName() != null) {
 
-        for (MySkillInfo mySkill : mySkills) {
-            if (modifySkillSet.contains(mySkill.getSkillName())) {
-                modifySkillSet.remove(mySkill.getSkillName());
-            } else {
-                postSkillRepository.deleteById(mySkill.getId());
+            Set<String> modifySkillSet = new HashSet<>(postInfo.getSkillName());
+
+            for (MySkillInfo mySkill : mySkills) {
+                if (modifySkillSet.contains(mySkill.getSkillName())) {
+                    modifySkillSet.remove(mySkill.getSkillName());
+                } else {
+                    postSkillRepository.deleteById(mySkill.getId());
+                }
             }
-        }
 
-        for (String name : modifySkillSet) {
-            postSkillRepository.save(PostSkill.builder()
-                    .skill(skillMap.get(name))
-                    .post(post).build());
+            for (String name : modifySkillSet) {
+                postSkillRepository.save(PostSkill.builder()
+                        .skill(skillMap.get(name))
+                        .post(post).build());
+            }
         }
 
         // 파일 첨부 갱신

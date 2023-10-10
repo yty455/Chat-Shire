@@ -7,7 +7,6 @@ import com.ssafy.backend.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -16,8 +15,8 @@ public class PostInfo {
     private String title;
     private String content;
     private int state;
-    private List<String> skillName = new ArrayList<>();
-    private List<AttachedFileInfo> attachedFileInfos = new ArrayList<>();
+    private List<String> skillName;
+    private List<AttachedFileInfo> attachedFileInfos;
 
     public static Post toEntity(User user, ChatRoom chatRoom, PostInfo postInfo) {
         return Post.builder()
