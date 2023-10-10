@@ -96,6 +96,7 @@ function Message({ projectId }: MessageProps) {
   >([]);
   const [images, setImages] = useState<string[]>([]);
   const [videos, setVideos] = useState<string[]>([]);
+  const [imglen, setImglen] = useState(0);
 
   const handleChange = (e: any) => {
     e.preventDefault();
@@ -277,6 +278,7 @@ function Message({ projectId }: MessageProps) {
     // Promise<void> 타입 지정
     return new Promise((resolve, reject) => {
       console.log(e.target.files);
+      setImglen(Array.from(e.target.files).length);
       // const file = e.target.files[0];
       Array.from(e.target.files).forEach((file: any) => {
         if (!file) {
@@ -346,11 +348,14 @@ function Message({ projectId }: MessageProps) {
       attachedFileInfos.push({ url: mediaUrl, thumbnail: mediaUrl });
 
       // setAttachedFileInfos(newAttachedFileInfos);
-      setAttachedFileInfos(attachedFileInfos);
-      console.log("담아보낼 파일", attachedFileInfos);
-      // postChat(Number(projectId), "", newAttachedFileInfos);
-      postChat(Number(projectId), "", attachedFileInfos);
-      setAttachedFileInfos([]);
+      if (attachedFileInfos.length === imglen) {
+        setAttachedFileInfos(attachedFileInfos);
+        console.log("담아보낼 파일", attachedFileInfos);
+        // postChat(Number(projectId), "", newAttachedFileInfos);
+        postChat(Number(projectId), "", attachedFileInfos);
+        setAttachedFileInfos([]);
+        setImglen(0);
+      }
     });
   };
 
