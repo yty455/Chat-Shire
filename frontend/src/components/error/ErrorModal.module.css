@@ -127,7 +127,6 @@
   align-self: center;
   justify-content: center;
   margin: auto;
-  padding-top: 7.5vh;
   cursor: pointer;
 }
 
@@ -136,6 +135,9 @@
 }
 
 .hoverOverlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
   left: 0;

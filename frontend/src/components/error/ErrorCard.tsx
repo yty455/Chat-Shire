@@ -91,12 +91,11 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
             justifyContent: "start",
             height: "60px",
             width: "300px",
-            overflow: "hidden"
           }}
         >
           {error.attachedFileInfos && error.attachedFileInfos.length > 3 ? (
               <div>
-                {error.attachedFileInfos.slice(4).map(
+                {error.attachedFileInfos.slice(0, 4).map(
                   (info: { url: string }, index: number) => (
                     <img
                       style={{ marginRight: "5px", height: "60px", width: "60px" }}
