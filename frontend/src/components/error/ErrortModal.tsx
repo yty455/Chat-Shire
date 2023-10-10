@@ -160,7 +160,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                   ? formatChatTime(errDetail.lastModifiedDate)
                   : "날짜 없음"}
               </span>
-              <span style={{ marginLeft: "28px" }}>
+              <span style={{ marginLeft: "28px" , fontSize: "16px"}}>
                 작성자 {errDetail.nickname}
               </span>
             </div>
@@ -176,7 +176,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               {errDetail.attachedFileInfos &&
                 errDetail.attachedFileInfos.map(
                   (info: { url: string }, index: number) => (
-                    <div className={styles.errImageItem}>
+                    <div className={styles.errImageContainer}>
                       <img
                         style={{
                           cursor: "pointer",
