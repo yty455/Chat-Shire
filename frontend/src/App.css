@@ -7,3 +7,7 @@
   background-color: none;
   color: #31deb0;
 }
+
+.ant-modal-title {
+  font-size: 20px;
+}
