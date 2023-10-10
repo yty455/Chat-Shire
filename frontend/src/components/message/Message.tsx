@@ -273,18 +273,63 @@ function Message({ projectId }: MessageProps) {
 
   //     const acceptedExtensions = ["pdf", "docx", "doc", "xlsx", "xls", "txt"];
 
-  // 이미지 업로드
-  const onUploadImage = (e: any): Promise<void> => {
-    // Promise<void> 타입 지정
+  // // 이미지 업로드
+  // const onUploadImage = (e: any): Promise<void> => {
+  //   // Promise<void> 타입 지정
 
-    return new Promise((resolve, reject) => {
-      console.log(e.target.files);
-      const uploadimgs = Array.from(e.target.files);
-      setImglen(uploadimgs.length);
-      // const file = e.target.files[0];
-      uploadimgs.forEach((file: any) => {
+  //   return new Promise((resolve, reject) => {
+  //     console.log(e.target.files);
+  //     const uploadimgs = Array.from(e.target.files);
+  //     setImglen(uploadimgs.length);
+  //     // const file = e.target.files[0];
+  //     uploadimgs.forEach((file: any) => {
+  //       if (!file) {
+  //         resolve();
+  //         return;
+  //       }
+  //       const fileExt = file.name.split(".").pop();
+  //       if (
+  //         !["jpeg", "png", "jpg", "JPG", "PNG", "JPEG", "mp4", "MP4"].includes(
+  //           fileExt
+  //         )
+  //       ) {
+  //         window.alert("jpeg, png, jpg, mp4 파일만 업로드가 가능합니다.");
+  //         resolve();
+  //         return;
+  //       }
+
+  //       const reader = new FileReader();
+  //       reader.readAsDataURL(file);
+
+  //       reader.onload = () => {
+  //         setImageSrc(reader.result || "");
+  //         setImageFile(file);
+
+  //         const formData = new FormData();
+  //         formData.append("file", file);
+  //         formData.append("name", file.name);
+  //         e.target.value = null;
+
+  //         if (!reader.result) {
+  //           window.alert("이미지를 등록해 주세요.");
+  //           resolve();
+  //           return;
+  //         }
+  //         // resolve();
+  //       };
+  //     });
+  //   });
+  // };
+
+  const onUploadImage = (e: any): Promise<void> => {
+    const uploadimgs = Array.from(e.target.files);
+    setImglen(uploadimgs.length);
+
+    // 각각의 파일에 대한 작업을 별도의 promise로 생성합니다.
+    const promises = uploadimgs.map((file: any) => {
+      return new Promise((resolve, reject) => {
         if (!file) {
-          resolve();
+          resolve(undefined);
           return;
         }
         const fileExt = file.name.split(".").pop();
@@ -294,7 +339,7 @@ function Message({ projectId }: MessageProps) {
           )
         ) {
           window.alert("jpeg, png, jpg, mp4 파일만 업로드가 가능합니다.");
-          resolve();
+          resolve(undefined);
           return;
         }
 
@@ -306,18 +351,26 @@ function Message({ projectId }: MessageProps) {
           setImageFile(file);
 
           const formData = new FormData();
+
           formData.append("file", file);
           formData.append("name", file.name);
+
           e.target.value = null;
 
           if (!reader.result) {
             window.alert("이미지를 등록해 주세요.");
-            resolve();
+            resolve(undefined);
             return;
           }
+
+          //모든 처리가 끝나면 resolve() 호출
+          resolve(undefined);
         };
       });
     });
+
+    // 모든 promise들이 완료될 때까지 기다립니다.
+    return Promise.all(promises).then(() => {});
   };
 
   // s3에 이미지 업로드
