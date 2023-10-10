@@ -112,7 +112,7 @@ function IndivChatModal({ taskId, onClose, projectId, open }: IndivChatModalProp
               뒤로가기
             </Button>
           ]}
-          width={900}
+          width={800}
         >
       <div style={{height: '60vh', maxHeight:'60vh', overflowY:'auto'}}>       
 
