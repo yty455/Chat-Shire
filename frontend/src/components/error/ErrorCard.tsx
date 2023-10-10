@@ -67,7 +67,7 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
           sx={{ width: 80, height: 80 }}
         />
         <h5 className={styles.status}>
-          {error && error.state === true ? "완료" : "진행"}
+          {error && error.state !== 0 ? "완료" : "진행"}
         </h5>
       </div>
       <div>
@@ -75,9 +75,9 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
         <div className={styles.skillbox}>
           {error && Array.isArray(error.skillName) ? (
             error.skillName.map((item: any, index: number) => (
-              <h5 key={index} className={styles.language}>
+              <span key={index} className={styles.language}>
                 {item}
-              </h5>
+              </span>
             ))
           ) : (
             <h5 className={styles.language}>Python</h5>
@@ -89,6 +89,7 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
             display: "flex",
             alignItems: "center",
             justifyContent: "start",
+            height: "60px"
           }}
         >
           {error.attachedFileInfos && error.attachedFileInfos.length > 3 ? (
@@ -103,14 +104,18 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
                     />
                   )
                 )}
-                <div>
+                <div style={{position: "relative"}}>
                   <img
                     style={{ marginRight: "5px", height: "60px", width: "60px" }}
                     key={4}
                     src={error.attachedFileInfos[3].url}
                     alt="Preview"
                   />
-                  <div style={{position: "absolute", height: "60px", width: "60px", backgroundColor: "rgba(0, 0, 0, 0.241)"}}>+{error.attachedFileInfos.length - 3}</div>
+                  <div style={{position: "absolute", height: "60px", width: "60px", backgroundColor: "rgba(0, 0, 0, 0.241)", justifyContent: "center", alignItems: "center"}}>
+                    <div style={{color: "#ffffff"}}>
+                    +{error.attachedFileInfos.length - 3}
+                    </div>
+                  </div>
                 </div>
               </div>
             ) : (
