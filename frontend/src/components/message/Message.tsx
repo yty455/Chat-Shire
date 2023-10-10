@@ -277,7 +277,7 @@ function Message({ projectId }: MessageProps) {
     // Promise<void> 타입 지정
     return new Promise((resolve, reject) => {
       // const file = e.target.files[0];
-      e.target.files.forEach((file: any) => {
+      Array.from(e.target.files).forEach((file: any) => {
         if (!file) {
           resolve();
           return;
@@ -456,7 +456,7 @@ function Message({ projectId }: MessageProps) {
   const onUploadFile = (e: any): Promise<void> => {
     return new Promise((resolve, reject) => {
       // const file = e.target.files[0];
-      e.target.files.forEach((file: any) => {
+      Array.from(e.target.files).forEach((file: any) => {
         if (!file) {
           resolve();
           return;
