@@ -276,6 +276,7 @@ function Message({ projectId }: MessageProps) {
   // 이미지 업로드
   const onUploadImage = (e: any): Promise<void> => {
     // Promise<void> 타입 지정
+
     return new Promise((resolve, reject) => {
       console.log(e.target.files);
       const uploadimgs = Array.from(e.target.files);
@@ -314,8 +315,6 @@ function Message({ projectId }: MessageProps) {
             resolve();
             return;
           }
-
-          resolve();
         };
       });
     });
