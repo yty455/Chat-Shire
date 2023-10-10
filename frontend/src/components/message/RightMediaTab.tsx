@@ -131,7 +131,7 @@ export default function RightMediaTab({ projectId, images, videos }: MessageProp
         {/* <div className={styles.MediaContainer}> */}
         <Swiper
           slidesPerView={'auto'}
-          spaceBetween={30}
+          spaceBetween={6}
           className={styles.MediaContainer}
         >
           {images.length !== 0 ? images.map((url, index) => (
