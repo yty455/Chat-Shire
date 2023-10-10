@@ -95,17 +95,16 @@ function IndivChatModal({ taskId, onClose, projectId, open }: IndivChatModalProp
 
   return (
     <div>
-      <Modal
-        title="참조된 채팅"
-        centered
-        open={open}
-        onOk={onClose}
-        onCancel={onClose}
-        footer={null}
-      >
     {/* <div className={styles.modalOverlay}> */}
       {selectedChat !== "" ? (
-        <div className={styles.modalBox}>
+          <Modal
+          title="참조된 채팅"
+          centered
+          open={open}
+          onOk={onClose}
+          onCancel={onClose}
+          footer={null}
+        >
           {reChat &&
             reChat.map((chat) => (
               <MessageItem message={chat} users={pjtMem} />
@@ -138,10 +137,17 @@ function IndivChatModal({ taskId, onClose, projectId, open }: IndivChatModalProp
           >
             {"<<"}
           </button>
-        </div>
+        </Modal>
       ) : (
-        <div className={styles.modalBox}>
-          {taskChat &&
+        <Modal
+        title="참조된 채팅"
+        centered
+        open={open}
+        onOk={onClose}
+        onCancel={onClose}
+        footer={null}
+      >          
+      {taskChat &&
             taskChat.map((chat) => (
               <div key={chat.chatNumber} className={styles.chat}>
                 {" "}
@@ -196,9 +202,8 @@ function IndivChatModal({ taskId, onClose, projectId, open }: IndivChatModalProp
                 X
               </button>
             {/* </div> */}
-        </div>
+            </Modal>
       )}
-      </Modal>
     </div>
   );
 }
