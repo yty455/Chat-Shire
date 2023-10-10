@@ -94,7 +94,7 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
           }}
         >
           {error.attachedFileInfos && error.attachedFileInfos.length > 3 ? (
-              <div>
+              <div style={{display: "flex"}}>
                 {error.attachedFileInfos.slice(undefined, 2).map(
                   (info: { url: string }, index: number) => (
                     <img
