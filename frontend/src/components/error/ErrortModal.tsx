@@ -262,7 +262,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                           errDetail.state === item.replyId ? (
                             <Button
                               onClick={() => selectAnswer(0)}
-                              style={{ backgroundColor: "green", fontFamily: "preRg" }}
+                              style={{ backgroundColor: "#39a789", fontFamily: "preRg" }}
                               key="submit"
                               type="primary"
                             >
@@ -271,7 +271,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                           ) : (
                             <Button
                               onClick={() => selectAnswer(item.replyId)}
-                              style={{ backgroundColor: "green", fontFamily: "preRg" }}
+                              style={{ backgroundColor: "#39a789", fontFamily: "preRg" }}
                               key="submit"
                               type="primary"
                             >
@@ -297,12 +297,12 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
         {userData.nickname === errDetail.nickname ? (
           <Button
             onClick={deleteInError}
-            style={{ backgroundColor: "red", fontFamily: "preRg" }}
+            style={{ backgroundColor: "rgb(255, 91, 91)", fontFamily: "preRg" }}
             key="submit"
             type="primary"
             className={styles.deletebtn}
           >
-            삭제
+            게시물 삭제
           </Button>
         ) : (
           <></>
