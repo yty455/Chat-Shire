@@ -474,7 +474,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           }}
         >
           <AllBorderLinearProgress
-            style={{ margin: "0px 10px 0px 0px", width: "500px" }}
+            style={{ margin: "0px 10px 0px 0px", width: "28vw" }}
             variant="determinate"
             value={
               allTeamTask.length === 0
@@ -497,7 +497,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           className={styles.TeamTaskContainer}
           style={{ padding: "0 0 0 20px", width: "50%", height: "510px" }}
         >
-          <p className={styles.taskProgress}>완료된 Task</p>
+          <p className={styles.taskProgress}>완료 태스크</p>
           {comTeamTask &&
             comTeamTask.map((task: any) => (
               <div
@@ -568,16 +568,17 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                           task.priority === "HIGH"
                             ? "#FF5B5B"
                             : task.priority === "LOW"
-                            ? "##5BFF83"
-                            : "#FFF05B",
+                            ? "#57A505"
+                            : "#E2CF0C",
                       }}
                     >
                       {task.priority === "HIGH"
-                        ? "매우 중요"
+                        ? "⭐⭐⭐"
                         : task.priority === "MEDIUM"
-                        ? "중요"
-                        : "보통"}
+                        ? "⭐⭐"
+                        : "⭐"}
                     </p>
+                    {/* 매우 중요 중요 보통 */}
                   </div>
                 </div>
                 <BorderLinearProgress
@@ -715,7 +716,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
           className={styles.TeamTaskContainer}
           style={{ padding: "0 20px 0 20px", width: "50%", height: "510px" }}
         >
-          <p className={styles.taskProgress}>진행중인 Task</p>
+          <p className={styles.taskProgress}>진행 태스크</p>
 
           {ongoingTeamTask &&
             ongoingTeamTask.map((task: any) => (
