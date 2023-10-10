@@ -184,9 +184,28 @@ function Message({ projectId }: MessageProps) {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [preMessage, projectId]);
 
+  // useEffect(() => {
+  //   if (imageFile) {
+  //     // imageFile이 null이 아닌 경우에만 uploadS3 호출
+  //     const formData = new FormData();
+  //     formData.append("file", imageFile);
+  //     formData.append("name", imageFile.name);
+
+  //     uploadS3(formData)
+  //       .then(() => {
+  //         console.log("업로드 완료");
+  //         listImages().then((urls) => setImages(urls));
+  //         listVideos().then((urls) => setVideos(urls));
+  //       })
+  //       .catch((error) => console.error("업로드 실패:", error));
+  //   }
+  // }, [imageFile]);
+  // imageFiles를 배열로 선언
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+
+  // useEffect에서 imageFiles가 변경될 때마다 실행되도록 설정
   useEffect(() => {
-    if (imageFile) {
-      // imageFile이 null이 아닌 경우에만 uploadS3 호출
+    imageFiles.forEach((imageFile: any) => {
       const formData = new FormData();
       formData.append("file", imageFile);
       formData.append("name", imageFile.name);
@@ -198,8 +217,8 @@ function Message({ projectId }: MessageProps) {
           listVideos().then((urls) => setVideos(urls));
         })
         .catch((error) => console.error("업로드 실패:", error));
-    }
-  }, [imageFile]);
+    });
+  }, [imageFiles]);
 
   const connectHandler = () => {
     client.current = Stomp.over(() => {
@@ -315,63 +334,95 @@ function Message({ projectId }: MessageProps) {
   //           resolve();
   //           return;
   //         }
-  //         // resolve();
+  //         resolve();
   //       };
   //     });
   //   });
   // };
-
+  // onUploadImage에서는 선택된 모든 파일을 setImageFiles에 설정
   const onUploadImage = (e: any): Promise<void> => {
-    const uploadimgs = Array.from(e.target.files);
-    setImglen(uploadimgs.length);
+    return new Promise<void>((resolve, reject) => {
+      const uploadimgs = Array.from(e.target.files);
+      setImglen(uploadimgs.length);
 
-    // 각각의 파일에 대한 작업을 별도의 promise로 생성합니다.
-    const promises = uploadimgs.map((file: any) => {
-      return new Promise((resolve, reject) => {
-        if (!file) {
-          resolve(undefined);
-          return;
-        }
+      // 유효성 검사 후 유효한 파일만 추가
+      const validImages: File[] = [];
+
+      uploadimgs.forEach((file: any) => {
+        if (!file) return;
+
         const fileExt = file.name.split(".").pop();
+
         if (
           !["jpeg", "png", "jpg", "JPG", "PNG", "JPEG", "mp4", "MP4"].includes(
             fileExt
           )
         ) {
           window.alert("jpeg, png, jpg, mp4 파일만 업로드가 가능합니다.");
-          resolve(undefined);
           return;
         }
 
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-
-        reader.onload = () => {
-          setImageSrc(reader.result || "");
-          setImageFile(file);
-
-          const formData = new FormData();
-
-          formData.append("file", file);
-          formData.append("name", file.name);
-
-          e.target.value = null;
-
-          if (!reader.result) {
-            window.alert("이미지를 등록해 주세요.");
-            resolve(undefined);
-            return;
-          }
-
-          //모든 처리가 끝나면 resolve() 호출
-          resolve(undefined);
-        };
+        validImages.push(file);
       });
-    });
 
-    // 모든 promise들이 완료될 때까지 기다립니다.
-    return Promise.all(promises).then(() => {});
+      // 유효한 이미지들만 상태에 저장
+      setImageFiles(validImages);
+
+      resolve(undefined);
+    });
   };
+
+  // const onUploadImage = (e: any): Promise<void> => {
+  //   const uploadimgs = Array.from(e.target.files);
+  //   setImglen(uploadimgs.length);
+
+  //   // 각각의 파일에 대한 작업을 별도의 promise로 생성합니다.
+  //   const promises = uploadimgs.map((file: any) => {
+  //     return new Promise((resolve, reject) => {
+  //       if (!file) {
+  //         resolve(undefined);
+  //         return;
+  //       }
+  //       const fileExt = file.name.split(".").pop();
+  //       if (
+  //         !["jpeg", "png", "jpg", "JPG", "PNG", "JPEG", "mp4", "MP4"].includes(
+  //           fileExt
+  //         )
+  //       ) {
+  //         window.alert("jpeg, png, jpg, mp4 파일만 업로드가 가능합니다.");
+  //         resolve(undefined);
+  //         return;
+  //       }
+
+  //       const reader = new FileReader();
+  //       reader.readAsDataURL(file);
+
+  //       reader.onload = () => {
+  //         setImageSrc(reader.result || "");
+  //         setImageFile(file);
+
+  //         const formData = new FormData();
+
+  //         formData.append("file", file);
+  //         formData.append("name", file.name);
+
+  //         e.target.value = null;
+
+  //         if (!reader.result) {
+  //           window.alert("이미지를 등록해 주세요.");
+  //           resolve(undefined);
+  //           return;
+  //         }
+
+  //         //모든 처리가 끝나면 resolve() 호출
+  //         resolve(undefined);
+  //       };
+  //     });
+  //   });
+
+  //   // 모든 promise들이 완료될 때까지 기다립니다.
+  //   return Promise.all(promises).then(() => {});
+  // };
 
   // s3에 이미지 업로드
   const uploadS3 = (formData: any) => {
