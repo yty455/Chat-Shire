@@ -88,7 +88,7 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
   };
 
   const handleSearch = async (searchText: string) => {
-    if (searchText===undefined) {
+    if (searchText==="") {
       console.log("검색어11:", searchText);
       setSkillErrors([]);
       setContentErrors([]);
@@ -102,7 +102,7 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
   };
 
   const handleSearch1 = async (searchText: string) => {
-    if (searchText==="") {
+    if (searchText===undefined) {
       console.log("검색어11:", searchText);
       setSkillErrors([]);
       setContentErrors([]);
