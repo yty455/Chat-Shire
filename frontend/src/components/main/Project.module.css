@@ -35,7 +35,7 @@
   width: 360px;
   height: 294px;
   border-radius: 20px;
-  border: 1px solid #E5E8EB;
+  border: 1px solid #e5e8eb;
   color: #575757;
   box-shadow: 3px 3px 10px 3px rgb(241, 241, 241);
 }
@@ -57,7 +57,7 @@
   flex-direction: column;
   justify-content: space-between;
   margin-top: 6px;
-  padding: 5px 10px 10px 10px;;
+  padding: 5px 10px 10px 10px;
   width: 340px;
   height: 123px;
   border-top: 2px solid #efefef;
@@ -81,7 +81,6 @@
   margin-bottom: 27px;
   padding: 0 5px;
   justify-content: start;
-
 }
 
 .ProjectMemberContainer::-webkit-scrollbar {

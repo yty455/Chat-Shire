@@ -29,6 +29,7 @@
 }
 
 .deContentContainer {
+  margin-left: 28px;
   height: 180px;
 }
 
@@ -39,9 +40,10 @@
 
 .errImageScrollContainer {
   display: flex;
+  margin-left: 28px;
   width: 660px;
-  min-height: 190px;
   height: 290px;
+  min-height: 190px;
   overflow: scroll;
 }
 
