@@ -98,7 +98,7 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
   };
 
   const handleSearch1 = async (searchText: string) => {
-    if (!searchText) {
+    if (searchText==="") {
       setSkillErrors([]);
       setContentErrors([]);
       setIsSearch(false)
@@ -127,7 +127,6 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
         <MultiSelect onSearch={handleSearch1} />
         <Search onSearch={handleSearch} />
       </div>
-      {isSearch && 
       <ErrorList
         onErrorCardClick={handleErrorCardClick}
         errors={
@@ -140,7 +139,7 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
             : allErrors // 검색을 하지 않은 경우에는 전체 에러 목록을 렌더링
         }
       />
-    }
+
 
       {openModal && (
         <ErrorModal
