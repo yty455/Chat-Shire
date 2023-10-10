@@ -346,7 +346,7 @@ function Message({ projectId }: MessageProps) {
       const mediaUrl = `https://chat-shire.s3.amazonaws.com/chat/media/${projectId}/${imageFile.name}`;
       // const newAttachedFileInfos = [...attachedFileInfos, { url: mediaUrl, thumbnail: mediaUrl }]
       attachedFileInfos.push({ url: mediaUrl, thumbnail: mediaUrl });
-
+      console.log("123", attachedFileInfos.length, imglen);
       // setAttachedFileInfos(newAttachedFileInfos);
       if (attachedFileInfos.length === imglen) {
         setAttachedFileInfos(attachedFileInfos);
