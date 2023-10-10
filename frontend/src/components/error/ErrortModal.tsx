@@ -15,6 +15,7 @@ import { Button } from "antd";
 
 import { BsPencilFill } from "react-icons/bs";
 import { MdDelete, MdOutlineCancel } from "react-icons/md";
+import api from "../../utils/api";
 
 interface ErrorModalProps {
   pjtId: string;
@@ -29,6 +30,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editedComment, setEditedComment] = useState<string>("");
   const [userData] = useRecoilState(loginuser);
+  const [answer, setAnswer] = useState(0);
 
   // 단일 에러 불러오기
   const getInError = async () => {
@@ -46,6 +48,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
       if (pjtId) {
         const response = await getErrors(pjtId);
         setAllErr(response.data.result[0]);
+        setAnswer(response.data.result[0].state)
       }
     } catch (error) {
       console.error(error);
@@ -104,6 +107,12 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
       console.error(error);
     }
   };
+
+  const selectAnswer = async(id: Number) => {
+    const patchedErrPost = errDetail
+    patchedErrPost.state = id
+    api.patch(`/posts/${errDetail.id}`, patchedErrPost)
+  }
 
   // 엔터 키 입력 시 댓글 작성
   const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -233,6 +242,31 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                             />
                           </div>
                         ) : null}
+                        {userData.nickname === errDetail.nickname && item.nickname !== errDetail.nickname ? (
+                          errDetail.state === item.replyId ? (
+                            <Button
+                              onClick={() => selectAnswer(0)}
+                              style={{ backgroundColor: "green", fontFamily: "preRg" }}
+                              key="submit"
+                              type="primary"
+                              className={styles.deletebtn}
+                            >
+                              취소
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={() => selectAnswer(item.replyId)}
+                              style={{ backgroundColor: "green", fontFamily: "preRg" }}
+                              key="submit"
+                              type="primary"
+                              className={styles.deletebtn}
+                            >
+                              채택
+                            </Button>
+                          )
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     )}
                   </div>
