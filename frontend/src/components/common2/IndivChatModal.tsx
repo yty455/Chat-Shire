@@ -139,7 +139,7 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
                 <div className={styles.content}>{chat.content ? chat.content : "첨부파일"}</div>
                 <div className={styles.chatTime}>
                   {" "}
-                  : {formatChatTime(chat.chatTime)}
+                  {formatChatTime(chat.chatTime)}
                 </div>
                 <button
                   className={styles.deletebtn}
@@ -177,8 +177,8 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
               onClick={onClose}
               className={styles.closebtn}
             /> */}
-            <div style={{display: 'flex', justifyContent:'space-between'}} >
-              <h5>참조된 채팅</h5>
+            {/* <div style={{display: 'flex', justifyContent:'space-between'}} > */}
+              <p className={styles.modalTitle}>참조된 채팅</p>
               <button
                 style={{ cursor: "pointer" }}
                 onClick={onClose}
@@ -186,7 +186,7 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
               >
                 X
               </button>
-            </div>
+            {/* </div> */}
         </div>
       )}
     </div>
