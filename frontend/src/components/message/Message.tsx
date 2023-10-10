@@ -278,7 +278,10 @@ function Message({ projectId }: MessageProps) {
     // Promise<void> 타입 지정
     return new Promise((resolve, reject) => {
       // const file = e.target.files[0];
-      const uploadimg = Array.from(e.target.files);
+      // const uploadimg = Array.from(e.target.files);
+      let uploadimg = Array.from(e.target.files);
+      console.log(uploadimg.length);
+      setImagelen(uploadimg.length);
 
       uploadimg.forEach((file: any) => {
         if (!file) {
