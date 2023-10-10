@@ -25,7 +25,7 @@ public class Post extends BaseEntity {
     private String title;
     @Column(length = 500)
     private String content;
-    private Boolean state;
+    private int state;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "USER_ID")
@@ -38,6 +38,7 @@ public class Post extends BaseEntity {
     public void update(PostInfo postInfo) {
         updateTitle(postInfo.getTitle());
         updateContent(postInfo.getContent());
+        updateState(postInfo.getState());
     }
 
     private <T> void updateIfNotNull(Consumer<T> updater, T newValue) {
@@ -49,9 +50,11 @@ public class Post extends BaseEntity {
     public void updateTitle(String title) {
         updateIfNotNull(newValue -> this.title = newValue, title);
     }
-
     public void updateContent(String content) {
         updateIfNotNull(newValue -> this.content = newValue, content);
+    }
+    public void updateState(int state) {
+        updateIfNotNull(newValue -> this.state = newValue, state);
     }
 
 }
