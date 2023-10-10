@@ -7,8 +7,9 @@ import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Button } from "antd";
-import { FormControl, InputLabel, MenuItem } from "@mui/material";
+import { TextField, FormControl, MenuItem } from "@mui/material";
 
+import {MdOutlineCancel} from 'react-icons/md'
 interface TaskModalProps {
   closeModal: () => void;
   taskId: string | number;
@@ -91,12 +92,20 @@ function TaskModal({
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalBox}>
+        <span style={{fontFamily: "preBd", fontSize: "24px"}}>태스크 편집</span>
         {teamTaskDetail && (
           <div className={styles.modalContent}>
-            <h2 onClick={() => handleEditClick("name")}>
-              {editingField === "name" ? (
-                <input
+            <div style={{display: "flex", alignItems: "center"}}>
+              <span style={{fontFamily: "preBd", fontSize: "24px", marginBottom: "20px"}} onClick={() => handleEditClick("name")}>
+                <TextField
+                  onClick={() => handleEditClick("name")}
+                  sx={{ width: "380px", margin: "14px 0px 0px -2px" }}
+                  color="greenary"
+                  variant="standard"
+                  multiline
+                  rows={1}
                   type="text"
+                  placeholder="업무에 대한 설명을 입력하세요"
                   value={teamTaskDetail.name}
                   onChange={(e) =>
                     setTeamTaskDetail({
@@ -105,44 +114,25 @@ function TaskModal({
                     })
                   }
                 />
-              ) : (
-                teamTaskDetail.name
-              )}
-            </h2>
-            <p>- 태스크 설명</p>
-            <p onClick={() => handleEditClick("description")}>
-              {editingField === "description" ? (
-                <input
-                  type="text"
-                  value={teamTaskDetail.description}
-                  onChange={(e) =>
-                    setTeamTaskDetail({
-                      ...teamTaskDetail,
-                      description: e.target.value,
-                    })
-                  }
-                />
-              ) : (
-                teamTaskDetail.description
-              )}
-            </p>
-            <p>- 우선도</p>
-            <p onClick={() => handleEditClick("priority")}>
-              {editingField === "priority" ? (
+              </span>
+              <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "3px"}} onClick={() => handleEditClick("priority")}>
                 <FormControl
                   sx={{
                     m: 1,
-                    minWidth: 120,
+                    minWidth: 80,
                     marginLeft: "0px",
                   }}
                   size="small"
                   style={{ margin: "10px", marginLeft: "0px" }}
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleEditClick("priority")
+                  }}
                 >
-                  <InputLabel id="priority-label">중요도</InputLabel>
                   <Select
                     labelId="priority-label"
                     id="priority-select"
+                    variant="standard"
                     value={teamTaskDetail.priority}
                     onChange={(e) =>
                       setTeamTaskDetail({
@@ -199,85 +189,59 @@ function TaskModal({
                     </MenuItem>
                   </Select>
                 </FormControl>
-              ) : teamTaskDetail.priority === "HIGH" ? (
-                <div style={{ display: "flex" }}>
-                  <div
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      borderRadius: "30px",
-                      backgroundColor: "#FF5B5B",
-                      marginRight: "6px",
-                    }}
-                  />
-                  <span>매우 중요</span>
-                </div>
-              ) : teamTaskDetail.priority === "MEDIUM" ? (
-                <div style={{ display: "flex" }}>
-                  <div
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      borderRadius: "30px",
-                      backgroundColor: "#FFF05B",
-                      marginRight: "6px",
-                    }}
-                  />
-                  <span>중요</span>
-                </div>
-              ) : teamTaskDetail.priority === "LOW" ? (
-                <div style={{ display: "flex" }}>
-                  <div
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      borderRadius: "30px",
-                      backgroundColor: "#5BFF83",
-                      marginRight: "6px",
-                    }}
-                  />
-                  <span>보통</span>
-                </div>
-              ) : null}
-            </p>
-            <p>- 마감일자</p>
-            <p onClick={() => handleEditClick("deadline")}>
-              {editingField === "deadline" ? (
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    value={dayjs(teamTaskDetail.deadline)}
-                    onChange={(date: any) => {
-                      setTeamTaskDetail({
-                        ...teamTaskDetail,
-                        deadline: date,
-                      });
-                    }}
-                    sx={{
-                      width: "150px",
-                      height: "16px",
-                      margin: "10px",
-                      marginLeft: "0px",
-                    }}
-                  />
-                </LocalizationProvider>
-              ) : (
-                teamTaskDetail.deadline
-              )}
-            </p>
-            <button
-              style={{ cursor: "pointer" }}
+              </span>
+            </div>
+            <span style={{fontFamily: "preRg", fontSize: "16px", marginBottom: "20px"}} onClick={() => handleEditClick("description")}>
+              <TextField
+                onClick={() => handleEditClick("description")}
+                sx={{ width: "462px", margin: "14px 0px 0px -2px" }}
+                color="greenary"
+                // variant="standard"
+                multiline
+                rows={4}
+                type="text"
+                placeholder="업무에 대한 설명을 입력하세요"
+                value={teamTaskDetail.description}
+                onChange={(e) =>
+                  setTeamTaskDetail({
+                    ...teamTaskDetail,
+                    description: e.target.value,
+                  })
+                }
+              />
+            </span>
+            <span style={{fontFamily: "preBd", fontSize: "20px", marginBottom: "20px"}} onClick={() => handleEditClick("deadline")}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  value={dayjs(teamTaskDetail.deadline)}
+                  onChange={(date: any) => {
+                    setTeamTaskDetail({
+                      ...teamTaskDetail,
+                      deadline: date,
+                    });
+                  }}
+                  sx={{
+                    width: "150px",
+                    height: "16px",
+                    margin: "10px",
+                    marginLeft: "0px",
+                  }}
+                />
+              </LocalizationProvider>
+            </span>
+            <MdOutlineCancel
+              style={{marginTop: "8px", cursor: "pointer"}}
+              size={30}
               onClick={closeModal}
               className={styles.closebtn}
-            >
-              X
-            </button>
+            />
           </div>
         )}
 
         {editingField ? (
           <Button
             className={styles.savebtn}
-            style={{ fontFamily: "preRg" }}
+            style={{ fontFamily: "preRg", margin: "0px 14px 14px 0px", width: "200px", height: "50px" }}
             key="submit"
             type="primary"
             onClick={() => {
@@ -297,7 +261,7 @@ function TaskModal({
         ) : (
           <Button
             className={styles.deletebtn}
-            style={{ backgroundColor: "red", fontFamily: "preRg" }}
+            style={{ backgroundColor: "rgb(255, 91, 91)", fontFamily: "preRg", margin: "0px 14px 14px 0px", width: "200px", height: "50px" }}
             key="submit"
             type="primary"
             onClick={() => teamTaskDetail && deleteTeamTask(teamTaskDetail.id)}

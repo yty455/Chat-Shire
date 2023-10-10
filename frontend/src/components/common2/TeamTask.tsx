@@ -443,7 +443,8 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
   };
 
   // 뱃지 클릭 시 progress를 변경하는 함수
-  const handleBadgeClick = (task: any) => {
+  const handleBadgeClick = (task: any, event:any) => {
+    event.stopPropagation();
     const updatedProgress = task.progress === "ONGOING" ? "DONE" : "ONGOING";
     const data = {
       name: task.name,
@@ -511,58 +512,53 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 }}
               >
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
-                <div className={styles.taskHeader}>
-                  <div className={styles.clockNday}>
-                    <WatchLaterIcon fontSize="medium" />
-                    <p className={styles.dday}>
-                      {Math.floor(
-                        (new Date(task.deadline).getTime() -
-                          currentDate.getTime()) /
-                          (1000 * 60 * 60 * 24)
-                      ) + 1}{" "}
-                      day
+                <div onClick={() => openModal(task.id)} style={{cursor:"pointer"}}>
+                  <div className={styles.taskHeader}>
+                    <div className={styles.clockNday}>
+                      <WatchLaterIcon fontSize="medium" style={{marginLeft: "4px"}}/>
+                      <p className={styles.dday}>
+                        {Math.floor(
+                          (new Date(task.deadline).getTime() -
+                            currentDate.getTime()) /
+                            (1000 * 60 * 60 * 24)
+                        ) + 1}{" "}
+                        day
+                      </p>
+                    </div>
+                  </div>
+                  <div className={styles.stepStatus}>
+                    {task.progress === "ONGOING" ? (
+                      <StyledBadge
+                        sx={{ margin: "14px 0 15px 20px" }}
+                        overlap="circular"
+                        anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                        variant="dot"
+                        onClick={(event) => handleBadgeClick(task, event)}
+                      ></StyledBadge>
+                    ) : (
+                      <StyledBadgeRed
+                        sx={{ margin: "14px 0 15px 20px" }}
+                        overlap="circular"
+                        anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                        variant="dot"
+                        onClick={(event) => handleBadgeClick(task, event)}
+                      ></StyledBadgeRed>
+                    )}
+                    <p className={styles.step}>{task.name}</p>
+                    <p
+                      className={styles.step}
+                      style={{
+                        color:
+                          task.priority === "HIGH"
+                            ? "#FF5B5B"
+                            : task.priority === "LOW"
+                            ? "#FFF05B"
+                            : "#5BFF83",
+                      }}
+                    >
+                      {task.priority === "HIGH" ? "매우 중요" : task.priority === "MEDIUM" ? "중요" : "보통"}
                     </p>
                   </div>
-                  <BsPencilFill
-                    style={{
-                      fontSize: "17px",
-                      marginLeft: "4px",
-                    }}
-                    onClick={() => openModal(task.id)}
-                  />
-                </div>
-                <div className={styles.stepStatus}>
-                  {task.progress === "ONGOING" ? (
-                    <StyledBadge
-                      sx={{ margin: "14px 0 15px 20px" }}
-                      overlap="circular"
-                      anchorOrigin={{ vertical: "top", horizontal: "left" }}
-                      variant="dot"
-                      onClick={() => handleBadgeClick(task)}
-                    ></StyledBadge>
-                  ) : (
-                    <StyledBadgeRed
-                      sx={{ margin: "14px 0 15px 20px" }}
-                      overlap="circular"
-                      anchorOrigin={{ vertical: "top", horizontal: "left" }}
-                      variant="dot"
-                      onClick={() => handleBadgeClick(task)}
-                    ></StyledBadgeRed>
-                  )}
-                  <p className={styles.step}>{task.name}</p>
-                  <p
-                    className={styles.step}
-                    style={{
-                      color:
-                        task.priority === "HIGH"
-                          ? "#FF5B5B"
-                          : task.priority === "LOW"
-                          ? "#FFF05B"
-                          : "#5BFF83",
-                    }}
-                  >
-                    {task.priority}
-                  </p>
                 </div>
                 <BorderLinearProgress
                   variant="determinate"
@@ -577,7 +573,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   }
                 />
 
-                {task.taskInfoResponses.map((item: any) => (
+                {task.taskInfoResponses.length > 0 ? task.taskInfoResponses.map((item: any) => (
                   <div style={{ margin: 0, padding: 0 }} key={item.id}>
                     <div
                       style={{
@@ -678,7 +674,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       </div>
                     </div>
                   </div>
-                ))}
+                )): (
+                  <span style={{fontFamily: "preRg", fontSize: "16px", marginLeft: "10px"}}>하위 태스크를 등록해보세요</span>
+                )}
               </div>
             ))}
         </div>
@@ -705,58 +703,53 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                 }}
               >
                 {/* 이 부분에서 task 객체의 속성을 사용하여 표시할 내용을 구성 */}
-                <div className={styles.taskHeader}>
-                  <div className={styles.clockNday}>
-                    <WatchLaterIcon />
-                    <p className={styles.dday}>
-                      {Math.floor(
-                        (new Date(task.deadline).getTime() -
-                          currentDate.getTime()) /
-                          (1000 * 60 * 60 * 24)
-                      ) + 1}{" "}
-                      day
+                <div onClick={() => openModal(task.id)} style={{cursor:"pointer"}}>
+                  <div className={styles.taskHeader}>
+                    <div className={styles.clockNday}>
+                      <WatchLaterIcon style={{marginLeft: "4px"}}/>
+                      <p className={styles.dday}>
+                        {Math.floor(
+                          (new Date(task.deadline).getTime() -
+                            currentDate.getTime()) /
+                            (1000 * 60 * 60 * 24)
+                        ) + 1}{" "}
+                        day
+                      </p>
+                    </div>
+                  </div>
+                  <div className={styles.stepStatus}>
+                    {task.progress === "ONGOING" ? (
+                      <StyledBadge
+                        sx={{ margin: "14px 0 15px 20px" }}
+                        overlap="circular"
+                        anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                        variant="dot"
+                        onClick={(event) => handleBadgeClick(task, event)}
+                      ></StyledBadge>
+                    ) : (
+                      <StyledBadgeRed
+                        sx={{ margin: "14px 0 15px 20px" }}
+                        overlap="circular"
+                        anchorOrigin={{ vertical: "top", horizontal: "left" }}
+                        variant="dot"
+                        onClick={(event) => handleBadgeClick(task, event)}
+                      ></StyledBadgeRed>
+                    )}
+                    <p className={styles.step}>{task.name}</p>
+                    <p
+                      className={styles.step}
+                      style={{
+                        color:
+                          task.priority === "HIGH"
+                            ? "#FF5B5B"
+                            : task.priority === "LOW"
+                            ? "#5BFF83"
+                            : "#FFF05B",
+                      }}
+                    >
+                      {task.priority === "HIGH" ? "매우 중요" : task.priority === "MEDIUM" ? "중요" : "보통"}
                     </p>
                   </div>
-                  <BsPencilFill
-                    style={{
-                      fontSize: "17px",
-                      marginLeft: "4px",
-                    }}
-                    onClick={() => openModal(task.id)}
-                  />
-                </div>
-                <div className={styles.stepStatus}>
-                  {task.progress === "ONGOING" ? (
-                    <StyledBadge
-                      sx={{ margin: "14px 0 15px 20px" }}
-                      overlap="circular"
-                      anchorOrigin={{ vertical: "top", horizontal: "left" }}
-                      variant="dot"
-                      onClick={() => handleBadgeClick(task)}
-                    ></StyledBadge>
-                  ) : (
-                    <StyledBadgeRed
-                      sx={{ margin: "14px 0 15px 20px" }}
-                      overlap="circular"
-                      anchorOrigin={{ vertical: "top", horizontal: "left" }}
-                      variant="dot"
-                      onClick={() => handleBadgeClick(task)}
-                    ></StyledBadgeRed>
-                  )}
-                  <p className={styles.step}>{task.name}</p>
-                  <p
-                    className={styles.step}
-                    style={{
-                      color:
-                        task.priority === "HIGH"
-                          ? "#FF5B5B"
-                          : task.priority === "LOW"
-                          ? "#5BFF83"
-                          : "#FFF05B",
-                    }}
-                  >
-                    {task.priority}
-                  </p>
                 </div>
                 <BorderLinearProgress
                   variant="determinate"
@@ -771,7 +764,7 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                   }
                 />
 
-                {task.taskInfoResponses.map((item: any) => (
+                {task.taskInfoResponses.length > 0 ? task.taskInfoResponses.map((item: any) => (
                   <div key={item.id}>
                     <div
                       style={{
@@ -872,7 +865,9 @@ export default function TeamTask({ projectId }: TeamTaskProps) {
                       </div>
                     </div>
                   </div>
-                ))}
+                )) : (
+                  <span style={{fontFamily: "preRg", fontSize: "16px", marginLeft: "10px"}}>하위 태스크를 등록해보세요</span>
+                )}
               </div>
             ))}
 

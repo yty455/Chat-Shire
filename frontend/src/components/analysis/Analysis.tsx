@@ -6,7 +6,7 @@ import BarChart from "./BarChart";
 import PiChart from "./PiChart";
 import Cloud from "./Cloud";
 // import Rocket from "../../assets/analysisBg/passion/passion3.png";
-
+import { BsPencilFill } from "react-icons/bs";
 import api from "../../utils/api";
 import { getAnalysis } from "../../utils/analysisApi";
 import { useRecoilState } from "recoil";
@@ -22,12 +22,42 @@ import {
   taskCount_recoil,
 } from "../../stores/atom";
 import { JsxElement } from "typescript";
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
+import Checkbox from '@mui/material/Checkbox';
+import ListItemText from '@mui/material/ListItemText';
+import { keyword } from "../../stores/keyword";
+import { postKeyword, deleteKeyword } from "../../utils/keywordApi";
+import { Popover } from "antd";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+
 
 interface AnalysisProps {
   projectId: string;
 }
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+
 export default function Analysis({ projectId }: AnalysisProps) {
+  const [selectedKeyword, setSelectedKeyword]  = useState<string[]>([])
   const [workStyle, setWorkStyle] = useRecoilState(workStyle_recoil);
   const [workStyleColor, setWorkStyleColor] = useRecoilState(
     workStyleColor_recoil
@@ -80,12 +110,39 @@ export default function Analysis({ projectId }: AnalysisProps) {
       console.error(error);
     }
   };
+
   const getKeywords = () => {
     api.get(`/projects/${projectId}/keywords`).then((res) => {
       console.log(res);
       setKeywords(res.data.result[0]);
+      setSelectedKeyword(res.data.result[0])
     });
   };
+
+    // 키워드 등록
+    const PostInKeyword = async () => {
+      try {
+        const addedKeywords = selectedKeyword.filter(keyword => !keywords.includes(keyword));
+        const response = await postKeyword(projectId, addedKeywords);
+        getKeywords()
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+      // 키워드 취소
+  const deleteInKeyword = async () => {
+    try {
+      const deletedKeywords = keywords.filter(keyword => !selectedKeyword.includes(keyword));
+      const response = await deleteKeyword(projectId, deletedKeywords);
+      getKeywords()
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
   const getProject = () => {
     api
       .get("/projects/" + projectId)
@@ -183,20 +240,26 @@ export default function Analysis({ projectId }: AnalysisProps) {
     return <span>{member.nickname}, </span>;
   });
 
-  const returnKeywords = Object.entries(allCategoryCount)
-    .sort((a: any, b: any) => a[1] - b[1])
-    .splice(0, 6)
-    .map((entry) => {
-      let isSelected = false;
-      if (keywords.includes(entry[0])) {
-        isSelected = true;
-      } else {
-        isSelected = false;
-      }
-      return (
-        <Keywords topic={entry[0]} projectId={Number(projectId)} isSelected />
-      );
-    });
+  // const returnKeywords = 
+  // Object.entries(allCategoryCount)
+  //   .sort((a: any, b: any) => a[1] - b[1])
+  //   .splice(0, 6)
+  //   .map((entry) => {
+  //     let isSelected = false;
+  //     if (keywords.includes(entry[0])) {
+  //       isSelected = true;
+  //     } else {
+  //       isSelected = false;
+  //     }
+  //     return (
+  //       <Keywords topic={entry[0]} projectId={Number(projectId)} isSelected />
+  //     );
+  //   });
+  
+  const returnKeywords = selectedKeyword.map((key) => (
+    <Keywords topic={key} projectId={Number(projectId)} isSelected={true} />
+  ));
+
 
   useEffect(() => {
     getAnalysisPage();
@@ -222,6 +285,62 @@ export default function Analysis({ projectId }: AnalysisProps) {
     returnBodyDesc();
   }, [workStyle]);
 
+  const handleChange = (event: SelectChangeEvent<typeof keywords>) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedKeyword(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSaveCon = () => {
+    PostInKeyword()
+    deleteInKeyword()
+    setOpen(false);
+  };
+
+  const key = (
+    <div>
+      <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+        <Select
+          labelId="demo-multiple-checkbox-label"
+          id="demo-multiple-checkbox"
+          multiple
+          value={keywords}
+          onChange={handleChange}
+          input={<OutlinedInput label="Tag" />}
+          renderValue={(selected) => selected.join(', ')}
+          MenuProps={MenuProps}
+        >
+          {Object.keys(allCategoryCount).map((name) => (
+            <MenuItem key={name} value={name}>
+              <Checkbox checked={keywords.indexOf(name) > -1} />
+              <ListItemText primary={name} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </div>
+  );
+  // useEffect(()=>{
+  //   PostInKeyword()
+  // },[keywords])
+
+
+
   return (
     <div
       className={styles.analysisContainer}
@@ -233,7 +352,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
             position: "absolute",
             left: "23vw",
             top: "1vh",
-            width: "300px",
+            height: "260px",
           }}
           src={
             process.env.PUBLIC_URL +
@@ -242,7 +361,15 @@ export default function Analysis({ projectId }: AnalysisProps) {
           alt=""
         />
         <div className={styles.analysisTopicsContainer}>
-          <span className={styles.analysisItemTitle}>우리의 키워드</span>
+          <span className={styles.analysisItemTitle}>우리의 키워드 
+
+          <BsPencilFill
+                            style={{
+                              fontSize: "17px",
+                              // margin: "-5px 3px 10px 0",
+                            }}
+                            onClick={handleClickOpen}
+                          /></span>
           <div className={styles.analysisKeywordsContainer}>
             {returnKeywords}
           </div>
@@ -291,6 +418,59 @@ export default function Analysis({ projectId }: AnalysisProps) {
           <span className={styles.analysisItemDesc}>{projectInfo?.topic}</span>
         </div>
       </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"우리의 키워드 설정"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+          <div>
+      <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="demo-multiple-checkbox-label">Keyword</InputLabel>
+        <Select
+          labelId="demo-multiple-checkbox-label"
+          id="demo-multiple-checkbox"
+          multiple
+          value={selectedKeyword}
+          onChange={(event) => {
+            if (event.target.value.length > 6) {
+                alert("6개 까지만 설정할 수 있습니다.")
+                return;
+            }
+            handleChange(event);
+        }}
+          input={<OutlinedInput label="Tag" />}
+          renderValue={(selected) => selected.join(', ')}
+          MenuProps={MenuProps}
+        >
+         {Object.keys(allCategoryCount)
+  .filter((name) => keyword?.includes(name))
+  .sort((a, b) => allCategoryCount[b] - allCategoryCount[a])
+  .map((name) => (
+    <MenuItem key={name} value={name}>
+      <Checkbox checked={selectedKeyword?.indexOf(name) > -1} />
+      <ListItemText primary={name} />
+    </MenuItem>
+))}
+        </Select>
+      </FormControl>
+    </div>
+
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>취소</Button>
+          <Button onClick={handleSaveCon}>
+            저장
+          </Button>
+        </DialogActions>
+      </Dialog>
+
     </div>
   );
 }

@@ -43,7 +43,7 @@ function Project() {
     try {
       const response = await getProjects();
       const projects = response.data.result[0];
-      setNowProject(response.data.result[0]);
+      setNowProject(response.data.result[0].slice().reverse());
       const nowProjects: any[] = [];
     } catch (error) {
       console.error(error);
@@ -98,7 +98,7 @@ function Project() {
       width="54vw"
       height="81vh"
       margin=""
-      padding="2vh 2vw"
+      padding="2vh 0 2vh 1vw"
       border="1px solid #E5E8EB"
       borderRadius="20px"
       boxShadow=""
@@ -109,7 +109,7 @@ function Project() {
     >
       <div className={styles.projectContainer}>
         <span className={styles.projectTitle}>
-          {userData && userData.nickname}님의 프로젝트에요
+          {userData && userData.nickname}<span className={styles.sProject}>님의 프로젝트</span>
         </span>
         <div
           style={{

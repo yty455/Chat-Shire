@@ -7,6 +7,9 @@ import {
 } from "../../utils/taskReferenceApi";
 import { Button } from "antd";
 import { getProjectMem } from "../../utils/projectApi";
+import MessageItem from "../message/MessageItem";
+
+import {MdOutlineCancel} from 'react-icons/md'
 
 interface IndivChatModalProps {
   onClose: () => void;
@@ -95,27 +98,28 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
         <div className={styles.modalBox}>
           {reChat &&
             reChat.map((chat) => (
-              <div key={chat.chatNumber} className={styles.chat}>
-                {" "}
-                <div className={styles.nickname}>
-                  {" "}
-                  {
-                    pjtMem.find((member) => member.userId === chat.userId)
-                      ?.nickname
-                  }{" "}
-                  :
-                </div>
-                <div
-                  className={styles.content}
-                  onClick={() => handleClick(chat.id)}
-                >
-                  {chat.content}
-                </div>
-                <div className={styles.chatTime}>
-                  {" "}
-                  : {formatChatTime(chat.chatTime)}
-                </div>
-              </div>
+              <MessageItem  message={chat} users={pjtMem} />
+              // <div key={chat.chatNumber} className={styles.chat}>
+              //   {" "}
+              //   <div className={styles.nickname}>
+              //     {" "}
+              //     {
+              //       pjtMem.find((member) => member.userId === chat.userId)
+              //         ?.nickname
+              //     }{" "}
+              //     :
+              //   </div>
+              //   <div
+              //     className={styles.content}
+                 
+              //   >
+              //     {chat.content}
+              //   </div>
+              //   <div className={styles.chatTime}>
+              //     {" "}
+              //     : {formatChatTime(chat.chatTime)}
+              //   </div>
+              // </div>
             ))}
           <button
             style={{ cursor: "pointer" }}
@@ -132,7 +136,7 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
               <div key={chat.chatNumber} className={styles.chat}>
                 {" "}
                 <div className={styles.nickname}>{chat.nickname} : </div>
-                <div className={styles.content}>{chat.content}</div>
+                <div className={styles.content}>{chat.content ? chat.content : "첨부파일"}</div>
                 <div className={styles.chatTime}>
                   {" "}
                   : {formatChatTime(chat.chatTime)}
@@ -142,16 +146,24 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
                   style={{
                     backgroundColor: "#39a789",
                     fontFamily: "preRg",
+                    border: "0px",
+                    borderRadius:"10px",
+                    color:"white",
+                    padding:"2px",
+                    marginRight: "4px"
                   }}
                   onClick={() => handleClick(chat.id)}
                 >
-                  확장
+                  더보기
                 </button>
                 <button
                   className={styles.deletebtn}
                   style={{
-                    backgroundColor: "red",
+                    backgroundColor: "#FF5B5B",
                     fontFamily: "preRg",
+                    border: "0px",
+                    borderRadius:"10px",
+                    color:"white",
                   }}
                   onClick={() => deleteRe(chat.id)}
                 >
@@ -159,13 +171,12 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
                 </button>
               </div>
             ))}
-          <button
-            style={{ cursor: "pointer" }}
-            onClick={onClose}
-            className={styles.closebtn}
-          >
-            X
-          </button>
+            <MdOutlineCancel
+              style={{marginTop: "8px", cursor: "pointer"}}
+              size={30}
+              onClick={onClose}
+              className={styles.closebtn}
+            />
         </div>
       )}
     </div>

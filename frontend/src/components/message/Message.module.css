@@ -141,9 +141,19 @@
   margin: 0;
 }
 
+.icon25:hover, .linkIcon:hover {
+  background-color: #e4e4e4;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
 .tabTitle {
   margin: 0;
   font-family: 'preBd';
   font-size: 14px;
   color: #39a789;
+}
+
+.inputTag:focus {
+  outline: none;
 }

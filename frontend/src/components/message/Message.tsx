@@ -74,18 +74,28 @@ function Message({ projectId }: MessageProps) {
   const [imageFile, setImageFile]: any = useState(null);
   const [imageSrc, setImageSrc]: any = useState(null);
   const inputRef = useRef<any[]>([]);
+
   const [noticeInputVisible, setNoticeInputVisible] = useState(false);
-  const [noticeInputValue, setNoticeInputValue] = useState("");
-  const [notice, setNotice] = useState("");
   const [showNotice, setShowNotice] = useState(false);
   const [showNoticeInput, setShowNoticeInput] = useState(false);
+
+  const [noticeInputValue, setNoticeInputValue] = useState("");
+  const [notice, setNotice] = useState("");
   const [pjtName, setPjtName] = useState<any>("");
   const [pjtMemCount, setPjtMemCount] = useState(0);
+
   const [image, setImage] = useState([]);
   const [video, setVideo] = useState([]);
   const [file, setFile] = useState([]);
+
   const [users, setUsers] = useState<User[]>([]);
   const [attachedFileInfos, setAttachedFileInfos] = useState<FileInfo[]>([]);
+
+  const [files, setFiles] = useState<
+    { url: string; name: string; size: number }[]
+  >([]);
+  const [images, setImages] = useState<string[]>([]);
+  const [videos, setVideos] = useState<string[]>([]);
 
   const handleChange = (e: any) => {
     e.preventDefault();
@@ -113,30 +123,30 @@ function Message({ projectId }: MessageProps) {
     }
   };
 
-  const getImage = async () => {
-    try {
-      const response = await getFiles(projectId, "IMAGE");
-      setImage(response.data.result[0]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const getVideo = async () => {
-    try {
-      const response = await getFiles(projectId, "VIDEO");
-      setVideo(response.data.result[0]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const getFile = async () => {
-    try {
-      const response = await getFiles(projectId, "FILE");
-      setFile(response.data.result[0]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const getImage = async () => {
+  //   try {
+  //     const response = await getFiles(projectId, "IMAGE");
+  //     setImage(response.data.result[0]);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // const getVideo = async () => {
+  //   try {
+  //     const response = await getFiles(projectId, "VIDEO");
+  //     setVideo(response.data.result[0]);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // const getFile = async () => {
+  //   try {
+  //     const response = await getFiles(projectId, "FILE");
+  //     setFile(response.data.result[0]);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const getProjectUsers = async () => {
     try {
@@ -158,31 +168,42 @@ function Message({ projectId }: MessageProps) {
     }
     getpjt();
     getProjectUsers();
-    getFile();
-    getImage();
-    getVideo();
+    // getFile();
+    // getImage();
+    // getVideo();
   }, [message, notice, projectId]);
+
+  useEffect(() => {
+    listFiles().then((fileInfos) => setFiles(fileInfos));
+    listImages().then((urls) => setImages(urls));
+    listVideos().then((urls) => setVideos(urls));
+  }, [projectId]);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [preMessage, projectId]);
 
   useEffect(() => {
-    if (imageFile) { // imageFile이 null이 아닌 경우에만 uploadS3 호출
+    if (imageFile) {
+      // imageFile이 null이 아닌 경우에만 uploadS3 호출
       const formData = new FormData();
       formData.append("file", imageFile);
       formData.append("name", imageFile.name);
-  
+
       uploadS3(formData)
-        .then(() => console.log('업로드 완료'))
-        .catch((error) => console.error('업로드 실패:', error));
+        .then(() => {
+          console.log("업로드 완료");
+          listImages().then((urls) => setImages(urls));
+          listVideos().then((urls) => setVideos(urls));
+        })
+        .catch((error) => console.error("업로드 실패:", error));
     }
   }, [imageFile]);
 
   const connectHandler = () => {
     client.current = Stomp.over(() => {
       const sock = new SockJS(
-        "http://j9e205.p.ssafy.io:8080/gs-guide-websocket"
+        "https://j9e205.p.ssafy.io/wss/gs-guide-websocket"
       );
       return sock;
     });
@@ -255,162 +276,44 @@ function Message({ projectId }: MessageProps) {
   const onUploadImage = (e: any): Promise<void> => {
     // Promise<void> 타입 지정
     return new Promise((resolve, reject) => {
-      const file = e.target.files[0];
-      if (!file) {
-        resolve();
-        return;
-      }
-      const fileExt = file.name.split(".").pop();
-      if (
-        !["jpeg", "png", "jpg", "JPG", "PNG", "JPEG", "mp4", "MP4"].includes(
-          fileExt
-        )
-      ) {
-        window.alert("jpeg, png, jpg, mp4 파일만 업로드가 가능합니다.");
-        resolve();
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      reader.onload = () => {
-        setImageSrc(reader.result || "");
-        setImageFile(file);
-
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("name", file.name);
-        e.target.value = null;
-        
-        if (!reader.result) {
-          window.alert("이미지를 등록해 주세요.");
+      // const file = e.target.files[0];
+      e.target.files.forEach((file: any) => {
+        if (!file) {
           resolve();
           return;
         }
-   
-        resolve();
-      };
-    });
-   };
-        // 두번째 시도
-      //   setTimeout(() => {  
-      //     if(imageFile) {
-      //       uploadS3(formData)
-      //         .then(() => resolve())
-      //         .catch((error) => reject(error));
-      //     }
-      //   }, 0); 
-      // }});}
-     
-  //   rkw가장 첫 버전   
-  //     reader.onload = () => {
-  //       setImageSrc(reader.result || "");
-  //       setImageFile(file);
-  //       if (!reader.result) {
-  //         window.alert("이미지를 등록해 주세요.");
-  //         resolve();
-  //         return;
-  //       }
-
-  //       const formData = new FormData();
-  //       formData.append("file", file);
-  //       formData.append("name", file.name);
-
-  //       uploadS3(formData)
-  //         .then(() => resolve())
-  //         .catch((error) => reject(error));
-  //     };
-  //   });
-  // };
-
-  // 파일 업로드
-  const onUploadFile = (e: any): Promise<void> => {
-    return new Promise((resolve, reject) => {
-      const file = e.target.files[0];
-      if (!file) {
-        resolve();
-        return;
-      }
-
-      const fileExt = file.name.split(".").pop();
-      if (!["pdf", "docx", "doc", "xlsx", "xls", "txt"].includes(fileExt)) {
-        window.alert(
-          "pdf, docx, doc, xlsx, xls, txt 파일만 업로드가 가능합니다."
-        );
-        resolve();
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      reader.onload = () => {
-        if (!reader.result) {
-          window.alert("파일을 등록해 주세요.");
+        const fileExt = file.name.split(".").pop();
+        if (
+          !["jpeg", "png", "jpg", "JPG", "PNG", "JPEG", "mp4", "MP4"].includes(
+            fileExt
+          )
+        ) {
+          window.alert("jpeg, png, jpg, mp4 파일만 업로드가 가능합니다.");
           resolve();
           return;
         }
 
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("name", file.name);
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
 
-        uploadS3File(formData)
-          .then(() => resolve())
-          .catch((error) => reject(error));
-      };
-    });
-  };
+        reader.onload = () => {
+          setImageSrc(reader.result || "");
+          setImageFile(file);
 
-  // s3에 파일 업로드
-  const uploadS3File = (formData: any) => {
-    return new Promise((resolve, reject) => {
-      const REGION = process.env.REACT_APP_REGION;
-      const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
-      const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("name", file.name);
+          e.target.value = null;
 
-      AWS.config.update({
-        region: REGION,
-        accessKeyId: ACCESS_KEY_ID,
-        secretAccessKey: SECRET_ACCESS_KEY,
+          if (!reader.result) {
+            window.alert("이미지를 등록해 주세요.");
+            resolve();
+            return;
+          }
+
+          resolve();
+        };
       });
-
-      // 파일 이름 가져오기
-      let fileName;
-      for (let value of formData.values()) {
-        if (value instanceof File) {
-          fileName = value.name;
-          break;
-        }
-      }
-
-      if (fileName) {
-        // S3 ManagedUpload 객체 생성
-        const upload = new AWS.S3.ManagedUpload({
-          params: {
-            ACL: "public-read",
-            Bucket: "chat-shire",
-            Key: `chat/file/${projectId}/${fileName}`,
-            Body: formData.get("file"),
-          },
-        });
-
-        // 업로드 시작하고 프로미스 반환
-        upload
-          .promise()
-          .then(() => {
-            console.log("파일 업로드 완료");
-            window.location.reload();
-          })
-          .catch((error) => {
-            console.error("업로드 실패", error);
-            reject(error);
-          });
-      } else {
-        console.error("파일 이름을 가져오는데 실패했습니다.");
-        reject(new Error("파일 이름을 가져오는데 실패했습니다."));
-      }
     });
   };
 
@@ -437,17 +340,268 @@ function Message({ projectId }: MessageProps) {
 
     return upload.promise().then(() => {
       console.log("미디어 업로드");
-      const mediaUrl = `https://chat-shire.s3.amazonaws.com/chat/media/${projectId}/${imageFile.name}`
+      const mediaUrl = `https://chat-shire.s3.amazonaws.com/chat/media/${projectId}/${imageFile.name}`;
       // const newAttachedFileInfos = [...attachedFileInfos, { url: mediaUrl, thumbnail: mediaUrl }]
-      attachedFileInfos.push({ url: mediaUrl, thumbnail: mediaUrl })
+      attachedFileInfos.push({ url: mediaUrl, thumbnail: mediaUrl });
 
       // setAttachedFileInfos(newAttachedFileInfos);
       setAttachedFileInfos(attachedFileInfos);
-      console.log('담아보낼 파일', attachedFileInfos)
+      console.log("담아보낼 파일", attachedFileInfos);
       // postChat(Number(projectId), "", newAttachedFileInfos);
       postChat(Number(projectId), "", attachedFileInfos);
-      window.location.reload();
-      setAttachedFileInfos([])
+      setAttachedFileInfos([]);
+    });
+  };
+
+  const listImages = (): Promise<string[]> => {
+    return new Promise((resolve, reject) => {
+      const REGION = process.env.REACT_APP_REGION;
+      const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
+      const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+
+      AWS.config.update({
+        region: REGION,
+        accessKeyId: ACCESS_KEY_ID,
+        secretAccessKey: SECRET_ACCESS_KEY,
+      });
+
+      var params = {
+        Bucket: "chat-shire",
+        Prefix: `chat/media/${projectId}/`,
+      };
+
+      var s3 = new AWS.S3();
+
+      s3.listObjects(params, function (err, data) {
+        if (err) {
+          console.log(err, err.stack);
+          reject(err);
+        } else {
+          // console.log(data);
+
+          if (data.Contents) {
+            let imageUrls = data.Contents.map((file: any) => {
+              let fileExt = file.Key.split(".").pop()?.toLowerCase();
+
+              if (
+                ["jpeg", "jpg", "png", "JPG", "PNG", "JPEG"].includes(fileExt)
+              ) {
+                return s3.getSignedUrl("getObject", {
+                  Bucket: "chat-shire",
+                  Key: file.Key,
+                });
+              } else {
+                return null;
+              }
+            }).filter((url) => url !== null) as string[];
+
+            resolve(imageUrls);
+          } else {
+            resolve([]);
+          }
+        }
+      });
+    });
+  };
+  const listVideos = (): Promise<string[]> => {
+    return new Promise((resolve, reject) => {
+      const REGION = process.env.REACT_APP_REGION;
+      const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
+      const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+
+      AWS.config.update({
+        region: REGION,
+        accessKeyId: ACCESS_KEY_ID,
+        secretAccessKey: SECRET_ACCESS_KEY,
+      });
+
+      var params = {
+        Bucket: "chat-shire",
+        Prefix: `chat/media/${projectId}/`,
+      };
+
+      var s3 = new AWS.S3();
+
+      s3.listObjects(params, function (err, data) {
+        if (err) {
+          console.log(err, err.stack);
+          reject(err);
+        } else {
+          // console.log(data);
+
+          if (data.Contents) {
+            let videoUrls = data.Contents.map((file: any) => {
+              let fileExt = file.Key.split(".").pop()?.toLowerCase();
+
+              if (["mp4", "MP4"].includes(fileExt)) {
+                return s3.getSignedUrl("getObject", {
+                  Bucket: "chat-shire",
+                  Key: file.Key,
+                });
+              } else {
+                return null;
+              }
+            }).filter((url) => url !== null) as string[];
+
+            resolve(videoUrls);
+          } else {
+            resolve([]);
+          }
+        }
+      });
+    });
+  };
+
+  // 파일 업로드
+  const onUploadFile = (e: any): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      // const file = e.target.files[0];
+      e.target.files.forEach((file: any) => {
+        if (!file) {
+          resolve();
+          return;
+        }
+
+        const fileExt = file.name.split(".").pop();
+        if (!["pdf", "docx", "doc", "xlsx", "xls", "txt"].includes(fileExt)) {
+          window.alert(
+            "pdf, docx, doc, xlsx, xls, txt 파일만 업로드가 가능합니다."
+          );
+          resolve();
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = () => {
+          if (!reader.result) {
+            window.alert("파일을 등록해 주세요.");
+            resolve();
+            return;
+          }
+
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("name", file.name);
+
+          uploadS3File(formData)
+            .then(() => {
+              listFiles().then((fileInfos) => console.log(fileInfos));
+            })
+            .catch((error) => reject(error));
+        };
+      });
+    });
+  };
+
+  // s3에 파일 업로드
+  const uploadS3File = (formData: any) => {
+    return new Promise((resolve, reject) => {
+      const REGION = process.env.REACT_APP_REGION;
+      const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
+      const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+
+      AWS.config.update({
+        region: REGION,
+        accessKeyId: ACCESS_KEY_ID,
+        secretAccessKey: SECRET_ACCESS_KEY,
+      });
+
+      // 파일 이름 가져오기
+      let fileName = "";
+      for (let value of formData.values()) {
+        if (value instanceof File) {
+          fileName = value.name;
+          break;
+        }
+      }
+
+      if (fileName) {
+        // S3 ManagedUpload 객체 생성
+        const upload = new AWS.S3.ManagedUpload({
+          params: {
+            ACL: "public-read",
+            Bucket: "chat-shire",
+            Key: `chat/file/${projectId}/${fileName}`,
+            Body: formData.get("file"),
+          },
+        });
+
+        // 업로드 시작하고 프로미스 반환
+        return upload
+          .promise()
+          .then(() => {
+            console.log("파일 업로드 완료");
+            const fileUrl = `https://chat-shire.s3.amazonaws.com/chat/file/${projectId}/${fileName}`;
+            attachedFileInfos.push({ url: fileUrl, thumbnail: fileUrl });
+            setAttachedFileInfos(attachedFileInfos);
+
+            console.log("담아보낼 파일", attachedFileInfos);
+            postChat(Number(projectId), "", attachedFileInfos);
+            setAttachedFileInfos([]);
+            setTimeout(() => {
+              listFiles().then((fileInfos) => setFiles(fileInfos));
+            }, 2000);
+          })
+          .catch((error) => {
+            console.error("업로드 실패", error);
+            reject(error);
+          });
+      } else {
+        console.error("파일 이름을 가져오는데 실패했습니다.");
+        reject(new Error("파일 이름을 가져오는데 실패했습니다."));
+      }
+    });
+  };
+
+  const listFiles = (): Promise<
+    { url: string; name: string; size: number }[]
+  > => {
+    return new Promise((resolve, reject) => {
+      console.log(11);
+      const REGION = process.env.REACT_APP_REGION;
+      const ACCESS_KEY_ID = process.env.REACT_APP_ACCESS_KEY_ID;
+      const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+
+      AWS.config.update({
+        region: REGION,
+        accessKeyId: ACCESS_KEY_ID,
+        secretAccessKey: SECRET_ACCESS_KEY,
+      });
+
+      var params = {
+        Bucket: "chat-shire",
+        Prefix: `chat/file/${projectId}/`,
+      };
+
+      var s3 = new AWS.S3();
+
+      s3.listObjects(params, function (err, data) {
+        if (err) {
+          console.log(err, err.stack);
+          reject(err);
+        } else {
+          // console.log(data);
+
+          if (data.Contents) {
+            let files = data.Contents.map((file: any) => {
+              let url = s3.getSignedUrl("getObject", {
+                Bucket: "chat-shire",
+                Key: file.Key,
+              });
+              let name = file.Key.split("/").pop();
+              let size = file.Size;
+
+              return { url: url, name: name, size: size };
+            });
+
+            resolve(files);
+          } else {
+            resolve([]);
+          }
+        }
+      });
     });
   };
 
@@ -537,6 +691,7 @@ function Message({ projectId }: MessageProps) {
           <BsFillMegaphoneFill size={20} />
           {notice ? (
             <input
+              autoFocus={true}
               maxLength={50}
               style={{
                 width: "450px",
@@ -556,6 +711,7 @@ function Message({ projectId }: MessageProps) {
             />
           ) : (
             <input
+              autoFocus={true}
               maxLength={50}
               style={{
                 width: "450px",
@@ -596,6 +752,7 @@ function Message({ projectId }: MessageProps) {
               placeholder=" 메세지를 입력해주세요"
               inputProps={ariaLabel}
               onKeyPress={inputMessage}
+              autoFocus={true}
             />
           </div>
           <div className={styles.messageFooterButtonContainer}>
@@ -608,6 +765,8 @@ function Message({ projectId }: MessageProps) {
               />
               <input
                 hidden
+                className={styles.inputTag}
+                autoFocus={true}
                 accept=".pdf, .docx, .doc, .xlsx, .xls, .txt"
                 type="file"
                 ref={(el) => (inputRef.current[1] = el)}
@@ -625,6 +784,8 @@ function Message({ projectId }: MessageProps) {
               />
               <input
                 hidden
+                className={styles.inputTag}
+                autoFocus={true}
                 accept="image/*, video/*"
                 multiple
                 type="file"
@@ -718,6 +879,7 @@ function Message({ projectId }: MessageProps) {
               </>
             ) : (
               <BsLink45Deg
+                className={styles.linkIcon}
                 style={{
                   fontSize: "28",
                   color: "#39a789",
@@ -740,7 +902,13 @@ function Message({ projectId }: MessageProps) {
             )}
           </button>
         </div>
-        <MessageRightBody value={value} projectId={projectId} />
+        <MessageRightBody
+          value={value}
+          projectId={projectId}
+          files={files}
+          images={images}
+          videos={videos}
+        />
       </div>
     </div>
   );

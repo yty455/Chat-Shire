@@ -46,6 +46,7 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
     onCardClick?.(error);
   };
 
+
   return (
     <div className={styles.errcard} onClick={handleModalClick}>
       <div

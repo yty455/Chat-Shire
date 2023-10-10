@@ -4,6 +4,8 @@ import styles from "./MessageItem.module.css";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
+import { CardActionArea } from "@mui/material";
+import { Button, Modal } from "antd";
 
 interface User {
   nickname: string;
@@ -30,6 +32,7 @@ export default function MessageItem({
     userId: 0,
   });
 
+  const [open, setOpen] = useState(false);
   const StyledBadge = styled(Badge)<StyledBadgeProps>(
     ({ theme, userState }) => ({
       "& .MuiBadge-badge": {
@@ -102,7 +105,14 @@ export default function MessageItem({
     return date.toLocaleString(); // 브라우저 설정에 따라 로케일에 맞게 날짜 및 시간을 표시
   }
   return (
-    <div className={styles.messageItemContainer}>
+    <div
+      className={styles.messageItemContainer}
+      draggable="true"
+      onDragStart={(e) => {
+        e.dataTransfer.setData("message", JSON.stringify(message));
+        e.dataTransfer.setData("nickname", user?.nickname);
+      }}
+    >
       <StyledBadge
         className={styles.messageItemProfile}
         overlap="circular"
@@ -125,14 +135,7 @@ export default function MessageItem({
           }}
         />
       </StyledBadge>
-      <div
-        className={styles.messageItemBody}
-        draggable="true"
-        onDragStart={(e) => {
-          e.dataTransfer.setData("message", JSON.stringify(message));
-          e.dataTransfer.setData("nickname", user?.nickname);
-        }}
-      >
+      <div className={styles.messageItemBody}>
         <div className={styles.messageItemName}>
           <span className={styles.messageProfileName}>
             {user && user?.nickname}
@@ -154,24 +157,97 @@ export default function MessageItem({
             ))} */}
           </span>
           <div className={styles.messageItemText}>
-  {message && message?.attachedFileInfos?.map((info: any, index: number) => {
-    const url = info.url.toLowerCase(); // URL을 소문자로 변환하여 비교
-    
-    if (url.endsWith('mp4')) {
-      return (
-        <video style={{height: '240px'}} key={index} controls>
-          <source src={info.url} type="video/mp4" />
-        </video>
-      );
-    } else {
-      return (
-        <img style={{height: '120px'}} key={index} src={info.url} alt="attached" />
-      );
-    }
-  })}
-</div>
+            {message &&
+              message?.attachedFileInfos?.map((info: any, index: number) => {
+                const url = info.url.toLowerCase(); // URL을 소문자로 변환하여 비교
+
+                if (url.endsWith("mp4")) {
+                  return (
+                    <video
+                      className={styles.videoThumbnail}
+                      width="250"
+                      key={index}
+                      controls
+                    >
+                      <source src={info.url} type="video/mp4" />
+                    </video>
+                  );
+                } else if (
+                  url.endsWith(".pdf") ||
+                  url.endsWith(".docx") ||
+                  url.endsWith(".doc") ||
+                  url.endsWith(".xlsx") ||
+                  url.endsWith(".xls") ||
+                  url.endsWith(".txt")
+                ) {
+                  return (
+                    // <a href={info.url} target="_blank" rel="noopener noreferrer">{info.url.split('/').pop()}</a>
+                    <div className={styles.fileThumbnail} key={index}>
+                      <CardActionArea
+                        onClick={() => window.open(info.url, "_blank")}
+                        style={{
+                          height: "60px",
+                          width: "230px",
+                          display: "flex",
+                          // flexDirection: "column",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                          padding: "8px",
+                        }}
+                      >
+                        <span style={{ fontFamily: "preBd" }}>
+                          {info.url.split("/").pop()}
+                        </span>
+                        {/* <span style={{ fontFamily: "preLt" }}>
+              {(info.size / 1024).toFixed(2)} KB
+            </span> */}
+                      </CardActionArea>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <img
+                      onClick={() => setOpen(true)}
+                      style={{ marginTop: "3px", height: "120px" }}
+                      key={index}
+                      src={info.url}
+                      alt="attached"
+                    />
+                  );
+                }
+              })}
+          </div>
         </div>
       </div>
+
+      <Modal
+        centered
+        open={open}
+        width={1000}
+        onOk={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
+        footer={null}
+      >
+        {message &&
+          message?.attachedFileInfos?.map((info: any, index: number) => {
+            return (
+              <img
+                style={{
+                  padding: "20px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  margin: "auto",
+                  marginTop: "3px",
+                  height: "60vh",
+                }}
+                key={index}
+                src={info.url}
+                alt="attached"
+              />
+            );
+          })}
+      </Modal>
     </div>
   );
 }

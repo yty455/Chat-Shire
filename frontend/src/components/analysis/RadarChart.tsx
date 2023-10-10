@@ -37,31 +37,62 @@ const RadarChart = () => {
         return sum;
     }
 
+    let maxValue = Math.max(morningCommit + afternoonCommit + nightCommit,
+        issueCount,
+        totalChatCount(allCategoryCount),
+        relevantChatCount(allCategoryCount),
+         taskCount);
+
+    function minMaxScaling(num: number): number {
+
+        let minVal = Math.min(morningCommit + afternoonCommit + nightCommit,
+                               issueCount,
+                               totalChatCount(allCategoryCount),
+                               relevantChatCount(allCategoryCount),
+                               taskCount);
+        let maxVal = Math.max(morningCommit + afternoonCommit + nightCommit,
+                                 issueCount,
+                                 totalChatCount(allCategoryCount),
+                                 relevantChatCount(allCategoryCount),
+                                taskCount);
+        return (num - minVal) / (maxVal - minVal);
+      }
+
 
     const data = [
         {
             "skill": "개발",
-            "chardonay": morningCommit + afternoonCommit + nightCommit,
+            "chardonay": 
+            minMaxScaling(morningCommit+afternoonCommit+nightCommit+ maxValue* 0.2),
+            // morningCommit+afternoonCommit+nightCommit+ maxValue* 0.2,
             // "chardonay": 8,
         },
         {
             "skill": "디버깅",
-            "chardonay": issueCount,
+            "chardonay": 
+            minMaxScaling(issueCount+ maxValue* 0.2)
+            // issueCount+ maxValue* 0.2,
             // "chardonay": 7,
         },
         {
             "skill": "분위기 메이커",
-            "chardonay": totalChatCount(allCategoryCount),
+            "chardonay": 
+            minMaxScaling(totalChatCount(allCategoryCount)+ maxValue* 0.2)
+            // totalChatCount(allCategoryCount)+ maxValue* 0.2,
             // "chardonay": 10,
         },
         {
             "skill": "협업 의지",
-            "chardonay": relevantChatCount(allCategoryCount),
+            "chardonay": 
+            minMaxScaling(relevantChatCount(allCategoryCount)+ maxValue* 0.2)
+            // relevantChatCount(allCategoryCount)+ maxValue* 0.2,
             // "chardonay": 7,
         },
         {
             "skill": "일정 관리",
-            "chardonay": taskCount,
+            "chardonay": 
+            minMaxScaling(taskCount+ maxValue* 0.2)
+            // taskCount+ maxValue* 0.2,
             // "chardonay": 8,
         }
     ]

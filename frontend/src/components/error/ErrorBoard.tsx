@@ -16,6 +16,8 @@ import {
   searchErrConent,
   searchErrSkillName,
 } from "../../utils/errorApi";
+import { err_recoil } from "../../stores/atom";
+
 
 interface ErrorProps {
   pjtId: string;
@@ -25,7 +27,7 @@ interface ErrorProps {
 
 function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
   const [openModal, setOpenModal] = useState(false);
-  const [allErrors, setAllErrors] = useState([]);
+  const [allErrors, setAllErrors] = useRecoilState(err_recoil);
   const [skillErrors, setSkillErrors] = useState([]);
   const [contentErrors, setContentErrors] = useState([]);
   const [selectedError, setSelectedError] = useState<any>(null);

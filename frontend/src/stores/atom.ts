@@ -109,7 +109,7 @@ export const issueCount_recoil = atom({
   default: 20,
 });
 
-export const allCategoryCount_recoil = atom({
+export const allCategoryCount_recoil = atom<{ [key: string]: number }>({
   key: "allCategoryCount_recoil",
   default: {},
 });

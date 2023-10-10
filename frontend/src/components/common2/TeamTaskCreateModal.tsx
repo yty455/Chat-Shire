@@ -14,6 +14,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Button } from "antd";
 
+import {MdOutlineCancel} from 'react-icons/md'
+
 function getPriorityColor(priority: any) {
   switch (priority) {
     case "HIGH":
@@ -72,60 +74,40 @@ function TeamTaskCreateModal({
 
   return (
     <div className={styles.modalOverlay} ref={modalRef}>
-      <div className={styles.formContainer} style={{ color: "#575757" }}>
+      <div className={styles.formContainer} style={{ color: "#575757", backgroundColor: "#ffffff", borderRadius: "20px"}}>
         <div className={styles.formBox}>
           <span style={{ fontFamily: "preBd", fontSize: "24px" }}>
-            팀 태스크 생성
+            새로운 태스크 생성
           </span>
-          <div>
+          <div style={{display: "flex", alignItems: "center"}}>
             <TextField
-              sx={{ width: "360px", marginTop: "4px" }}
+              sx={{ width: "90%", marginTop: "14px" }}
               color="greenary"
               variant="standard"
               type="text"
-              placeholder="제목을 입력하세요"
+              placeholder="업무 제목을 입력하세요"
               value={taskData.name}
               onChange={(e) =>
                 setTaskData({ ...taskData, name: e.target.value })
               }
             />
-          </div>
-          <div>
-            <TextField
-              sx={{ width: "360px", marginTop: "4px" }}
-              color="greenary"
-              variant="standard"
-              multiline
-              rows={3}
-              type="text"
-              placeholder="업무에 대한 설명을 입력하세요"
-              value={taskData.description}
-              onChange={(e) =>
-                setTaskData({ ...taskData, description: e.target.value })
-              }
-            />
-          </div>
-          <div>
             <FormControl
               sx={{
                 height: "46px",
-                minWidth: 120,
+                minWidth: 80,
                 marginLeft: "0px",
               }}
               size="medium"
               style={{ margin: "10px", marginLeft: "0px" }}
               onClick={(e) => e.stopPropagation()}
             >
-              <InputLabel id="priority-label" style={{ marginLeft: "-14px" }}>
-                중요도
-              </InputLabel>
               <Select
                 variant="standard"
                 labelId="priority-label"
                 id="priority-select"
                 value={taskData.priority}
                 onChange={handleChange}
-                sx={{ height: "30px", color: "#575757" }}
+                sx={{ height: "30px", color: "#575757" , marginTop: "16px"}}
               >
                 <MenuItem value="HIGH" style={{ paddingLeft: "2px" }}>
                   <div style={{ display: "flex" }}>
@@ -172,14 +154,31 @@ function TeamTaskCreateModal({
               </Select>
             </FormControl>
           </div>
+          <div>
+            <TextField
+              sx={{ width: "100%", margin: "14px 0px 0px -2px" }}
+              color="greenary"
+              // variant="standard"
+              multiline
+              rows={4}
+              type="text"
+              placeholder="업무에 대한 설명을 입력하세요"
+              value={taskData.description}
+              onChange={(e) =>
+                setTaskData({ ...taskData, description: e.target.value })
+              }
+            />
+          </div>
+          
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <div onClick={(e) => e.stopPropagation()}>
+            <div onClick={(e) => e.stopPropagation()} style={{display: "flex", flexDirection: "column"}}>
+              <span style={{margin: "20px 0px 10px 0px",}}>업무 기한</span>
               <DatePicker
                 value={limitDate}
                 onChange={handleDateChange}
                 sx={{
-                  width: "150px",
+                  width: "40%",
                   marginLeft: "0px",
                 }}
               />
@@ -193,7 +192,7 @@ function TeamTaskCreateModal({
 
           <Button
             className={styles.savebtn}
-            style={{ backgroundColor: "#39A789", fontFamily: "preRg" }}
+            style={{ backgroundColor: "#39A789", fontFamily: "preRg", margin: "0px 14px 16px 0px", width: "40%", height: "15%", borderRadius: "10px", fontSize: "18px", transform:"translateY(2px)"}}
             key="submit"
             type="primary"
             onClick={createTeampjt}
@@ -201,13 +200,12 @@ function TeamTaskCreateModal({
             생성
           </Button>
         </div>
-        <button
-          style={{ cursor: "pointer" }}
+        <MdOutlineCancel
+          style={{marginTop: "8px", cursor: "pointer"}}
+          size={30}
           onClick={closeModal}
           className={styles.closebtn}
-        >
-          X
-        </button>
+        />
       </div>
     </div>
   );

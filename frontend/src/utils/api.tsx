@@ -3,7 +3,7 @@ import axios from "axios";
 // Axios 인스턴스 생성
 const api = axios.create({
   // baseURL: "/api1", // API의 기본 URL
-  baseURL: "http://j9e205.p.ssafy.io:8080", // API의 기본 URL
+  baseURL: "https://j9e205.p.ssafy.io/api", // API의 기본 URL
   withCredentials: true,
 });
 

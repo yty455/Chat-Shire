@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import MultiSelect from "../error/MultiSelect";
 import { useRecoilState } from "recoil";
 import { loginuser, isLogin_recoil } from "../../stores/atom";
+import { styled } from '@mui/system';
 
 interface CustomProfileProps {
   onUpdatenickname: any;
@@ -36,7 +37,7 @@ export default function CustomProfileInfo({
   const [selectedId, setSelectedId] = useState<string[]>([]);
 
   const selectSkill = (e: any) => {
-    if (selectedId && selectedId.includes(String(e.target.id))) {
+    if (selectedId && selectedId?.includes(String(e.target.id))) {
       const newSelectedId = selectedId.filter((item) => item != e.target.id);
       setSelectedId(newSelectedId);
       onUpdatemySkill(newSelectedId);
@@ -64,6 +65,12 @@ export default function CustomProfileInfo({
     }
   };
 
+  const StyledTextField = styled(TextField)({
+    '& .MuiInputBase-input': {
+      fontFamily: 'preRg',
+    },
+  });
+  
   useEffect(() => {
     if (isLogin) {
       setNickname(userData.nickname);
@@ -80,7 +87,7 @@ export default function CustomProfileInfo({
         <span className={styles.AvatarCustomTitle}>내 정보</span>
       </div>
       <div className={styles.ProfileInfoBody}>
-        <TextField
+        <StyledTextField
           fullWidth
           name="nickname"
           color="greenary"
@@ -94,8 +101,8 @@ export default function CustomProfileInfo({
           onChange={handleInputChange}
           // helperText="Please enter your name"
         />
-        <span style={{ margin: "8px 0px -4px 0px", fontFamily: "preLt" }}>
-          뭐할줄 알아여
+        <span style={{ fontSize: '13px', margin: "13px 0px -4px 0px", fontFamily: "preLt" }}>
+          보유한 기술스택을 골라주세요 *
         </span>
         <div className={styles.ProfileInfoSkillSelector}>
           <img
@@ -180,7 +187,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("r")
+              selectedId?.includes("r")
                 ? `https://img.shields.io/badge/r-276DC3?style=for-the-badge&logo=r&logoColor=white`
                 : `https://img.shields.io/badge/r-757575?style=for-the-badge&logo=r&logoColor=white`
             }
@@ -191,7 +198,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("flutter")
+              selectedId?.includes("flutter")
                 ? `https://img.shields.io/badge/flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white`
                 : `https://img.shields.io/badge/flutter-757575?style=for-the-badge&logo=flutter&logoColor=white`
             }
@@ -202,7 +209,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("dart")
+              selectedId?.includes("dart")
                 ? `https://img.shields.io/badge/dart-0175C2?style=for-the-badge&logo=dart&logoColor=white`
                 : `https://img.shields.io/badge/dart-757575?style=for-the-badge&logo=dart&logoColor=white`
             }
@@ -213,7 +220,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("kotlin")
+              selectedId?.includes("kotlin")
                 ? `https://img.shields.io/badge/kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white`
                 : `https://img.shields.io/badge/kotlin-757575?style=for-the-badge&logo=kotlin&logoColor=white`
             }
@@ -224,7 +231,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("pwa")
+              selectedId?.includes("pwa")
                 ? `https://img.shields.io/badge/pwa-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white`
                 : `https://img.shields.io/badge/pwa-757575?style=for-the-badge&logo=pwa&logoColor=white`
             }
@@ -235,7 +242,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("php")
+              selectedId?.includes("php")
                 ? `https://img.shields.io/badge/php-777BB4?style=for-the-badge&logo=php&logoColor=white`
                 : `https://img.shields.io/badge/php-757575?style=for-the-badge&logo=php&logoColor=white`
             }
@@ -246,7 +253,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("django")
+              selectedId?.includes("django")
                 ? `https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white`
                 : `https://img.shields.io/badge/django-757575?style=for-the-badge&logo=django&logoColor=white`
             }
@@ -257,7 +264,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("spring")
+              selectedId?.includes("spring")
                 ? `https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white`
                 : `https://img.shields.io/badge/spring-757575?style=for-the-badge&logo=spring&logoColor=white`
             }
@@ -268,7 +275,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("vue")
+              selectedId?.includes("vue")
                 ? `https://img.shields.io/badge/vue-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white`
                 : `https://img.shields.io/badge/vue-757575?style=for-the-badge&logo=vue.js&logoColor=white`
             }
@@ -279,7 +286,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("react")
+              selectedId?.includes("react")
                 ? `https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white`
                 : `https://img.shields.io/badge/react-757575?style=for-the-badge&logo=react&logoColor=white`
             }
@@ -290,7 +297,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("next")
+              selectedId?.includes("next")
                 ? `https://img.shields.io/badge/next-000000?style=for-the-badge&logo=next.js&logoColor=white`
                 : `https://img.shields.io/badge/next-757575?style=for-the-badge&logo=next.js&logoColor=white`
             }
@@ -301,7 +308,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("node")
+              selectedId?.includes("node")
                 ? `https://img.shields.io/badge/node-339933?style=for-the-badge&logo=node.js&logoColor=white`
                 : `https://img.shields.io/badge/node-757575?style=for-the-badge&logo=node.js&logoColor=white`
             }
@@ -312,7 +319,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("angular")
+              selectedId?.includes("angular")
                 ? `https://img.shields.io/badge/angular-DD0031?style=for-the-badge&logo=angular&logoColor=white`
                 : `https://img.shields.io/badge/angular-757575?style=for-the-badge&logo=angular&logoColor=white`
             }
@@ -323,7 +330,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("jenkins")
+              selectedId?.includes("jenkins")
                 ? `https://img.shields.io/badge/jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white`
                 : `https://img.shields.io/badge/jenkins-757575?style=for-the-badge&logo=jenkins&logoColor=white`
             }
@@ -334,7 +341,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("docker")
+              selectedId?.includes("docker")
                 ? `https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white`
                 : `https://img.shields.io/badge/docker-757575?style=for-the-badge&logo=docker&logoColor=white`
             }
@@ -345,7 +352,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("aws")
+              selectedId?.includes("aws")
                 ? `https://img.shields.io/badge/aws-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white`
                 : `https://img.shields.io/badge/aws-757575?style=for-the-badge&logo=amazonaws&logoColor=white`
             }
@@ -356,7 +363,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("kubernetes")
+              selectedId?.includes("kubernetes")
                 ? `https://img.shields.io/badge/kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white`
                 : `https://img.shields.io/badge/kubernetes-757575?style=for-the-badge&logo=kubernetes&logoColor=white`
             }
@@ -367,7 +374,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("three")
+              selectedId?.includes("three")
                 ? `https://img.shields.io/badge/three-000000?style=for-the-badge&logo=three.js&logoColor=white`
                 : `https://img.shields.io/badge/three-757575?style=for-the-badge&logo=three.js&logoColor=white`
             }
@@ -378,7 +385,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("aframe")
+              selectedId?.includes("aframe")
                 ? `https://img.shields.io/badge/aframe-EF2D5E?style=for-the-badge&logo=a-frame&logoColor=white`
                 : `https://img.shields.io/badge/aframe-757575?style=for-the-badge&logo=a-frame&logoColor=white`
             }
@@ -389,7 +396,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("unity")
+              selectedId?.includes("unity")
                 ? `https://img.shields.io/badge/unity-000000?style=for-the-badge&logo=unity&logoColor=white`
                 : `https://img.shields.io/badge/unity-757575?style=for-the-badge&logo=unity&logoColor=white`
             }
@@ -400,7 +407,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("unreal")
+              selectedId?.includes("unreal")
                 ? `https://img.shields.io/badge/unreal-0E1128?style=for-the-badge&logo=unrealengine&logoColor=white`
                 : `https://img.shields.io/badge/unreal-757575?style=for-the-badge&logo=unrealengine&logoColor=white`
             }
@@ -411,7 +418,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("tomcat")
+              selectedId?.includes("tomcat")
                 ? `https://img.shields.io/badge/tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white`
                 : `https://img.shields.io/badge/tomcat-757575?style=for-the-badge&logo=apachetomcat&logoColor=white`
             }
@@ -422,7 +429,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("spark")
+              selectedId?.includes("spark")
                 ? `https://img.shields.io/badge/spark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white`
                 : `https://img.shields.io/badge/spark-757575?style=for-the-badge&logo=apachespark&logoColor=white`
             }
@@ -433,7 +440,7 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("hadoop")
+              selectedId?.includes("hadoop")
                 ? `https://img.shields.io/badge/hadoop-66CCFF?style=for-the-badge&logo=apachehadoop&logoColor=white`
                 : `https://img.shields.io/badge/hadoop-757575?style=for-the-badge&logo=apachehadoop&logoColor=white`
             }
@@ -444,14 +451,14 @@ export default function CustomProfileInfo({
             onClick={selectSkill}
             className={styles.ProfileSkillIcon}
             src={
-              selectedId.includes("git")
+              selectedId?.includes("git")
                 ? `https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white`
                 : `https://img.shields.io/badge/git-757575?style=for-the-badge&logo=git&logoColor=white`
             }
             alt=""
           />
         </div>
-        <TextField
+        <StyledTextField
           fullWidth
           name="position"
           color="greenary"
@@ -465,7 +472,7 @@ export default function CustomProfileInfo({
           onChange={handleInputChange}
           // helperText="Please enter your name"
         />
-        <TextField
+        <StyledTextField
           value={introduction}
           fullWidth
           name="introduction"
@@ -473,20 +480,20 @@ export default function CustomProfileInfo({
           margin="dense"
           required
           id="standard-required"
-          label="나를 자랑 해주세요"
+          label="나를 자랑해주세요"
           // defaultValue={introduction}
           variant="standard"
           onChange={handleInputChange}
           // helperText="Please enter your name"
         />
-        <TextField
+        <StyledTextField
           fullWidth
           name="detailIntroduction"
           color="greenary"
           margin="dense"
           required
           id="standard-required"
-          label="간단한 소개 부탁드려요"
+          label="간단한 소개를 해주세요"
           // defaultValue={detailIntroduction}
           value={detailIntroduction}
           variant="standard"
@@ -497,10 +504,11 @@ export default function CustomProfileInfo({
       {isLogin ? (
         <Button
           sx={{
-            width: "467px",
+            width: "100%",
             height: "53px",
             fontFamily: "preBd",
             fontSize: "18px",
+            marginBottom: '10px'
           }}
           color="greenary"
           variant="contained"
@@ -511,10 +519,11 @@ export default function CustomProfileInfo({
       ) : (
         <Button
           sx={{
-            width: "467px",
+            width: "100%",
             height: "53px",
             fontFamily: "preBd",
             fontSize: "18px",
+            marginBottom: '5px'
           }}
           color="greenary"
           variant="contained"

@@ -1,0 +1,50 @@
+.onlineBtn {
+  background-color: rgb(154, 219, 154);
+  border-radius: 5px;
+  border: 1px solid transparent;
+  color: white;
+  font-family: preRg;
+  margin-right: 3px;
+}
+
+.onlineBtn:hover, .onlineBtn:focus {
+  background-color: green;
+}
+
+.awayBtn {
+  background-color: rgb(255, 208, 128);
+  border-radius: 5px;
+  border: 1px solid transparent;
+  color: white;
+  font-family: preRg;
+  margin-right: 3px
+}
+
+.awayBtn:hover, .awayBtn:focus {
+  background-color: orange;
+}
+
+.offBtn {
+  background-color: rgb(168, 168, 168);
+  border-radius: 5px;
+  border: 1px solid transparent;
+  color: white;
+  font-family: preRg;
+  margin-right: 3px
+}
+
+.offBtn:hover, .offBtn:focus {
+  background-color: gray;
+}
+
+.dndBtn {
+  background-color: rgb(255, 131, 117);
+  border-radius: 5px;
+  border: 1px solid transparent;
+  color: white;
+  font-family: preRg;
+}
+
+.dndBtn:hover, .dndBtn:focus {
+  background-color: red;
+}

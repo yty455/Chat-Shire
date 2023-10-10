@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import styles from "./ProfilePage.module.css";
 import { useNavigate } from "react-router-dom";
 
-import RadarChart from "../components/analysis/RadarChart";
-import BarChart from "../components/analysis/BarChart";
 import LeftSide from "../components/common/LeftSide";
+import RadarChart from "../components/analysis/RadarChart";
+import ProfileBarChart from "../components/profile/ProfileBarChart";
+import ProfileRadarChart from "../components/profile/ProfileRadarChart";
 import { getProfile } from "../utils/userApi";
 import { loginuser } from "../stores/atom";
-import { BsGithub, BsPersonFill } from "react-icons/bs";
+import { BsGithub, BsPersonFill, BsEmojiSmileFill } from "react-icons/bs";
 // import {
 //   BiLogoTypescript,
 //   BiLogoJavascript,
@@ -117,7 +118,7 @@ export default function ProfilePage() {
           <div className={styles.profileHeaderDesc}>
             <div className={styles.profileHeaderLeft}>
               <span className={styles.profileName}>
-                {userData?.nickname} {userData?.position}
+                {userData?.nickname} <span className={styles.profilePos}>{userData?.position}</span>
               </span>
               <div className={styles.profileCareer}>
                 <div className={styles.profileCareerItem}>
@@ -125,8 +126,8 @@ export default function ProfilePage() {
                   <span>{userData?.githubId}</span>
                 </div>
                 <div className={styles.profileCareerItem}>
-                  {userData?.mySkill?.map((item: any) => (
-                    <span key={item}>{item} &nbsp;</span>
+                  {userData?.mySkill?.slice(1).map((item: any) => (
+                    <span className={styles.career} key={item}>{item}</span>
                   ))}
                 </div>
                 <div className={styles.profileCareerItem}>
@@ -134,16 +135,17 @@ export default function ProfilePage() {
                   <span>{userData?.introduction}</span>
                 </div>
               </div>
-              <div className={styles.profileIntroduce}>
+              <div className={styles.profileIntroItem}>
+                <BsEmojiSmileFill size={25} style={{ marginRight: "10px" }} />
                 <span>{userData?.detailIntroduction}</span>
               </div>
             </div>
             <div className={styles.profileHeaderRight}>
               <div className={styles.profileRadarContainer}>
-                <RadarChart/>
+                <ProfileRadarChart userData={userData}/>
               </div>
               <div className={styles.profileBarContainer}>
-                <BarChart/>
+                <ProfileBarChart userData={userData}/>
               </div>
             </div>
             <IoMdSettings
@@ -158,15 +160,15 @@ export default function ProfilePage() {
         {userData && (
           <div className={styles.profileBody}>
             <div className={styles.profileBodyTitle}>
-              <span style={{ color: "#575757", fontSize: "34px" }}>
-                Achievement{" "}
+              <span style={{ fontFamily:'preRg', color: "#575757", fontSize: "30px" }}>
+                나의 기록{" "}
               </span>
-              <span style={{ color: "#575757", fontSize: "20px" }}>
+              <span style={{ fontFamily: 'preBd', color: "#575757", fontSize: "20px" }}>
                 {userData?.challengeInfoResponse.done}/36
               </span>
             </div>
             <div className={styles.progressBar}>
-              <Box sx={{ width: "400px" }}>
+              <Box sx={{ width: "190px" }}>
                 <LinearProgressWithLabel
                   value={(userData?.challengeInfoResponse.done / 36) * 100}
                 />

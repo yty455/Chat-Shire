@@ -72,3 +72,7 @@
   justify-content: start;
   margin: 0;
 }
+
+.inputTag:focus {
+  outline: none;
+}
