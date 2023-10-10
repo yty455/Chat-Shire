@@ -276,6 +276,7 @@ function Message({ projectId }: MessageProps) {
   const onUploadImage = (e: any): Promise<void> => {
     // Promise<void> 타입 지정
     return new Promise((resolve, reject) => {
+      console.log(e.target.files);
       // const file = e.target.files[0];
       Array.from(e.target.files).forEach((file: any) => {
         if (!file) {
