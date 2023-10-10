@@ -65,7 +65,7 @@
   width: 58%;
   overflow-x: auto;
   white-space: nowrap;
-  font-size: 15px;
+  font-size: 17px;
   font-family:'preRg'
 }
 
@@ -81,7 +81,7 @@
   width: 30%;
   overflow-x: auto;
   white-space: nowrap;
-  font-size: 13px;
+  font-size: 15px;
   color: gray;
   font-family:'preRg'
 
@@ -97,4 +97,9 @@
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+.customModal .ant-modal-title {
+  font-size: 23px;
+  font-family: 'preBd';
 }
