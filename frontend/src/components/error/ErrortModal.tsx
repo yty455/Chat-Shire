@@ -125,6 +125,11 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
     window.open(e.target.src, "_blank");
   };
 
+  function formatChatTime(chatTime: any) {
+    const date = new Date(chatTime);
+    return date.toLocaleString(); // 브라우저 설정에 따라 로케일에 맞게 날짜 및 시간을 표시
+  }
+
   useEffect(() => {
     getInError();
   }, []);
@@ -147,7 +152,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               >
                 마지막 수정일:
                 {errDetail.lastModifiedDate
-                  ? errDetail.lastModifiedDate.toLocaleString()
+                  ? formatChatTime(errDetail.lastModifiedDate)
                   : "날짜 없음"}
               </span>
               <span style={{ marginLeft: "28px" }}>
@@ -185,9 +190,9 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
         </div>
         <div className={styles.replyContainer}>
           <span style={{ fontFamily: "preBd", fontSize: "24px" }}>A. </span>
-          <input
+          <TextField
             type="text"
-            value={content}
+            defaultValue={content}
             onChange={(e) => setContent(e.target.value)}
             onKeyPress={handleEnterKeyPress}
           />
@@ -249,7 +254,6 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                               style={{ backgroundColor: "green", fontFamily: "preRg" }}
                               key="submit"
                               type="primary"
-                              className={styles.deletebtn}
                             >
                               취소
                             </Button>
@@ -259,7 +263,6 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                               style={{ backgroundColor: "green", fontFamily: "preRg" }}
                               key="submit"
                               type="primary"
-                              className={styles.deletebtn}
                             >
                               채택
                             </Button>
