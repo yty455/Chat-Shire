@@ -81,44 +81,39 @@ const RadarChart = () => {
   const data = [
     {
       skill: "개발",
-      chardonay: morningCommit + afternoonCommit + nightCommit + maxValue * 0.3,
-      //   minMaxScaling(
-      //     morningCommit + afternoonCommit + nightCommit + maxValue * 0.3
-      //   ),
-
-      // "chardonay": 8,
+      chardonay: minMaxScaling(
+        morningCommit + afternoonCommit + nightCommit + maxValue * 0.3
+      ),
+      //   morningCommit + afternoonCommit + nightCommit,
     },
     {
       skill: "디버깅",
-      chardonay: issueCount + maxValue * 0.3,
+      chardonay: minMaxScaling(issueCount + maxValue * 0.3),
+      //   issueCount,
       //   minMaxScaling(issueCount + maxValue * 0.3),
-
-      // "chardonay": 7,
     },
     {
       skill: "분위기 메이커",
-      chardonay: totalChatCount(allCategoryCount) + maxValue * 0.3,
+      chardonay: minMaxScaling(
+        totalChatCount(allCategoryCount) + maxValue * 0.3
+      ),
+      //   totalChatCount(allCategoryCount),
       //   minMaxScaling(
       //     totalChatCount(allCategoryCount) + maxValue * 0.3
       //   ),
-
-      // "chardonay": 10,
     },
     {
       skill: "협업 의지",
-      chardonay: relevantChatCount(allCategoryCount) + maxValue * 0.3,
-      //   minMaxScaling(
-      //     relevantChatCount(allCategoryCount) + maxValue * 0.3
-      //   ),
-
-      // "chardonay": 7,
+      chardonay: minMaxScaling(
+        relevantChatCount(allCategoryCount) + maxValue * 0.3
+      ),
+      //   relevantChatCount(allCategoryCount),
     },
     {
       skill: "일정 관리",
-      chardonay: taskCount + maxValue * 0.3,
+      chardonay: minMaxScaling(taskCount + maxValue * 0.3),
+      //   taskCount,
       //   minMaxScaling(taskCount + maxValue * 0.3),
-
-      // "chardonay": 8,
     },
   ];
 
