@@ -76,7 +76,7 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
           {error && Array.isArray(error.skillName) ? (
             error.skillName.map((item: any, index: number) => (
               <span key={index} className={styles.language}>
-                {item}
+                {item}{" "}
               </span>
             ))
           ) : (
