@@ -155,7 +155,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                 </span>
                 <span
                   style={{
-                    // marginLeft: "28px",
+                    marginLeft: "5px",
                     fontFamily: "preRg",
                     fontSize: "16px",
                   }}
