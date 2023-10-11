@@ -150,17 +150,17 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                 Q. {errDetail && errDetail.title}
               </span>
               <div style={{display: 'flex', justifyContent:'start'}}>
-                <span style={{ marginLeft: "28px", fontSize: "16px" }}>
+                <span style={{ marginLeft: "28px", fontFamily: "preRg", fontSize: "16px" }}>
                   {errDetail.nickname} | 
                 </span>
                 <span
                   style={{
-                    marginLeft: "28px",
-                    fontFamily: "preLt",
-                    fontSize: "14px",
+                    // marginLeft: "28px",
+                    fontFamily: "preRg",
+                    fontSize: "16px",
                   }}
                 >
-                  &nbsp{errDetail.lastModifiedDate
+                  {" "}{errDetail.lastModifiedDate
                     ? formatChatTime(errDetail.lastModifiedDate)
                     : "날짜 없음"}
                 </span>
@@ -171,7 +171,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
             </span>
           </div>
           <div className={styles.deContentContainer}>
-            <span>{errDetail.content}</span>
+            <span style={{fontFamily:'preRg', fontSize:'18px'}}>{errDetail.content}</span>
           </div>
           <div className={styles.errImageScrollContainer}>
             <div className={styles.errImageContainer}>
