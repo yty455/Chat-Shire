@@ -222,7 +222,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               errDetail.replies.map((item: any) => {
                 return (
                   <div style={item.replyId === errDetail.state ? {border: "3px solid #39a789"} : { border: "1px solid #E5E8EB"}} className={styles.replyItemContainer} key={item.replyId}>
-                    <span style={item.replyId === errDetail.state ? {position: "absolute", color: "#39a789", fontFamily: "preBd", fontSize: "13px", top: "-17px", left: "18px"} : {display: "none"}}>
+                    <span style={item.replyId === errDetail.state ? {position: "absolute", color: "#39a789", fontFamily: "preBd", fontSize: "13px", top: "-17px", left: "10px"} : {display: "none"}}>
                       <FaCrown size={13} color="#ffdc4f"/>
                       BEST
                     </span>
