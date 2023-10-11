@@ -52,28 +52,28 @@ const RadarChart = () => {
     return sum;
   }
 
-  //   let maxValue = Math.max(
-  //     morningCommit + afternoonCommit + nightCommit,
-  //     issueCount,
-  //     totalChatCount(allCategoryCount),
-  //     relevantChatCount(allCategoryCount),
-  //     taskCount
-  //   );
+  let maxValue = Math.max(
+    morningCommit + afternoonCommit + nightCommit,
+    issueCount,
+    totalChatCount(allCategoryCount),
+    relevantChatCount(allCategoryCount),
+    taskCount
+  );
 
   function minMaxScaling(num: number): number {
     let minVal = Math.min(
-      morningCommit + afternoonCommit + nightCommit,
-      issueCount,
-      totalChatCount(allCategoryCount),
-      relevantChatCount(allCategoryCount),
-      taskCount
+      morningCommit + afternoonCommit + nightCommit + maxValue * 0.3,
+      issueCount + maxValue * 0.3,
+      totalChatCount(allCategoryCount) + maxValue * 0.3,
+      relevantChatCount(allCategoryCount) + maxValue * 0.3,
+      taskCount + maxValue * 0.3
     );
     let maxVal = Math.max(
-      morningCommit + afternoonCommit + nightCommit,
-      issueCount,
-      totalChatCount(allCategoryCount),
-      relevantChatCount(allCategoryCount),
-      taskCount
+      morningCommit + afternoonCommit + nightCommit + maxValue * 0.3,
+      issueCount + maxValue * 0.3,
+      totalChatCount(allCategoryCount) + maxValue * 0.3,
+      relevantChatCount(allCategoryCount) + maxValue * 0.3,
+      taskCount + maxValue * 0.3
     );
     return (num - minVal) / (maxVal - minVal);
   }
@@ -81,59 +81,63 @@ const RadarChart = () => {
   const data = [
     {
       skill: "개발",
-      chardonay: minMaxScaling(morningCommit + afternoonCommit + nightCommit),
-      //   morningCommit + afternoonCommit + nightCommit,
+      chardonay: minMaxScaling(
+        morningCommit + afternoonCommit + nightCommit + maxValue * 0.3
+      ),
+      // morningCommit+afternoonCommit+nightCommit+ maxValue* 0.2,
+      // "chardonay": 8,
     },
     {
       skill: "디버깅",
-      chardonay: minMaxScaling(issueCount),
-      //   issueCount,
-      //   minMaxScaling(issueCount + maxValue * 0.3),
+      chardonay: minMaxScaling(issueCount + maxValue * 0.3),
+      // issueCount+ maxValue* 0.2,
+      // "chardonay": 7,
     },
     {
       skill: "분위기 메이커",
-      chardonay: minMaxScaling(totalChatCount(allCategoryCount)),
-      //   totalChatCount(allCategoryCount),
-      //   minMaxScaling(
-      //     totalChatCount(allCategoryCount) + maxValue * 0.3
-      //   ),
+      chardonay: minMaxScaling(
+        totalChatCount(allCategoryCount) + maxValue * 0.3
+      ),
+      // totalChatCount(allCategoryCount)+ maxValue* 0.2,
+      // "chardonay": 10,
     },
     {
       skill: "협업 의지",
-      chardonay: minMaxScaling(relevantChatCount(allCategoryCount)),
-      //   relevantChatCount(allCategoryCount),
+      chardonay: minMaxScaling(
+        relevantChatCount(allCategoryCount) + maxValue * 0.3
+      ),
+      // relevantChatCount(allCategoryCount)+ maxValue* 0.2,
+      // "chardonay": 7,
     },
     {
       skill: "일정 관리",
-      chardonay: minMaxScaling(taskCount),
-      //   taskCount,
-      //   minMaxScaling(taskCount + maxValue * 0.3),
+      chardonay: minMaxScaling(taskCount + maxValue * 0.3),
+      // taskCount+ maxValue* 0.2,
+      // "chardonay": 8,
     },
   ];
 
   return (
-    <div>
-      <ResponsiveRadar
-        theme={{ fontFamily: "preLt", fontSize: 18, textColor: "#ffffff" }}
-        data={data}
-        keys={["chardonay"]}
-        indexBy="skill"
-        valueFormat=" >-.2f"
-        margin={{ top: 40, right: 40, bottom: 40, left: 80 }}
-        borderWidth={0}
-        borderColor={{ from: "color", modifiers: [] }}
-        gridLevels={3}
-        gridLabelOffset={24}
-        enableDots={false}
-        dotSize={2}
-        dotColor={{ theme: "background" }}
-        dotLabelYOffset={-14}
-        colors={[workStyleColor.sub]}
-        fillOpacity={0.6}
-        blendMode="normal"
-        motionConfig="default"
-      />
-    </div>
+    <ResponsiveRadar
+      theme={{ fontFamily: "preLt", fontSize: 18, textColor: "#ffffff" }}
+      data={data}
+      keys={["chardonay"]}
+      indexBy="skill"
+      valueFormat=" >-.2f"
+      margin={{ top: 40, right: 40, bottom: 40, left: 80 }}
+      borderWidth={0}
+      borderColor={{ from: "color", modifiers: [] }}
+      gridLevels={3}
+      gridLabelOffset={24}
+      enableDots={false}
+      dotSize={2}
+      dotColor={{ theme: "background" }}
+      dotLabelYOffset={-14}
+      colors={[workStyleColor.sub]}
+      fillOpacity={0.6}
+      blendMode="normal"
+      motionConfig="default"
+    />
   );
 };
 
