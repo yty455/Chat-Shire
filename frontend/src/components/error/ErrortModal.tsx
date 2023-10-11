@@ -15,7 +15,7 @@ import { Button } from "antd";
 
 import { BsPencilFill } from "react-icons/bs";
 import { MdDelete, MdOutlineCancel } from "react-icons/md";
-import { AiOutlineDownload } from 'react-icons/ai'
+import { AiOutlineDownload } from "react-icons/ai";
 import api from "../../utils/api";
 
 interface ErrorModalProps {
@@ -49,7 +49,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
       if (pjtId) {
         const response = await getErrors(pjtId);
         setAllErr(response.data.result[0]);
-        setAnswer(response.data.result[0].state)
+        setAnswer(response.data.result[0].state);
       }
     } catch (error) {
       console.error(error);
@@ -109,15 +109,16 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
     }
   };
 
-  const selectAnswer = async(id: number) => {
-    const patchedErrPost = errDetail
-    patchedErrPost.state = id
-    api.patch(`/posts/${errDetail.id}`, patchedErrPost)
-    .then((res) => {
-      console.log(res)
-      setAnswer(id)
-    })
-  }
+  const selectAnswer = async (id: number) => {
+    const patchedErrPost = errDetail;
+    patchedErrPost.state = id;
+    api.patch(`/posts/${errDetail.id}`, patchedErrPost).then((res) => {
+      console.log(res);
+      setAnswer(id);
+      getInErrors();
+      // getInError();
+    });
+  };
 
   // 엔터 키 입력 시 댓글 작성
   const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -137,7 +138,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
 
   useEffect(() => {
     getInError();
-  }, []);
+  }, [answer]);
 
   return (
     <div className={styles.modalOverlay}>
@@ -148,28 +149,29 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               <span style={{ fontFamily: "preBd", fontSize: "24px" }}>
                 Q. {errDetail && errDetail.title}
               </span>
-              <span
-                style={{
-                  marginLeft: "28px",
-                  fontFamily: "preLt",
-                  fontSize: "14px",
-                }}
-              >
-                마지막 수정일:
-                {errDetail.lastModifiedDate
-                  ? formatChatTime(errDetail.lastModifiedDate)
-                  : "날짜 없음"}
-              </span>
-              <span style={{ marginLeft: "28px" , fontSize: "16px"}}>
-                작성자 {errDetail.nickname}
-              </span>
+              <div style={{display: 'flex', justifyContent:'start'}}>
+                <span style={{ marginLeft: "28px", fontFamily: "preRg", fontSize: "16px" }}>
+                  {errDetail.nickname} | 
+                </span>
+                <span
+                  style={{
+                    marginLeft: "5px",
+                    fontFamily: "preRg",
+                    fontSize: "16px",
+                  }}
+                >
+                  {" "}{errDetail.lastModifiedDate
+                    ? formatChatTime(errDetail.lastModifiedDate)
+                    : "날짜 없음"}
+                </span>
+              </div>
             </div>
-            <span className={styles.status}>
-              {errDetail && errDetail.state !== 0 ? "완료" : "진행"}
+            <span className={errDetail && errDetail.state !==0 ? styles.statusCompleted : styles.statusIncomplete}>
+              {errDetail && errDetail.state !== 0 ? "완료" : "미완료"}
             </span>
           </div>
           <div className={styles.deContentContainer}>
-            <span>{errDetail.content}</span>
+            <span style={{fontFamily:'preRg', fontSize:'18px'}}>{errDetail.content}</span>
           </div>
           <div className={styles.errImageScrollContainer}>
             <div className={styles.errImageContainer}>
@@ -183,7 +185,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                           marginRight: "16px",
                           maxHeight: "280px",
                           height: "280px",
-                          borderRadius: "10px"
+                          borderRadius: "10px",
                         }}
                         onClick={ErrorImageClickHandler}
                         key={index}
@@ -191,7 +193,10 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                         alt="Preview"
                       />
                       <div className={styles.hoverOverlay}>
-                        <AiOutlineDownload onClick={() => window.open(info.url, "_blank")} className={styles.downButton}/>
+                        <AiOutlineDownload
+                          onClick={() => window.open(info.url, "_blank")}
+                          className={styles.downButton}
+                        />
                       </div>
                     </div>
                   )
@@ -202,6 +207,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
         <div className={styles.replyContainer}>
           <span style={{ fontFamily: "preBd", fontSize: "24px" }}>A. </span>
           <TextField
+            placeholder="답글을 남겨보세요"
             type="text"
             defaultValue={content}
             onChange={(e) => setContent(e.target.value)}
@@ -247,7 +253,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                           {item.content}
                         </div>
                         {userData.nickname === item.nickname ? (
-                          <div>
+                          <div style={{marginTop:'2px'}}>
                             <BsPencilFill
                               style={{ fontSize: "17px", marginRight: "10px" }}
                               onClick={() => setEditingCommentId(item.replyId)}
@@ -258,11 +264,15 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                             />
                           </div>
                         ) : null}
-                        {userData.nickname === errDetail.nickname && item.nickname !== errDetail.nickname ? (
+                        {userData.nickname === errDetail.nickname &&
+                        item.nickname !== errDetail.nickname ? (
                           errDetail.state === item.replyId ? (
                             <Button
                               onClick={() => selectAnswer(0)}
-                              style={{ backgroundColor: "#39a789", fontFamily: "preRg" }}
+                              style={{
+                                backgroundColor: "#39a789",
+                                fontFamily: "preRg",
+                              }}
                               key="submit"
                               type="primary"
                             >
@@ -271,7 +281,10 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                           ) : (
                             <Button
                               onClick={() => selectAnswer(item.replyId)}
-                              style={{ backgroundColor: "#39a789", fontFamily: "preRg" }}
+                              style={{
+                                backgroundColor: "#39a789",
+                                fontFamily: "preRg",
+                              }}
                               key="submit"
                               type="primary"
                             >

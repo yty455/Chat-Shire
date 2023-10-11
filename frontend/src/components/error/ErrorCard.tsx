@@ -66,9 +66,9 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
           }
           sx={{ width: 80, height: 80 }}
         />
-        <h5 className={styles.status}>
-          {error && error.state !== 0 ? "완료" : "진행"}
-        </h5>
+        <span className={error && error.state !==0 ? styles.statusCompleted : styles.statusIncomplete}>
+          {error && error.state !== 0 ? "완료" : "미완료"}
+        </span>
       </div>
       <div>
         <p className={styles.title}>Q. {error ? error.title : ""}</p>
@@ -76,7 +76,7 @@ function ErrorCard({ error, onCardClick }: ErrorCardProps) {
           {error && Array.isArray(error.skillName) ? (
             error.skillName.map((item: any, index: number) => (
               <span key={index} className={styles.language}>
-                {item}
+                {item}{" "}
               </span>
             ))
           ) : (

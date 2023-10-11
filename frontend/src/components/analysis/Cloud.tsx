@@ -39,7 +39,7 @@ export default function Cloud() {
         height={500}
         font={"preRg"}
         fontWeight={"bold"}
-        fontSize={(word) => Math.log2(word.value) * 7}
+        fontSize={(word) => Math.log2(word.value) * 10}
         spiral={"rectangular"}
         rotate={(word) => word.value * 90}
         onWordMouseOver={(event, d) => {

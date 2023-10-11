@@ -25,7 +25,7 @@
 
 .profileName {
   font-size: 30px;
-  font-family: 'preBd';
+  font-family: "preBd";
 }
 
 .profilePos {
@@ -47,7 +47,7 @@
   justify-content: center;
   align-items: center;
   padding: 2px 5px;
-  font-family: 'preRg';
+  font-family: "preRg";
   color: #39a789;
   font-size: 14px;
 }
@@ -69,9 +69,7 @@
   /* border: 1px solid blue; */
 }
 
-.profileCareerIt
-
-.profileHeaderRight {
+.profileCareerIt .profileHeaderRight {
   display: flex;
   width: 420px;
   height: 100%;
@@ -160,6 +158,8 @@
   opacity: 0;
   z-index: 100;
   color: #575757;
+  overflow: auto;
+  width: 43px;
 }
 
 .AchievementItemContainer:hover > .AchievementItem {

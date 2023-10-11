@@ -118,7 +118,8 @@ export default function ProfilePage() {
           <div className={styles.profileHeaderDesc}>
             <div className={styles.profileHeaderLeft}>
               <span className={styles.profileName}>
-                {userData?.nickname} <span className={styles.profilePos}>{userData?.position}</span>
+                {userData?.nickname}{" "}
+                <span className={styles.profilePos}>{userData?.position}</span>
               </span>
               <div className={styles.profileCareer}>
                 <div className={styles.profileCareerItem}>
@@ -127,7 +128,9 @@ export default function ProfilePage() {
                 </div>
                 <div className={styles.profileCareerItem}>
                   {userData?.mySkill?.slice(1).map((item: any) => (
-                    <span className={styles.career} key={item}>{item}</span>
+                    <span className={styles.career} key={item}>
+                      {item}
+                    </span>
                   ))}
                 </div>
                 <div className={styles.profileCareerItem}>
@@ -142,10 +145,10 @@ export default function ProfilePage() {
             </div>
             <div className={styles.profileHeaderRight}>
               <div className={styles.profileRadarContainer}>
-                <ProfileRadarChart userData={userData}/>
+                <ProfileRadarChart userData={userData} />
               </div>
               <div className={styles.profileBarContainer}>
-                <ProfileBarChart userData={userData}/>
+                <ProfileBarChart userData={userData} />
               </div>
             </div>
             <IoMdSettings
@@ -160,10 +163,22 @@ export default function ProfilePage() {
         {userData && (
           <div className={styles.profileBody}>
             <div className={styles.profileBodyTitle}>
-              <span style={{ fontFamily:'preRg', color: "#575757", fontSize: "30px" }}>
+              <span
+                style={{
+                  fontFamily: "preRg",
+                  color: "#575757",
+                  fontSize: "30px",
+                }}
+              >
                 나의 기록{" "}
               </span>
-              <span style={{ fontFamily: 'preBd', color: "#575757", fontSize: "20px" }}>
+              <span
+                style={{
+                  fontFamily: "preBd",
+                  color: "#575757",
+                  fontSize: "20px",
+                }}
+              >
                 {userData?.challengeInfoResponse.done}/36
               </span>
             </div>

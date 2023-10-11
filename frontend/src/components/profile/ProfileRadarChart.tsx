@@ -69,7 +69,7 @@ const ProfileRadarChart = ({ userData }: props) => {
         userData.morningCommit +
           userData.afternoonCommit +
           userData.nightCommit +
-          maxValue * 0.2
+          maxValue * 0.3
       ),
       // "chardonay": 8,
     },
