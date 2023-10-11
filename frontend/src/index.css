@@ -156,6 +156,10 @@ body {
   display: none !important;
 }
 
+<<<<<<< HEAD
+:where(.css-1vr7spz).ant-modal .ant-modal-title {
+=======
 .ant-modal-title {
+>>>>>>> 0925f08d22f8d75633dfcaed5c7ec1e67774cd71
   font-size: 20px;
 }
