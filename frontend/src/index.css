@@ -155,3 +155,7 @@ body {
 .react-flow__attribution {
   display: none !important;
 }
+
+:where(.css-1vr7spz).ant-modal .ant-modal-title {
+  font-size: 20px;
+}

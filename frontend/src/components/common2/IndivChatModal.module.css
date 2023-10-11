@@ -93,3 +93,7 @@
 ::-webkit-scrollbar {
   display: none;
 }
+
+:where(.css-1vr7spz).ant-modal .ant-modal-title {
+  font-size: 20px;
+}
