@@ -31,7 +31,8 @@
 
 .deContentContainer {
   margin-left: 28px;
-  height: 180px;
+  margin-bottom: 10px;
+  /* height: 180px; */
 }
 
 .deContainerHeader {
