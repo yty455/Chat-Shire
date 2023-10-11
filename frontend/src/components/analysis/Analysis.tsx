@@ -361,7 +361,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
         />
         <div className={styles.analysisTopicsContainer}>
           <span className={styles.analysisItemTitle}>
-            우리의 키워드
+            우리의 키워드 
             <BsPencilFill
               style={{
                 fontSize: "17px",
@@ -424,17 +424,18 @@ export default function Analysis({ projectId }: AnalysisProps) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle sx={{fontFamily:'preBd'}} id="alert-dialog-title">
           {"우리의 키워드 설정"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <div>
-              <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel id="demo-multiple-checkbox-label">
+              <FormControl sx={{ fontFamily:'preRg', m: 1, width: 300 }}>
+                <InputLabel sx={{fontFamily:'preRg'}} id="demo-multiple-checkbox-label">
                   Keyword
                 </InputLabel>
                 <Select
+                  sx={{fontFamily:'preRg'}}
                   labelId="demo-multiple-checkbox-label"
                   id="demo-multiple-checkbox"
                   multiple
@@ -454,11 +455,12 @@ export default function Analysis({ projectId }: AnalysisProps) {
                     .filter((name) => keyword?.includes(name))
                     .sort((a, b) => allCategoryCount[b] - allCategoryCount[a])
                     .map((name) => (
-                      <MenuItem key={name} value={name}>
+                      <MenuItem sx={{fontFamily:'preRg'}} key={name} value={name}>
                         <Checkbox
+                          sx={{fontFamily:'preRg'}}
                           checked={selectedKeyword?.indexOf(name) > -1}
                         />
-                        <ListItemText primary={name} />
+                        <ListItemText sx={{fontFamily:'preRg'}} primary={name} />
                       </MenuItem>
                     ))}
                 </Select>
@@ -467,8 +469,8 @@ export default function Analysis({ projectId }: AnalysisProps) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>취소</Button>
-          <Button onClick={handleSaveCon}>저장</Button>
+          <Button sx={{fontFamily:'preBd'}} onClick={handleClose}>취소</Button>
+          <Button sx={{fontFamily:'preBd'}} onClick={handleSaveCon}>저장</Button>
         </DialogActions>
       </Dialog>
     </div>
