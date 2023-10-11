@@ -99,7 +99,6 @@
   display: none;
 }
 
-.ant-modal-title {
+:where(.css-1vr7spz).ant-modal .ant-modal-title {
   font-size: 20px;
-  font-family: 'preBd';
 }
