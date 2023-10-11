@@ -29,6 +29,27 @@
   border: 1px solid #39a789;
   border-radius: 10px;
 }
+.statusCompleted {
+  margin: 6px 10px;
+  font-family: "preBd";
+  width: 50px;
+  height: 24px;
+  color: #39a789;
+  text-align: center;
+  border: 2px solid #39a789;
+  border-radius: 10px;
+}
+
+.statusIncomplete {
+  margin: 6px 10px;
+  font-family: "preBd";
+  width: 50px;
+  height: 24px;
+  color: #f02a2a;
+  text-align: center;
+  border: 2px solid #f02a2a;
+  border-radius: 10px;
+}
 
 .title {
   font-family: "preBd";
