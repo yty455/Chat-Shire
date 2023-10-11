@@ -14,6 +14,12 @@ function Search({ onSearch }: searchProps) {
     onSearch(searchText);
   };
 
+  const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <Paper
       component="form"
@@ -32,6 +38,7 @@ function Search({ onSearch }: searchProps) {
         placeholder="에러 메세지로 검색해보세요"
         inputProps={{ "aria-label": "에러 검색" }}
         onChange={(e) => setSearchText(e.target.value)}
+        onKeyPress={handleEnterKeyPress}
       />
       <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
         <SearchIcon onClick={handleSearch} />

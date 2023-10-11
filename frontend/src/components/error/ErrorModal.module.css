@@ -71,7 +71,6 @@
 .replyItemContainer {
   display: flex;
   justify-content: space-between;
-  border: 1px solid #E5E8EB;
   border-radius: 20px;
   padding: 10px;
   height: 44px;

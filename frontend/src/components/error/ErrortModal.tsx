@@ -138,7 +138,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
 
   useEffect(() => {
     getInError();
-  }, [answer]);
+  }, [answer, content]);
 
   return (
     <div className={styles.modalOverlay}>
@@ -207,6 +207,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
         <div className={styles.replyContainer}>
           <span style={{ fontFamily: "preBd", fontSize: "24px" }}>A. </span>
           <TextField
+            id="createReplyInput"
             placeholder="답글을 남겨보세요"
             type="text"
             defaultValue={content}
@@ -218,7 +219,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               errDetail?.replies &&
               errDetail.replies.map((item: any) => {
                 return (
-                  <div style={item.nickname === errDetail.nickname ? {border: "border: 3px solid #39a789"} : {}} className={styles.replyItemContainer} key={item.replyId}>
+                  <div style={item.nickname === errDetail.nickname ? {border: "3px solid #39a789"} : { border: "1px solid #E5E8EB"}} className={styles.replyItemContainer} key={item.replyId}>
                     <div className={styles.replyLeft}>
                       <Avatar
                         alt={item.nickname}
