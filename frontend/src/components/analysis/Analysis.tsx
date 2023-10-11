@@ -361,7 +361,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
         />
         <div className={styles.analysisTopicsContainer}>
           <span className={styles.analysisItemTitle}>
-            우리의 키워드 
+            우리의 키워드{" "}
             <BsPencilFill
               style={{
                 fontSize: "17px",
