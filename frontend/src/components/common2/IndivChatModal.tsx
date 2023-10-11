@@ -96,7 +96,7 @@ function IndivChatModal({
   useEffect(() => {
     getTaskChat();
     getProjectUsers();
-  }, [taskId]);
+  }, [taskId, open]);
 
   return (
     <div>
