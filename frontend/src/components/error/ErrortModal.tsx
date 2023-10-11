@@ -16,6 +16,7 @@ import { Button } from "antd";
 import { BsPencilFill } from "react-icons/bs";
 import { MdDelete, MdOutlineCancel } from "react-icons/md";
 import { AiOutlineDownload } from "react-icons/ai";
+import {FaCrown} from 'react-icons/fa'
 import api from "../../utils/api";
 
 interface ErrorModalProps {
@@ -221,7 +222,10 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               errDetail.replies.map((item: any) => {
                 return (
                   <div style={item.replyId === errDetail.state ? {border: "3px solid #39a789"} : { border: "1px solid #E5E8EB"}} className={styles.replyItemContainer} key={item.replyId}>
-                    <span style={item.replyId === errDetail.state ? {position: "absolute", color: "#39a789", fontFamily: "preBd", fontSize: "16px", top: 0, left: 4} : {display: "none"}}>BEST</span>
+                    <span style={item.replyId === errDetail.state ? {position: "absolute", color: "#39a789", fontFamily: "preBd", fontSize: "13px", top: "-17px", left: "18px"} : {display: "none"}}>
+                      <FaCrown size={13} color="#ffdc4f"/>
+                      BEST
+                    </span>
                     <div className={styles.replyLeft}>
                       <Avatar
                         alt={item.nickname}
