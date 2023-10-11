@@ -197,7 +197,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
       return (
         <div className={styles.analysisBodyDesc}>
           <span className={styles.analysisBodyDescUp}>앗뜨거!</span>
-          <span className={styles.analysisBodyDescDown}>열정 130'C</span>
+          <span className={styles.analysisBodyDescDown}>열정 130°C</span>
         </div>
       );
     } else if (workStyle === "idea") {

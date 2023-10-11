@@ -10,6 +10,8 @@ import { getProjectMem } from "../../utils/projectApi";
 import MessageItem from "../message/MessageItem";
 
 import { MdOutlineCancel } from "react-icons/md";
+import { useRecoilState } from "recoil";
+import { tasks_recoil } from "../../stores/atom";
 
 interface IndivChatModalProps {
   onClose: () => void;
@@ -41,6 +43,7 @@ function IndivChatModal({
   const [chat, setChat] = useState([]);
   const [selectedChat, setSelectedChat] = useState("");
   const [pjtMem, setpjtMem] = useState<Member[]>([]);
+  const [allTasks, setAllTasks] = useRecoilState(tasks_recoil);
 
   const getTaskChat = async () => {
     try {
@@ -95,8 +98,11 @@ function IndivChatModal({
 
   useEffect(() => {
     getTaskChat();
+  }, [taskId, allTasks]);
+
+  useEffect(() => {
     getProjectUsers();
-  }, [taskId, open]);
+  }, [taskId]);
 
   return (
     <div>
@@ -125,35 +131,7 @@ function IndivChatModal({
             {reChat &&
               reChat.map((chat) => (
                 <MessageItem message={chat} users={pjtMem} />
-                // <div key={chat.chatNumber} className={styles.chat}>
-                //   {" "}
-                //   <div className={styles.nickname}>
-                //     {" "}
-                //     {
-                //       pjtMem.find((member) => member.userId === chat.userId)
-                //         ?.nickname
-                //     }{" "}
-                //     :
-                //   </div>
-                //   <div
-                //     className={styles.content}
-
-                //   >
-                //     {chat.content}
-                //   </div>
-                //   <div className={styles.chatTime}>
-                //     {" "}
-                //     : {formatChatTime(chat.chatTime)}
-                //   </div>
-                // </div>
               ))}
-            {/* <button
-            style={{ cursor: "pointer" }}
-            onClick={handleDelete}
-            className={styles.closebtn}
-          >
-            {"<<"}
-          </button> */}
           </div>{" "}
         </Modal>
       ) : (
