@@ -212,7 +212,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               errDetail?.replies &&
               errDetail.replies.map((item: any) => {
                 return (
-                  <div className={styles.replyItemContainer} key={item.replyId}>
+                  <div style={item.nickname === errDetail.nickname ? {border: "border: 3px solid #39a789"} : {}} className={styles.replyItemContainer} key={item.replyId}>
                     <div className={styles.replyLeft}>
                       <Avatar
                         alt={item.nickname}
