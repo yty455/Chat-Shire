@@ -149,28 +149,29 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               <span style={{ fontFamily: "preBd", fontSize: "24px" }}>
                 Q. {errDetail && errDetail.title}
               </span>
-              <span
-                style={{
-                  marginLeft: "28px",
-                  fontFamily: "preLt",
-                  fontSize: "14px",
-                }}
-              >
-                마지막 수정일:
-                {errDetail.lastModifiedDate
-                  ? formatChatTime(errDetail.lastModifiedDate)
-                  : "날짜 없음"}
-              </span>
-              <span style={{ marginLeft: "28px", fontSize: "16px" }}>
-                작성자 {errDetail.nickname}
-              </span>
+              <div style={{display: 'flex', justifyContent:'start'}}>
+                <span style={{ marginLeft: "28px", fontFamily: "preRg", fontSize: "16px" }}>
+                  {errDetail.nickname} | 
+                </span>
+                <span
+                  style={{
+                    // marginLeft: "28px",
+                    fontFamily: "preRg",
+                    fontSize: "16px",
+                  }}
+                >
+                  {" "}{errDetail.lastModifiedDate
+                    ? formatChatTime(errDetail.lastModifiedDate)
+                    : "날짜 없음"}
+                </span>
+              </div>
             </div>
-            <span className={styles.status}>
-              {errDetail && errDetail.state !== 0 ? "완료" : "진행"}
+            <span className={errDetail && errDetail.state !==0 ? styles.statusCompleted : styles.statusIncomplete}>
+              {errDetail && errDetail.state !== 0 ? "완료" : "미완료"}
             </span>
           </div>
           <div className={styles.deContentContainer}>
-            <span>{errDetail.content}</span>
+            <span style={{fontFamily:'preRg', fontSize:'18px'}}>{errDetail.content}</span>
           </div>
           <div className={styles.errImageScrollContainer}>
             <div className={styles.errImageContainer}>
@@ -206,6 +207,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
         <div className={styles.replyContainer}>
           <span style={{ fontFamily: "preBd", fontSize: "24px" }}>A. </span>
           <TextField
+            placeholder="답글을 남겨보세요"
             type="text"
             defaultValue={content}
             onChange={(e) => setContent(e.target.value)}
@@ -251,7 +253,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                           {item.content}
                         </div>
                         {userData.nickname === item.nickname ? (
-                          <div>
+                          <div style={{marginTop:'2px'}}>
                             <BsPencilFill
                               style={{ fontSize: "17px", marginRight: "10px" }}
                               onClick={() => setEditingCommentId(item.replyId)}
