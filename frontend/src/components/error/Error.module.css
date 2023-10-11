@@ -33,22 +33,30 @@
   margin: 6px 10px;
   font-family: "preBd";
   width: 50px;
-  height: 24px;
   color: #39a789;
   text-align: center;
   border: 2px solid #39a789;
   border-radius: 10px;
+  font-size: 14px;
+  height: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .statusIncomplete {
   margin: 6px 10px;
   font-family: "preBd";
   width: 50px;
-  height: 24px;
   color: #f02a2a;
   text-align: center;
   border: 2px solid #f02a2a;
   border-radius: 10px;
+  font-size: 14px;
+  height: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .title {
