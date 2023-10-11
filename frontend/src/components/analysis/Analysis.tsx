@@ -239,7 +239,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
   };
 
   const returnTeamMembers = teamMembers?.map((member: any) => {
-    return <span>{member.nickname}, </span>;
+    return <span>{member.nickname} </span>;
   });
 
   // const returnKeywords =
@@ -351,7 +351,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
             position: "absolute",
             left: "23vw",
             top: "1vh",
-            height: "210px",
+            height: "230px",
           }}
           src={
             process.env.PUBLIC_URL +
