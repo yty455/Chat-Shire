@@ -81,44 +81,34 @@ const RadarChart = () => {
   const data = [
     {
       skill: "개발",
-      chardonay: morningCommit + afternoonCommit + nightCommit + maxValue * 0.3,
+      chardonay: morningCommit + afternoonCommit + nightCommit,
       //   minMaxScaling(
       //     morningCommit + afternoonCommit + nightCommit + maxValue * 0.3
       //   ),
-
-      // "chardonay": 8,
     },
     {
       skill: "디버깅",
-      chardonay: issueCount + maxValue * 0.3,
+      chardonay: issueCount,
       //   minMaxScaling(issueCount + maxValue * 0.3),
-
-      // "chardonay": 7,
     },
     {
       skill: "분위기 메이커",
-      chardonay: totalChatCount(allCategoryCount) + maxValue * 0.3,
+      chardonay: totalChatCount(allCategoryCount),
       //   minMaxScaling(
       //     totalChatCount(allCategoryCount) + maxValue * 0.3
       //   ),
-
-      // "chardonay": 10,
     },
     {
       skill: "협업 의지",
-      chardonay: relevantChatCount(allCategoryCount) + maxValue * 0.3,
+      chardonay: relevantChatCount(allCategoryCount),
       //   minMaxScaling(
       //     relevantChatCount(allCategoryCount) + maxValue * 0.3
       //   ),
-
-      // "chardonay": 7,
     },
     {
       skill: "일정 관리",
-      chardonay: taskCount + maxValue * 0.3,
+      chardonay: taskCount,
       //   minMaxScaling(taskCount + maxValue * 0.3),
-
-      // "chardonay": 8,
     },
   ];
 
