@@ -62,18 +62,18 @@ const RadarChart = () => {
 
   function minMaxScaling(num: number): number {
     let minVal = Math.min(
-      morningCommit + afternoonCommit + nightCommit + maxValue * 0.3,
-      issueCount + maxValue * 0.3,
-      totalChatCount(allCategoryCount) + maxValue * 0.3,
-      relevantChatCount(allCategoryCount) + maxValue * 0.3,
-      taskCount + maxValue * 0.3
+      morningCommit + afternoonCommit + nightCommit,
+      issueCount,
+      totalChatCount(allCategoryCount),
+      relevantChatCount(allCategoryCount),
+      taskCount
     );
     let maxVal = Math.max(
-      morningCommit + afternoonCommit + nightCommit + maxValue * 0.3,
-      issueCount + maxValue * 0.3,
-      totalChatCount(allCategoryCount) + maxValue * 0.3,
-      relevantChatCount(allCategoryCount) + maxValue * 0.3,
-      taskCount + maxValue * 0.3
+      morningCommit + afternoonCommit + nightCommit,
+      issueCount,
+      totalChatCount(allCategoryCount),
+      relevantChatCount(allCategoryCount),
+      taskCount
     );
     return (num - minVal) / (maxVal - minVal);
   }
@@ -86,46 +86,49 @@ const RadarChart = () => {
   const data = [
     {
       skill: "개발",
-      chardonay: logScaling( morningCommit + afternoonCommit + nightCommit),
-    //   minMaxScaling(
-    //     morningCommit + afternoonCommit + nightCommit + maxValue * 0.3
-    //   ),
+      chardonay:    minMaxScaling(
+            morningCommit + afternoonCommit + nightCommit
+          ),
+    //   logScaling( morningCommit + afternoonCommit + nightCommit),
+    
       // morningCommit+afternoonCommit+nightCommit+ maxValue* 0.2,
       // "chardonay": 8,
     },
     {
       skill: "디버깅",
-      chardonay: logScaling(issueCount),
-    //   minMaxScaling(issueCount + maxValue * 0.3),
+      chardonay:  minMaxScaling(issueCount),
+    //   logScaling(issueCount),
       // issueCount+ maxValue* 0.2,
       // "chardonay": 7,
     },
     {
       skill: "분위기 메이커",
-      chardonay:logScaling(
+      chardonay: minMaxScaling(
         totalChatCount(allCategoryCount)
       ),
-    //    minMaxScaling(
-    //     totalChatCount(allCategoryCount) + maxValue * 0.3
+    //   logScaling(
+    //     totalChatCount(allCategoryCount)
     //   ),
+   
       // totalChatCount(allCategoryCount)+ maxValue* 0.2,
       // "chardonay": 10,
     },
     {
       skill: "협업 의지",
-      chardonay: logScaling(
-        relevantChatCount(allCategoryCount)
-      ),
-    //   minMaxScaling(
-    //     relevantChatCount(allCategoryCount) + maxValue * 0.3
+      chardonay:  minMaxScaling(
+            relevantChatCount(allCategoryCount)
+          ),
+    //   logScaling(
+    //     relevantChatCount(allCategoryCount)
     //   ),
+    //  
       // relevantChatCount(allCategoryCount)+ maxValue* 0.2,
       // "chardonay": 7,
     },
     {
       skill: "일정 관리",
-      chardonay: logScaling(taskCount),
-    //   minMaxScaling(taskCount + maxValue * 0.3),
+      chardonay: minMaxScaling(taskCount),
+    //   logScaling(taskCount),
       // taskCount+ maxValue* 0.2,
       // "chardonay": 8,
     },

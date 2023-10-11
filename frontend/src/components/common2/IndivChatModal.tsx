@@ -97,7 +97,9 @@ function IndivChatModal({
   }
 
   useEffect(() => {
-    getTaskChat();
+    if (taskId) {
+      getTaskChat();
+    }
   }, [taskId, allTasks]);
 
   useEffect(() => {
