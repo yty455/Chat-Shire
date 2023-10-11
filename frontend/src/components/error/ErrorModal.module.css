@@ -75,6 +75,7 @@
   padding: 10px;
   height: 44px;
   margin-top: 10px;
+  position: relative;
 }
 
 .replyRight {

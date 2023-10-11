@@ -124,6 +124,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
   const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       postReply();
+      getInErrors();
     }
   };
 
@@ -219,7 +220,8 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               errDetail?.replies &&
               errDetail.replies.map((item: any) => {
                 return (
-                  <div style={item.nickname === errDetail.nickname ? {border: "3px solid #39a789"} : { border: "1px solid #E5E8EB"}} className={styles.replyItemContainer} key={item.replyId}>
+                  <div style={item.replyId === errDetail.state ? {border: "3px solid #39a789"} : { border: "1px solid #E5E8EB"}} className={styles.replyItemContainer} key={item.replyId}>
+                    <span style={item.replyId === errDetail.state ? {position: "absolute", color: "#39a789", fontFamily: "preBd", fontSize: "16px", top: 0, left: 4} : {display: "none"}}>BEST</span>
                     <div className={styles.replyLeft}>
                       <Avatar
                         alt={item.nickname}
