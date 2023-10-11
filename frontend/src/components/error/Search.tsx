@@ -15,9 +15,7 @@ function Search({ onSearch }: searchProps) {
   };
 
   const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
+    handleSearch();
   };
 
   return (
