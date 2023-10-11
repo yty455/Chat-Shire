@@ -26,14 +26,13 @@
 }
 
 .modalTitle {
-
   position: fixed;
   top: 20px;
   left: 4%;
   border: 0;
   background-color: transparent;
   font-size: 23px;
-  font-family: 'preBd';
+  font-family: "preBd";
   margin: 0;
   color: #575757;
 }
@@ -46,7 +45,6 @@
   background-color: transparent;
   font-size: 18px;
 }
-
 
 .chat {
   display: flex;
@@ -66,7 +64,7 @@
   overflow-x: auto;
   white-space: nowrap;
   font-size: 17px;
-  font-family:'preRg'
+  font-family: "preRg";
 }
 
 .content {
@@ -74,8 +72,7 @@
   overflow-x: auto;
   white-space: nowrap;
   font-size: 15px;
-  font-family:'preRg'
-
+  font-family: "preRg";
 }
 .chatTime {
   width: 30%;
@@ -83,8 +80,7 @@
   white-space: nowrap;
   font-size: 15px;
   color: gray;
-  font-family:'preRg'
-
+  font-family: "preRg";
 }
 .deletebtn {
   width: 12%;

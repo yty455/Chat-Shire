@@ -7,17 +7,17 @@ body {
 }
 
 .body::-webkit-scrollbar {
-  width: 7px;  /* 스크롤바의 너비 */
+  width: 7px; /* 스크롤바의 너비 */
 }
 
 .body::-webkit-scrollbar-thumb {
   height: 5%; /* 스크롤바의 길이 */
   background: #ababab; /* 스크롤바의 색상 */
   border-radius: 10px;
-  opacity: 0.2
+  opacity: 0.2;
 }
 .body::-webkit-scrollbar-track {
-  background: none;  /*스크롤바 뒷 배경 색상*/
+  background: none; /*스크롤바 뒷 배경 색상*/
 }
 
 code {
@@ -59,7 +59,6 @@ body {
   margin: 0;
   background-color: #f8f8f8;
   font-family: "preRg";
-
 }
 
 .react-flow__node-mindmap {
@@ -156,10 +155,6 @@ body {
   display: none !important;
 }
 
-<<<<<<< HEAD
 :where(.css-1vr7spz).ant-modal .ant-modal-title {
-=======
-.ant-modal-title {
->>>>>>> 0925f08d22f8d75633dfcaed5c7ec1e67774cd71
   font-size: 20px;
 }
