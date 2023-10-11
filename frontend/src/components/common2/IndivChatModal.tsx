@@ -15,6 +15,7 @@ interface IndivChatModalProps {
   onClose: () => void;
   taskId: any;
   projectId: string;
+  open: boolean;
 }
 interface ChatItem {
   userId?: string;
@@ -29,7 +30,7 @@ interface Member {
   nickname: string;
 }
 
-function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
+function IndivChatModal({ taskId, onClose, projectId, open }: IndivChatModalProps) {
   const [taskChat, setTaskChat] = useState<ChatItem[]>([]);
   const [reChat, setReChat] = useState<ChatItem[]>([]);
   const [chat, setChat] = useState([]);
@@ -93,9 +94,28 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
   }, [taskId]);
 
   return (
-    <div className={styles.modalOverlay}>
+    <div>
+    {/* <div className={styles.modalOverlay}> */}
       {selectedChat !== "" ? (
-        <div className={styles.modalBox}>
+          <Modal
+          className={styles.customModal}
+          style={{fontFamily:'preRg', overflow:'scroll'}}
+          title="참조된 채팅"
+          centered
+          open={open}
+          onOk={onClose}
+          onCancel={onClose}
+          footer={[
+            <Button key="back"
+            style={{fontFamily:'preRg'}}
+            onClick={handleDelete}>
+              뒤로가기
+            </Button>
+          ]}
+          width={800}
+        >
+      <div style={{height: '60vh', maxHeight:'60vh', overflowY:'auto'}}>       
+
           {reChat &&
             reChat.map((chat) => (
               <MessageItem message={chat} users={pjtMem} />
@@ -121,24 +141,32 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
               //   </div>
               // </div>
             ))}
-          <button
+          {/* <button
             style={{ cursor: "pointer" }}
             onClick={handleDelete}
             className={styles.closebtn}
           >
             {"<<"}
-          </button>
-        </div>
+          </button> */}
+            </div>   </Modal>
       ) : (
-        <div className={styles.modalBox}>
-          {taskChat &&
+        <Modal
+        className={styles.customModal}
+        style={{fontFamily:'preRg'}}
+        title="참조된 채팅"
+        centered
+        open={open}
+        onOk={onClose}
+        onCancel={onClose}
+        footer={null}
+        width={800}
+      >
+      <div style={{height: '60vh', maxHeight:'60vh', overflowY:'auto'}}>       
+      {taskChat &&
             taskChat.map((chat) => (
               <div key={chat.chatNumber} className={styles.chat}>
                 {" "}
-                <div className={styles.nickname}>{chat.nickname} : </div>
-                <div className={styles.content}>
-                  {chat.content ? chat.content : "첨부파일"}
-                </div>
+                <div className={styles.nickname}>{chat.nickname} : {chat.content ? chat.content : "첨부파일"}</div>
                 <div className={styles.chatTime}>
                   {" "}
                   {formatChatTime(chat.chatTime)}
@@ -180,16 +208,8 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
               className={styles.closebtn}
             /> */}
             {/* <div style={{display: 'flex', justifyContent:'space-between'}} > */}
-              <p className={styles.modalTitle}>참조된 채팅</p>
-              <button
-                style={{ cursor: "pointer" }}
-                onClick={onClose}
-                className={styles.closebtn}
-              >
-                X
-              </button>
             {/* </div> */}
-        </div>
+            </div>   </Modal>
       )}
     </div>
   );

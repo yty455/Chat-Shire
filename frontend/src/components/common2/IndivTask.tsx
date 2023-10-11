@@ -74,12 +74,17 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
   const [open, setOpen] = useState(false);
   const [selectTask, setSelectTask] = useState(false);
   const [updatedProgress, setUpdatedProgress] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleOpen = (id: any) => {
-    setOpen(true);
+    // setOpen(true);
+    setModalOpen(true);
     setSelectTask(id);
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setModalOpen(false);
+  };
+  // const handleClose = () => setOpen(false);
 
   const enterEditMode = async (TaskId: string, progress: string) => {
     setUpdatedProgress(progress);
@@ -545,13 +550,12 @@ export default function SimpleContainer({ projectId }: SimpleContainerProps) {
       >
         <AddIcon />
       </Fab>
-      {open && (
-        <IndivChatModal
-          taskId={selectTask}
-          onClose={handleClose}
-          projectId={projectId}
-        />
-      )}
+      <IndivChatModal
+        taskId={selectTask}
+        onClose={handleClose}
+        projectId={projectId}
+        open={modalOpen}
+      />
     </div>
   );
 }

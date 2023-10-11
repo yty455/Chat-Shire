@@ -15,6 +15,8 @@ import { Button } from "antd";
 
 import { BsPencilFill } from "react-icons/bs";
 import { MdDelete, MdOutlineCancel } from "react-icons/md";
+import { AiOutlineDownload } from 'react-icons/ai'
+import api from "../../utils/api";
 
 interface ErrorModalProps {
   pjtId: string;
@@ -29,6 +31,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editedComment, setEditedComment] = useState<string>("");
   const [userData] = useRecoilState(loginuser);
+  const [answer, setAnswer] = useState(0);
 
   // 단일 에러 불러오기
   const getInError = async () => {
@@ -46,6 +49,7 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
       if (pjtId) {
         const response = await getErrors(pjtId);
         setAllErr(response.data.result[0]);
+        setAnswer(response.data.result[0].state)
       }
     } catch (error) {
       console.error(error);
@@ -105,6 +109,16 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
     }
   };
 
+  const selectAnswer = async(id: number) => {
+    const patchedErrPost = errDetail
+    patchedErrPost.state = id
+    api.patch(`/posts/${errDetail.id}`, patchedErrPost)
+    .then((res) => {
+      console.log(res)
+      setAnswer(id)
+    })
+  }
+
   // 엔터 키 입력 시 댓글 작성
   const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -115,6 +129,11 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
   const ErrorImageClickHandler = (e: any) => {
     window.open(e.target.src, "_blank");
   };
+
+  function formatChatTime(chatTime: any) {
+    const date = new Date(chatTime);
+    return date.toLocaleString(); // 브라우저 설정에 따라 로케일에 맞게 날짜 및 시간을 표시
+  }
 
   useEffect(() => {
     getInError();
@@ -138,15 +157,15 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               >
                 마지막 수정일:
                 {errDetail.lastModifiedDate
-                  ? errDetail.lastModifiedDate.toLocaleString()
+                  ? formatChatTime(errDetail.lastModifiedDate)
                   : "날짜 없음"}
               </span>
-              <span style={{ marginLeft: "28px" }}>
+              <span style={{ marginLeft: "28px" , fontSize: "16px"}}>
                 작성자 {errDetail.nickname}
               </span>
             </div>
             <span className={styles.status}>
-              {errDetail && errDetail.state === true ? "완료" : "진행"}
+              {errDetail && errDetail.state !== 0 ? "완료" : "진행"}
             </span>
           </div>
           <div className={styles.deContentContainer}>
@@ -157,18 +176,24 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
               {errDetail.attachedFileInfos &&
                 errDetail.attachedFileInfos.map(
                   (info: { url: string }, index: number) => (
-                    <img
-                      style={{
-                        cursor: "pointer",
-                        marginRight: "16px",
-                        maxHeight: "280px",
-                        height: "280px",
-                      }}
-                      onClick={ErrorImageClickHandler}
-                      key={index}
-                      src={info.url}
-                      alt="Preview"
-                    />
+                    <div className={styles.errImageItem}>
+                      <img
+                        style={{
+                          cursor: "pointer",
+                          marginRight: "16px",
+                          maxHeight: "280px",
+                          height: "280px",
+                          borderRadius: "10px"
+                        }}
+                        onClick={ErrorImageClickHandler}
+                        key={index}
+                        src={info.url}
+                        alt="Preview"
+                      />
+                      <div className={styles.hoverOverlay}>
+                        <AiOutlineDownload onClick={() => window.open(info.url, "_blank")} className={styles.downButton}/>
+                      </div>
+                    </div>
                   )
                 )}
             </div>
@@ -176,9 +201,9 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
         </div>
         <div className={styles.replyContainer}>
           <span style={{ fontFamily: "preBd", fontSize: "24px" }}>A. </span>
-          <input
+          <TextField
             type="text"
-            value={content}
+            defaultValue={content}
             onChange={(e) => setContent(e.target.value)}
             onKeyPress={handleEnterKeyPress}
           />
@@ -233,6 +258,29 @@ function ErrorModal({ pjtId, closeModal, err }: ErrorModalProps) {
                             />
                           </div>
                         ) : null}
+                        {userData.nickname === errDetail.nickname && item.nickname !== errDetail.nickname ? (
+                          errDetail.state === item.replyId ? (
+                            <Button
+                              onClick={() => selectAnswer(0)}
+                              style={{ backgroundColor: "green", fontFamily: "preRg" }}
+                              key="submit"
+                              type="primary"
+                            >
+                              취소
+                            </Button>
+                          ) : (
+                            <Button
+                              onClick={() => selectAnswer(item.replyId)}
+                              style={{ backgroundColor: "green", fontFamily: "preRg" }}
+                              key="submit"
+                              type="primary"
+                            >
+                              채택
+                            </Button>
+                          )
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     )}
                   </div>
