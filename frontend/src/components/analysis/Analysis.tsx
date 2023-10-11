@@ -432,7 +432,7 @@ export default function Analysis({ projectId }: AnalysisProps) {
             <div>
               <FormControl sx={{ fontFamily:'preRg', m: 1, width: 300 }}>
                 <InputLabel sx={{fontFamily:'preRg'}} id="demo-multiple-checkbox-label">
-                  Keyword
+                  키워드
                 </InputLabel>
                 <Select
                   sx={{fontFamily:'preRg'}}
