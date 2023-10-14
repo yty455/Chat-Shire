@@ -30,7 +30,7 @@
 
 ## 역할 분담
 
-<strong>이상훈</strong> - 팀장, 분산, BE
+#### <strong>이상훈</strong> - 팀장, 분산, BE
 
 #### <strong>강동윤</strong> - BE
 
