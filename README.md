@@ -30,17 +30,17 @@
 
 ## 역할 분담
 
-#### <strong>이상훈</strong> - 팀장, 분산, BE
+#### <strong>이상훈</strong> - 팀장, 분산, BE : 분산 처리 / 서버 간 통신 / JIRA 관리
 
-#### <strong>강동윤</strong> - BE
+#### <strong>강동윤</strong> - BE : 웹 소켓 통신 / DB 관리 / 회원, 채팅 등
 
-#### <strong>김성인</strong> - BE
+#### <strong>김성인</strong> - BE : 자동 배포 / ERD 설계 / 통계, 채팅방 등
 
-#### <strong>김대웅</strong> - FE
+#### <strong>김대웅</strong> - FE : 채팅 socket / 통계 그래프 / UX/UI
 
-#### <strong>최상익</strong> - FE
+#### <strong>최상익</strong> - FE : API 통신 / 렌더링 개선 / UX/UI
 
-#### <strong>이가영</strong> - FE
+#### <strong>이가영</strong> - FE : CSS / 리액트 개발 / UX/UI
 
 <a id="item-three"></a> 
 
