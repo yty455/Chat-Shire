@@ -30,11 +30,11 @@ const PiChart = () => {
 
   const PiChartColor = () => {
     if (morningCommit >= afternoonCommit && morningCommit >= nightCommit) {
-        return [workStyleColor.main, "#7e7e7e", "#7e7e7e"]
+        return [workStyleColor.main, "#cfcfcf", "#cfcfcf"]
     } else if (afternoonCommit > morningCommit && afternoonCommit >= nightCommit) {
-        return ["#7e7e7e", workStyleColor.main, "#7e7e7e"]
+        return ["#cfcfcf", workStyleColor.main, "#cfcfcf"]
     } else if (nightCommit > afternoonCommit) {
-        return ["#7e7e7e", "#7e7e7e", workStyleColor.main]
+        return ["#cfcfcf", "#cfcfcf", workStyleColor.main]
     }
   }
 

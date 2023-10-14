@@ -430,7 +430,7 @@ function ErrorCreate({ pjtId, setIsCreating }: ErrorProps) {
         onChange={handleFileSelect}
         
       /></div>
-      <div style={{display:'flex', alignItems:'center', justifyContent:'start'}}>
+      <div style={{display:'flex', alignItems:'center', justifyContent:'start', height: "134px"}}>
         {attachedFileInfos.map((info, index) => (
           <img style={{padding: '10px', marginRight: '5px', border: '1px dashed grey', borderRadius: '10px', height: '100px'}} key={index} src={info.url} alt="Preview" />
         ))}

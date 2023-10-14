@@ -5,16 +5,19 @@ import {
   deleteReferences,
   getReferencesChat,
 } from "../../utils/taskReferenceApi";
-import { Button } from "antd";
+import { Button, Modal } from "antd";
 import { getProjectMem } from "../../utils/projectApi";
 import MessageItem from "../message/MessageItem";
 
-import {MdOutlineCancel} from 'react-icons/md'
+import { MdOutlineCancel } from "react-icons/md";
+import { useRecoilState } from "recoil";
+import { tasks_recoil } from "../../stores/atom";
 
 interface IndivChatModalProps {
   onClose: () => void;
   taskId: any;
   projectId: string;
+  open: boolean;
 }
 interface ChatItem {
   userId?: string;
@@ -29,12 +32,18 @@ interface Member {
   nickname: string;
 }
 
-function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
+function IndivChatModal({
+  taskId,
+  onClose,
+  projectId,
+  open,
+}: IndivChatModalProps) {
   const [taskChat, setTaskChat] = useState<ChatItem[]>([]);
   const [reChat, setReChat] = useState<ChatItem[]>([]);
   const [chat, setChat] = useState([]);
   const [selectedChat, setSelectedChat] = useState("");
   const [pjtMem, setpjtMem] = useState<Member[]>([]);
+  const [allTasks, setAllTasks] = useRecoilState(tasks_recoil);
 
   const getTaskChat = async () => {
     try {
@@ -88,96 +97,109 @@ function IndivChatModal({ taskId, onClose, projectId }: IndivChatModalProps) {
   }
 
   useEffect(() => {
-    getTaskChat();
+    if (taskId) {
+      getTaskChat();
+    }
+  }, [taskId, allTasks]);
+
+  useEffect(() => {
     getProjectUsers();
   }, [taskId]);
 
   return (
-    <div className={styles.modalOverlay}>
+    <div>
+      {/* <div className={styles.modalOverlay}> */}
       {selectedChat !== "" ? (
-        <div className={styles.modalBox}>
-          {reChat &&
-            reChat.map((chat) => (
-              <MessageItem  message={chat} users={pjtMem} />
-              // <div key={chat.chatNumber} className={styles.chat}>
-              //   {" "}
-              //   <div className={styles.nickname}>
-              //     {" "}
-              //     {
-              //       pjtMem.find((member) => member.userId === chat.userId)
-              //         ?.nickname
-              //     }{" "}
-              //     :
-              //   </div>
-              //   <div
-              //     className={styles.content}
-                 
-              //   >
-              //     {chat.content}
-              //   </div>
-              //   <div className={styles.chatTime}>
-              //     {" "}
-              //     : {formatChatTime(chat.chatTime)}
-              //   </div>
-              // </div>
-            ))}
-          <button
-            style={{ cursor: "pointer" }}
-            onClick={handleDelete}
-            className={styles.closebtn}
-          >
-            {"<<"}
-          </button>
-        </div>
+        <Modal
+          className={styles.customModal}
+          style={{ fontFamily: "preRg", overflow: "scroll" }}
+          title="참조된 채팅"
+          centered
+          open={open}
+          onOk={onClose}
+          onCancel={onClose}
+          footer={[
+            <Button
+              key="back"
+              style={{ fontFamily: "preRg" }}
+              onClick={handleDelete}
+            >
+              뒤로가기
+            </Button>,
+          ]}
+          width={800}
+        >
+          <div style={{ height: "60vh", maxHeight: "60vh", overflowY: "auto" }}>
+            {reChat &&
+              reChat.map((chat) => (
+                <MessageItem message={chat} users={pjtMem} />
+              ))}
+          </div>{" "}
+        </Modal>
       ) : (
-        <div className={styles.modalBox}>
-          {taskChat &&
-            taskChat.map((chat) => (
-              <div key={chat.chatNumber} className={styles.chat}>
-                {" "}
-                <div className={styles.nickname}>{chat.nickname} : </div>
-                <div className={styles.content}>{chat.content ? chat.content : "첨부파일"}</div>
-                <div className={styles.chatTime}>
+        <Modal
+          className={styles.customModal}
+          style={{ fontFamily: "preRg" }}
+          title="참조된 채팅"
+          centered
+          open={open}
+          onOk={onClose}
+          onCancel={onClose}
+          footer={null}
+          width={800}
+        >
+          <div style={{ height: "60vh", maxHeight: "60vh", overflowY: "auto" }}>
+            {taskChat &&
+              taskChat.map((chat) => (
+                <div key={chat.chatNumber} className={styles.chat}>
                   {" "}
-                  : {formatChatTime(chat.chatTime)}
+                  <div className={styles.nickname}>
+                    {chat.nickname} : {chat.content ? chat.content : "첨부파일"}
+                  </div>
+                  <div className={styles.chatTime}>
+                    {" "}
+                    {formatChatTime(chat.chatTime)}
+                  </div>
+                  <button
+                    className={styles.deletebtn}
+                    style={{
+                      backgroundColor: "#39a789",
+                      fontFamily: "preRg",
+                      border: "0px",
+                      borderRadius: "10px",
+                      color: "white",
+                      padding: "2px",
+                      marginRight: "4px",
+                    }}
+                    onClick={() => handleClick(chat.id)}
+                  >
+                    더보기
+                  </button>
+                  <button
+                    className={styles.deletebtn}
+                    style={{
+                      backgroundColor: "#FF5B5B",
+                      fontFamily: "preRg",
+                      border: "0px",
+                      borderRadius: "10px",
+                      color: "white",
+                    }}
+                    onClick={() => deleteRe(chat.id)}
+                  >
+                    삭제
+                  </button>
                 </div>
-                <button
-                  className={styles.deletebtn}
-                  style={{
-                    backgroundColor: "#39a789",
-                    fontFamily: "preRg",
-                    border: "0px",
-                    borderRadius:"10px",
-                    color:"white",
-                    padding:"2px",
-                    marginRight: "4px"
-                  }}
-                  onClick={() => handleClick(chat.id)}
-                >
-                  더보기
-                </button>
-                <button
-                  className={styles.deletebtn}
-                  style={{
-                    backgroundColor: "#FF5B5B",
-                    fontFamily: "preRg",
-                    border: "0px",
-                    borderRadius:"10px",
-                    color:"white",
-                  }}
-                  onClick={() => deleteRe(chat.id)}
-                >
-                  삭제
-                </button>
-              </div>
-            ))}
-            <MdOutlineCancel
+              ))}
+            {/* <MdOutlineCancel
               style={{marginTop: "8px", cursor: "pointer"}}
               size={30}
               onClick={onClose}
               className={styles.closebtn}
-            />
-        </div>
+            /> */}
+            {/* <div style={{display: 'flex', justifyContent:'space-between'}} > */}
+            {/* </div> */}
+          </div>{" "}
+        </Modal>
       )}
     </div>
   );

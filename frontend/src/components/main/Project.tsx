@@ -95,10 +95,10 @@ function Project() {
       fontSize=""
       backgroundColor="white"
       text=""
-      width="54vw"
+      width="57vw"
       height="81vh"
       margin=""
-      padding="2vh 0 2vh 1vw"
+      padding="2vh 0 2vh 1.3vw"
       border="1px solid #E5E8EB"
       borderRadius="20px"
       boxShadow=""
@@ -109,7 +109,8 @@ function Project() {
     >
       <div className={styles.projectContainer}>
         <span className={styles.projectTitle}>
-          {userData && userData.nickname}<span className={styles.sProject}>님의 프로젝트</span>
+          {userData && userData.nickname}
+          <span className={styles.sProject}>님의 프로젝트</span>
         </span>
         <div
           style={{

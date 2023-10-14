@@ -47,7 +47,7 @@
   margin-bottom: 4px;
   display: flex;
   font-family: "preBd";
-  font-size: 25px;
+  font-size: 22px;
 }
 
 .progressBar {
@@ -81,7 +81,6 @@
   display: flex;
   justify-content: space-between;
   padding: 15px 15px 0 15px;
-
 }
 
 .clockNday {
@@ -99,8 +98,15 @@
 .step {
   margin: 0 0 0 10px;
   display: flex;
-  font-family: "preBd";
-  font-size: 20px;
+  font-family: "preRg";
+  font-size: 18px;
+}
+
+.star {
+  margin: -3px 0 0 10px;
+  display: flex;
+  font-family: "preRg";
+  font-size: 18px;
 }
 
 .stepStatus {
@@ -138,8 +144,8 @@
 
 .title {
   display: flex;
-  flex-direction: column;
-  justify-content: start;
+  /* flex-direction: column; */
+  justify-content: space-between;
 }
 
 .icons {

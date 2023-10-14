@@ -198,7 +198,7 @@ function Flow({ pjtId }: IdeaProps) {
             <FloatButton
               icon={<QuestionCircleOutlined />}
               type="default"
-              style={{ width: 22, height: 20, bottom: 540, left: 310 }}
+              style={{ width: 22, height: 20, top: 170, left: 310 }}
             />
           </Popover>
         </div>

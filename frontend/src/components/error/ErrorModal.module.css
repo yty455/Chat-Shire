@@ -6,7 +6,7 @@
   bottom: 0;
   top: 50%;
   left: 56.5%;
-  background-color: rgb(250, 250, 250);
+  background-color: #ffffff;
   transform: translate(-50%, -50%);
   border-radius: 20px;
   width: 79vw;
@@ -18,6 +18,7 @@
   display: flex;
   padding: 20px;
   color: #575757;
+  font-size: 16px;
 }
 
 .deContainer {
@@ -29,19 +30,23 @@
 }
 
 .deContentContainer {
-  height: 180px;
+  margin-left: 28px;
+  margin-bottom: 10px;
+  /* height: 180px; */
 }
 
 .deContainerHeader {
   display: flex;
+  justify-content: space-between;
   height: 90px;
 }
 
 .errImageScrollContainer {
   display: flex;
+  margin-left: 28px;
   width: 660px;
-  min-height: 190px;
   height: 290px;
+  min-height: 190px;
   overflow: scroll;
 }
 
@@ -66,11 +71,11 @@
 .replyItemContainer {
   display: flex;
   justify-content: space-between;
-  border: 1px solid #E5E8EB;
   border-radius: 20px;
   padding: 10px;
   height: 44px;
-  margin-top: 10px;
+  margin-top: 14px;
+  position: relative;
 }
 
 .replyRight {
@@ -83,7 +88,8 @@
 .repliesRightContent {
   display: flex;
   flex-wrap: wrap;
-  width: 200px;
+  width: 320px;
+  font-family: 'preRg';
 }
 
 .closebtn {
@@ -103,13 +109,64 @@
   font-family: preRg;
 }
 
-.status {
+.statusCompleted {
   margin: 6px 10px;
-  font-family: "preRg";
-  width: 45px;
+  font-family: "preBd";
+  width: 50px;
   height: 24px;
   color: #39a789;
   text-align: center;
-  border: 1px solid #39a789;
+  border: 2px solid #39a789;
   border-radius: 10px;
+}
+
+.statusIncomplete {
+  margin: 6px 10px;
+  font-family: "preBd";
+  width: 50px;
+  height: 24px;
+  color: #f02a2a;
+  text-align: center;
+  border: 2px solid #f02a2a;
+  border-radius: 10px;
+}
+
+.downButton {
+  z-index: 100;
+  color: white;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  align-self: center;
+  justify-content: center;
+  margin: auto;
+  cursor: pointer;
+}
+
+.errImageItem {
+  position: relative;
+}
+
+.hoverOverlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+   width:calc(100% - 16px);
+   height: 280px;
+   background-color: rgba(0, 0, 0, 0.689);
+   opacity:0;
+   transition:.3s ease-in-out;
+   border-radius: 10px;
+}
+
+.errImageItem:hover .hoverOverlay{
+    opacity:1;
+}
+
+.replyLeft {
+  margin-top: -3px;
 }

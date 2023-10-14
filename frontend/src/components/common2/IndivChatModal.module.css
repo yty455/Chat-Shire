@@ -1,21 +1,23 @@
 .modalOverlay {
   border: 1px solid #ffffff;
   position: fixed;
+  /* padding: 20px; */
   display: flex;
   right: 0;
   bottom: 0;
-  top: 50%;
-  left: 50%;
+  top: 51%;
+  left: 46%;
   background-color: rgb(250, 250, 250);
   transform: translate(-50%, -50%);
   border-radius: 20px;
   width: 50vw;
-  height: 50vh;
+  height: 60vh;
   z-index: 9999;
+  border: 3px dotted #39a789;
 }
 
 .modalBox {
-  padding: 5%;
+  padding: 7% 4% 4% 4%;
   /* display: flex; */
   /* justify-content: center; */
   /* align-items: center; */
@@ -23,43 +25,76 @@
   overflow: auto;
 }
 
-.closebtn {
+.modalTitle {
   position: fixed;
-  top: 2%;
-  right: 2%;
+  top: 20px;
+  left: 4%;
   border: 0;
   background-color: transparent;
+  font-size: 23px;
+  font-family: "preBd";
+  margin: 0;
+  color: #575757;
+}
+
+.closebtn {
+  position: fixed;
+  top: 20px;
+  right: 4%;
+  border: 0;
+  background-color: transparent;
+  font-size: 18px;
 }
 
 .chat {
   display: flex;
-  margin-top: 3px;
+  margin-top: 8px;
+  /* border: 1px solid gray; */
+  /* border-radius: 15px; */
+  padding: 10px;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  justify-content: center;
+  padding: 10px 0 20px 0;
 }
 
 .nickname {
-  width: 8%;
+  width: 58%;
   overflow-x: auto;
   white-space: nowrap;
+  font-size: 17px;
+  font-family: "preRg";
 }
+
 .content {
   width: 50%;
   overflow-x: auto;
   white-space: nowrap;
+  font-size: 15px;
+  font-family: "preRg";
 }
 .chatTime {
   width: 30%;
   overflow-x: auto;
   white-space: nowrap;
+  font-size: 15px;
+  color: gray;
+  font-family: "preRg";
 }
 .deletebtn {
   width: 12%;
   text-align: center;
   background-color: red;
   font-family: preRg;
-  width: 40px;
+  width: 60px;
   height: 25px;
 }
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+:where(.css-1vr7spz).ant-modal .ant-modal-title {
+  font-size: 20px;
 }

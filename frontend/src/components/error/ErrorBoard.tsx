@@ -31,6 +31,8 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
   const [skillErrors, setSkillErrors] = useState([]);
   const [contentErrors, setContentErrors] = useState([]);
   const [selectedError, setSelectedError] = useState<any>(null);
+  const [isSearch, setIsSearch] = useState(false);
+  
 
   const handleErrorCardClick = (err: any) => {
     setSelectedError(err);
@@ -64,6 +66,7 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
         const response = await searchErrSkillName(pjtId, skill);
         setSkillErrors(response.data.result[0] || []); // 결과가 없는 경우 빈 배열로 설정
         setContentErrors([]); // 내용 에러 목록 비우기
+        setIsSearch(true)
       }
     } catch (error) {
       console.error(error);
@@ -77,6 +80,7 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
         const response = await searchErrConent(pjtId, content);
         setContentErrors(response.data.result[0] || []); // 결과가 없는 경우 빈 배열로 설정
         setSkillErrors([]); // 기술 에러 목록 비우기
+        setIsSearch(true)
       }
     } catch (error) {
       console.error(error);
@@ -84,13 +88,30 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
   };
 
   const handleSearch = async (searchText: string) => {
-    console.log("검색어:", searchText);
-    searchcontentErrors(searchText);
+    if (searchText==="") {
+      console.log("검색어11:", searchText);
+      setSkillErrors([]);
+      setContentErrors([]);
+      setIsSearch(false)
+       return
+    } else {
+      console.log("검색어:", searchText);
+      searchcontentErrors(searchText);
+    }
+
   };
 
   const handleSearch1 = async (searchText: string) => {
-    console.log("검색어:", searchText);
-    searcgskillErrors(searchText);
+    if (searchText===undefined) {
+      console.log("검색어11:", searchText);
+      setSkillErrors([]);
+      setContentErrors([]);
+      setIsSearch(false)
+      return
+    } else {
+      console.log("검색어:", searchText);
+      searcgskillErrors(searchText);
+    }
   };
 
   useEffect(() => {
@@ -114,13 +135,16 @@ function Error({ pjtId, isCreating, setIsCreating }: ErrorProps) {
       <ErrorList
         onErrorCardClick={handleErrorCardClick}
         errors={
-          skillErrors.length > 0
-            ? skillErrors
-            : contentErrors.length > 0
-            ? contentErrors
-            : allErrors
+          isSearch
+            ? skillErrors.length > 0
+              ? skillErrors
+              : contentErrors.length > 0
+              ? contentErrors
+              : null
+            : allErrors // 검색을 하지 않은 경우에는 전체 에러 목록을 렌더링
         }
       />
+
 
       {openModal && (
         <ErrorModal

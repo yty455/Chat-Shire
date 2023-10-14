@@ -29,25 +29,63 @@
   border: 1px solid #39a789;
   border-radius: 10px;
 }
+.statusCompleted {
+  margin: 6px 10px;
+  font-family: "preBd";
+  width: 50px;
+  color: #39a789;
+  text-align: center;
+  border: 2px solid #39a789;
+  border-radius: 10px;
+  font-size: 14px;
+  height: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.statusIncomplete {
+  margin: 6px 10px;
+  font-family: "preBd";
+  width: 50px;
+  color: #f02a2a;
+  text-align: center;
+  border: 2px solid #f02a2a;
+  border-radius: 10px;
+  font-size: 14px;
+  height: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .title {
   font-family: "preBd";
   margin: 5px 0 0 0;
+  color: #575757;
 }
 .answer {
   font-family: "preBd";
   margin: 0 0 0 0;
+  color: #575757;
 }
 .language {
   padding: 0 5px;
   width: 50px;
   margin: 3px 0 7px 0;
   font-family: "preRg";
+  font-size: 14px;
   color: white;
-  background-color: #2d2ad0;
+  background-color: #39a789;
+  display: flex;
+  align-items: center;
   text-align: center;
   /* border: 1px solid #2d2ad0; */
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
 }
 
 .error {
@@ -57,9 +95,10 @@
 }
 
 .more {
-  font-family: "preLt";
+  font-family: "preRg";
   font-size: 13px;
   margin: 0 0 0 20px;
+  color: gray;
 }
 
 .skillbox {
