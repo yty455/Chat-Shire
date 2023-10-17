@@ -546,11 +546,11 @@
 
 - 신규 회원 가입 및 커스텀
 
-<img src="README_assets/2596f5d946336ae8b6362883264ce226a390bda2.jpg" title="" alt="메인페이지.jpg" width="553">
+<img title="" src="README_assets/2596f5d946336ae8b6362883264ce226a390bda2.jpg" alt="메인페이지.jpg" width="634">
 
-<img src="README_assets/6b1e547c2017484749a4735b03b67483dacffa26.jpg" title="" alt="깃헙 로그인.jpg" width="551">
+<img title="" src="README_assets/6b1e547c2017484749a4735b03b67483dacffa26.jpg" alt="깃헙 로그인.jpg" width="634">
 
-<img src="README_assets/5377c992879b6aa988d8b22c1c827aa675d1e6eb.jpg" title="" alt="프로필 수정.jpg" width="550">
+<img title="" src="README_assets/5377c992879b6aa988d8b22c1c827aa675d1e6eb.jpg" alt="프로필 수정.jpg" width="632">
 
 - 기존 회원 로그인
 
@@ -606,8 +606,6 @@
 
 ![채팅개인태스크등록.gif](README_assets/c84de0b3f0c960619869b54b1746240252237688.gif)
 
-
-
 ### 5. Task
 
 - 공통태스크 등록
@@ -622,25 +620,17 @@
 
 ![마인드맵.gif](README_assets/8fa50f456fcd119e561bc02741bc4ba1bb65a53a.gif)
 
-
-
 - 에러 게시판 작성
 
 ![에러생성.gif](README_assets/3aa64864eba0814bdf54cbdd6859971cb836a428.gif)
-
-
 
 - 에러 댓글 작성
 
 ![에러댓글작성.gif](README_assets/1731914566f464b79455707aade1427eff2323ec.gif)
 
-
-
 - 에러 댓글 채택 
 
 ![에러 댓글 채택.gif](README_assets/45409cc1925ab42578c5a2ba43fbbee3aff09356.gif)
-
-
 
 - 에러 게시판 검색
 
@@ -654,10 +644,6 @@
 
 ![통계2.gif](README_assets/9437818465b53ac54d54bdc3ff1f00ed6c505b73.gif)
 
-
-
 ## 
-
-
 
 ## 느낀 점
