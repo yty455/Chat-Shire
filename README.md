@@ -546,45 +546,35 @@
 
 - 신규 회원 가입 및 커스텀
 
-![](README_assets/2023-10-06-10-51-20-image.png)
+<img src="README_assets/2596f5d946336ae8b6362883264ce226a390bda2.jpg" title="" alt="메인페이지.jpg" width="553">
 
-![](README_assets/2023-10-06-10-51-34-image.png)
+<img src="README_assets/6b1e547c2017484749a4735b03b67483dacffa26.jpg" title="" alt="깃헙 로그인.jpg" width="551">
 
-![](README_assets/2023-10-06-10-51-51-image.png)
-
-
+<img src="README_assets/5377c992879b6aa988d8b22c1c827aa675d1e6eb.jpg" title="" alt="프로필 수정.jpg" width="550">
 
 - 기존 회원 로그인
 
-![로그인.gif](README_assets/97bcc24be31a7582257c927eaaf128ce099e6561.gif)
-
-
-
-
+![기존회원로그인.gif](README_assets/772cea7ea8b0bd37bde820efa50951a682a09428.gif)
 
 ### 2. 내 정보 확인 및 커스텀
 
 - 분산 처리한 내용 및 도전과제 보여줌
 
-![프로필 및 도전과제.gif](README_assets/48db84df72022089fcde50ccc0f3471a6ae9c0c8.gif)
-
-
+![프로필.gif](README_assets/4f1404897beafa68b2ec33fc80d278aa1e916d8b.gif)
 
 - 커스텀 변경
 
-![프로필 수정.gif](README_assets/12971d433005d8c23820bb1f71cb8153b8afecf2.gif)
+![프로필변경.gif](README_assets/69b36ea293b870a79ed1c038fede3f0575075cb8.gif)
 
+- 유저 상태 변경
 
+![상태변경.gif](README_assets/405469d9bf8813004458ccb9b32a9257fce521f8.gif)
 
 ### 3. 메인 페이지에서 프로젝트 생성
 
 ![프로젝트 생성1.gif](README_assets/59eaca9269eadeaf5d800982d8496a6ac599ac54.gif)
 
-![프로젝트 생성2.gif](README_assets/d4335b53ee4f47cd7da6bfa2f20f840a84827475.gif)
-
-
-
-
+![프로젝트생성2.gif](README_assets/31bca21a12d4ee6ac1e50d4557476e4e2e93ba0f.gif)
 
 ### 4. 채팅창 기능 소개
 
@@ -594,41 +584,37 @@
 
 ![채팅2.gif](README_assets/fc264fe23d0f10f0764c1bd7fe0efb204d7c8cc1.gif)
 
-
-
 - 이미지&동영상 탭, 파일 탭, 링크 탭, 검색 탭
 
 ![링크1.gif](README_assets/a52f01213f5a4df3cad0288525cc88f18ca1ff6a.gif)
 
 ![링크2.gif](README_assets/30f5fb6506b756c984fa6893e3e39e16f02f59b8.gif)
 
+- 개인 태스크 생성/ 수정
 
+![개인태스크생성,수정.gif](README_assets/97ff415232e00f3d4b83902bae4d86429f2b9df0.gif)
 
+- 개인 태스크 삭제
 
-
-
+![개인태스크삭제.gif](README_assets/baaf288d3c3ede8b6e3eac77d0f0dcfec161b383.gif)
 
 - 채팅 > 개인 태스크 등록
 
-![태스크등록 1.gif](README_assets/1b9e5f35dd2ad19137027957422ea86aa79a8c77.gif)
+![개인태스크 채팅등록.gif](README_assets/0d13ef6f4f0cf5881a28603840ff30493fca8aca.gif)
 
-![태스크 등록 2.gif](README_assets/12b90f98a852e5ed495a2c18cd9e1cd6ebe361d4.gif)
+- 채팅 > 개인 태스크 생성
 
-
-
-
+![채팅개인태스크등록.gif](README_assets/c84de0b3f0c960619869b54b1746240252237688.gif)
 
 
 
 ### 5. Task
 
-![팀태스크1.gif](README_assets/570462ce54aea5d6ad33768c7b2d15b6e224ffb6.gif)
+- 공통태스크 등록
 
-![팀태스크2.gif](README_assets/129ed02bf5001b6263b3453cb9c50c3584b9cf8e.gif)
+![공통태스크등록.gif](README_assets/769a520ff2218ecb621daa5a1c13af0a7c30ac8d.gif)
 
-
-
-
+- 개인 태스크 > 공통 태스크 등록
 
 ### 6. Board
 
@@ -640,9 +626,19 @@
 
 - 에러 게시판 작성
 
-![에러생성1.gif](README_assets/ce10a3eba0bfd1ca4d0dbdbc95ccdb9e2aa8d617.gif)
+![에러생성.gif](README_assets/3aa64864eba0814bdf54cbdd6859971cb836a428.gif)
 
-![에러작성2.gif](README_assets/37935c8383fc544531c5d5d51d74157cacb07d16.gif)
+
+
+- 에러 댓글 작성
+
+![에러댓글작성.gif](README_assets/1731914566f464b79455707aade1427eff2323ec.gif)
+
+
+
+- 에러 댓글 채택 
+
+![에러 댓글 채택.gif](README_assets/45409cc1925ab42578c5a2ba43fbbee3aff09356.gif)
 
 
 
@@ -650,15 +646,17 @@
 
 ![에러 검색.gif](README_assets/1698f97d848ec3c0a5ddf56f3a5795803dd63e79.gif)
 
-
-
-
-
 ### 7. Analysis
+
+![통계.gif](README_assets/5637685aa436021420ab75b1bb7fc94de3abf38e.gif)
 
 ![통계1.gif](README_assets/91428ac7e9d8a5a6327303dda1cf158ff9bf4203.gif)
 
 ![통계2.gif](README_assets/9437818465b53ac54d54bdc3ff1f00ed6c505b73.gif)
+
+
+
+## 
 
 
 
